@@ -1,0 +1,11 @@
+.productImage{
+  border-radius: 8px;
+}
+
+.product{
+  animation: transform 0.3s ease-in-out;
+}
+
+.product:hover{
+  transform: scale(1.1);
+}
