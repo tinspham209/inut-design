@@ -1,10 +1,10 @@
-import { createTheme, responsiveFontSizes } from '@mui/material/styles'
-import { red } from '@mui/material/colors'
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
+import { red } from '@mui/material/colors';
 
 // Create a theme instance.
 export let theme = createTheme({
 	typography: {
-		fontFamily: '"Heebo", "Roboto", sans-serif',
+		fontFamily: '"Roboto", sans-serif',
 	},
 	palette: {
 		primary: {
@@ -26,7 +26,6 @@ export let theme = createTheme({
 			defaultProps: {
 				maxWidth: 'lg',
 			},
-			
 		},
 		MuiLink: {
 			defaultProps: {
@@ -65,13 +64,13 @@ export let theme = createTheme({
 			],
 		},
 	},
-})
+});
 
 export const muiResponsive = {
 	MOBILE: '(max-width:600px)',
 	TABLET: '(max-width:960px)',
 	LARGE_SCREEN: '(max-width:1200px)',
 	EXTRA_LARGE_SCREEN: '(max-width:1440px)',
-}
+};
 
-theme = responsiveFontSizes(theme)
+theme = responsiveFontSizes(theme);

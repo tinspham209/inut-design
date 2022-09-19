@@ -1,21 +1,24 @@
-import { urlFor } from '@/api-client/sanity-client'
-import { Post } from '@/models/post'
-import { Product } from '@/models/products'
-import { Box, Button, Divider, Stack, Typography, Link as MuiLink } from '@mui/material'
-import { format } from 'date-fns'
-import Image from 'next/image'
-import Link from 'next/link'
-import styles from './product-item.module.css'
+import { urlFor } from '@/api-client/sanity-client';
+import { Post } from '@/models/post';
+import { Product, ProductType } from '@/models/products';
+import { Box, Button, Divider, Stack, Typography, Link as MuiLink } from '@mui/material';
+import { format } from 'date-fns';
+import Image from 'next/image';
+import Link from 'next/link';
+import styles from './product-item.module.css';
 
 export interface ProductItemProps {
-	product: Product
+	product: Product;
+	productTypes: ProductType[];
 }
 
-export function ProductItem({ product }: ProductItemProps) {
-	if (!product) return null
+export function ProductItem({ product, productTypes }: ProductItemProps) {
+	if (!product) return null;
+
+	const productType = productTypes.find((type) => type._id === product.productType._ref);
 	return (
 		<Link href={`/products/${product.slug.current}`} passHref>
-			<MuiLink className={styles.product}>
+			<MuiLink>
 				<Box>
 					<Box>
 						<Image
@@ -31,7 +34,10 @@ export function ProductItem({ product }: ProductItemProps) {
 					<Typography variant="body1" fontWeight="bold" mt={2}>
 						{product.name}
 					</Typography>
-					<Stack spacing={2} direction="row" justifyContent={'flex-end'} alignItems="center">
+					<Stack spacing={2} direction="row" justifyContent={'space-between'} alignItems="center">
+						<Typography variant="body1" fontWeight="">
+							#{productType.name}
+						</Typography>
 						<Button variant="text" color="primary">
 							Xem thêm
 						</Button>
@@ -39,5 +45,5 @@ export function ProductItem({ product }: ProductItemProps) {
 				</Box>
 			</MuiLink>
 		</Link>
-	)
+	);
 }

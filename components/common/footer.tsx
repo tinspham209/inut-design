@@ -1,26 +1,18 @@
-import * as React from 'react'
-import { Box } from '@mui/system'
-import { Icon, Stack, Typography } from '@mui/material'
-import { Facebook, Instagram, LinkedIn, Twitter } from '@mui/icons-material'
+import { Facebook, Instagram } from '@mui/icons-material';
+import { Icon, Stack, Typography } from '@mui/material';
+import { Box } from '@mui/system';
 
 const socialLinks = [
 	{
 		icon: Facebook,
-		url: 'https://www.facebook.com/',
+		url: 'https://www.facebook.com/profile.php?id=100063876652109',
 	},
+
 	{
 		icon: Instagram,
-		url: 'https://www.instagram.com/',
+		url: 'https://www.instagram.com/inut_skin/',
 	},
-	{
-		icon: Twitter,
-		url: 'https://www.twitter.com/',
-	},
-	{
-		icon: LinkedIn,
-		url: 'https://www.linkedin.com/',
-	},
-]
+];
 
 export function Footer() {
 	return (
@@ -44,7 +36,7 @@ export function Footer() {
 					</Box>
 				))}
 			</Stack>
-			<Typography>Copyright ©{new Date().getFullYear()} All rights reserved </Typography>
+			<Typography>INUT Design © {new Date().getFullYear()} </Typography>
 		</Box>
-	)
+	);
 }

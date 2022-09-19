@@ -1,18 +1,27 @@
-import { Product } from '@/models/products'
-import { Card, CardContent } from '@mui/material'
-import { ProductItem } from '.'
+import { Product, ProductType } from '@/models/products';
+import { Card, CardContent } from '@mui/material';
+import { ProductItem } from '.';
 
 export interface ProductCardProps {
-	product: Product
+	product: Product;
+	productTypes: ProductType[];
 }
 
-export function ProductCard({ product }: ProductCardProps) {
-	if (!product) return null
+export function ProductCard({ product, productTypes }: ProductCardProps) {
+	if (!product) return null;
 	return (
-		<Card>
+		<Card
+			sx={{
+				animation: 'all 2s ease-in-out',
+				transform: 'scale(1)',
+				'&:hover': {
+					transform: 'scale(1.05)',
+				},
+			}}
+		>
 			<CardContent>
-				<ProductItem product={product} />
+				<ProductItem product={product} productTypes={productTypes} />
 			</CardContent>
 		</Card>
-	)
+	);
 }

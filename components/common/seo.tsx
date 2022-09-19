@@ -1,25 +1,25 @@
-import { Box } from '@mui/system'
-import * as React from 'react'
-import Head from 'next/head'
+import { Box } from '@mui/system';
+import * as React from 'react';
+import Head from 'next/head';
 
 export interface SeoData {
-	title: string
-	description: string
-	thumbnailUrl: string
-	url: string
+	title: string;
+	description: string;
+	thumbnailUrl: string;
+	url: string;
 }
 
 interface SeoProps {
-	data: SeoData
+	data: SeoData;
 }
 
 export function Seo({ data }: SeoProps) {
-	const { description, thumbnailUrl, title, url } = data
+	const { description, thumbnailUrl, title, url } = data;
 	return (
 		<Head>
 			<title>{title}</title>
-			<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-			<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" type="image/x-icon" />
+			<link rel="icon" href="/static/favicon.ico" />
+			<link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" />
 
 			<meta name="title" content={title} />
 			<meta name="description" content={description} />
@@ -36,5 +36,5 @@ export function Seo({ data }: SeoProps) {
 			<meta property="twitter:description" content={description} />
 			<meta property="twitter:image" content={thumbnailUrl} />
 		</Head>
-	)
+	);
 }

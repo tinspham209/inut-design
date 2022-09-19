@@ -1,15 +1,16 @@
-import { Products } from '@/models/products'
-import { Button, Container, Grid, Link as MuiLink, Stack, Typography } from '@mui/material'
-import { Box } from '@mui/system'
-import Link from 'next/link'
-import React from 'react'
-import { ProductCard } from '../product/'
+import { Products, ProductType } from '@/models/products';
+import { Button, Container, Grid, Link as MuiLink, Stack, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import Link from 'next/link';
+import React from 'react';
+import { ProductCard } from '../product/';
 
 type Props = {
-	products: Products
-}
+	products: Products;
+	productTypes: ProductType[];
+};
 
-export function ListSpecialProducts({ products }: Props) {
+export function ListSpecialProducts({ products, productTypes }: Props) {
 	return (
 		<Box component={'section'} bgcolor="secondary.light" pt={2} pb={4}>
 			<Container>
@@ -40,11 +41,11 @@ export function ListSpecialProducts({ products }: Props) {
 				<Grid container spacing={3}>
 					{products.map((product) => (
 						<Grid item xs={6} sm={4} md={3} key={product._id}>
-							<ProductCard product={product} />
+							<ProductCard product={product} productTypes={productTypes} />
 						</Grid>
 					))}
 				</Grid>
 			</Container>
 		</Box>
-	)
+	);
 }

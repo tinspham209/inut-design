@@ -6,7 +6,8 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"export": "next export"
 	},
 	"dependencies": {
 		"@emotion/cache": "^11.10.1",
@@ -17,7 +18,6 @@
 		"@mui/material": "^5.9.3",
 		"@sanity/client": "^3.4.1",
 		"@sanity/image-url": "^1.0.1",
-		"add": "^2.0.6",
 		"axios": "^0.27.2",
 		"clsx": "^1.2.1",
 		"cookies": "^0.8.0",
@@ -30,6 +30,8 @@
 		"react-awesome-lightbox": "^1.8.1",
 		"react-dom": "18.2.0",
 		"react-hot-toast": "^2.4.0",
+		"react-icons": "^4.4.0",
+		"react-responsive-carousel": "^3.2.23",
 		"rehype-autolink-headings": "^6.1.1",
 		"rehype-document": "^6.0.1",
 		"rehype-format": "^4.0.1",

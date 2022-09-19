@@ -1,30 +1,42 @@
-import { bannerApi } from '@/api-client/banner';
 import { productsApi } from '@/api-client/products';
 import { productTypeApi } from '@/api-client/productType';
 import { Seo } from '@/components/common';
-import { HeroSection, ListSpecialProducts } from '@/components/home';
 import { MainLayout } from '@/components/layout';
-import { Banner } from '@/models/banner';
+import { ProductCard } from '@/components/product';
 import { NextPageWithLayout } from '@/models/common';
 import { Products, ProductType } from '@/models/products';
-import { Box } from '@mui/material';
+import { Box, Breadcrumbs, Container, Grid, Link as MuiLink, Typography } from '@mui/material';
+import Link from 'next/link';
 
-const Home: NextPageWithLayout = ({ banner, products, productTypes }: Props) => {
+const Home: NextPageWithLayout = ({ products, productTypes }: Props) => {
 	return (
 		<Box>
 			<Seo
 				data={{
-					title: 'INUT Design - Tiệm may đo skin laptop theo yêu cầu',
+					title: 'Sản phẩm- INUT Design - Tiệm may đo skin laptop theo yêu cầu',
 					description: 'Tiệm may đo skin laptop theo yêu cầu',
 					url: 'https://inut-design.vercel.app',
 					thumbnailUrl:
 						'https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp',
 				}}
 			/>
-			<HeroSection banner={banner && banner[0]} />
-			<ListSpecialProducts products={products} productTypes={productTypes} />
-			{/* <RecentPosts /> */}
-			{/* <FeaturedWorks /> */}
+
+			<Container>
+				<Breadcrumbs>
+					<Link href={'/'} passHref>
+						<MuiLink>Trang chủ</MuiLink>
+					</Link>
+
+					<Typography color="text.primary">Sản phẩm</Typography>
+				</Breadcrumbs>
+				<Grid container spacing={3} mt={3}>
+					{products.map((product) => (
+						<Grid item xs={6} sm={4} md={3} key={product._id}>
+							<ProductCard product={product} productTypes={productTypes} />
+						</Grid>
+					))}
+				</Grid>
+			</Container>
 		</Box>
 	);
 };
@@ -32,22 +44,17 @@ const Home: NextPageWithLayout = ({ banner, products, productTypes }: Props) => 
 Home.Layout = MainLayout;
 
 type Props = {
-	banner: Banner[];
 	products: Products;
 	productTypes: ProductType[];
 };
 
 export const getServerSideProps = async () => {
-	const banner: Banner = await bannerApi.getBanner();
 	const products: Products = await productsApi.getAllProducts();
 	const productTypes: ProductType[] = await productTypeApi.getAll();
 
-	const specialProducts = products.filter((product) => product.special);
-
 	return {
 		props: {
-			banner,
-			products: specialProducts,
+			products,
 			productTypes,
 		},
 	};

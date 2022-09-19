@@ -1,14 +1,10 @@
 export const ROUTE_LIST = [
 	{
-		label: 'Home',
+		label: 'Trang chủ',
 		path: '/',
 	},
 	{
-		label: 'Works',
-		path: '/works',
+		label: 'Sản phẩm',
+		path: '/products',
 	},
-	{
-		label: 'Blog',
-		path: '/blog',
-	},
-]
+];
