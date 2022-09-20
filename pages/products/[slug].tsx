@@ -38,7 +38,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 			<Seo
 				data={{
 					title: `${product.name} - Sản phẩm - INUT Design`,
-					description: 'INUT Design - Tiệm may đo skin laptop theo yêu cầu',
+					description: 'Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop',
 					url: `https://inut-design.vercel.app/products/${product.slug.current}`,
 					thumbnailUrl: urlFor(product.image[0]).width(1000).url(),
 				}}
@@ -55,123 +55,125 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 					onClose={() => setIsOpenLightBox(false)}
 				/>
 			)}
-			<Container>
-				<Breadcrumbs>
-					<Link href={'/'} passHref>
-						<MuiLink>Trang chủ</MuiLink>
-					</Link>
-					<Link href={'/products'} passHref>
-						<MuiLink>Sản phẩm</MuiLink>
-					</Link>
-					<Typography color="text.primary">{product.name}</Typography>
-				</Breadcrumbs>
-				<Grid
-					container
-					spacing={{ xs: 2, md: 4 }}
-					flexDirection={{ xs: 'column', md: 'row' }}
-					pt={4}
-				>
-					<Grid item xs={12} md={6}>
-						<Carousel
-							autoPlay
-							infiniteLoop
-							showIndicators
-							showThumbs
-							thumbWidth={80}
-							renderThumbs={() =>
-								product.image.map((thumbnail) => (
-									<Image
-										src={urlFor(thumbnail).width(200).url()}
-										alt={'product-image-thumbnail'}
-										key={thumbnail._key}
-										width="100%"
-										height="100%"
-										layout="responsive"
-										className={styles.productImage}
-									/>
-								))
-							}
-							useKeyboardArrows
-							stopOnHover
-							swipeable
-							emulateTouch
-							interval={3000}
-							transitionTime={500}
-							centerSlidePercentage={80}
-							ariaLabel="Carousel Product Image"
-						>
-							{product.image.map((image, index) => (
-								<Box
-									key={image._key}
-									onClick={() => {
-										setIsOpenLightBox(true);
-									}}
-									sx={{
-										cursor: 'pointer',
-									}}
-								>
-									<Image
-										src={urlFor(image).width(1000).url()}
-										width="100%"
-										height={'100%'}
-										layout="responsive"
-										priority={true}
-										alt="product-image"
-										className={styles.productImage}
-									/>
-								</Box>
-							))}
-						</Carousel>
-					</Grid>
-					<Grid item xs={12} md={6}>
-						<Typography variant="h3" fontWeight="bold" mt={2}>
-							{product.name}
-						</Typography>
-						<Stack
-							flexDirection="row"
-							alignItems={'center'}
-							mt={2}
-							sx={{
-								'& svg': {
-									color: '#f8e825',
-								},
-							}}
-						>
-							<AiFillStar />
-							<AiFillStar />
-							<AiFillStar />
-							<AiFillStar />
-							<AiOutlineStar />
-							<Typography variant="body1" sx={{ ml: 1 }}>
-								({votes} đánh giá)
+			<Box component={'section'}>
+				<Container>
+					<Breadcrumbs>
+						<Link href={'/'} passHref>
+							<MuiLink>Trang chủ</MuiLink>
+						</Link>
+						<Link href={'/products'} passHref>
+							<MuiLink>Sản phẩm</MuiLink>
+						</Link>
+						<Typography color="text.primary">{product.name}</Typography>
+					</Breadcrumbs>
+					<Grid
+						container
+						spacing={{ xs: 2, md: 4 }}
+						flexDirection={{ xs: 'column', md: 'row' }}
+						pt={4}
+					>
+						<Grid item xs={12} md={6}>
+							<Carousel
+								autoPlay
+								infiniteLoop
+								showIndicators
+								showThumbs
+								thumbWidth={80}
+								renderThumbs={() =>
+									product.image.map((thumbnail) => (
+										<Image
+											src={urlFor(thumbnail).width(200).url()}
+											alt={'product-image-thumbnail'}
+											key={thumbnail._key}
+											width="100%"
+											height="100%"
+											layout="responsive"
+											className={styles.productImage}
+										/>
+									))
+								}
+								useKeyboardArrows
+								stopOnHover
+								swipeable
+								emulateTouch
+								interval={3000}
+								transitionTime={500}
+								centerSlidePercentage={80}
+								ariaLabel="Carousel Product Image"
+							>
+								{product.image.map((image, index) => (
+									<Box
+										key={image._key}
+										onClick={() => {
+											setIsOpenLightBox(true);
+										}}
+										sx={{
+											cursor: 'pointer',
+										}}
+									>
+										<Image
+											src={urlFor(image).width(1000).url()}
+											width="100%"
+											height={'100%'}
+											layout="responsive"
+											priority={true}
+											alt="product-image"
+											className={styles.productImage}
+										/>
+									</Box>
+								))}
+							</Carousel>
+						</Grid>
+						<Grid item xs={12} md={6}>
+							<Typography variant="h3" fontWeight="bold" mt={2}>
+								{product.name}
 							</Typography>
-						</Stack>
-						<Typography variant="h5" mt={2}>
-							{product.details}
-						</Typography>
-						<Stack sx={{ mt: 4 }} flexDirection="row" alignItems={'center'}>
-							<MuiLink
-								href="https://m.me/642209429738886"
-								target="_blank"
-								rel="noopener noreferrer"
+							<Stack
+								flexDirection="row"
+								alignItems={'center'}
+								mt={2}
+								sx={{
+									'& svg': {
+										color: '#f8e825',
+									},
+								}}
 							>
-								<Button variant="contained" color="primary" sx={{ mr: 2 }}>
-									Đặt hàng
-								</Button>
-							</MuiLink>
-							<MuiLink
-								href="https://m.me/642209429738886"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								<Button variant="outlined" color="primary">
-									Nhận báo giá
-								</Button>
-							</MuiLink>
-						</Stack>
+								<AiFillStar />
+								<AiFillStar />
+								<AiFillStar />
+								<AiFillStar />
+								<AiOutlineStar />
+								<Typography variant="body1" sx={{ ml: 1 }}>
+									({votes} đánh giá)
+								</Typography>
+							</Stack>
+							<Typography variant="h5" mt={2}>
+								{product.details}
+							</Typography>
+							<Stack sx={{ mt: 4 }} flexDirection="row" alignItems={'center'}>
+								<MuiLink
+									href="https://m.me/642209429738886"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<Button variant="contained" color="primary" sx={{ mr: 2 }}>
+										Đặt hàng
+									</Button>
+								</MuiLink>
+								<MuiLink
+									href="https://m.me/642209429738886"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<Button variant="outlined" color="primary">
+										Nhận báo giá
+									</Button>
+								</MuiLink>
+							</Stack>
+						</Grid>
 					</Grid>
-				</Grid>
-			</Container>
+				</Container>
+			</Box>
 
 			<Box component={'section'} bgcolor="secondary.light" pt={2} mt={2}>
 				<Container>

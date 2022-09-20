@@ -41,7 +41,7 @@ export function ProductItem({ product, productTypes }: ProductItemProps) {
 					</Stack>
 					<Stack direction="row" justifyContent={'flex-end'}>
 						<Button variant="text" color="primary">
-							Xem thêm
+							Xem chi tiết
 						</Button>
 					</Stack>
 				</Box>

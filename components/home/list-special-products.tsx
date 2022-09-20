@@ -1,60 +1,80 @@
+import { urlFor } from '@/api-client/sanity-client';
 import { Products, ProductType } from '@/models/products';
-import { Button, Container, Grid, Link as MuiLink, Stack, Typography } from '@mui/material';
+import {
+	Button,
+	Container,
+	Grid,
+	IconButton,
+	Link as MuiLink,
+	Stack,
+	Typography,
+} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { Box } from '@mui/system';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { ProductCard } from '../product/';
-
+import { HiDuplicate } from 'react-icons/hi';
+import styles from '../product/product-item.module.css';
 type Props = {
 	products: Products;
 	productTypes: ProductType[];
 };
 
 export function ListSpecialProducts({ products, productTypes }: Props) {
+	const theme = useTheme();
+	const isXsScreen = useMediaQuery(theme.breakpoints.up('xs'));
+	const isSmScreen = useMediaQuery(theme.breakpoints.up('sm'));
+	const isMdScreen = useMediaQuery(theme.breakpoints.up('md'));
+
 	return (
 		<Box component={'section'} bgcolor="secondary.light" pt={2} pb={4}>
 			<Container>
-				<Stack
-					direction="row"
-					mb={2}
-					justifyContent={{
-						xs: 'center',
-						md: 'space-between',
-					}}
-					alignItems={'center'}
-				>
-					<Typography variant="h5">Sản phẩm</Typography>
-					<Link passHref href="/products">
-						<MuiLink
-							sx={{
-								display: {
-									xs: 'none',
-									md: 'inline-block',
-								},
-							}}
-						>
-							<Button variant="text">Xem thêm sản phẩm</Button>
-						</MuiLink>
-					</Link>
+				<Stack direction="row" py={3} justifyContent={'center'} alignItems={'center'}>
+					<Typography variant="h3" fontWeight={'bold'} textAlign={'center'}>
+						Sản phẩm nổi bật
+					</Typography>
 				</Stack>
 
-				<Grid container spacing={3}>
+				<Grid container spacing={2}>
 					{products.map((product) => (
-						<Grid item xs={6} sm={4} md={3} key={product._id}>
-							<ProductCard product={product} productTypes={productTypes} />
+						<Grid item xs={6} sm={4} key={product._id}>
+							<Link href={`/products/${product.slug.current}`} passHref>
+								<MuiLink
+									sx={{
+										position: 'relative',
+									}}
+								>
+									<Image
+										src={`${urlFor(product.image[0]).width(800).url()}`}
+										width="100%"
+										height={'100%'}
+										layout="responsive"
+										alt="avatar"
+										priority={true}
+										className={styles.productImage}
+									/>
+									<IconButton
+										sx={{
+											position: 'absolute',
+											top: 0,
+											right: 0,
+										}}
+									>
+										<HiDuplicate color="#fff" />
+									</IconButton>
+								</MuiLink>
+							</Link>
 						</Grid>
 					))}
+
 					<Grid item xs={12} container justifyContent={'center'}>
-						<MuiLink
-							sx={{
-								display: {
-									xs: 'inline-block',
-									md: 'none',
-								},
-							}}
-						>
-							<Button variant="contained">Xem thêm sản phẩm</Button>
-						</MuiLink>
+						<Link href={'/products'} passHref>
+							<MuiLink>
+								<Button variant="contained">Xem thêm sản phẩm</Button>
+							</MuiLink>
+						</Link>
 					</Grid>
 				</Grid>
 			</Container>

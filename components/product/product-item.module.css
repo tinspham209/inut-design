@@ -1,4 +1,11 @@
 .productImage {
 	border-radius: 8px;
 	object-fit: cover;
+	animation: all 2s ease-in-out;
+	transform: scale(1);
+	position: relative;
+}
+
+.productImage:hover {
+	transform: scale(1.05);
 }

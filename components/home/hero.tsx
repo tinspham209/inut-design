@@ -6,15 +6,15 @@ import Image from 'next/image';
 import * as React from 'react';
 
 type Props = {
-	banner: Banner;
+	imgUrl: string;
 };
 
-export function HeroSection({ banner }: Props) {
+export function HeroSection({ imgUrl }: Props) {
 	return (
-		<Box component={'section'} pt={{ xs: 8 }} pb={{ xs: 4 }}>
+		<Box component={'section'} pb={{ xs: 4 }}>
 			<Container>
 				<Image
-					src={urlFor(banner.image).url()}
+					src={imgUrl}
 					width="100%"
 					height="50%"
 					layout="responsive"
