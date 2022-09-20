@@ -23,6 +23,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import styles from './productItem.module.css';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import Link from 'next/link';
+import CountUp from 'react-countup';
 
 type Props = {
 	product: Product;
@@ -144,7 +145,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 								<AiFillStar />
 								<AiOutlineStar />
 								<Typography variant="body1" sx={{ ml: 1 }}>
-									({votes} đánh giá)
+									(<CountUp end={votes} duration={2} /> đánh giá)
 								</Typography>
 							</Stack>
 							<Typography variant="h5" mt={2}>
@@ -224,7 +225,7 @@ export const getStaticPaths = async () => {
 	}));
 	return {
 		paths,
-		fallback: false,
+		fallback: 'blocking',
 	};
 };
 
@@ -242,6 +243,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 			products,
 			votes: randomRange(1, 15),
 		},
+		revalidate: 60,
 	};
 };
 
