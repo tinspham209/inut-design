@@ -171,7 +171,10 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 						</Stack>
 					</Grid>
 				</Grid>
-				<Box>
+			</Container>
+
+			<Box component={'section'} bgcolor="secondary.light" pt={2} mt={2}>
+				<Container>
 					<Typography variant="h2" mt={2} fontWeight="bold" textAlign="center">
 						Có thể bạn sẽ thích
 					</Typography>
@@ -197,8 +200,8 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 							</div>
 						</div>
 					</div>
-				</Box>
-			</Container>
+				</Container>
+			</Box>
 		</>
 	);
 };

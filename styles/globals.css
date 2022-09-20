@@ -19,7 +19,7 @@ a {
 
 .marquee {
 	position: relative;
-	height: 400px;
+	height: 350px;
 	width: 100%;
 	overflow-x: hidden;
 }
@@ -46,5 +46,12 @@ a {
 	}
 	to {
 		transform: translateX(-50%);
+	}
+}
+
+@media screen and (max-width: 600px) { 
+	.track{
+		animation-duration: 8s;
+		width: 500%;
 	}
 }

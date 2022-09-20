@@ -1,5 +1,5 @@
 import { Facebook, Instagram } from '@mui/icons-material';
-import { Icon, Stack, Typography } from '@mui/material';
+import { Icon, Link as MuiLink, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
 const socialLinks = [
@@ -22,7 +22,7 @@ export function Footer() {
 					<Box
 						key={link.url}
 						component="a"
-						p={2}
+						p={1}
 						href={link.url}
 						target="_blank"
 						rel="noopener noreferrer"
@@ -36,7 +36,19 @@ export function Footer() {
 					</Box>
 				))}
 			</Stack>
-			<Typography>INUT Design © {new Date().getFullYear()} </Typography>
+			<MuiLink
+				href="https://goo.gl/maps/hBKBhHvRAGMPUn3e9"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<Typography>Địa chỉ: K294/43 Điện Biên Phủ, Đà Nẵng, Việt Nam</Typography>
+			</MuiLink>
+			<MuiLink href="tel:+792359996" target="_blank" rel="noopener noreferrer">
+				<Typography sx={{ mt: 1 }}>Số điện thoại: 079 235 9996 (bé Hồ Nút)</Typography>
+			</MuiLink>
+			<Typography sx={{ mt: 1 }}>Giờ làm việc: 09:00 - 20:00 (từ T3 đến CN)</Typography>
+
+			<Typography sx={{ mt: 1 }}>INUT Design - {new Date().getFullYear()} </Typography>
 		</Box>
 	);
 }

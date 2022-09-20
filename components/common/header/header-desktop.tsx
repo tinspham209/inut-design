@@ -9,7 +9,21 @@ export function HeaderDesktop() {
 	const router = useRouter();
 
 	return (
-		<Box component={'header'} py={2} display={{ xs: 'none', md: 'block' }}>
+		<Box
+			component={'header'}
+			py={2}
+			display={{
+				xs: 'none',
+				md: 'block',
+			}}
+			sx={{
+				position: 'fixed',
+				top: 0,
+				width: '100%',
+				backgroundColor: 'white',
+				zIndex: 99,
+			}}
+		>
 			<Container>
 				<Stack direction="row" justifyContent={'space-between'}>
 					<Link href={'/'} passHref>

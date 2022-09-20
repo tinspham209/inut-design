@@ -22,20 +22,27 @@ const Home: NextPageWithLayout = ({ products, productTypes }: Props) => {
 			/>
 
 			<Container>
-				<Breadcrumbs>
-					<Link href={'/'} passHref>
-						<MuiLink>Trang chủ</MuiLink>
-					</Link>
+				<Box mt={7}>
+					<Breadcrumbs>
+						<Link href={'/'} passHref>
+							<MuiLink>Trang chủ</MuiLink>
+						</Link>
 
-					<Typography color="text.primary">Sản phẩm</Typography>
-				</Breadcrumbs>
-				<Grid container spacing={3} mt={3}>
-					{products.map((product) => (
-						<Grid item xs={6} sm={4} md={3} key={product._id}>
-							<ProductCard product={product} productTypes={productTypes} />
-						</Grid>
-					))}
-				</Grid>
+						<Typography color="text.primary">Sản phẩm</Typography>
+					</Breadcrumbs>
+					<Box mt={3}>
+						<Typography variant="h2" fontWeight="bold" textAlign="center">
+							Sản phẩm
+						</Typography>
+					</Box>
+					<Grid container spacing={3} mt={3}>
+						{products.map((product) => (
+							<Grid item xs={6} sm={4} md={3} key={product._id}>
+								<ProductCard product={product} productTypes={productTypes} />
+							</Grid>
+						))}
+					</Grid>
+				</Box>
 			</Container>
 		</Box>
 	);

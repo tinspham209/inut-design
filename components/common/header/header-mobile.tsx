@@ -7,17 +7,18 @@ import {
 	ListItem,
 	ListItemButton,
 	Stack,
-} from '@mui/material'
-import { Box } from '@mui/system'
-import clsx from 'clsx'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import React from 'react'
-import { ROUTE_LIST } from './routes'
-import MenuIcon from '@mui/icons-material/Menu'
+	Typography,
+} from '@mui/material';
+import { Box } from '@mui/system';
+import clsx from 'clsx';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { ROUTE_LIST } from './routes';
+import MenuIcon from '@mui/icons-material/Menu';
 export function HeaderMobile() {
-	const [open, setOpen] = React.useState(false)
-	const router = useRouter()
+	const [open, setOpen] = React.useState(false);
+	const router = useRouter();
 
 	const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
 		if (
@@ -25,18 +26,34 @@ export function HeaderMobile() {
 			((event as React.KeyboardEvent).key === 'Tab' ||
 				(event as React.KeyboardEvent).key === 'Shift')
 		) {
-			return
+			return;
 		}
-		setOpen(open)
-	}
+		setOpen(open);
+	};
 
 	return (
-		<Box component={'header'} py={2} display={{ xs: 'block', md: 'none' }}>
+		<Box
+			component={'header'}
+			py={2}
+			display={{ xs: 'block', md: 'none' }}
+			sx={{
+				position: 'fixed',
+				top: 0,
+				width: '100%',
+				backgroundColor: 'white',
+				zIndex: 99,
+			}}
+		>
 			<Container maxWidth="xs">
-				<Stack direction="row" justifyContent={'flex-start'}>
+				<Stack direction="row" justifyContent={'flex-start'} alignItems="center">
 					<IconButton onClick={toggleDrawer(true)} onKeyDown={toggleDrawer(true)}>
 						<MenuIcon />
 					</IconButton>
+					<Link href={'/'} passHref>
+						<MuiLink sx={{ fontWeight: 'bold', ml: 2 }} underline="hover" className="">
+							<Typography variant="h5">INUT Design</Typography>
+						</MuiLink>
+					</Link>
 				</Stack>
 				<Drawer anchor={'left'} open={open} onClose={toggleDrawer(false)}>
 					<List
@@ -68,5 +85,5 @@ export function HeaderMobile() {
 				</Drawer>
 			</Container>
 		</Box>
-	)
+	);
 }

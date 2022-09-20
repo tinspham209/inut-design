@@ -1,17 +1,17 @@
-import { urlFor } from '@/api-client/sanity-client'
-import { Banner } from '@/models/banner'
-import { Container } from '@mui/material'
-import { Box } from '@mui/system'
-import Image from 'next/image'
-import * as React from 'react'
+import { urlFor } from '@/api-client/sanity-client';
+import { Banner } from '@/models/banner';
+import { Container } from '@mui/material';
+import { Box } from '@mui/system';
+import Image from 'next/image';
+import * as React from 'react';
 
 type Props = {
-	banner: Banner
-}
+	banner: Banner;
+};
 
 export function HeroSection({ banner }: Props) {
 	return (
-		<Box component={'section'} pt={{ xs: 4 }} pb={{ xs: 4 }}>
+		<Box component={'section'} pt={{ xs: 8 }} pb={{ xs: 4 }}>
 			<Container>
 				<Image
 					src={urlFor(banner.image).url()}
@@ -23,5 +23,5 @@ export function HeroSection({ banner }: Props) {
 				/>
 			</Container>
 		</Box>
-	)
+	);
 }
