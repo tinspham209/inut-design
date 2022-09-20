@@ -27,23 +27,20 @@ import Link from 'next/link';
 type Props = {
 	product: Product;
 	products: Products;
+	votes: number;
 };
 
-const ProductDetail = ({ product, products }: Props) => {
+const ProductDetail = ({ product, products, votes }: Props) => {
 	const [isOpenLightBox, setIsOpenLightBox] = React.useState(false);
-
-	const randomRange = (min: number, max: number) => {
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	};
 
 	return (
 		<>
 			<Seo
 				data={{
-					title: `${product.name} - INUT Design`,
-					description: 'Tiệm may đo skin laptop theo yêu cầu',
-					url: `https://inut-design.vercel.app/products/${product.slug}`,
-					thumbnailUrl: urlFor(product.image[0]).url(),
+					title: `${product.name} - Sản phẩm - INUT Design`,
+					description: 'INUT Design - Tiệm may đo skin laptop theo yêu cầu',
+					url: `https://inut-design.vercel.app/products/${product.slug.current}`,
+					thumbnailUrl: urlFor(product.image[0]).width(1000).url(),
 				}}
 			/>
 			{isOpenLightBox && (
@@ -84,7 +81,7 @@ const ProductDetail = ({ product, products }: Props) => {
 							renderThumbs={() =>
 								product.image.map((thumbnail) => (
 									<Image
-										src={urlFor(thumbnail).url()}
+										src={urlFor(thumbnail).width(200).url()}
 										alt={'product-image-thumbnail'}
 										key={thumbnail._key}
 										width="100%"
@@ -114,10 +111,11 @@ const ProductDetail = ({ product, products }: Props) => {
 									}}
 								>
 									<Image
-										src={urlFor(image).url()}
+										src={urlFor(image).width(1000).url()}
 										width="100%"
 										height={'100%'}
 										layout="responsive"
+										priority={true}
 										alt="product-image"
 										className={styles.productImage}
 									/>
@@ -145,7 +143,7 @@ const ProductDetail = ({ product, products }: Props) => {
 							<AiFillStar />
 							<AiOutlineStar />
 							<Typography variant="body1" sx={{ ml: 1 }}>
-								({randomRange(1, 15)} đánh giá)
+								({votes} đánh giá)
 							</Typography>
 						</Stack>
 						<Typography variant="h5" mt={2}>
@@ -184,7 +182,7 @@ const ProductDetail = ({ product, products }: Props) => {
 									<Link href={`/products/${product.slug.current}`} passHref key={product._id}>
 										<MuiLink>
 											<img
-												src={urlFor(product.image[0]).url()}
+												src={urlFor(product.image[0]).width(500).url()}
 												width={250}
 												height={250}
 												alt="product-image"
@@ -229,10 +227,15 @@ export const getStaticProps = async ({ params: { slug } }) => {
 	const product = await productsApi.getProductBySlug(slug);
 	const products = await productsApi.getAllProducts();
 
+	const randomRange = (min: number, max: number) => {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	};
+
 	return {
 		props: {
 			product,
 			products,
+			votes: randomRange(1, 15),
 		},
 	};
 };

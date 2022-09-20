@@ -22,7 +22,7 @@ export function ProductItem({ product, productTypes }: ProductItemProps) {
 				<Box>
 					<Box>
 						<Image
-							src={urlFor(product.image[0]).width(250).url()}
+							src={urlFor(product.image[0]).width(500).url()}
 							width="100%"
 							height={'100%'}
 							layout="responsive"
@@ -38,6 +38,8 @@ export function ProductItem({ product, productTypes }: ProductItemProps) {
 						<Typography variant="body1" fontWeight="">
 							#{productType.name}
 						</Typography>
+					</Stack>
+					<Stack direction="row" justifyContent={'flex-end'}>
 						<Button variant="text" color="primary">
 							Xem thêm
 						</Button>

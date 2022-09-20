@@ -33,7 +33,7 @@ export function ListSpecialProducts({ products, productTypes }: Props) {
 								},
 							}}
 						>
-							<Button variant="text">Xem thêm</Button>
+							<Button variant="text">Xem thêm sản phẩm</Button>
 						</MuiLink>
 					</Link>
 				</Stack>
@@ -44,6 +44,18 @@ export function ListSpecialProducts({ products, productTypes }: Props) {
 							<ProductCard product={product} productTypes={productTypes} />
 						</Grid>
 					))}
+					<Grid item xs={12} container justifyContent={'center'}>
+						<MuiLink
+							sx={{
+								display: {
+									xs: 'inline-block',
+									md: 'none',
+								},
+							}}
+						>
+							<Button variant="contained">Xem thêm sản phẩm</Button>
+						</MuiLink>
+					</Grid>
 				</Grid>
 			</Container>
 		</Box>

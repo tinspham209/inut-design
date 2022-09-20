@@ -14,7 +14,7 @@ const Home: NextPageWithLayout = ({ banner, products, productTypes }: Props) => 
 		<Box>
 			<Seo
 				data={{
-					title: 'INUT Design - Tiệm may đo skin laptop theo yêu cầu',
+					title: 'INUT Design',
 					description: 'Tiệm may đo skin laptop theo yêu cầu',
 					url: 'https://inut-design.vercel.app',
 					thumbnailUrl:

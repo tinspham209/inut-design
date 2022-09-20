@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 const Home: NextPageWithLayout = ({ products, productTypes }: Props) => {
 	return (
-		<Box>
+		<Box component={'section'} bgcolor="secondary.light" pt={4} pb={4}>
 			<Seo
 				data={{
 					title: 'Sản phẩm- INUT Design - Tiệm may đo skin laptop theo yêu cầu',

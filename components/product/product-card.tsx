@@ -19,7 +19,7 @@ export function ProductCard({ product, productTypes }: ProductCardProps) {
 				},
 			}}
 		>
-			<CardContent>
+			<CardContent sx={{ pb: '8px !important' }}>
 				<ProductItem product={product} productTypes={productTypes} />
 			</CardContent>
 		</Card>
