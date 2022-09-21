@@ -87,6 +87,7 @@ export const getStaticProps = async () => {
 			productTypes,
 			banner,
 		},
+		revalidate: 86400,
 	};
 };
 

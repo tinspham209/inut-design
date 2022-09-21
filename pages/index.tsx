@@ -71,6 +71,7 @@ export const getStaticProps = async () => {
 			productTypes,
 			totalProducts: products.length,
 		},
+		revalidate: 86400,
 	};
 };
 
