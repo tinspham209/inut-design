@@ -7,4 +7,12 @@ export const ROUTE_LIST = [
 		label: 'Sản phẩm',
 		path: '/products',
 	},
+	{
+		label: 'Blog',
+		path: '/blog',
+	},
+	{
+		label: 'Liên hệ',
+		path: '/contact',
+	},
 ];

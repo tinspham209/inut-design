@@ -10,6 +10,7 @@ import { Banner } from '@/models/banner';
 import { NextPageWithLayout } from '@/models/common';
 import { Products, ProductType } from '@/models/products';
 import { Box, Breadcrumbs, Container, Grid, Link as MuiLink, Typography } from '@mui/material';
+import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import CountUp from 'react-countup';
 
@@ -22,6 +23,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 					description: 'Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop',
 					url: 'https://inut-design.vercel.app',
 					thumbnailUrl:
+						(banner && urlFor(banner[0].image).url()) ||
 						'https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp',
 				}}
 			/>
@@ -62,24 +64,10 @@ type Props = {
 	banner: Banner[];
 };
 
-// export const getServerSideProps = async () => {
-// 	const products: Products = await productsApi.getAllProducts();
-// 	const productTypes: ProductType[] = await productTypeApi.getAll();
-// 	const banner: Banner = await bannerApi.getBannerProductsPage();
-
-// 	return {
-// 		props: {
-// 			products,
-// 			productTypes,
-// 			banner,
-// 		},
-// 	};
-// };
-
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
 	const products: Products = await productsApi.getAllProducts();
 	const productTypes: ProductType[] = await productTypeApi.getAll();
-	const banner: Banner = await bannerApi.getBannerProductsPage();
+	const banner: Banner[] = await bannerApi.getBannerProductsPage();
 
 	return {
 		props: {

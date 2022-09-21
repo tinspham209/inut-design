@@ -9,6 +9,7 @@ import { Banner } from '@/models/banner';
 import { NextPageWithLayout } from '@/models/common';
 import { Products, ProductType } from '@/models/products';
 import { Box } from '@mui/material';
+import { GetStaticProps } from 'next';
 
 const Home: NextPageWithLayout = ({ banner, products, productTypes, totalProducts }: Props) => {
 	return (
@@ -25,8 +26,6 @@ const Home: NextPageWithLayout = ({ banner, products, productTypes, totalProduct
 			<HeroSection imgUrl={banner && urlFor(banner[0].image).url()} />
 			<InfoSection total={totalProducts} />
 			<ListSpecialProducts products={products} productTypes={productTypes} />
-			{/* <RecentPosts /> */}
-			{/* <FeaturedWorks /> */}
 		</Box>
 	);
 };
@@ -40,25 +39,8 @@ type Props = {
 	totalProducts?: number;
 };
 
-// export const getServerSideProps = async () => {
-// 	const banner: Banner = await bannerApi.getBannerHomePage();
-// 	const products: Products = await productsApi.getAllProducts();
-// 	const productTypes: ProductType[] = await productTypeApi.getAll();
-
-// 	const specialProducts = products.filter((product) => product.special);
-
-// 	return {
-// 		props: {
-// 			banner,
-// 			products: specialProducts,
-// 			productTypes,
-// 			totalProducts: products.length,
-// 		},
-// 	};
-// };
-
-export const getStaticProps = async () => {
-	const banner: Banner = await bannerApi.getBannerHomePage();
+export const getStaticProps: GetStaticProps<Props> = async () => {
+	const banner: Banner[] = await bannerApi.getBannerHomePage();
 	const products: Products = await productsApi.getAllProducts();
 	const productTypes: ProductType[] = await productTypeApi.getAll();
 

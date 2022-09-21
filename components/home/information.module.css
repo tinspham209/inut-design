@@ -1,4 +1,5 @@
 .infoImage {
 	border-radius: 50%;
 	object-fit: contain;
+	box-shadow: -1px 3px 3px -1px rgb(0 0 0 / 25%);
 }

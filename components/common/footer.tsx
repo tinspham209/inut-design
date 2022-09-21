@@ -19,7 +19,7 @@ export function Footer() {
 		<Box component={'footer'} py={2} textAlign="center">
 			<Stack direction="row" justifyContent={'center'}>
 				{socialLinks.map((link) => (
-					<Box
+					<MuiLink
 						key={link.url}
 						component="a"
 						p={1}
@@ -33,7 +33,7 @@ export function Footer() {
 								fontSize: 48,
 							}}
 						/>
-					</Box>
+					</MuiLink>
 				))}
 			</Stack>
 			<MuiLink

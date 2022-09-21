@@ -10,7 +10,6 @@ import {
 	Typography,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { Box } from '@mui/system';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -24,9 +23,6 @@ type Props = {
 
 export function ListSpecialProducts({ products, productTypes }: Props) {
 	const theme = useTheme();
-	const isXsScreen = useMediaQuery(theme.breakpoints.up('xs'));
-	const isSmScreen = useMediaQuery(theme.breakpoints.up('sm'));
-	const isMdScreen = useMediaQuery(theme.breakpoints.up('md'));
 
 	return (
 		<Box component={'section'} bgcolor="secondary.light" pt={2} pb={4}>

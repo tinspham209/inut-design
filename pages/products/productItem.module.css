@@ -1,4 +1,9 @@
 .productImage {
 	object-fit: cover;
 	border-radius: 16px;
+	transition: all 0.2s ease-in-out;
+}
+
+.productImage:hover {
+	transform: scale(1.05);
 }

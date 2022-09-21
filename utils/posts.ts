@@ -1,23 +1,23 @@
-import path from 'path'
-import fs from 'fs'
-import matter from 'gray-matter'
-import { Post } from '@/models'
+import path from 'path';
+import fs from 'fs';
+import matter from 'gray-matter';
+import { Post } from '@/models';
 
-const BLOG_FOLDER = path.join(process.cwd(), 'blog')
+const BLOG_FOLDER = path.join(process.cwd(), 'blog');
 
 export async function getPostList(): Promise<Post[]> {
 	// read all markdown files
-	const fileNameList = fs.readdirSync(BLOG_FOLDER)
+	const fileNameList = fs.readdirSync(BLOG_FOLDER);
 
-	const postList: Post[] = []
+	const postList: Post[] = [];
 
 	for (const fileName of fileNameList) {
-		const filePath = path.join(BLOG_FOLDER, fileName)
-		const fileContents = fs.readFileSync(filePath, 'utf8')
+		const filePath = path.join(BLOG_FOLDER, fileName);
+		const fileContents = fs.readFileSync(filePath, 'utf8');
 
 		const { data, excerpt, content } = matter(fileContents, {
 			excerpt_separator: '<!-- truncate-->',
-		})
+		});
 		postList.push({
 			id: fileName,
 			slug: data.slug,
@@ -32,8 +32,8 @@ export async function getPostList(): Promise<Post[]> {
 			publishedDate: data.date,
 			description: excerpt || '',
 			mdContent: content,
-		})
+		});
 	}
 
-	return postList
+	return postList;
 }

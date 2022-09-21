@@ -9,21 +9,22 @@ import {
 	Button,
 	Container,
 	Grid,
+	Link as MuiLink,
 	Stack,
 	Typography,
-	Link as MuiLink,
 } from '@mui/material';
 import { Box } from '@mui/system';
+import { GetStaticProps } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import Lightbox from 'react-awesome-lightbox';
 import 'react-awesome-lightbox/build/style.css';
+import CountUp from 'react-countup';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import styles from './productItem.module.css';
-import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import Link from 'next/link';
-import CountUp from 'react-countup';
 
 type Props = {
 	product: Product;
@@ -58,7 +59,13 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 			)}
 			<Box component={'section'}>
 				<Container>
-					<Breadcrumbs>
+					<Breadcrumbs
+						sx={{
+							mt: {
+								xs: 1,
+							},
+						}}
+					>
 						<Link href={'/'} passHref>
 							<MuiLink>Trang chủ</MuiLink>
 						</Link>
@@ -229,8 +236,8 @@ export const getStaticPaths = async () => {
 	};
 };
 
-export const getStaticProps = async ({ params: { slug } }) => {
-	const product = await productsApi.getProductBySlug(slug);
+export const getStaticProps: GetStaticProps<Props> = async ({ params: { slug } }) => {
+	const product = await productsApi.getProductBySlug(slug as string);
 	const products = await productsApi.getAllProducts();
 
 	const randomRange = (min: number, max: number) => {
