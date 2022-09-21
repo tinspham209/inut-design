@@ -69,9 +69,10 @@ export default function BlogDetailPage({ post }: BlogPageProps) {
 					sx={{
 						'& img': {
 							maxWidth: '800px',
+							minWidth: '360px',
 							maxHeight: '400px',
 							width: '100%',
-							objectFit: 'cover',
+							objectFit: 'contain',
 							borderRadius: '16px',
 							transition: 'all 0.2s ease-in-out',
 							boxShadow: '-1px 3px 3px -1px rgb(0 0 0 / 25%)',
