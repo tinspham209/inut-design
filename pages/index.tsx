@@ -40,7 +40,24 @@ type Props = {
 	totalProducts?: number;
 };
 
-export const getServerSideProps = async () => {
+// export const getServerSideProps = async () => {
+// 	const banner: Banner = await bannerApi.getBannerHomePage();
+// 	const products: Products = await productsApi.getAllProducts();
+// 	const productTypes: ProductType[] = await productTypeApi.getAll();
+
+// 	const specialProducts = products.filter((product) => product.special);
+
+// 	return {
+// 		props: {
+// 			banner,
+// 			products: specialProducts,
+// 			productTypes,
+// 			totalProducts: products.length,
+// 		},
+// 	};
+// };
+
+export const getStaticProps = async () => {
 	const banner: Banner = await bannerApi.getBannerHomePage();
 	const products: Products = await productsApi.getAllProducts();
 	const productTypes: ProductType[] = await productTypeApi.getAll();

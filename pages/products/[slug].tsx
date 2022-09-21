@@ -243,9 +243,10 @@ export const getStaticProps = async ({ params: { slug } }) => {
 			products,
 			votes: randomRange(1, 15),
 		},
-		revalidate: 60,
+		revalidate: 86400,
 	};
 };
 
 ProductDetail.Layout = MainLayout;
+
 export default ProductDetail;

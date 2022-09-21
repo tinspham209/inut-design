@@ -1,19 +1,34 @@
 import { LayoutProps } from '@/models';
-import { Container, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { Box } from '@mui/system';
-import Link from 'next/link';
 import { Footer, Header } from '../common';
+import { motion } from 'framer-motion';
+
+const variants = {
+	hidden: { opacity: 0, x: 0, y: 20 },
+	enter: { opacity: 1, x: 0, y: 0 },
+	exit: { opacity: 0, x: -0, y: 20 },
+};
 
 export function MainLayout({ children }: LayoutProps) {
 	return (
-		<Stack minHeight="100vh">
-			<Header />
+		<motion.article
+			initial="hidden"
+			animate="enter"
+			exit="exit"
+			variants={variants}
+			transition={{ duration: 0.4, type: 'easeInOut' }}
+			style={{ position: 'relative' }}
+		>
+			<Stack minHeight="100vh">
+				<Header />
 
-			<Box component="main" flexGrow={1} mt={8}>
-				{children}
-			</Box>
+				<Box component="main" flexGrow={1} mt={8}>
+					{children}
+				</Box>
 
-			<Footer />
-		</Stack>
+				<Footer />
+			</Stack>
+		</motion.article>
 	);
 }

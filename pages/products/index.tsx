@@ -62,7 +62,21 @@ type Props = {
 	banner: Banner[];
 };
 
-export const getServerSideProps = async () => {
+// export const getServerSideProps = async () => {
+// 	const products: Products = await productsApi.getAllProducts();
+// 	const productTypes: ProductType[] = await productTypeApi.getAll();
+// 	const banner: Banner = await bannerApi.getBannerProductsPage();
+
+// 	return {
+// 		props: {
+// 			products,
+// 			productTypes,
+// 			banner,
+// 		},
+// 	};
+// };
+
+export const getStaticProps = async () => {
 	const products: Products = await productsApi.getAllProducts();
 	const productTypes: ProductType[] = await productTypeApi.getAll();
 	const banner: Banner = await bannerApi.getBannerProductsPage();
