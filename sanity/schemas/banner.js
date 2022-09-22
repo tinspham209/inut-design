@@ -1,35 +1,35 @@
 export default {
-	name: 'banner',
-	title: 'Banner',
-	type: 'document',
+	name: "banner",
+	title: "Banner",
+	type: "document",
 	fields: [
 		{
-			name: 'image',
-			title: 'Image',
-			type: 'image',
+			name: "image",
+			title: "Image",
+			type: "image",
 			options: {
 				hotspot: true,
 			},
 		},
 		{
-			name: 'slug',
-			title: 'Slug',
-			type: 'slug',
+			name: "slug",
+			title: "Slug",
+			type: "slug",
 			options: {
-				source: 'name',
+				source: "name",
 				maxLength: 90,
 			},
 		},
 		{
-			name: 'buttonText',
-			title: 'ButtonText',
-			type: 'string',
+			name: "buttonText",
+			title: "ButtonText",
+			type: "string",
 		},
 	],
 	preview: {
 		select: {
-			name: 'slug',
-			media: 'image',
+			name: "slug",
+			media: "image",
 		},
 		prepare(selection) {
 			const { name, media } = selection;
