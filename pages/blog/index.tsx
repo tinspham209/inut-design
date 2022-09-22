@@ -1,29 +1,29 @@
-import { bannerApi } from '@/api-client/banner';
-import { urlFor } from '@/api-client/sanity-client';
-import { PostItem } from '@/components/blog';
-import { Seo } from '@/components/common';
-import { HeroSection } from '@/components/home';
-import { MainLayout } from '@/components/layout';
-import { Post } from '@/models';
-import { Banner } from '@/models/banner';
-import { NextPageWithLayout } from '@/models/common';
-import { getPostList } from '@/utils';
-import { Box, Breadcrumbs, Container, Divider, Link as MuiLink, Typography } from '@mui/material';
-import { GetStaticProps, GetStaticPropsContext } from 'next';
-import Link from 'next/link';
-import CountUp from 'react-countup';
+import { bannerApi } from "@/api-client/banner";
+import { urlFor } from "@/api-client/sanity-client";
+import { PostItem } from "@/components/blog";
+import { Seo } from "@/components/common";
+import { HeroSection } from "@/components/home";
+import { MainLayout } from "@/components/layout";
+import { Post } from "@/models";
+import { Banner } from "@/models/banner";
+import { NextPageWithLayout } from "@/models/common";
+import { getPostList } from "@/utils";
+import { Box, Breadcrumbs, Container, Divider, Link as MuiLink, Typography } from "@mui/material";
+import { GetStaticProps } from "next";
+import Link from "next/link";
+import CountUp from "react-countup";
 
 const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
 	return (
-		<Box component={'section'} bgcolor="secondary.light" pt={4} pb={4}>
+		<Box component={"section"} bgcolor="secondary.light" pt={4} pb={4}>
 			<Seo
 				data={{
-					title: 'Blog - INUT Design',
-					description: 'Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop',
-					url: 'https://inut-design.vercel.app/blog',
+					title: "Blog - INUT Design",
+					description: "Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop",
+					url: "https://inut-design.vercel.app/blog",
 					thumbnailUrl:
 						urlFor(banner.image).url() ||
-						'https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp',
+						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
 				}}
 			/>
 
@@ -31,7 +31,7 @@ const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
 			<Container>
 				<Box>
 					<Breadcrumbs>
-						<Link href={'/'} passHref>
+						<Link href={"/"} passHref>
 							<MuiLink>Trang chủ</MuiLink>
 						</Link>
 
@@ -42,7 +42,7 @@ const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
 							Blog (<CountUp end={posts.length} duration={2} />)
 						</Typography>
 					</Box>
-					<Box component="ul" sx={{ listStyleType: 'none', p: 0, mt: 3 }}>
+					<Box component="ul" sx={{ listStyleType: "none", p: 0, mt: 3 }}>
 						{posts.map((post) => (
 							<li key={post.id}>
 								<Link passHref href={`/blog/${post.slug}`}>
@@ -68,7 +68,7 @@ type Props = {
 	banner: Banner;
 };
 
-export const getStaticProps: GetStaticProps<Props> = async (context: GetStaticPropsContext) => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
 	const data = await getPostList();
 	const banner: Banner = await bannerApi.getBannerProductsPage();
 

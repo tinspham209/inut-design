@@ -8,23 +8,23 @@ import {
 	ListItemButton,
 	Stack,
 	Typography,
-} from '@mui/material';
-import { Box } from '@mui/system';
-import clsx from 'clsx';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React from 'react';
-import { ROUTE_LIST } from './routes';
-import MenuIcon from '@mui/icons-material/Menu';
+} from "@mui/material";
+import { Box } from "@mui/system";
+import clsx from "clsx";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React from "react";
+import { ROUTE_LIST } from "./routes";
+import MenuIcon from "@mui/icons-material/Menu";
 export function HeaderMobile() {
 	const [open, setOpen] = React.useState(false);
 	const router = useRouter();
 
 	const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
 		if (
-			event.type === 'keydown' &&
-			((event as React.KeyboardEvent).key === 'Tab' ||
-				(event as React.KeyboardEvent).key === 'Shift')
+			event.type === "keydown" &&
+			((event as React.KeyboardEvent).key === "Tab" ||
+				(event as React.KeyboardEvent).key === "Shift")
 		) {
 			return;
 		}
@@ -33,45 +33,45 @@ export function HeaderMobile() {
 
 	return (
 		<Box
-			component={'header'}
+			component={"header"}
 			py={2}
-			display={{ xs: 'block', md: 'none' }}
+			display={{ xs: "block", md: "none" }}
 			sx={{
-				position: 'fixed',
+				position: "fixed",
 				top: 0,
-				width: '100%',
-				backgroundColor: 'white',
+				width: "100%",
+				backgroundColor: "white",
 				zIndex: 99,
 			}}
 		>
 			<Container maxWidth="xs">
-				<Stack direction="row" justifyContent={'flex-start'} alignItems="center">
+				<Stack direction="row" justifyContent={"flex-start"} alignItems="center">
 					<IconButton onClick={toggleDrawer(true)} onKeyDown={toggleDrawer(true)}>
 						<MenuIcon />
 					</IconButton>
-					<Link href={'/'} passHref>
-						<MuiLink sx={{ fontWeight: 'bold', ml: 2 }} underline="hover" className="">
+					<Link href={"/"} passHref>
+						<MuiLink sx={{ fontWeight: "bold", ml: 2 }} underline="hover" className="">
 							<Typography variant="h5">INUT Design</Typography>
 						</MuiLink>
 					</Link>
 				</Stack>
-				<Drawer anchor={'left'} open={open} onClose={toggleDrawer(false)}>
+				<Drawer anchor={"left"} open={open} onClose={toggleDrawer(false)}>
 					<List
 						sx={{
-							minWidth: '180px',
+							minWidth: "180px",
 						}}
 					>
 						{ROUTE_LIST.map((route) => (
 							<ListItem key={route.path} onClick={toggleDrawer(false)} disableGutters>
 								<ListItemButton
 									sx={{
-										justifyContent: 'center',
+										justifyContent: "center",
 									}}
 									selected={router.pathname === route.path}
 								>
 									<Link href={route.path} passHref>
 										<MuiLink
-											sx={{ fontWeight: 'medium' }}
+											sx={{ fontWeight: "medium" }}
 											underline="hover"
 											className={clsx({ active: router.pathname === route.path })}
 										>

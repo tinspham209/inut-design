@@ -1,23 +1,23 @@
-import { Facebook, Instagram } from '@mui/icons-material';
-import { Icon, Link as MuiLink, Stack, Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import { Facebook, Instagram } from "@mui/icons-material";
+import { Icon, Link as MuiLink, Stack, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 
 const socialLinks = [
 	{
 		icon: Facebook,
-		url: 'https://www.facebook.com/profile.php?id=100063876652109',
+		url: "https://www.facebook.com/profile.php?id=100063876652109",
 	},
 
 	{
 		icon: Instagram,
-		url: 'https://www.instagram.com/inut_skin/',
+		url: "https://www.instagram.com/inut_skin/",
 	},
 ];
 
 export function Footer() {
 	return (
-		<Box component={'footer'} py={2} textAlign="center">
-			<Stack direction="row" justifyContent={'center'}>
+		<Box component={"footer"} py={2} textAlign="center">
+			<Stack direction="row" justifyContent={"center"}>
 				{socialLinks.map((link) => (
 					<MuiLink
 						key={link.url}

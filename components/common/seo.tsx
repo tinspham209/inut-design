@@ -1,6 +1,5 @@
-import { Box } from '@mui/system';
-import * as React from 'react';
-import Head from 'next/head';
+import Head from "next/head";
+import * as React from "react";
 
 export interface SeoData {
 	title: string;

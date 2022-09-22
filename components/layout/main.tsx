@@ -1,8 +1,8 @@
-import { LayoutProps } from '@/models';
-import { Stack } from '@mui/material';
-import { Box } from '@mui/system';
-import { Footer, Header } from '../common';
-import { motion } from 'framer-motion';
+import { LayoutProps } from "@/models";
+import { Stack } from "@mui/material";
+import { Box } from "@mui/system";
+import { Footer, Header } from "../common";
+import { motion } from "framer-motion";
 
 const variants = {
 	hidden: { opacity: 0, x: 0, y: 20 },
@@ -17,8 +17,8 @@ export function MainLayout({ children }: LayoutProps) {
 			animate="enter"
 			exit="exit"
 			variants={variants}
-			transition={{ duration: 0.4, type: 'easeInOut' }}
-			style={{ position: 'relative' }}
+			transition={{ duration: 0.4, type: "easeInOut" }}
+			style={{ position: "relative" }}
 		>
 			<Stack minHeight="100vh">
 				<Header />

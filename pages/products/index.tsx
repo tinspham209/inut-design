@@ -1,30 +1,30 @@
-import { bannerApi } from '@/api-client/banner';
-import { productsApi } from '@/api-client/products';
-import { productTypeApi } from '@/api-client/productType';
-import { urlFor } from '@/api-client/sanity-client';
-import { Seo } from '@/components/common';
-import { HeroSection } from '@/components/home';
-import { MainLayout } from '@/components/layout';
-import { ProductCard } from '@/components/product';
-import { Banner } from '@/models/banner';
-import { NextPageWithLayout } from '@/models/common';
-import { Products, ProductType } from '@/models/products';
-import { Box, Breadcrumbs, Container, Grid, Link as MuiLink, Typography } from '@mui/material';
-import { GetStaticProps } from 'next';
-import Link from 'next/link';
-import CountUp from 'react-countup';
+import { bannerApi } from "@/api-client/banner";
+import { productsApi } from "@/api-client/products";
+import { productTypeApi } from "@/api-client/productType";
+import { urlFor } from "@/api-client/sanity-client";
+import { Seo } from "@/components/common";
+import { HeroSection } from "@/components/home";
+import { MainLayout } from "@/components/layout";
+import { ProductCard } from "@/components/product";
+import { Banner } from "@/models/banner";
+import { NextPageWithLayout } from "@/models/common";
+import { Products, ProductType } from "@/models/products";
+import { Box, Breadcrumbs, Container, Grid, Link as MuiLink, Typography } from "@mui/material";
+import { GetStaticProps } from "next";
+import Link from "next/link";
+import CountUp from "react-countup";
 
 const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => {
 	return (
-		<Box component={'section'} bgcolor="secondary.light" pt={4} pb={4}>
+		<Box component={"section"} bgcolor="secondary.light" pt={4} pb={4}>
 			<Seo
 				data={{
-					title: 'Sản phẩm - INUT Design',
-					description: 'Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop',
-					url: 'https://inut-design.vercel.app',
+					title: "Sản phẩm - INUT Design",
+					description: "Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop",
+					url: "https://inut-design.vercel.app",
 					thumbnailUrl:
 						(banner && urlFor(banner[0].image).url()) ||
-						'https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp',
+						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
 				}}
 			/>
 
@@ -32,7 +32,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 			<Container>
 				<Box>
 					<Breadcrumbs>
-						<Link href={'/'} passHref>
+						<Link href={"/"} passHref>
 							<MuiLink>Trang chủ</MuiLink>
 						</Link>
 

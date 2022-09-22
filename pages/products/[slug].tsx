@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import { productsApi } from '@/api-client/products';
-import { urlFor } from '@/api-client/sanity-client';
-import { Seo } from '@/components/common';
-import { MainLayout } from '@/components/layout';
-import { Product, Products } from '@/models/products';
+import { productsApi } from "@/api-client/products";
+import { urlFor } from "@/api-client/sanity-client";
+import { Seo } from "@/components/common";
+import { MainLayout } from "@/components/layout";
+import { Product, Products } from "@/models/products";
 import {
 	Breadcrumbs,
 	Button,
@@ -12,19 +12,19 @@ import {
 	Link as MuiLink,
 	Stack,
 	Typography,
-} from '@mui/material';
-import { Box } from '@mui/system';
-import { GetStaticProps } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
-import Lightbox from 'react-awesome-lightbox';
-import 'react-awesome-lightbox/build/style.css';
-import CountUp from 'react-countup';
-import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import styles from './productItem.module.css';
+} from "@mui/material";
+import { Box } from "@mui/system";
+import { GetStaticProps } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import Lightbox from "react-awesome-lightbox";
+import "react-awesome-lightbox/build/style.css";
+import CountUp from "react-countup";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import styles from "./productItem.module.css";
 
 type Props = {
 	product: Product;
@@ -40,7 +40,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 			<Seo
 				data={{
 					title: `${product.name} - Sản phẩm - INUT Design`,
-					description: 'Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop',
+					description: "Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop",
 					url: `https://inut-design.vercel.app/products/${product.slug.current}`,
 					thumbnailUrl: urlFor(product.image[0]).width(1000).url(),
 				}}
@@ -48,7 +48,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 			{isOpenLightBox && (
 				<Lightbox
 					className=""
-					images={product.image.map((image, index) => {
+					images={product.image.map((image) => {
 						return {
 							url: urlFor(image),
 							title: product.name,
@@ -57,7 +57,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 					onClose={() => setIsOpenLightBox(false)}
 				/>
 			)}
-			<Box component={'section'}>
+			<Box component={"section"}>
 				<Container>
 					<Breadcrumbs
 						sx={{
@@ -66,10 +66,10 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 							},
 						}}
 					>
-						<Link href={'/'} passHref>
+						<Link href={"/"} passHref>
 							<MuiLink>Trang chủ</MuiLink>
 						</Link>
-						<Link href={'/products'} passHref>
+						<Link href={"/products"} passHref>
 							<MuiLink>Sản phẩm</MuiLink>
 						</Link>
 						<Typography color="text.primary">{product.name}</Typography>
@@ -77,7 +77,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 					<Grid
 						container
 						spacing={{ xs: 2, md: 4 }}
-						flexDirection={{ xs: 'column', md: 'row' }}
+						flexDirection={{ xs: "column", md: "row" }}
 						pt={4}
 					>
 						<Grid item xs={12} md={6}>
@@ -91,7 +91,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 									product.image.map((thumbnail) => (
 										<Image
 											src={urlFor(thumbnail).width(200).url()}
-											alt={'product-image-thumbnail'}
+											alt={"product-image-thumbnail"}
 											key={thumbnail._key}
 											width="100%"
 											height="100%"
@@ -109,20 +109,20 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 								centerSlidePercentage={80}
 								ariaLabel="Carousel Product Image"
 							>
-								{product.image.map((image, index) => (
+								{product.image.map((image) => (
 									<Box
 										key={image._key}
 										onClick={() => {
 											setIsOpenLightBox(true);
 										}}
 										sx={{
-											cursor: 'pointer',
+											cursor: "pointer",
 										}}
 									>
 										<Image
 											src={urlFor(image).width(1000).url()}
 											width="100%"
-											height={'100%'}
+											height={"100%"}
 											layout="responsive"
 											priority={true}
 											alt="product-image"
@@ -138,11 +138,11 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 							</Typography>
 							<Stack
 								flexDirection="row"
-								alignItems={'center'}
+								alignItems={"center"}
 								mt={2}
 								sx={{
-									'& svg': {
-										color: '#f8e825',
+									"& svg": {
+										color: "#f8e825",
 									},
 								}}
 							>
@@ -158,7 +158,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 							<Typography variant="h5" mt={2}>
 								{product.details}
 							</Typography>
-							<Stack sx={{ mt: 4 }} flexDirection="row" alignItems={'center'}>
+							<Stack sx={{ mt: 4 }} flexDirection="row" alignItems={"center"}>
 								<MuiLink
 									href="https://m.me/642209429738886"
 									target="_blank"
@@ -183,7 +183,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 				</Container>
 			</Box>
 
-			<Box component={'section'} bgcolor="secondary.light" pt={2} mt={2}>
+			<Box component={"section"} bgcolor="secondary.light" pt={2} mt={2}>
 				<Container>
 					<Typography variant="h2" mt={2} fontWeight="bold" textAlign="center">
 						Có thể bạn sẽ thích
@@ -217,12 +217,6 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 };
 
 export const getStaticPaths = async () => {
-	const query = `*[_type == "product"]{
-    slug {
-      current
-    }
-  }`;
-
 	const products = await productsApi.getAllSlugs();
 
 	const paths = products.map((product) => ({
@@ -232,7 +226,7 @@ export const getStaticPaths = async () => {
 	}));
 	return {
 		paths,
-		fallback: 'blocking',
+		fallback: "blocking",
 	};
 };
 

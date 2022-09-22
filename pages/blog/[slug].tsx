@@ -1,23 +1,23 @@
-import { PostItem } from '@/components/blog';
-import { Seo } from '@/components/common';
-import { MainLayout } from '@/components/layout';
-import { Post } from '@/models';
-import { getPostList } from '@/utils';
-import { Box, Breadcrumbs, Container, Divider, Link as MuiLink, Typography } from '@mui/material';
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
-import Link from 'next/link';
-import Script from 'next/script';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeDocument from 'rehype-document';
-import rehypeFormat from 'rehype-format';
-import rehypeSlug from 'rehype-slug';
-import rehypeStringify from 'rehype-stringify';
-import remarkImages from 'remark-images';
-import remarkParse from 'remark-parse';
-import remarkPrism from 'remark-prism';
-import remarkRehype from 'remark-rehype';
-import remarkToc from 'remark-toc';
-import { unified } from 'unified';
+import { PostItem } from "@/components/blog";
+import { Seo } from "@/components/common";
+import { MainLayout } from "@/components/layout";
+import { Post } from "@/models";
+import { getPostList } from "@/utils";
+import { Box, Breadcrumbs, Container, Divider, Link as MuiLink, Typography } from "@mui/material";
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
+import Link from "next/link";
+import Script from "next/script";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeDocument from "rehype-document";
+import rehypeFormat from "rehype-format";
+import rehypeSlug from "rehype-slug";
+import rehypeStringify from "rehype-stringify";
+import remarkImages from "remark-images";
+import remarkParse from "remark-parse";
+import remarkPrism from "remark-prism";
+import remarkRehype from "remark-rehype";
+import remarkToc from "remark-toc";
+import { unified } from "unified";
 
 export interface BlogPageProps {
 	post: Post;
@@ -34,7 +34,7 @@ export default function BlogDetailPage({ post }: BlogPageProps) {
 					description: post.description,
 					url: `https://inut-design.vercel.app/blog/${post.slug}`,
 					thumbnailUrl:
-						'https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp',
+						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
 				}}
 			/>
 
@@ -44,10 +44,10 @@ export default function BlogDetailPage({ post }: BlogPageProps) {
 						mb: 4,
 					}}
 				>
-					<Link href={'/'} passHref>
+					<Link href={"/"} passHref>
 						<MuiLink>Trang chủ</MuiLink>
 					</Link>
-					<Link href={'/blog'} passHref>
+					<Link href={"/blog"} passHref>
 						<MuiLink>Blog</MuiLink>
 					</Link>
 					<Typography color="text.primary">{post.title}</Typography>
@@ -57,7 +57,7 @@ export default function BlogDetailPage({ post }: BlogPageProps) {
 						id: post.id,
 						slug: post.slug,
 						title: post.title,
-						description: '',
+						description: "",
 						publishedDate: post.publishedDate,
 						tagList: post.tagList,
 					}}
@@ -67,25 +67,25 @@ export default function BlogDetailPage({ post }: BlogPageProps) {
 
 				<Box
 					sx={{
-						'& img': {
-							maxWidth: '800px',
-							minWidth: '360px',
-							maxHeight: '400px',
-							width: '100%',
-							objectFit: 'contain',
-							borderRadius: '16px',
-							transition: 'all 0.2s ease-in-out',
-							boxShadow: '-1px 3px 3px -1px rgb(0 0 0 / 25%)',
-							'&:hover': {
-								transform: 'scale(1.05)',
+						"& img": {
+							maxWidth: "800px",
+							minWidth: "360px",
+							maxHeight: "400px",
+							width: "100%",
+							objectFit: "contain",
+							borderRadius: "16px",
+							transition: "all 0.2s ease-in-out",
+							boxShadow: "-1px 3px 3px -1px rgb(0 0 0 / 25%)",
+							"&:hover": {
+								transform: "scale(1.05)",
 							},
 						},
-						'& p a': {},
+						"& p a": {},
 					}}
 				>
 					<div
 						dangerouslySetInnerHTML={{
-							__html: post.htmlContent || '',
+							__html: post.htmlContent || "",
 						}}
 					></div>
 				</Box>
@@ -120,19 +120,19 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async (
 
 	const file = await unified()
 		.use(remarkParse)
-		.use(remarkToc, { heading: 'Table of Contents' })
+		.use(remarkToc, { heading: "Table of Contents" })
 		// .use(remarkPrism, { plugins: ['line-numbers'] })
 		.use(remarkPrism)
 		.use(remarkImages)
 		.use(remarkRehype)
 		.use(rehypeSlug)
-		.use(rehypeAutolinkHeadings, { behaviour: 'wrap' })
+		.use(rehypeAutolinkHeadings, { behaviour: "wrap" })
 		.use(rehypeDocument, { title: post.title })
 		.use(rehypeFormat)
 		.use(rehypeStringify)
-		.process(post.mdContent || '');
+		.process(post.mdContent || "");
 
-	console.log('file: ', file);
+	console.log("file: ", file);
 	post.htmlContent = file.toString();
 
 	return {

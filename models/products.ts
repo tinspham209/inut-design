@@ -1,4 +1,4 @@
-import { SanityImage } from './image';
+import { SanityImage } from "./image";
 
 export type SanitySlug = {
 	current: string;

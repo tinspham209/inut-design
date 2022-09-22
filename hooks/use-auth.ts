@@ -1,40 +1,41 @@
-import { authApi } from '@/api'
-import useSWR from 'swr'
-import { PublicConfiguration } from 'swr/dist/types'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { authApi } from "@/api";
+import useSWR from "swr";
+import { PublicConfiguration } from "swr/dist/types";
 
 // Auth --> Protected Pages
 // <Auth>{children}</Auth>
 export function useAuth(options?: Partial<PublicConfiguration>): {
-	profile: any
-	error: any
-	login: () => void
-	logout: () => void
-	firstLoading: any
+	profile: any;
+	error: any;
+	login: () => void;
+	logout: () => void;
+	firstLoading: any;
 } {
 	const {
 		data: profile,
 		error,
 		mutate,
-	} = useSWR('/profile', {
+	} = useSWR("/profile", {
 		dedupingInterval: 60 * 60 * 1000, // 1hr
 		revalidateOnFocus: false,
 		...options,
-	})
+	});
 
-	const firstLoading = profile === undefined && error === undefined
+	const firstLoading = profile === undefined && error === undefined;
 
 	async function login() {
 		await authApi.login({
-			username: 'test1',
-			password: '123123',
-		})
+			username: "test1",
+			password: "123123",
+		});
 
-		await mutate()
+		await mutate();
 	}
 
 	async function logout() {
-		await authApi.logout()
-		mutate(null, false)
+		await authApi.logout();
+		mutate(null, false);
 	}
 
 	return {
@@ -43,5 +44,5 @@ export function useAuth(options?: Partial<PublicConfiguration>): {
 		login,
 		logout,
 		firstLoading,
-	}
+	};
 }

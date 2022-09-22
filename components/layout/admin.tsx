@@ -1,21 +1,21 @@
-import { LayoutProps } from '@/models'
-import * as React from 'react'
-import Link from 'next/link'
-import { Auth } from '../common'
-import { useAuth } from '@/hooks/use-auth'
-import { useRouter } from 'next/router'
+import { LayoutProps } from "@/models";
+import * as React from "react";
+import Link from "next/link";
+import { Auth } from "../common";
+import { useAuth } from "@/hooks/use-auth";
+import { useRouter } from "next/router";
 
 export function AdminLayout({ children }: LayoutProps) {
-	const { profile, logout } = useAuth()
-	const router = useRouter()
+	const { profile, logout } = useAuth();
+	const router = useRouter();
 
 	async function handleLogoutClick() {
 		try {
-			await logout()
-			console.log('redirect to login page')
-			router.push('/login')
+			await logout();
+			console.log("redirect to login page");
+			router.push("/login");
 		} catch (error) {
-			console.log('failed to logout', error)
+			console.log("failed to logout", error);
 		}
 	}
 
@@ -40,5 +40,5 @@ export function AdminLayout({ children }: LayoutProps) {
 
 			<div>{children}</div>
 		</Auth>
-	)
+	);
 }

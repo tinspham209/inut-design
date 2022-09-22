@@ -1,6 +1,6 @@
-import { LayoutProps } from '@/models'
-import * as React from 'react'
+import { LayoutProps } from "@/models";
+import * as React from "react";
 
 export function EmptyLayout({ children }: LayoutProps) {
-	return <>{children}</>
+	return <>{children}</>;
 }

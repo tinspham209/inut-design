@@ -1,7 +1,7 @@
-import { Seo } from '@/components/common';
-import styles from '@/components/home/information.module.css';
-import { MainLayout } from '@/components/layout';
-import { NextPageWithLayout } from '@/models/common';
+import { Seo } from "@/components/common";
+import styles from "@/components/home/information.module.css";
+import { MainLayout } from "@/components/layout";
+import { NextPageWithLayout } from "@/models/common";
 import {
 	ArrowForwardIos,
 	Facebook,
@@ -9,7 +9,7 @@ import {
 	MapsHomeWork,
 	Message,
 	Phone,
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 import {
 	Box,
 	Breadcrumbs,
@@ -18,26 +18,26 @@ import {
 	Link as MuiLink,
 	Stack,
 	Typography,
-} from '@mui/material';
-import Image from 'next/image';
-import Link from 'next/link';
+} from "@mui/material";
+import Image from "next/image";
+import Link from "next/link";
 
 const ContactContainer: NextPageWithLayout = () => {
 	return (
 		<>
 			<Seo
 				data={{
-					title: 'Liên hệ - INUT Design',
-					description: 'Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop',
-					url: 'https://inut-design.vercel.app/contact',
+					title: "Liên hệ - INUT Design",
+					description: "Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop",
+					url: "https://inut-design.vercel.app/contact",
 					thumbnailUrl:
-						'https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp',
+						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
 				}}
 			/>
-			<Box component={'section'} pt={2} pb={{ xs: 4 }}>
+			<Box component={"section"} pt={2} pb={{ xs: 4 }}>
 				<Container>
 					<Breadcrumbs>
-						<Link href={'/'} passHref>
+						<Link href={"/"} passHref>
 							<MuiLink>Trang chủ</MuiLink>
 						</Link>
 
@@ -45,11 +45,11 @@ const ContactContainer: NextPageWithLayout = () => {
 					</Breadcrumbs>
 					<Grid container spacing={3} mt={3}>
 						<Grid item xs={12} sm={4}>
-							<Stack justifyContent={'center'}>
-								<Box sx={{ margin: '0 auto' }}>
+							<Stack justifyContent={"center"}>
+								<Box sx={{ margin: "0 auto" }}>
 									<Image
 										src={
-											'https://res.cloudinary.com/dmspucdtf/image/upload/v1663647671/inut/292635797_197003529328579_4330060878795101093_n_bjzhby.jpg'
+											"https://res.cloudinary.com/dmspucdtf/image/upload/v1663647671/inut/292635797_197003529328579_4330060878795101093_n_bjzhby.jpg"
 										}
 										width={220}
 										height={220}
@@ -63,9 +63,9 @@ const ContactContainer: NextPageWithLayout = () => {
 						<Grid item xs={12} sm={8}>
 							<Box maxWidth={440}>
 								<Stack
-									flexDirection={'row'}
+									flexDirection={"row"}
 									alignItems="center"
-									justifyContent={'space-between'}
+									justifyContent={"space-between"}
 									sx={{}}
 								>
 									<Typography variant="h5" sx={{ mr: 4 }}>
@@ -100,16 +100,16 @@ const ContactContainer: NextPageWithLayout = () => {
 							</Box>
 						</Grid>
 					</Grid>
-					<Stack justifyContent={'center'} flexDirection="row" m={'24px auto'}>
+					<Stack justifyContent={"center"} flexDirection="row" m={"24px auto"}>
 						<Box
 							sx={{
 								minWidth: 320,
 								maxWidth: 360,
-								width: '100%',
+								width: "100%",
 								borderRadius: 8,
 							}}
 						>
-							{listContacts.map((item, index) => (
+							{listContacts.map((item) => (
 								<MuiLink
 									href={item.link}
 									target="_blank"
@@ -117,18 +117,18 @@ const ContactContainer: NextPageWithLayout = () => {
 									key={item.title}
 								>
 									<Stack
-										flexDirection={'row'}
+										flexDirection={"row"}
 										justifyContent="space-between"
-										alignItems={'center'}
+										alignItems={"center"}
 										sx={{
-											border: '1px solid #c1c1c1',
+											border: "1px solid #c1c1c1",
 											borderRadius: 16,
-											p: '8px 24px',
+											p: "8px 24px",
 											mb: 3,
-											boxShadow: '-1px 3px 3px -1px rgb(0 0 0 / 25%)',
-											transition: 'all 0.2s ease-in-out',
-											'&:hover': {
-												transform: 'scale(1.05)',
+											boxShadow: "-1px 3px 3px -1px rgb(0 0 0 / 25%)",
+											transition: "all 0.2s ease-in-out",
+											"&:hover": {
+												transform: "scale(1.05)",
 											},
 										}}
 									>
@@ -148,7 +148,7 @@ const ContactContainer: NextPageWithLayout = () => {
 
 const listContacts = [
 	{
-		link: 'https://m.me/642209429738886',
+		link: "https://m.me/642209429738886",
 		icon: (
 			<Message
 				sx={{
@@ -156,10 +156,10 @@ const listContacts = [
 				}}
 			/>
 		),
-		title: 'Liên hệ ngay',
+		title: "Liên hệ ngay",
 	},
 	{
-		link: 'https://www.facebook.com/profile.php?id=100063876652109',
+		link: "https://www.facebook.com/profile.php?id=100063876652109",
 		icon: (
 			<Facebook
 				sx={{
@@ -167,10 +167,10 @@ const listContacts = [
 				}}
 			/>
 		),
-		title: 'Facebook',
+		title: "Facebook",
 	},
 	{
-		link: 'https://www.instagram.com/inut_skin/',
+		link: "https://www.instagram.com/inut_skin/",
 		icon: (
 			<Instagram
 				sx={{
@@ -178,10 +178,10 @@ const listContacts = [
 				}}
 			/>
 		),
-		title: 'Instagram',
+		title: "Instagram",
 	},
 	{
-		link: 'https://goo.gl/maps/hBKBhHvRAGMPUn3e9',
+		link: "https://goo.gl/maps/hBKBhHvRAGMPUn3e9",
 		icon: (
 			<MapsHomeWork
 				sx={{
@@ -189,10 +189,10 @@ const listContacts = [
 				}}
 			/>
 		),
-		title: 'Địa chỉ',
+		title: "Địa chỉ",
 	},
 	{
-		link: 'tel:+792359996',
+		link: "tel:+792359996",
 		icon: (
 			<Phone
 				sx={{
@@ -200,7 +200,7 @@ const listContacts = [
 				}}
 			/>
 		),
-		title: 'Số điện thoại',
+		title: "Số điện thoại",
 	},
 ];
 

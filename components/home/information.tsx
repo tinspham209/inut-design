@@ -1,27 +1,21 @@
-import { urlFor } from '@/api-client/sanity-client';
-import { Banner } from '@/models/banner';
-import { Button, Container, Grid, Stack, Typography, Link as MuiLink } from '@mui/material';
-import { Box } from '@mui/system';
-import Image from 'next/image';
-import * as React from 'react';
-import styles from './information.module.css';
-import CountUp from 'react-countup';
+import { Button, Container, Grid, Link as MuiLink, Stack, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import Image from "next/image";
+import * as React from "react";
+import CountUp from "react-countup";
+import styles from "./information.module.css";
 
-type Props = {
-	total: number;
-};
-
-export function InfoSection({ total }: Props) {
+export function InfoSection() {
 	return (
-		<Box component={'section'} pb={{ xs: 4 }}>
+		<Box component={"section"} pb={{ xs: 4 }}>
 			<Container>
 				<Grid container spacing={3}>
 					<Grid item xs={12} sm={4}>
-						<Stack justifyContent={'center'}>
-							<Box sx={{ margin: '0 auto' }}>
+						<Stack justifyContent={"center"}>
+							<Box sx={{ margin: "0 auto" }}>
 								<Image
 									src={
-										'https://res.cloudinary.com/dmspucdtf/image/upload/v1663647671/inut/292635797_197003529328579_4330060878795101093_n_bjzhby.jpg'
+										"https://res.cloudinary.com/dmspucdtf/image/upload/v1663647671/inut/292635797_197003529328579_4330060878795101093_n_bjzhby.jpg"
 									}
 									width={200}
 									height={200}
@@ -34,7 +28,7 @@ export function InfoSection({ total }: Props) {
 					</Grid>
 					<Grid item xs={12} sm={8}>
 						<Box maxWidth={440}>
-							<Stack flexDirection={'row'} alignItems="center" justifyContent={'space-between'}>
+							<Stack flexDirection={"row"} alignItems="center" justifyContent={"space-between"}>
 								<Typography variant="h5" sx={{ mr: 4 }}>
 									inut_skin
 								</Typography>
@@ -66,7 +60,7 @@ export function InfoSection({ total }: Props) {
 								</Typography>
 							</MuiLink>
 							<Typography variant="body1" sx={{ mt: 1 }}>
-								Có{' '}
+								Có{" "}
 								<MuiLink
 									href="https://www.instagram.com/_tomchay_/"
 									target="_blank"
@@ -74,18 +68,18 @@ export function InfoSection({ total }: Props) {
 								>
 									<b>_tomchay_</b>
 								</MuiLink>
-								,{' '}
+								,{" "}
 								<MuiLink
 									href="https://www.instagram.com/phamthitins/"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
 									<b>phamthitins</b>
-								</MuiLink>{' '}
-								và{' '}
+								</MuiLink>{" "}
+								và{" "}
 								<b>
 									<CountUp end={398} duration={3} />
-								</b>{' '}
+								</b>{" "}
 								đang theo dõi
 							</Typography>
 						</Box>

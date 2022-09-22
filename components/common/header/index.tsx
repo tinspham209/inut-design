@@ -1,5 +1,5 @@
-import { HeaderDesktop } from './header-desktop'
-import { HeaderMobile } from './header-mobile'
+import { HeaderDesktop } from "./header-desktop";
+import { HeaderMobile } from "./header-mobile";
 
 export function Header() {
 	return (
@@ -7,5 +7,5 @@ export function Header() {
 			<HeaderMobile />
 			<HeaderDesktop />
 		</>
-	)
+	);
 }

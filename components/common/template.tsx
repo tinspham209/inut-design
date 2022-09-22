@@ -1,8 +1,10 @@
-import { Box } from '@mui/system'
-import * as React from 'react'
+import { Box } from "@mui/system";
+import * as React from "react";
 
-interface TemplateProps {}
+interface TemplateProps {
+	children: React.ReactElement;
+}
 
 export function Template(props: TemplateProps) {
-	return <Box>Template</Box>
+	return <Box>{props.children}</Box>;
 }
