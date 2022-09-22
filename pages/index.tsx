@@ -1,18 +1,24 @@
+import React from "react";
 import { bannerApi } from "@/api-client/banner";
 import { productsApi } from "@/api-client/products";
 import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
 import { HeroSection, InfoSection, ListSpecialProducts } from "@/components/home";
+import { HeroSection2 } from "@/components/home/hero2";
 import { MainLayout } from "@/components/layout";
 import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { Products } from "@/models/products";
 import { Box } from "@mui/material";
 import { GetStaticProps } from "next";
+import { motion, useScroll } from "framer-motion";
 
 const Home: NextPageWithLayout = ({ banner, products }: Props) => {
+	const ref = React.useRef(null);
+	const { scrollYProgress } = useScroll({ target: ref, offset: [1, 0] });
+
 	return (
-		<Box>
+		<div ref={ref}>
 			<Seo
 				data={{
 					title: "INUT Design",
@@ -22,10 +28,10 @@ const Home: NextPageWithLayout = ({ banner, products }: Props) => {
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
 				}}
 			/>
-			<HeroSection imgUrl={banner && urlFor(banner[0].image).url()} />
+			<HeroSection2 scrollYProgress={scrollYProgress} />
 			<InfoSection />
 			<ListSpecialProducts products={products} />
-		</Box>
+		</div>
 	);
 };
 
