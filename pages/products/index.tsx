@@ -22,6 +22,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 	const { filter } = router.query;
 	const handleOnChangeCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = (event.target as HTMLInputElement).value;
+		setCurrentFilter(value);
 		router.push({
 			pathname: '/products',
 			query: { filter: value },
@@ -33,6 +34,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 	};
 
 	const [expandedFilter, setExpandedFilter] = React.useState<boolean>(true);
+	const [currentFilter, setCurrentFilter] = React.useState(filter || "")
 
 	return (
 		<Box component={"section"} bgcolor="secondary.light" pt={4} pb={4}>
@@ -68,7 +70,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 					}}>
 						<Grid container item xs={12} md={9} spacing={3} id="productTitle">
 							{products.map((product) => {
-								if (product.type.includes(filter as string)) {
+								if (product.type.includes(currentFilter as string)) {
 									return (
 										<Grid item xs={6} md={4} key={product._id}>
 											<ProductCard product={product} productTypes={productTypes} />
@@ -118,7 +120,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 											<FormControl >
 												<RadioGroup
 													name="radio-buttons-filters"
-													value={filter}
+													value={currentFilter}
 													onChange={handleOnChangeCheckbox}
 												>
 													<FormControlLabel value={""} control={<Radio />} label={"Tất cả"} />

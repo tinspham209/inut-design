@@ -1,4 +1,5 @@
 import axiosClient from "@/api/axios-client";
+import ScrollToBottom from "@/components/common/scrollToBottom";
 import { EmptyLayout } from "@/components/layout";
 import { AppPropsWithLayout } from "@/models";
 import { createEmotionCache, theme } from "@/utils";
@@ -29,6 +30,7 @@ function MyApp({
 					<Layout>
 						<AnimatePresence exitBeforeEnter initial={true}>
 							<Component {...pageProps} />
+							<ScrollToBottom />
 						</AnimatePresence>
 					</Layout>
 				</SWRConfig>
