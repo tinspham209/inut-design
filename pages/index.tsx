@@ -1,16 +1,15 @@
-import React from "react";
 import { bannerApi } from "@/api-client/banner";
 import { productsApi } from "@/api-client/products";
 import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
 import { HeroSection, InfoSection, ListSpecialProducts } from "@/components/home";
-import { HeroSection2 } from "@/components/home/hero2";
 import { MainLayout } from "@/components/layout";
 import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { Products } from "@/models/products";
 import { Box } from "@mui/material";
 import { GetStaticProps } from "next";
+import React from "react";
 
 const Home: NextPageWithLayout = ({ banner, products }: Props) => {
 	return (
@@ -24,7 +23,6 @@ const Home: NextPageWithLayout = ({ banner, products }: Props) => {
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
 				}}
 			/>
-			<HeroSection2 />
 			<HeroSection imgUrl={urlFor(banner.image).width(1440).url()} />
 			<InfoSection />
 			<ListSpecialProducts products={products} />
