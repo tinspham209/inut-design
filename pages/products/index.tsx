@@ -25,8 +25,11 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 		router.push({
 			pathname: '/products',
 			query: { filter: value },
-			// search: `?filter=${value}`
 		}, undefined, { scroll: false })
+
+		setTimeout(() => {
+			document.getElementById('productTitle').scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+		}, 1000)
 	};
 
 	const [expandedFilter, setExpandedFilter] = React.useState<boolean>(true);
@@ -63,7 +66,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 						xs: 'column-reverse',
 						md: 'row'
 					}}>
-						<Grid container item xs={12} md={9} spacing={3}>
+						<Grid container item xs={12} md={9} spacing={3} id="productTitle">
 							{products.map((product) => {
 								if (product.type.includes(filter as string)) {
 									return (
@@ -71,6 +74,10 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 											<ProductCard product={product} productTypes={productTypes} />
 										</Grid>
 									)
+								} else {
+									<Grid item xs={6} md={4} key={product._id}>
+										<Box><Typography variant="h4" fontWeight="bold">Không có sản phẩm nào</Typography></Box>
+									</Grid>
 								}
 							})}
 						</Grid>
