@@ -61,19 +61,28 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 				<Container>
 					<Breadcrumbs
 						sx={{
-							mt: {
-								xs: 1,
-							},
+							mt: 1,
+							mb: 2,
 						}}
 					>
 						<Link href={"/"} passHref>
 							<MuiLink>Trang chủ</MuiLink>
 						</Link>
-						<Link href={"/products"} passHref>
+						<Link href={`/products#${product.slug.current}`} passHref>
 							<MuiLink>Sản phẩm</MuiLink>
 						</Link>
 						<Typography color="text.primary">{product.name}</Typography>
 					</Breadcrumbs>
+					<Link
+						href={`/products`}
+						passHref
+					>
+						<MuiLink>
+							<Button variant="outlined" color="primary" sx={{ mr: 2 }}>
+								Trở về
+							</Button>
+						</MuiLink>
+					</Link>
 					<Grid
 						container
 						spacing={{ xs: 2, md: 4 }}
@@ -133,7 +142,10 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 							</Carousel>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<Typography variant="h3" fontWeight="bold" mt={2}>
+							<Typography variant="h3" fontWeight="bold" mt={{
+								xs: 10,
+								md: 2
+							}}>
 								{product.name}
 							</Typography>
 							<Stack

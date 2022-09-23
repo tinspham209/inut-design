@@ -9,12 +9,28 @@ import { ProductCard } from "@/components/product";
 import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { Products, ProductType } from "@/models/products";
-import { Box, Breadcrumbs, Container, Grid, Link as MuiLink, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Breadcrumbs, Container, FormControl, FormControlLabel, Grid, Link as MuiLink, Radio, RadioGroup, Stack, Typography } from "@mui/material";
 import { GetStaticProps } from "next";
 import Link from "next/link";
 import CountUp from "react-countup";
-
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import React from 'react'
+import { useRouter } from 'next/router'
 const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => {
+
+	const router = useRouter();
+	const { filter } = router.query;
+	const handleOnChangeCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const value = (event.target as HTMLInputElement).value;
+		router.push({
+			pathname: '/products',
+			query: { filter: value },
+			// search: `?filter=${value}`
+		}, undefined, { scroll: false })
+	};
+
+	const [expandedFilter, setExpandedFilter] = React.useState<boolean>(true);
+
 	return (
 		<Box component={"section"} bgcolor="secondary.light" pt={4} pb={4}>
 			<Seo
@@ -39,16 +55,80 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 						<Typography color="text.primary">Sản phẩm</Typography>
 					</Breadcrumbs>
 					<Box mt={3}>
-						<Typography variant="h2" fontWeight="bold" textAlign="center">
+						<Typography variant="h2" fontWeight="bold" textAlign="center" fontFamily={'"Bangers" ,"Roboto", sans-serif'} letterSpacing="10px">
 							Sản phẩm (<CountUp end={products.length} duration={2} />)
 						</Typography>
 					</Box>
-					<Grid container spacing={3} mt={3}>
-						{products.map((product) => (
-							<Grid item xs={6} sm={4} md={3} key={product._id}>
-								<ProductCard product={product} productTypes={productTypes} />
-							</Grid>
-						))}
+					<Grid container spacing={2} mt={3} flexDirection={{
+						xs: 'column-reverse',
+						md: 'row'
+					}}>
+						<Grid container item xs={12} md={9} spacing={3}>
+							{products.map((product) => {
+								if (product.type.includes(filter as string)) {
+									return (
+										<Grid item xs={6} md={4} key={product._id}>
+											<ProductCard product={product} productTypes={productTypes} />
+										</Grid>
+									)
+								}
+							})}
+						</Grid>
+						<Grid container item xs={12} md={3}>
+							<Box sx={{
+								width: '100%',
+							}}>
+								<Accordion
+									expanded={expandedFilter}
+									onChange={() => {
+										setExpandedFilter(!expandedFilter)
+									}}
+									TransitionProps={{ unmountOnExit: true }}
+									sx={{
+										position: {
+											md: 'sticky'
+										},
+										top: {
+											md: '90px'
+										},
+										right: {
+											md: 0
+										},
+										minHeight: {
+											md: '1px'
+										}
+									}}
+								>
+									<AccordionSummary
+										expandIcon={<ExpandMoreIcon />}
+										aria-controls="panel1a-content"
+										id="panel1a-header"
+									>
+										<Typography variant="h4" fontWeight="bold">Bộ lọc</Typography>
+									</AccordionSummary>
+									<AccordionDetails>
+										<Stack flexDirection="column">
+											<FormControl >
+												<RadioGroup
+													name="radio-buttons-filters"
+													value={filter}
+													onChange={handleOnChangeCheckbox}
+												>
+													<FormControlLabel value={""} control={<Radio />} label={"Tất cả"} />
+													{productTypes.map((productType) => {
+														return (
+															<FormControlLabel value={productType.slug.current} control={<Radio />} label={productType.name} />
+														)
+													})}
+
+												</RadioGroup>
+											</FormControl>
+
+										</Stack>
+									</AccordionDetails>
+								</Accordion>
+							</Box>
+						</Grid>
 					</Grid>
 				</Box>
 			</Container>
@@ -69,9 +149,15 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	const productTypes: ProductType[] = await productTypeApi.getAll();
 	const banner: Banner[] = await bannerApi.getBannerProductsPage();
 
+	const formatProducts = products.map((product) => {
+		return {
+			...product,
+			type: productTypes.find((productType) => productType._id === product.productType._ref).slug.current
+		}
+	});
 	return {
 		props: {
-			products,
+			products: formatProducts,
 			productTypes,
 			banner,
 		},

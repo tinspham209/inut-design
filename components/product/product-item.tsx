@@ -1,6 +1,6 @@
 import { urlFor } from "@/api-client/sanity-client";
 import { Product, ProductType } from "@/models/products";
-import { Box, Button, Link as MuiLink, Stack, Typography } from "@mui/material";
+import { Box, Button, Chip, Link as MuiLink, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./product-item.module.css";
@@ -32,11 +32,11 @@ export function ProductItem({ product, productTypes }: ProductItemProps) {
 					<Typography variant="body1" fontWeight="bold" mt={2}>
 						{product.name}
 					</Typography>
-					<Stack spacing={2} direction="row" justifyContent={"space-between"} alignItems="center">
-						<Typography variant="body1" fontWeight="">
-							#{productType.name}
-						</Typography>
-					</Stack>
+					<Box mt={1}>
+
+						<Chip label={productType.name} variant="outlined" color="primary" size="small" />
+
+					</Box>
 					<Stack direction="row" justifyContent={"flex-end"}>
 						<Button variant="text" color="primary">
 							Xem chi tiết

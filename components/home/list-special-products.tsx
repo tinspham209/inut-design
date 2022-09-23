@@ -24,7 +24,7 @@ export function ListSpecialProducts({ products }: Props) {
 		<Box component={"section"} bgcolor="secondary.light" pt={2} pb={4} zIndex={999}>
 			<Container>
 				<Stack direction="row" py={3} justifyContent={"center"} alignItems={"center"}>
-					<Typography variant="h3" fontWeight={"bold"} textAlign={"center"}>
+					<Typography variant="h3" fontWeight={"bold"} textAlign={"center"} fontFamily={'"Bangers" ,"Roboto", sans-serif'} letterSpacing="10px">
 						Sản phẩm nổi bật
 					</Typography>
 				</Stack>

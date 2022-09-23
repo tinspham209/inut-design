@@ -132,7 +132,6 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async (
 		.use(rehypeStringify)
 		.process(post.mdContent || "");
 
-	console.log("file: ", file);
 	post.htmlContent = file.toString();
 
 	return {

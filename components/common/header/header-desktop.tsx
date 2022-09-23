@@ -22,6 +22,9 @@ export function HeaderDesktop() {
 				width: "100%",
 				backgroundColor: "white",
 				zIndex: 99,
+				borderBottom: "1px solid rgb(245, 245, 245)",
+				backdropFilter: 'blur(20px)',
+				boxShadow: '0px 2px 8px #f0f1f2'
 			}}
 		>
 			<Container>

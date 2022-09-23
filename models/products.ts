@@ -13,6 +13,7 @@ export type Product = {
 		_ref: string;
 		_type: string;
 	};
+	type: string;
 	slug: SanitySlug;
 	special: boolean;
 	_createAt: string;

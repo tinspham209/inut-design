@@ -19,6 +19,7 @@ export function InfoSection() {
 									}
 									width={200}
 									height={200}
+									layout="intrinsic"
 									alt="infor-image"
 									priority={true}
 									className={styles.infoImage}
