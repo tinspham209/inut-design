@@ -7,7 +7,7 @@ import styles from "./information.module.css";
 
 export function InfoSection() {
 	return (
-		<Box component={"section"} pb={{ xs: 4 }}>
+		<Box component={"section"} pb={{ xs: 4 }} zIndex={999} bgcolor="white">
 			<Container>
 				<Grid container spacing={3}>
 					<Grid item xs={12} sm={4}>

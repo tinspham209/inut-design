@@ -1,5 +1,5 @@
-import { createTheme, responsiveFontSizes } from '@mui/material/styles';
-import { red } from '@mui/material/colors';
+import { createTheme, responsiveFontSizes } from "@mui/material/styles";
+import { red } from "@mui/material/colors";
 
 // Create a theme instance.
 export let theme = createTheme({
@@ -8,34 +8,44 @@ export let theme = createTheme({
 	},
 	palette: {
 		primary: {
-			main: '#FF6464',
+			main: "#FF6464",
 		},
 		secondary: {
-			main: '#00A8CC',
-			light: '#EDF7FA',
+			main: "#00A8CC",
+			light: "#EDF7FA",
 		},
 		error: {
 			main: red.A400,
 		},
 		text: {
-			primary: '#21243D',
+			primary: "#21243D",
 		},
 	},
 	components: {
+		MuiTypography: {
+			variants: [
+				{
+					props: { variant: "button" },
+					style: {
+						fontFamily: '"Bangers" ,"Roboto", sans-serif',
+					},
+				},
+			],
+		},
 		MuiContainer: {
 			defaultProps: {
-				maxWidth: 'lg',
+				maxWidth: "lg",
 			},
 		},
 		MuiLink: {
 			defaultProps: {
-				underline: 'hover',
+				underline: "hover",
 			},
 			styleOverrides: {
 				root: {
-					color: 'black',
-					'&:hover, &.active': {
-						color: '#FF6464',
+					color: "black",
+					"&:hover, &.active": {
+						color: "#FF6464",
 					},
 				},
 			},
@@ -43,9 +53,9 @@ export let theme = createTheme({
 		MuiButton: {
 			variants: [
 				{
-					props: { variant: 'contained', color: 'primary' },
+					props: { variant: "contained", color: "primary" },
 					style: {
-						color: 'white',
+						color: "white",
 					},
 				},
 			],
@@ -53,12 +63,12 @@ export let theme = createTheme({
 		MuiChip: {
 			variants: [
 				{
-					props: { color: 'secondary' },
+					props: { color: "secondary" },
 					style: {
 						fontSize: 16,
-						backgroundColor: '#142850',
-						color: 'white',
-						fontWeight: 'bold',
+						backgroundColor: "#142850",
+						color: "white",
+						fontWeight: "bold",
 					},
 				},
 			],
@@ -67,10 +77,10 @@ export let theme = createTheme({
 });
 
 export const muiResponsive = {
-	MOBILE: '(max-width:600px)',
-	TABLET: '(max-width:960px)',
-	LARGE_SCREEN: '(max-width:1200px)',
-	EXTRA_LARGE_SCREEN: '(max-width:1440px)',
+	MOBILE: "(max-width:600px)",
+	TABLET: "(max-width:960px)",
+	LARGE_SCREEN: "(max-width:1200px)",
+	EXTRA_LARGE_SCREEN: "(max-width:1440px)",
 };
 
 theme = responsiveFontSizes(theme);

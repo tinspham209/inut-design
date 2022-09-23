@@ -21,7 +21,7 @@ type Props = {
 
 export function ListSpecialProducts({ products }: Props) {
 	return (
-		<Box component={"section"} bgcolor="secondary.light" pt={2} pb={4}>
+		<Box component={"section"} bgcolor="secondary.light" pt={2} pb={4} zIndex={999}>
 			<Container>
 				<Stack direction="row" py={3} justifyContent={"center"} alignItems={"center"}>
 					<Typography variant="h3" fontWeight={"bold"} textAlign={"center"}>

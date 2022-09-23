@@ -21,7 +21,6 @@
 		"react/react-in-jsx-scope": "off",
 		"camelcase": "warn",
 		"spaced-comment": "error",
-		"quotes": ["warn"],
 		"no-duplicate-imports": "warn",
 		"no-unused-vars": "warn"
 	},
