@@ -2,6 +2,7 @@
 import { Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 import * as React from "react";
 
 export function HeroSection2() {
@@ -9,8 +10,8 @@ export function HeroSection2() {
 	const { scrollYProgress } = useScroll({
 		target: ref,
 	});
-	const scale = useTransform(scrollYProgress, [0, 1], [400, 1]);
-	const translate = useTransform(scrollYProgress, [0, 1], [20, 1]);
+	const scale = useTransform(scrollYProgress, [0, 1], [45, 1]);
+	const translate = useTransform(scrollYProgress, [0, 1], [-180, 0]);
 
 	return (
 		<motion.div ref={ref}>
@@ -49,7 +50,7 @@ export function HeroSection2() {
 					<motion.div
 						style={{
 							scale: scale,
-							transform: translate,
+							translateX: translate,
 						}}
 					>
 						<Box
@@ -105,7 +106,14 @@ export function HeroSection2() {
 									},
 								}}
 							>
-								<img src={"/hero22.png"} alt="avatar" />
+								{/* <img src={"/hero22.png"} alt="avatar" /> */}
+								<Image
+									src={"/hero22.webp"}
+									alt="avatar"
+									width={"100%"}
+									height={"40%"}
+									layout="responsive"
+								/>
 								<Typography
 									variant="button"
 									textAlign={"center"}
