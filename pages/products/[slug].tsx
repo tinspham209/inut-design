@@ -25,7 +25,7 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import styles from "./productItem.module.css";
-
+import Router from 'next/router'
 type Props = {
 	product: Product;
 	products: Products;
@@ -73,16 +73,12 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 						</Link>
 						<Typography color="text.primary">{product.name}</Typography>
 					</Breadcrumbs>
-					<Link
-						href={`/products`}
-						passHref
-					>
-						<MuiLink>
-							<Button variant="outlined" color="primary" sx={{ mr: 2 }}>
-								Trở về
-							</Button>
-						</MuiLink>
-					</Link>
+
+					<Button variant="outlined" color="primary" sx={{ mr: 2 }} onClick={() => {
+						Router.back()
+					}}>
+						Trở về
+					</Button>
 					<Grid
 						container
 						spacing={{ xs: 2, md: 4 }}
