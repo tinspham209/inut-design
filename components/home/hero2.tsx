@@ -103,7 +103,7 @@ export function HeroSection2() {
 					},
 				}}
 			>
-				<video src={"/main-video1.mp4"} autoPlay muted loop />
+				<video src={"/video-banner.mp4"} autoPlay muted loop />
 				<Stack
 					sx={{
 						position: "fixed",
