@@ -1,17 +1,31 @@
-import { Button, Container, Grid, Link as MuiLink, Stack, Typography } from "@mui/material";
+import { Button, Container, Link as MuiLink, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Image from "next/image";
 import * as React from "react";
 import CountUp from "react-countup";
 import styles from "./information.module.css";
+import { Element } from "react-scroll";
 
+export const INFO_ID_ELEMENT = "information";
 export function InfoSection() {
 	return (
-		<Box component={"section"} pb={{ xs: 4 }} zIndex={999} bgcolor="white">
-			<Container>
-				<Grid container spacing={3}>
-					<Grid item xs={12} sm={4}>
-						<Stack justifyContent={"center"}>
+		<Element name={INFO_ID_ELEMENT}>
+			<Box component={"section"} pb={{ xs: 4 }} zIndex={999} bgcolor="white" id={INFO_ID_ELEMENT}>
+				<Container>
+					<Stack
+						justifyContent={"center"}
+						flexDirection={{
+							xs: "column",
+							sm: "row",
+						}}
+					>
+						<Stack
+							justifyContent={"center"}
+							mr={{
+								sm: 6,
+								md: 12,
+							}}
+						>
 							<Box sx={{ margin: "0 auto" }}>
 								<Image
 									src={
@@ -26,8 +40,7 @@ export function InfoSection() {
 								/>
 							</Box>
 						</Stack>
-					</Grid>
-					<Grid item xs={12} sm={8}>
+
 						<Box maxWidth={440}>
 							<Stack flexDirection={"row"} alignItems="center" justifyContent={"space-between"}>
 								<Typography variant="h5" sx={{ mr: 4 }}>
@@ -84,9 +97,9 @@ export function InfoSection() {
 								đang theo dõi
 							</Typography>
 						</Box>
-					</Grid>
-				</Grid>
-			</Container>
-		</Box>
+					</Stack>
+				</Container>
+			</Box>
+		</Element>
 	);
 }

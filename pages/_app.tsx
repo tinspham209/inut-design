@@ -8,6 +8,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import { AnimatePresence } from "framer-motion";
 import { SWRConfig } from "swr";
+import { Toaster } from "react-hot-toast";
 import "../styles/globals.css";
 import "../styles/prism.css";
 
@@ -31,6 +32,7 @@ function MyApp({
 						<AnimatePresence exitBeforeEnter initial={true}>
 							<Component {...pageProps} />
 							<ScrollToBottom />
+							<Toaster />
 						</AnimatePresence>
 					</Layout>
 				</SWRConfig>
