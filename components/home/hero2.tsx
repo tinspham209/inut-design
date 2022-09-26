@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { MouseOutlined } from "@mui/icons-material";
-import { IconButton, Stack, Tooltip, Typography, useMediaQuery } from "@mui/material";
+import { IconButton, Stack, Typography, useMediaQuery } from "@mui/material";
 import { Box } from "@mui/system";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
@@ -16,7 +16,7 @@ export function HeroSection2() {
 	const isSmScreen = useMediaQuery("(max-width:600px)");
 
 	const scale = useTransform(scrollYProgress, [0, 1], [isSmScreen ? 50 : 40, 1]);
-	const translateX = useTransform(scrollYProgress, [0, 1], [-250, 0]);
+	const translateX = useTransform(scrollYProgress, [0, 1], [-300, 0]);
 	const translateY = useTransform(scrollYProgress, [0, 1], [isSmScreen ? 1000 : 0, 0]);
 
 	return (
@@ -26,60 +26,56 @@ export function HeroSection2() {
 				position: "relative",
 			}}
 		>
-			<Tooltip title="Kéo xuống">
-				<IconButton
-					onClick={() => {
-						const inforElement = document.getElementById(INFO_ID_ELEMENT);
-						if (isSmScreen) {
-							inforElement.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
-						} else {
-							scroller.scrollTo(INFO_ID_ELEMENT, {
-								smooth: true,
-								duration: 1000,
-								offset: -550,
-							});
-						}
-					}}
-					sx={{
-						position: "fixed",
-						bottom: {
-							xs: "10%",
-							md: "5%",
-						},
-						opacity: 0,
-						animation: "pulse 2s infinite",
-					}}
-				>
-					<MouseOutlined fontSize={"large"} color="action" />
-				</IconButton>
-			</Tooltip>
-			<Tooltip title="Kéo xuống">
-				<IconButton
-					sx={{
-						position: "fixed",
-						bottom: {
-							xs: "10%",
-							md: "5%",
-						},
-						zIndex: -1,
+			<IconButton
+				onClick={() => {
+					const inforElement = document.getElementById(INFO_ID_ELEMENT);
+					if (isSmScreen) {
+						inforElement.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+					} else {
+						scroller.scrollTo(INFO_ID_ELEMENT, {
+							smooth: true,
+							duration: 1000,
+							offset: -550,
+						});
+					}
+				}}
+				sx={{
+					position: "fixed",
+					bottom: {
+						xs: "10%",
+						md: "5%",
+					},
+					opacity: 0,
+					animation: "pulse 2s infinite",
+				}}
+			>
+				<MouseOutlined fontSize={"large"} color="info" />
+			</IconButton>
+			<IconButton
+				sx={{
+					position: "fixed",
+					bottom: {
+						xs: "10%",
+						md: "5%",
+					},
+					zIndex: -1,
 
-						animation: "pulse 2s infinite",
-						"@keyframes pulse": {
-							"0%": {
-								transform: "translate(calc(50vw - 50%), 0)",
-							},
-							"50%": {
-								transform: "translate(calc(50vw - 50%), 20px)",
-							},
-							"100%": {
-								transform: "translate(calc(50vw - 50%), 0)",
-							},
+					animation: "pulse 2s infinite",
+					"@keyframes pulse": {
+						"0%": {
+							transform: "translate(calc(50vw - 50%), 0)",
 						},
-					}}
-				>
-					<MouseOutlined fontSize={"large"} color="action" />
-				</IconButton>
-			</Tooltip>
+						"50%": {
+							transform: "translate(calc(50vw - 50%), 20px)",
+						},
+						"100%": {
+							transform: "translate(calc(50vw - 50%), 0)",
+						},
+					},
+				}}
+			>
+				<MouseOutlined fontSize={"large"} color="info" />
+			</IconButton>
 			<Box
 				component={"section"}
 				mb={4}

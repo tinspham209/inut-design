@@ -1,14 +1,6 @@
 import { urlFor } from "@/api-client/sanity-client";
 import { Products } from "@/models/products";
-import {
-	Button,
-	Container,
-	Grid,
-	IconButton,
-	Link as MuiLink,
-	Stack,
-	Typography,
-} from "@mui/material";
+import { Button, Container, Grid, Icon, Link as MuiLink, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,7 +16,13 @@ export function ListSpecialProducts({ products }: Props) {
 		<Box component={"section"} bgcolor="secondary.light" pt={2} pb={4} zIndex={999}>
 			<Container>
 				<Stack direction="row" py={3} justifyContent={"center"} alignItems={"center"}>
-					<Typography variant="h3" fontWeight={"bold"} textAlign={"center"} fontFamily={'"Bangers" ,"Roboto", sans-serif'} letterSpacing="10px">
+					<Typography
+						variant="h3"
+						fontWeight={"bold"}
+						textAlign={"center"}
+						fontFamily={'"Bangers" ,"Roboto", sans-serif'}
+						letterSpacing="10px"
+					>
 						Sản phẩm nổi bật
 					</Typography>
 				</Stack>
@@ -47,15 +45,15 @@ export function ListSpecialProducts({ products }: Props) {
 										priority={true}
 										className={styles.productImage}
 									/>
-									<IconButton
+									<Icon
 										sx={{
 											position: "absolute",
-											top: 0,
-											right: 0,
+											top: 8,
+											right: 8,
 										}}
 									>
 										<HiDuplicate color="#fff" />
-									</IconButton>
+									</Icon>
 								</MuiLink>
 							</Link>
 						</Grid>

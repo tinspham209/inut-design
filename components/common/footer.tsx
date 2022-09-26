@@ -16,7 +16,7 @@ const socialLinks = [
 
 export function Footer() {
 	return (
-		<Box component={"footer"} py={2} textAlign="center">
+		<Box component={"footer"} py={2} textAlign="center" bgcolor={"white"} zIndex={100}>
 			<Stack direction="row" justifyContent={"center"}>
 				{socialLinks.map((link) => (
 					<MuiLink
@@ -49,12 +49,7 @@ export function Footer() {
 			<Typography sx={{ mt: 1 }}>Giờ làm việc: 09:00 - 20:00 (từ T3 đến CN)</Typography>
 
 			<Typography sx={{ mt: 1 }}>INUT Design - {new Date().getFullYear()} </Typography>
-			<MuiLink
-				href="https://tinspham.dev"
-				target="_blank"
-				rel="noopener noreferrer"
-				sx={{ mt: 1 }}
-			>
+			<MuiLink href="https://tinspham.dev" target="_blank" rel="noopener noreferrer" sx={{ mt: 1 }}>
 				<Typography>Design by: Tins</Typography>
 			</MuiLink>
 		</Box>

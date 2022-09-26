@@ -51,7 +51,7 @@ export function InfoSection() {
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									<Button variant="contained" color="primary">
+									<Button variant="outlined" color="primary">
 										Quan tâm
 									</Button>
 								</MuiLink>
