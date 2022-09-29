@@ -57,7 +57,7 @@ export function Footer() {
 
 			<Typography sx={{ mt: 1 }}>INUT Design - {new Date().getFullYear()} </Typography>
 			<MuiLink href="https://tinspham.dev" target="_blank" rel="noopener noreferrer" sx={{ mt: 1 }}>
-				<Typography>Design by: Tins</Typography>
+				<Typography>Design by: www.tinspham.dev</Typography>
 			</MuiLink>
 		</Box>
 	);
