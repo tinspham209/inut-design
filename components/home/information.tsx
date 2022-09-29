@@ -10,7 +10,7 @@ export const INFO_ID_ELEMENT = "information";
 export function InfoSection() {
 	return (
 		<Element name={INFO_ID_ELEMENT}>
-			<Box component={"section"} pb={{ xs: 4 }} zIndex={999} bgcolor="white" id={INFO_ID_ELEMENT}>
+			<Box component={"section"} pt={2} pb={4} zIndex={999} bgcolor="white" id={INFO_ID_ELEMENT}>
 				<Container>
 					<Stack
 						justifyContent={"center"}
@@ -94,7 +94,7 @@ export function InfoSection() {
 								<b>
 									<CountUp end={398} duration={3} />
 								</b>{" "}
-								đang theo dõi
+								người đang theo dõi
 							</Typography>
 						</Box>
 					</Stack>

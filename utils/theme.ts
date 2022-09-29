@@ -8,10 +8,11 @@ export let theme = createTheme({
 	},
 	palette: {
 		primary: {
-			main: "#FF6464",
+			main: "#9e2121",
 		},
 		secondary: {
 			main: "#00A8CC",
+			dark: "#0e1e1d",
 			light: "#EDF7FA",
 		},
 		error: {
@@ -45,7 +46,7 @@ export let theme = createTheme({
 				root: {
 					color: "black",
 					"&:hover, &.active": {
-						color: "#FF6464",
+						color: "#9e2121",
 					},
 				},
 			},

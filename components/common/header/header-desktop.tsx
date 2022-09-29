@@ -11,7 +11,8 @@ export function HeaderDesktop() {
 	return (
 		<Box
 			component={"header"}
-			py={2}
+			pt={2}
+			pb={1}
 			display={{
 				xs: "none",
 				md: "block",
@@ -23,22 +24,29 @@ export function HeaderDesktop() {
 				backgroundColor: "white",
 				zIndex: 99,
 				borderBottom: "1px solid rgb(245, 245, 245)",
-				backdropFilter: 'blur(20px)',
-				boxShadow: '0px 2px 8px #f0f1f2'
+				backdropFilter: "blur(20px)",
+				boxShadow: "0px 2px 8px #f0f1f2",
 			}}
 		>
 			<Container>
 				<Stack direction="row" justifyContent={"space-between"}>
 					<Link href={"/"} passHref>
 						<MuiLink sx={{ fontWeight: "bold" }} underline="hover" className="">
-							<Typography variant="h5">INUT Design</Typography>
+							<Typography variant="h4" fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}>
+								INUT Design
+							</Typography>
 						</MuiLink>
 					</Link>
 					<Box>
 						{ROUTE_LIST.map((route) => (
 							<Link key={route.path} href={route.path} passHref>
 								<MuiLink
-									sx={{ ml: 2, fontWeight: "medium" }}
+									sx={{
+										ml: 2,
+										fontWeight: "medium",
+										fontSize: 24,
+										fontFamily: '"Zawtturee", "Bangers" ,"Roboto", sans-serif',
+									}}
 									underline="hover"
 									className={clsx({ active: router.pathname === route.path })}
 								>

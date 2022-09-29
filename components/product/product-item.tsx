@@ -29,13 +29,16 @@ export function ProductItem({ product, productTypes }: ProductItemProps) {
 							className={styles.productImage}
 						/>
 					</Box>
-					<Typography variant="body1" fontWeight="bold" mt={2}>
+					<Typography
+						variant="h5"
+						fontWeight="bold"
+						mt={2}
+						fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}
+					>
 						{product.name}
 					</Typography>
 					<Box mt={1}>
-
 						<Chip label={productType.name} variant="outlined" color="primary" size="small" />
-
 					</Box>
 					<Stack direction="row" justifyContent={"flex-end"}>
 						<Button variant="text" color="primary">

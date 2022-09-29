@@ -25,7 +25,7 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import styles from "./productItem.module.css";
-import Router from 'next/router'
+import Router from "next/router";
 type Props = {
 	product: Product;
 	products: Products;
@@ -74,9 +74,14 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 						<Typography color="text.primary">{product.name}</Typography>
 					</Breadcrumbs>
 
-					<Button variant="outlined" color="primary" sx={{ mr: 2 }} onClick={() => {
-						Router.back()
-					}}>
+					<Button
+						variant="outlined"
+						color="primary"
+						sx={{ mr: 2 }}
+						onClick={() => {
+							Router.back();
+						}}
+					>
 						Trở về
 					</Button>
 					<Grid
@@ -138,10 +143,15 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 							</Carousel>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<Typography variant="h3" fontWeight="bold" mt={{
-								xs: 10,
-								md: 2
-							}}>
+							<Typography
+								variant="h1"
+								fontWeight="bold"
+								fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}
+								mt={{
+									xs: 10,
+									md: 2,
+								}}
+							>
 								{product.name}
 							</Typography>
 							<Stack
@@ -191,9 +201,16 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 				</Container>
 			</Box>
 
-			<Box component={"section"} bgcolor="secondary.light" pt={2} mt={2}>
+			<Box component={"section"} bgcolor="secondary.dark" pt={2} mt={2}>
 				<Container>
-					<Typography variant="h2" mt={2} fontWeight="bold" textAlign="center">
+					<Typography
+						variant="h2"
+						mt={2}
+						fontWeight="bold"
+						color="white"
+						textAlign="center"
+						fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}
+					>
 						Có thể bạn sẽ thích
 					</Typography>
 					<div className="">
@@ -209,7 +226,14 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 												alt="product-image"
 												className={styles.productImage}
 											/>
-											<Typography variant="body1" mt={2} fontWeight="bold" textAlign="center">
+											<Typography
+												variant="h4"
+												mt={2}
+												fontWeight="bold"
+												textAlign="center"
+												color="white"
+												fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}
+											>
 												{product.name}
 											</Typography>
 										</MuiLink>
@@ -226,12 +250,15 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 
 export const getStaticPaths = async () => {
 	const products = await productsApi.getAllSlugs();
+	console.log("products: ", products);
 
-	const paths = products.map((product) => ({
-		params: {
-			slug: product.slug.current,
-		},
-	}));
+	const paths = products
+		.filter((product) => product.slug !== null)
+		.map((product) => ({
+			params: {
+				slug: product.slug.current,
+			},
+		}));
 	return {
 		paths,
 		fallback: "blocking",
@@ -249,7 +276,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params: { slug } }
 	return {
 		props: {
 			product,
-			products,
+			products: products.filter((product) => !product._id.includes("drafts")),
 			votes: randomRange(1, 15),
 		},
 		revalidate: 86400,

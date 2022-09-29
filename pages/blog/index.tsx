@@ -38,8 +38,13 @@ const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
 						<Typography color="text.primary">Blog</Typography>
 					</Breadcrumbs>
 					<Box mt={3}>
-						<Typography variant="h2" fontWeight="bold" textAlign="center">
-							Blog (<CountUp end={posts.length} duration={2} />)
+						<Typography
+							variant="h1"
+							fontWeight="bold"
+							textAlign="center"
+							fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}
+						>
+							Blog (<CountUp end={posts.length} duration={1} />)
 						</Typography>
 					</Box>
 					<Box component="ul" sx={{ listStyleType: "none", p: 0, mt: 3 }}>
