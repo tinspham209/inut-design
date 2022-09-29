@@ -7,7 +7,8 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"export": "next export"
+		"export": "next export",
+		"postbuild": "next-sitemap --config next-sitemap.config.js"
 	},
 	"dependencies": {
 		"@emotion/cache": "^11.10.1",
@@ -27,6 +28,7 @@
 		"http-proxy": "^1.18.1",
 		"next": "12.2.3",
 		"next-sanity-image": "^4.1.0",
+		"next-sitemap": "^3.1.23",
 		"react": "18.2.0",
 		"react-awesome-lightbox": "^1.8.1",
 		"react-countup": "^6.3.1",
