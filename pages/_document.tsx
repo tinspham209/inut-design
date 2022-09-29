@@ -64,7 +64,7 @@ export default class MyDocument extends Document {
 					{/* Google Tag Manager */}
 					<Script
 						strategy="afterInteractive"
-						id="schema"
+						id="google-tag-manager"
 						dangerouslySetInnerHTML={{
 							__html: `{
 							(function (w, d, s, l, i) {
