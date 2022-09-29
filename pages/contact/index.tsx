@@ -1,6 +1,10 @@
+import { bannerApi } from "@/api-client/banner";
+import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
+import { HeroSection } from "@/components/home";
 import styles from "@/components/home/information.module.css";
 import { MainLayout } from "@/components/layout";
+import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import {
 	ArrowForwardIos,
@@ -19,10 +23,11 @@ import {
 	Stack,
 	Typography,
 } from "@mui/material";
+import { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-const ContactContainer: NextPageWithLayout = () => {
+const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 	return (
 		<>
 			<Seo
@@ -34,7 +39,9 @@ const ContactContainer: NextPageWithLayout = () => {
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
 				}}
 			/>
-			<Box component={"section"} pt={2} pb={{ xs: 4 }}>
+
+			<Box component={"section"} pt={2} pb={4}>
+				<HeroSection imgUrl={urlFor(banner.image).url()} />
 				<Container>
 					<Breadcrumbs>
 						<Link href={"/"} passHref>
@@ -85,16 +92,49 @@ const ContactContainer: NextPageWithLayout = () => {
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									<Typography variant="body1" sx={{ mt: 1 }}>
+									<Typography
+										variant="body1"
+										sx={{
+											mt: 1,
+											"&:hover": {
+												color: "primary.main",
+											},
+										}}
+									>
 										Địa chỉ: K294/43 Điện Biên Phủ, Đà Nẵng, Việt Nam
 									</Typography>
 								</MuiLink>
+								<Typography
+									variant="body1"
+									sx={{
+										mt: 1,
+									}}
+								>
+									Anh em thắc mắc là đến cuối kiệt 294 không biết tiệm mình ở đâu đúng không. Thì là
+									ở đây nhá... cắt tóc, cà phê, đồ bành có đủ 😎
+									<br />
+									P/s: tiệm mình là phòng kính phía bên tay trái nhoa.
+								</Typography>
+
 								<MuiLink href="tel:0792359996" target="_blank" rel="noopener noreferrer">
-									<Typography variant="body1" sx={{ mt: 1 }}>
+									<Typography
+										variant="body1"
+										sx={{
+											mt: 1,
+											"&:hover": {
+												color: "primary.main",
+											},
+										}}
+									>
 										Số điện thoại: 079 235 9996
 									</Typography>
 								</MuiLink>
-								<Typography variant="body1" sx={{ mt: 1 }}>
+								<Typography
+									variant="body1"
+									sx={{
+										mt: 1,
+									}}
+								>
 									Giờ làm việc: 09:00 - 20:00 (từ T3 đến CN)
 								</Typography>
 							</Box>
@@ -205,5 +245,19 @@ const listContacts = [
 ];
 
 ContactContainer.Layout = MainLayout;
+type Props = {
+	banner: Banner;
+};
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+	const banner: Banner = await bannerApi.getBannerPage("contact-page");
+
+	return {
+		props: {
+			banner: banner ? banner[0] : [],
+		},
+		revalidate: 86400,
+	};
+};
 
 export default ContactContainer;

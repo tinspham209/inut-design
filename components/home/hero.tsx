@@ -10,7 +10,12 @@ type Props = {
 export function HeroSection({ imgUrl }: Props) {
 	return (
 		<Box component={"section"} pb={{ xs: 4 }}>
-			<Container>
+			<Container sx={{
+				"& img": {
+					borderRadius: '16px',
+					objectFit: 'cover'
+				}
+			}}>
 				<Image
 					src={imgUrl}
 					width="100%"

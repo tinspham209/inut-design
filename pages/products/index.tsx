@@ -207,7 +207,7 @@ type Props = {
 export const getStaticProps: GetStaticProps<Props> = async () => {
 	const products: Products = await productsApi.getAllProducts();
 	const productTypes: ProductType[] = await productTypeApi.getAll();
-	const banner: Banner[] = await bannerApi.getBannerProductsPage();
+	const banner: Banner[] = await bannerApi.getBannerPage("products-page");
 
 	const formatProducts = products
 		.filter((product) => !product._id.includes("drafts"))

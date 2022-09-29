@@ -75,14 +75,14 @@ type Props = {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
 	const data = await getPostList();
-	const banner: Banner = await bannerApi.getBannerProductsPage();
+	const banner: Banner = await bannerApi.getBannerPage("blogs-page");
 
 	return {
 		props: {
 			posts: data,
 			banner: banner ? banner[0] : [],
 		},
-		revalidate: 120,
+		revalidate: 86400,
 	};
 };
 
