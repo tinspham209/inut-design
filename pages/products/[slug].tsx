@@ -41,7 +41,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 				data={{
 					title: `${product.name} - Sản phẩm - INUT Design`,
 					description: "Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop",
-					url: `https://inut-design.vercel.app/products/${product.slug.current}`,
+					url: `https://inutdesign.com/products/${product.slug.current}`,
 					thumbnailUrl: urlFor(product.image[0]).width(1000).url(),
 				}}
 			/>

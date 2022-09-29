@@ -29,7 +29,7 @@ const ContactContainer: NextPageWithLayout = () => {
 				data={{
 					title: "Liên hệ - INUT Design",
 					description: "Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop",
-					url: "https://inut-design.vercel.app/contact",
+					url: "https://inutdesign.com/contact",
 					thumbnailUrl:
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
 				}}

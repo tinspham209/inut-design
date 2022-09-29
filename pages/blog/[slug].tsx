@@ -32,7 +32,7 @@ export default function BlogDetailPage({ post }: BlogPageProps) {
 				data={{
 					title: post.title,
 					description: post.description,
-					url: `https://inut-design.vercel.app/blog/${post.slug}`,
+					url: `https://inutdesign.com/blog/${post.slug}`,
 					thumbnailUrl:
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
 				}}

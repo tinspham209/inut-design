@@ -3,6 +3,7 @@ import * as React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
 import { createEmotionCache, theme } from "@/utils";
+import Script from "next/script";
 
 export default class MyDocument extends Document {
 	render() {
@@ -22,6 +23,20 @@ export default class MyDocument extends Document {
 						href="https://fonts.googleapis.com/css2?family=Bangers&display=swap"
 						rel="stylesheet"
 					/>
+
+					<meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+
+					<Script strategy="afterInteractive" id="schema" dangerouslySetInnerHTML={{
+						__html: `{
+							"@context": "http://schema.org",
+							"@type": "WebSite",
+							"name": "INUT Design - Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop",
+							"url": "https://inutdesign.com",
+							"potentialAction": {
+								"@type": "SearchAction",
+							"target": "https://inutdesign.com/search?q={search_term_string}",
+							"query-input": "required name=search_term_string"
+						}`}}></Script>
 
 					<meta name="emotion-insertion-point" content="" />
 					{(this.props as any).emotionStyleTags}
