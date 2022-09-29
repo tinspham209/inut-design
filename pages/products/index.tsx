@@ -9,6 +9,8 @@ import { ProductCard } from "@/components/product";
 import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { Products, ProductType } from "@/models/products";
+import { COLOR_CODE } from "@/utils";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
 	Accordion,
 	AccordionDetails,
@@ -27,10 +29,9 @@ import {
 } from "@mui/material";
 import { GetStaticProps } from "next";
 import Link from "next/link";
-import CountUp from "react-countup";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import React from "react";
 import { useRouter } from "next/router";
+import React from "react";
+import CountUp from "react-countup";
 const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => {
 	const router = useRouter();
 	const { filter } = router.query;
@@ -57,7 +58,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 	const [currentFilter, setCurrentFilter] = React.useState(filter || "");
 
 	return (
-		<Box component={"section"} bgcolor="secondary.light" pt={4} pb={4}>
+		<Box component={"section"} bgcolor="secondary.dark" pt={4} pb={4}>
 			<Seo
 				data={{
 					title: "Sản phẩm - INUT Design",
@@ -77,7 +78,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 							<MuiLink>Trang chủ</MuiLink>
 						</Link>
 
-						<Typography color="text.primary">Sản phẩm</Typography>
+						<Typography color={COLOR_CODE.WHITE}>Sản phẩm</Typography>
 					</Breadcrumbs>
 					<Box mt={3}>
 						<Typography
@@ -122,6 +123,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 							<Box
 								sx={{
 									width: "100%",
+									borderRadius: 16,
 								}}
 							>
 								<Accordion
@@ -143,10 +145,13 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 										minHeight: {
 											md: "1px",
 										},
+										bgcolor: COLOR_CODE.BACKGROUND_CARD,
+										border: `1px solid ${COLOR_CODE.BORDER}`,
+										borderRadius: "16px !important",
 									}}
 								>
 									<AccordionSummary
-										expandIcon={<ExpandMoreIcon />}
+										expandIcon={<ExpandMoreIcon color="primary" />}
 										aria-controls="panel1a-content"
 										id="panel1a-header"
 									>

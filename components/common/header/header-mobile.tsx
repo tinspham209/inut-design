@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { ROUTE_LIST } from "./routes";
 import MenuIcon from "@mui/icons-material/Menu";
+import { COLOR_CODE } from "@/utils";
 export function HeaderMobile() {
 	const [open, setOpen] = React.useState(false);
 	const router = useRouter();
@@ -40,16 +41,24 @@ export function HeaderMobile() {
 				position: "fixed",
 				top: 0,
 				width: "100%",
-				backgroundColor: "white",
+				backgroundColor: COLOR_CODE.BACKGROUND,
 				zIndex: 99,
 				borderBottom: "1px solid rgb(245, 245, 245)",
 				backdropFilter: "blur(20px)",
-				boxShadow: "0px 2px 8px #f0f1f2",
+				boxShadow: "0px 2px 8px #383232",
 			}}
 		>
 			<Container maxWidth="xs">
 				<Stack direction="row" justifyContent={"flex-start"} alignItems="center">
-					<IconButton onClick={toggleDrawer(true)} onKeyDown={toggleDrawer(true)}>
+					<IconButton
+						onClick={toggleDrawer(true)}
+						onKeyDown={toggleDrawer(true)}
+						sx={{
+							"& svg": {
+								color: COLOR_CODE.WHITE,
+							},
+						}}
+					>
 						<MenuIcon />
 					</IconButton>
 					<Link href={"/"} passHref>
@@ -60,7 +69,14 @@ export function HeaderMobile() {
 						</MuiLink>
 					</Link>
 				</Stack>
-				<Drawer anchor={"left"} open={open} onClose={toggleDrawer(false)}>
+				<Drawer
+					anchor={"left"}
+					sx={{
+						bgcolor: COLOR_CODE.BACKGROUND,
+					}}
+					open={open}
+					onClose={toggleDrawer(false)}
+				>
 					<List
 						sx={{
 							minWidth: "180px",

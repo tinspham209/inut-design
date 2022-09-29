@@ -1,3 +1,4 @@
+import { COLOR_CODE } from "@/utils";
 import { Facebook, Instagram } from "@mui/icons-material";
 import { Icon, Link as MuiLink, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
@@ -16,7 +17,13 @@ const socialLinks = [
 
 export function Footer() {
 	return (
-		<Box component={"footer"} py={2} textAlign="center" bgcolor={"white"} zIndex={100}>
+		<Box
+			component={"footer"}
+			py={2}
+			textAlign="center"
+			bgcolor={COLOR_CODE.BACKGROUND}
+			zIndex={100}
+		>
 			<Stack direction="row" justifyContent={"center"}>
 				{socialLinks.map((link) => (
 					<MuiLink
@@ -43,7 +50,7 @@ export function Footer() {
 			>
 				<Typography>Địa chỉ: K294/43 Điện Biên Phủ, Đà Nẵng, Việt Nam</Typography>
 			</MuiLink>
-			<MuiLink href="tel:+792359996" target="_blank" rel="noopener noreferrer">
+			<MuiLink href="tel:+84792359996" target="_blank" rel="noopener noreferrer">
 				<Typography sx={{ mt: 1 }}>Số điện thoại: 079 235 9996 (bé Hồ Nút)</Typography>
 			</MuiLink>
 			<Typography sx={{ mt: 1 }}>Giờ làm việc: 09:00 - 20:00 (từ T3 đến CN)</Typography>

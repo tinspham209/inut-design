@@ -1,5 +1,6 @@
 import { urlFor } from "@/api-client/sanity-client";
 import { Products } from "@/models/products";
+import { COLOR_CODE } from "@/utils";
 import { Button, Container, Grid, Icon, Link as MuiLink, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Image from "next/image";
@@ -13,7 +14,7 @@ type Props = {
 
 export function ListSpecialProducts({ products }: Props) {
 	return (
-		<Box component={"section"} bgcolor="secondary.dark" pt={2} pb={4} zIndex={999}>
+		<Box component={"section"} bgcolor={COLOR_CODE.BACKGROUND_CARD} pt={2} pb={4} zIndex={999}>
 			<Container>
 				<Stack direction="row" py={3} justifyContent={"center"} alignItems={"center"}>
 					<Typography

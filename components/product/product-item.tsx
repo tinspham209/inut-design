@@ -17,7 +17,7 @@ export function ProductItem({ product, productTypes }: ProductItemProps) {
 	return (
 		<Link href={`/products/${product.slug.current}`} passHref>
 			<MuiLink>
-				<Box>
+				<Box bgcolor="#1c1f26">
 					<Box>
 						<Image
 							src={urlFor(product.image[0]).width(500).url()}

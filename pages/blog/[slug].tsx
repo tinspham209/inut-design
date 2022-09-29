@@ -2,7 +2,7 @@ import { PostItem } from "@/components/blog";
 import { Seo } from "@/components/common";
 import { MainLayout } from "@/components/layout";
 import { Post } from "@/models";
-import { getPostList } from "@/utils";
+import { COLOR_CODE, getPostList } from "@/utils";
 import { Box, Breadcrumbs, Container, Divider, Link as MuiLink, Typography } from "@mui/material";
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 import Link from "next/link";
@@ -50,7 +50,7 @@ export default function BlogDetailPage({ post }: BlogPageProps) {
 					<Link href={"/blog"} passHref>
 						<MuiLink>Blog</MuiLink>
 					</Link>
-					<Typography color="text.primary">{post.title}</Typography>
+					<Typography color={COLOR_CODE.WHITE}>{post.title}</Typography>
 				</Breadcrumbs>
 				<PostItem
 					post={{

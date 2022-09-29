@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { COLOR_CODE } from "@/utils";
 import { MouseOutlined } from "@mui/icons-material";
 import { IconButton, Stack, Typography, useMediaQuery } from "@mui/material";
 import { Box } from "@mui/system";
@@ -74,7 +75,7 @@ export function HeroSection2() {
 					},
 				}}
 			>
-				<MouseOutlined fontSize={"large"} color="info" />
+				<MouseOutlined fontSize={"large"} color="primary" />
 			</IconButton>
 			<Box
 				component={"section"}
@@ -129,7 +130,7 @@ export function HeroSection2() {
 									left: "-100vh",
 									height: "300vh",
 									width: "300vh",
-									bgcolor: "#fff",
+									bgcolor: COLOR_CODE.BACKGROUND,
 									top: "calc(100% - 10px)",
 									zIndex: -100,
 								},
@@ -139,7 +140,7 @@ export function HeroSection2() {
 									left: "-100vh",
 									height: "300vh",
 									width: "300vh",
-									bgcolor: "#fff",
+									bgcolor: COLOR_CODE.BACKGROUND,
 									bottom: "calc(100% - 5px)",
 									zIndex: -100,
 								},
@@ -164,7 +165,7 @@ export function HeroSection2() {
 										top: "-100vh",
 										height: "300vh",
 										width: "100vh",
-										bgcolor: "#fff",
+										bgcolor: COLOR_CODE.BACKGROUND,
 										left: "calc(100% - 5px)",
 										zIndex: -100,
 									},
@@ -174,14 +175,14 @@ export function HeroSection2() {
 										top: "-100vh",
 										height: "300vh",
 										width: "100vh",
-										bgcolor: "#fff",
+										bgcolor: COLOR_CODE.BACKGROUND,
 										right: "calc(100% - 5px)",
 										zIndex: -100,
 									},
 								}}
 							>
 								<Image
-									src={"/hero22.webp"}
+									src={"/hehehehe.png"}
 									alt="avatar"
 									width={"100%"}
 									height={"40%"}
@@ -192,9 +193,10 @@ export function HeroSection2() {
 									variant="h2"
 									fontWeight={"bold"}
 									textAlign={"center"}
+									color={COLOR_CODE.WHITE}
 									fontFamily={'"Bangers" ,"Roboto", sans-serif'}
 									sx={{
-										bgcolor: "white",
+										bgcolor: COLOR_CODE.BACKGROUND,
 										pt: 6,
 										transform: "translateY(-8px)",
 									}}

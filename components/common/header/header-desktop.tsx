@@ -1,3 +1,4 @@
+import { COLOR_CODE } from "@/utils";
 import { Container, Link as MuiLink, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import clsx from "clsx";
@@ -21,11 +22,11 @@ export function HeaderDesktop() {
 				position: "fixed",
 				top: 0,
 				width: "100%",
-				backgroundColor: "white",
+				backgroundColor: COLOR_CODE.BACKGROUND,
 				zIndex: 99,
-				borderBottom: "1px solid rgb(245, 245, 245)",
+				borderBottom: `1px solid ${COLOR_CODE.BORDER}`,
 				backdropFilter: "blur(20px)",
-				boxShadow: "0px 2px 8px #f0f1f2",
+				boxShadow: "0px 2px 8px #383232",
 			}}
 		>
 			<Container>

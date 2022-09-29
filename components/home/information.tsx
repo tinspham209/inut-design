@@ -10,7 +10,14 @@ export const INFO_ID_ELEMENT = "information";
 export function InfoSection() {
 	return (
 		<Element name={INFO_ID_ELEMENT}>
-			<Box component={"section"} pt={2} pb={4} zIndex={999} bgcolor="white" id={INFO_ID_ELEMENT}>
+			<Box
+				component={"section"}
+				pt={2}
+				pb={4}
+				zIndex={999}
+				bgcolor="secondary.dark"
+				id={INFO_ID_ELEMENT}
+			>
 				<Container>
 					<Stack
 						justifyContent={"center"}

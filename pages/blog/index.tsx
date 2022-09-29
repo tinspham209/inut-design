@@ -15,7 +15,7 @@ import CountUp from "react-countup";
 
 const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
 	return (
-		<Box component={"section"} bgcolor="secondary.light" pt={4} pb={4}>
+		<Box component={"section"} bgcolor="secondary.dark" pt={4} pb={4}>
 			<Seo
 				data={{
 					title: "Blog - INUT Design",

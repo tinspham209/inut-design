@@ -1,38 +1,37 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 import { red } from "@mui/material/colors";
 
+export const COLOR_CODE = {
+	PRIMARY: "#f53844",
+	WHITE: "rgba(255, 255, 255, 0.92)",
+	BACKGROUND: "#0e1217",
+	BACKGROUND_CARD: "#1c1f26",
+	BORDER: "#4e4e4e",
+};
+
 // Create a theme instance.
 export let theme = createTheme({
 	typography: {
 		fontFamily: '"Roboto", sans-serif',
 	},
 	palette: {
+		mode: "dark",
 		primary: {
-			main: "#9e2121",
+			main: COLOR_CODE.PRIMARY,
 		},
 		secondary: {
 			main: "#00A8CC",
-			dark: "#0e1e1d",
+			dark: COLOR_CODE.BACKGROUND,
 			light: "#EDF7FA",
 		},
 		error: {
 			main: red.A400,
 		},
 		text: {
-			primary: "#21243D",
+			primary: COLOR_CODE.WHITE,
 		},
 	},
 	components: {
-		MuiTypography: {
-			variants: [
-				{
-					props: { variant: "button" },
-					style: {
-						fontFamily: '"Bangers" ,"Roboto", sans-serif',
-					},
-				},
-			],
-		},
 		MuiContainer: {
 			defaultProps: {
 				maxWidth: "lg",
@@ -44,9 +43,10 @@ export let theme = createTheme({
 			},
 			styleOverrides: {
 				root: {
-					color: "black",
+					color: COLOR_CODE.WHITE,
+
 					"&:hover, &.active": {
-						color: "#9e2121",
+						color: COLOR_CODE.PRIMARY,
 					},
 				},
 			},
@@ -73,6 +73,15 @@ export let theme = createTheme({
 					},
 				},
 			],
+		},
+		MuiDrawer: {
+			defaultProps: {
+				PaperProps: {
+					style: {
+						backgroundColor: COLOR_CODE.BACKGROUND,
+					},
+				},
+			},
 		},
 	},
 });
