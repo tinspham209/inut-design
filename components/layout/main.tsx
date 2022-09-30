@@ -1,8 +1,8 @@
 import { LayoutProps } from "@/models";
 import { Stack } from "@mui/material";
 import { Box } from "@mui/system";
-import { Footer, Header } from "../common";
 import { motion } from "framer-motion";
+import { Footer, Header } from "../common";
 
 const variants = {
 	hidden: { opacity: 0, x: 0, y: 20 },

@@ -30,8 +30,8 @@ export function ListSpecialProducts({ products }: Props) {
 				</Stack>
 
 				<Grid container spacing={2}>
-					{products.map((product) => (
-						<Grid item xs={6} sm={4} key={product._id}>
+					{products.map((product, index) => (
+						<Grid item xs={6} sm={4} key={`${product._id}-${index}`}>
 							<Link href={`/products/${product.slug.current}`} passHref>
 								<MuiLink
 									sx={{

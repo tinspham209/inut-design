@@ -181,13 +181,16 @@ export function HeroSection2() {
 									},
 								}}
 							>
-								<Image
-									src={"/hehehehe.png"}
-									alt="avatar"
-									width={"100%"}
-									height={"40%"}
-									layout="responsive"
-								/>
+								<Box>
+									<Image
+										src={"/hehehehe.png"}
+										alt="avatar"
+										width={"100%"}
+										height={"40%"}
+										layout="responsive"
+										priority={true}
+									/>
+								</Box>
 
 								<Typography
 									variant="h2"

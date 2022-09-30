@@ -39,8 +39,8 @@ export function HeaderDesktop() {
 						</MuiLink>
 					</Link>
 					<Box>
-						{ROUTE_LIST.map((route) => (
-							<Link key={route.path} href={route.path} passHref>
+						{ROUTE_LIST.map((route, index) => (
+							<Link key={`${route.path}-${index}`} href={route.path} passHref>
 								<MuiLink
 									sx={{
 										ml: 2,

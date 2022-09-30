@@ -27,15 +27,15 @@ function MyApp({
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 
-				<SWRConfig value={{ fetcher: (url) => axiosClient.get(url), shouldRetryOnError: false }}>
-					<Layout>
-						<AnimatePresence exitBeforeEnter initial={true}>
+				<AnimatePresence mode="wait" initial={true}>
+					<SWRConfig value={{ fetcher: (url) => axiosClient.get(url), shouldRetryOnError: false }}>
+						<Layout>
 							<Component {...pageProps} />
 							<ScrollToBottom />
 							<Toaster />
-						</AnimatePresence>
-					</Layout>
-				</SWRConfig>
+						</Layout>
+					</SWRConfig>
+				</AnimatePresence>
 			</ThemeProvider>
 		</CacheProvider>
 	);
