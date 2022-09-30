@@ -27,13 +27,13 @@ const ScrollToBottom: React.FC = () => {
 		});
 	}, []);
 	return (
-		<Tooltip title={`Scroll to ${showScrollToTopBtn ? "top" : "bottom"}`}>
+		<Tooltip title={`Scroll to ${showScrollToTopBtn ? "top" : "bottom"}`} arrow>
 			<Fab
 				color="primary"
 				sx={{
 					position: "fixed",
 					zIndex: 9999,
-					bottom: 84,
+					bottom: 24,
 					right: 8,
 				}}
 				onClick={() => {
