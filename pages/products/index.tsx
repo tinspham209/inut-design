@@ -27,7 +27,7 @@ import {
 	Stack,
 	Typography,
 } from "@mui/material";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -63,7 +63,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 				data={{
 					title: "Sản phẩm - INUT Design",
 					description: "Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop",
-					url: "https://inutdesign.com",
+					url: "https://inutdesign.com/products",
 					thumbnailUrl:
 						(banner && urlFor(banner[0].image).url()) ||
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
@@ -204,7 +204,7 @@ type Props = {
 	banner: Banner[];
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
 	const products: Products = await productsApi.getAllProducts();
 	const productTypes: ProductType[] = await productTypeApi.getAll();
 	const banner: Banner[] = await bannerApi.getBannerPage("products-page");

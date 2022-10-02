@@ -23,7 +23,7 @@ import {
 	Stack,
 	Typography,
 } from "@mui/material";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -249,7 +249,7 @@ type Props = {
 	banner: Banner;
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
 	const banner: Banner = await bannerApi.getBannerPage("contact-page");
 
 	return {

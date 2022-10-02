@@ -6,7 +6,7 @@ import { MainLayout } from "@/components/layout";
 import { NextPageWithLayout } from "@/models/common";
 import { Products } from "@/models/products";
 import { Box } from "@mui/material";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import React from "react";
 
 const Home: NextPageWithLayout = ({ products }: Props) => {
@@ -35,7 +35,7 @@ type Props = {
 	totalProducts?: number;
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
 	const products: Products = await productsApi.getAllProducts();
 
 	const specialProducts = products.filter((product) => product.special);
