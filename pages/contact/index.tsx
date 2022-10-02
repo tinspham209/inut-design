@@ -256,7 +256,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 		props: {
 			banner: banner ? banner[0] : [],
 		},
-		revalidate: 86400,
 	};
 };
 

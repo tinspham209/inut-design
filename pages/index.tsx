@@ -44,7 +44,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 		props: {
 			products: specialProducts,
 		},
-		revalidate: 86400,
 	};
 };
 

@@ -226,7 +226,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 			productTypes,
 			banner,
 		},
-		revalidate: 120,
 	};
 };
 
