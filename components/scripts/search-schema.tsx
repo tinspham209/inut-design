@@ -2,7 +2,7 @@ export const jsonSearchSchema = `
 {
   "@context": "http://schema.org/",
   "@type": "Product",
-  "name": "INUT Design - Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop",
+  "name": "INUT Design - Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop, INUT Design, Inut skin, inutdesign, inutskin, skin laptop",
   "description": "INUT Design - Cửa Hàng Thời Trang Dành Cho Laptop Tại Đà Nẵng",
   "url": "https://inutdesign.com",
   "image": [

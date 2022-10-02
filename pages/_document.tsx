@@ -21,6 +21,10 @@ export default class MyDocument extends Document {
 					<meta name="theme-color" content={theme.palette.primary.main} />
 					<link rel="icon" href="/static/favicon.ico" />
 					<link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" />
+					<meta
+						content="INUT Design, Inut skin, inutdesign, inutskin, skin laptop"
+						name="keywords"
+					/>
 
 					<link
 						rel="stylesheet"
@@ -32,7 +36,6 @@ export default class MyDocument extends Document {
 					/>
 
 					<meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-
 					{/* <SearchSchema /> */}
 					<Script strategy="afterInteractive" id="schema" type="application/ld+json">
 						{`${jsonSearchSchema}`}
