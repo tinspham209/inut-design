@@ -29,7 +29,6 @@
 		"next": "12.3.1",
 		"next-sanity-image": "^4.1.0",
 		"next-sitemap": "^3.1.23",
-		"outstatic": "^0.0.27-rc",
 		"react": "18.2.0",
 		"react-awesome-lightbox": "^1.8.1",
 		"react-countup": "^6.3.1",
