@@ -8,6 +8,10 @@ export const ROUTE_LIST = [
 		path: "/products",
 	},
 	{
+		label: "MacNut",
+		path: "/macnut",
+	},
+	{
 		label: "Blog",
 		path: "/blog",
 	},

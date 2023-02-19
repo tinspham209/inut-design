@@ -8,14 +8,15 @@ import styles from "./product-item.module.css";
 export interface ProductItemProps {
 	product: Product;
 	productTypes: ProductType[];
+	isMacnut?: boolean;
 }
 
-export function ProductItem({ product, productTypes }: ProductItemProps) {
+export function ProductItem({ product, productTypes, isMacnut = false }: ProductItemProps) {
 	if (!product) return null;
 
 	const productType = productTypes.find((type) => type._id === product.productType._ref);
 	return (
-		<Link href={`/products/${product.slug.current}`} passHref>
+		<Link href={`/${isMacnut ? "macnut" : "products"}/${product.slug.current}`} passHref>
 			<MuiLink>
 				<Box bgcolor="#1c1f26">
 					<Box>

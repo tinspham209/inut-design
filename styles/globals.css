@@ -59,6 +59,11 @@ p {
 	animation: marquee 60s linear infinite;
 	width: 1500%;
 }
+
+.track.macnut{
+	width: 600%;
+
+}
 .track:hover {
 	animation-play-state: paused;
 }

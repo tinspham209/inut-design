@@ -10,11 +10,18 @@ import { HiDuplicate } from "react-icons/hi";
 import styles from "../product/product-item.module.css";
 type Props = {
 	products: Products;
+	isMacnut?: boolean;
 };
 
-export function ListSpecialProducts({ products }: Props) {
+export function ListSpecialProducts({ products, isMacnut = false }: Props) {
 	return (
-		<Box component={"section"} bgcolor={COLOR_CODE.BACKGROUND_CARD} pt={2} pb={4} zIndex={999}>
+		<Box
+			component={"section"}
+			bgcolor={isMacnut ? COLOR_CODE.BACKGROUND : COLOR_CODE.BACKGROUND_CARD}
+			pt={2}
+			pb={4}
+			zIndex={999}
+		>
 			<Container>
 				<Stack direction="row" py={3} justifyContent={"center"} alignItems={"center"}>
 					<Typography
@@ -25,14 +32,14 @@ export function ListSpecialProducts({ products }: Props) {
 						fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}
 						letterSpacing="10px"
 					>
-						Sản phẩm nổi bật
+						{isMacnut ? "MACNUT" : "Sản phẩm nổi bật"}
 					</Typography>
 				</Stack>
 
 				<Grid container spacing={2}>
 					{products.map((product, index) => (
 						<Grid item xs={6} sm={4} key={`${product._id}-${index}`}>
-							<Link href={`/products/${product.slug.current}`} passHref>
+							<Link href={`/${isMacnut ? "macnut" : "products"}/${product.slug.current}`} passHref>
 								<MuiLink
 									sx={{
 										position: "relative",
@@ -62,7 +69,7 @@ export function ListSpecialProducts({ products }: Props) {
 					))}
 
 					<Grid item xs={12} container justifyContent={"center"}>
-						<Link href={"/products"} passHref>
+						<Link href={`/${isMacnut ? "macnut" : "products"}`} passHref>
 							<MuiLink>
 								<Button variant="contained">Xem thêm sản phẩm</Button>
 							</MuiLink>

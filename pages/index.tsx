@@ -9,7 +9,7 @@ import { Box } from "@mui/material";
 import { GetServerSideProps } from "next";
 import React from "react";
 
-const Home: NextPageWithLayout = ({ products }: Props) => {
+const Home: NextPageWithLayout = ({ products, macnuts }: Props) => {
 	return (
 		<Box>
 			<Seo
@@ -24,6 +24,7 @@ const Home: NextPageWithLayout = ({ products }: Props) => {
 			<HeroSection2 />
 			<InfoSection />
 			<ListSpecialProducts products={products} />
+			<ListSpecialProducts products={macnuts} isMacnut />
 		</Box>
 	);
 };
@@ -32,17 +33,21 @@ Home.Layout = MainLayout;
 
 type Props = {
 	products: Products;
+	macnuts: Products;
 	totalProducts?: number;
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
 	const products: Products = await productsApi.getAllProducts();
+	const macnuts: Products = await productsApi.getAllProductsMacnut();
 
 	const specialProducts = products.filter((product) => product.special);
+	const specialMacnuts = macnuts.filter((product) => product.special);
 
 	return {
 		props: {
-			products: specialProducts,
+			products: [...specialProducts],
+			macnuts: [...specialMacnuts],
 		},
 	};
 };

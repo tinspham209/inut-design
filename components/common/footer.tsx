@@ -21,7 +21,7 @@ export function Footer() {
 			component={"footer"}
 			py={2}
 			textAlign="center"
-			bgcolor={COLOR_CODE.BACKGROUND}
+			bgcolor={COLOR_CODE.BACKGROUND_CARD}
 			zIndex={100}
 		>
 			<Stack direction="row" justifyContent={"center"}>

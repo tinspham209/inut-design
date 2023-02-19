@@ -6,9 +6,10 @@ import { ProductItem } from ".";
 export interface ProductCardProps {
 	product: Product;
 	productTypes: ProductType[];
+	isMacnut?: boolean;
 }
 
-export function ProductCard({ product, productTypes }: ProductCardProps) {
+export function ProductCard({ product, productTypes, isMacnut = false }: ProductCardProps) {
 	if (!product) return null;
 	return (
 		<Card
@@ -24,7 +25,7 @@ export function ProductCard({ product, productTypes }: ProductCardProps) {
 			id={product.slug.current}
 		>
 			<CardContent sx={{ pb: "8px !important", bgcolor: COLOR_CODE.BACKGROUND_CARD }}>
-				<ProductItem product={product} productTypes={productTypes} />
+				<ProductItem product={product} productTypes={productTypes} isMacnut={isMacnut} />
 			</CardContent>
 		</Card>
 	);
