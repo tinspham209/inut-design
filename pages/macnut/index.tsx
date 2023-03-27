@@ -11,8 +11,8 @@ import { NextPageWithLayout } from "@/models/common";
 import { Products, ProductType } from "@/models/products";
 import { COLOR_CODE } from "@/utils";
 import { Box, Breadcrumbs, Container, Grid, Link as MuiLink, Typography } from "@mui/material";
-import { GetServerSideProps } from "next";
 import Link from "next/link";
+import { GetStaticProps } from "next/types";
 import CountUp from "react-countup";
 const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => {
 	return (
@@ -82,7 +82,7 @@ type Props = {
 	banner: Banner[];
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
 	const products: Products = await productsApi.getAllProductsMacnut();
 	const productTypes: ProductType[] = await productTypeApi.getAll();
 	const banner: Banner[] = await bannerApi.getBannerPage("macnut-page");

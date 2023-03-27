@@ -23,9 +23,9 @@ import {
 	Stack,
 	Typography,
 } from "@mui/material";
-import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { GetStaticProps } from "next/types";
 
 const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 	return (
@@ -249,7 +249,7 @@ type Props = {
 	banner: Banner;
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
 	const banner: Banner = await bannerApi.getBannerPage("contact-page");
 
 	return {

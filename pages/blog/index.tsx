@@ -9,8 +9,8 @@ import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { getPostList } from "@/utils";
 import { Box, Breadcrumbs, Container, Divider, Link as MuiLink, Typography } from "@mui/material";
-import { GetServerSideProps } from "next";
 import Link from "next/link";
+import { GetStaticProps } from "next/types";
 import CountUp from "react-countup";
 
 const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
@@ -73,7 +73,7 @@ type Props = {
 	banner: Banner;
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
 	const data = await getPostList();
 	const banner: Banner = await bannerApi.getBannerPage("blogs-page");
 
