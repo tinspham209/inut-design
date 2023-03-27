@@ -27,11 +27,12 @@ import {
 	Stack,
 	Typography,
 } from "@mui/material";
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import CountUp from "react-countup";
+import _ from "lodash";
 const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => {
 	const router = useRouter();
 	const { filter } = router.query;
@@ -65,7 +66,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 					description: "Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop",
 					url: "https://inutdesign.com/products",
 					thumbnailUrl:
-						(banner && urlFor(banner[0].image).url()) ||
+						(banner && !_.isEmpty(banner) && urlFor(banner[0]?.image || "").url()) ||
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
 				}}
 			/>
@@ -204,7 +205,7 @@ type Props = {
 	banner: Banner[];
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
 	const products: Products = await productsApi.getAllProducts();
 	const productTypes: ProductType[] = await productTypeApi.getAll();
 	const banner: Banner[] = await bannerApi.getBannerPage("products-page");
