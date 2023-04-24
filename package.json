@@ -19,6 +19,7 @@
 		"@mui/material": "^5.9.3",
 		"@sanity/client": "^3.4.1",
 		"@sanity/image-url": "^1.0.1",
+		"@vercel/analytics": "^1.0.0",
 		"axios": "^0.27.2",
 		"clsx": "^1.2.1",
 		"cookies": "^0.8.0",
