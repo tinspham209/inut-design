@@ -1,6 +1,6 @@
 import { bannerApi } from "@/api-client/banner";
-import { productsApi } from "@/api-client/products";
 import { productTypeApi } from "@/api-client/productType";
+import { productsApi } from "@/api-client/products";
 import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
 import { HeroSection } from "@/components/home";
@@ -8,7 +8,7 @@ import { MainLayout } from "@/components/layout";
 import { ProductCard } from "@/components/product";
 import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
-import { Products, ProductType } from "@/models/products";
+import { ProductType, Products } from "@/models/products";
 import { COLOR_CODE } from "@/utils";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
@@ -27,12 +27,12 @@ import {
 	Stack,
 	Typography,
 } from "@mui/material";
+import _ from "lodash";
 import { GetStaticProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import CountUp from "react-countup";
-import _ from "lodash";
 const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => {
 	const router = useRouter();
 	const { filter } = router.query;
@@ -63,7 +63,8 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 			<Seo
 				data={{
 					title: "Sản phẩm - INUT Design",
-					description: "Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop",
+					description:
+						"Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop, skin laptop da nang, skin laptop đà nẵng",
 					url: "https://inutdesign.com/products",
 					thumbnailUrl:
 						(banner && !_.isEmpty(banner) && urlFor(banner[0]?.image || "").url()) ||
