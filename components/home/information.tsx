@@ -1,10 +1,9 @@
 import { Button, Container, Link as MuiLink, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import Image from "next/image";
-import * as React from "react";
 import CountUp from "react-countup";
-import styles from "./information.module.css";
 import { Element } from "react-scroll";
+
+import { LaptopCanvas } from "@/components/canvas";
 
 export const INFO_ID_ELEMENT = "information";
 export function InfoSection() {
@@ -33,7 +32,7 @@ export function InfoSection() {
 								md: 12,
 							}}
 						>
-							<Box sx={{ margin: "0 auto" }}>
+							{/* <Box sx={{ margin: "0 auto" }}>
 								<Image
 									src={
 										"https://res.cloudinary.com/dmspucdtf/image/upload/v1663647671/inut/292635797_197003529328579_4330060878795101093_n_bjzhby.jpg"
@@ -45,7 +44,8 @@ export function InfoSection() {
 									priority={true}
 									className={styles.infoImage}
 								/>
-							</Box>
+							</Box> */}
+							<LaptopCanvas />
 						</Stack>
 
 						<Box maxWidth={440}>

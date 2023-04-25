@@ -18,11 +18,13 @@
 	},
 	"plugins": ["react", "@typescript-eslint", "react-hooks", "@typescript-eslint", "prettier"],
 	"rules": {
+		"react/no-unknown-property": ["error", { "ignore": ["jsx", "css"] }],
 		"react/react-in-jsx-scope": "off",
 		"camelcase": "warn",
 		"spaced-comment": "error",
 		"no-duplicate-imports": "warn",
-		"no-unused-vars": "warn"
+		"no-unused-vars": "warn",
+		"react/prop-types": "off"
 	},
 	"ignorePatterns": [
 		"./node_modules/*",
