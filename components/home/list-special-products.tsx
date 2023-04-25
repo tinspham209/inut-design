@@ -1,7 +1,16 @@
 import { urlFor } from "@/api-client/sanity-client";
 import { Products } from "@/models/products";
 import { COLOR_CODE } from "@/utils";
-import { Button, Container, Grid, Icon, Link as MuiLink, Stack, Typography } from "@mui/material";
+import {
+	Button,
+	Container,
+	Grid,
+	Icon,
+	Link as MuiLink,
+	Stack,
+	Tooltip,
+	Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import Image from "next/image";
 import Link from "next/link";
@@ -54,15 +63,17 @@ export function ListSpecialProducts({ products, isMacnut = false }: Props) {
 										priority={true}
 										className={styles.productImage}
 									/>
-									<Icon
-										sx={{
-											position: "absolute",
-											top: 8,
-											right: 8,
-										}}
-									>
-										<HiDuplicate color="#fff" />
-									</Icon>
+									<Tooltip title="Xem chi tiết" placement="right-end" arrow>
+										<Icon
+											sx={{
+												position: "absolute",
+												top: "8px",
+												right: "8px",
+											}}
+										>
+											<HiDuplicate color="#fff" />
+										</Icon>
+									</Tooltip>
 								</MuiLink>
 							</Link>
 						</Grid>
