@@ -11,6 +11,7 @@ import { SWRConfig } from "swr";
 import { Toaster } from "react-hot-toast";
 import "../styles/globals.css";
 import "../styles/prism.css";
+import { Analytics } from "@vercel/analytics/react";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -23,21 +24,26 @@ function MyApp({
 	const Layout = Component.Layout ?? EmptyLayout;
 
 	return (
-		<CacheProvider value={emotionCache}>
-			<ThemeProvider theme={theme}>
-				<CssBaseline />
+		<>
+			<CacheProvider value={emotionCache}>
+				<ThemeProvider theme={theme}>
+					<CssBaseline />
 
-				<AnimatePresence mode="wait" initial={true}>
-					<SWRConfig value={{ fetcher: (url) => axiosClient.get(url), shouldRetryOnError: false }}>
-						<Layout>
-							<Component {...pageProps} />
-							<ScrollToBottom />
-							<Toaster />
-						</Layout>
-					</SWRConfig>
-				</AnimatePresence>
-			</ThemeProvider>
-		</CacheProvider>
+					<AnimatePresence mode="wait" initial={true}>
+						<SWRConfig
+							value={{ fetcher: (url) => axiosClient.get(url), shouldRetryOnError: false }}
+						>
+							<Layout>
+								<Component {...pageProps} />
+								<ScrollToBottom />
+								<Toaster />
+							</Layout>
+						</SWRConfig>
+					</AnimatePresence>
+				</ThemeProvider>
+			</CacheProvider>
+			<Analytics />
+		</>
 	);
 }
 export default MyApp;

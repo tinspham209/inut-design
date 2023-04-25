@@ -11,7 +11,6 @@ import createEmotionServer from "@emotion/server/create-instance";
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import Script from "next/script";
 import * as React from "react";
-import { Analytics } from "@vercel/analytics/react";
 
 export default class MyDocument extends Document {
 	render() {
@@ -54,7 +53,7 @@ export default class MyDocument extends Document {
 				</Head>
 				<body>
 					<Main />
-					<Analytics />
+
 					<NextScript />
 
 					<FacebookChatPlugin />
