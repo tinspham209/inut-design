@@ -26,6 +26,8 @@ import {
 	RadioGroup,
 	Stack,
 	Typography,
+	useMediaQuery,
+	useTheme,
 } from "@mui/material";
 import _ from "lodash";
 import { GetStaticProps } from "next";
@@ -50,13 +52,24 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 
 		setTimeout(() => {
 			document
-				.getElementById("productTitle")
+				.getElementById("title")
 				.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
-		}, 1000);
+		}, 500);
 	};
+
+	const theme = useTheme();
+	const isMobileScreen = useMediaQuery(theme.breakpoints.down("md"));
 
 	const [expandedFilter, setExpandedFilter] = React.useState<boolean>(true);
 	const [currentFilter, setCurrentFilter] = React.useState(filter || "");
+
+	React.useEffect(() => {
+		if (isMobileScreen) {
+			setExpandedFilter(false);
+		} else {
+			setExpandedFilter(true);
+		}
+	}, [isMobileScreen]);
 
 	return (
 		<Box component={"section"} bgcolor="secondary.dark" pt={4} pb={4}>
@@ -82,7 +95,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 
 						<Typography color={COLOR_CODE.WHITE}>Sản phẩm</Typography>
 					</Breadcrumbs>
-					<Box mt={3}>
+					<Box mt={3} id="title">
 						<Typography
 							variant="h2"
 							fontWeight="bold"
@@ -209,6 +222,7 @@ type Props = {
 export const getStaticProps: GetStaticProps<Props> = async () => {
 	const products: Products = await productsApi.getAllProducts();
 	const productTypes: ProductType[] = await productTypeApi.getAll();
+	console.log("productTypes: ", productTypes);
 	const banner: Banner[] = await bannerApi.getBannerPage("products-page");
 
 	const formatProducts = products
@@ -225,7 +239,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	return {
 		props: {
 			products: formatProducts,
-			productTypes,
+			productTypes: productTypes.filter((productType) => productType?.name !== "Macnut"),
 			banner,
 		},
 	};
