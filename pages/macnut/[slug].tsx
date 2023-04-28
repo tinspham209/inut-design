@@ -33,8 +33,6 @@ type Props = {
 };
 
 const ProductDetail = ({ product, products, votes }: Props) => {
-	console.log("products: ", products);
-	console.log("product: ", product);
 	const [isOpenLightBox, setIsOpenLightBox] = React.useState(false);
 
 	return (
@@ -270,7 +268,6 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async ({ params: { slug } }) => {
 	const product = await productsApi.getProductBySlugMacnut(slug as string);
 	const products = await productsApi.getAllProductsMacnut();
-	console.log("products: ", products);
 
 	const randomRange = (min: number, max: number) => {
 		return Math.floor(Math.random() * (max - min + 1)) + min;

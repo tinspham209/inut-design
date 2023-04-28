@@ -251,7 +251,6 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 
 export const getStaticPaths = async () => {
 	const products = await productsApi.getAllSlugs();
-	console.log("products: ", products);
 
 	const paths = products
 		.filter((product) => product.slug !== null)
