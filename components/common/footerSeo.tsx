@@ -11,7 +11,7 @@ export function FooterSeo() {
 				width: "1px",
 			}}
 		>
-			<h1>Skin laptop đà nẵng, skin laptop da nang</h1>
+			<h1>Skin laptop đà nẵng, skin laptop da nang, dan laptop da nang, dán laptop đà nẵng</h1>
 			<h2>INUT Design</h2>
 			<p>
 				dán skin in hình theo yêu cầu giá rẻ tại Đà Nẵng…. tất cả các dòng máy laptop có trên thị

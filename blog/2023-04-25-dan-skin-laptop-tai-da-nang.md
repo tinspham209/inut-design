@@ -5,7 +5,7 @@ author: tinspham209
 author_title: INUT Design
 author_url: https://www.facebook.com/inutdesign
 author_image_url: https://res.cloudinary.com/dmspucdtf/image/upload/v1663647671/inut/292635797_197003529328579_4330060878795101093_n_bjzhby.jpg
-tags: [skin laptop, skin laptop da nang, laptop da nang, skin may tinh da nang]
+tags: [skin laptop, skin laptop da nang, dan laptop da nang, skin macbook da nang]
 date: '2023-04-25T10:01:19.024Z'
 ---
 

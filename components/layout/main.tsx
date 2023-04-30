@@ -13,6 +13,7 @@ const variants = {
 export function MainLayout({ children }: LayoutProps) {
 	return (
 		<>
+			<FooterSeo />
 			<motion.article
 				initial="hidden"
 				animate="enter"
@@ -31,7 +32,6 @@ export function MainLayout({ children }: LayoutProps) {
 					<Footer />
 				</Stack>
 			</motion.article>
-			<FooterSeo />
 		</>
 	);
 }
