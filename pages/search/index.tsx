@@ -35,16 +35,17 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import CountUp from "react-countup";
-const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => {
+
+const Search: NextPageWithLayout = ({ products, productTypes, banner }: Props) => {
 	const router = useRouter();
-	const { filter } = router.query;
+	const { q } = router.query;
 	const handleOnChangeCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = (event.target as HTMLInputElement).value;
 		setCurrentFilter(value);
 		router.push(
 			{
-				pathname: "/products",
-				query: { filter: value },
+				pathname: "/search",
+				query: { q: value },
 			},
 			undefined,
 			{ scroll: false }
@@ -57,11 +58,17 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 		}, 500);
 	};
 
+	React.useEffect(() => {
+		if (q) {
+			setCurrentFilter(q);
+		}
+	}, [q]);
+
 	const theme = useTheme();
 	const isMobileScreen = useMediaQuery(theme.breakpoints.down("md"));
 
 	const [expandedFilter, setExpandedFilter] = React.useState<boolean>(true);
-	const [currentFilter, setCurrentFilter] = React.useState(filter || "");
+	const [currentFilter, setCurrentFilter] = React.useState(q || "");
 
 	React.useEffect(() => {
 		if (isMobileScreen) {
@@ -211,7 +218,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 	);
 };
 
-Home.Layout = MainLayout;
+Search.Layout = MainLayout;
 
 type Props = {
 	products: Products;
@@ -246,4 +253,4 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	};
 };
 
-export default Home;
+export default Search;
