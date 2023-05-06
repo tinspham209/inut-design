@@ -66,13 +66,10 @@ export const jsonSearchSchema = `
 			"@type": "MerchantReturnPolicy",
 			"refundsAllowed": true,
 			"returnPolicyCategory": "http://schema.org/MerchantReturnFiniteReturnWindow",
-			"returnFees": {
-				"@type": "MonetaryAmount",
-				"currency": "VND",
-				"value": 15000
-			},
+			"returnFees": "https://schema.org/FreeReturn",
 			"returnMethod": "https://schema.org/ReturnByMail",
-			"applicableCountry": "VN"
+			"applicableCountry": "VN",
+			merchantReturnDays: 1,
 		}
 	},
 	"aggregateRating": {
