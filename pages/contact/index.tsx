@@ -1,7 +1,7 @@
 import { bannerApi } from "@/api-client/banner";
 import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
-import { HeroSection } from "@/components/home";
+import { HeroImage } from "@/components/home";
 import styles from "@/components/home/information.module.css";
 import { MainLayout } from "@/components/layout";
 import { Banner } from "@/models/banner";
@@ -42,7 +42,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 			/>
 
 			<Box component={"section"} pt={2} pb={4}>
-				<HeroSection imgUrl={urlFor(banner.image).url()} />
+				<HeroImage imgUrl={urlFor(banner.image).url()} />
 				<Container>
 					<Breadcrumbs>
 						<Link href={"/"} passHref>
@@ -61,6 +61,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 										}
 										width={220}
 										height={220}
+										unoptimized
 										alt="infor-image"
 										priority={true}
 										className={styles.infoImage}
@@ -200,7 +201,7 @@ const listContacts = [
 		title: "Liên hệ ngay",
 	},
 	{
-		link: "https://www.facebook.com/profile.php?id=100063876652109",
+		link: "https://www.facebook.com/inutdesign",
 		icon: (
 			<Facebook
 				sx={{

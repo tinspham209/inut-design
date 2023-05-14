@@ -24,6 +24,7 @@ export function ProductItem({ product, productTypes, isMacnut = false }: Product
 							src={urlFor(product.image[0]).width(500).url()}
 							width="100%"
 							height={"100%"}
+							unoptimized
 							layout="responsive"
 							alt="avatar"
 							priority={true}

@@ -104,6 +104,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 											src={urlFor(thumbnail).width(200).url()}
 											alt={"product-image-thumbnail"}
 											key={thumbnail._key}
+											unoptimized
 											width="100%"
 											height="100%"
 											layout="responsive"
@@ -136,6 +137,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 											height={"100%"}
 											layout="responsive"
 											priority={true}
+											unoptimized
 											alt="product-image"
 											className={styles.productImage}
 										/>

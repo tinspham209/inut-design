@@ -106,6 +106,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 											key={thumbnail._key}
 											width="100%"
 											height="100%"
+											unoptimized
 											layout="responsive"
 											className={styles.productImage}
 										/>
@@ -135,6 +136,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 											width="100%"
 											height={"100%"}
 											layout="responsive"
+											unoptimized
 											priority={true}
 											alt="product-image"
 											className={styles.productImage}

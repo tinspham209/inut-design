@@ -1,7 +1,17 @@
 {
-	"name": "learn-nextjs",
+	"name": "inutdesign-web",
 	"version": "0.1.0",
 	"private": true,
+	"contributors": [
+		{
+			"name": "Tin Pham",
+			"email": "tin.pham@owasp.org"
+		}
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/tinspham209/inut-design.git"
+	},
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
@@ -30,7 +40,6 @@
 		"gray-matter": "^4.0.3",
 		"http-proxy": "^1.18.1",
 		"lodash": "^4.17.21",
-		"maath": "^0.5.3",
 		"next": "12.3.1",
 		"next-sanity-image": "^4.1.0",
 		"next-sitemap": "^3.1.23",

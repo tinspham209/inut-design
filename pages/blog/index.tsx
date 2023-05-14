@@ -2,7 +2,7 @@ import { bannerApi } from "@/api-client/banner";
 import { urlFor } from "@/api-client/sanity-client";
 import { PostItem } from "@/components/blog";
 import { Seo } from "@/components/common";
-import { HeroSection } from "@/components/home";
+import { HeroImage } from "@/components/home";
 import { MainLayout } from "@/components/layout";
 import { Post } from "@/models";
 import { Banner } from "@/models/banner";
@@ -28,7 +28,7 @@ const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
 				}}
 			/>
 
-			<HeroSection imgUrl={urlFor(banner.image).url()} />
+			<HeroImage imgUrl={urlFor(banner.image).url()} />
 			<Container>
 				<Box>
 					<Breadcrumbs>
