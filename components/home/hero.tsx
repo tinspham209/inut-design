@@ -101,7 +101,7 @@ export function HeroSection() {
 				}}
 			>
 				{/* <video src={"/video-banner.mp4"} autoPlay muted loop /> */}
-				<Image src={"/banner.webp"} width="100%" height="100%" alt="hero" priority={true} />
+				<Image src={"/banner.webp"} layout="fill" alt="hero" priority={true} />
 				<Stack
 					sx={{
 						position: "fixed",
