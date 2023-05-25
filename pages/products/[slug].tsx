@@ -40,7 +40,8 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 			<Seo
 				data={{
 					title: `${product.name} - Sản phẩm - INUT Design`,
-					description: "Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop",
+					description:
+						"Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop, skin laptop da nang, skin laptop đà nẵng",
 					url: `https://inutdesign.com/products/${product.slug.current}`,
 					thumbnailUrl: urlFor(product.image[0]).width(1000).url(),
 				}}
@@ -103,6 +104,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 											src={urlFor(thumbnail).width(200).url()}
 											alt={"product-image-thumbnail"}
 											key={thumbnail._key}
+											unoptimized
 											width="100%"
 											height="100%"
 											layout="responsive"
@@ -135,6 +137,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 											height={"100%"}
 											layout="responsive"
 											priority={true}
+											unoptimized
 											alt="product-image"
 											className={styles.productImage}
 										/>
@@ -250,7 +253,6 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 
 export const getStaticPaths = async () => {
 	const products = await productsApi.getAllSlugs();
-	console.log("products: ", products);
 
 	const paths = products
 		.filter((product) => product.slug !== null)

@@ -1,7 +1,7 @@
 import { bannerApi } from "@/api-client/banner";
 import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
-import { HeroSection } from "@/components/home";
+import { HeroImage } from "@/components/home";
 import styles from "@/components/home/information.module.css";
 import { MainLayout } from "@/components/layout";
 import { Banner } from "@/models/banner";
@@ -33,7 +33,8 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 			<Seo
 				data={{
 					title: "Liên hệ - INUT Design",
-					description: "Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop",
+					description:
+						"Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop, skin laptop da nang, skin laptop đà nẵng",
 					url: "https://inutdesign.com/contact",
 					thumbnailUrl:
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
@@ -41,7 +42,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 			/>
 
 			<Box component={"section"} pt={2} pb={4}>
-				<HeroSection imgUrl={urlFor(banner.image).url()} />
+				<HeroImage imgUrl={urlFor(banner.image).url()} />
 				<Container>
 					<Breadcrumbs>
 						<Link href={"/"} passHref>
@@ -60,6 +61,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 										}
 										width={220}
 										height={220}
+										unoptimized
 										alt="infor-image"
 										priority={true}
 										className={styles.infoImage}
@@ -199,7 +201,7 @@ const listContacts = [
 		title: "Liên hệ ngay",
 	},
 	{
-		link: "https://www.facebook.com/profile.php?id=100063876652109",
+		link: "https://www.facebook.com/inutdesign",
 		icon: (
 			<Facebook
 				sx={{

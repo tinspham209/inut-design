@@ -33,8 +33,6 @@ type Props = {
 };
 
 const ProductDetail = ({ product, products, votes }: Props) => {
-	console.log("products: ", products);
-	console.log("product: ", product);
 	const [isOpenLightBox, setIsOpenLightBox] = React.useState(false);
 
 	return (
@@ -42,7 +40,8 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 			<Seo
 				data={{
 					title: `${product.name} - Macnut - INUT Design`,
-					description: "Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop",
+					description:
+						"Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop, skin laptop da nang, skin laptop đà nẵng",
 					url: `https://inutdesign.com/macnut/${product.slug.current}`,
 					thumbnailUrl: urlFor(product.image[0]).width(1000).url(),
 				}}
@@ -107,6 +106,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 											key={thumbnail._key}
 											width="100%"
 											height="100%"
+											unoptimized
 											layout="responsive"
 											className={styles.productImage}
 										/>
@@ -136,6 +136,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 											width="100%"
 											height={"100%"}
 											layout="responsive"
+											unoptimized
 											priority={true}
 											alt="product-image"
 											className={styles.productImage}
@@ -269,7 +270,6 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async ({ params: { slug } }) => {
 	const product = await productsApi.getProductBySlugMacnut(slug as string);
 	const products = await productsApi.getAllProductsMacnut();
-	console.log("products: ", products);
 
 	const randomRange = (min: number, max: number) => {
 		return Math.floor(Math.random() * (max - min + 1)) + min;

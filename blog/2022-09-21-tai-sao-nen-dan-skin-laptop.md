@@ -3,9 +3,9 @@ slug: tai-sao-nen-dan-skin-cho-laptop
 title: Có nên dán decal laptop? Những lưu ý cần biết trước khi tân trang laptop với decal
 author: tinspham209
 author_title: INUT Design
-author_url: https://www.facebook.com/profile.php?id=100063876652109
+author_url: https://www.facebook.com/inutdesign
 author_image_url: https://res.cloudinary.com/dmspucdtf/image/upload/v1663647671/inut/292635797_197003529328579_4330060878795101093_n_bjzhby.jpg
-tags: [skin laptop]
+tags: [skin laptop, skin laptop da nang, dan laptop da nang, skin macbook da nang]
 date: '2022-09-21T06:45:22.393Z'
 ---
 

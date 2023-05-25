@@ -1,10 +1,8 @@
 import { Button, Container, Link as MuiLink, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import Image from "next/image";
-import * as React from "react";
-import CountUp from "react-countup";
-import styles from "./information.module.css";
 import { Element } from "react-scroll";
+
+import { LaptopCanvas } from "@/components/canvas";
 
 export const INFO_ID_ELEMENT = "information";
 export function InfoSection() {
@@ -33,28 +31,16 @@ export function InfoSection() {
 								md: 12,
 							}}
 						>
-							<Box sx={{ margin: "0 auto" }}>
-								<Image
-									src={
-										"https://res.cloudinary.com/dmspucdtf/image/upload/v1663647671/inut/292635797_197003529328579_4330060878795101093_n_bjzhby.jpg"
-									}
-									width={200}
-									height={200}
-									layout="intrinsic"
-									alt="infor-image"
-									priority={true}
-									className={styles.infoImage}
-								/>
-							</Box>
+							<LaptopCanvas />
 						</Stack>
 
 						<Box maxWidth={440}>
 							<Stack flexDirection={"row"} alignItems="center" justifyContent={"space-between"}>
 								<Typography variant="h5" sx={{ mr: 4 }}>
-									inut_skin
+									inut_design
 								</Typography>
 								<MuiLink
-									href="https://www.facebook.com/profile.php?id=100063876652109"
+									href="https://www.facebook.com/inutdesign"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
@@ -65,7 +51,7 @@ export function InfoSection() {
 							</Stack>
 
 							<Typography variant="body1" sx={{ mt: 1 }} fontWeight="bold">
-								I NÚT - Cửa Hàng Thời Trang Dành Cho Laptop Tại Đà Nẵng
+								INÚT - Cửa Hàng Thời Trang Dành Cho Laptop Tại Đà Nẵng
 							</Typography>
 							<Typography variant="body1" sx={{ mt: 1 }}>
 								Custom skin laptop, cho tất cả các loại laptop có trên trái đất. Không giới hạn hình
@@ -80,29 +66,11 @@ export function InfoSection() {
 									Địa chỉ: K294/43 Điện Biên Phủ, Đà Nẵng, Việt Nam
 								</Typography>
 							</MuiLink>
-							<Typography variant="body1" sx={{ mt: 1 }}>
-								Có{" "}
-								<MuiLink
-									href="https://www.instagram.com/_tomchay_/"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<b>_tomchay_</b>
-								</MuiLink>
-								,{" "}
-								<MuiLink
-									href="https://www.instagram.com/phamthitins/"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<b>phamthitins</b>
-								</MuiLink>{" "}
-								và{" "}
-								<b>
-									<CountUp end={398} duration={3} />
-								</b>{" "}
-								người đang theo dõi
-							</Typography>
+							<MuiLink href="tel:+84792359996" target="_blank" rel="noopener noreferrer">
+								<Typography variant="body1" sx={{ mt: 1 }}>
+									Số điện thoại: 079 235 9996
+								</Typography>
+							</MuiLink>
 						</Box>
 					</Stack>
 				</Container>

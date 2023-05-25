@@ -2,7 +2,7 @@ import { bannerApi } from "@/api-client/banner";
 import { urlFor } from "@/api-client/sanity-client";
 import { PostItem } from "@/components/blog";
 import { Seo } from "@/components/common";
-import { HeroSection } from "@/components/home";
+import { HeroImage } from "@/components/home";
 import { MainLayout } from "@/components/layout";
 import { Post } from "@/models";
 import { Banner } from "@/models/banner";
@@ -19,7 +19,8 @@ const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
 			<Seo
 				data={{
 					title: "Blog - INUT Design",
-					description: "Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop",
+					description:
+						"Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop, skin laptop da nang, skin laptop đà nẵng",
 					url: "https://inutdesign.com/blog",
 					thumbnailUrl:
 						urlFor(banner.image).url() ||
@@ -27,7 +28,7 @@ const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
 				}}
 			/>
 
-			<HeroSection imgUrl={urlFor(banner.image).url()} />
+			<HeroImage imgUrl={urlFor(banner.image).url()} />
 			<Container>
 				<Box>
 					<Breadcrumbs>
