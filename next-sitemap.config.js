@@ -9,7 +9,7 @@ module.exports = {
 			{
 				userAgent: "*",
 				allow: "/",
-				disallow: "/*?updated-max=*",
+				disallow: ["/*?updated-max=*", "/signup"],
 				host: "https://inutdesign.com",
 				siteMap: "https://inutdesign.com/sitemap.xml",
 			},

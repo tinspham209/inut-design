@@ -20,3 +20,18 @@ export const ROUTE_LIST = [
 		path: "/contact",
 	},
 ];
+
+export const ROUTE_LIST_ADMIN = [
+	{
+		label: "Trang chủ",
+		path: "/admin",
+	},
+	{
+		label: "Doanh Thu",
+		path: "/incomes",
+	},
+	{
+		label: "Chi Phí",
+		path: "/costs",
+	},
+];

@@ -1,11 +1,13 @@
 import { HeaderDesktop } from "./header-desktop";
 import { HeaderMobile } from "./header-mobile";
-
-export function Header() {
+type Props = {
+	isAuthenticated: boolean;
+};
+export function Header({ isAuthenticated }: Props) {
 	return (
 		<>
-			<HeaderMobile />
-			<HeaderDesktop />
+			<HeaderMobile isAuthenticated={isAuthenticated} />
+			<HeaderDesktop isAuthenticated={isAuthenticated} />
 		</>
 	);
 }

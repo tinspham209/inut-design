@@ -12,6 +12,8 @@ Disallow: /*?updated-max=*
 
 Disallow: *archive.html
 
+Disallow: /signup
+
 # Host
 Host: https://inutdesign.com
 

@@ -1,44 +1,47 @@
 import { LayoutProps } from "@/models";
-import * as React from "react";
-import Link from "next/link";
-import { Auth } from "../common";
-import { useAuth } from "@/hooks/use-auth";
-import { useRouter } from "next/router";
-
+import { Stack } from "@mui/material";
+import { Box } from "@mui/system";
+import { motion } from "framer-motion";
+import { Auth, Footer, Header } from "../common";
+import { useSession } from "next-auth/react";
+import React from "react";
+const variants = {
+	hidden: { opacity: 0, x: 0, y: 20 },
+	enter: { opacity: 1, x: 0, y: 0 },
+	exit: { opacity: 0, x: -0, y: 20 },
+};
 export function AdminLayout({ children }: LayoutProps) {
-	const { profile, logout } = useAuth();
-	const router = useRouter();
+	const session = useSession();
+	const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
-	async function handleLogoutClick() {
-		try {
-			await logout();
-			console.log("redirect to login page");
-			router.push("/login");
-		} catch (error) {
-			console.log("failed to logout", error);
+	React.useEffect(() => {
+		if (session && session.data) {
+			setIsAuthenticated(true);
 		}
-	}
+	}, [session]);
 
 	return (
 		<Auth>
-			<h1>Admin Layout</h1>
-			<div>Sidebar</div>
+			<>
+				<motion.article
+					initial="hidden"
+					animate="enter"
+					exit="exit"
+					variants={variants}
+					transition={{ duration: 0.4, type: "easeInOut" }}
+					style={{ position: "relative" }}
+				>
+					<Stack minHeight="100vh">
+						<Header isAuthenticated={isAuthenticated} />
 
-			<p>Profile: {JSON.stringify(profile)}</p>
+						<Box component="main" flexGrow={1} mt={8}>
+							{children}
+						</Box>
 
-			<div>
-				<button onClick={handleLogoutClick}>Logout</button>
-			</div>
-
-			<Link href="/">
-				<a>Home</a>
-			</Link>
-
-			<Link href="/about">
-				<a>About</a>
-			</Link>
-
-			<div>{children}</div>
+						<Footer />
+					</Stack>
+				</motion.article>
+			</>
 		</Auth>
 	);
 }

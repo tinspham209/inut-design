@@ -1,25 +1,48 @@
+import { COLOR_CODE } from "@/utils";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
 	Container,
 	Drawer,
 	IconButton,
-	Link as MuiLink,
 	List,
 	ListItem,
 	ListItemButton,
+	Link as MuiLink,
 	Stack,
 	Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import clsx from "clsx";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { ROUTE_LIST } from "./routes";
-import MenuIcon from "@mui/icons-material/Menu";
-import { COLOR_CODE } from "@/utils";
-export function HeaderMobile() {
+import { toast } from "react-hot-toast";
+import { ROUTE_LIST, ROUTE_LIST_ADMIN } from "./routes";
+
+type Props = {
+	isAuthenticated: boolean;
+};
+
+export function HeaderMobile({ isAuthenticated }: Props) {
 	const [open, setOpen] = React.useState(false);
 	const router = useRouter();
+
+	const [isLoading, setIsLoading] = React.useState(false);
+
+	const handleLogout = () => {
+		setIsLoading(true);
+		signOut().then(() => {
+			setIsLoading(false);
+			toggleDrawer(false);
+			toast.success("Logout successfully");
+			router.push("/login");
+		});
+	};
+
+	const routeList = React.useMemo(() => {
+		return isAuthenticated ? ROUTE_LIST_ADMIN : ROUTE_LIST;
+	}, [isAuthenticated]);
 
 	const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
 		if (
@@ -82,7 +105,7 @@ export function HeaderMobile() {
 							minWidth: "180px",
 						}}
 					>
-						{ROUTE_LIST.map((route) => (
+						{routeList.map((route) => (
 							<ListItem key={route.path} onClick={toggleDrawer(false)} disableGutters>
 								<ListItemButton
 									sx={{
@@ -102,6 +125,37 @@ export function HeaderMobile() {
 								</ListItemButton>
 							</ListItem>
 						))}
+						{isAuthenticated ? (
+							<ListItem onClick={handleLogout} disableGutters>
+								<ListItemButton
+									sx={{
+										justifyContent: "center",
+									}}
+									disabled={isLoading}
+								>
+									Đăng Xuất
+								</ListItemButton>
+							</ListItem>
+						) : (
+							<ListItem key={"login"} onClick={toggleDrawer(false)} disableGutters>
+								<ListItemButton
+									sx={{
+										justifyContent: "center",
+									}}
+									selected={router.pathname === "/login"}
+								>
+									<Link href={"/login"} passHref>
+										<MuiLink
+											sx={{ fontWeight: "medium" }}
+											underline="hover"
+											className={clsx({ active: router.pathname === "/login" })}
+										>
+											Đăng Nhập
+										</MuiLink>
+									</Link>
+								</ListItemButton>
+							</ListItem>
+						)}
 					</List>
 				</Drawer>
 			</Container>

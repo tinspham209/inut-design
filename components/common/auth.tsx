@@ -1,6 +1,6 @@
-import { useAuth } from "@/hooks";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 export interface AuthProps {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -9,13 +9,10 @@ export interface AuthProps {
 
 export function Auth({ children }: AuthProps) {
 	const router = useRouter();
-	const { profile, firstLoading } = useAuth();
-
+	const { data: session } = useSession();
 	useEffect(() => {
-		if (!firstLoading && !profile?.username) router.push("/login");
-	}, [router, profile, firstLoading]);
-
-	if (!profile?.username) return <p>Loading...</p>;
+		if (!session) router.push("/login");
+	}, [router, session]);
 
 	return <div>{children}</div>;
 }

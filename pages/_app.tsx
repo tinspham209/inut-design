@@ -12,15 +12,23 @@ import { Toaster } from "react-hot-toast";
 import "../styles/globals.css";
 import "../styles/prism.css";
 import { Analytics } from "@vercel/analytics/react";
+import { SessionProvider } from "next-auth/react";
+import { Session } from "next-auth";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
+type PageProps = {
+	session: Session;
+};
+
 function MyApp({
 	Component,
-	pageProps,
+	pageProps: { session, ...pageProps },
 	emotionCache = clientSideEmotionCache,
-}: AppPropsWithLayout) {
+}: AppPropsWithLayout & {
+	pageProps: PageProps;
+}) {
 	const Layout = Component.Layout ?? EmptyLayout;
 
 	return (
@@ -30,15 +38,17 @@ function MyApp({
 					<CssBaseline />
 
 					<AnimatePresence mode="wait" initial={true}>
-						<SWRConfig
-							value={{ fetcher: (url) => axiosClient.get(url), shouldRetryOnError: false }}
-						>
-							<Layout>
-								<Component {...pageProps} />
-								<ScrollToBottom />
-								<Toaster />
-							</Layout>
-						</SWRConfig>
+						<SessionProvider session={session}>
+							<SWRConfig
+								value={{ fetcher: (url) => axiosClient.get(url), shouldRetryOnError: false }}
+							>
+								<Layout>
+									<Component {...pageProps} />
+									<ScrollToBottom />
+									<Toaster />
+								</Layout>
+							</SWRConfig>
+						</SessionProvider>
 					</AnimatePresence>
 				</ThemeProvider>
 			</CacheProvider>

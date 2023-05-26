@@ -1,13 +1,36 @@
 import { COLOR_CODE } from "@/utils";
-import { Container, Link as MuiLink, Stack, Typography } from "@mui/material";
+import { Fingerprint } from "@mui/icons-material";
+import { Container, IconButton, Link as MuiLink, Stack, Tooltip, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import clsx from "clsx";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ROUTE_LIST } from "./routes";
+import React from "react";
+import { toast } from "react-hot-toast";
+import { ROUTE_LIST, ROUTE_LIST_ADMIN } from "./routes";
 
-export function HeaderDesktop() {
+type Props = {
+	isAuthenticated: boolean;
+};
+
+export function HeaderDesktop({ isAuthenticated }: Props) {
 	const router = useRouter();
+	const [isLoading, setIsLoading] = React.useState(false);
+
+	const routeList = React.useMemo(() => {
+		return isAuthenticated ? ROUTE_LIST_ADMIN : ROUTE_LIST;
+	}, [isAuthenticated]);
+
+	const handleLogout = () => {
+		setIsLoading(true);
+		signOut().then(() => {
+			setIsLoading(false);
+
+			toast.success("Logout successfully");
+			router.push("/login");
+		});
+	};
 
 	return (
 		<Box
@@ -39,7 +62,7 @@ export function HeaderDesktop() {
 						</MuiLink>
 					</Link>
 					<Box>
-						{ROUTE_LIST.map((route, index) => (
+						{routeList.map((route, index) => (
 							<Link key={`${route.path}-${index}`} href={route.path} passHref>
 								<MuiLink
 									sx={{
@@ -55,6 +78,44 @@ export function HeaderDesktop() {
 								</MuiLink>
 							</Link>
 						))}
+						{isAuthenticated ? (
+							<Tooltip title="Đăng xuất">
+								<IconButton
+									aria-label="fingerprint"
+									color="secondary"
+									sx={{
+										transform: "translateY(-4px)",
+										ml: 1,
+									}}
+									onClick={handleLogout}
+									disabled={isLoading}
+								>
+									<Fingerprint />
+								</IconButton>
+							</Tooltip>
+						) : (
+							<Link key={`login`} href={`/login`} passHref>
+								<MuiLink
+									sx={{
+										ml: 1,
+										fontWeight: "medium",
+										fontSize: 24,
+										fontFamily: '"Zawtturee", "Bangers" ,"Roboto", sans-serif',
+									}}
+									underline="hover"
+								>
+									<IconButton
+										aria-label="fingerprint"
+										color="secondary"
+										sx={{
+											transform: "translateY(-4px)",
+										}}
+									>
+										<Fingerprint />
+									</IconButton>
+								</MuiLink>
+							</Link>
+						)}
 					</Box>
 				</Stack>
 			</Container>
