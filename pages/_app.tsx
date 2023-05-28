@@ -52,7 +52,7 @@ function MyApp({
 					</AnimatePresence>
 				</ThemeProvider>
 			</CacheProvider>
-			<Analytics />
+			<Analytics mode="production" />
 		</>
 	);
 }

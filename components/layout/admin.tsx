@@ -34,7 +34,7 @@ export function AdminLayout({ children }: LayoutProps) {
 					<Stack minHeight="100vh">
 						<Header isAuthenticated={isAuthenticated} />
 
-						<Box component="main" flexGrow={1} mt={8}>
+						<Box component="main" flexGrow={1} mt={10}>
 							{children}
 						</Box>
 
