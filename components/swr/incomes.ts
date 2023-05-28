@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import { fetcher } from ".";
+import { firstDateOfMonth, lastDateOfMonth } from "@/utils";
 
 export function useAllIncomes() {
 	const query = '*[_type == "income"]';
@@ -15,11 +16,23 @@ export function useAllIncomes() {
 }
 
 export function useIncomeWithDateRange(start: Date, end: Date) {
-	const formattedStart = new Date(start).toISOString();
-	const formattedEnd = new Date(end).toISOString();
+	const formattedStart = start
+		? new Date(start).toISOString()
+		: new Date(firstDateOfMonth).toISOString();
+	const formattedEnd = end ? new Date(end).toISOString() : new Date(lastDateOfMonth).toISOString();
 
 	// Query to fetch income documents within the specified time range
-	const query = `*[_type == "income" && date >= "${formattedStart}" && date <= "${formattedEnd}"]`;
+	const query = `*[_type == "income" && date >= "${formattedStart}" && date <= "${formattedEnd}"]{
+		"id": _id,
+		"createdAt": _createdAt,
+		title,
+		date,
+		discount,
+		vienManHinh,
+		matPhim,
+		matDay,
+		matLung
+	}`;
 	const { data, error } = useSWR(query, fetcher, {
 		revalidateOnFocus: false,
 	});
