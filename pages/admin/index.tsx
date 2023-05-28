@@ -1,18 +1,17 @@
-import { Seo } from "@/components/common";
+import { JsonView, Seo } from "@/components/common";
 import { AdminLayout } from "@/components/layout";
 import { NextPageWithLayout } from "@/models/common";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Button, Card, CardActions, CardContent, Container, Typography } from "@mui/material";
 import { useSession } from "next-auth/react";
-
+import Link from "next/link";
 const Admin: NextPageWithLayout = () => {
 	const session = useSession();
-	console.log("session: ", session);
 
 	return (
 		<Box>
 			<Seo
 				data={{
-					title: "Admin | INUT Design | Skin laptop da nang",
+					title: "Admin | INUT Design",
 					description:
 						"Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop, skin laptop da nang, skin laptop đà nẵng",
 					url: "https://inutdesign.com",
@@ -21,9 +20,29 @@ const Admin: NextPageWithLayout = () => {
 				}}
 			/>
 
-			<Container maxWidth="xs">
-				<Typography>Admin</Typography>
-				<Typography>{JSON.stringify(session)}</Typography>
+			<Container>
+				<Card
+					sx={{
+						p: 1,
+						background: `linear-gradient(250.38deg, rgb(17, 26, 44) 2.39%, rgb(21, 65, 126) 34.42%, rgb(22, 104, 220) 60.95%, rgb(60, 137, 232) 84.83%, rgb(141, 197, 248) 104.37%)`,
+					}}
+				>
+					<CardContent>
+						<Typography variant="h5" color="text.secondary">
+							Welcome {session?.data?.user.email || "to INUT Admin"}!
+						</Typography>
+					</CardContent>
+					<CardActions>
+						<Link href="/incomes">
+							<Button variant="contained">doanh thu</Button>
+						</Link>
+						<Link href="/costs">
+							<Button variant="contained">chi phí</Button>
+						</Link>
+					</CardActions>
+				</Card>
+
+				<JsonView src={session} />
 			</Container>
 		</Box>
 	);
