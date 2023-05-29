@@ -2,9 +2,9 @@ import { LayoutProps } from "@/models";
 import { Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import { motion } from "framer-motion";
-import { Auth, Footer, Header } from "../common";
 import { useSession } from "next-auth/react";
 import React from "react";
+import { Auth, Header } from "../common";
 const variants = {
 	hidden: { opacity: 0, x: 0, y: 20 },
 	enter: { opacity: 1, x: 0, y: 0 },
@@ -37,8 +37,6 @@ export function AdminLayout({ children }: LayoutProps) {
 						<Box component="main" flexGrow={1} mt={10}>
 							{children}
 						</Box>
-
-						<Footer />
 					</Stack>
 				</motion.article>
 			</>

@@ -9,6 +9,7 @@ import IncomesHeader from "./header";
 import SelectDate from "./selectDate";
 import IncomesSeo from "./seo";
 import IncomesTable from "./table";
+import CreateIncomeDialog from "./createDialog";
 
 const Incomes: NextPageWithLayout = () => {
 	const router = useRouter();
@@ -33,7 +34,10 @@ const Incomes: NextPageWithLayout = () => {
 							<CountUp end={getSumPriceIncomes(incomes)} decimal="." decimals={3} duration={1} />{" "}
 							VND
 						</Typography>
-						<SelectDate />
+						<Stack flexDirection={"row"} alignItems={"center"}>
+							<CreateIncomeDialog />
+							<SelectDate />
+						</Stack>
 					</Stack>
 
 					<IncomesTable incomes={incomes} />

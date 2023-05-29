@@ -29,7 +29,7 @@ const Admin: NextPageWithLayout = () => {
 				>
 					<CardContent>
 						<Typography variant="h5" color="text.secondary">
-							Welcome {session?.data?.user.email || "to INUT Admin"}!
+							Hi {session?.data?.user.email || "Anonymous"}, Welcome back!
 						</Typography>
 					</CardContent>
 					<CardActions>

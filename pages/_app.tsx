@@ -40,7 +40,11 @@ function MyApp({
 					<AnimatePresence mode="wait" initial={true}>
 						<SessionProvider session={session}>
 							<SWRConfig
-								value={{ fetcher: (url) => axiosClient.get(url), shouldRetryOnError: false }}
+								value={{
+									fetcher: (url) => axiosClient.get(url),
+									shouldRetryOnError: true,
+									provider: () => new Map(),
+								}}
 							>
 								<Layout>
 									<Component {...pageProps} />
