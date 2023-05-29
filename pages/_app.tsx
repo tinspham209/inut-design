@@ -14,6 +14,7 @@ import "../styles/prism.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SessionProvider } from "next-auth/react";
 import { Session } from "next-auth";
+import { DialogContainer } from "@/components/common";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -50,6 +51,7 @@ function MyApp({
 									<Component {...pageProps} />
 									<ScrollToBottom />
 									<Toaster />
+									<DialogContainer />
 								</Layout>
 							</SWRConfig>
 						</SessionProvider>

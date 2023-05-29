@@ -12,6 +12,7 @@
 		"clsx",
 		"countup",
 		"postbuild",
-		"drei"
+		"drei",
+		"zustand"
 	]
 }
