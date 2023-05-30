@@ -1,52 +1,51 @@
 import { AdminLayout } from "@/components/layout";
-import { swrIncomes } from "@/components/swr";
+import { swrCosts } from "@/components/swr";
 import { NextPageWithLayout } from "@/models/common";
-import { getSumPriceIncomes } from "@/utils";
+import { getSumPriceCosts } from "@/utils";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import CountUp from "react-countup";
-import CreateIncomeDialog from "./createDialog";
-import IncomesHeader from "./header";
-import SelectDate from "./selectDate";
-import IncomesSeo from "./seo";
+import SelectDate from "../incomes/selectDate";
+import CreateCostDialog from "./createDialog";
+import CostsHeader from "./header";
+import CostsSeo from "./seo";
 import IncomesTable from "./table";
 
-const Incomes: NextPageWithLayout = () => {
+const Costs: NextPageWithLayout = () => {
 	const router = useRouter();
 	const { startDate, endDate } = router.query;
 
-	const { incomes } = swrIncomes.useIncomeWithDateRange(
+	const { costs } = swrCosts.useGetByDateRange(
 		new Date((startDate as string) || null),
 		new Date((endDate as string) || null)
 	);
 
 	return (
 		<>
-			<IncomesSeo />
+			<CostsSeo />
 
 			<Box>
 				<Container>
-					<IncomesHeader />
+					<CostsHeader />
 
 					<Stack direction="row" justifyContent={"space-between"} alignItems={"center"} my={2}>
 						<Typography variant="h6">
-							Tổng:{" "}
-							<CountUp end={getSumPriceIncomes(incomes)} decimal="." decimals={3} duration={1} />{" "}
+							Tổng: <CountUp end={getSumPriceCosts(costs)} decimal="." decimals={3} duration={1} />{" "}
 							VND
 						</Typography>
 						<Stack flexDirection={"row"} alignItems={"center"}>
-							<CreateIncomeDialog />
-							<SelectDate path="/incomes" />
+							<CreateCostDialog />
+							<SelectDate path="/costs" />
 						</Stack>
 					</Stack>
 
-					<IncomesTable incomes={incomes} />
+					<IncomesTable costs={costs} />
 				</Container>
 			</Box>
 		</>
 	);
 };
 
-Incomes.Layout = AdminLayout;
+Costs.Layout = AdminLayout;
 
-export default Incomes;
+export default Costs;

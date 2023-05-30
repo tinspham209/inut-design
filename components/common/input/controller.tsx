@@ -11,6 +11,7 @@ const ControllerInput: React.FC<Props> = ({
 	errors,
 	control,
 	type,
+	helperText,
 }) => {
 	return (
 		<>
@@ -25,7 +26,9 @@ const ControllerInput: React.FC<Props> = ({
 						variant="outlined"
 						type={type}
 						error={!!errors[id]}
-						helperText={(errors[id]?.message as string) || ""}
+						helperText={
+							errors[id]?.message ? (errors[id]?.message as string) : helperText ? helperText : ""
+						}
 						label={label}
 						placeholder={placeholder}
 						required={required}
@@ -48,6 +51,7 @@ type Props = {
 	control: Control<FieldValues>;
 	errors: FieldErrors;
 	type?: React.HTMLInputTypeAttribute;
+	helperText?: string;
 };
 
 export default ControllerInput;

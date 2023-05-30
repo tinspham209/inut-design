@@ -1,4 +1,4 @@
-import { Income } from "@/models";
+import { Cost, Income } from "@/models";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const isEmpty = (value): boolean =>
@@ -46,6 +46,16 @@ export const getSumPriceIncomes = (_incomes: Income[]): number => {
 				matLung: income.matLung,
 				vienManHinh: income.vienManHinh,
 			});
+		});
+	}
+	return sum;
+};
+
+export const getSumPriceCosts = (_costs: Cost[]): number => {
+	let sum = 0;
+	if (_costs) {
+		_costs.forEach((cost) => {
+			sum += +cost.price;
 		});
 	}
 	return sum;

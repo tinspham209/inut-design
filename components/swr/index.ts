@@ -18,3 +18,4 @@ export async function creater(body, { arg }) {
 
 export * from "./StudentDetail";
 export { default as swrIncomes } from "./incomes";
+export { default as swrCosts } from "./costs";

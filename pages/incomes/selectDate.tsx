@@ -5,7 +5,7 @@ import { endOfDay, format, startOfDay } from "date-fns";
 import { useRouter } from "next/router";
 import React from "react";
 import { Range, RangeKeyDict } from "react-date-range";
-const SelectDate = () => {
+const SelectDate: React.FC<Props> = ({ path }) => {
 	const router = useRouter();
 	const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
@@ -28,14 +28,14 @@ const SelectDate = () => {
 	const updateQuery = React.useCallback(
 		({ startDate, endDate }) => {
 			router.push({
-				pathname: "/incomes",
+				pathname: path,
 				query: {
 					startDate: startDate.toISOString(),
 					endDate: endDate.toISOString(),
 				},
 			});
 		},
-		[router]
+		[path, router]
 	);
 
 	const handleDateChange = (value: RangeKeyDict) => {
@@ -89,6 +89,10 @@ const SelectDate = () => {
 			</Popover>
 		</>
 	);
+};
+
+type Props = {
+	path: string;
 };
 
 export default SelectDate;
