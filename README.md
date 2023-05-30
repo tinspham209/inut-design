@@ -12,3 +12,5 @@ Web-admin: https://inut-design.sanity.studio/
 - Rehype
 - SWR
 - Vercel
+- Next-auth
+- MongoDB
