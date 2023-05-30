@@ -40,7 +40,20 @@ export const authOptions: NextAuthOptions = {
 	pages: {
 		signIn: "/login",
 	},
-	debug: process.env.NODE_ENV === "development",
+	debug: process.env.NODE_ENV === "production",
+	logger: {
+		error(code, metadata) {
+			console.error("error code:", code);
+			console.error("error metadata: ", metadata);
+		},
+		warn(code) {
+			console.error("error warn code:", code);
+		},
+		debug(code, metadata) {
+			console.error("debug code:", code);
+			console.error("debig metadata: ", metadata);
+		},
+	},
 	session: {
 		strategy: "jwt",
 	},
