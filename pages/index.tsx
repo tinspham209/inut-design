@@ -28,7 +28,7 @@ const Home: NextPageWithLayout = ({ products, macnuts, blogs }: Props) => {
 					offset: -550,
 				});
 			}
-		}, 3000);
+		}, 1000);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
