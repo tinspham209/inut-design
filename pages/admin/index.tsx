@@ -1,11 +1,27 @@
-import { JsonView, Seo } from "@/components/common";
+import { Seo } from "@/components/common";
 import { AdminLayout } from "@/components/layout";
+import { swrCosts, swrIncomes } from "@/components/swr";
 import { NextPageWithLayout } from "@/models/common";
-import { Box, Button, Card, CardActions, CardContent, Container, Typography } from "@mui/material";
+import { firstDateOfMonth, getSumPriceCosts, getSumPriceIncomes, lastDateOfMonth } from "@/utils";
+import { Box, Card, CardContent, Container, Grid, Typography } from "@mui/material";
+import { format } from "date-fns";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import CountUp from "react-countup";
 const Admin: NextPageWithLayout = () => {
 	const session = useSession();
+	const router = useRouter();
+
+	const { costs } = swrCosts.useGetByDateRange(
+		new Date(firstDateOfMonth),
+		new Date(lastDateOfMonth)
+	);
+
+	const { incomes } = swrIncomes.useIncomeWithDateRange(
+		new Date(firstDateOfMonth),
+		new Date(lastDateOfMonth)
+	);
 
 	return (
 		<Box>
@@ -28,21 +44,80 @@ const Admin: NextPageWithLayout = () => {
 					}}
 				>
 					<CardContent>
-						<Typography variant="h5" color="text.secondary">
-							Hi {session?.data?.user.email || "Anonymous"}, Welcome back!
+						<Typography variant="h6" color="text.secondary">
+							Xin chào {session?.data?.user.email || "Anonymous"}
 						</Typography>
 					</CardContent>
-					<CardActions>
-						<Link href="/incomes">
-							<Button variant="contained">doanh thu</Button>
-						</Link>
-						<Link href="/costs">
-							<Button variant="contained">chi phí</Button>
-						</Link>
-					</CardActions>
 				</Card>
 
-				<JsonView src={session} />
+				<Box mt={3}>
+					<Grid container spacing={3}>
+						<Grid item xs={12} sm={3}>
+							<Link href="/incomes">
+								<Card sx={{ border: "1px solid rgba(255,255,255,0.23)", cursor: "pointer" }}>
+									<CardContent>
+										<Typography variant="body1" color="text.secondary">
+											Tổng doanh thu tháng {format(new Date(), "M")}
+										</Typography>
+										<Typography variant="h5" fontWeight={"bold"} mt={1} color="success.main">
+											<CountUp
+												end={getSumPriceIncomes(incomes)}
+												decimal="."
+												decimals={3}
+												duration={1}
+											/>{" "}
+											VND
+										</Typography>
+									</CardContent>
+								</Card>
+							</Link>
+						</Grid>
+						<Grid item xs={12} sm={3}>
+							<Link href="/incomes">
+								<Card
+									sx={{ border: "1px solid rgba(255,255,255,0.23)", cursor: "pointer" }}
+									onClick={() => {
+										router.push("/costs");
+									}}
+								>
+									<CardContent>
+										<Typography variant="body1" color="text.secondary">
+											Tổng sản phẩm tháng {format(new Date(), "M")}
+										</Typography>
+										<Typography variant="h5" fontWeight={"bold"} mt={1} color="info.light">
+											<CountUp end={incomes?.length} duration={1} /> sản phẩm
+										</Typography>
+									</CardContent>
+								</Card>
+							</Link>
+						</Grid>
+						<Grid item xs={12} sm={3}>
+							<Link href="/costs">
+								<Card
+									sx={{ border: "1px solid rgba(255,255,255,0.23)", cursor: "pointer" }}
+									onClick={() => {
+										router.push("/costs");
+									}}
+								>
+									<CardContent>
+										<Typography variant="body1" color="text.secondary">
+											Tổng chi phí tháng {format(new Date(), "M")}
+										</Typography>
+										<Typography variant="h5" fontWeight={"bold"} mt={1} color="error.light">
+											<CountUp
+												end={getSumPriceCosts(costs)}
+												decimal="."
+												decimals={3}
+												duration={1}
+											/>{" "}
+											VND
+										</Typography>
+									</CardContent>
+								</Card>
+							</Link>
+						</Grid>
+					</Grid>
+				</Box>
 			</Container>
 		</Box>
 	);
