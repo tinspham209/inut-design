@@ -40,7 +40,7 @@ export const authOptions: NextAuthOptions = {
 	pages: {
 		signIn: "/login",
 	},
-	debug: process.env.NODE_ENV === "production",
+	debug: process.env.NODE_ENV === "development",
 	logger: {
 		error(code, metadata) {
 			console.error("error code:", code);
