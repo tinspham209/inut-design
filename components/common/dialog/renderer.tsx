@@ -1,9 +1,9 @@
 import { Callback } from "@/utils";
-import { DIALOG_TYPES, DialogData } from "@/zustand/dialog/type";
+import { DIALOG_TYPES, DialogData } from "@/store/dialog/type";
 import React from "react";
 import Dialog from ".";
 import { Button, Stack } from "@mui/material";
-import useDialogSlice from "@/zustand/dialog/slice";
+import useDialogSlice from "@/store/dialog/slice";
 
 const DialogRenderer: React.FC<Props> = ({ data = {}, dialogType = "", open = false }) => {
 	const {

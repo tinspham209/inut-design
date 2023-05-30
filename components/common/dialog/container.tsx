@@ -1,5 +1,5 @@
-import useDialogSlice from "@/zustand/dialog/slice";
-import { DialogDataKey } from "@/zustand/dialog/type";
+import useDialogSlice from "@/store/dialog/slice";
+import { DialogDataKey } from "@/store/dialog/type";
 import { CircularProgress } from "@mui/material";
 import dynamic from "next/dynamic";
 import React, { Suspense } from "react";

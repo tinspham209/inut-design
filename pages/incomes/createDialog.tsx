@@ -1,7 +1,7 @@
 import { ControllerDatePicker, ControllerInput, ControllerSwitch } from "@/components/common";
 import { swrIncomes } from "@/components/swr";
-import useDialogSlice from "@/zustand/dialog/slice";
-import { DIALOG_TYPES } from "@/zustand/dialog/type";
+import useDialogSlice from "@/store/dialog/slice";
+import { DIALOG_TYPES } from "@/store/dialog/type";
 import { Box, Button, Grid, Popover, Stack, Typography } from "@mui/material";
 import { format } from "date-fns";
 import React from "react";

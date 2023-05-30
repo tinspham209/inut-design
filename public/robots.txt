@@ -1,18 +1,13 @@
-User-agent: Mediapartners-Google
-
-Disallow:
-
+# *
 User-agent: *
-
 Allow: /
-
-Allow: /search
-
 Disallow: /*?updated-max=*
-
-Disallow: *archive.html
-
 Disallow: /signup
+
+# Mediapartners-Google
+User-agent: Mediapartners-Google
+Allow: /search
+Disallow: *archive.html
 
 # Host
 Host: https://inutdesign.com
