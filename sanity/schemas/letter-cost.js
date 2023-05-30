@@ -1,6 +1,6 @@
 export default {
-	name: "costs",
-	title: "Chi Phí",
+	name: "letter-cost",
+	title: "Giấy",
 	type: "document",
 	fields: [
 		{
@@ -9,21 +9,19 @@ export default {
 			type: "string",
 		},
 		{
-			name: "date",
-			title: "Ngày",
-			type: "date",
+			name: "slug",
+			title: "Slug",
+			type: "slug",
 			options: {
-				dateFormat: "YYYY-MM-DD",
-				calendarTodayLabel: "Today",
+				source: "title",
+				maxLength: 90,
 			},
-			initialValue: new Date(),
 		},
 		{
 			name: "price",
 			title: "Giá (300)",
 			type: "number",
 		},
-
 		{
 			name: "details",
 			title: "Chi tiết",
@@ -34,7 +32,7 @@ export default {
 	preview: {
 		select: {
 			name: "title",
-			subtitle: "date",
+			subtitle: "price",
 		},
 		prepare(selection) {
 			const { name, subtitle } = selection;

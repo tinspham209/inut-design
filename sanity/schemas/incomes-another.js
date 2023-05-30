@@ -1,6 +1,6 @@
 export default {
-	name: "costs",
-	title: "Chi Phí",
+	name: "income-another",
+	title: "Doanh thu Khác",
 	type: "document",
 	fields: [
 		{
@@ -16,14 +16,39 @@ export default {
 				dateFormat: "YYYY-MM-DD",
 				calendarTodayLabel: "Today",
 			},
-			initialValue: new Date(),
 		},
 		{
 			name: "price",
-			title: "Giá (300)",
+			title: "Giá",
 			type: "number",
 		},
-
+		{
+			name: "discount",
+			title: "Giảm giá (%)",
+			type: "number",
+		},
+		{
+			name: "costGiay1",
+			title: "Loại giấy 1",
+			type: "reference",
+			to: { type: "letter-cost" },
+		},
+		{
+			name: "indexGiay1",
+			title: "Số lượng giấy 1",
+			type: "number",
+		},
+		{
+			name: "costGiay2",
+			title: "Loại giấy 2",
+			type: "reference",
+			to: { type: "letter-cost" },
+		},
+		{
+			name: "indexGiay2",
+			title: "Số lượng giấy 2",
+			type: "number",
+		},
 		{
 			name: "details",
 			title: "Chi tiết",
