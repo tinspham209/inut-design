@@ -7,3 +7,6 @@ export { default as JsonView } from "./jsonView";
 export { default as Input } from "./input";
 export { default as DateRangePicker } from "./calendar/dateRange";
 export { default as DialogContainer } from "./dialog/container";
+export { default as ControllerInput } from "./input/controller";
+export { default as ControllerDatePicker } from "./calendar/datePicker";
+export { default as ControllerSwitch } from "./switch";
