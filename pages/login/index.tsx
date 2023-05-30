@@ -10,6 +10,8 @@ import { toast } from "react-hot-toast";
 
 const SignIn: NextPageWithLayout = () => {
 	const [isLoading, setIsLoading] = React.useState(false);
+	console.log("NEXTAUTH_URL: ", process.env.NEXTAUTH_URL);
+	console.log("NEXTAUTH_URL: ", process.env.NEXTAUTH_SECRET);
 
 	const router = useRouter();
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
