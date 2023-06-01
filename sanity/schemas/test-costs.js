@@ -1,6 +1,6 @@
 export default {
-	name: "cost",
-	title: "Chi Phí",
+	name: "costs",
+	title: "Test - Chi Phí",
 	type: "document",
 	fields: [
 		{

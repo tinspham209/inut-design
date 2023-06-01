@@ -1,5 +1,5 @@
 export default {
-	name: "income-sticker",
+	name: "incomes-sticker",
 	title: "Doanh thu Sticker",
 	type: "document",
 	fields: [

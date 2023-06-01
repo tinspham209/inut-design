@@ -1,6 +1,6 @@
 export default {
-	name: "incomes-another",
-	title: "Doanh thu Khác",
+	name: "income-sticker",
+	title: "Test - Doanh thu Sticker",
 	type: "document",
 	fields: [
 		{
@@ -18,9 +18,15 @@ export default {
 			},
 		},
 		{
-			name: "price",
-			title: "Giá",
+			name: "soluong",
+			title: "Số lượng giấy",
 			type: "number",
+		},
+		{
+			name: "stickerType",
+			title: "Loại sticker",
+			type: "reference",
+			to: { type: "sticker-type" },
 		},
 		{
 			name: "discount",

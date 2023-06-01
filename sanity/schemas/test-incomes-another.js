@@ -1,6 +1,6 @@
 export default {
-	name: "income",
-	title: "Doanh thu",
+	name: "income-another",
+	title: "Test - Doanh thu Khác",
 	type: "document",
 	fields: [
 		{
@@ -18,28 +18,9 @@ export default {
 			},
 		},
 		{
-			name: "matLung",
-			title: "Mặt lưng (120)",
-			type: "boolean",
-			initialValue: false,
-		},
-		{
-			name: "matPhim",
-			title: "Mặt phím (180)",
-			type: "boolean",
-			initialValue: false,
-		},
-		{
-			name: "matDay",
-			title: "Mặt đáy (150)",
-			type: "boolean",
-			initialValue: false,
-		},
-		{
-			name: "vienManHinh",
-			title: "Viền màn hình (100)",
-			type: "boolean",
-			initialValue: false,
+			name: "price",
+			title: "Giá",
+			type: "number",
 		},
 		{
 			name: "discount",
