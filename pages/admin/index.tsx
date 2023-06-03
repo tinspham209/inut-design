@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import CountUp from "react-countup";
+import React from "react";
 const Admin: NextPageWithLayout = () => {
 	const session = useSession();
 	const router = useRouter();
@@ -22,6 +23,12 @@ const Admin: NextPageWithLayout = () => {
 		new Date(firstDateOfMonth),
 		new Date(lastDateOfMonth)
 	);
+
+	const userName = React.useMemo(() => {
+		if (session) {
+			return session?.data?.user.name || session?.data?.user.email || "Anonymous";
+		}
+	}, [session]);
 
 	return (
 		<Box>
@@ -45,7 +52,7 @@ const Admin: NextPageWithLayout = () => {
 				>
 					<CardContent>
 						<Typography variant="h6" color="text.secondary">
-							Xin chào {session?.data?.user.email || "Anonymous"}
+							Xin chào {userName} !
 						</Typography>
 					</CardContent>
 				</Card>

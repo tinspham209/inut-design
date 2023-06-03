@@ -3,6 +3,9 @@ import { Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import { motion } from "framer-motion";
 import { Footer, FooterSeo, Header } from "../common";
+import { useSession } from "next-auth/react";
+import React from "react";
+import { useRouter } from "next/router";
 const variants = {
 	hidden: { opacity: 0, x: 0, y: 20 },
 	enter: { opacity: 1, x: 0, y: 0 },
@@ -10,6 +13,17 @@ const variants = {
 };
 
 export function MainLayout({ children }: LayoutProps) {
+	const session = useSession();
+	const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+	const router = useRouter();
+
+	React.useEffect(() => {
+		if (session && session.data) {
+			setIsAuthenticated(true);
+			router.push("/admin");
+		}
+	}, [router, session]);
+
 	return (
 		<>
 			<FooterSeo />
@@ -22,7 +36,7 @@ export function MainLayout({ children }: LayoutProps) {
 				style={{ position: "relative" }}
 			>
 				<Stack minHeight="100vh">
-					<Header isAuthenticated={false} />
+					<Header isAuthenticated={isAuthenticated} />
 
 					<Box component="main" flexGrow={1} mt={8}>
 						{children}

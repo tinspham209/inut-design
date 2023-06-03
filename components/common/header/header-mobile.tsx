@@ -36,7 +36,6 @@ export function HeaderMobile({ isAuthenticated }: Props) {
 			setIsLoading(false);
 			toggleDrawer(false);
 			toast.success("Logout successfully");
-			router.push("/login");
 		});
 	};
 

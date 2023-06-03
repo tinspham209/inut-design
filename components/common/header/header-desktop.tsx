@@ -28,7 +28,6 @@ export function HeaderDesktop({ isAuthenticated }: Props) {
 			setIsLoading(false);
 
 			toast.success("Logout successfully");
-			router.push("/login");
 		});
 	};
 
