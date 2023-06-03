@@ -45,7 +45,7 @@
 		"http-proxy": "^1.18.1",
 		"lodash": "^4.17.21",
 		"next": "12.3.1",
-		"next-auth": "4.15.1",
+		"next-auth": "4.22.1",
 		"next-sanity-image": "^4.1.0",
 		"next-sitemap": "^3.1.23",
 		"react": "18.2.0",
