@@ -3,7 +3,7 @@ slug: tai-sao-nen-dan-skin-cho-laptop
 title: Có nên dán decal laptop? Những lưu ý cần biết trước khi tân trang laptop với decal
 author: tinspham209
 author_title: INUT Design
-author_url: https://www.facebook.com/inutdesign
+author_url: https://www.inutdesign.com
 author_image_url: https://res.cloudinary.com/dmspucdtf/image/upload/v1663647671/inut/292635797_197003529328579_4330060878795101093_n_bjzhby.jpg
 tags: [skin laptop, skin laptop da nang, dan laptop da nang, skin macbook da nang]
 date: '2022-09-21T06:45:22.393Z'
@@ -51,3 +51,12 @@ Nếu chỉ muốn trang trí làm đẹp thì không nhất thiết phải dán
 https://cdn.hubs.vn/pv-blog/2020/05/dan-decal-laptop-phong-vu-1.jpg
 
 Dù thế nào thì dán decal laptop cũng có cả mặt lợi lẫn hại. Nhưng một khi đã lựa chọn cẩn thận và thật sự hiểu chiếc máy của mình, bạn hãy cứ tự tin đem laptop thân yêu đi tân trang. Hãy tạo ra một chiếc laptop mang đậm dấu ấn cá nhân của riêng mình theo cách mà bạn muốn!
+
+Tham khảo những mẫu có sẵn tại đây nha:
+- Skin laptop: [https://inutdesign.com/products](/products)
+- Skin macbook: [https://inutdesign.com/macnut](/macnut)
+
+Liên hệ shop để được tư vấn chi tiết hơn :
+- Sdt/Zalo : [079 235 9996](tel:0792359996)
+- Facebook : [facebook.com/inutdesign](https://www.facebook.com/inutdesign)
+- Địa chỉ : [K294/43 Điện Biên Phủ, Đà Nẵng, Việt Nam](https://goo.gl/maps/c9K4XVcUwQ3aiqSu5)

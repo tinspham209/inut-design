@@ -3,7 +3,7 @@ slug: skin-laptop-danang
 title: Biến Laptop của bạn thành một tác phẩm nghệ thuật với Skin độc đáo!
 author: tinspham209
 author_title: INUT Design
-author_url: https://www.facebook.com/inutdesign
+author_url: https://www.inutdesign.com
 author_image_url: https://res.cloudinary.com/dmspucdtf/image/upload/v1663647671/inut/292635797_197003529328579_4330060878795101093_n_bjzhby.jpg
 tags: [skin laptop, skin macbook da nang, skin laptop da nang, dan laptop da nang]
 date: '2023-05-01T16:16:56.674Z'

@@ -3,7 +3,7 @@ slug: huong-dan-xem-doi-may-ten-model-may-tinh-laptop
 title: Hướng dẫn xem đời máy, tên model máy tính Laptop
 author: tinspham209
 author_title: INUT Design
-author_url: https://www.facebook.com/inutdesign
+author_url: https://www.inutdesign.com
 author_image_url: https://res.cloudinary.com/dmspucdtf/image/upload/v1663647671/inut/292635797_197003529328579_4330060878795101093_n_bjzhby.jpg
 tags: [check-model-laptop, skin laptop, skin laptop da nang, dan laptop da nang, skin macbook da nang]
 date: '2022-09-21T11:30:45.369Z'
@@ -42,4 +42,13 @@ https://res.cloudinary.com/dmspucdtf/image/upload/v1663760310/inut/Screenshot_5-
 https://res.cloudinary.com/dmspucdtf/image/upload/v1663760327/inut/0205_Cachxemdoimaylaptop-11_avoaun.jpg
 
 Chúc các bạn tìm được đúng tên Model laptop của mình và sắm cho mình một bộ skin mới cho Laptop cá nhân tại INUT nhé.
+
+Tham khảo những mẫu có sẵn tại đây nha:
+- Skin laptop: [https://inutdesign.com/products](/products)
+- Skin macbook: [https://inutdesign.com/macnut](/macnut)
+
+Liên hệ shop để được tư vấn chi tiết hơn :
+- Sdt/Zalo : [079 235 9996](tel:0792359996)
+- Facebook : [facebook.com/inutdesign](https://www.facebook.com/inutdesign)
+- Địa chỉ : [K294/43 Điện Biên Phủ, Đà Nẵng, Việt Nam](https://goo.gl/maps/c9K4XVcUwQ3aiqSu5)
 

@@ -3,7 +3,7 @@ slug: dan-skin-laptop-tai-da-nang
 title: Dán skin laptop giá rẻ tại Đà Nẵng
 author: tinspham209
 author_title: INUT Design
-author_url: https://www.facebook.com/inutdesign
+author_url: https://www.inutdesign.com
 author_image_url: https://res.cloudinary.com/dmspucdtf/image/upload/v1663647671/inut/292635797_197003529328579_4330060878795101093_n_bjzhby.jpg
 tags: [skin laptop, skin laptop da nang, dan laptop da nang, skin macbook da nang]
 date: '2023-04-25T10:01:19.024Z'
@@ -70,3 +70,12 @@ http://media3.scdn.vn/img4/2020/09_28/IRvpTSxgFSlWCaf5Zxcu_simg_d0daf0_800x1200_
 http://media3.scdn.vn/img4/2020/09_28/LkVYpbrpfoc9WIqupUdZ_simg_d0daf0_800x1200_max.jpg
 
 http://media3.scdn.vn/img4/2020/09_28/jX82LfJ8uIJKWSwMMstO_simg_d0daf0_800x1200_max.jpg
+
+Tham khảo những mẫu có sẵn tại đây nha:
+- Skin laptop: [https://inutdesign.com/products](/products)
+- Skin macbook: [https://inutdesign.com/macnut](/macnut)
+
+Liên hệ shop để được tư vấn chi tiết hơn :
+- Sdt/Zalo : [079 235 9996](tel:0792359996)
+- Facebook : [facebook.com/inutdesign](https://www.facebook.com/inutdesign)
+- Địa chỉ : [K294/43 Điện Biên Phủ, Đà Nẵng, Việt Nam](https://goo.gl/maps/c9K4XVcUwQ3aiqSu5)
