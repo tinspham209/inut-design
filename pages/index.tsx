@@ -1,37 +1,16 @@
 import { productsApi } from "@/api-client/products";
 import { Seo } from "@/components/common";
-import { BlogsHome, INFO_ID_ELEMENT, InfoSection, ListSpecialProducts } from "@/components/home";
-import { HeroSection } from "@/components/home/hero";
+import { BlogsHome, InfoSection, ListSpecialProducts } from "@/components/home";
+import { Services } from "@/components/home/services";
 import { MainLayout } from "@/components/layout";
 import { Post } from "@/models";
 import { NextPageWithLayout } from "@/models/common";
 import { Products } from "@/models/products";
 import { getPostList } from "@/utils";
-import { Box, useMediaQuery } from "@mui/material";
+import { Box } from "@mui/material";
 import { GetStaticProps } from "next";
-import React from "react";
-import { scroller } from "react-scroll";
 
 const Home: NextPageWithLayout = ({ products, macnuts, blogs }: Props) => {
-	const isSmScreen = useMediaQuery("(max-width:600px)");
-
-	React.useEffect(() => {
-		const infoElement = document.getElementById(INFO_ID_ELEMENT);
-
-		setTimeout(() => {
-			if (isSmScreen) {
-				infoElement.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
-			} else {
-				scroller.scrollTo(INFO_ID_ELEMENT, {
-					smooth: true,
-					duration: 1000,
-					offset: -550,
-				});
-			}
-		}, 1000);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
 	return (
 		<Box>
 			<Seo
@@ -44,10 +23,11 @@ const Home: NextPageWithLayout = ({ products, macnuts, blogs }: Props) => {
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
 				}}
 			/>
-			<HeroSection />
+			{/* <HeroSection /> */}
 			<InfoSection />
 			<ListSpecialProducts products={products} />
 			<ListSpecialProducts products={macnuts} isMacnut />
+			<Services />
 			<BlogsHome posts={blogs} />
 		</Box>
 	);
@@ -74,7 +54,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 		props: {
 			products: [...specialProducts],
 			macnuts: [...specialMacnuts],
-			blogs: postList,
+			blogs: postList.sort((a, b) => (a.publishedDate < b.publishedDate ? 1 : -1)).slice(0, 5),
 		},
 	};
 };

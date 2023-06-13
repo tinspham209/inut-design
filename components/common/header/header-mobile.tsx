@@ -9,17 +9,16 @@ import {
 	ListItemButton,
 	Link as MuiLink,
 	Stack,
-	Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import clsx from "clsx";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { toast } from "react-hot-toast";
 import { ROUTE_LIST, ROUTE_LIST_ADMIN } from "./routes";
-
 type Props = {
 	isAuthenticated: boolean;
 };
@@ -63,11 +62,10 @@ export function HeaderMobile({ isAuthenticated }: Props) {
 				position: "fixed",
 				top: 0,
 				width: "100%",
-				backgroundColor: COLOR_CODE.BACKGROUND,
+				backgroundColor: COLOR_CODE.WHITE,
 				zIndex: 99,
-				borderBottom: "1px solid rgb(245, 245, 245)",
+				borderBottom: `1px solid ${COLOR_CODE.BORDER}`,
 				backdropFilter: "blur(20px)",
-				boxShadow: "0px 2px 8px #383232",
 			}}
 		>
 			<Container maxWidth="xs">
@@ -77,28 +75,17 @@ export function HeaderMobile({ isAuthenticated }: Props) {
 						onKeyDown={toggleDrawer(true)}
 						sx={{
 							"& svg": {
-								color: COLOR_CODE.WHITE,
+								color: COLOR_CODE.TEXT_DARK,
 							},
 						}}
 					>
 						<MenuIcon />
 					</IconButton>
 					<Link href={"/"} passHref>
-						<MuiLink sx={{ fontWeight: "bold", ml: 2 }} underline="hover" className="">
-							<Typography variant="h3" fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}>
-								INUT Design
-							</Typography>
-						</MuiLink>
+						<Image src={"/branding/logo.webp"} alt="logo" width={"103px"} height={"32px"} />
 					</Link>
 				</Stack>
-				<Drawer
-					anchor={"left"}
-					sx={{
-						bgcolor: COLOR_CODE.BACKGROUND,
-					}}
-					open={open}
-					onClose={toggleDrawer(false)}
-				>
+				<Drawer anchor={"left"} open={open} onClose={toggleDrawer(false)}>
 					<List
 						sx={{
 							minWidth: "180px",
@@ -114,7 +101,7 @@ export function HeaderMobile({ isAuthenticated }: Props) {
 								>
 									<Link href={route.path} passHref>
 										<MuiLink
-											sx={{ fontWeight: "medium" }}
+											sx={{ fontWeight: "medium", textTransform: "uppercase" }}
 											underline="hover"
 											className={clsx({ active: router.pathname === route.path })}
 										>
@@ -129,6 +116,7 @@ export function HeaderMobile({ isAuthenticated }: Props) {
 								<ListItemButton
 									sx={{
 										justifyContent: "center",
+										textTransform: "uppercase",
 									}}
 									disabled={isLoading}
 								>
@@ -145,7 +133,7 @@ export function HeaderMobile({ isAuthenticated }: Props) {
 								>
 									<Link href={"/login"} passHref>
 										<MuiLink
-											sx={{ fontWeight: "medium" }}
+											sx={{ fontWeight: "medium", textTransform: "uppercase" }}
 											underline="hover"
 											className={clsx({ active: router.pathname === "/login" })}
 										>

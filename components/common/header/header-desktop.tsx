@@ -1,9 +1,10 @@
 import { COLOR_CODE } from "@/utils";
 import { Fingerprint } from "@mui/icons-material";
-import { Container, IconButton, Link as MuiLink, Stack, Tooltip, Typography } from "@mui/material";
+import { Container, IconButton, Link as MuiLink, Stack, Tooltip } from "@mui/material";
 import { Box } from "@mui/system";
 import clsx from "clsx";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -44,20 +45,17 @@ export function HeaderDesktop({ isAuthenticated }: Props) {
 				position: "fixed",
 				top: 0,
 				width: "100%",
-				backgroundColor: COLOR_CODE.BACKGROUND,
+				backgroundColor: "secondary.dark",
 				zIndex: 99,
 				borderBottom: `1px solid ${COLOR_CODE.BORDER}`,
 				backdropFilter: "blur(20px)",
-				boxShadow: "0px 2px 8px #383232",
 			}}
 		>
 			<Container>
-				<Stack direction="row" justifyContent={"space-between"}>
+				<Stack direction="row" justifyContent={"space-between"} alignItems={"center"}>
 					<Link href={"/"} passHref>
-						<MuiLink sx={{ fontWeight: "bold" }} underline="hover" className="">
-							<Typography variant="h4" fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}>
-								INUT Design
-							</Typography>
+						<MuiLink>
+							<Image src={"/branding/logo.webp"} alt="logo" width={"103px"} height={"32px"} />
 						</MuiLink>
 					</Link>
 					<Box>
@@ -66,9 +64,9 @@ export function HeaderDesktop({ isAuthenticated }: Props) {
 								<MuiLink
 									sx={{
 										ml: 2,
-										fontWeight: "medium",
-										fontSize: 24,
-										fontFamily: '"Zawtturee", "Bangers" ,"Roboto", sans-serif',
+										fontWeight: "bold",
+										fontSize: 16,
+										textTransform: "uppercase",
 									}}
 									underline="hover"
 									className={clsx({ active: router.pathname === route.path })}
@@ -97,9 +95,9 @@ export function HeaderDesktop({ isAuthenticated }: Props) {
 								<MuiLink
 									sx={{
 										ml: 1,
-										fontWeight: "medium",
-										fontSize: 24,
-										fontFamily: '"Zawtturee", "Bangers" ,"Roboto", sans-serif',
+										fontWeight: "bold",
+										fontSize: 14,
+										textTransform: "uppercase",
 									}}
 									underline="hover"
 								>

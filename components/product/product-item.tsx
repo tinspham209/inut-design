@@ -1,6 +1,6 @@
 import { urlFor } from "@/api-client/sanity-client";
 import { Product, ProductType } from "@/models/products";
-import { Box, Button, Chip, Link as MuiLink, Stack, Typography } from "@mui/material";
+import { Box, Button, Link as MuiLink, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./product-item.module.css";
@@ -18,7 +18,7 @@ export function ProductItem({ product, productTypes, isMacnut = false }: Product
 	return (
 		<Link href={`/${isMacnut ? "macnut" : "products"}/${product.slug.current}`} passHref>
 			<MuiLink>
-				<Box bgcolor="#1c1f26">
+				<Box>
 					<Box>
 						<Image
 							src={urlFor(product.image[0]).width(500).url()}
@@ -32,16 +32,29 @@ export function ProductItem({ product, productTypes, isMacnut = false }: Product
 						/>
 					</Box>
 					<Typography
-						variant="h5"
-						fontWeight="bold"
-						mt={2}
-						fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}
+						variant="h6"
+						sx={{
+							fontWeight: "bold",
+							mt: 2,
+							whiteSpace: "nowrap",
+							textOverflow: "ellipsis",
+							overflow: "hidden",
+						}}
 					>
 						{product.name}
 					</Typography>
-					<Box mt={1}>
-						<Chip label={productType.name} variant="outlined" color="primary" size="small" />
-					</Box>
+
+					<Typography
+						variant="body2"
+						sx={{
+							whiteSpace: "nowrap",
+							textOverflow: "ellipsis",
+							overflow: "hidden",
+							color: "#8c8c8c",
+						}}
+					>
+						{productType.name}
+					</Typography>
 					<Stack direction="row" justifyContent={"flex-end"}>
 						<Button variant="text" color="primary">
 							Xem chi tiết

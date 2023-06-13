@@ -20,11 +20,11 @@ export function ProductCard({ product, productTypes, isMacnut = false }: Product
 					transform: "scale(1.05)",
 				},
 				border: `1px solid ${COLOR_CODE.BORDER}`,
-				borderRadius: "16px",
+				borderRadius: "8px",
 			}}
 			id={product.slug.current}
 		>
-			<CardContent sx={{ pb: "8px !important", bgcolor: COLOR_CODE.BACKGROUND_CARD }}>
+			<CardContent sx={{ pb: "8px !important" }}>
 				<ProductItem product={product} productTypes={productTypes} isMacnut={isMacnut} />
 			</CardContent>
 		</Card>

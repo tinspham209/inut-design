@@ -37,16 +37,10 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 							<MuiLink>Trang chủ</MuiLink>
 						</Link>
 
-						<Typography color={COLOR_CODE.WHITE}>Macnut</Typography>
+						<Typography>Nút Phím</Typography>
 					</Breadcrumbs>
 					<Box mt={3}>
-						<Typography
-							variant="h2"
-							fontWeight="bold"
-							textAlign="center"
-							fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}
-							letterSpacing="10px"
-						>
+						<Typography variant="h2" fontWeight="bold" textAlign="center" letterSpacing="10px">
 							Sản phẩm (<CountUp end={products.length} duration={2} />)
 						</Typography>
 					</Box>
@@ -62,7 +56,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 						<Grid container item xs={12} spacing={3} id="productTitle">
 							{products.map((product) => {
 								return (
-									<Grid item xs={6} md={4} key={product._id}>
+									<Grid item xs={6} md={3} key={product._id}>
 										<ProductCard product={product} productTypes={productTypes} isMacnut />
 									</Grid>
 								);

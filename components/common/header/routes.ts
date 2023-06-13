@@ -4,15 +4,19 @@ export const ROUTE_LIST = [
 		path: "/",
 	},
 	{
-		label: "Sản phẩm",
+		label: "Laptop",
 		path: "/products",
 	},
 	{
-		label: "MacNut",
+		label: "Nút phím",
 		path: "/macnut",
 	},
+	// {
+	// 	label: "Sticker",
+	// 	path: "/sticker",
+	// },
 	{
-		label: "Blog",
+		label: "Tin tức",
 		path: "/blog",
 	},
 	{

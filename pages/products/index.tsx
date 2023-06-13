@@ -93,16 +93,10 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 							<MuiLink>Trang chủ</MuiLink>
 						</Link>
 
-						<Typography color={COLOR_CODE.WHITE}>Sản phẩm</Typography>
+						<Typography>Sản phẩm</Typography>
 					</Breadcrumbs>
 					<Box mt={3} id="title">
-						<Typography
-							variant="h2"
-							fontWeight="bold"
-							textAlign="center"
-							fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}
-							letterSpacing="10px"
-						>
+						<Typography variant="h2" fontWeight="bold" textAlign="center" letterSpacing="10px">
 							Sản phẩm (<CountUp end={products.length} duration={2} />)
 						</Typography>
 					</Box>
@@ -160,9 +154,10 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 										minHeight: {
 											md: "1px",
 										},
-										bgcolor: COLOR_CODE.BACKGROUND_CARD,
+										maxHeight: "80vh",
+										overflowY: "auto",
 										border: `1px solid ${COLOR_CODE.BORDER}`,
-										borderRadius: "16px !important",
+										borderRadius: "8px 4px 4px 8px !important",
 									}}
 								>
 									<AccordionSummary
@@ -170,11 +165,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 										aria-controls="panel1a-content"
 										id="panel1a-header"
 									>
-										<Typography
-											variant="h4"
-											fontWeight="bold"
-											fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}
-										>
+										<Typography variant="h4" fontWeight="bold">
 											Bộ lọc
 										</Typography>
 									</AccordionSummary>

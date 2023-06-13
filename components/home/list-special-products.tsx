@@ -26,10 +26,9 @@ export function ListSpecialProducts({ products, isMacnut = false }: Props) {
 	return (
 		<Box
 			component={"section"}
-			bgcolor={isMacnut ? COLOR_CODE.BACKGROUND : COLOR_CODE.BACKGROUND_CARD}
+			bgcolor={isMacnut ? COLOR_CODE.BACKGROUND_CARD : COLOR_CODE.BACKGROUND}
 			pt={2}
 			pb={4}
-			zIndex={999}
 		>
 			<Container>
 				<Stack direction="row" py={3} justifyContent={"center"} alignItems={"center"}>
@@ -37,17 +36,15 @@ export function ListSpecialProducts({ products, isMacnut = false }: Props) {
 						variant="h3"
 						fontWeight={"bold"}
 						textAlign={"center"}
-						color={"white"}
-						fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}
-						letterSpacing="10px"
+						color={isMacnut ? COLOR_CODE.WHITE : COLOR_CODE.TEXT_DARK}
 					>
-						{isMacnut ? "MACNUT" : "Sản phẩm nổi bật"}
+						{isMacnut ? "Skin Nút Phím" : "Skin Laptop"}
 					</Typography>
 				</Stack>
 
-				<Grid container spacing={2}>
+				<Grid container spacing={3}>
 					{products.map((product, index) => (
-						<Grid item xs={6} sm={4} key={`${product._id}-${index}`}>
+						<Grid item xs={6} sm={3} key={`${product._id}-${index}`}>
 							<Link href={`/${isMacnut ? "macnut" : "products"}/${product.slug.current}`} passHref>
 								<MuiLink
 									sx={{
@@ -78,15 +75,14 @@ export function ListSpecialProducts({ products, isMacnut = false }: Props) {
 							</Link>
 						</Grid>
 					))}
-
-					<Grid item xs={12} container justifyContent={"center"}>
-						<Link href={`/${isMacnut ? "macnut" : "products"}`} passHref>
-							<MuiLink>
-								<Button variant="contained">Xem thêm sản phẩm</Button>
-							</MuiLink>
-						</Link>
-					</Grid>
 				</Grid>
+				<Stack flexDirection={"row"} justifyContent={"center"} mt={3}>
+					<Link href={`/${isMacnut ? "macnut" : "products"}`} passHref>
+						<MuiLink>
+							<Button variant="contained">Xem thêm sản phẩm</Button>
+						</MuiLink>
+					</Link>
+				</Stack>
 			</Container>
 		</Box>
 	);

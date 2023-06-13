@@ -1,21 +1,22 @@
-import { createTheme, responsiveFontSizes } from "@mui/material/styles";
+import { Theme, createTheme, responsiveFontSizes } from "@mui/material/styles";
 import { red } from "@mui/material/colors";
 
 export const COLOR_CODE = {
 	PRIMARY: "#f53844",
 	WHITE: "rgba(255, 255, 255, 0.92)",
-	BACKGROUND: "#0e1217",
+	BACKGROUND: "rgb(250, 250, 251);",
 	BACKGROUND_CARD: "#1c1f26",
-	BORDER: "#4e4e4e",
+	BORDER: "rgba(240, 240, 240, 1)",
+	TEXT_DARK: "rgba(38, 38, 38, 1)",
 };
 
 // Create a theme instance.
-export let theme = createTheme({
+export let theme: Theme = createTheme({
 	typography: {
 		fontFamily: '"Roboto", sans-serif',
 	},
 	palette: {
-		mode: "dark",
+		mode: "light",
 		primary: {
 			main: COLOR_CODE.PRIMARY,
 		},
@@ -28,7 +29,7 @@ export let theme = createTheme({
 			main: red.A400,
 		},
 		text: {
-			primary: COLOR_CODE.WHITE,
+			primary: COLOR_CODE.TEXT_DARK,
 		},
 	},
 	components: {
@@ -43,7 +44,7 @@ export let theme = createTheme({
 			},
 			styleOverrides: {
 				root: {
-					color: COLOR_CODE.WHITE,
+					color: "inherit",
 
 					"&:hover, &.active": {
 						color: COLOR_CODE.PRIMARY,

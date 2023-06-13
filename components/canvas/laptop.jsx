@@ -41,7 +41,7 @@ const LaptopCanvas = () => {
 		<Box
 			sx={{
 				height: "auto",
-				minHeight: "200px",
+				minHeight: isMobile ? "200px" : "300px",
 			}}
 		>
 			<Canvas
@@ -49,7 +49,7 @@ const LaptopCanvas = () => {
 				frameloop="demand"
 				dpr={[1, 2]}
 				gl={{ preserveDrawingBuffer: true }}
-				camera={{ position: [20, 3, 5], fov: 100 }}
+				camera={{ position: [25, 3, 5], fov: 100 }}
 			>
 				<Suspense fallback={<CanvasLoader />}>
 					<OrbitControls

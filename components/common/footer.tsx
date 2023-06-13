@@ -21,7 +21,7 @@ export function Footer() {
 			component={"footer"}
 			py={2}
 			textAlign="center"
-			bgcolor={COLOR_CODE.BACKGROUND_CARD}
+			bgcolor={COLOR_CODE.BACKGROUND}
 			zIndex={100}
 		>
 			<Container maxWidth="sm">
@@ -44,26 +44,22 @@ export function Footer() {
 						</MuiLink>
 					))}
 				</Stack>
+				<Typography>INUT Design - {new Date().getFullYear()} </Typography>
 				<MuiLink
 					href="https://goo.gl/maps/hBKBhHvRAGMPUn3e9"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					<Typography>Địa chỉ: K294/43 Điện Biên Phủ, Đà Nẵng, Việt Nam</Typography>
+					<Typography variant="body1" sx={{ mt: 1 }}>
+						Địa chỉ: K294/43 Điện Biên Phủ, Đà Nẵng, Việt Nam
+					</Typography>
 				</MuiLink>
 				<MuiLink href="tel:+84792359996" target="_blank" rel="noopener noreferrer">
-					<Typography sx={{ mt: 1 }}>Số điện thoại: 079 235 9996 (bé Hồ Nút)</Typography>
+					<Typography sx={{ mt: 1 }}>Số điện thoại: 079 235 9996</Typography>
 				</MuiLink>
 				<Typography sx={{ mt: 1 }}>Giờ làm việc: 09:00 - 20:00 (từ T3 đến CN)</Typography>
-
-				<Typography sx={{ mt: 1 }}>INUT Design - {new Date().getFullYear()} </Typography>
-				<MuiLink
-					href="https://tinspham.dev"
-					target="_blank"
-					rel="noopener noreferrer"
-					sx={{ mt: 1 }}
-				>
-					<Typography>Design by: www.tinspham.dev</Typography>
+				<MuiLink href="https://tinspham.dev" target="_blank" rel="noopener noreferrer">
+					<Typography sx={{ mt: 1 }}>Thiết kế: www.tinspham.dev</Typography>
 				</MuiLink>
 			</Container>
 		</Box>

@@ -2,7 +2,6 @@ import { bannerApi } from "@/api-client/banner";
 import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
 import { HeroImage } from "@/components/home";
-import styles from "@/components/home/information.module.css";
 import { MainLayout } from "@/components/layout";
 import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
@@ -51,44 +50,47 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 
 						<Typography color="text.primary">Liên hệ</Typography>
 					</Breadcrumbs>
-					<Grid container spacing={3} mt={3}>
-						<Grid item xs={12} sm={4}>
+					<Grid
+						container
+						spacing={3}
+						mt={3}
+						flexDirection={{
+							xs: "column-reverse",
+							sm: "row",
+						}}
+					>
+						<Grid
+							item
+							xs={1}
+							sm={4}
+							sx={{
+								opacity: {
+									xs: 0,
+									sm: "100%",
+								},
+							}}
+						>
 							<Stack justifyContent={"center"}>
-								<Box sx={{ margin: "0 auto" }}>
-									<Image
-										src={
-											"https://res.cloudinary.com/dmspucdtf/image/upload/v1663647671/inut/292635797_197003529328579_4330060878795101093_n_bjzhby.jpg"
-										}
-										width={220}
-										height={220}
-										unoptimized
-										alt="infor-image"
-										priority={true}
-										className={styles.infoImage}
-									/>
-								</Box>
+								<Box sx={{ margin: "0 auto" }}></Box>
 							</Stack>
 						</Grid>
 						<Grid item xs={12} sm={8}>
 							<Box maxWidth={440}>
-								<Stack
-									flexDirection={"row"}
-									alignItems="center"
-									justifyContent={"space-between"}
-									sx={{}}
-								>
-									<Typography variant="h5" sx={{ mr: 4 }}>
-										inut_skin
-									</Typography>
-								</Stack>
+								<Box ml={4}>
+									<Image
+										src={"/branding/logo.webp"}
+										width={322}
+										height={100}
+										unoptimized
+										alt="infor-image"
+										priority={true}
+									/>
+								</Box>
 
 								<Typography variant="body1" sx={{ mt: 1 }} fontWeight="bold">
-									I NÚT - Cửa Hàng Thời Trang Dành Cho Laptop Tại Đà Nẵng
+									Cửa Hàng Thời Trang Dành Cho Laptop Tại Đà Nẵng
 								</Typography>
-								<Typography variant="body1" sx={{ mt: 1 }}>
-									Custom skin laptop, cho tất cả các loại laptop có trên trái đất. Không giới hạn
-									hình ảnh và idea!!!!
-								</Typography>
+
 								<MuiLink
 									href="https://goo.gl/maps/hBKBhHvRAGMPUn3e9"
 									target="_blank"
@@ -106,17 +108,6 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 										Địa chỉ: K294/43 Điện Biên Phủ, Đà Nẵng, Việt Nam
 									</Typography>
 								</MuiLink>
-								<Typography
-									variant="body1"
-									sx={{
-										mt: 1,
-									}}
-								>
-									Anh em thắc mắc là đến cuối kiệt 294 không biết tiệm mình ở đâu đúng không. Thì là
-									ở đây nhá... cắt tóc, cà phê, đồ bành có đủ 😎
-									<br />
-									P/s: tiệm mình là phòng kính phía bên tay trái nhoa.
-								</Typography>
 
 								<MuiLink href="tel:0792359996" target="_blank" rel="noopener noreferrer">
 									<Typography
@@ -198,7 +189,7 @@ const listContacts = [
 				}}
 			/>
 		),
-		title: "Liên hệ ngay",
+		title: "Nhắn tin tư vấn",
 	},
 	{
 		link: "https://www.facebook.com/inutdesign",

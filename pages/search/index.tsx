@@ -103,13 +103,7 @@ const Search: NextPageWithLayout = ({ products, productTypes, banner }: Props) =
 						<Typography color={COLOR_CODE.WHITE}>Sản phẩm</Typography>
 					</Breadcrumbs>
 					<Box mt={3} id="title">
-						<Typography
-							variant="h2"
-							fontWeight="bold"
-							textAlign="center"
-							fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}
-							letterSpacing="10px"
-						>
+						<Typography variant="h2" fontWeight="bold" textAlign="center" letterSpacing="10px">
 							Sản phẩm (<CountUp end={products.length} duration={2} />)
 						</Typography>
 					</Box>
@@ -177,11 +171,7 @@ const Search: NextPageWithLayout = ({ products, productTypes, banner }: Props) =
 										aria-controls="panel1a-content"
 										id="panel1a-header"
 									>
-										<Typography
-											variant="h4"
-											fontWeight="bold"
-											fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}
-										>
+										<Typography variant="h4" fontWeight="bold">
 											Bộ lọc
 										</Typography>
 									</AccordionSummary>

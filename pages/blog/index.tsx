@@ -39,12 +39,7 @@ const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
 						<Typography color="text.primary">Blog</Typography>
 					</Breadcrumbs>
 					<Box mt={3}>
-						<Typography
-							variant="h1"
-							fontWeight="bold"
-							textAlign="center"
-							fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}
-						>
+						<Typography variant="h1" fontWeight="bold" textAlign="center">
 							Blog (<CountUp end={posts.length} duration={1} />)
 						</Typography>
 					</Box>
@@ -75,12 +70,12 @@ type Props = {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-	const data = await getPostList();
+	const posts = await getPostList();
 	const banner: Banner = await bannerApi.getBannerPage("blogs-page");
 
 	return {
 		props: {
-			posts: data,
+			posts: posts.sort((a, b) => (a.publishedDate < b.publishedDate ? 1 : -1)),
 			banner: banner ? banner[0] : [],
 		},
 	};

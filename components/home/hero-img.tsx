@@ -21,7 +21,7 @@ export function HeroImage({ imgUrl }: Props) {
 				<Image
 					src={imgUrl}
 					width="100%"
-					height="50%"
+					height="30%"
 					layout="responsive"
 					alt="avatar"
 					priority={true}

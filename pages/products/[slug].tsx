@@ -8,6 +8,7 @@ import {
 	Breadcrumbs,
 	Button,
 	Container,
+	Divider,
 	Grid,
 	Link as MuiLink,
 	Stack,
@@ -149,7 +150,6 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 							<Typography
 								variant="h1"
 								fontWeight="bold"
-								fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}
 								mt={{
 									xs: 10,
 									md: 2,
@@ -176,9 +176,12 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 									(<CountUp end={votes} duration={2} /> đánh giá)
 								</Typography>
 							</Stack>
-							<Typography variant="h5" mt={2}>
-								{product.details}
-							</Typography>
+							<Stack flexDirection={"row"} alignItems={"center"} mt={1}>
+								<Typography variant="h6">Tình trạng:</Typography>
+								<Typography variant="h6" color={"success.light"} ml={2}>
+									Còn hàng
+								</Typography>
+							</Stack>
 							<Stack sx={{ mt: 4 }} flexDirection="row" alignItems={"center"}>
 								<MuiLink
 									href="https://m.me/642209429738886"
@@ -204,16 +207,62 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 				</Container>
 			</Box>
 
-			<Box component={"section"} bgcolor="secondary.dark" pt={2} mt={2}>
+			<Box component={"section"} bgcolor="secondary.dark">
+				<Box mt={2}>
+					<Divider />
+				</Box>
 				<Container>
-					<Typography
-						variant="h2"
-						mt={2}
-						fontWeight="bold"
-						color="white"
-						textAlign="center"
-						fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}
-					>
+					<Box py={4}>
+						<Typography variant="h6" fontWeight={"bold"}>
+							Mô tả sản phẩm:
+						</Typography>
+						<Typography variant="body1" mt={1}>
+							<b>Chất liệu</b>: Film Vinyl chuyên ứng dụng trong ngành ô tô, dùng để bảo vệ sơn
+							tránh khỏi trầy xước, tác động của ngoại lực trong thời gian sử dụng
+						</Typography>
+						<Typography variant="body1" mt={1}>
+							<b>Chống nước</b>: Có
+						</Typography>
+						<Typography variant="body1" mt={1}>
+							<b>Loại máy phù hợp</b>: Cắt theo kích thước laptop, in hình, chọn phối màu tuỳ ý
+							khách hàng.
+						</Typography>
+						<Typography variant="body1" mt={1}>
+							<b>Vệ sinh máy</b>: Có, chúng tôi sẽ vệ sinh vỏ ngoài của laptop trước khi dán. Không
+							vệ sinh bên trong máy.
+						</Typography>
+						<Typography variant="body1" mt={1}>
+							<b>Dữ liệu máy tính</b>: Không mất dữ liệu, không can thiệp vào bên trong máy cũng như
+							không mở máy. Chỉ vệ sinh và dán ở vỏ ngoài.
+						</Typography>
+						<Typography variant="body1" mt={1}>
+							<b>Mô tả thêm</b>: {product.details}
+						</Typography>
+					</Box>
+					<Divider />
+					<Box py={4}>
+						<Typography variant="h6" fontWeight={"bold"}>
+							Cam Kết Mua Sản Phẩm tại INUT
+						</Typography>
+						<Typography variant="body1" mt={1}>
+							1. Cam kết sản phẩm chất lượng 100% so với hình ảnh quảng cáo <br />
+							2. Mọi thông tin quảng cáo đều phù hợp với sản phẩm thực tế <br />
+							3. Nếu sản phẩm bị lỗi hoặc xảy ra sự cố trong quá trình vận chuyển, sử dụng. Chúng
+							tôi sẽ hỗ trợ ngay cho quý khách hàng và sẽ chịu trách nhiệm hoàn toàn để phục vụ
+							khách hàng tốt nhất
+							<br />
+							4. Cam kết bảo hành mọi vấn đề trong vòng 2 tháng sử dụng sản phẩm <br />
+						</Typography>
+					</Box>
+				</Container>
+				<Box mt={2}>
+					<Divider />
+				</Box>
+			</Box>
+
+			<Box component={"section"} pt={2} mt={2}>
+				<Container>
+					<Typography variant="h2" mt={2} fontWeight="bold" textAlign="center">
 						Có thể bạn sẽ thích
 					</Typography>
 					<div className="">
@@ -230,12 +279,18 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 												className={styles.productImage}
 											/>
 											<Typography
-												variant="h4"
-												mt={2}
+												variant="h6"
+												mt={1}
 												fontWeight="bold"
 												textAlign="center"
-												color="white"
-												fontFamily={'"Zawtturee", "Bangers" ,"Roboto", sans-serif'}
+												sx={{
+													mt: 1,
+													fontWeight: "bold",
+													textAlign: "center",
+													whiteSpace: "nowrap",
+													textOverflow: "ellipsis",
+													overflow: "hidden",
+												}}
 											>
 												{product.name}
 											</Typography>
@@ -246,6 +301,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 						</div>
 					</div>
 				</Container>
+				<Divider />
 			</Box>
 		</>
 	);
