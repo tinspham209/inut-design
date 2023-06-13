@@ -9,7 +9,6 @@ import { ProductCard } from "@/components/product";
 import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { Products, ProductType } from "@/models/products";
-import { COLOR_CODE } from "@/utils";
 import { Box, Breadcrumbs, Container, Grid, Link as MuiLink, Typography } from "@mui/material";
 import Link from "next/link";
 import { GetStaticProps } from "next/types";

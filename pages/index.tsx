@@ -1,16 +1,19 @@
+import { bannerApi } from "@/api-client/banner";
 import { productsApi } from "@/api-client/products";
+import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
 import { BlogsHome, InfoSection, ListSpecialProducts } from "@/components/home";
 import { Services } from "@/components/home/services";
 import { MainLayout } from "@/components/layout";
 import { Post } from "@/models";
+import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { Products } from "@/models/products";
 import { getPostList } from "@/utils";
 import { Box } from "@mui/material";
 import { GetStaticProps } from "next";
 
-const Home: NextPageWithLayout = ({ products, macnuts, blogs }: Props) => {
+const Home: NextPageWithLayout = ({ products, macnuts, blogs, banner }: Props) => {
 	return (
 		<Box>
 			<Seo
@@ -24,7 +27,7 @@ const Home: NextPageWithLayout = ({ products, macnuts, blogs }: Props) => {
 				}}
 			/>
 			{/* <HeroSection /> */}
-			<InfoSection />
+			<InfoSection imgUrl={banner && urlFor(banner[0].image).url()} />
 			<ListSpecialProducts products={products} />
 			<ListSpecialProducts products={macnuts} isMacnut />
 			<Services />
@@ -40,6 +43,7 @@ type Props = {
 	macnuts: Products;
 	totalProducts?: number;
 	blogs: Post[];
+	banner: Banner[];
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
@@ -50,11 +54,14 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	const specialProducts = products.filter((product) => product.special);
 	const specialMacnuts = macnuts.filter((product) => product.special);
 
+	const banner: Banner[] = await bannerApi.getBannerPage("homepage");
+
 	return {
 		props: {
 			products: [...specialProducts],
 			macnuts: [...specialMacnuts],
 			blogs: postList.sort((a, b) => (a.publishedDate < b.publishedDate ? 1 : -1)).slice(0, 5),
+			banner: banner,
 		},
 	};
 };

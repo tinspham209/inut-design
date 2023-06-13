@@ -5,7 +5,12 @@ import Image from "next/image";
 import { Element } from "react-scroll";
 
 export const INFO_ID_ELEMENT = "information";
-export function InfoSection() {
+
+type Props = {
+	imgUrl: string;
+};
+
+export function InfoSection({ imgUrl }: Props) {
 	return (
 		<Element name={INFO_ID_ELEMENT}>
 			<Box
@@ -24,42 +29,19 @@ export function InfoSection() {
 						width: "100%",
 						height: "100%",
 						zIndex: "-1",
-						backgroundImage: `url(/branding/hero.webp)`,
-						backgroundSize: "cover",
-						backgroundRepeat: "no-repeat",
+						backgroundImage: `url(${imgUrl})`,
 						backgroundPosition: {
 							xs: "bottom 150px left 0px",
 							sm: '"bottom 150px left 0px"',
 						},
+						backgroundSize: "cover",
+						backgroundRepeat: "no-repeat",
+
 						backgroundColor: "rgba(0,0,0,0.5)",
 						backgroundAttachment: "fixed",
-						filter: "blur(2px)",
 					},
 				}}
 			>
-				<Box
-					sx={{
-						position: "absolute",
-						zIndex: "-1",
-						right: {
-							xs: "5%",
-							md: "25%",
-						},
-						top: {
-							xs: "57%",
-							md: "15%",
-						},
-						width: "100%",
-						height: "80%",
-						overflow: "hidden",
-						backgroundImage: `url(/branding/hero-bg.webp)`,
-						transform: "scaleX(-1)",
-						backgroundRepeat: "no-repeat",
-						backgroundSize: "contain",
-						filter: "blur(1px)",
-						opacity: "0.9",
-					}}
-				/>
 				<Container>
 					<Stack
 						justifyContent={"center"}
@@ -67,11 +49,10 @@ export function InfoSection() {
 							xs: "column",
 							md: "row",
 						}}
-						alignItems={"center"}
 						sx={{
 							mt: {
 								xs: 1,
-								sm: 5,
+								md: 5,
 							},
 						}}
 					>
@@ -92,8 +73,31 @@ export function InfoSection() {
 									xs: 1,
 									sm: 0,
 								},
+								position: "relative",
 							}}
 						>
+							<Box
+								sx={{
+									position: "absolute",
+									zIndex: "-1",
+									right: {
+										xs: "10%",
+										md: "5%",
+									},
+									top: {
+										xs: "20%",
+										md: "15%",
+									},
+									width: "100%",
+									height: "100%",
+									backgroundImage: `url(/branding/hero-bg.webp)`,
+									transform: "scaleX(-1)",
+									backgroundRepeat: "no-repeat",
+									backgroundSize: "contain",
+									filter: "blur(1px)",
+									opacity: "0.9",
+								}}
+							/>
 							<Stack flexDirection={"row"} alignItems="center" justifyContent={"space-between"}>
 								<Image src={"/branding/logo.webp"} alt="INUT logo" width={"193px"} height="60px" />
 							</Stack>
