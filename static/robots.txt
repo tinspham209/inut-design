@@ -1,15 +1,12 @@
-User-agent: Mediapartners-Google
-
-Disallow:
-
+# *
 User-agent: *
-
 Allow: /
-
-Allow: /search
-
 Disallow: /*?updated-max=*
+Disallow: /signup
 
+# Mediapartners-Google
+User-agent: Mediapartners-Google
+Allow: /search
 Disallow: *archive.html
 
 # Host

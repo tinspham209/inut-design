@@ -54,7 +54,7 @@ export function Services() {
 
 				<Grid container spacing={3} my={2}>
 					{servicesOptions.map((service, index) => (
-						<Grid item xs={6} sm={2} key={`${service.label}-${index}`}>
+						<Grid item xs={12} sm={2} key={`${service.label}-${index}`}>
 							<Link href={service.url} passHref>
 								<MuiLink
 									sx={{
