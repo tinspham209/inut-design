@@ -153,8 +153,14 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 										minHeight: {
 											md: "1px",
 										},
-										maxHeight: "80vh",
-										overflowY: "auto",
+										maxHeight: {
+											xs: "100%",
+											md: "80vh",
+										},
+										overflowY: {
+											xs: "none",
+											md: "auto",
+										},
 										border: `1px solid ${COLOR_CODE.BORDER}`,
 										borderRadius: "8px 4px 4px 8px !important",
 									}}
