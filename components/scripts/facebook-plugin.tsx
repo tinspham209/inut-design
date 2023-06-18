@@ -11,7 +11,7 @@ export function FacebookChatPlugin() {
 
 export const scriptFacebookChatPlugin = `
 var chatbox = document.getElementById('fb-customer-chat');
-chatbox.setAttribute("page_id", "inutdesign");
+chatbox.setAttribute("page_id", "642209429738886");
 chatbox.setAttribute("attribution", "biz_inbox");
 window.fbAsyncInit = function() {
   FB.init({
