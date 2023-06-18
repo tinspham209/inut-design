@@ -2,9 +2,10 @@ import { Theme, createTheme, responsiveFontSizes } from "@mui/material/styles";
 import { red } from "@mui/material/colors";
 
 export const COLOR_CODE = {
-	PRIMARY: "#f53844",
+	// PRIMARY: "#f53844",
+	PRIMARY: "#e1612e",
 	WHITE: "rgba(255, 255, 255, 0.92)",
-	BACKGROUND: "rgb(250, 250, 251);",
+	BACKGROUND: "rgb(250, 250, 251)",
 	BACKGROUND_CARD: "#1c1f26",
 	BORDER: "rgba(240, 240, 240, 1)",
 	TEXT_DARK: "rgba(38, 38, 38, 1)",

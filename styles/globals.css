@@ -54,7 +54,7 @@ a {
 	white-space: nowrap;
 	will-change: transform;
 	animation: marquee 60s linear infinite;
-	width: 1500%;
+	width: 1000%;
 }
 
 .track.macnut {
@@ -62,7 +62,7 @@ a {
 }
 .track:hover {
 	animation-play-state: paused;
-	/* background-color: #0e1217; */
+	background-color: rgb(250, 250, 251);
 }
 @keyframes marquee {
 	from {

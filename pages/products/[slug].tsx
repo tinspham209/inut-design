@@ -10,7 +10,10 @@ import {
 	Container,
 	Divider,
 	Grid,
+	MenuItem,
 	Link as MuiLink,
+	Select,
+	SelectChangeEvent,
 	Stack,
 	Typography,
 } from "@mui/material";
@@ -21,20 +24,31 @@ import Link from "next/link";
 import React from "react";
 import Lightbox from "react-awesome-lightbox";
 import "react-awesome-lightbox/build/style.css";
-import CountUp from "react-countup";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+// import CountUp from "react-countup";
+// import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { useRouter } from "next/router";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import styles from "./productItem.module.css";
-import Router from "next/router";
-type Props = {
-	product: Product;
-	products: Products;
-	votes: number;
-};
+import { priceLaptopApi } from "@/api-client/priceLaptop";
+import { PriceLaptop } from "@/models/price-laptop";
 
-const ProductDetail = ({ product, products, votes }: Props) => {
+const ProductDetail = ({ product, products, priceLaptops }: Props) => {
+	const router = useRouter();
 	const [isOpenLightBox, setIsOpenLightBox] = React.useState(false);
+
+	const [selected, setSelected] = React.useState(priceLaptops[0]?.title || "");
+
+	const handleOnChangeSelected = (event: SelectChangeEvent) => {
+		setSelected(event.target.value);
+	};
+
+	const price = React.useMemo(() => {
+		if (selected) {
+			return priceLaptops.find((price) => price.title === selected)?.price;
+		}
+		return "XXX";
+	}, [priceLaptops, selected]);
 
 	return (
 		<>
@@ -63,7 +77,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 				<Container>
 					<Breadcrumbs
 						sx={{
-							mt: 1,
+							mt: 2,
 							mb: 2,
 						}}
 					>
@@ -79,9 +93,8 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 					<Button
 						variant="outlined"
 						color="primary"
-						sx={{ mr: 2 }}
 						onClick={() => {
-							Router.back();
+							router.back();
 						}}
 					>
 						Trở về
@@ -90,7 +103,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 						container
 						spacing={{ xs: 2, md: 4 }}
 						flexDirection={{ xs: "column", md: "row" }}
-						pt={4}
+						pt={2}
 					>
 						<Grid item xs={12} md={6}>
 							<Carousel
@@ -148,16 +161,16 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 						</Grid>
 						<Grid item xs={12} md={6}>
 							<Typography
-								variant="h1"
+								variant="h3"
 								fontWeight="bold"
 								mt={{
-									xs: 10,
-									md: 2,
+									xs: 6,
+									md: 0,
 								}}
 							>
 								{product.name}
 							</Typography>
-							<Stack
+							{/* <Stack
 								flexDirection="row"
 								alignItems={"center"}
 								mt={2}
@@ -175,14 +188,28 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 								<Typography variant="body1" sx={{ ml: 1 }}>
 									(<CountUp end={votes} duration={2} /> đánh giá)
 								</Typography>
-							</Stack>
-							<Stack flexDirection={"row"} alignItems={"center"} mt={1}>
-								<Typography variant="h6">Tình trạng:</Typography>
-								<Typography variant="h6" color={"success.light"} ml={2}>
+							</Stack> */}
+							<Stack flexDirection={"row"} alignItems={"center"} my={2}>
+								<Typography variant="body1" fontWeight={"bold"}>
+									Tình trạng:
+								</Typography>
+								<Typography variant="body1" fontWeight={"bold"} color={"success.light"} ml={2}>
 									Còn hàng
 								</Typography>
 							</Stack>
-							<Stack sx={{ mt: 4 }} flexDirection="row" alignItems={"center"}>
+							<Stack my={2}>
+								<Typography variant="h4" fontWeight={"bold"} mb={2}>
+									{price}.000 VND
+								</Typography>
+								<Select value={selected} onChange={handleOnChangeSelected} autoWidth>
+									{priceLaptops.map((price) => (
+										<MenuItem key={price.title} value={price.title}>
+											{price.title}
+										</MenuItem>
+									))}
+								</Select>
+							</Stack>
+							<Stack flexDirection="row" alignItems={"center"}>
 								<MuiLink
 									href="https://m.me/642209429738886"
 									target="_blank"
@@ -192,16 +219,39 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 										Đặt hàng
 									</Button>
 								</MuiLink>
-								<MuiLink
-									href="https://m.me/642209429738886"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<Button variant="outlined" color="primary">
-										Nhận báo giá
-									</Button>
-								</MuiLink>
+								<Link href="/contact" passHref>
+									<MuiLink>
+										<Button variant="outlined" color="primary">
+											Liên hệ tư vấn
+										</Button>
+									</MuiLink>
+								</Link>
 							</Stack>
+							<Box py={3}>
+								<Typography variant="h6" fontWeight={"bold"}>
+									Mô tả sản phẩm:
+								</Typography>
+								<Typography variant="body1" mt={1}>
+									<b>Chất liệu</b>: Film Vinyl chuyên ứng dụng trong ngành ô tô, dùng để bảo vệ sơn
+									tránh khỏi trầy xước, tác động của ngoại lực trong thời gian sử dụng
+								</Typography>
+								<Typography variant="body1" mt={1}>
+									<b>Chống nước</b>: Có
+								</Typography>
+								<Typography variant="body1" mt={1}>
+									<b>Loại máy phù hợp</b>: Cắt theo kích thước laptop, in hình, chọn phối màu tuỳ ý
+								</Typography>
+								<Typography variant="body1" mt={1}>
+									<b>Vệ sinh máy</b>: Có, sẽ vệ sinh vỏ ngoài. Không vệ sinh bên trong máy.
+								</Typography>
+								<Typography variant="body1" mt={1}>
+									<b>Dữ liệu máy tính</b>: Không mất dữ liệu, không can thiệp vào bên trong máy cũng
+									như không mở máy. Chỉ vệ sinh và dán ở vỏ ngoài.
+								</Typography>
+								<Typography variant="body1" mt={1}>
+									<b>Mô tả thêm</b>: {product.details}
+								</Typography>
+							</Box>
 						</Grid>
 					</Grid>
 				</Container>
@@ -212,34 +262,6 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 					<Divider />
 				</Box>
 				<Container>
-					<Box py={4}>
-						<Typography variant="h6" fontWeight={"bold"}>
-							Mô tả sản phẩm:
-						</Typography>
-						<Typography variant="body1" mt={1}>
-							<b>Chất liệu</b>: Film Vinyl chuyên ứng dụng trong ngành ô tô, dùng để bảo vệ sơn
-							tránh khỏi trầy xước, tác động của ngoại lực trong thời gian sử dụng
-						</Typography>
-						<Typography variant="body1" mt={1}>
-							<b>Chống nước</b>: Có
-						</Typography>
-						<Typography variant="body1" mt={1}>
-							<b>Loại máy phù hợp</b>: Cắt theo kích thước laptop, in hình, chọn phối màu tuỳ ý
-							khách hàng.
-						</Typography>
-						<Typography variant="body1" mt={1}>
-							<b>Vệ sinh máy</b>: Có, chúng tôi sẽ vệ sinh vỏ ngoài của laptop trước khi dán. Không
-							vệ sinh bên trong máy.
-						</Typography>
-						<Typography variant="body1" mt={1}>
-							<b>Dữ liệu máy tính</b>: Không mất dữ liệu, không can thiệp vào bên trong máy cũng như
-							không mở máy. Chỉ vệ sinh và dán ở vỏ ngoài.
-						</Typography>
-						<Typography variant="body1" mt={1}>
-							<b>Mô tả thêm</b>: {product.details}
-						</Typography>
-					</Box>
-					<Divider />
 					<Box py={4}>
 						<Typography variant="h6" fontWeight={"bold"}>
 							Cam Kết Mua Sản Phẩm tại INUT
@@ -261,50 +283,56 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 			</Box>
 
 			<Box component={"section"} pt={2} mt={2}>
-				<Container>
-					<Typography variant="h2" mt={2} fontWeight="bold" textAlign="center">
-						Có thể bạn sẽ thích
-					</Typography>
-					<div className="">
-						<div className="marquee">
-							<div className="maylike-products-container track">
-								{products.map((product) => (
-									<Link href={`/products/${product.slug.current}`} passHref key={product._id}>
-										<MuiLink>
-											<img
-												src={urlFor(product.image[0]).width(500).url()}
-												width={250}
-												height={250}
-												alt="product-image"
-												className={styles.productImage}
-											/>
-											<Typography
-												variant="h6"
-												mt={1}
-												fontWeight="bold"
-												textAlign="center"
-												sx={{
-													mt: 1,
-													fontWeight: "bold",
-													textAlign: "center",
-													whiteSpace: "nowrap",
-													textOverflow: "ellipsis",
-													overflow: "hidden",
-												}}
-											>
-												{product.name}
-											</Typography>
-										</MuiLink>
-									</Link>
-								))}
-							</div>
+				{/* <Container> */}
+				<Typography variant="h3" mt={2} fontWeight="bold" textAlign="center">
+					Có thể bạn sẽ thích
+				</Typography>
+				<div className="">
+					<div className="marquee">
+						<div className="maylike-products-container track">
+							{products.map((product) => (
+								<Link href={`/products/${product.slug.current}`} passHref key={product._id}>
+									<MuiLink>
+										<img
+											src={urlFor(product.image[0]).width(500).url()}
+											width={250}
+											height={250}
+											alt="product-image"
+											className={styles.productImage}
+										/>
+										<Typography
+											variant="h6"
+											mt={1}
+											fontWeight="bold"
+											textAlign="center"
+											sx={{
+												mt: 1,
+												fontWeight: "bold",
+												textAlign: "center",
+												whiteSpace: "nowrap",
+												textOverflow: "ellipsis",
+												overflow: "hidden",
+											}}
+										>
+											{product.name}
+										</Typography>
+									</MuiLink>
+								</Link>
+							))}
 						</div>
 					</div>
-				</Container>
+				</div>
+				{/* </Container> */}
 				<Divider />
 			</Box>
 		</>
 	);
+};
+
+type Props = {
+	product: Product;
+	products: Products;
+	priceLaptops: PriceLaptop[];
 };
 
 export const getStaticPaths = async () => {
@@ -326,16 +354,13 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async ({ params: { slug } }) => {
 	const product = await productsApi.getProductBySlug(slug as string);
 	const products = await productsApi.getAllProducts();
-
-	const randomRange = (min: number, max: number) => {
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	};
+	const priceLaptops = await priceLaptopApi.getAll();
 
 	return {
 		props: {
 			product,
 			products: products.filter((product) => !product._id.includes("drafts")),
-			votes: randomRange(1, 15),
+			priceLaptops: priceLaptops,
 		},
 		revalidate: 86400,
 	};

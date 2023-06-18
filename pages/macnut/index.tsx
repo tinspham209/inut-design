@@ -3,7 +3,6 @@ import { productsApi } from "@/api-client/products";
 import { productTypeApi } from "@/api-client/productType";
 import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
-import { HeroImage } from "@/components/home";
 import { MainLayout } from "@/components/layout";
 import { ProductCard } from "@/components/product";
 import { Banner } from "@/models/banner";
@@ -28,7 +27,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 				}}
 			/>
 
-			<HeroImage imgUrl={banner && urlFor(banner[0].image).url()} />
+			{/* <HeroImage imgUrl={banner && urlFor(banner[0].image).url()} /> */}
 			<Container>
 				<Box>
 					<Breadcrumbs>

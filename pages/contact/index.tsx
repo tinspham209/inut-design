@@ -41,7 +41,6 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 			/>
 
 			<Box component={"section"} pt={2} pb={4}>
-				<HeroImage imgUrl={urlFor(banner.image).url()} />
 				<Container>
 					<Breadcrumbs>
 						<Link href={"/"} passHref>
@@ -79,8 +78,8 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 								<Box ml={4}>
 									<Image
 										src={"/branding/logo.webp"}
-										width={322}
-										height={100}
+										width={258}
+										height={80}
 										unoptimized
 										alt="infor-image"
 										priority={true}
@@ -174,6 +173,9 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 						</Box>
 					</Stack>
 				</Container>
+				<Box mt={8}>
+					<HeroImage imgUrl={urlFor(banner.image).url()} />
+				</Box>
 			</Box>
 		</>
 	);

@@ -18,6 +18,7 @@ import incomesLaptopTest from "./test-incomes";
 import incomesAnotherTest from "./test-incomes-another";
 import incomesStickerTest from "./test-incomes-sticker";
 import costsTest from "./test-costs";
+import priceLaptop from "./price-laptop";
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
 	// We name our schema
@@ -32,6 +33,7 @@ export default createSchema({
 		costs,
 		letterCost,
 		stickerType,
+		priceLaptop,
 		incomesLaptopTest,
 		incomesStickerTest,
 		incomesAnotherTest,

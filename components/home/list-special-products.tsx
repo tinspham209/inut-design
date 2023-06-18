@@ -26,7 +26,7 @@ export function ListSpecialProducts({ products, isMacnut = false }: Props) {
 	return (
 		<Box
 			component={"section"}
-			bgcolor={isMacnut ? COLOR_CODE.BACKGROUND_CARD : COLOR_CODE.BACKGROUND}
+			bgcolor={isMacnut ? COLOR_CODE.BACKGROUND : COLOR_CODE.BACKGROUND_CARD}
 			pt={2}
 			pb={4}
 		>
@@ -36,7 +36,7 @@ export function ListSpecialProducts({ products, isMacnut = false }: Props) {
 						variant="h3"
 						fontWeight={"bold"}
 						textAlign={"center"}
-						color={isMacnut ? COLOR_CODE.WHITE : COLOR_CODE.TEXT_DARK}
+						color={isMacnut ? COLOR_CODE.TEXT_DARK : COLOR_CODE.WHITE}
 					>
 						{isMacnut ? "Skin Nút Phím" : "Skin Laptop"}
 					</Typography>

@@ -3,38 +3,37 @@ import { Button, Container, Grid, Link as MuiLink, Stack, Typography } from "@mu
 import { Box } from "@mui/system";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "./information.module.css";
 
 export const servicesOptions = [
 	{
 		label: "Skin Laptop",
 		url: "/products",
-		img: "/branding/logo.webp",
+		img: "/branding/services/6.png",
 	},
 	{
 		label: "Skin Nút Phím",
 		url: "/macnut",
-		img: "/branding/logo.webp",
+		img: "/branding/services/2.png",
 	},
 	{
 		label: "Sticker",
 		url: "/contact",
-		img: "/branding/logo.webp",
+		img: "/branding/services/3.png",
 	},
 	{
 		label: "Nhãn chai sản phẩm",
 		url: "/contact",
-		img: "/branding/logo.webp",
+		img: "/branding/services/4.png",
 	},
 	{
 		label: "Menu cửa hàng",
 		url: "/contact",
-		img: "/branding/logo.webp",
+		img: "/branding/services/5.png",
 	},
 	{
 		label: "Tư vấn thiết kế",
 		url: "/contact",
-		img: "/branding/logo.webp",
+		img: "/branding/services/1.png",
 	},
 ];
 
@@ -53,23 +52,28 @@ export function Services() {
 					</Typography>
 				</Stack>
 
-				<Grid container spacing={3}>
+				<Grid container spacing={3} my={2}>
 					{servicesOptions.map((service, index) => (
 						<Grid item xs={6} sm={2} key={`${service.label}-${index}`}>
 							<Link href={service.url} passHref>
 								<MuiLink
 									sx={{
 										position: "relative",
+										display: "flex",
+										flexDirection: "column",
+										justifyContent: "center",
+
+										"& span": {
+											margin: "0 auto !important",
+										},
 									}}
 								>
 									<Image
 										src={service.img}
-										width="100%"
-										height={"100%"}
-										layout="responsive"
+										width={"80px"}
+										height={"80px"}
 										alt="service item"
 										priority={true}
-										className={styles.infoImage}
 									/>
 
 									<Stack flexDirection={"row"} justifyContent={"center"} mt={2}>
@@ -83,7 +87,7 @@ export function Services() {
 					))}
 				</Grid>
 
-				<Stack flexDirection={"row"} justifyContent={"center"} mt={3}>
+				<Stack flexDirection={"row"} justifyContent={"center"} mt={4}>
 					<Link href={`/contact`} passHref>
 						<MuiLink>
 							<Button variant="contained">Liên hệ tư vấn</Button>

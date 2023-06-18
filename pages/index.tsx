@@ -28,8 +28,8 @@ const Home: NextPageWithLayout = ({ products, macnuts, blogs, banner }: Props) =
 			/>
 			{/* <HeroSection /> */}
 			<InfoSection imgUrl={banner && urlFor(banner[0].image).url()} />
-			<ListSpecialProducts products={products} />
 			<ListSpecialProducts products={macnuts} isMacnut />
+			<ListSpecialProducts products={products} />
 			<Services />
 			<BlogsHome posts={blogs} />
 		</Box>
