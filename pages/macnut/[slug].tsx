@@ -49,8 +49,7 @@ const ProductDetail = ({ product, products, priceLaptop }: Props) => {
 			<Seo
 				data={{
 					title: `${product.name} - Nút Phím - INUT Design`,
-					description:
-						"Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop, skin laptop da nang, skin laptop đà nẵng",
+					description: `Skin Nút Phím ${product.name} dành cho laptop, Giá chỉ ${price}`,
 					url: `https://inutdesign.com/macnut/${product.slug.current}`,
 					thumbnailUrl: urlFor(product.image[0]).width(1000).url(),
 				}}

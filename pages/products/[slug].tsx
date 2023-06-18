@@ -50,13 +50,25 @@ const ProductDetail = ({ product, products, priceLaptops }: Props) => {
 		return "XXX";
 	}, [priceLaptops, selected]);
 
+	const getPriceRange = React.useCallback(() => {
+		const priceRange = priceLaptops.map((type) => type.price);
+		const min = priceRange.reduce((prev, cur) => Math.min(prev, cur));
+		const max = priceRange.reduce((prev, cur) => Math.max(prev, cur));
+
+		return {
+			min: `${min}.000VND`,
+			max: `${max}.000VND`,
+		};
+	}, [priceLaptops]);
+
 	return (
 		<>
 			<Seo
 				data={{
 					title: `${product.name} - Sản phẩm - INUT Design`,
-					description:
-						"Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop, skin laptop da nang, skin laptop đà nẵng",
+					description: `Skin ${product.name} dành cho laptop, Giá từ ${getPriceRange().min} - ${
+						getPriceRange().max
+					}`,
 					url: `https://inutdesign.com/products/${product.slug.current}`,
 					thumbnailUrl: urlFor(product.image[0]).width(1000).url(),
 				}}
