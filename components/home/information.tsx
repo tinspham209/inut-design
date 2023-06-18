@@ -1,4 +1,3 @@
-import { LaptopCanvas } from "@/components/canvas";
 import { Container, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Image from "next/image";
@@ -32,7 +31,7 @@ export function InfoSection({ imgUrl }: Props) {
 						backgroundImage: `url(${imgUrl})`,
 						backgroundPosition: {
 							xs: "bottom 150px left 0px",
-							sm: '"bottom 150px left 0px"',
+							sm: "bottom 150px left 0px",
 						},
 						backgroundSize: "cover",
 						backgroundRepeat: "no-repeat",
@@ -63,7 +62,8 @@ export function InfoSection({ imgUrl }: Props) {
 								md: 12,
 							}}
 						>
-							<LaptopCanvas />
+							{/* <LaptopCanvas /> */}
+							<Box />
 						</Stack>
 
 						<Box

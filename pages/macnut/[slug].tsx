@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
+import { priceLaptopApi } from "@/api-client/priceLaptop";
 import { productsApi } from "@/api-client/products";
 import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
 import { MainLayout } from "@/components/layout";
+import { PriceLaptop } from "@/models/price-laptop";
 import { Product, Products } from "@/models/products";
 import {
 	Breadcrumbs,
@@ -18,29 +20,35 @@ import { Box } from "@mui/system";
 import { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import Router from "next/router";
 import React from "react";
 import Lightbox from "react-awesome-lightbox";
 import "react-awesome-lightbox/build/style.css";
-import CountUp from "react-countup";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import styles from "./productItem.module.css";
-import Router from "next/router";
 type Props = {
 	product: Product;
 	products: Products;
-	votes: number;
+	priceLaptop: PriceLaptop;
 };
 
-const ProductDetail = ({ product, products, votes }: Props) => {
+const ProductDetail = ({ product, products, priceLaptop }: Props) => {
 	const [isOpenLightBox, setIsOpenLightBox] = React.useState(false);
+
+	const price = React.useMemo(() => {
+		if (priceLaptop) {
+			return priceLaptop.price;
+		} else {
+			return "XXX";
+		}
+	}, [priceLaptop]);
 
 	return (
 		<>
 			<Seo
 				data={{
-					title: `${product.name} - Macnut - INUT Design`,
+					title: `${product.name} - Nút Phím - INUT Design`,
 					description:
 						"Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop, skin laptop da nang, skin laptop đà nẵng",
 					url: `https://inutdesign.com/macnut/${product.slug.current}`,
@@ -63,14 +71,14 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 				<Container>
 					<Breadcrumbs
 						sx={{
-							mt: 1,
+							mt: 2,
 							mb: 2,
 						}}
 					>
 						<Link href={"/"} passHref>
 							<MuiLink>Trang chủ</MuiLink>
 						</Link>
-						<Link href={`/products#${product.slug.current}`} passHref>
+						<Link href={`/macnut#${product.slug.current}`} passHref>
 							<MuiLink>Nút Phím</MuiLink>
 						</Link>
 						<Typography color="text.primary">{product.name}</Typography>
@@ -79,7 +87,6 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 					<Button
 						variant="outlined"
 						color="primary"
-						sx={{ mr: 2 }}
 						onClick={() => {
 							Router.back();
 						}}
@@ -90,7 +97,7 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 						container
 						spacing={{ xs: 2, md: 4 }}
 						flexDirection={{ xs: "column", md: "row" }}
-						pt={4}
+						pt={2}
 					>
 						<Grid item xs={12} md={6}>
 							<Carousel
@@ -148,41 +155,30 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 						</Grid>
 						<Grid item xs={12} md={6}>
 							<Typography
-								variant="h1"
+								variant="h3"
 								fontWeight="bold"
 								mt={{
-									xs: 10,
+									xs: 22,
 									md: 2,
 								}}
 							>
 								{product.name}
 							</Typography>
-							<Stack
-								flexDirection="row"
-								alignItems={"center"}
-								mt={2}
-								sx={{
-									"& svg": {
-										color: "#f8e825",
-									},
-								}}
-							>
-								<AiFillStar />
-								<AiFillStar />
-								<AiFillStar />
-								<AiFillStar />
-								<AiOutlineStar />
-								<Typography variant="body1" sx={{ ml: 1 }}>
-									(<CountUp end={votes} duration={2} /> đánh giá)
+
+							<Stack flexDirection={"row"} alignItems={"center"} mt={2}>
+								<Typography variant="body1" fontWeight={"bold"}>
+									Tình trạng:
 								</Typography>
-							</Stack>
-							<Stack flexDirection={"row"} alignItems={"center"} mt={1}>
-								<Typography variant="h6">Tình trạng:</Typography>
-								<Typography variant="h6" color={"success.light"} ml={2}>
+								<Typography variant="body1" fontWeight={"bold"} color={"success.light"} ml={2}>
 									Còn hàng
 								</Typography>
 							</Stack>
-							<Stack sx={{ mt: 4 }} flexDirection="row" alignItems={"center"}>
+							<Stack mt={2}>
+								<Typography variant="h4" fontWeight={"bold"} mb={2}>
+									{price}.000 VND
+								</Typography>
+							</Stack>
+							<Stack flexDirection="row" alignItems={"center"}>
 								<MuiLink
 									href="https://m.me/642209429738886"
 									target="_blank"
@@ -192,16 +188,39 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 										Đặt hàng
 									</Button>
 								</MuiLink>
-								<MuiLink
-									href="https://m.me/642209429738886"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<Button variant="outlined" color="primary">
-										Nhận báo giá
-									</Button>
-								</MuiLink>
+								<Link href="/contact" passHref>
+									<MuiLink>
+										<Button variant="outlined" color="primary">
+											Liên hệ tư vấn
+										</Button>
+									</MuiLink>
+								</Link>
 							</Stack>
+							<Box py={3}>
+								<Typography variant="h6" fontWeight={"bold"}>
+									Mô tả sản phẩm:
+								</Typography>
+								<Typography variant="body1" mt={1}>
+									<b>Chất liệu</b>: Film Vinyl chuyên ứng dụng trong ngành ô tô, dùng để bảo vệ sơn
+									tránh khỏi trầy xước, tác động của ngoại lực trong thời gian sử dụng
+								</Typography>
+								<Typography variant="body1" mt={1}>
+									<b>Chống nước</b>: Có
+								</Typography>
+								<Typography variant="body1" mt={1}>
+									<b>Loại máy phù hợp</b>: Cắt theo kích thước laptop, in hình, chọn phối màu tuỳ ý
+								</Typography>
+								<Typography variant="body1" mt={1}>
+									<b>Vệ sinh máy</b>: Có, sẽ vệ sinh vỏ ngoài. Không vệ sinh bên trong máy.
+								</Typography>
+								<Typography variant="body1" mt={1}>
+									<b>Dữ liệu máy tính</b>: Không mất dữ liệu, không can thiệp vào bên trong máy cũng
+									như không mở máy. Chỉ vệ sinh và dán ở vỏ ngoài.
+								</Typography>
+								<Typography variant="body1" mt={1}>
+									<b>Mô tả thêm</b>: {product.details}
+								</Typography>
+							</Box>
 						</Grid>
 					</Grid>
 				</Container>
@@ -212,34 +231,6 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 					<Divider />
 				</Box>
 				<Container>
-					<Box py={4}>
-						<Typography variant="h6" fontWeight={"bold"}>
-							Mô tả sản phẩm:
-						</Typography>
-						<Typography variant="body1" mt={1}>
-							<b>Chất liệu</b>: Film Vinyl chuyên ứng dụng trong ngành ô tô, dùng để bảo vệ sơn
-							tránh khỏi trầy xước, tác động của ngoại lực trong thời gian sử dụng
-						</Typography>
-						<Typography variant="body1" mt={1}>
-							<b>Chống nước</b>: Có
-						</Typography>
-						<Typography variant="body1" mt={1}>
-							<b>Loại máy phù hợp</b>: Cắt theo kích thước laptop, in hình, chọn phối màu tuỳ ý
-							khách hàng.
-						</Typography>
-						<Typography variant="body1" mt={1}>
-							<b>Vệ sinh máy</b>: Có, chúng tôi sẽ vệ sinh vỏ ngoài của laptop trước khi dán. Không
-							vệ sinh bên trong máy.
-						</Typography>
-						<Typography variant="body1" mt={1}>
-							<b>Dữ liệu máy tính</b>: Không mất dữ liệu, không can thiệp vào bên trong máy cũng như
-							không mở máy. Chỉ vệ sinh và dán ở vỏ ngoài.
-						</Typography>
-						<Typography variant="body1" mt={1}>
-							<b>Mô tả thêm</b>: {product.details}
-						</Typography>
-					</Box>
-					<Divider />
 					<Box py={4}>
 						<Typography variant="h6" fontWeight={"bold"}>
 							Cam Kết Mua Sản Phẩm tại INUT
@@ -261,46 +252,44 @@ const ProductDetail = ({ product, products, votes }: Props) => {
 			</Box>
 
 			<Box component={"section"} pt={2} mt={2}>
-				<Container>
-					<Typography variant="h2" mt={2} fontWeight="bold" textAlign="center">
-						Có thể bạn sẽ thích
-					</Typography>
-					<div className="">
-						<div className="marquee">
-							<div className="maylike-products-container track macnut">
-								{products.map((product) => (
-									<Link href={`/macnut/${product.slug.current}`} passHref key={product._id}>
-										<MuiLink>
-											<img
-												src={urlFor(product.image[0]).width(500).url()}
-												width={250}
-												height={250}
-												alt="product-image"
-												className={styles.productImage}
-											/>
-											<Typography
-												variant="h6"
-												mt={1}
-												fontWeight="bold"
-												textAlign="center"
-												sx={{
-													mt: 1,
-													fontWeight: "bold",
-													textAlign: "center",
-													whiteSpace: "nowrap",
-													textOverflow: "ellipsis",
-													overflow: "hidden",
-												}}
-											>
-												{product.name}
-											</Typography>
-										</MuiLink>
-									</Link>
-								))}
-							</div>
+				<Typography variant="h3" mt={2} fontWeight="bold" textAlign="center">
+					Có thể bạn sẽ thích
+				</Typography>
+				<div className="">
+					<div className="marquee">
+						<div className="maylike-products-container track macnut">
+							{products.map((product) => (
+								<Link href={`/macnut/${product.slug.current}`} passHref key={product._id}>
+									<MuiLink>
+										<img
+											src={urlFor(product.image[0]).width(500).url()}
+											width={250}
+											height={250}
+											alt="product-image"
+											className={styles.productImage}
+										/>
+										<Typography
+											variant="h6"
+											mt={1}
+											fontWeight="bold"
+											textAlign="center"
+											sx={{
+												mt: 1,
+												fontWeight: "bold",
+												textAlign: "center",
+												whiteSpace: "nowrap",
+												textOverflow: "ellipsis",
+												overflow: "hidden",
+											}}
+										>
+											{product.name}
+										</Typography>
+									</MuiLink>
+								</Link>
+							))}
 						</div>
 					</div>
-				</Container>
+				</div>
 				<Divider />
 			</Box>
 		</>
@@ -326,16 +315,13 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async ({ params: { slug } }) => {
 	const product = await productsApi.getProductBySlugMacnut(slug as string);
 	const products = await productsApi.getAllProductsMacnut();
-
-	const randomRange = (min: number, max: number) => {
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	};
+	const priceLaptop = await priceLaptopApi.getBySlug("mat-phim");
 
 	return {
 		props: {
 			product,
 			products: products.filter((product) => !product._id.includes("drafts")),
-			votes: randomRange(1, 15),
+			priceLaptop: priceLaptop,
 		},
 		revalidate: 86400,
 	};

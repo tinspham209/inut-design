@@ -58,7 +58,7 @@ a {
 }
 
 .track.macnut {
-	width: 600%;
+	width: 300%;
 }
 .track:hover {
 	animation-play-state: paused;

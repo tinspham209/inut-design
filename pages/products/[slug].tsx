@@ -164,31 +164,12 @@ const ProductDetail = ({ product, products, priceLaptops }: Props) => {
 								variant="h3"
 								fontWeight="bold"
 								mt={{
-									xs: 6,
-									md: 0,
+									xs: 10,
+									md: 2,
 								}}
 							>
 								{product.name}
 							</Typography>
-							{/* <Stack
-								flexDirection="row"
-								alignItems={"center"}
-								mt={2}
-								sx={{
-									"& svg": {
-										color: "#f8e825",
-									},
-								}}
-							>
-								<AiFillStar />
-								<AiFillStar />
-								<AiFillStar />
-								<AiFillStar />
-								<AiOutlineStar />
-								<Typography variant="body1" sx={{ ml: 1 }}>
-									(<CountUp end={votes} duration={2} /> đánh giá)
-								</Typography>
-							</Stack> */}
 							<Stack flexDirection={"row"} alignItems={"center"} my={2}>
 								<Typography variant="body1" fontWeight={"bold"}>
 									Tình trạng:
