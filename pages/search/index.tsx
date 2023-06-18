@@ -3,7 +3,6 @@ import { productTypeApi } from "@/api-client/productType";
 import { productsApi } from "@/api-client/products";
 import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
-import { HeroImage } from "@/components/home";
 import { MainLayout } from "@/components/layout";
 import { ProductCard } from "@/components/product";
 import { Banner } from "@/models/banner";
@@ -35,7 +34,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import CountUp from "react-countup";
-
 const Search: NextPageWithLayout = ({ products, productTypes, banner }: Props) => {
 	const router = useRouter();
 	const { q } = router.query;
@@ -82,7 +80,7 @@ const Search: NextPageWithLayout = ({ products, productTypes, banner }: Props) =
 		<Box component={"section"} bgcolor="secondary.dark" pt={4} pb={4}>
 			<Seo
 				data={{
-					title: "Sản phẩm - INUT Design",
+					title: "Tìm kiếm - INUT Design",
 					description:
 						"Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop, skin laptop da nang, skin laptop đà nẵng",
 					url: "https://inutdesign.com/products",
@@ -92,7 +90,6 @@ const Search: NextPageWithLayout = ({ products, productTypes, banner }: Props) =
 				}}
 			/>
 
-			<HeroImage imgUrl={banner && urlFor(banner[0].image).url()} />
 			<Container>
 				<Box>
 					<Breadcrumbs>
@@ -100,7 +97,7 @@ const Search: NextPageWithLayout = ({ products, productTypes, banner }: Props) =
 							<MuiLink>Trang chủ</MuiLink>
 						</Link>
 
-						<Typography color={COLOR_CODE.WHITE}>Sản phẩm</Typography>
+						<Typography>Tìm kiếm</Typography>
 					</Breadcrumbs>
 					<Box mt={3} id="title">
 						<Typography variant="h2" fontWeight="bold" textAlign="center" letterSpacing="10px">
@@ -161,9 +158,10 @@ const Search: NextPageWithLayout = ({ products, productTypes, banner }: Props) =
 										minHeight: {
 											md: "1px",
 										},
-										bgcolor: COLOR_CODE.BACKGROUND_CARD,
+										maxHeight: "80vh",
+										overflowY: "auto",
 										border: `1px solid ${COLOR_CODE.BORDER}`,
-										borderRadius: "16px !important",
+										borderRadius: "8px 4px 4px 8px !important",
 									}}
 								>
 									<AccordionSummary
@@ -232,7 +230,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			};
 		});
 
-	const formatProductTypes = productTypes.filter((productType) => productType?.name !== "Macnut");
+	const formatProductTypes = productTypes
+		.filter((productType) => productType?.name !== "Macnut")
+		.filter((product) => !product._id.includes("drafts"));
 
 	return {
 		props: {

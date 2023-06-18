@@ -225,7 +225,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			};
 		});
 
-	const formatProductTypes = productTypes.filter((productType) => productType?.name !== "Macnut");
+	const formatProductTypes = productTypes
+		.filter((productType) => productType?.name !== "Macnut")
+		.filter((product) => !product._id.includes("drafts"));
 
 	return {
 		props: {

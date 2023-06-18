@@ -94,7 +94,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	return {
 		props: {
 			products: formatProducts,
-			productTypes,
+			productTypes: productTypes.filter((product) => !product._id.includes("drafts")),
 			banner,
 		},
 	};
