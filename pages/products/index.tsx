@@ -229,8 +229,12 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 					productTypes.find((productType) => productType._id === product.productType._ref).slug
 						?.current || "",
 			};
+		})
+		.sort((prev, cur) => {
+			const datePrev = prev._createdAt;
+			const dateCur = cur._createdAt;
+			return datePrev < dateCur ? 1 : -1;
 		});
-
 	const formatProductTypes = productTypes
 		.filter((productType) => productType?.name !== "Macnut")
 		.filter((product) => !product._id.includes("drafts"));
