@@ -30,7 +30,7 @@ export function FooterSeo() {
 			<p>Thiết kế tạo mẫu hoàn toàn theo sở thích của bạn</p>
 			<p>Cắt và tạo khuân chính xác 100% bo kín từng vị trí con ốc nhỏ nhất</p>
 			<p>Giá cả luôn tốt nhất trên thị trường hiện nay</p>
-			<p>Địa chỉ: K294/43 Điện Biên Phủ, Đà Nẵng, Việt Nam</p>
+			<p>Địa chỉ: K574/5 ông ích khiêm, Đà Nẵng, Việt Nam</p>
 
 			<a href="tel:0792359996">Hotline: 079 235 9996</a>
 			<p>Giờ làm việc: 09:00 - 20:00 (từ T3 đến CN)</p>

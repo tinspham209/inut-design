@@ -104,7 +104,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 											},
 										}}
 									>
-										Địa chỉ: K294/43 Điện Biên Phủ, Đà Nẵng, Việt Nam
+										Địa chỉ: K574/5 ông ích khiêm, Đà Nẵng, Việt Nam
 									</Typography>
 								</MuiLink>
 
@@ -216,7 +216,7 @@ const listContacts = [
 		title: "Instagram",
 	},
 	{
-		link: "https://goo.gl/maps/hBKBhHvRAGMPUn3e9",
+		link: "https://goo.gl/maps/PpPJPgWsm3CigD9E8",
 		icon: (
 			<MapsHomeWork
 				sx={{
