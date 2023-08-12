@@ -5,20 +5,10 @@ import createSchema from "part:@sanity/base/schema-creator";
 import schemaTypes from "all:part:@sanity/base/schema-type";
 import banner from "./banner";
 import blockContent from "./block-content";
-import costs from "./costs";
-import incomesAnother from "./incomes-another";
-import incomesLaptop from "./incomes-laptop";
-import incomesSticker from "./incomes-sticker";
-import letterCost from "./letter-cost";
 import macnut from "./macnut";
+import priceLaptop from "./price-laptop";
 import productType from "./productType";
 import products from "./products";
-import stickerType from "./sticker-type";
-import incomesLaptopTest from "./test-incomes";
-import incomesAnotherTest from "./test-incomes-another";
-import incomesStickerTest from "./test-incomes-sticker";
-import costsTest from "./test-costs";
-import priceLaptop from "./price-laptop";
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
 	// We name our schema
@@ -27,20 +17,10 @@ export default createSchema({
 	// to the ones provided by any plugins that are installed
 	types: schemaTypes.concat([
 		/* Your types here! */
-		incomesLaptop,
-		incomesSticker,
-		incomesAnother,
-		costs,
-		letterCost,
-		stickerType,
-		priceLaptop,
-		incomesLaptopTest,
-		incomesStickerTest,
-		incomesAnotherTest,
-		costsTest,
 		products,
 		macnut,
 		productType,
+		priceLaptop,
 		banner,
 		blockContent,
 	]),

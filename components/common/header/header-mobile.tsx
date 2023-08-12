@@ -12,35 +12,19 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import clsx from "clsx";
-import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { toast } from "react-hot-toast";
-import { ROUTE_LIST, ROUTE_LIST_ADMIN } from "./routes";
-type Props = {
-	isAuthenticated: boolean;
-};
+import { ROUTE_LIST } from "./routes";
 
-export function HeaderMobile({ isAuthenticated }: Props) {
+export function HeaderMobile() {
 	const [open, setOpen] = React.useState(false);
 	const router = useRouter();
 
-	const [isLoading, setIsLoading] = React.useState(false);
-
-	const handleLogout = () => {
-		setIsLoading(true);
-		signOut().then(() => {
-			setIsLoading(false);
-			toggleDrawer(false);
-			toast.success("Logout successfully");
-		});
-	};
-
 	const routeList = React.useMemo(() => {
-		return isAuthenticated ? ROUTE_LIST_ADMIN : ROUTE_LIST;
-	}, [isAuthenticated]);
+		return ROUTE_LIST;
+	}, []);
 
 	const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
 		if (
@@ -111,38 +95,6 @@ export function HeaderMobile({ isAuthenticated }: Props) {
 								</ListItemButton>
 							</ListItem>
 						))}
-						{isAuthenticated ? (
-							<ListItem onClick={handleLogout} disableGutters>
-								<ListItemButton
-									sx={{
-										justifyContent: "center",
-										textTransform: "uppercase",
-									}}
-									disabled={isLoading}
-								>
-									Đăng Xuất
-								</ListItemButton>
-							</ListItem>
-						) : (
-							<ListItem key={"login"} onClick={toggleDrawer(false)} disableGutters>
-								<ListItemButton
-									sx={{
-										justifyContent: "center",
-									}}
-									selected={router.pathname === "/login"}
-								>
-									<Link href={"/login"} passHref>
-										<MuiLink
-											sx={{ fontWeight: "medium", textTransform: "uppercase" }}
-											underline="hover"
-											className={clsx({ active: router.pathname === "/login" })}
-										>
-											Đăng Nhập
-										</MuiLink>
-									</Link>
-								</ListItemButton>
-							</ListItem>
-						)}
 					</List>
 				</Drawer>
 			</Container>

@@ -1,6 +1,6 @@
 {
 	"name": "inutdesign-web",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"private": true,
 	"contributors": [
 		{
@@ -18,7 +18,8 @@
 		"start": "next start",
 		"lint": "next lint",
 		"export": "next export",
-		"postbuild": "next-sitemap --config next-sitemap.config.js"
+		"postbuild": "next-sitemap --config next-sitemap.config.js",
+		"sanity": "cd ./sanity && yarn start"
 	},
 	"dependencies": {
 		"@emotion/cache": "^11.10.1",
@@ -28,7 +29,6 @@
 		"@hookform/error-message": "^2.0.1",
 		"@mui/icons-material": "^5.8.4",
 		"@mui/material": "^5.9.3",
-		"@next-auth/firebase-adapter": "^2.0.1",
 		"@react-three/drei": "^9.65.5",
 		"@react-three/fiber": "^8.12.2",
 		"@sanity/client": "^3.4.1",
@@ -38,14 +38,11 @@
 		"bcrypt": "^5.1.0",
 		"clsx": "^1.2.1",
 		"date-fns": "^2.29.1",
-		"firebase": "^9.22.1",
-		"firebase-admin": "^11.9.0",
 		"framer-motion": "^7.3.6",
 		"gray-matter": "^4.0.3",
 		"http-proxy": "^1.18.1",
 		"lodash": "^4.17.21",
 		"next": "12.3.1",
-		"next-auth": "4.22.1",
 		"next-sanity-image": "^4.1.0",
 		"next-sitemap": "^3.1.23",
 		"react": "18.2.0",

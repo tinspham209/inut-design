@@ -1,9 +1,29 @@
-# Sanity Clean Content Studio
+# Inut Design Admin
 
-Congratulations, you have now installed the Sanity Content Studio, an open source real-time content editing environment connected to the Sanity backend.
+Web-admin: https://inut-design.sanity.studio/
 
-Now you can do the following things:
+# Tech-stack
+- Sanity
 
-- [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
-- [Join the community Slack](https://slack.sanity.io/?utm_source=readme)
-- [Extend and build plugins](https://www.sanity.io/docs/content-studio/extending?utm_source=readme)
+
+# Setup
+
+- create `.env` file
+
+```
+yarn
+yarn start
+
+// localhost:3000
+```
+
+
+# Deployment
+
+- Sanity
+
+```
+sanity login
+sanity deploy
+```
+

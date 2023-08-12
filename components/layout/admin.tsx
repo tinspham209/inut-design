@@ -2,8 +2,6 @@ import { LayoutProps } from "@/models";
 import { Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import { motion } from "framer-motion";
-import { useSession } from "next-auth/react";
-import React from "react";
 import { Auth, Header } from "../common";
 const variants = {
 	hidden: { opacity: 0, x: 0, y: 20 },
@@ -11,15 +9,6 @@ const variants = {
 	exit: { opacity: 0, x: -0, y: 20 },
 };
 export function AdminLayout({ children }: LayoutProps) {
-	const session = useSession();
-	const [isAuthenticated, setIsAuthenticated] = React.useState(false);
-
-	React.useEffect(() => {
-		if (session && session.data) {
-			setIsAuthenticated(true);
-		}
-	}, [session]);
-
 	return (
 		<Auth>
 			<>
@@ -32,7 +21,7 @@ export function AdminLayout({ children }: LayoutProps) {
 					style={{ position: "relative" }}
 				>
 					<Stack minHeight="100vh">
-						<Header isAuthenticated={isAuthenticated} />
+						<Header />
 
 						<Box component="main" flexGrow={1} mt={10}>
 							{children}

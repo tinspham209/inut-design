@@ -38,3 +38,5 @@ yarn-error.log*
 
 # # Compiled sanity studio
 dist
+
+/public/sitemap.xml

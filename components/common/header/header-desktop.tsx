@@ -1,36 +1,19 @@
 import { COLOR_CODE } from "@/utils";
-import { Fingerprint } from "@mui/icons-material";
-import { Container, IconButton, Link as MuiLink, Stack, Tooltip } from "@mui/material";
+import { Container, Link as MuiLink, Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import clsx from "clsx";
-import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { toast } from "react-hot-toast";
-import { ROUTE_LIST, ROUTE_LIST_ADMIN } from "./routes";
+import { ROUTE_LIST } from "./routes";
 
-type Props = {
-	isAuthenticated: boolean;
-};
-
-export function HeaderDesktop({ isAuthenticated }: Props) {
+export function HeaderDesktop() {
 	const router = useRouter();
-	const [isLoading, setIsLoading] = React.useState(false);
 
 	const routeList = React.useMemo(() => {
-		return isAuthenticated ? ROUTE_LIST_ADMIN : ROUTE_LIST;
-	}, [isAuthenticated]);
-
-	const handleLogout = () => {
-		setIsLoading(true);
-		signOut().then(() => {
-			setIsLoading(false);
-
-			toast.success("Logout successfully");
-		});
-	};
+		return ROUTE_LIST;
+	}, []);
 
 	return (
 		<Box
@@ -75,44 +58,6 @@ export function HeaderDesktop({ isAuthenticated }: Props) {
 								</MuiLink>
 							</Link>
 						))}
-						{isAuthenticated ? (
-							<Tooltip title="Đăng xuất">
-								<IconButton
-									aria-label="fingerprint"
-									color="secondary"
-									sx={{
-										transform: "translateY(-4px)",
-										ml: 1,
-									}}
-									onClick={handleLogout}
-									disabled={isLoading}
-								>
-									<Fingerprint />
-								</IconButton>
-							</Tooltip>
-						) : (
-							<Link key={`login`} href={`/login`} passHref>
-								<MuiLink
-									sx={{
-										ml: 1,
-										fontWeight: "bold",
-										fontSize: 14,
-										textTransform: "uppercase",
-									}}
-									underline="hover"
-								>
-									<IconButton
-										aria-label="fingerprint"
-										color="secondary"
-										sx={{
-											transform: "translateY(-4px)",
-										}}
-									>
-										<Fingerprint />
-									</IconButton>
-								</MuiLink>
-							</Link>
-						)}
 					</Box>
 				</Stack>
 			</Container>
