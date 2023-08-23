@@ -174,12 +174,26 @@ const ProductDetail = ({ product, products, priceLaptop }: Props) => {
 							</Stack>
 							<Stack mt={2}>
 								<Typography variant="h4" fontWeight={"bold"} mb={2}>
-									{price}.000 VND
+									{/* {price}.000 VND */}
+									150.000 VND{" "}
+									<span
+										style={{
+											textDecoration: "line-through",
+											fontStyle: "italic",
+										}}
+									>
+										{price}.000 VND{" "}
+									</span>
+								</Typography>
+								<Typography variant="body1" mb={2}>
+									Freeship toàn quốc 0Đ
 								</Typography>
 							</Stack>
 							<Stack flexDirection="row" alignItems={"center"}>
 								<MuiLink
-									href="https://m.me/642209429738886"
+									href={`https://m.me/642209429738886?text=${encodeURI(
+										`I want to order product macnut ${product.name}. Can you support me?`
+									)}`}
 									target="_blank"
 									rel="noopener noreferrer"
 								>

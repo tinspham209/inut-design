@@ -204,7 +204,9 @@ const ProductDetail = ({ product, products, priceLaptops }: Props) => {
 							</Stack>
 							<Stack flexDirection="row" alignItems={"center"}>
 								<MuiLink
-									href="https://m.me/642209429738886"
+									href={`https://m.me/642209429738886?text=${encodeURI(
+										`I want to order product laptop ${product.name}. Can you support me?`
+									)}`}
 									target="_blank"
 									rel="noopener noreferrer"
 								>
