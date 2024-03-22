@@ -50,5 +50,5 @@ Tham khảo những mẫu có sẵn tại đây nha:
 Liên hệ shop để được tư vấn chi tiết hơn :
 - Sdt/Zalo : [079 235 9996](tel:0792359996)
 - Facebook : [facebook.com/inutdesign](https://www.facebook.com/inutdesign)
-- Địa chỉ : [K574/5 ông ích khiêm, Đà Nẵng, Việt Nam](https://goo.gl/maps/c9K4XVcUwQ3aiqSu5)
+- Địa chỉ : [176B Hải Phòng, Đà Nẵng, Việt Nam](https://maps.app.goo.gl/SRm8YB4fy8VfWmb39)
 

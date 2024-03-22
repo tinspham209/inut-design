@@ -46,12 +46,12 @@ export function Footer() {
 				</Stack>
 				<Typography>INUT Design - {new Date().getFullYear()} </Typography>
 				<MuiLink
-					href="https://goo.gl/maps/PpPJPgWsm3CigD9E8"
+					href="https://maps.app.goo.gl/SRm8YB4fy8VfWmb39"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
 					<Typography variant="body1" sx={{ mt: 1 }}>
-						Địa chỉ: K574/5 ông ích khiêm, Đà Nẵng, Việt Nam
+						Địa chỉ: 176B Hải Phòng, Đà Nẵng, Việt Nam
 					</Typography>
 				</MuiLink>
 				<MuiLink href="tel:+84792359996" target="_blank" rel="noopener noreferrer">
