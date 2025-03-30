@@ -47,6 +47,7 @@ export default class MyDocument extends Document {
 						async
 						src={`https://www.googletagmanager.com/gtag/js?id=G-0FFVD3N1QG`}
 					/>
+
 					<Script
 						id="gtag-init"
 						strategy="afterInteractive"
@@ -61,6 +62,14 @@ export default class MyDocument extends Document {
           `,
 						}}
 					/>
+
+					<Script
+						strategy="afterInteractive"
+						defer
+						src="https://cloud.umami.is/script.js"
+						data-website-id="2d970e4e-411e-4b9e-b6ee-c48c2b040f56"
+					/>
+
 					<meta name="emotion-insertion-point" content="" />
 					{(this.props as any).emotionStyleTags}
 				</Head>
