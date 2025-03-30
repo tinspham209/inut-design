@@ -1,7 +1,6 @@
 import { Post } from "@/models";
 import { COLOR_CODE } from "@/utils";
-import { Button, Container, Divider, Link as MuiLink, Stack, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, Button, Container, Divider, Link as MuiLink, Stack, Typography } from "@mui/material";
 import Link from "next/link";
 import { PostItem } from "../blog";
 type Props = {

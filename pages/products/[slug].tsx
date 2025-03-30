@@ -5,6 +5,7 @@ import { Seo } from "@/components/common";
 import { MainLayout } from "@/components/layout";
 import { Product, Products } from "@/models/products";
 import {
+	Box,
 	Breadcrumbs,
 	Button,
 	Container,
@@ -17,7 +18,6 @@ import {
 	Stack,
 	Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,12 +26,12 @@ import Lightbox from "react-awesome-lightbox";
 import "react-awesome-lightbox/build/style.css";
 // import CountUp from "react-countup";
 // import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { priceLaptopApi } from "@/api-client/priceLaptop";
+import { PriceLaptop } from "@/models/price-laptop";
 import { useRouter } from "next/router";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import styles from "./productItem.module.css";
-import { priceLaptopApi } from "@/api-client/priceLaptop";
-import { PriceLaptop } from "@/models/price-laptop";
 
 const ProductDetail = ({ product, products, priceLaptops }: Props) => {
 	const router = useRouter();

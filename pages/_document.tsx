@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
 	FacebookChatPlugin,
-	GoogleTagSchemaNoScript,
+	GoogleTagSchema,
 	jsonSearchSchema,
 	scriptFacebookChatPlugin,
-	scriptgoogleTagSchema,
 } from "@/components/scripts";
 import { createEmotionCache, theme } from "@/utils";
 import createEmotionServer from "@emotion/server/create-instance";
@@ -22,7 +21,7 @@ export default class MyDocument extends Document {
 					<link rel="icon" href="/static/favicon.ico" />
 					<link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" />
 					<meta
-						content="INUT Design, Inut skin, inutdesign, inutskin, skin laptop"
+						content="INUT Design, Inut skin, inutdesign, inutskin, skin laptop, inutsticker, inut sticker"
 						name="keywords"
 					/>
 
@@ -38,9 +37,6 @@ export default class MyDocument extends Document {
 					<Script strategy="afterInteractive" id="schema" type="application/ld+json">
 						{`${jsonSearchSchema}`}
 					</Script>
-					<Script strategy="afterInteractive" id="google-tag-manager">
-						{`${scriptgoogleTagSchema}`}
-					</Script>
 
 					<Script strategy="afterInteractive" id="fb-chatbox-sdk">
 						{`${scriptFacebookChatPlugin}`}
@@ -51,12 +47,9 @@ export default class MyDocument extends Document {
 				</Head>
 				<body>
 					<Main />
-
 					<NextScript />
-
 					<FacebookChatPlugin />
-
-					<GoogleTagSchemaNoScript />
+					<GoogleTagSchema />
 				</body>
 			</Html>
 		);

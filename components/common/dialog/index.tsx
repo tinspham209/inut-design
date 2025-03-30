@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { REASON_CLOSE_DIALOG } from "./helpers";
-import cn from "classnames";
+import cn from "clsx";
 import { Close } from "@mui/icons-material";
 import { Callback, isEmpty } from "@/utils";
 

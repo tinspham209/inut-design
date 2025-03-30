@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { COLOR_CODE } from "@/utils";
 import { MouseOutlined } from "@mui/icons-material";
-import { IconButton, Stack, Typography, useMediaQuery } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, IconButton, Stack, Typography, useMediaQuery } from "@mui/material";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import * as React from "react";

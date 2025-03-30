@@ -7,6 +7,7 @@ import { MainLayout } from "@/components/layout";
 import { PriceLaptop } from "@/models/price-laptop";
 import { Product, Products } from "@/models/products";
 import {
+	Box,
 	Breadcrumbs,
 	Button,
 	Container,
@@ -16,7 +17,6 @@ import {
 	Stack,
 	Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";

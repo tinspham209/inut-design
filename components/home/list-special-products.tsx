@@ -2,6 +2,7 @@ import { urlFor } from "@/api-client/sanity-client";
 import { Products } from "@/models/products";
 import { COLOR_CODE } from "@/utils";
 import {
+	Box,
 	Button,
 	Container,
 	Grid,
@@ -11,10 +12,8 @@ import {
 	Tooltip,
 	Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { HiDuplicate } from "react-icons/hi";
 import styles from "../product/product-item.module.css";
 type Props = {

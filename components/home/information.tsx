@@ -1,5 +1,4 @@
-import { Container, Stack, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { Element } from "react-scroll";
 

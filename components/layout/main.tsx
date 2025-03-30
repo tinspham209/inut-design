@@ -1,6 +1,5 @@
 import { LayoutProps } from "@/models";
-import { Stack } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, Stack } from "@mui/material";
 import { motion } from "framer-motion";
 import { Footer, FooterSeo, Header } from "../common";
 const variants = {

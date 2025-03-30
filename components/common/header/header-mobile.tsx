@@ -1,6 +1,7 @@
 import { COLOR_CODE } from "@/utils";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
+	Box,
 	Container,
 	Drawer,
 	IconButton,
@@ -10,7 +11,6 @@ import {
 	Link as MuiLink,
 	Stack,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";

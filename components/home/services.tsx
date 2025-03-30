@@ -1,6 +1,5 @@
 import { COLOR_CODE } from "@/utils";
-import { Button, Container, Grid, Link as MuiLink, Stack, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, Button, Container, Grid, Link as MuiLink, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 

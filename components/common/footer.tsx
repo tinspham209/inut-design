@@ -1,7 +1,6 @@
 import { COLOR_CODE } from "@/utils";
 import { Facebook, Instagram } from "@mui/icons-material";
-import { Container, Icon, Link as MuiLink, Stack, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, Container, Icon, Link as MuiLink, Stack, Typography } from "@mui/material";
 
 const socialLinks = [
 	{

@@ -1,7 +1,5 @@
-import { Container } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, Container } from "@mui/material";
 import Image from "next/image";
-import * as React from "react";
 
 type Props = {
 	imgUrl: string;
