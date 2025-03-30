@@ -32,6 +32,7 @@ import { useRouter } from "next/router";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import styles from "./productItem.module.css";
+import { sendGAEvent } from "@next/third-parties/google";
 
 const ProductDetail = ({ product, products, priceLaptops }: Props) => {
 	const router = useRouter();
@@ -210,7 +211,17 @@ const ProductDetail = ({ product, products, priceLaptops }: Props) => {
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									<Button variant="contained" color="primary" sx={{ mr: 2 }}>
+									<Button
+										variant="contained"
+										color="primary"
+										sx={{ mr: 2 }}
+										onClick={() => {
+											sendGAEvent("event", "buttonClicked", {
+												value: product.name,
+												category: "skin laptop",
+											});
+										}}
+									>
 										Đặt hàng
 									</Button>
 								</MuiLink>

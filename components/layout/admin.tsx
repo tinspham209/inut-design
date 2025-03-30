@@ -16,7 +16,7 @@ export function AdminLayout({ children }: LayoutProps) {
 					animate="enter"
 					exit="exit"
 					variants={variants}
-					transition={{ duration: 0.4, type: "easeInOut" }}
+					transition={{ duration: 0.4, type: "tween" }}
 					style={{ position: "relative" }}
 				>
 					<Stack minHeight="100vh">

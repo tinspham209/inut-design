@@ -42,6 +42,25 @@ export default class MyDocument extends Document {
 						{`${scriptFacebookChatPlugin}`}
 					</Script>
 
+					<Script
+						strategy="afterInteractive"
+						async
+						src={`https://www.googletagmanager.com/gtag/js?id=G-0FFVD3N1QG`}
+					/>
+					<Script
+						id="gtag-init"
+						strategy="afterInteractive"
+						dangerouslySetInnerHTML={{
+							__html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-0FFVD3N1QG', {
+              page_path: window.location.pathname,
+            });
+          `,
+						}}
+					/>
 					<meta name="emotion-insertion-point" content="" />
 					{(this.props as any).emotionStyleTags}
 				</Head>

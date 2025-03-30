@@ -1,6 +1,12 @@
-import * as React from "react";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+
+const gtag = "G-0FFVD3N1QG";
 
 export function GoogleTagSchema() {
-	return <GoogleAnalytics gaId="G-0FFVD3N1QG" />;
+	return (
+		<>
+			<GoogleAnalytics gaId={gtag} />
+			<GoogleTagManager gtmId="GT-KDTMJQL" />
+		</>
+	);
 }

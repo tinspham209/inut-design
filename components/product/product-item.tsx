@@ -4,6 +4,7 @@ import { Box, Button, Link as MuiLink, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./product-item.module.css";
+import { sendGAEvent } from "@next/third-parties/google";
 
 export interface ProductItemProps {
 	product: Product;
@@ -56,7 +57,16 @@ export function ProductItem({ product, productTypes, isMacnut = false }: Product
 						{productType.name}
 					</Typography>
 					<Stack direction="row" justifyContent={"flex-end"}>
-						<Button variant="text" color="primary">
+						<Button
+							variant="text"
+							color="primary"
+							onClick={() => {
+								sendGAEvent("event", "buttonClicked", {
+									value: product.name,
+									category: `Click View Product: ${product.name} - ${productType.slug}`,
+								});
+							}}
+						>
 							Xem chi tiết
 						</Button>
 					</Stack>

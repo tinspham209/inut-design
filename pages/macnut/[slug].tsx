@@ -27,6 +27,7 @@ import "react-awesome-lightbox/build/style.css";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import styles from "./productItem.module.css";
+import { sendGAEvent } from "@next/third-parties/google";
 type Props = {
 	product: Product;
 	products: Products;
@@ -197,7 +198,17 @@ const ProductDetail = ({ product, products, priceLaptop }: Props) => {
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									<Button variant="contained" color="primary" sx={{ mr: 2 }}>
+									<Button
+										variant="contained"
+										color="primary"
+										sx={{ mr: 2 }}
+										onClick={() => {
+											sendGAEvent("event", "buttonClicked", {
+												value: product.name,
+												category: "skin macnut",
+											});
+										}}
+									>
 										Đặt hàng
 									</Button>
 								</MuiLink>
