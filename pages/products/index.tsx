@@ -217,17 +217,29 @@ type Props = {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
 	const products: Products = await productsApi.getAllProducts();
+
+	// TODO: find productType undefined
+	// console.log(
+	// 	"products: ",
+	// 	products
+	// 		.filter((product) => !product.productType)
+	// 		.map((product) => ({
+	// 			productType: product.productType,
+	// 			name: product.name,
+	// 		}))
+	// );
+
 	const productTypes: ProductType[] = await productTypeApi.getAll();
 	const banner: Banner[] = await bannerApi.getBannerPage("products-page");
 
 	const formatProducts = products
-		.filter((product) => !product._id.includes("drafts"))
+		.filter((product) => !product._id.includes("drafts") || !product.productType)
 		.map((product) => {
 			return {
 				...product,
 				type:
-					productTypes.find((productType) => productType._id === product.productType._ref).slug
-						?.current || "",
+					productTypes.find((productType) => productType._id === product?.productType._ref)?.slug
+						.current || "",
 			};
 		})
 		.sort((prev, cur) => {
