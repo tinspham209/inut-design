@@ -80,13 +80,24 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	const productTypes: ProductType[] = await productTypeApi.getAll();
 	const banner: Banner[] = await bannerApi.getBannerPage("macnut-page");
 
+	// TODO: find productType undefined
+	console.log(
+		"products undefined: ",
+		products
+			.filter((product) => !product.productType)
+			.map((product) => ({
+				productType: product.productType,
+				name: product.name,
+			}))
+	);
+
 	const formatProducts = products
 		.filter((product) => !product._id.includes("drafts"))
 		.map((product) => {
 			return {
 				...product,
 				type:
-					productTypes.find((productType) => productType._id === product.productType._ref).slug
+					productTypes.find((productType) => productType?._id === product.productType?._ref).slug
 						?.current || "",
 			};
 		});

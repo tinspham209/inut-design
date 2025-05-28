@@ -7,32 +7,27 @@ export const servicesOptions = [
 	{
 		label: "Skin Laptop",
 		url: "/products",
-		img: "/branding/services/6.png",
+		img: "/branding/services/skin-laptop.avif",
 	},
 	{
 		label: "Skin Nút Phím",
 		url: "/macnut",
-		img: "/branding/services/2.png",
+		img: "/branding/services/skin-nut-phim.avif",
 	},
 	{
 		label: "Sticker",
 		url: "/contact",
-		img: "/branding/services/3.png",
+		img: "/branding/services/sticker.avif",
 	},
 	{
 		label: "Nhãn chai sản phẩm",
 		url: "/contact",
-		img: "/branding/services/4.png",
+		img: "/branding/services/nhan-chai-san-pham.avif",
 	},
 	{
-		label: "Menu cửa hàng",
+		label: "Thiết kế & In ấn",
 		url: "/contact",
-		img: "/branding/services/5.png",
-	},
-	{
-		label: "Tư vấn thiết kế",
-		url: "/contact",
-		img: "/branding/services/1.png",
+		img: "/branding/services/thiet-ke-in-an.avif",
 	},
 ];
 
@@ -53,7 +48,7 @@ export function Services() {
 
 				<Grid container spacing={3} my={2}>
 					{servicesOptions.map((service, index) => (
-						<Grid item xs={12} sm={2} key={`${service.label}-${index}`}>
+						<Grid item xs={12} sm={2.4} key={`${service.label}-${index}`}>
 							<Link href={service.url} passHref>
 								<MuiLink
 									sx={{

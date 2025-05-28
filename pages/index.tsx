@@ -2,14 +2,14 @@ import { bannerApi } from "@/api-client/banner";
 import { productsApi } from "@/api-client/products";
 import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
-import { BlogsHome, InfoSection, ListSpecialProducts } from "@/components/home";
+import { BlogsHome, HeroImage, InfoSection, ListSpecialProducts } from "@/components/home";
 import { Services } from "@/components/home/services";
 import { MainLayout } from "@/components/layout";
 import { Post } from "@/models";
 import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { Products } from "@/models/products";
-import { getPostList } from "@/utils";
+import { COLOR_CODE, getPostList } from "@/utils";
 import { Box } from "@mui/material";
 import { GetStaticProps } from "next";
 
@@ -26,7 +26,10 @@ const Home: NextPageWithLayout = ({ products, macnuts, blogs, banner }: Props) =
 				}}
 			/>
 			{/* <HeroSection /> */}
-			<InfoSection imgUrl={banner && urlFor(banner[0].image).url()} />
+			<Box mt={2} bgcolor={COLOR_CODE.BACKGROUND}>
+				<HeroImage imgUrl="/cover-web.webp" />
+			</Box>
+			{/* <InfoSection imgUrl={banner && urlFor(banner[0].image).url()} /> */}
 			<ListSpecialProducts products={macnuts} isMacnut />
 			<ListSpecialProducts products={products} />
 			<Services />

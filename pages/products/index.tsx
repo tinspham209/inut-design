@@ -219,17 +219,18 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	const products: Products = await productsApi.getAllProducts();
 
 	// TODO: find productType undefined
-	// console.log(
-	// 	"products: ",
-	// 	products
-	// 		.filter((product) => !product.productType)
-	// 		.map((product) => ({
-	// 			productType: product.productType,
-	// 			name: product.name,
-	// 		}))
-	// );
+	console.log(
+		"products undefined: ",
+		products
+			.filter((product) => !product.productType)
+			.map((product) => ({
+				productType: product.productType,
+				name: product.name,
+			}))
+	);
 
 	const productTypes: ProductType[] = await productTypeApi.getAll();
+	console.log("productTypes: ", productTypes);
 	const banner: Banner[] = await bannerApi.getBannerPage("products-page");
 
 	const formatProducts = products
