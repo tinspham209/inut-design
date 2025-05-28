@@ -11,7 +11,7 @@ date: '2022-09-21T06:45:22.393Z'
 
 Từ trước đến nay có không ít người có sở thích và thói quen đi dán decal laptop. Dán decal hoặc skin có lợi hay có hại vẫn luôn là câu hỏi tranh cãi không có hồi kết. Quyết định có dán hay không thuộc về bạn, nhưng hãy tìm hiểu trước những điều cần biết sau. 
 
-<!-- truncate-->
+<!-- truncate-->****
 
 <!-- ## Table of contents -->
 

@@ -11,7 +11,7 @@ date: '2022-09-21T11:30:45.369Z'
 
 Để dán skin cho chiếc Laptop của bạn, bạn cần đặt có các miếng dán chuẩn với kích thước và các chi tiết (Logo, bàn phím, cổng kết nối) của Laptop. Mỗi loại laptop đều có kích thước riêng biệt, kể cả các laptop cùng trong một dòng sản phẩm. Vậy để đặt miếng dán skin chính xác với laptop của bạn đang sử dụng, bạn cần nắm được tên model (đời máy) của thiết bị. Ở bài viết này, INUT sẽ hướng dẫn bạn kiểm tra chính xác bằng nhiều cách khác nhau nhé.
 
-<!-- truncate-->
+<!-- truncate-->****
 
 <!-- ## Table of contents -->
 
