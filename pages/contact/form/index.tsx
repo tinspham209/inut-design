@@ -22,7 +22,11 @@ const ContactForm: NextPageWithLayout = () => {
 				<HeroImage imgUrl="/cover-web.webp" />
 			</Box>
 			<Container>
-				<Breadcrumbs mt={2}>
+				<Breadcrumbs
+					sx={{
+						mt: 2,
+					}}
+				>
 					<Link href={"/"} passHref>
 						<MuiLink>Trang chủ</MuiLink>
 					</Link>

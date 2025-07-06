@@ -28,9 +28,9 @@ date: '2025-05-27T10:00:00.000Z'
 - **Giá cả cạnh tranh**: Cam kết mang đến giải pháp in ấn tối ưu với chi phí hợp lý nhất.
 - **Tư vấn tận tâm**: Đội ngũ nhân viên nhiệt tình, sẵn sàng giải đáp mọi thắc mắc và đưa ra lời khuyên hữu ích.
 
-**Địa chỉ:** <mcfolder name="176B Hải Phòng, Đà Nẵng, Việt Nam" path="https://maps.app.goo.gl/SRm8YB4fy8VfWmb39"></mcfolder>
+**Địa chỉ:** [K574/5 Ông Ích Khiêm, Đà Nẵng, Việt Nam](https://maps.app.goo.gl/dAdKSbnBEvarx6LK8")
 **Liên hệ:** [079 235 9996](tel:0792359996) (Sdt/Zalo)
-**Website:** <mcurl name="inutdesign.com" url="https://www.inutdesign.com"></mcurl>
+**Website:** [www.inutdesign.com](https://www.inutdesign.com")
 
 ### 2. Xưởng In Nhanh Đà Nẵng
 
@@ -68,4 +68,4 @@ Việc lựa chọn một xưởng in ấn uy tín tại Đà Nẵng là yếu t
 #### INUT Design - Dịch vụ thiết kế và in ấn tại Đà Nẵng
 - Sdt/Zalo : [079 235 9996](tel:0792359996)
 - Facebook : [facebook.com/inutdesign](https://www.facebook.com/inutdesign)
-- Địa chỉ : [176B Hải Phòng, Đà Nẵng, Việt Nam](https://maps.app.goo.gl/SRm8YB4fy8VfWmb39)
+- Địa chỉ : [K574/5 Ông Ích Khiêm, Đà Nẵng, Việt Nam](https://maps.app.goo.gl/dAdKSbnBEvarx6LK8)

@@ -11,9 +11,7 @@ import {
 	Container,
 	Divider,
 	Grid,
-	MenuItem,
 	Link as MuiLink,
-	Select,
 	SelectChangeEvent,
 	Stack,
 	Typography,
@@ -28,11 +26,11 @@ import "react-awesome-lightbox/build/style.css";
 // import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { priceLaptopApi } from "@/api-client/priceLaptop";
 import { PriceLaptop } from "@/models/price-laptop";
+import { sendGAEvent } from "@next/third-parties/google";
 import { useRouter } from "next/router";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import styles from "./productItem.module.css";
-import { sendGAEvent } from "@next/third-parties/google";
 
 const ProductDetail = ({ product, products, priceLaptops }: Props) => {
 	const router = useRouter();
@@ -191,7 +189,7 @@ const ProductDetail = ({ product, products, priceLaptops }: Props) => {
 									Còn hàng
 								</Typography>
 							</Stack>
-							<Stack my={2}>
+							{/* <Stack my={2}>
 								<Typography variant="h4" fontWeight={"bold"} mb={2}>
 									{price}.000 VND
 								</Typography>
@@ -202,7 +200,7 @@ const ProductDetail = ({ product, products, priceLaptops }: Props) => {
 										</MenuItem>
 									))}
 								</Select>
-							</Stack>
+							</Stack> */}
 							<Stack flexDirection="row" alignItems={"center"}>
 								<MuiLink
 									href={`https://m.me/642209429738886?text=${encodeURI(

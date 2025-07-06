@@ -44,12 +44,12 @@ Bạn đang tìm kiếm đánh giá chân thực về dịch vụ dán skin lapt
 
 ### 3. So Sánh Giá Cả Giữa Các Cửa Hàng Dán Skin Laptop Tại Đà Nẵng
 
-| Cửa hàng | Skin laptop 14" | Skin laptop 15.6" | Skin Macbook | Thiết kế riêng |
-|----------|----------------|-------------------|--------------|----------------|
+| Cửa hàng    | Skin laptop 14"     | Skin laptop 15.6"   | Skin Macbook        | Thiết kế riêng      |
+| ----------- | ------------------- | ------------------- | ------------------- | ------------------- |
 | INUT Design | 150.000đ - 200.000đ | 180.000đ - 250.000đ | 200.000đ - 300.000đ | 250.000đ - 400.000đ |
-| Cửa hàng A | 170.000đ - 220.000đ | 200.000đ - 270.000đ | 220.000đ - 320.000đ | 300.000đ - 450.000đ |
-| Cửa hàng B | 160.000đ - 210.000đ | 190.000đ - 260.000đ | 210.000đ - 310.000đ | 280.000đ - 420.000đ |
-| Cửa hàng C | 140.000đ - 190.000đ | 170.000đ - 240.000đ | 190.000đ - 290.000đ | 240.000đ - 380.000đ |
+| Cửa hàng A  | 170.000đ - 220.000đ | 200.000đ - 270.000đ | 220.000đ - 320.000đ | 300.000đ - 450.000đ |
+| Cửa hàng B  | 160.000đ - 210.000đ | 190.000đ - 260.000đ | 210.000đ - 310.000đ | 280.000đ - 420.000đ |
+| Cửa hàng C  | 140.000đ - 190.000đ | 170.000đ - 240.000đ | 190.000đ - 290.000đ | 240.000đ - 380.000đ |
 
 *Lưu ý: Giá có thể thay đổi tùy theo chất liệu skin, độ phức tạp của thiết kế và thời điểm.*
 
@@ -118,4 +118,4 @@ Tham khảo những mẫu có sẵn tại đây nha:
 Liên hệ shop để được tư vấn chi tiết hơn :
 - Sdt/Zalo : [079 235 9996](tel:0792359996)
 - Facebook : [facebook.com/inutdesign](https://www.facebook.com/inutdesign)
-- Địa chỉ : [176B Hải Phòng, Đà Nẵng, Việt Nam](https://maps.app.goo.gl/SRm8YB4fy8VfWmb39)
+- Địa chỉ : [K574/5 Ông Ích Khiêm, Đà Nẵng, Việt Nam](https://maps.app.goo.gl/dAdKSbnBEvarx6LK8)

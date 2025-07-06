@@ -17,6 +17,7 @@ import {
 	Stack,
 	Typography,
 } from "@mui/material";
+import { sendGAEvent } from "@next/third-parties/google";
 import { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,7 +28,6 @@ import "react-awesome-lightbox/build/style.css";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import styles from "./productItem.module.css";
-import { sendGAEvent } from "@next/third-parties/google";
 type Props = {
 	product: Product;
 	products: Products;
@@ -174,18 +174,6 @@ const ProductDetail = ({ product, products, priceLaptop }: Props) => {
 								</Typography>
 							</Stack>
 							<Stack mt={2}>
-								<Typography variant="h4" fontWeight={"bold"} mb={2}>
-									{/* {price}.000 VND */}
-									150.000 VND{" "}
-									<span
-										style={{
-											textDecoration: "line-through",
-											fontStyle: "italic",
-										}}
-									>
-										{price}.000 VND{" "}
-									</span>
-								</Typography>
 								<Typography variant="body1" mb={2}>
 									Freeship toàn quốc 0Đ
 								</Typography>

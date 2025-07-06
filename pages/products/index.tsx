@@ -76,7 +76,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 				data={{
 					title: "Sản phẩm - INUT Design",
 					description:
-						"Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop, skin laptop da nang, skin laptop đà nẵng",
+						"Thiết kế & In ấn - Skin Laptop - Sticker - Decal - Thiệp - Card - Tem Nhãn, skin laptop da nang, skin laptop đà nẵng",
 					url: "https://inutdesign.com/products",
 					thumbnailUrl:
 						(banner && !_.isEmpty(banner) && urlFor(banner[0]?.image || "").url()) ||

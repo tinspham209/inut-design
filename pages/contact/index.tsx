@@ -7,21 +7,14 @@ import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import {
 	ArrowForwardIos,
+	ChromeReaderMode,
 	Facebook,
 	Instagram,
 	MapsHomeWork,
 	Message,
 	Phone,
 } from "@mui/icons-material";
-import {
-	Box,
-	Breadcrumbs,
-	Container,
-	Grid,
-	Link as MuiLink,
-	Stack,
-	Typography,
-} from "@mui/material";
+import { Box, Breadcrumbs, Container, Link as MuiLink, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { GetStaticProps } from "next/types";
@@ -33,7 +26,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 				data={{
 					title: "Liên hệ - INUT Design",
 					description:
-						"Tiệm may đo skin laptop theo yêu cầu, Cửa Hàng Thời Trang Dành Cho Laptop, skin laptop da nang, skin laptop đà nẵng",
+						"Thiết kế & In ấn - Skin Laptop - Sticker - Decal - Thiệp - Card - Tem Nhãn, skin laptop da nang, skin laptop đà nẵng",
 					url: "https://inutdesign.com/contact",
 					thumbnailUrl:
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
@@ -49,89 +42,66 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 
 						<Typography color="text.primary">Liên hệ</Typography>
 					</Breadcrumbs>
-					<Grid
-						container
-						spacing={3}
-						mt={3}
-						flexDirection={{
-							xs: "column-reverse",
-							sm: "row",
-						}}
-					>
-						<Grid
-							item
-							xs={1}
-							sm={4}
-							sx={{
-								opacity: {
-									xs: 0,
-									sm: "100%",
-								},
-							}}
-						>
-							<Stack justifyContent={"center"}>
-								<Box sx={{ margin: "0 auto" }}></Box>
+					<Stack justifyContent={"center"} flexDirection="row" m={"24px auto"}>
+						<Box maxWidth={440}>
+							<Stack justifyContent="center" alignItems="center">
+								<Image
+									src={"/branding/logo.webp"}
+									width={258}
+									height={80}
+									unoptimized
+									alt="infor-image"
+									priority={true}
+								/>
 							</Stack>
-						</Grid>
-						<Grid item xs={12} sm={8}>
-							<Box maxWidth={440}>
-								<Box ml={4}>
-									<Image
-										src={"/branding/logo.webp"}
-										width={258}
-										height={80}
-										unoptimized
-										alt="infor-image"
-										priority={true}
-									/>
-								</Box>
 
-								<Typography variant="body1" sx={{ mt: 1 }} fontWeight="bold">
-									Cửa Hàng Thời Trang Dành Cho Laptop Tại Đà Nẵng
-								</Typography>
+							<Typography variant="body1" sx={{ mt: 1 }} fontWeight="bold" textAlign="center">
+								Thiết kế & In ấn
+								<br />
+								Skin Laptop - Sticker - Decal - Thiệp - Card - Tem Nhãn
+							</Typography>
 
-								<MuiLink
-									href="https://goo.gl/maps/hBKBhHvRAGMPUn3e9"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<Typography
-										variant="body1"
-										sx={{
-											mt: 1,
-											"&:hover": {
-												color: "primary.main",
-											},
-										}}
-									>
-										Địa chỉ: 176B Hải Phòng, Đà Nẵng, Việt Nam
-									</Typography>
-								</MuiLink>
-
-								<MuiLink href="tel:0792359996" target="_blank" rel="noopener noreferrer">
-									<Typography
-										variant="body1"
-										sx={{
-											mt: 1,
-											"&:hover": {
-												color: "primary.main",
-											},
-										}}
-									>
-										Số điện thoại: 079 235 9996
-									</Typography>
-								</MuiLink>
+							<MuiLink
+								href="https://maps.app.goo.gl/dAdKSbnBEvarx6LK8"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
 								<Typography
 									variant="body1"
 									sx={{
 										mt: 1,
+										"&:hover": {
+											color: "primary.main",
+										},
 									}}
 								>
-									Giờ làm việc: 09:00 - 20:00 (từ T3 đến CN)
+									Địa chỉ: K574/5 Ông Ích Khiêm, Đà Nẵng, Việt Nam
 								</Typography>
-							</Box>
-						</Grid>
-					</Grid>
+							</MuiLink>
+
+							<MuiLink href="tel:0792359996" target="_blank" rel="noopener noreferrer">
+								<Typography
+									variant="body1"
+									sx={{
+										mt: 1,
+										"&:hover": {
+											color: "primary.main",
+										},
+									}}
+								>
+									Số điện thoại: 079 235 9996
+								</Typography>
+							</MuiLink>
+							<Typography
+								variant="body1"
+								sx={{
+									mt: 1,
+								}}
+							>
+								Giờ làm việc: 09:00 - 20:00 (từ T3 đến CN)
+							</Typography>
+						</Box>
+					</Stack>
 					<Stack justifyContent={"center"} flexDirection="row" m={"24px auto"}>
 						<Box
 							sx={{
@@ -144,8 +114,10 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 							{listContacts.map((item) => (
 								<MuiLink
 									href={item.link}
-									target="_blank"
-									rel="noopener noreferrer"
+									{...(!item.isInternalUrl && {
+										target: "_blank",
+										rel: "noopener noreferrer",
+									})}
 									key={item.title}
 								>
 									<Stack
@@ -194,6 +166,40 @@ const listContacts = [
 		title: "Nhắn tin tư vấn",
 	},
 	{
+		link: "/contact/form",
+		isInternalUrl: true,
+		icon: (
+			<ChromeReaderMode
+				sx={{
+					fontSize: 48,
+				}}
+			/>
+		),
+		title: "Nhận báo giá",
+	},
+	{
+		link: "https://maps.app.goo.gl/dAdKSbnBEvarx6LK8",
+		icon: (
+			<MapsHomeWork
+				sx={{
+					fontSize: 48,
+				}}
+			/>
+		),
+		title: "Địa chỉ",
+	},
+	{
+		link: "tel:+792359996",
+		icon: (
+			<Phone
+				sx={{
+					fontSize: 48,
+				}}
+			/>
+		),
+		title: "Số điện thoại",
+	},
+	{
 		link: "https://www.facebook.com/inutdesign",
 		icon: (
 			<Facebook
@@ -214,28 +220,6 @@ const listContacts = [
 			/>
 		),
 		title: "Instagram",
-	},
-	{
-		link: "https://maps.app.goo.gl/SRm8YB4fy8VfWmb39",
-		icon: (
-			<MapsHomeWork
-				sx={{
-					fontSize: 48,
-				}}
-			/>
-		),
-		title: "Địa chỉ",
-	},
-	{
-		link: "tel:+792359996",
-		icon: (
-			<Phone
-				sx={{
-					fontSize: 48,
-				}}
-			/>
-		),
-		title: "Số điện thoại",
 	},
 ];
 
