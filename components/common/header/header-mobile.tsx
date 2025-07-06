@@ -2,6 +2,7 @@ import { COLOR_CODE } from "@/utils";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
 	Box,
+	Button,
 	Container,
 	Drawer,
 	IconButton,
@@ -95,6 +96,18 @@ export function HeaderMobile() {
 								</ListItemButton>
 							</ListItem>
 						))}
+						<ListItem onClick={toggleDrawer(false)} disableGutters>
+							<Link href={"/contact/form"} passHref>
+								<Button
+									variant="contained"
+									sx={{
+										mx: "auto",
+									}}
+								>
+									Nhận báo giá
+								</Button>
+							</Link>
+						</ListItem>
 					</List>
 				</Drawer>
 			</Container>

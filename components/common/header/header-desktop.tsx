@@ -1,5 +1,5 @@
 import { COLOR_CODE } from "@/utils";
-import { Box, Container, Link as MuiLink, Stack } from "@mui/material";
+import { Box, Button, Container, Link as MuiLink, Stack } from "@mui/material";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
@@ -57,6 +57,11 @@ export function HeaderDesktop() {
 								</MuiLink>
 							</Link>
 						))}
+						<Link href={"/contact/form"} passHref>
+							<Button variant="contained" sx={{ ml: 2 }}>
+								Nhận báo giá
+							</Button>
+						</Link>
 					</Box>
 				</Stack>
 			</Container>
