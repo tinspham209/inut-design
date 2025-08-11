@@ -230,7 +230,8 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	);
 
 	const productTypes: ProductType[] = await productTypeApi.getAll();
-	console.log("productTypes: ", productTypes);
+	// console.log("productTypes: ", productTypes);
+
 	const banner: Banner[] = await bannerApi.getBannerPage("products-page");
 
 	const formatProducts = products
