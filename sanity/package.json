@@ -1,8 +1,8 @@
 {
-	"name": "inut_design",
+	"name": "inut_design_sanity",
 	"private": true,
 	"version": "1.0.0",
-	"description": "Admin - Inut Design",
+	"description": "Sanity CMS - Inut Design",
 	"main": "package.json",
 	"author": "Tín Phạm <tindeptrai1@gmail.com>",
 	"license": "UNLICENSED",
@@ -27,5 +27,8 @@
 		"react-dom": "^17.0",
 		"styled-components": "^5.2.0"
 	},
-	"devDependencies": {}
+	"devDependencies": {},
+	"engines": {
+		"node": "^22"
+	}
 }

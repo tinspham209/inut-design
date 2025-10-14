@@ -13,6 +13,7 @@ import "../styles/globals.css";
 import "../styles/prism.css";
 import { Analytics } from "@vercel/analytics/react";
 import { DialogContainer } from "@/components/common";
+import { ProductCartWrapper } from "@/components/cart/CartWrapper";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -42,7 +43,8 @@ function MyApp({
 						>
 							<Layout>
 								<Component {...pageProps} />
-								<ScrollToBottom />
+								{/* <ScrollToBottom /> */}
+								<ProductCartWrapper />
 								<Toaster />
 								<DialogContainer />
 							</Layout>

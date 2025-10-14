@@ -4,9 +4,13 @@ import createSchema from "part:@sanity/base/schema-creator";
 // Then import schema types from any plugins that might expose them
 import schemaTypes from "all:part:@sanity/base/schema-type";
 import banner from "./banner";
+import bankInfo from "./bankInfo";
 import blockContent from "./block-content";
+import lighterProducts from "./lighterProducts";
+import lighterType from "./lighterType";
 import macnut from "./macnut";
-import priceLaptop from "./price-laptop";
+import macnutType from "./macnutType";
+import ordersLighter from "./ordersLighter";
 import productType from "./productType";
 import products from "./products";
 // Then we give our schema to the builder and provide the result to Sanity
@@ -18,9 +22,14 @@ export default createSchema({
 	types: schemaTypes.concat([
 		/* Your types here! */
 		products,
-		macnut,
 		productType,
-		priceLaptop,
+		macnut,
+		macnutType,
+		lighterProducts,
+		lighterType,
+		ordersLighter,
+		bankInfo,
+		// priceLaptop,
 		banner,
 		blockContent,
 	]),

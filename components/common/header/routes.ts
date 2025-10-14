@@ -11,6 +11,10 @@ export const ROUTE_LIST = [
 		label: "Nút phím",
 		path: "/macnut",
 	},
+	{
+		label: "Bật lửa",
+		path: "/lighters",
+	},
 	// {
 	// 	label: "Sticker",
 	// 	path: "/sticker",

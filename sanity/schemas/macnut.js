@@ -44,6 +44,12 @@ export default {
 			type: "reference",
 			to: { type: "productType" },
 		},
+		{
+			name: "macnutType",
+			title: "MacNut Type",
+			type: "reference",
+			to: { type: "macnutType" },
+		},
 	],
 	preview: {
 		select: {

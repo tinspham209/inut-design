@@ -1,6 +1,6 @@
 export default {
-	name: "products",
-	title: "Products",
+	name: "lighterProducts",
+	title: "Lighters",
 	type: "document",
 	fields: [
 		{
@@ -39,25 +39,27 @@ export default {
 			initialValue: false,
 		},
 		{
-			name: "productType",
-			title: "Product Type",
+			name: "lighterType",
+			title: "Lighter Type",
 			type: "reference",
-			to: { type: "productType" },
+			to: { type: "lighterType" },
+			options: {
+				disableNew: false,
+			},
+			validation: (Rule) => Rule.required(),
 		},
 	],
 	preview: {
 		select: {
 			title: "name",
 			media: "image",
-			productTypeName: "productType.name",
-			isSpecial: "special",
+			lighterTypeName: "lighterType.name",
 		},
 		prepare(selection) {
-			const { title, media, productTypeName, isSpecial } = selection;
-			const specialBadge = isSpecial ? "⭐ " : "";
+			const { title, media, lighterTypeName } = selection;
 			return {
-				title: `${specialBadge}${title}`,
-				subtitle: productTypeName || "No product type",
+				title: title,
+				subtitle: lighterTypeName || "No lighter type selected",
 				media: media && media[0],
 			};
 		},

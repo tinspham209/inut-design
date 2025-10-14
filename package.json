@@ -19,7 +19,7 @@
 		"lint": "next lint",
 		"export": "next export",
 		"postbuild": "next-sitemap --config next-sitemap.config.js",
-		"sanity": "cd ./sanity && yarn start"
+		"sanity": "cd ./sanity && pnpm start"
 	},
 	"dependencies": {
 		"@emotion/cache": "^11.10.1",
