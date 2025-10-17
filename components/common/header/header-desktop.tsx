@@ -40,12 +40,11 @@ export function HeaderDesktop() {
 							<Image src={"/branding/logo.webp"} alt="logo" width={"103px"} height={"32px"} />
 						</MuiLink>
 					</Link>
-					<Box>
+					<Stack direction="row" alignItems="center" spacing={1.5}>
 						{routeList.map((route, index) => (
 							<Link key={`${route.path}-${index}`} href={route.path} passHref>
 								<MuiLink
 									sx={{
-										ml: 2,
 										fontWeight: "bold",
 										fontSize: 16,
 										textTransform: "uppercase",
@@ -58,11 +57,11 @@ export function HeaderDesktop() {
 							</Link>
 						))}
 						<Link href={"/contact/form"} passHref>
-							<Button variant="contained" sx={{ ml: 2 }}>
+							<Button size="small" variant="outlined" sx={{ transform: "translateY(-1px)" }}>
 								Nhận báo giá
 							</Button>
 						</Link>
-					</Box>
+					</Stack>
 				</Stack>
 			</Container>
 		</Box>

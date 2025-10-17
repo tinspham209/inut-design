@@ -14,11 +14,11 @@ const LightersPageHeader: React.FC<LightersPageHeaderProps> = ({ itemCount }) =>
 				<Link href={"/"} passHref>
 					<MuiLink>Trang chủ</MuiLink>
 				</Link>
-				<Typography>Lighters</Typography>
+				<Typography>Bật lửa</Typography>
 			</Breadcrumbs>
-			<Box mt={3} id="title">
+			<Box mt={1} id="title">
 				<Typography variant="h2" fontWeight="bold" textAlign="center" letterSpacing="10px">
-					Lighters (<CountUp end={itemCount} duration={2} />)
+					Bật lửa (<CountUp end={itemCount} duration={2} />)
 				</Typography>
 			</Box>
 		</Box>

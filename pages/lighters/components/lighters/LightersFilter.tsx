@@ -1,10 +1,5 @@
 import { LighterType } from "@/models/cart";
-import { COLOR_CODE } from "@/utils";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
-	Accordion,
-	AccordionDetails,
-	AccordionSummary,
 	Box,
 	FormControl,
 	FormControlLabel,
@@ -12,9 +7,11 @@ import {
 	RadioGroup,
 	Stack,
 	Typography,
-	useMediaQuery,
-	useTheme,
+	Button,
+	Popover,
+	Divider,
 } from "@mui/material";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -25,23 +22,29 @@ interface LightersFilterProps {
 const LightersFilter: React.FC<LightersFilterProps> = ({ lighterTypes }) => {
 	const router = useRouter();
 	const { filter } = router.query;
-	const theme = useTheme();
-	const isMobileScreen = useMediaQuery(theme.breakpoints.down("md"));
-
-	const [expandedFilter, setExpandedFilter] = React.useState<boolean>(true);
 	const [currentFilter, setCurrentFilter] = React.useState(filter || "");
-
-	React.useEffect(() => {
-		if (isMobileScreen) {
-			setExpandedFilter(false);
-		} else {
-			setExpandedFilter(true);
-		}
-	}, [isMobileScreen]);
+	const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
 	React.useEffect(() => {
 		setCurrentFilter(filter || "");
 	}, [filter]);
+
+	const handleOpen = (e: React.MouseEvent<HTMLElement>) => {
+		setAnchorEl(e.currentTarget);
+	};
+	const handleClose = () => setAnchorEl(null);
+
+	const open = Boolean(anchorEl);
+	const id = open ? "lighters-filter-popover" : undefined;
+
+	const scrollToTop = () => {
+		// Smooth scroll to products title area
+		setTimeout(() => {
+			document
+				.getElementById("lighterTitle")
+				?.scrollIntoView({ behavior: "smooth", block: "start" });
+		}, 200);
+	};
 
 	const handleOnChangeCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = (event.target as HTMLInputElement).value;
@@ -54,87 +57,91 @@ const LightersFilter: React.FC<LightersFilterProps> = ({ lighterTypes }) => {
 			undefined,
 			{ scroll: false }
 		);
-
-		setTimeout(() => {
-			document
-				.getElementById("title")
-				?.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
-		}, 500);
+		// Close popover after selection (desktop & mobile)
+		handleClose();
+		scrollToTop();
 	};
 
-	const handleExpandChange = () => {
-		setExpandedFilter(!expandedFilter);
+	const handleClearFilter = () => {
+		setCurrentFilter("");
+		router.push(
+			{
+				pathname: "/lighters",
+				query: {},
+			},
+			undefined,
+			{ scroll: false }
+		);
+		handleClose();
+		scrollToTop();
 	};
 
 	return (
-		<Box
-			sx={{
-				width: "100%",
-				borderRadius: 16,
-			}}
-		>
-			<Accordion
-				expanded={expandedFilter}
-				onChange={handleExpandChange}
-				TransitionProps={{ unmountOnExit: true }}
+		<Box>
+			<Button
+				variant="outlined"
+				color="primary"
+				onClick={handleOpen}
+				startIcon={<FilterAltIcon />}
 				sx={{
-					position: {
-						md: "sticky",
-					},
-					top: {
-						md: "90px",
-					},
-					right: {
-						md: 0,
-					},
-					minHeight: {
-						md: "1px",
-					},
-					maxHeight: {
-						xs: "100%",
-						md: "80vh",
-					},
-					overflowY: {
-						xs: "none",
-						md: "auto",
-					},
-					border: `1px solid ${COLOR_CODE.BORDER}`,
-					borderRadius: "8px 4px 4px 8px !important",
+					textTransform: "none",
+					fontWeight: 600,
+					borderRadius: 2,
 				}}
 			>
-				<AccordionSummary
-					expandIcon={<ExpandMoreIcon color="primary" />}
-					aria-controls="panel1a-content"
-					id="panel1a-header"
-				>
-					<Typography variant="h4" fontWeight="bold">
-						Bộ lọc
-					</Typography>
-				</AccordionSummary>
-				<AccordionDetails>
-					<Stack flexDirection="column">
-						<FormControl>
-							<RadioGroup
-								name="radio-buttons-filters"
-								value={currentFilter}
-								onChange={handleOnChangeCheckbox}
-							>
-								<FormControlLabel value={""} control={<Radio />} label={"Tất cả"} />
-								{lighterTypes.map((lighterType) => {
-									return (
-										<FormControlLabel
-											key={lighterType._id}
-											value={lighterType.slug.current}
-											control={<Radio />}
-											label={lighterType.name}
-										/>
-									);
-								})}
-							</RadioGroup>
-						</FormControl>
+				Bộ lọc
+			</Button>
+			<Popover
+				id={id}
+				open={open}
+				anchorEl={anchorEl}
+				onClose={handleClose}
+				anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+				transformOrigin={{ vertical: "top", horizontal: "left" }}
+				PaperProps={{
+					sx: {
+						px: 2,
+						pt: 1.5,
+						pb: 2,
+						borderRadius: 2,
+						minWidth: 240,
+					},
+				}}
+			>
+				<Stack spacing={1}>
+					<Box>
+						<Typography variant="subtitle1" fontWeight={700}>
+							Danh mục bật lửa ({lighterTypes.length})
+						</Typography>
+
+						<Divider sx={{ mt: 1 }} />
+					</Box>
+					<Stack direction="row" justifyContent="flex-end">
+						{currentFilter && (
+							<Button variant="text" color="error" size="small" onClick={handleClearFilter}>
+								Xóa bộ lọc
+							</Button>
+						)}
 					</Stack>
-				</AccordionDetails>
-			</Accordion>
+					<FormControl component="fieldset">
+						<RadioGroup
+							name="radio-buttons-filters"
+							value={currentFilter}
+							onChange={handleOnChangeCheckbox}
+						>
+							<FormControlLabel value={""} control={<Radio size="small" />} label={"Tất cả"} />
+							{lighterTypes.map((lighterType) => (
+								<FormControlLabel
+									key={lighterType._id}
+									value={lighterType.slug.current}
+									control={<Radio size="small" />}
+									label={lighterType.name}
+								/>
+							))}
+						</RadioGroup>
+					</FormControl>
+				</Stack>
+			</Popover>
 		</Box>
 	);
 };

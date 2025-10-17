@@ -41,7 +41,8 @@ const LightersGrid: React.FC<LightersGridProps> = ({ lighters, lighterTypes, onC
 				<Grid
 					item
 					xs={layoutView === "list" ? 12 : 6}
-					md={layoutView === "list" ? 12 : 4}
+					md={layoutView === "list" ? 12 : 3}
+					lg={layoutView === "list" ? 12 : 3}
 					key={lighter._id}
 				>
 					<LighterCard lighter={lighter} lighterTypes={lighterTypes} onCartOpen={onCartOpen} />

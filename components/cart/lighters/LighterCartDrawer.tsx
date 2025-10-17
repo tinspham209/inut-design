@@ -30,8 +30,6 @@ export function LighterCartDrawer({ isOpen, onClose }: LighterCartDrawerProps) {
 	const router = useRouter();
 	const { items, totalItems, totalAmount, updateQuantity, removeItem, clearCart } =
 		useLightersCart();
-	console.log("items: ", items);
-	console.log("totalItems: ", totalItems);
 
 	const handleCheckout = () => {
 		onClose();
@@ -291,7 +289,7 @@ export function LighterCartDrawer({ isOpen, onClose }: LighterCartDrawerProps) {
 									color="text.secondary"
 									sx={{ mt: 0.5, display: "block" }}
 								>
-									* Giá đã bao gồm in UV 2 mặt
+									* Giá đã bao gồm in ấn và VAT (nếu có)
 								</Typography>
 							</Box>
 

@@ -1,19 +1,18 @@
 import axiosClient from "@/api/axios-client";
-import ScrollToBottom from "@/components/common/scrollToBottom";
+import { ProductCartWrapper } from "@/components/cart/CartWrapper";
+import { DialogContainer } from "@/components/common";
 import { EmptyLayout } from "@/components/layout";
 import { AppPropsWithLayout } from "@/models";
 import { createEmotionCache, theme } from "@/utils";
 import { CacheProvider } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
+import { Analytics } from "@vercel/analytics/react";
 import { AnimatePresence } from "framer-motion";
-import { SWRConfig } from "swr";
 import { Toaster } from "react-hot-toast";
+import { SWRConfig } from "swr";
 import "../styles/globals.css";
 import "../styles/prism.css";
-import { Analytics } from "@vercel/analytics/react";
-import { DialogContainer } from "@/components/common";
-import { ProductCartWrapper } from "@/components/cart/CartWrapper";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -43,7 +42,6 @@ function MyApp({
 						>
 							<Layout>
 								<Component {...pageProps} />
-								{/* <ScrollToBottom /> */}
 								<ProductCartWrapper />
 								<Toaster />
 								<DialogContainer />

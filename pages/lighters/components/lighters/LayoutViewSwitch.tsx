@@ -1,8 +1,7 @@
-import { COLOR_CODE } from "@/utils";
 import { useLightersLayout } from "@/store";
 import GridViewIcon from "@mui/icons-material/GridView";
 import ViewAgendaIcon from "@mui/icons-material/ViewAgenda";
-import { Box, IconButton, Tooltip, Typography } from "@mui/material";
+import { Stack, Typography, ToggleButtonGroup, ToggleButton, Tooltip } from "@mui/material";
 import React from "react";
 
 const LayoutViewSwitch: React.FC = () => {
@@ -10,60 +9,30 @@ const LayoutViewSwitch: React.FC = () => {
 	const setLayoutView = useLightersLayout((state) => state.setLayoutView);
 
 	return (
-		<Box
-			id="switch-layout-view"
-			sx={{
-				display: "flex",
-				justifyContent: "flex-end",
-				alignItems: "center",
-				mt: 2,
-				gap: 1,
-			}}
-		>
-			<Typography variant="body2" color="text.secondary">
+		<Stack id="switch-layout-view" direction="row" alignItems="center" gap={1}>
+			<Typography variant="body2" color="text.secondary" fontWeight={500}>
 				Hiển thị:
 			</Typography>
-			<Box
-				sx={{
-					display: "flex",
-					gap: 0.5,
-					border: `1px solid ${COLOR_CODE.BORDER}`,
-					borderRadius: 1,
-					p: 0.5,
-				}}
+			<ToggleButtonGroup
+				value={layoutView}
+				exclusive
+				onChange={(_, value) => value && setLayoutView(value)}
+				size="small"
+				aria-label="layout view switch"
+				color="primary"
 			>
-				<Tooltip title="Dạng lưới">
-					<IconButton
-						size="small"
-						onClick={() => setLayoutView("grid")}
-						sx={{
-							backgroundColor: layoutView === "grid" ? "primary.main" : "transparent",
-							color: layoutView === "grid" ? "white" : "text.secondary",
-							"&:hover": {
-								backgroundColor: layoutView === "grid" ? "primary.dark" : "action.hover",
-							},
-						}}
-					>
+				<Tooltip title="Chế độ lưới" arrow>
+					<ToggleButton value="grid" aria-label="grid layout">
 						<GridViewIcon fontSize="small" />
-					</IconButton>
+					</ToggleButton>
 				</Tooltip>
-				<Tooltip title="Dạng danh sách">
-					<IconButton
-						size="small"
-						onClick={() => setLayoutView("list")}
-						sx={{
-							backgroundColor: layoutView === "list" ? "primary.main" : "transparent",
-							color: layoutView === "list" ? "white" : "text.secondary",
-							"&:hover": {
-								backgroundColor: layoutView === "list" ? "primary.dark" : "action.hover",
-							},
-						}}
-					>
+				<Tooltip title="Chế độ danh sách" arrow>
+					<ToggleButton value="list" aria-label="list layout">
 						<ViewAgendaIcon fontSize="small" />
-					</IconButton>
+					</ToggleButton>
 				</Tooltip>
-			</Box>
-		</Box>
+			</ToggleButtonGroup>
+		</Stack>
 	);
 };
 

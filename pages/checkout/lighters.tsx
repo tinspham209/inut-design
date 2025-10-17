@@ -403,8 +403,8 @@ const LighterCheckout: NextPageWithLayout = () => {
 
 										<Alert severity="info" sx={{ mt: 2 }}>
 											<Typography variant="caption">
-												Giá đã bao gồm in UV 2 mặt. Chúng tôi sẽ liên hệ với bạn để xác nhận đơn
-												hàng.
+												Giá đã bao gồm in ấn và VAT (nếu có). Chúng tôi sẽ liên hệ với bạn để xác
+												nhận đơn hàng.
 											</Typography>
 										</Alert>
 									</Stack>

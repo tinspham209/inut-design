@@ -3,7 +3,7 @@ import { LighterCartBadge, LighterCartDrawer } from "@/components/cart";
 import { Seo } from "@/components/common";
 import { Banner } from "@/models/banner";
 import { LighterProduct, LighterType } from "@/models/cart";
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Container, Grid, Stack } from "@mui/material";
 import _ from "lodash";
 import React from "react";
 import {
@@ -64,28 +64,37 @@ export const LightersPageContainer: React.FC<LightersPageContainerProps> = ({
 			<Container>
 				<LightersPageHeader itemCount={lighters.length} />
 
-				<LayoutViewSwitch />
-
-				<Grid
-					container
-					spacing={2}
-					mt={3}
-					flexDirection={{
-						xs: "column-reverse",
-						md: "row",
+				<Stack
+					direction="row"
+					alignItems="center"
+					justifyContent={{
+						xs: "space-between",
+						sm: "flex-end",
 					}}
+					// justifyContent="space-between"
+					mt={2}
+					gap={2}
+					flexWrap="wrap"
 				>
-					<Grid container item xs={12} md={9} spacing={3} id="lighterTitle">
-						<LightersGrid
-							lighters={lighters}
-							lighterTypes={lighterTypes}
-							onCartOpen={handleCartOpen}
-						/>
-					</Grid>
-
-					<Grid container item xs={12} md={3}>
+					<Box
+						display={{
+							xs: "block",
+							sm: "none",
+						}}
+					>
+						<LayoutViewSwitch />
+					</Box>
+					<Box>
 						<LightersFilter lighterTypes={lighterTypes} />
-					</Grid>
+					</Box>
+				</Stack>
+
+				<Grid container spacing={2} mt={1} id="lighterTitle">
+					<LightersGrid
+						lighters={lighters}
+						lighterTypes={lighterTypes}
+						onCartOpen={handleCartOpen}
+					/>
 				</Grid>
 			</Container>
 		</Box>

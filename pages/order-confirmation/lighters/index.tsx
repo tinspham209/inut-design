@@ -610,7 +610,8 @@ const LighterOrderConfirmation: NextPageWithLayout = () => {
 
 								<Alert severity="info" sx={{ mt: 2 }}>
 									<Typography variant="caption">
-										Giá đã bao gồm in UV 2 mặt. Vui lòng chờ cuộc gọi xác nhận từ chúng tôi.
+										Giá đã bao gồm in ấn và VAT (nếu có). Vui lòng chờ cuộc gọi xác nhận từ chúng
+										tôi.
 									</Typography>
 								</Alert>
 							</CardContent>

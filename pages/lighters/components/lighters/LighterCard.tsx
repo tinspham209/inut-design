@@ -9,12 +9,14 @@ import {
 	CardContent,
 	IconButton,
 	Link as MuiLink,
+	Stack,
 	Tooltip,
 	Typography,
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useMemo } from "react";
+import toast from "react-hot-toast";
 
 interface LighterCardProps {
 	lighter: LighterProduct & {
@@ -27,13 +29,39 @@ interface LighterCardProps {
 
 const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, onCartOpen }) => {
 	const addItem = useLightersCart((state) => state.addItem);
+	const [hovered, setHovered] = React.useState(false);
+
+	const primaryImage = useMemo(() => lighter.image?.[0], [lighter.image]);
+	const secondaryImage = useMemo(
+		() => (lighter.image && lighter.image.length > 1 ? lighter.image[1] : undefined),
+		[lighter.image]
+	);
+	const primaryUrl = useMemo(
+		() => (primaryImage ? urlFor(primaryImage).width(500).url() : ""),
+		[primaryImage]
+	);
+	const secondaryUrl = useMemo(
+		() => (secondaryImage ? urlFor(secondaryImage).width(500).url() : undefined),
+		[secondaryImage]
+	);
+
+	const lighterType = useMemo(
+		() => lighterTypes.find((type) => type._id === lighter.lighterType?._ref),
+		[lighter.lighterType, lighterTypes]
+	);
+
+	const priceTiers = useMemo(() => {
+		const tiers = getPriceTierOptions(lighterType.priceTiers || []);
+		return tiers;
+	}, [lighterType]);
+
+	const minimumPrice = useMemo(() => {
+		return priceTiers.length > 0 ? priceTiers[priceTiers.length - 1].price : 0;
+	}, [priceTiers]);
 
 	const handleQuickAdd = (e: React.MouseEvent) => {
 		e.preventDefault();
 		e.stopPropagation();
-
-		// Find the lighter type
-		const lighterType = lighterTypes.find((type) => type._id === lighter.lighterType?._ref);
 
 		if (!lighterType) {
 			console.error("Lighter type not found");
@@ -41,7 +69,6 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, onCart
 		}
 
 		// Get the first tier quantity as default
-		const priceTiers = getPriceTierOptions(lighterType.priceTiers || []);
 		const defaultQuantity = priceTiers.length > 0 ? priceTiers[0].quantity : 1;
 
 		// Add to cart
@@ -56,30 +83,26 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, onCart
 			quantity: defaultQuantity,
 			unitPrice: priceTiers.length > 0 ? priceTiers[0].price : 0,
 		});
+		toast.success(`${lighter.name} đã được thêm vào giỏ hàng!`);
 
 		// Open cart drawer
-		onCartOpen();
+		// onCartOpen();
 	};
 
 	return (
 		<Card
 			sx={{
-				animation: "all 2s ease-in-out",
+				transition: "all 0.2s ease",
 				transform: "scale(1)",
 				"&:hover": {
-					transform: "scale(1.02)",
-					boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
+					transform: "scale(1.01)",
 				},
-				border: "none",
 				borderRadius: { xs: "12px", md: "16px" },
 				display: "flex",
 				flexDirection: "column",
 				height: "100%",
-				position: "relative",
-				overflow: "hidden",
-				boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-				transition: "all 0.3s ease",
 			}}
+			variant="outlined"
 			id={lighter.slug.current}
 		>
 			<CardContent
@@ -94,7 +117,6 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, onCart
 				<Link href={`/lighters/${lighter.slug.current}`} passHref>
 					<MuiLink sx={{ textDecoration: "none" }}>
 						<Box>
-							{/* Image Container with Dark Background */}
 							<Box
 								sx={{
 									position: "relative",
@@ -103,9 +125,11 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, onCart
 									overflow: "hidden",
 									p: 1,
 								}}
+								onMouseEnter={() => secondaryUrl && setHovered(true)}
+								onMouseLeave={() => secondaryUrl && setHovered(false)}
 							>
 								<Image
-									src={urlFor(lighter.image[0]).width(500).url()}
+									src={hovered && secondaryUrl ? secondaryUrl : primaryUrl}
 									width="100%"
 									height={"100%"}
 									unoptimized
@@ -114,12 +138,13 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, onCart
 									priority={true}
 									style={{
 										borderRadius: 8,
+										transition: "opacity 0.3s ease",
 									}}
 								/>
 							</Box>
 
 							{/* Product Info Section */}
-							<Box sx={{ p: 1 }}>
+							<Box sx={{ px: 1 }}>
 								<Typography
 									variant="caption"
 									sx={{
@@ -147,23 +172,33 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, onCart
 				</Link>
 
 				{/* Add to Cart Button - Below Content */}
-				<Box
+				<Stack
 					sx={{
 						p: 1,
 						pt: 0,
-						mt: "auto",
-						position: "relative",
-						overflow: "hidden",
-						display: "flex",
-						justifyContent: "flex-end",
 					}}
+					direction="row"
+					alignItems="center"
+					justifyContent="space-between"
 				>
-					<Tooltip title="Thêm vào giỏ" arrow>
-						<IconButton variant="text" size="medium" color="primary" onClick={handleQuickAdd}>
-							<ShoppingCartIcon />
-						</IconButton>
-					</Tooltip>
-				</Box>
+					<Box width="fit-content">
+						<Typography
+							variant="caption"
+							sx={{
+								fontSize: { xs: "0.75rem", md: "0.85rem" },
+							}}
+						>
+							Giá chỉ từ: {minimumPrice.toLocaleString()}đ
+						</Typography>
+					</Box>
+					<Stack justifyContent="flex-end">
+						<Tooltip title="Thêm vào giỏ" arrow>
+							<IconButton variant="text" size="small" color="primary" onClick={handleQuickAdd}>
+								<ShoppingCartIcon />
+							</IconButton>
+						</Tooltip>
+					</Stack>
+				</Stack>
 			</CardContent>
 		</Card>
 	);
