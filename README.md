@@ -5,7 +5,7 @@ Web-admin: https://inut-design.sanity.studio/
 
 # Tech-stack
 - NextJS 12
-- Sanity
+- Sanity v2
 - MUI v5
 - Framer Motion
 - React Three Fiber
@@ -14,29 +14,28 @@ Web-admin: https://inut-design.sanity.studio/
 - zustand
 - react-hook-form
 - Vercel
-- Next-auth
-- MongoDB
 
 # Setup
 
 - create `.env` file
 
-```
-yarn
-yarn start
+- then run scrip:
+```bash
+pnpm i
+pnpm dev
 
 // localhost:3000
 ```
 
 - Sanity
-
-```
-cd sanity
-yarn
-yarn start
+  - install sanity/cli v2 if you don't have it: `npm install -g @sanity/cli@^2` 
+```bash
+cd ./sanity
+pnpm i
+sanity install
+pnpm start
 
 // localhost:3333
-
 ```
 
 
