@@ -8,7 +8,7 @@ export default {
 			name: "orderNumber",
 			title: "Order Number",
 			type: "string",
-			description: "Auto-generated order number (LIGHT-xxxxx)",
+			description: "Auto-generated order number (LIGHTER-xxxxx)",
 			readOnly: true,
 		},
 		{

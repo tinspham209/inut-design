@@ -69,7 +69,6 @@ export function calculateCartTotal(items: { subtotal: number }[]): number {
  * @returns Sum of all quantities
  */
 export function calculateCartItemCount(items: { quantity: number }[]): number {
-	console.log("items: ", items);
 	return items.reduce((count, item) => count + item.quantity, 0);
 }
 

@@ -18,13 +18,21 @@ export const urlFor = (source: any) => {
 
 /**
  * Generate unique order number with prefix
- * @param prefix - Order prefix (e.g., "LIGHT", "SKIN", "MAC")
- * @returns Unique order number (e.g., "LIGHT-1234567890")
+ * @param prefix - Order prefix (e.g., "LIGHTER", "SKIN", "MAC")
+ * @returns Unique order number (e.g., "LIGHTER-1234567890")
  */
 function generateOrderNumber(prefix: string): string {
-	const timestamp = Date.now();
-	const random = Math.floor(Math.random() * 1000);
-	return `${prefix}-${timestamp}${random}`;
+	const currentTime = new Date();
+	const dateStr =
+		currentTime.getFullYear().toString() +
+		(currentTime.getMonth() + 1).toString().padStart(2, "0") +
+		currentTime.getDate().toString().padStart(2, "0") +
+		currentTime.getHours().toString().padStart(2, "0") +
+		currentTime.getMinutes().toString().padStart(2, "0") +
+		currentTime.getSeconds().toString().padStart(2, "0");
+	const randomDigit = Math.floor(Math.random() * 11);
+
+	return `${prefix}-${dateStr}${randomDigit}`;
 }
 
 /**
@@ -36,7 +44,7 @@ export async function createLighterOrder(
 	orderData: CreateOrderLighterInput
 ): Promise<OrderLighter> {
 	try {
-		const orderNumber = generateOrderNumber("LIGHT");
+		const orderNumber = generateOrderNumber("LIGHTER");
 		const orderDate = orderData.orderDate || new Date().toISOString();
 
 		const newOrder = {

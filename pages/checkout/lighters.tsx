@@ -1,9 +1,11 @@
 import { MainLayout } from "@/components/layout";
 import { NextPageWithLayout } from "@/models/common";
+import { useEffect, useState } from "react";
 import { useLightersCart } from "@/store";
-import { urlFor, createLighterOrder } from "@/api-client/sanity-client";
+import { urlFor } from "@/api-client/sanity-client";
 import { formatPrice } from "@/utils/priceCalculator";
 import { CreateOrderLighterInput } from "@/models/cart";
+import { useCreateLighterOrder } from "@/hooks";
 import {
 	Box,
 	Button,
@@ -24,7 +26,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+
 import { useForm, Controller } from "react-hook-form";
 import toast from "react-hot-toast";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -42,7 +44,8 @@ type CheckoutFormData = {
 const LighterCheckout: NextPageWithLayout = () => {
 	const router = useRouter();
 	const { items, totalItems, totalAmount, clearCart } = useLightersCart();
-	const [isSubmitting, setIsSubmitting] = useState(false);
+	const { trigger: createOrder, isMutating } = useCreateLighterOrder();
+	const [isOrderComplete, setIsOrderComplete] = useState(false);
 
 	const {
 		control,
@@ -50,19 +53,17 @@ const LighterCheckout: NextPageWithLayout = () => {
 		formState: { errors },
 	} = useForm<CheckoutFormData>({
 		defaultValues: {
-			customerName: "",
-			customerPhone: "",
-			customerEmail: "",
-			deliveryAddress: "",
-			notes: "",
+			customerName: "asd",
+			customerPhone: "0932535175",
+			customerEmail: "test@test.tes",
+			deliveryAddress: "asdzxc",
+			notes: "c",
 			paymentMethod: "cod",
 		},
 	});
 
 	const onSubmit = async (data: CheckoutFormData) => {
 		try {
-			setIsSubmitting(true);
-
 			// Prepare order items for Sanity (convert to reference format)
 			const orderItems = items.map((item, index) => ({
 				_key: `${item.productId}-${item.lighterTypeId}-${Date.now()}-${index}`, // Unique key for each item
@@ -101,67 +102,71 @@ const LighterCheckout: NextPageWithLayout = () => {
 				paymentStatus: "pending",
 			};
 
-			// Submit order to Sanity
-			const createdOrder = await createLighterOrder(orderInput);
+			// Submit order to Sanity using SWR mutation
+			const createdOrder = await createOrder(orderInput);
 
-			console.log("Order created successfully:", createdOrder);
-
-			// Store order data in localStorage for confirmation page
-			const orderData = {
-				...data,
-				orderNumber: createdOrder.orderNumber,
-				orderDate: createdOrder.orderDate,
-				orderItems: items.map((item) => ({
-					productId: item.productId,
-					productName: item.productName,
-					lighterTypeId: item.lighterTypeId,
-					lighterTypeName: item.lighterTypeName,
-					quantity: item.quantity,
-					unitPrice: item.unitPrice,
-					subtotal: item.subtotal,
-				})),
-				totalItems,
-				totalAmount,
-				shippingFee,
-				discount,
-				finalAmount,
-			};
-
-			localStorage.setItem("last-lighter-order", JSON.stringify(orderData));
+			// Mark order as complete BEFORE clearing cart to prevent redirect
+			setIsOrderComplete(true);
 
 			// Clear cart
 			clearCart();
-
 			// Show success message
 			toast.success("Đặt hàng thành công!");
 
-			// Redirect to confirmation page
-			router.push("/order-confirmation/lighters");
-			return;
+			// Redirect to order tracking page with order number and justOrdered param
+			router.push(`/order-tracking/lighters/${createdOrder.orderNumber}?justOrdered=1`);
 		} catch (error) {
 			console.error("Error creating order:", error);
 			toast.error("Có lỗi xảy ra. Vui lòng thử lại!");
-		} finally {
-			setIsSubmitting(false);
 		}
 	};
 
-	// Redirect if cart is empty
-	if (items.length === 0 && typeof window !== "undefined") {
-		router.push("/lighters");
-		return null;
+	// Show empty state if cart is empty and not in order complete state
+	if (items.length === 0 && !isOrderComplete) {
+		return (
+			<Box
+				component="section"
+				bgcolor="secondary.dark"
+				minHeight="100vh"
+				py={4}
+				display="flex"
+				alignItems="center"
+				justifyContent="center"
+			>
+				<Container maxWidth="sm">
+					<Card sx={{ textAlign: "center", py: 6, px: 2 }}>
+						<CardContent>
+							<Typography variant="h4" fontWeight="bold" gutterBottom>
+								Giỏ hàng của bạn đang trống
+							</Typography>
+							<Typography variant="body1" color="text.secondary" mb={3}>
+								Vui lòng chọn sản phẩm để đặt hàng.
+							</Typography>
+							<Button
+								variant="contained"
+								color="primary"
+								size="large"
+								onClick={() => router.push("/lighters")}
+							>
+								Quay lại trang sản phẩm
+							</Button>
+						</CardContent>
+					</Card>
+				</Container>
+			</Box>
+		);
 	}
 
 	return (
 		<Box component="section" bgcolor="secondary.dark" minHeight="100vh" py={4}>
 			<Container maxWidth="lg">
 				{/* Header */}
-				<Box mb={4}>
+				<Box mb={2}>
 					<Button
 						startIcon={<ArrowBackIcon />}
 						onClick={() => router.back()}
 						variant="outlined"
-						sx={{ mb: 2 }}
+						sx={{ mb: 1 }}
 					>
 						Quay lại
 					</Button>
@@ -193,6 +198,7 @@ const LighterCheckout: NextPageWithLayout = () => {
 													<TextField
 														{...field}
 														label="Họ và tên"
+														id="name"
 														fullWidth
 														required
 														error={!!errors.customerName}
@@ -214,6 +220,7 @@ const LighterCheckout: NextPageWithLayout = () => {
 												render={({ field }) => (
 													<TextField
 														{...field}
+														id="phoneNumber"
 														label="Số điện thoại"
 														fullWidth
 														required
@@ -236,6 +243,7 @@ const LighterCheckout: NextPageWithLayout = () => {
 												render={({ field }) => (
 													<TextField
 														{...field}
+														id="email"
 														label="Email"
 														fullWidth
 														type="email"
@@ -261,6 +269,7 @@ const LighterCheckout: NextPageWithLayout = () => {
 												render={({ field }) => (
 													<TextField
 														{...field}
+														id="address"
 														label="Địa chỉ"
 														fullWidth
 														multiline
@@ -416,11 +425,11 @@ const LighterCheckout: NextPageWithLayout = () => {
 										color="primary"
 										fullWidth
 										size="large"
-										disabled={isSubmitting}
-										startIcon={isSubmitting ? <CircularProgress size={20} /> : <CheckCircleIcon />}
+										disabled={isMutating}
+										startIcon={isMutating ? <CircularProgress size={20} /> : <CheckCircleIcon />}
 										sx={{ mt: 3, py: 1.5, fontWeight: "bold" }}
 									>
-										{isSubmitting ? "Đang xử lý..." : "Xác nhận đặt hàng"}
+										{isMutating ? "Đang xử lý..." : "Xác nhận đặt hàng"}
 									</Button>
 								</CardContent>
 							</Card>

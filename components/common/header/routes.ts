@@ -27,4 +27,8 @@ export const ROUTE_LIST = [
 		label: "Liên hệ",
 		path: "/contact",
 	},
+	{
+		label: "Kiểm tra đơn hàng",
+		path: "/order-tracking",
+	},
 ];

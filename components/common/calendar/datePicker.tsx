@@ -17,7 +17,6 @@ const ControllerDatePicker: React.FC<Props> = ({ id, errors, control, closePopov
 							dateDisplayFormat="yyyy/MM/dd"
 							date={value}
 							onChange={(date) => {
-								console.log("date: ", date);
 								onChange(date);
 								if (closePopover) {
 									closePopover();
