@@ -57,7 +57,7 @@ export function HeaderDesktop() {
 							</Link>
 						))}
 						<Link href={"/contact/form"} passHref>
-							<Button size="small" variant="outlined" sx={{ transform: "translateY(-1px)" }}>
+							<Button size="small" variant="contained" sx={{ transform: "translateY(-1px)" }}>
 								Nhận báo giá
 							</Button>
 						</Link>

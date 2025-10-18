@@ -15,7 +15,6 @@ import { usePrimaryBankInfo } from "@/hooks/usePrimaryBankInfo";
 import { NextPageWithLayout } from "@/models/common";
 import { Box, Container } from "@mui/material";
 import { useRouter } from "next/router";
-import { useMemo } from "react";
 
 const LighterOrderConfirmation: NextPageWithLayout = () => {
 	const router = useRouter();

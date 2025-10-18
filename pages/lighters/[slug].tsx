@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { lightersApi } from "@/api-client/lighters";
 import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
@@ -389,7 +388,7 @@ const LighterDetail = ({ lighter, lighters, lighterType }: Props) => {
 							{lighters.map((product) => (
 								<Link href={`/lighters/${product.slug.current}`} passHref key={product._id}>
 									<MuiLink>
-										<img
+										<Image
 											src={urlFor(product.image[0]).width(500).url()}
 											width={250}
 											height={250}
@@ -449,7 +448,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 	const slug = params?.slug as string;
 	const lighter = await lightersApi.getLighterWithTypeBySlug(slug);
-	const lighters = await lightersApi.getAllLighters();
+	const lighters = await lightersApi.getAllLighters(20);
 
 	// Get the lighter type details
 	let lighterType: LighterType | null = null;

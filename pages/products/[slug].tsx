@@ -12,7 +12,6 @@ import {
 	Divider,
 	Grid,
 	Link as MuiLink,
-	SelectChangeEvent,
 	Stack,
 	Typography,
 } from "@mui/material";
@@ -24,50 +23,22 @@ import Lightbox from "react-awesome-lightbox";
 import "react-awesome-lightbox/build/style.css";
 // import CountUp from "react-countup";
 // import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { priceLaptopApi } from "@/api-client/priceLaptop";
-import { PriceLaptop } from "@/models/price-laptop";
 import { sendGAEvent } from "@next/third-parties/google";
 import { useRouter } from "next/router";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import styles from "./productItem.module.css";
 
-const ProductDetail = ({ product, products, priceLaptops }: Props) => {
+const ProductDetail = ({ product, products }: Props) => {
 	const router = useRouter();
 	const [isOpenLightBox, setIsOpenLightBox] = React.useState(false);
-
-	const [selected, setSelected] = React.useState(priceLaptops[0]?.title || "");
-
-	const handleOnChangeSelected = (event: SelectChangeEvent) => {
-		setSelected(event.target.value);
-	};
-
-	const price = React.useMemo(() => {
-		if (selected) {
-			return priceLaptops.find((price) => price.title === selected)?.price;
-		}
-		return "XXX";
-	}, [priceLaptops, selected]);
-
-	const getPriceRange = React.useCallback(() => {
-		const priceRange = priceLaptops.map((type) => type.price);
-		const min = priceRange.reduce((prev, cur) => Math.min(prev, cur));
-		const max = priceRange.reduce((prev, cur) => Math.max(prev, cur));
-
-		return {
-			min: `${min}.000VND`,
-			max: `${max}.000VND`,
-		};
-	}, [priceLaptops]);
 
 	return (
 		<>
 			<Seo
 				data={{
 					title: `${product.name} - Sản phẩm - INUT Design`,
-					description: `Skin ${product.name} dành cho laptop, Giá từ ${getPriceRange().min} - ${
-						getPriceRange().max
-					}`,
+					description: `Skin ${product.name} dành cho laptop`,
 					url: `https://inutdesign.com/products/${product.slug.current}`,
 					thumbnailUrl: urlFor(product.image[0]).width(1000).url(),
 				}}
@@ -336,7 +307,6 @@ const ProductDetail = ({ product, products, priceLaptops }: Props) => {
 type Props = {
 	product: Product;
 	products: Products;
-	priceLaptops: PriceLaptop[];
 };
 
 export const getStaticPaths = async () => {
@@ -357,14 +327,12 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params: { slug } }) => {
 	const product = await productsApi.getProductBySlug(slug as string);
-	const products = await productsApi.getAllProducts();
-	const priceLaptops = await priceLaptopApi.getAll();
+	const products = await productsApi.getAllProducts(20);
 
 	return {
 		props: {
 			product,
 			products: products.filter((product) => !product._id.includes("drafts")),
-			priceLaptops: priceLaptops,
 		},
 		revalidate: 86400,
 	};

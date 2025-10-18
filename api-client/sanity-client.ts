@@ -3,11 +3,12 @@ import imageUrlBuilder from "@sanity/image-url";
 import { CreateOrderLighterInput, OrderLighter } from "@/models/cart";
 
 export const client = sanityClient({
+	token: process.env.NEXT_PUBLIC_SANITY_TOKEN,
 	projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
 	dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
 	apiVersion: "2022-09-19",
 	useCdn: true,
-	token: process.env.NEXT_PUBLIC_SANITY_TOKEN,
+	ignoreBrowserTokenWarning: true,
 });
 
 const builder = imageUrlBuilder(client);

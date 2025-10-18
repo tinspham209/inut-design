@@ -7,8 +7,11 @@ export const lightersApi = {
 	/**
 	 * Get all lighter products
 	 */
-	async getAllLighters(): Promise<LighterProduct[]> {
-		const query = '*[_type == "lighterProducts"] | order(_createdAt desc)';
+	async getAllLighters(limit?: number): Promise<LighterProduct[]> {
+		let query = '*[_type == "lighterProducts"] | order(_createdAt desc)';
+		if (limit) {
+			query += ` | order(_createdAt desc)[0...${limit}]`;
+		}
 		return await client.fetch(query);
 	},
 
@@ -74,8 +77,11 @@ export const lightersApi = {
 	/**
 	 * Get special/featured lighter products for homepage
 	 */
-	async getSpecialLighters(): Promise<LighterProduct[]> {
-		const query = '*[_type == "lighterProducts" && special == true] | order(_createdAt desc)';
+	async getSpecialLighters(limit?: number): Promise<LighterProduct[]> {
+		let query = '*[_type == "lighterProducts" && special == true] | order(_createdAt desc)';
+		if (limit) {
+			query += ` | order(_createdAt desc)[0...${limit}]`;
+		}
 		return await client.fetch(query);
 	},
 };

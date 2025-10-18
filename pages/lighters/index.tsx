@@ -6,7 +6,7 @@ import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { GetStaticProps } from "next";
 import React from "react";
-import { LightersPageContainer } from "./containers/lighters/LightersPageContainer";
+import { LightersPageContainer } from "@/components/lighters";
 
 type LighterProductWithTypeName = LighterProduct & {
 	typeName: string;

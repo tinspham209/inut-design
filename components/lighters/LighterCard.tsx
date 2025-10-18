@@ -193,7 +193,7 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, onCart
 					</Box>
 					<Stack justifyContent="flex-end">
 						<Tooltip title="Thêm vào giỏ" arrow>
-							<IconButton variant="text" size="small" color="primary" onClick={handleQuickAdd}>
+							<IconButton size="small" color="primary" onClick={handleQuickAdd}>
 								<ShoppingCartIcon />
 							</IconButton>
 						</Tooltip>

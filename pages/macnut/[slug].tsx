@@ -1,10 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { priceLaptopApi } from "@/api-client/priceLaptop";
 import { productsApi } from "@/api-client/products";
 import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
 import { MainLayout } from "@/components/layout";
-import { PriceLaptop } from "@/models/price-laptop";
 import { Product, Products } from "@/models/products";
 import {
 	Box,
@@ -31,26 +29,17 @@ import styles from "./productItem.module.css";
 type Props = {
 	product: Product;
 	products: Products;
-	priceLaptop: PriceLaptop;
 };
 
-const ProductDetail = ({ product, products, priceLaptop }: Props) => {
+const ProductDetail = ({ product, products }: Props) => {
 	const [isOpenLightBox, setIsOpenLightBox] = React.useState(false);
-
-	const price = React.useMemo(() => {
-		if (priceLaptop) {
-			return priceLaptop.price;
-		} else {
-			return "XXX";
-		}
-	}, [priceLaptop]);
 
 	return (
 		<>
 			<Seo
 				data={{
 					title: `${product.name} - Nút Phím - INUT Design`,
-					description: `Skin Nút Phím ${product.name} dành cho laptop, Giá chỉ ${price}`,
+					description: `Skin Nút Phím ${product.name} dành cho laptop`,
 					url: `https://inutdesign.com/macnut/${product.slug.current}`,
 					thumbnailUrl: urlFor(product.image[0]).width(1000).url(),
 				}}
@@ -326,14 +315,12 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params: { slug } }) => {
 	const product = await productsApi.getProductBySlugMacnut(slug as string);
-	const products = await productsApi.getAllProductsMacnut();
-	const priceLaptop = await priceLaptopApi.getBySlug("mat-phim");
+	const products = await productsApi.getAllProductsMacnut(20);
 
 	return {
 		props: {
 			product,
 			products: products.filter((product) => !product._id.includes("drafts")),
-			priceLaptop: priceLaptop,
 		},
 		revalidate: 86400,
 	};

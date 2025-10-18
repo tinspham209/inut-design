@@ -6,13 +6,8 @@ import { LighterProduct, LighterType } from "@/models/cart";
 import { Box, Container, Grid, Stack } from "@mui/material";
 import _ from "lodash";
 import React from "react";
-import {
-	LayoutViewSwitch,
-	LightersFilter,
-	LightersGrid,
-	LightersPageHeader,
-} from "../../components/lighters";
-import { useLightersPage } from "../../hooks/useLightersPage";
+import { LayoutViewSwitch, LightersFilter, LightersGrid, LightersPageHeader } from ".";
+import { useLightersPage } from "@/hooks/useLightersPage";
 
 type LighterProductWithTypeName = LighterProduct & {
 	typeName: string;
@@ -25,7 +20,7 @@ interface LightersPageContainerProps {
 	banner: Banner[];
 }
 
-export const LightersPageContainer: React.FC<LightersPageContainerProps> = ({
+const LightersPageContainer: React.FC<LightersPageContainerProps> = ({
 	lighters,
 	lighterTypes,
 	banner,
@@ -100,3 +95,5 @@ export const LightersPageContainer: React.FC<LightersPageContainerProps> = ({
 		</Box>
 	);
 };
+
+export default LightersPageContainer;

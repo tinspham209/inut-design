@@ -19,16 +19,16 @@ export const ROUTE_LIST = [
 	// 	label: "Sticker",
 	// 	path: "/sticker",
 	// },
-	{
-		label: "Tin tức",
-		path: "/blog",
-	},
+	// {
+	// 	label: "Tin tức",
+	// 	path: "/blog",
+	// },
 	{
 		label: "Liên hệ",
 		path: "/contact",
 	},
 	{
-		label: "Kiểm tra đơn hàng",
+		label: "Tra cứu đơn hàng",
 		path: "/order-tracking",
 	},
 ];
