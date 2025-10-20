@@ -37,3 +37,14 @@ export async function getPostList(): Promise<Post[]> {
 
 	return postList;
 }
+
+export async function getPostBySlug(slug: string | string[]): Promise<Post | null> {
+	const postList = await getPostList();
+	const post = postList.find((x) => x.slug === slug) || null;
+	return post;
+}
+
+export async function getAllPostSlugs(): Promise<string[]> {
+	const postList = await getPostList();
+	return postList.map((x) => x.slug);
+}

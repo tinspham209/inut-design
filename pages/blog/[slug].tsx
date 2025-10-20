@@ -1,23 +1,15 @@
 import { PostItem } from "@/components/blog";
 import { Seo } from "@/components/common";
+import MarkdownWrapper from "@/components/common/markdown/MarkdownWrapper";
 import { MainLayout } from "@/components/layout";
 import { Post } from "@/models";
-import { getPostList } from "@/utils";
+import { getAllPostSlugs, getPostBySlug } from "@/utils";
+import { getVFile } from "@/utils/unified";
 import { Box, Breadcrumbs, Container, Divider, Link as MuiLink, Typography } from "@mui/material";
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 import Link from "next/link";
 import Script from "next/script";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypeDocument from "rehype-document";
-import rehypeFormat from "rehype-format";
-import rehypeSlug from "rehype-slug";
-import rehypeStringify from "rehype-stringify";
-import remarkImages from "remark-images";
-import remarkParse from "remark-parse";
-import remarkPrism from "remark-prism";
-import remarkRehype from "remark-rehype";
-import remarkToc from "remark-toc";
-import { unified } from "unified";
+import DOMPurify from "isomorphic-dompurify";
 
 export interface BlogPageProps {
 	post: Post;
@@ -65,30 +57,13 @@ export default function BlogDetailPage({ post }: BlogPageProps) {
 
 				<Divider />
 
-				<Box
-					sx={{
-						"& img": {
-							maxWidth: "800px",
-							minWidth: "360px",
-							maxHeight: "400px",
-							width: "100%",
-							objectFit: "contain",
-							borderRadius: "16px",
-							transition: "all 0.2s ease-in-out",
-							boxShadow: "-1px 3px 3px -1px rgb(0 0 0 / 25%)",
-							"&:hover": {
-								transform: "scale(1.05)",
-							},
-						},
-						"& p a": {},
-					}}
-				>
+				<MarkdownWrapper>
 					<div
 						dangerouslySetInnerHTML={{
 							__html: post.htmlContent || "",
 						}}
 					></div>
-				</Box>
+				</MarkdownWrapper>
 			</Container>
 
 			<Script src="/prism.js" strategy="afterInteractive"></Script>
@@ -99,10 +74,10 @@ export default function BlogDetailPage({ post }: BlogPageProps) {
 BlogDetailPage.Layout = MainLayout;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const postList = await getPostList();
+	const slugs = await getAllPostSlugs();
 
 	return {
-		paths: postList.map((post: Post) => ({ params: { slug: post.slug } })),
+		paths: slugs.map((slug) => ({ params: { slug } })),
 		fallback: false,
 	};
 };
@@ -111,28 +86,15 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async (
 	context: GetStaticPropsContext
 ) => {
 	const slug = context.params?.slug;
-	const postList = await getPostList();
-
 	if (!slug) return { notFound: true };
 
-	const post = postList.find((x) => x.slug === slug);
+	const post = await getPostBySlug(slug);
 	if (!post) return { notFound: true };
 
-	const file = await unified()
-		.use(remarkParse)
-		.use(remarkToc, { heading: "Table of Contents" })
-		// .use(remarkPrism, { plugins: ['line-numbers'] })
-		.use(remarkPrism)
-		.use(remarkImages)
-		.use(remarkRehype)
-		.use(rehypeSlug)
-		.use(rehypeAutolinkHeadings, { behaviour: "wrap" })
-		.use(rehypeDocument, { title: post.title })
-		.use(rehypeFormat)
-		.use(rehypeStringify)
-		.process(post.mdContent || "");
+	const file = await getVFile(post.mdContent || "", { title: post.title });
+	const htmlContent = file.toString();
 
-	post.htmlContent = file.toString();
+	post.htmlContent = DOMPurify.sanitize(htmlContent);
 
 	return {
 		props: {
