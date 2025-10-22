@@ -89,7 +89,7 @@ const OrderConfirmationSearch: NextPageWithLayout = () => {
 										label="Loại đơn hàng"
 									>
 										<MenuItem value="">-- Chọn loại đơn hàng --</MenuItem>
-										<MenuItem value="lighters">Đơn hàng Lighters</MenuItem>
+										<MenuItem value="lighters">Đơn hàng Bật lửa</MenuItem>
 										{/* Add more order types here as needed */}
 									</Select>
 								</FormControl>
@@ -99,7 +99,7 @@ const OrderConfirmationSearch: NextPageWithLayout = () => {
 									fullWidth
 									required
 									label="Mã đơn hàng"
-									placeholder="Ví dụ: LIGHT-1234567890123"
+									placeholder="Ví dụ: LIGHTER-1234567890123"
 									value={orderNumber}
 									onChange={(e) => setOrderNumber(e.target.value)}
 									helperText="Mã đơn hàng được gửi qua email hoặc SMS sau khi đặt hàng thành công"
@@ -137,11 +137,11 @@ const OrderConfirmationSearch: NextPageWithLayout = () => {
 						💡 Lưu ý:
 					</Typography>
 					<Typography variant="body2" component="div">
-						• Mã đơn hàng bao gồm tiền tố (LIGHT, SKIN, MAC, v.v.) và dãy số
+						• Mã đơn hàng bao gồm tiền tố (LIGHTER, SKIN, MAC, v.v.) và dãy số
 						<br />
 						• Mã đơn hàng được tạo ngay sau khi bạn đặt hàng thành công
 						<br />
-						• Vui lòng kiểm tra email hoặc tin nhắn SMS để tìm mã đơn hàng
+						• Vui lòng kiểm tra lịch sử web để tìm mã đơn hàng
 						<br />• Nếu không tìm thấy đơn hàng, vui lòng liên hệ hotline để được hỗ trợ
 					</Typography>
 				</Alert>
