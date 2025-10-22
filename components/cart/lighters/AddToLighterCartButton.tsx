@@ -88,7 +88,6 @@ export function AddToLighterCartButton({
 				)
 			}
 			sx={{
-				minWidth: fullWidth ? "100%" : "140px",
 				transition: "all 0.3s ease",
 				"&:hover": {
 					transform: "translateY(-2px)",

@@ -54,11 +54,11 @@ a {
 	white-space: nowrap;
 	will-change: transform;
 	animation: marquee 60s linear infinite;
-	width: 1000%;
+	width: 200%;
 }
 
 .track.macnut {
-	width: 300%;
+	width: 200%;
 }
 .track:hover {
 	animation-play-state: paused;

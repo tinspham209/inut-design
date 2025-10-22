@@ -5,7 +5,7 @@ import { Banner } from "@/models/banner";
 import { LighterProduct, LighterType } from "@/models/cart";
 import { Box, Container, Grid, Stack } from "@mui/material";
 import _ from "lodash";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { LayoutViewSwitch, LightersFilter, LightersGrid, LightersPageHeader } from ".";
 import { useLightersPage } from "@/hooks/useLightersPage";
 
@@ -25,24 +25,33 @@ const LightersPageContainer: React.FC<LightersPageContainerProps> = ({
 	lighterTypes,
 	banner,
 }) => {
+	const [mounted, setMounted] = useState(false);
 	const { isCartOpen, handleCartOpen, handleCartClose } = useLightersPage();
+
+	useEffect(() => {
+		setMounted(true);
+	}, []);
 
 	return (
 		<Box component={"section"} bgcolor="secondary.dark" pt={4} pb={4}>
-			{/* Floating Cart Badge */}
-			<Box
-				sx={{
-					position: "fixed",
-					bottom: 24,
-					right: 24,
-					zIndex: 1000,
-				}}
-			>
-				<LighterCartBadge onClick={handleCartOpen} size="large" color="primary" />
-			</Box>
+			{/* Floating Cart Badge - Only render after mount to avoid hydration mismatch */}
+			{mounted && (
+				<>
+					<Box
+						sx={{
+							position: "fixed",
+							bottom: 24,
+							right: 24,
+							zIndex: 1000,
+						}}
+					>
+						<LighterCartBadge onClick={handleCartOpen} size="large" color="primary" />
+					</Box>
 
-			{/* Cart Drawer */}
-			<LighterCartDrawer isOpen={isCartOpen} onClose={handleCartClose} />
+					{/* Cart Drawer */}
+					<LighterCartDrawer isOpen={isCartOpen} onClose={handleCartClose} />
+				</>
+			)}
 
 			<Seo
 				data={{

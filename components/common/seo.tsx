@@ -6,6 +6,7 @@ export interface SeoData {
 	description: string;
 	thumbnailUrl: string;
 	url: string;
+	productStructuredData?: string;
 }
 
 interface SeoProps {
@@ -13,7 +14,7 @@ interface SeoProps {
 }
 
 export function Seo({ data }: SeoProps) {
-	const { description, thumbnailUrl, title, url } = data;
+	const { description, thumbnailUrl, title, url, productStructuredData } = data;
 	return (
 		<Head>
 			<title>{title}</title>
@@ -34,6 +35,13 @@ export function Seo({ data }: SeoProps) {
 			<meta property="twitter:title" content={title} />
 			<meta property="twitter:description" content={description} />
 			<meta property="twitter:image" content={thumbnailUrl} />
+
+			{productStructuredData && (
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{ __html: productStructuredData }}
+				/>
+			)}
 		</Head>
 	);
 }

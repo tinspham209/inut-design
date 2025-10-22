@@ -1,7 +1,7 @@
 import { urlFor } from "@/api-client/sanity-client";
 import { LighterProduct, LighterType } from "@/models/cart";
 import { useLightersCart } from "@/store";
-import { getPriceTierOptions } from "@/utils/priceCalculator";
+import { formatPrice, getPriceTierOptions } from "@/utils/priceCalculator";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
 	Box,
@@ -24,10 +24,10 @@ interface LighterCardProps {
 		typeSlug: string;
 	};
 	lighterTypes: LighterType[];
-	onCartOpen: () => void;
+	onCartOpen?: () => void; // Optional since it's not currently used
 }
 
-const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, onCartOpen }) => {
+const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes }) => {
 	const addItem = useLightersCart((state) => state.addItem);
 	const [hovered, setHovered] = React.useState(false);
 
@@ -188,7 +188,7 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, onCart
 								fontSize: { xs: "0.75rem", md: "0.85rem" },
 							}}
 						>
-							Giá chỉ từ: {minimumPrice.toLocaleString()}đ
+							Giá chỉ từ: {formatPrice(minimumPrice)}
 						</Typography>
 					</Box>
 					<Stack justifyContent="flex-end">

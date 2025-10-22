@@ -13,7 +13,7 @@ export type LighterType = {
 	_type: "lighterType";
 	name: string;
 	slug: SanitySlug;
-	description?: string;
+	description?: any[];
 	priceTiers: PriceTier[];
 	_createdAt: string;
 	_updatedAt: string;
@@ -25,7 +25,7 @@ export type LighterProduct = {
 	name: string;
 	slug: SanitySlug;
 	image: SanityImage[];
-	details?: string;
+	details?: any[];
 	special: boolean;
 	lighterType: {
 		_ref: string;

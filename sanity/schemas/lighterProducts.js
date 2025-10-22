@@ -29,7 +29,8 @@ export default {
 		{
 			name: "details",
 			title: "Details",
-			type: "string",
+			type: "blockContent",
+			description: "Product details. Supports rich text.",
 		},
 		{
 			name: "special",

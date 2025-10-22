@@ -78,7 +78,11 @@ export function calculateCartItemCount(items: { quantity: number }[]): number {
  * @returns Formatted string (e.g., "10.000₫")
  */
 export function formatPrice(price: number): string {
-	return `${price.toLocaleString("vi-VN")}₫`;
+	// Use explicit locale and options to ensure consistent formatting on server and client
+	return `${price.toLocaleString("vi-VN", {
+		minimumFractionDigits: 0,
+		maximumFractionDigits: 0,
+	})}₫`;
 }
 
 /**

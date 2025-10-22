@@ -21,8 +21,8 @@ export default {
 		{
 			name: "description",
 			title: "Description",
-			type: "text",
-			description: "Category description (e.g., Cricket Thường, Cricket Mini)",
+			type: "blockContent",
+			description: "Category description (e.g., Cricket Thường, Cricket Mini). Supports rich text.",
 		},
 		{
 			name: "priceTiers",

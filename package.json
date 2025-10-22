@@ -32,6 +32,7 @@
 		"@next/third-parties": "^15.2.4",
 		"@react-three/drei": "^9.65.5",
 		"@react-three/fiber": "^8.12.2",
+		"@sanity/block-content-to-react": "^2",
 		"@sanity/client": "^3.4.1",
 		"@sanity/image-url": "^1.0.1",
 		"@vercel/analytics": "^1.0.0",
