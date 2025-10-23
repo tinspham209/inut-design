@@ -1,7 +1,32 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable camelcase */
 /**
  * Google Analytics & GTM Event Tracking Utilities
  * For GA4 Enhanced Measurement and E-commerce
+ * Now includes Umami dual tracking for privacy-focused analytics
  */
+
+import {
+	trackUmamiProductView,
+	trackUmamiProductClick,
+	trackUmamiAddToCart,
+	trackUmamiRemoveFromCart,
+	trackUmamiBeginCheckout,
+	trackUmamiPurchase,
+	trackUmamiOrderButton,
+	trackUmamiContact,
+	trackUmamiPhoneClick,
+	trackUmamiFormSubmit,
+	trackUmamiSocialClick,
+	trackUmamiSearch,
+	trackUmamiDownload,
+	trackUmamiOutboundClick,
+	trackUmamiVideoEngagement,
+	trackUmamiTimeOnPage,
+	trackUmamiPageView,
+	type UmamiProductData,
+} from "./umamiAnalytics";
 
 declare global {
 	interface Window {
@@ -53,6 +78,9 @@ export const trackPageView = (url: string, title?: string): void => {
 		page_title: title || document.title,
 		page_location: window.location.href,
 	});
+
+	// Track to Umami
+	trackUmamiPageView(url, title);
 };
 
 /**
@@ -88,6 +116,14 @@ export const trackViewProduct = (product: ProductData): void => {
 			},
 		],
 	});
+
+	// Track to Umami
+	trackUmamiProductView({
+		id: product.id,
+		name: product.name,
+		category: product.category,
+		price: product.price,
+	});
 };
 
 /**
@@ -114,6 +150,17 @@ export const trackSelectProduct = (
 			},
 		],
 	});
+
+	// Track to Umami
+	trackUmamiProductClick(
+		{
+			id: product.id,
+			name: product.name,
+			category: product.category,
+			price: product.price,
+		},
+		listName
+	);
 };
 
 /**
@@ -136,6 +183,15 @@ export const trackAddToCart = (product: ProductData): void => {
 			},
 		],
 	});
+
+	// Track to Umami
+	trackUmamiAddToCart({
+		id: product.id,
+		name: product.name,
+		category: product.category,
+		price: product.price,
+		quantity: product.quantity,
+	});
 };
 
 /**
@@ -154,6 +210,13 @@ export const trackRemoveFromCart = (product: ProductData): void => {
 				quantity: product.quantity || 1,
 			},
 		],
+	});
+
+	// Track to Umami
+	trackUmamiRemoveFromCart({
+		id: product.id,
+		name: product.name,
+		quantity: product.quantity,
 	});
 };
 
@@ -175,6 +238,16 @@ export const trackBeginCheckout = (products: ProductData[], value: number): void
 			quantity: product.quantity || 1,
 		})),
 	});
+
+	// Track to Umami
+	const umamiProducts: UmamiProductData[] = products.map((p) => ({
+		id: p.id,
+		name: p.name,
+		category: p.category,
+		price: p.price,
+		quantity: p.quantity,
+	}));
+	trackUmamiBeginCheckout(umamiProducts, value);
 };
 
 /**
@@ -202,6 +275,16 @@ export const trackPurchase = (
 			quantity: product.quantity || 1,
 		})),
 	});
+
+	// Track to Umami
+	const umamiProducts: UmamiProductData[] = products.map((p) => ({
+		id: p.id,
+		name: p.name,
+		category: p.category,
+		price: p.price,
+		quantity: p.quantity,
+	}));
+	trackUmamiPurchase(transactionId, umamiProducts, value);
 };
 
 // ============================================
@@ -216,6 +299,9 @@ export const trackFormSubmit = (formType: string): void => {
 	trackEvent("form_submit", {
 		form_type: formType,
 	});
+
+	// Track to Umami
+	trackUmamiFormSubmit(formType);
 };
 
 /**
@@ -228,6 +314,9 @@ export const trackContactClick = (platform: string, productName?: string): void 
 		contact_method: platform,
 		product_name: productName,
 	});
+
+	// Track to Umami
+	trackUmamiContact(platform, productName);
 };
 
 /**
@@ -237,6 +326,9 @@ export const trackPhoneClick = (): void => {
 	trackEvent("phone_click", {
 		contact_method: "phone",
 	});
+
+	// Track to Umami
+	trackUmamiPhoneClick();
 };
 
 /**
@@ -249,6 +341,9 @@ export const trackOrderButtonClick = (productName: string, category: string): vo
 		product_name: productName,
 		product_category: category,
 	});
+
+	// Track to Umami
+	trackUmamiOrderButton(productName, category);
 };
 
 /**
@@ -259,6 +354,9 @@ export const trackSocialClick = (platform: string): void => {
 	trackEvent("social_click", {
 		social_platform: platform,
 	});
+
+	// Track to Umami
+	trackUmamiSocialClick(platform);
 };
 
 /**
@@ -269,6 +367,9 @@ export const trackSearch = (searchTerm: string): void => {
 	trackEvent("search", {
 		search_term: searchTerm,
 	});
+
+	// Track to Umami
+	trackUmamiSearch(searchTerm);
 };
 
 /**
@@ -279,6 +380,9 @@ export const trackDownload = (fileName: string): void => {
 	trackEvent("file_download", {
 		file_name: fileName,
 	});
+
+	// Track to Umami
+	trackUmamiDownload(fileName);
 };
 
 /**
@@ -289,6 +393,9 @@ export const trackOutboundClick = (url: string): void => {
 	trackEvent("outbound_click", {
 		link_url: url,
 	});
+
+	// Track to Umami
+	trackUmamiOutboundClick(url);
 };
 
 // ============================================
@@ -304,6 +411,9 @@ export const trackVideoEngagement = (action: string, videoTitle: string): void =
 	trackEvent(`video_${action}`, {
 		video_title: videoTitle,
 	});
+
+	// Track to Umami
+	trackUmamiVideoEngagement(action, videoTitle);
 };
 
 /**
@@ -316,6 +426,9 @@ export const trackTimeOnPage = (pageType: string, timeSpent: number): void => {
 		page_type: pageType,
 		time_seconds: timeSpent,
 	});
+
+	// Track to Umami
+	trackUmamiTimeOnPage(pageType, timeSpent);
 };
 
 const analytics = {

@@ -50,6 +50,7 @@ export function HeaderDesktop() {
 										textTransform: "uppercase",
 									}}
 									underline="hover"
+									data-umami-event={"header_navigation_click_desktop_" + route.label.toLowerCase()}
 									className={clsx({ active: router.pathname === route.path })}
 								>
 									{route.label}
@@ -57,7 +58,12 @@ export function HeaderDesktop() {
 							</Link>
 						))}
 						<Link href={"/contact/form"} passHref>
-							<Button size="small" variant="contained" sx={{ transform: "translateY(-1px)" }}>
+							<Button
+								size="small"
+								variant="contained"
+								sx={{ transform: "translateY(-1px)" }}
+								data-umami-event={"header_navigation_click_desktop_contact_form"}
+							>
 								Nhận báo giá
 							</Button>
 						</Link>

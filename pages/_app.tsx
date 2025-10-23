@@ -4,6 +4,7 @@ import { DialogContainer } from "@/components/common";
 import { EmptyLayout } from "@/components/layout";
 import { AppPropsWithLayout } from "@/models";
 import { createEmotionCache, theme, trackPageView } from "@/utils";
+import { useUmamiEngagement } from "@/hooks/useUmamiEngagement";
 import { CacheProvider } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
@@ -16,6 +17,7 @@ import { SWRConfig } from "swr";
 
 import "../styles/globals.css";
 import "../styles/prism.css";
+import useEngagementTracking from "@/hooks/useEngagementTracking";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -29,6 +31,10 @@ function MyApp({
 }) {
 	const Layout = Component.Layout ?? EmptyLayout;
 	const router = useRouter();
+
+	// Engagement tracking (scroll depth + time on page per route)
+	useEngagementTracking(router.pathname);
+	// useUmamiEngagement(router.pathname);
 
 	// Track page views on route changes
 	useEffect(() => {

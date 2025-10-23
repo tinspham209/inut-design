@@ -77,7 +77,12 @@ export function HeaderMobile() {
 						}}
 					>
 						{routeList.map((route) => (
-							<ListItem key={route.path} onClick={toggleDrawer(false)} disableGutters>
+							<ListItem
+								key={route.path}
+								onClick={toggleDrawer(false)}
+								disableGutters
+								data-umami-event={"header_navigation_click_mobile_" + route.label.toLowerCase()}
+							>
 								<ListItemButton
 									sx={{
 										justifyContent: "center",
@@ -96,7 +101,11 @@ export function HeaderMobile() {
 								</ListItemButton>
 							</ListItem>
 						))}
-						<ListItem onClick={toggleDrawer(false)} disableGutters>
+						<ListItem
+							onClick={toggleDrawer(false)}
+							disableGutters
+							data-umami-event={"header_navigation_click_mobile_contact_form"}
+						>
 							<Link href={"/contact/form"} passHref>
 								<Button
 									variant="contained"
