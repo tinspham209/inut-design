@@ -1,11 +1,12 @@
 import { MainLayout } from "@/components/layout";
 import { NextPageWithLayout } from "@/models/common";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useLightersCart } from "@/store";
 import { urlFor } from "@/api-client/sanity-client";
 import { formatPrice } from "@/utils/priceCalculator";
 import { CreateOrderLighterInput } from "@/models/cart";
 import { useCreateLighterOrder } from "@/hooks";
+import { trackBeginCheckout, trackPurchase } from "@/utils/analytics";
 import {
 	Box,
 	Button,
@@ -62,6 +63,23 @@ const LighterCheckout: NextPageWithLayout = () => {
 		},
 	});
 
+	// Track begin checkout on mount
+	useEffect(() => {
+		if (items.length > 0) {
+			trackBeginCheckout(
+				items.map((item) => ({
+					id: item.productId,
+					name: item.productName,
+					category: "Lighters",
+					variant: item.lighterTypeName,
+					price: item.unitPrice,
+					quantity: item.quantity,
+				})),
+				totalAmount
+			);
+		}
+	}, [items, totalAmount]);
+
 	const onSubmit = async (data: CheckoutFormData) => {
 		try {
 			// Prepare order items for Sanity (convert to reference format)
@@ -104,6 +122,20 @@ const LighterCheckout: NextPageWithLayout = () => {
 
 			// Submit order to Sanity using SWR mutation
 			const createdOrder = await createOrder(orderInput);
+
+			// Track purchase conversion
+			trackPurchase(
+				createdOrder.orderNumber,
+				items.map((item) => ({
+					id: item.productId,
+					name: item.productName,
+					category: "Lighters",
+					variant: item.lighterTypeName,
+					price: item.unitPrice,
+					quantity: item.quantity,
+				})),
+				finalAmount
+			);
 
 			// Mark order as complete BEFORE clearing cart to prevent redirect
 			setIsOrderComplete(true);

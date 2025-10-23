@@ -11,6 +11,7 @@ import RelatedProducts from "@/components/lighter-detail/RelatedProducts";
 import { LighterProduct, LighterProductWithType, LighterType } from "@/models/cart";
 import { NextPageWithLayout } from "@/models/common";
 import { formatPrice, getPriceTierOptions } from "@/utils/priceCalculator";
+import { trackViewProduct } from "@/utils/analytics";
 import { Box, Card, CardContent, Container, Grid, Typography } from "@mui/material";
 import { GetStaticPaths, GetStaticProps } from "next";
 import dynamic from "next/dynamic";
@@ -85,6 +86,23 @@ const LighterDetail: NextPageWithLayout = ({ lighter, lighters, lighterType }: P
 			},
 		});
 	}, [lighter.name, lighter.details, galleryImages, priceTiers]);
+
+	// Track product view on mount
+	React.useEffect(() => {
+		if (lighter && lighterType) {
+			const avgPrice =
+				priceTiers.length > 0
+					? priceTiers.reduce((sum, tier) => sum + tier.price, 0) / priceTiers.length
+					: 0;
+			trackViewProduct({
+				id: lighter._id,
+				name: lighter.name,
+				category: "Lighters",
+				variant: lighterType.name,
+				price: avgPrice,
+			});
+		}
+	}, [lighter, lighterType, priceTiers]);
 
 	return (
 		<>

@@ -4,6 +4,7 @@ import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
 import { MainLayout } from "@/components/layout";
 import { Product, Products } from "@/models/products";
+import { trackViewProduct, trackOrderButtonClick } from "@/utils/analytics";
 import {
 	Box,
 	Breadcrumbs,
@@ -23,7 +24,6 @@ import Lightbox from "react-awesome-lightbox";
 import "react-awesome-lightbox/build/style.css";
 // import CountUp from "react-countup";
 // import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { sendGAEvent } from "@next/third-parties/google";
 import { useRouter } from "next/router";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -32,6 +32,18 @@ import styles from "./productItem.module.css";
 const ProductDetail = ({ product, products }: Props) => {
 	const router = useRouter();
 	const [isOpenLightBox, setIsOpenLightBox] = React.useState(false);
+
+	// Track product view on mount
+	React.useEffect(() => {
+		if (product) {
+			trackViewProduct({
+				id: product._id,
+				name: product.name,
+				category: "Laptop Skin",
+				brand: "INUT Design",
+			});
+		}
+	}, [product]);
 
 	return (
 		<>
@@ -185,10 +197,7 @@ const ProductDetail = ({ product, products }: Props) => {
 										color="primary"
 										sx={{ mr: 2 }}
 										onClick={() => {
-											sendGAEvent("event", "buttonClicked", {
-												value: product.name,
-												category: "skin laptop",
-											});
+											trackOrderButtonClick(product.name, "skin laptop");
 										}}
 									>
 										Đặt hàng

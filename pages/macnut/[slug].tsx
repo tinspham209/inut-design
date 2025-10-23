@@ -1,9 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
+import { priceLaptopApi } from "@/api-client/priceLaptop";
 import { productsApi } from "@/api-client/products";
 import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
 import { MainLayout } from "@/components/layout";
+import { PriceLaptop } from "@/models/price-laptop";
 import { Product, Products } from "@/models/products";
+import { trackViewProduct, trackOrderButtonClick } from "@/utils/analytics";
 import {
 	Box,
 	Breadcrumbs,
@@ -15,7 +18,6 @@ import {
 	Stack,
 	Typography,
 } from "@mui/material";
-import { sendGAEvent } from "@next/third-parties/google";
 import { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -33,6 +35,18 @@ type Props = {
 
 const ProductDetail = ({ product, products }: Props) => {
 	const [isOpenLightBox, setIsOpenLightBox] = React.useState(false);
+
+	// Track product view on mount
+	React.useEffect(() => {
+		if (product) {
+			trackViewProduct({
+				id: product._id,
+				name: product.name,
+				category: "Macnut",
+				brand: "INUT Design",
+			});
+		}
+	}, [product]);
 
 	return (
 		<>
@@ -180,10 +194,7 @@ const ProductDetail = ({ product, products }: Props) => {
 										color="primary"
 										sx={{ mr: 2 }}
 										onClick={() => {
-											sendGAEvent("event", "buttonClicked", {
-												value: product.name,
-												category: "skin macnut",
-											});
+											trackOrderButtonClick(product.name, "skin macnut");
 										}}
 									>
 										Đặt hàng

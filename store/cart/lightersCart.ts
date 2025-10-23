@@ -1,12 +1,13 @@
-import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
 import { CartItemLighter, LightersCartStore } from "@/models/cart";
+import { trackRemoveFromCart } from "@/utils/analytics";
 import {
-	calculateUnitPrice,
-	calculateItemTotal,
-	calculateCartTotal,
 	calculateCartItemCount,
+	calculateCartTotal,
+	calculateItemTotal,
+	calculateUnitPrice,
 } from "@/utils/priceCalculator";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 /**
  * Lighters Cart Store
@@ -82,6 +83,23 @@ const useLightersCart = create<LightersCartStore>()(
 			 */
 			removeItem: (productId, lighterTypeId) => {
 				set((state) => {
+					// Find item to track before removing
+					const itemToRemove = state.items.find(
+						(item) => item.productId === productId && item.lighterTypeId === lighterTypeId
+					);
+
+					// Track remove from cart
+					if (itemToRemove) {
+						trackRemoveFromCart({
+							id: itemToRemove.productId,
+							name: itemToRemove.productName,
+							category: "Lighters",
+							variant: itemToRemove.lighterTypeName,
+							price: itemToRemove.unitPrice,
+							quantity: itemToRemove.quantity,
+						});
+					}
+
 					const newItems = state.items.filter(
 						(item) => !(item.productId === productId && item.lighterTypeId === lighterTypeId)
 					);

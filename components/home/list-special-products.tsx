@@ -1,6 +1,6 @@
 import { urlFor } from "@/api-client/sanity-client";
 import { Products } from "@/models/products";
-import { COLOR_CODE } from "@/utils";
+import { COLOR_CODE, trackSelectProduct } from "@/utils";
 import {
 	Box,
 	Button,
@@ -49,6 +49,17 @@ export function ListSpecialProducts({ products, isMacnut = false }: Props) {
 									sx={{
 										position: "relative",
 									}}
+									onClick={() =>
+										trackSelectProduct(
+											{
+												id: product._id,
+												name: product.name,
+												category: isMacnut ? "Skin Nút Phím" : "Skin Laptop",
+											},
+											"Homepage Featured",
+											index
+										)
+									}
 								>
 									<Image
 										src={`${urlFor(product.image[0]).width(800).url()}`}

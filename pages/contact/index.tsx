@@ -5,6 +5,7 @@ import { HeroImage } from "@/components/home";
 import { MainLayout } from "@/components/layout";
 import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
+import { trackContactClick, trackPhoneClick, trackSocialClick } from "@/utils/analytics";
 import {
 	ArrowForwardIos,
 	ChromeReaderMode,
@@ -119,6 +120,15 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 										rel: "noopener noreferrer",
 									})}
 									key={item.title}
+									onClick={() => {
+										if (item.trackingType === "messenger") {
+											trackContactClick("messenger");
+										} else if (item.trackingType === "phone") {
+											trackPhoneClick();
+										} else if (item.trackingType === "social") {
+											trackSocialClick(item.title.toLowerCase());
+										}
+									}}
 								>
 									<Stack
 										flexDirection={"row"}
@@ -156,6 +166,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 const listContacts = [
 	{
 		link: "https://m.me/642209429738886",
+		trackingType: "messenger" as const,
 		icon: (
 			<Message
 				sx={{
@@ -190,6 +201,7 @@ const listContacts = [
 	},
 	{
 		link: "tel:+792359996",
+		trackingType: "phone" as const,
 		icon: (
 			<Phone
 				sx={{
@@ -201,6 +213,7 @@ const listContacts = [
 	},
 	{
 		link: "https://www.facebook.com/inutdesign",
+		trackingType: "social" as const,
 		icon: (
 			<Facebook
 				sx={{
@@ -212,6 +225,7 @@ const listContacts = [
 	},
 	{
 		link: "https://www.instagram.com/inut_skin/",
+		trackingType: "social" as const,
 		icon: (
 			<Instagram
 				sx={{

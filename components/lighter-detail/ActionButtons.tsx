@@ -2,7 +2,7 @@ import React from "react";
 import { Stack, Button, Link as MuiLink } from "@mui/material";
 import Link from "next/link";
 import { AddToLighterCartButton } from "@/components/cart";
-import { sendGAEvent } from "@next/third-parties/google";
+import { trackContactClick } from "@/utils/analytics";
 
 interface ActionButtonsProps {
 	lighter: any;
@@ -39,10 +39,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ lighter, lighterType, qua
 					size="medium"
 					fullWidth
 					onClick={() => {
-						sendGAEvent("event", "buttonClicked", {
-							value: lighter.name,
-							category: "lighters",
-						});
+						trackContactClick("messenger", lighter.name);
 					}}
 				>
 					Chat Messenger

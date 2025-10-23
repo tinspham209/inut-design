@@ -2,6 +2,7 @@ import { urlFor } from "@/api-client/sanity-client";
 import { LighterProduct, LighterType } from "@/models/cart";
 import { useLightersCart } from "@/store";
 import { formatPrice, getPriceTierOptions } from "@/utils/priceCalculator";
+import { trackSelectProduct, trackAddToCart } from "@/utils/analytics";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
 	Box,
@@ -70,6 +71,17 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes }) => {
 
 		// Get the first tier quantity as default
 		const defaultQuantity = priceTiers.length > 0 ? priceTiers[0].quantity : 1;
+		const unitPrice = priceTiers.length > 0 ? priceTiers[0].price : 0;
+
+		// Track add to cart event
+		trackAddToCart({
+			id: lighter._id,
+			name: lighter.name,
+			category: "Lighters",
+			variant: lighterType.name,
+			price: unitPrice,
+			quantity: defaultQuantity,
+		});
 
 		// Add to cart
 		addItem({
@@ -81,7 +93,7 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes }) => {
 			lighterTypeName: lighterType.name,
 			priceTiers: lighterType.priceTiers || [],
 			quantity: defaultQuantity,
-			unitPrice: priceTiers.length > 0 ? priceTiers[0].price : 0,
+			unitPrice,
 		});
 		toast.success(`${lighter.name} đã được thêm vào giỏ hàng!`);
 
@@ -115,7 +127,21 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes }) => {
 				}}
 			>
 				<Link href={`/lighters/${lighter.slug.current}`} passHref>
-					<MuiLink sx={{ textDecoration: "none" }}>
+					<MuiLink
+						sx={{ textDecoration: "none" }}
+						onClick={() =>
+							trackSelectProduct(
+								{
+									id: lighter._id,
+									name: lighter.name,
+									category: "Lighters",
+									variant: lighterType?.name,
+								},
+								"Lighters List",
+								0
+							)
+						}
+					>
 						<Box>
 							<Box
 								sx={{

@@ -3,14 +3,17 @@ import { ProductCartWrapper } from "@/components/cart/CartWrapper";
 import { DialogContainer } from "@/components/common";
 import { EmptyLayout } from "@/components/layout";
 import { AppPropsWithLayout } from "@/models";
-import { createEmotionCache, theme } from "@/utils";
+import { createEmotionCache, theme, trackPageView } from "@/utils";
 import { CacheProvider } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import { Analytics } from "@vercel/analytics/react";
 import { AnimatePresence } from "framer-motion";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { SWRConfig } from "swr";
+
 import "../styles/globals.css";
 import "../styles/prism.css";
 
@@ -25,6 +28,25 @@ function MyApp({
 	pageProps;
 }) {
 	const Layout = Component.Layout ?? EmptyLayout;
+	const router = useRouter();
+
+	// Track page views on route changes
+	useEffect(() => {
+		const handleRouteChange = (url: string) => {
+			trackPageView(url);
+		};
+
+		// Track initial page load
+		trackPageView(router.pathname);
+
+		// Subscribe to route changes
+		router.events.on("routeChangeComplete", handleRouteChange);
+
+		// Cleanup
+		return () => {
+			router.events.off("routeChangeComplete", handleRouteChange);
+		};
+	}, [router.events, router.pathname]);
 
 	return (
 		<>
@@ -50,7 +72,7 @@ function MyApp({
 					</AnimatePresence>
 				</ThemeProvider>
 			</CacheProvider>
-			<Analytics mode="auto" />
+			<Analytics mode="production" />
 		</>
 	);
 }

@@ -1,10 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-	FacebookChatPlugin,
-	GoogleTagSchema,
-	jsonSearchSchema,
-	scriptFacebookChatPlugin,
-} from "@/components/scripts";
+import { FacebookChatPlugin, GoogleTagSchema, jsonSearchSchema } from "@/components/scripts";
 import { createEmotionCache, theme } from "@/utils";
 import createEmotionServer from "@emotion/server/create-instance";
 import Document, { Head, Html, Main, NextScript } from "next/document";
@@ -38,30 +33,9 @@ export default class MyDocument extends Document {
 						{`${jsonSearchSchema}`}
 					</Script>
 
-					<Script strategy="afterInteractive" id="fb-chatbox-sdk">
-						{`${scriptFacebookChatPlugin}`}
-					</Script>
+					{/* Facebook Chat SDK now loaded dynamically via component (see facebook-plugin.tsx) */}
 
-					<Script
-						strategy="afterInteractive"
-						async
-						src={`https://www.googletagmanager.com/gtag/js?id=G-0FFVD3N1QG`}
-					/>
-
-					<Script
-						id="gtag-init"
-						strategy="afterInteractive"
-						dangerouslySetInnerHTML={{
-							__html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-0FFVD3N1QG', {
-              page_path: window.location.pathname,
-            });
-          `,
-						}}
-					/>
+					{/* Google Analytics & GTM are now loaded via GoogleTagSchema component in body */}
 
 					<Script
 						strategy="afterInteractive"

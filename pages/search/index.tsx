@@ -8,7 +8,7 @@ import { ProductCard } from "@/components/product";
 import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { ProductType, Products } from "@/models/products";
-import { COLOR_CODE } from "@/utils";
+import { COLOR_CODE, trackSearch } from "@/utils";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
 	Accordion,
@@ -59,6 +59,8 @@ const Search: NextPageWithLayout = ({ products, productTypes, banner }: Props) =
 	React.useEffect(() => {
 		if (q) {
 			setCurrentFilter(q);
+			// Track search query
+			trackSearch(q as string);
 		}
 	}, [q]);
 
