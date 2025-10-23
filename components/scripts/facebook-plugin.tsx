@@ -1,3 +1,4 @@
+import envConst from "@/utils/env-const";
 import * as React from "react";
 
 declare global {
@@ -16,10 +17,10 @@ declare global {
 export function FacebookChatPlugin() {
 	React.useEffect(() => {
 		if (typeof window === "undefined") return; // SSR guard
-		const enabled = process.env.NEXT_PUBLIC_ENABLE_FB_CHAT !== "false";
+		const enabled = envConst.ENABLE_FB_CHAT !== "false";
 		if (!enabled) return;
 
-		const PAGE_ID = process.env.NEXT_PUBLIC_FACEBOOK_PAGE_ID;
+		const PAGE_ID = envConst.FACEBOOK_PAGE_ID;
 		const chatbox = document.getElementById("fb-customer-chat");
 		if (chatbox) {
 			chatbox.setAttribute("page_id", PAGE_ID);

@@ -9,6 +9,7 @@
 
 - 🛍️ E-commerce for laptop skins and custom products
 - 📦 Shopping cart with tiered pricing
+- 🔄 Telegram Notifications when new order arrived
 - 💳 Order management via Sanity CMS
 - 📱 Responsive design (mobile-first)
 - 🎨 Custom product visualization
@@ -31,6 +32,7 @@
 - Umami.js
 - Google Analytics 4
 - Google Tag Manager
+- Telegram Bot API
 
 ## 🚀 Setup
 

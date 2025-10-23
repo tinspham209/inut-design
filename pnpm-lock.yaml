@@ -77,6 +77,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      lru-cache:
+        specifier: ^11.2.2
+        version: 11.2.2
       next:
         specifier: 12.3.1
         version: 12.3.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)

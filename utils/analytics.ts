@@ -7,6 +7,7 @@
  * Now includes Umami dual tracking for privacy-focused analytics
  */
 
+import envConst from "./env-const";
 import {
 	trackUmamiProductView,
 	trackUmamiProductClick,
@@ -62,7 +63,7 @@ const isGtagAvailable = (): boolean => {
 export const gtag = (...args: any[]): void => {
 	if (isGtagAvailable()) {
 		window.gtag!(...args);
-	} else if (process.env.NODE_ENV === "development") {
+	} else if (envConst.NODE_ENV === "development") {
 		console.log("[GA Debug]", ...args);
 	}
 };

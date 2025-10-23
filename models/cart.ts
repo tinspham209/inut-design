@@ -70,10 +70,12 @@ export type OrderItemLighter = {
 		_ref: string;
 		_type: "reference";
 	};
+	productName?: string;
 	lighterType: {
 		_ref: string;
 		_type: "reference";
 	};
+	lighterTypeName?: string;
 	quantity: number;
 	unitPrice: number;
 	subtotal: number;
@@ -90,6 +92,7 @@ export type DeliveryInfo = {
 };
 
 export type OrderLighter = {
+	_id?: string;
 	_type: "ordersLighter";
 	orderNumber: string;
 	orderDate: string;

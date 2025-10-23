@@ -5,6 +5,8 @@
  * Complements GA4 tracking for redundancy and privacy compliance
  */
 
+import envConst from "./env-const";
+
 type UmamiTrackFunction = (
 	eventName?: string | object | ((props: any) => any),
 	data?: object
@@ -22,7 +24,11 @@ declare global {
 
 // Helper to check if Umami is available
 const isUmamiAvailable = (): boolean => {
-	return typeof window !== "undefined" && typeof window.umami !== "undefined";
+	return (
+		typeof window !== "undefined" &&
+		typeof window.umami !== "undefined" &&
+		envConst.ENABLE_UMAMI === "true"
+	);
 };
 
 // Core Umami wrapper
@@ -31,7 +37,7 @@ export const umami = {
 		if (isUmamiAvailable()) {
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			window.umami!.track(eventName, data);
-		} else if (process.env.NODE_ENV === "development") {
+		} else if (envConst.NODE_ENV === "development") {
 			console.log("[Umami Debug]", eventName, data);
 		}
 	},
@@ -40,7 +46,7 @@ export const umami = {
 		if (isUmamiAvailable()) {
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			window.umami!.identify(data, additionalData);
-		} else if (process.env.NODE_ENV === "development") {
+		} else if (envConst.NODE_ENV === "development") {
 			console.log("[Umami Identify]", data, additionalData);
 		}
 	},

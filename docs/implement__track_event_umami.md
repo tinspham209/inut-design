@@ -74,7 +74,7 @@ export const umami = {
   track: (event_name?: string | object | Function, data?: object): void => {
     if (isUmamiAvailable()) {
       window.umami!.track(event_name, data);
-    } else if (process.env.NODE_ENV === "development") {
+    } else if (envConst.NODE_ENV === "development") {
       console.log("[Umami Debug]", event_name, data);
     }
   },
@@ -82,7 +82,7 @@ export const umami = {
   identify: (data: object | string, additionalData?: object): void => {
     if (isUmamiAvailable()) {
       window.umami!.identify(data, additionalData);
-    } else if (process.env.NODE_ENV === "development") {
+    } else if (envConst.NODE_ENV === "development") {
       console.log("[Umami Identify]", data, additionalData);
     }
   },

@@ -1,11 +1,12 @@
 import sanityClient from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
 import { CreateOrderLighterInput, OrderLighter } from "@/models/cart";
+import envConst from "@/utils/env-const";
 
 export const client = sanityClient({
-	token: process.env.NEXT_PUBLIC_SANITY_TOKEN,
-	projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-	dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+	token: envConst.SANITY_TOKEN,
+	projectId: envConst.SANITY_PROJECT_ID,
+	dataset: envConst.SANITY_DATASET,
 	apiVersion: "2022-09-19",
 	useCdn: true,
 	ignoreBrowserTokenWarning: true,

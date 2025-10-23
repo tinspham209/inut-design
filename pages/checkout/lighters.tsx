@@ -1,37 +1,38 @@
-import { MainLayout } from "@/components/layout";
-import { NextPageWithLayout } from "@/models/common";
-import { useState, useEffect } from "react";
-import { useLightersCart } from "@/store";
 import { urlFor } from "@/api-client/sanity-client";
-import { formatPrice } from "@/utils/priceCalculator";
-import { CreateOrderLighterInput } from "@/models/cart";
+import { MainLayout } from "@/components/layout";
 import { useCreateLighterOrder } from "@/hooks";
+import { CreateOrderLighterInput } from "@/models/cart";
+import { NextPageWithLayout } from "@/models/common";
+import { useLightersCart } from "@/store";
 import { trackBeginCheckout, trackPurchase } from "@/utils/analytics";
+import { formatPrice } from "@/utils/priceCalculator";
 import {
+	Alert,
 	Box,
 	Button,
 	Card,
 	CardContent,
+	CircularProgress,
 	Container,
 	Divider,
+	FormControl,
 	Grid,
+	InputLabel,
+	MenuItem,
+	Select,
 	Stack,
 	TextField,
 	Typography,
-	MenuItem,
-	Select,
-	FormControl,
-	InputLabel,
-	Alert,
-	CircularProgress,
 } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
-import { useForm, Controller } from "react-hook-form";
-import toast from "react-hot-toast";
+import { useTelegramNotification } from "@/hooks/useTelegramNotification";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { Controller, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 type CheckoutFormData = {
 	customerName: string;
@@ -47,18 +48,18 @@ const LighterCheckout: NextPageWithLayout = () => {
 	const { items, totalItems, totalAmount, clearCart } = useLightersCart();
 	const { trigger: createOrder, isMutating } = useCreateLighterOrder();
 	const [isOrderComplete, setIsOrderComplete] = useState(false);
-
+	const { sendNotification } = useTelegramNotification();
 	const {
 		control,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<CheckoutFormData>({
 		defaultValues: {
-			customerName: "asd",
-			customerPhone: "0932535175",
-			customerEmail: "test@test.tes",
-			deliveryAddress: "asdzxc",
-			notes: "c",
+			customerName: "",
+			customerPhone: "",
+			customerEmail: "",
+			deliveryAddress: "",
+			notes: "",
 			paymentMethod: "cod",
 		},
 	});
@@ -89,10 +90,12 @@ const LighterCheckout: NextPageWithLayout = () => {
 					_ref: item.productId,
 					_type: "reference" as const,
 				},
+				productName: item.productName,
 				lighterType: {
 					_ref: item.lighterTypeId,
 					_type: "reference" as const,
 				},
+				lighterTypeName: item.lighterTypeName,
 				quantity: item.quantity,
 				unitPrice: item.unitPrice,
 				subtotal: item.subtotal,
@@ -122,6 +125,12 @@ const LighterCheckout: NextPageWithLayout = () => {
 
 			// Submit order to Sanity using SWR mutation
 			const createdOrder = await createOrder(orderInput);
+
+			await sendNotification({
+				orderNumber: createdOrder.orderNumber,
+				orderData: createdOrder,
+				orderId: createdOrder._id,
+			});
 
 			// Track purchase conversion
 			trackPurchase(

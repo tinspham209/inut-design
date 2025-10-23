@@ -1,3 +1,4 @@
+import envConst from "@/utils/env-const";
 import axios, { AxiosError } from "axios";
 
 const axiosClient = axios.create({
@@ -15,6 +16,9 @@ axiosClient.interceptors.request.use(
 		// Attach a lightweight request id + timestamp for tracing (no PII)
 		headers["x-request-id"] = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 		headers["x-request-ts"] = new Date().toISOString();
+
+		headers["x-api-key"] = envConst.X_API_KEY;
+
 		// Auth token injection placeholder (uncomment if/when an auth flow is added)
 		// const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null
 		// if (token) (config.headers as any).Authorization = `Bearer ${token}`
