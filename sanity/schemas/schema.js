@@ -15,6 +15,7 @@ import productType from "./productType";
 import products from "./products";
 import shippingFee from "./shippingFee";
 import staticContentEachPage from "./staticContentEachPage";
+import formNhanBaoGia from "./formNhanBaoGia";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -24,13 +25,14 @@ export default createSchema({
 	// to the ones provided by any plugins that are installed
 	types: schemaTypes.concat([
 		/* Your types here! */
+		ordersLighter,
+		formNhanBaoGia,
 		products,
 		productType,
 		macnut,
 		macnutType,
 		lighterProducts,
 		lighterType,
-		ordersLighter,
 		bankInfo,
 		shippingFee,
 		// priceLaptop,

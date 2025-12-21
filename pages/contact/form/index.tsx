@@ -1,6 +1,7 @@
 import { Seo } from "@/components/common";
 import { HeroImage } from "@/components/home";
 import { MainLayout } from "@/components/layout";
+import QuoteRequestFormComponent from "@/components/contact/QuoteRequestForm";
 import { NextPageWithLayout } from "@/models/common";
 import { COLOR_CODE } from "@/utils";
 import { Box, Breadcrumbs, Container, Link as MuiLink, Typography } from "@mui/material";
@@ -13,7 +14,7 @@ const ContactForm: NextPageWithLayout = () => {
 				data={{
 					title: "Đăng ký nhận tư vấn - INUT Design",
 					description:
-						"Điền thông tin để nhận tư vấn về skin laptop, thiết kế, in ấn tại Đà Nẵng. INUT Design sẽ liên hệ bạn sớm nhất.",
+						"Điền thông tin để nhận tư vấn về thiết kế, in ấn tại Đà Nẵng. INUT Design sẽ liên hệ bạn sớm nhất.",
 					url: "https://inutdesign.com/contact/form",
 					thumbnailUrl: "/branding/ogImage.jpg",
 				}}
@@ -37,18 +38,9 @@ const ContactForm: NextPageWithLayout = () => {
 					<Typography color="text.primary">Nhận báo giá</Typography>
 				</Breadcrumbs>
 			</Container>
-			<Box mt={2}>
-				<iframe
-					src="https://docs.google.com/forms/d/e/1FAIpQLSc1qONbFb6jm72FE_Bcsy0VzfyvzYGQ2vefw8mmJwBqmYZS-Q/viewform?embedded=true"
-					width="100%"
-					height="1900"
-					frameBorder="0"
-					marginHeight={0}
-					marginWidth={0}
-				>
-					Đang tải…
-				</iframe>
-			</Box>
+			<Container sx={{ py: 2 }}>
+				<QuoteRequestFormComponent />
+			</Container>
 		</Box>
 	);
 };
