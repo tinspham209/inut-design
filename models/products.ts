@@ -13,6 +13,10 @@ export type Product = {
 		_ref: string;
 		_type: string;
 	};
+	macnutType: {
+		_ref: string;
+		_type: string;
+	};
 	type: string;
 	slug: SanitySlug;
 	special: boolean;

@@ -218,19 +218,18 @@ type Props = {
 export const getStaticProps: GetStaticProps<Props> = async () => {
 	const products: Products = await productsApi.getAllProducts();
 
-	// TODO: find productType undefined
-	console.log(
-		"products undefined: ",
-		products
-			.filter((product) => !product.productType)
-			.map((product) => ({
-				productType: product.productType,
-				name: product.name,
-			}))
-	);
+	const productUndefined = products
+		.filter((product) => !product.productType)
+		.map((product) => ({
+			productType: product.productType,
+			name: product.name,
+		}));
+	if (productUndefined.length > 0) {
+		// TODO: find productType undefined
+		console.log("productUndefined: ", productUndefined);
+	}
 
 	const productTypes: ProductType[] = await productTypeApi.getAll();
-	// console.log("productTypes: ", productTypes);
 
 	const banner: Banner[] = await bannerApi.getBannerPage("products-page");
 

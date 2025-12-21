@@ -23,7 +23,6 @@ const LighterOrderConfirmation: NextPageWithLayout = () => {
 	const { data: orderData, error: orderError, isLoading: loadingOrder } = useOrderByNumber(slug);
 	const shouldFetchBank = orderData?.paymentMethod === "bank_transfer";
 	const { data: bankInfo, isLoading: loadingBankInfo } = usePrimaryBankInfo(!!shouldFetchBank);
-	console.log("orderData: ", orderData);
 
 	const showBankInfo =
 		(shouldFetchBank && orderData?.paymentStatus === "pending") ||
