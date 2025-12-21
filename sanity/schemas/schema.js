@@ -13,6 +13,7 @@ import macnutType from "./macnutType";
 import ordersLighter from "./ordersLighter";
 import productType from "./productType";
 import products from "./products";
+import shippingFee from "./shippingFee";
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
 	// We name our schema
@@ -29,6 +30,7 @@ export default createSchema({
 		lighterType,
 		ordersLighter,
 		bankInfo,
+		shippingFee,
 		// priceLaptop,
 		banner,
 		blockContent,

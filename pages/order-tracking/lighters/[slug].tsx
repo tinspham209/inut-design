@@ -20,10 +20,14 @@ const LighterOrderConfirmation: NextPageWithLayout = () => {
 	const router = useRouter();
 	const { slug, justOrdered } = router.query;
 	const showSuccess = justOrdered === "1";
-
 	const { data: orderData, error: orderError, isLoading: loadingOrder } = useOrderByNumber(slug);
 	const shouldFetchBank = orderData?.paymentMethod === "bank_transfer";
 	const { data: bankInfo, isLoading: loadingBankInfo } = usePrimaryBankInfo(!!shouldFetchBank);
+	console.log("orderData: ", orderData);
+
+	const showBankInfo =
+		(shouldFetchBank && orderData?.paymentStatus === "pending") ||
+		orderData?.paymentStatus === "failed";
 
 	// Loading state
 	if (loadingOrder) {
@@ -46,6 +50,7 @@ const LighterOrderConfirmation: NextPageWithLayout = () => {
 						orderDate={orderData.orderDate}
 						status={orderData.status}
 						paymentStatus={orderData.paymentStatus}
+						trackingNumber={orderData?.trackingNumber}
 					/>
 				</Box>
 				<Box mb={3}>
@@ -63,7 +68,8 @@ const LighterOrderConfirmation: NextPageWithLayout = () => {
 						{loadingBankInfo ? (
 							<LoadingState />
 						) : (
-							bankInfo && (
+							bankInfo &&
+							showBankInfo && (
 								<BankTransferInfo
 									bankInfo={bankInfo}
 									totalAmount={orderData.totalAmount}

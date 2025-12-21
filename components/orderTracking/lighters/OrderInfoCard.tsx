@@ -1,13 +1,27 @@
 import { OrderLighter } from "@/models";
-import { Card, CardContent, Typography, Divider, Grid, Chip, Stack, Box } from "@mui/material";
+import {
+	Card,
+	CardContent,
+	Typography,
+	Divider,
+	Grid,
+	Chip,
+	Stack,
+	Box,
+	IconButton,
+	Tooltip,
+} from "@mui/material";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { format } from "date-fns";
 import React from "react";
+import toast from "react-hot-toast";
 
 interface OrderInfoCardProps {
 	orderNumber?: string;
 	orderDate: string;
 	status?: OrderLighter["status"];
 	paymentStatus?: OrderLighter["paymentStatus"];
+	trackingNumber?: OrderLighter["trackingNumber"];
 }
 
 const STATUS_LABELS: Record<OrderLighter["status"], string> = {
@@ -51,7 +65,18 @@ const OrderInfoCard: React.FC<OrderInfoCardProps> = ({
 	orderDate,
 	status,
 	paymentStatus,
+	trackingNumber,
 }) => {
+	const handleCopyOrderNumber = async (number: string) => {
+		if (!number) return;
+		try {
+			await navigator.clipboard.writeText(number);
+			toast.success("Đã sao chép mã đơn hàng, Hãy lưu lại để tra cứu sau này!");
+		} catch (err) {
+			toast.error("Không thể sao chép!");
+		}
+	};
+
 	return (
 		<Card>
 			<CardContent>
@@ -65,9 +90,20 @@ const OrderInfoCard: React.FC<OrderInfoCardProps> = ({
 							<Typography variant="body2" color="text.secondary">
 								Mã đơn hàng:
 							</Typography>
-							<Typography variant="body1" fontWeight="bold" color="primary.main">
-								{orderNumber}
-							</Typography>
+							<Stack direction="row" alignItems="center" spacing={0.5}>
+								<Typography variant="body1" fontWeight="bold" color="primary.main">
+									{orderNumber}
+								</Typography>
+								<Tooltip title="Sao chép mã đơn hàng" arrow>
+									<IconButton
+										size="small"
+										onClick={() => handleCopyOrderNumber(orderNumber)}
+										sx={{ ml: 0.5, padding: 0.5 }}
+									>
+										<ContentCopyIcon fontSize="small" />
+									</IconButton>
+								</Tooltip>
+							</Stack>
 						</Grid>
 					)}
 					<Grid item xs={12} sm={orderNumber ? 6 : 6}>
@@ -110,6 +146,27 @@ const OrderInfoCard: React.FC<OrderInfoCardProps> = ({
 							</Box>
 						</Stack>
 					</Grid>
+					{trackingNumber && (
+						<Grid item xs={12} sm={6}>
+							<Typography variant="body2" color="text.secondary">
+								Mã Vận đơn:
+							</Typography>
+							<Stack direction="row" alignItems="center" spacing={0.5}>
+								<Typography variant="body1" fontWeight="bold" color="primary.main">
+									{trackingNumber}
+								</Typography>
+								<Tooltip title="Sao chép mã vận đơn" arrow>
+									<IconButton
+										size="small"
+										onClick={() => handleCopyOrderNumber(trackingNumber)}
+										sx={{ ml: 0.5, padding: 0.5 }}
+									>
+										<ContentCopyIcon fontSize="small" />
+									</IconButton>
+								</Tooltip>
+							</Stack>
+						</Grid>
+					)}
 				</Grid>
 			</CardContent>
 		</Card>

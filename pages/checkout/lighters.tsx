@@ -1,3 +1,5 @@
+"use client";
+
 import { urlFor } from "@/api-client/sanity-client";
 import { MainLayout } from "@/components/layout";
 import { useCreateLighterOrder } from "@/hooks";
@@ -26,13 +28,16 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { useTelegramNotification } from "@/hooks/useTelegramNotification";
+import { useShippingFees } from "@/hooks/useShippingFees";
+import { detectShippingFee } from "@/utils/shippingDetection";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { debounce } from "lodash";
 
 type CheckoutFormData = {
 	customerName: string;
@@ -41,6 +46,7 @@ type CheckoutFormData = {
 	deliveryAddress?: string;
 	notes?: string;
 	paymentMethod: "cod" | "bank_transfer";
+	selectedFeeId?: string;
 };
 
 const LighterCheckout: NextPageWithLayout = () => {
@@ -48,10 +54,13 @@ const LighterCheckout: NextPageWithLayout = () => {
 	const { items, totalItems, totalAmount, clearCart } = useLightersCart();
 	const { trigger: createOrder, isMutating } = useCreateLighterOrder();
 	const [isOrderComplete, setIsOrderComplete] = useState(false);
+	const [mounted, setMounted] = useState(false);
 	const { sendNotification } = useTelegramNotification();
 	const {
 		control,
 		handleSubmit,
+		watch,
+		setValue,
 		formState: { errors },
 	} = useForm<CheckoutFormData>({
 		defaultValues: {
@@ -61,8 +70,69 @@ const LighterCheckout: NextPageWithLayout = () => {
 			deliveryAddress: "",
 			notes: "",
 			paymentMethod: "cod",
+			selectedFeeId: "",
 		},
 	});
+
+	// Shipping fees state
+	const { fees, loading: feesLoading } = useShippingFees(true);
+	const deliveryAddress = watch("deliveryAddress");
+	const selectedFeeId = watch("selectedFeeId");
+
+	// Derive selected fee from form value
+	const selectedFee = useMemo(
+		() => fees.find((f) => f._id === selectedFeeId) || null,
+		[fees, selectedFeeId]
+	);
+
+	// Handle hydration - set mounted flag
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
+	// Memoized debounced detection function
+	const detectAndSetFee = useMemo(
+		() =>
+			debounce((address: string, feesList: typeof fees) => {
+				if (!feesList.length) return;
+
+				const getFallback = () =>
+					feesList.find((f) => f.slug === "toan-quoc") || feesList[0] || null;
+
+				if (!address) {
+					const fallback = getFallback();
+					setValue("selectedFeeId", fallback?._id || "");
+					return;
+				}
+
+				const detected = detectShippingFee(address, feesList);
+				if (detected) {
+					setValue("selectedFeeId", detected._id);
+				}
+			}, 300),
+		[setValue]
+	);
+
+	// Initialize and detect shipping fee based on address (client-side only)
+	useEffect(() => {
+		if (!mounted || !fees.length) return;
+
+		const getFallback = () => fees.find((f) => f.slug === "toan-quoc") || fees[0] || null;
+
+		// Initialize with fallback if no fee selected yet
+		if (!selectedFeeId) {
+			const fallback = getFallback();
+			setValue("selectedFeeId", fallback?._id || "");
+			return;
+		}
+
+		// Trigger debounced detection
+		detectAndSetFee(deliveryAddress || "", fees);
+
+		return () => {
+			detectAndSetFee.cancel();
+		};
+	}, [mounted, deliveryAddress, fees, selectedFeeId, setValue, detectAndSetFee]);
 
 	// Track begin checkout on mount
 	useEffect(() => {
@@ -80,6 +150,14 @@ const LighterCheckout: NextPageWithLayout = () => {
 			);
 		}
 	}, [items, totalAmount]);
+
+	// Calculate shipping fee and totals for display (memoized)
+	const shippingFeeValue = useMemo(() => selectedFee?.fee || 0, [selectedFee]);
+	const discountValue = 0; // Placeholder for future discounts
+	const finalAmountDisplay = useMemo(
+		() => totalAmount + shippingFeeValue - discountValue,
+		[totalAmount, shippingFeeValue, discountValue]
+	);
 
 	const onSubmit = async (data: CheckoutFormData) => {
 		try {
@@ -101,8 +179,8 @@ const LighterCheckout: NextPageWithLayout = () => {
 				subtotal: item.subtotal,
 			}));
 
-			// Calculate final amount (can add shipping fee and discount later)
-			const shippingFee = 0;
+			// Calculate final amount with shipping fee & discount
+			const shippingFee = selectedFee?.fee || 0;
 			const discount = 0;
 			const finalAmount = totalAmount + shippingFee - discount;
 
@@ -319,6 +397,35 @@ const LighterCheckout: NextPageWithLayout = () => {
 													/>
 												)}
 											/>
+
+											{/* Shipping fee detection info */}
+											{mounted && (
+												<>
+													{feesLoading ? (
+														<Typography variant="caption" color="text.secondary" sx={{ mt: 1 }}>
+															Đang tải phí vận chuyển...
+														</Typography>
+													) : deliveryAddress ? (
+														selectedFee && (
+															<Alert severity="info" sx={{ mt: 2 }}>
+																<Typography variant="body2" fontWeight="bold">
+																	Phí vận chuyển: {formatPrice(selectedFee.fee)}
+																</Typography>
+																<Typography variant="caption" color="text.secondary">
+																	{selectedFee.name}
+																	{selectedFee.note && ` - ${selectedFee.note}`}
+																</Typography>
+															</Alert>
+														)
+													) : (
+														<Alert severity="warning" sx={{ mt: 2 }}>
+															<Typography variant="caption">
+																Nhập địa chỉ chính xác để hiển thị chi phí vận chuyển...
+															</Typography>
+														</Alert>
+													)}
+												</>
+											)}
 										</Stack>
 									</CardContent>
 								</Card>
@@ -443,11 +550,27 @@ const LighterCheckout: NextPageWithLayout = () => {
 										<Divider />
 
 										<Stack direction="row" justifyContent="space-between">
+											<Typography variant="body2">Tạm tính:</Typography>
+											<Typography variant="body2" fontWeight="bold">
+												{formatPrice(totalAmount)}
+											</Typography>
+										</Stack>
+
+										<Stack direction="row" justifyContent="space-between">
+											<Typography variant="body2">Phí vận chuyển:</Typography>
+											<Typography variant="body2" fontWeight="bold">
+												{formatPrice(shippingFeeValue)}
+											</Typography>
+										</Stack>
+
+										<Divider />
+
+										<Stack direction="row" justifyContent="space-between">
 											<Typography variant="subtitle1" fontWeight="bold">
-												Tổng tiền:
+												Thành tiền:
 											</Typography>
 											<Typography variant="subtitle1" fontWeight="bold" color="primary">
-												{formatPrice(totalAmount)}
+												{formatPrice(finalAmountDisplay)}
 											</Typography>
 										</Stack>
 

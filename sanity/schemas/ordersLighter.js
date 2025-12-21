@@ -31,10 +31,24 @@ export default {
 					{ title: "📦 Completed", value: "completed" },
 					{ title: "❌ Cancelled", value: "cancelled" },
 				],
-				layout: "radio",
+				// layout: "radio",
 			},
 			initialValue: "pending",
 			validation: (Rule) => Rule.required(),
+		},
+		{
+			name: "paymentStatus",
+			title: "Payment Status",
+			type: "string",
+			options: {
+				list: [
+					{ title: "⏳ Pending", value: "pending" },
+					{ title: "✅ Paid", value: "paid" },
+					{ title: "❌ Failed", value: "failed" },
+					{ title: "🔄 Refunded", value: "refunded" },
+				],
+			},
+			initialValue: "pending",
 		},
 
 		// Order Items
@@ -182,20 +196,6 @@ export default {
 				],
 			},
 			initialValue: "cod",
-		},
-		{
-			name: "paymentStatus",
-			title: "Payment Status",
-			type: "string",
-			options: {
-				list: [
-					{ title: "⏳ Pending", value: "pending" },
-					{ title: "✅ Paid", value: "paid" },
-					{ title: "❌ Failed", value: "failed" },
-					{ title: "🔄 Refunded", value: "refunded" },
-				],
-			},
-			initialValue: "pending",
 		},
 
 		// Internal Admin Fields

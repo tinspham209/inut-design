@@ -46,7 +46,8 @@ const OrderItemsList: React.FC<OrderItemsListProps> = ({ items, totalAmount }) =
 				</Stack>
 				<Divider sx={{ my: 2 }} />
 				<Typography variant="caption" color="text.secondary">
-					Giá đã bao gồm in ấn và VAT (nếu có). Vui lòng chờ cuộc gọi xác nhận từ chúng tôi.
+					Giá đã bao gồm in ấn và VAT (nếu có). Nếu bạn muốn xuất hoá đơn bán hàng, vui lòng liên hệ
+					sớm với chúng tôi.
 				</Typography>
 			</CardContent>
 		</Card>
