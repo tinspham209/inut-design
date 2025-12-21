@@ -28,12 +28,17 @@ import "react-awesome-lightbox/build/style.css";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import styles from "./productItem.module.css";
+import { staticContentEachPageApi } from "@/api-client/staticContentEachPage";
+import { StaticContentEachPage } from "@/models";
+import BlockContentWrapper from "@/components/common/block-content";
+
 type Props = {
 	product: Product;
 	products: Products;
+	staticContent: StaticContentEachPage;
 };
 
-const ProductDetail = ({ product, products }: Props) => {
+const ProductDetail = ({ product, products, staticContent }: Props) => {
 	const [isOpenLightBox, setIsOpenLightBox] = React.useState(false);
 
 	// Track product view on mount
@@ -176,12 +181,8 @@ const ProductDetail = ({ product, products }: Props) => {
 									Còn hàng
 								</Typography>
 							</Stack>
-							<Stack mt={2}>
-								<Typography variant="body1" mb={2}>
-									Freeship toàn quốc 0Đ
-								</Typography>
-							</Stack>
-							<Stack flexDirection="row" alignItems={"center"}>
+
+							<Stack flexDirection="row" alignItems={"center"} mt={2}>
 								<MuiLink
 									href={`https://m.me/642209429738886?text=${encodeURI(
 										`I want to order product macnut ${product.name}. Can you support me?`
@@ -212,23 +213,9 @@ const ProductDetail = ({ product, products }: Props) => {
 								<Typography variant="h6" fontWeight={"bold"}>
 									Mô tả sản phẩm:
 								</Typography>
-								<Typography variant="body1" mt={1}>
-									<b>Chất liệu</b>: Film Vinyl chuyên ứng dụng trong ngành ô tô, dùng để bảo vệ sơn
-									tránh khỏi trầy xước, tác động của ngoại lực trong thời gian sử dụng
-								</Typography>
-								<Typography variant="body1" mt={1}>
-									<b>Chống nước</b>: Có
-								</Typography>
-								<Typography variant="body1" mt={1}>
-									<b>Loại máy phù hợp</b>: Cắt theo kích thước laptop, in hình, chọn phối màu tuỳ ý
-								</Typography>
-								<Typography variant="body1" mt={1}>
-									<b>Vệ sinh máy</b>: Có, sẽ vệ sinh vỏ ngoài. Không vệ sinh bên trong máy.
-								</Typography>
-								<Typography variant="body1" mt={1}>
-									<b>Dữ liệu máy tính</b>: Không mất dữ liệu, không can thiệp vào bên trong máy cũng
-									như không mở máy. Chỉ vệ sinh và dán ở vỏ ngoài.
-								</Typography>
+								<Box mt={1}>
+									<BlockContentWrapper blocks={staticContent?.moTaSanPham} />
+								</Box>
 								<Typography variant="body1" mt={1}>
 									<b>Mô tả thêm</b>: {product.details}
 								</Typography>
@@ -247,15 +234,9 @@ const ProductDetail = ({ product, products }: Props) => {
 						<Typography variant="h6" fontWeight={"bold"}>
 							Cam Kết Mua Sản Phẩm tại INUT
 						</Typography>
-						<Typography variant="body1" mt={1}>
-							1. Cam kết sản phẩm chất lượng 100% so với hình ảnh quảng cáo <br />
-							2. Mọi thông tin quảng cáo đều phù hợp với sản phẩm thực tế <br />
-							3. Nếu sản phẩm bị lỗi hoặc xảy ra sự cố trong quá trình vận chuyển, sử dụng. Chúng
-							tôi sẽ hỗ trợ ngay cho quý khách hàng và sẽ chịu trách nhiệm hoàn toàn để phục vụ
-							khách hàng tốt nhất
-							<br />
-							4. Cam kết bảo hành mọi vấn đề trong vòng 2 tháng sử dụng sản phẩm <br />
-						</Typography>
+						<Box mt={1}>
+							<BlockContentWrapper blocks={staticContent?.camKetMuaHang} />
+						</Box>
 					</Box>
 				</Container>
 				<Box mt={2}>
@@ -327,11 +308,13 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async ({ params: { slug } }) => {
 	const product = await productsApi.getProductBySlugMacnut(slug as string);
 	const products = await productsApi.getAllProductsMacnut(20);
+	const staticContent = await staticContentEachPageApi.getStaticContentBySlug("macnut");
 
 	return {
 		props: {
 			product,
 			products: products.filter((product) => !product._id.includes("drafts")),
+			staticContent,
 		},
 		revalidate: 86400,
 	};

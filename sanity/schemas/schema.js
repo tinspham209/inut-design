@@ -14,6 +14,8 @@ import ordersLighter from "./ordersLighter";
 import productType from "./productType";
 import products from "./products";
 import shippingFee from "./shippingFee";
+import staticContentEachPage from "./staticContentEachPage";
+
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
 	// We name our schema
@@ -32,6 +34,7 @@ export default createSchema({
 		bankInfo,
 		shippingFee,
 		// priceLaptop,
+		staticContentEachPage,
 		banner,
 		blockContent,
 	]),

@@ -16,6 +16,9 @@ import { Box, Card, CardContent, Container, Grid, Typography } from "@mui/materi
 import { GetStaticPaths, GetStaticProps } from "next";
 import dynamic from "next/dynamic";
 import React from "react";
+import { staticContentEachPageApi } from "@/api-client/staticContentEachPage";
+import { StaticContentEachPage } from "@/models";
+import BlockContentWrapper from "@/components/common/block-content";
 // Removed legacy Seo usage; using SEOHead component for meta + structured data
 
 // Dynamically import Gallery (depends on carousel & lightbox which are browser only)
@@ -25,9 +28,15 @@ type Props = {
 	lighter: LighterProductWithType;
 	lighters: LighterProduct[];
 	lighterType: LighterType | null;
+	staticContent?: StaticContentEachPage;
 };
 
-const LighterDetail: NextPageWithLayout = ({ lighter, lighters, lighterType }: Props) => {
+const LighterDetail: NextPageWithLayout = ({
+	lighter,
+	lighters,
+	lighterType,
+	staticContent,
+}: Props) => {
 	const priceTiers = React.useMemo(() => {
 		if (!lighterType?.priceTiers) return [];
 		return getPriceTierOptions(lighterType.priceTiers);
@@ -128,14 +137,9 @@ const LighterDetail: NextPageWithLayout = ({ lighter, lighters, lighterType }: P
 									<Typography variant="subtitle1" fontWeight={600} gutterBottom>
 										Cam Kết Mua Sản Phẩm tại INUT
 									</Typography>
-									<Typography variant="body2" component="div" sx={{ lineHeight: 1.6 }}>
-										1. Cam kết sản phẩm chất lượng 100% so với hình ảnh quảng cáo <br />
-										2. Mọi thông tin quảng cáo đều phù hợp với sản phẩm thực tế <br />
-										3. Nếu sản phẩm bị lỗi hoặc xảy ra sự cố trong quá trình vận chuyển, sử dụng
-										chúng tôi sẽ hỗ trợ ngay và chịu trách nhiệm phục vụ tốt nhất <br />
-										4. Đặt hàng số lượng lớn được hỗ trợ giá tốt <br />
-										5. Hỗ trợ thiết kế miễn phí theo yêu cầu <br />
-									</Typography>
+									<Box mt={1}>
+										<BlockContentWrapper blocks={staticContent?.camKetMuaHang} />
+									</Box>
 								</CardContent>
 							</Card>
 						</Grid>
@@ -205,11 +209,14 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 				console.error("Error fetching lighter type", e);
 			}
 		}
+		const staticContent = await staticContentEachPageApi.getStaticContentBySlug("lighters");
+
 		return {
 			props: {
 				lighter,
 				lighters: lighters.filter((l: LighterProduct) => !l._id.includes("drafts")),
 				lighterType,
+				staticContent,
 			},
 			revalidate: 86400,
 		};
