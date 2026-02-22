@@ -28,7 +28,7 @@ export const ROUTE_LIST = [
 		path: "/contact",
 	},
 	{
-		label: "Tra cứu đơn hàng",
+		label: "Tra đơn",
 		path: "/order-tracking",
 	},
 ];

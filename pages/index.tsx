@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	const specialProducts = await productsApi.getSpecialProducts(12);
 	const specialMacnuts = await productsApi.getSpecialProductsMacnut(12);
 	const specialLighters = await lightersApi.getSpecialLighters(12);
-	const blogs = postList.sort((a, b) => (a.publishedDate < b.publishedDate ? 1 : -1)).slice(0, 5);
+	const blogs = postList.sort((a, b) => (a.publishedDate < b.publishedDate ? 1 : -1)).slice(0, 3);
 
 	return {
 		props: {
