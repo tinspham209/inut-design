@@ -26,9 +26,10 @@ interface LighterCardProps {
 	};
 	lighterTypes: LighterType[];
 	onCartOpen?: () => void; // Optional since it's not currently used
+	href?: string;
 }
 
-const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes }) => {
+const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, href }) => {
 	const addItem = useLightersCart((state) => state.addItem);
 	const [hovered, setHovered] = React.useState(false);
 
@@ -126,7 +127,7 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes }) => {
 					flexDirection: "column",
 				}}
 			>
-				<Link href={`/lighters/${lighter.slug.current}`} passHref>
+				<Link href={href || `/lighters/${lighter.slug.current}`} passHref>
 					<MuiLink
 						sx={{ textDecoration: "none" }}
 						onClick={() =>
