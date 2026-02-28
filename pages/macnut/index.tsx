@@ -4,7 +4,7 @@ import { productTypeApi } from "@/api-client/productType";
 import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
 import { MainLayout } from "@/components/layout";
-import { ProductCard } from "@/components/product";
+import { MacnutCustomizeCard, ProductCard } from "@/components/product";
 import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { Products, ProductType } from "@/models/products";
@@ -108,6 +108,9 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 						}}
 					>
 						<Grid container item xs={12} md={9} spacing={3} id="productTitle">
+							<Grid item xs={6} md={4}>
+								<MacnutCustomizeCard />
+							</Grid>
 							{products.map((product) => {
 								if (product.type.includes(currentFilter as string)) {
 									return (
