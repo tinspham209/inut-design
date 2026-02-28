@@ -23,7 +23,14 @@ export function MainLayout({ children }: LayoutProps) {
 				<Stack minHeight="100vh">
 					<Header />
 
-					<Box component="main" flexGrow={1} mt={8}>
+					<Box
+						component="main"
+						flexGrow={1}
+						mt={{
+							xs: 10,
+							md: 9,
+						}}
+					>
 						{children}
 					</Box>
 

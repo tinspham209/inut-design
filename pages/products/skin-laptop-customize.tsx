@@ -17,6 +17,7 @@ import {
 	WhyInutSection,
 	ContactSection,
 } from "./components/skin-laptop-customize";
+import { FormQuoteRequestType } from "@/models/quoteRequest";
 
 const HERO_IMAGE = "/branding/logo.webp";
 
@@ -73,7 +74,8 @@ const SKIN_TYPES = [
 	},
 	{
 		name: "Skin Cắt Tỉa Theo Yêu Cầu",
-		description: "Cắt sát layout logo hoặc viền chi tiết lạ mắt, tạo hình dán đa dạng ngoài kích thước chung",
+		description:
+			"Cắt sát layout logo hoặc viền chi tiết lạ mắt, tạo hình dán đa dạng ngoài kích thước chung",
 		image: HERO_IMAGE,
 	},
 ];
@@ -107,25 +109,6 @@ const APPLICATIONS = [
 	},
 ];
 
-const CONTACTS = [
-	{
-		name: "MR. TOM",
-		role: "INUT Product Manager",
-		roleBadge: "INUT PRODUCT\nMANAGER",
-		phone: "0792359996",
-		displayPhone: "0792 359 996",
-		photoUrl: "/lighters-storage/contact-1.avif",
-	},
-	{
-		name: "MS. BOO",
-		role: "INUT Sale Manager",
-		roleBadge: "INUT SALE\nMANAGER",
-		phone: "0777208215",
-		displayPhone: "0777 208 215",
-		photoUrl: "/lighters-storage/contact-2.avif",
-	},
-];
-
 const SkinLaptopCustomizePage: NextPageWithLayout = () => {
 	return (
 		<>
@@ -155,7 +138,7 @@ const SkinLaptopCustomizePage: NextPageWithLayout = () => {
 
 					<Divider sx={{ my: { xs: 2, md: 3 } }} />
 
-					<ContactSection contacts={CONTACTS} />
+					<ContactSection type={FormQuoteRequestType.LAPTOP_CUSTOMIZE} />
 
 					<Divider sx={{ my: { xs: 2, md: 3 } }} />
 

@@ -32,3 +32,12 @@ export type CreateQuoteRequestInput = {
 export type QuoteRequestForm = CreateQuoteRequestInput & {
 	_id?: string;
 };
+
+export enum FormQuoteRequestType {
+	STICKER_SHEET = "sticker-sheet",
+	STICKER_DIECUT = "sticker-diecut",
+	LAPTOP_CUSTOMIZE = "laptop-customize",
+	PHONE_CUSTOMIZE = "phone-customize",
+	LIGHTER_CUSTOMIZE = "lighter-customize",
+	MACNUT_CUSTOMIZE = "macnut-customize",
+}

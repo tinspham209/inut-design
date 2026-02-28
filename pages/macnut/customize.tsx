@@ -17,6 +17,7 @@ import {
 	ProductGallery,
 	WhyInutSection,
 } from "./components/customize";
+import { FormQuoteRequestType } from "@/models/quoteRequest";
 
 const HERO_IMAGE = "/branding/logo.webp";
 
@@ -26,12 +27,14 @@ const GALLERY_IMAGES = Array.from({ length: 17 }).map(() => HERO_IMAGE);
 const HIGHLIGHTS = [
 	{
 		title: "Chất liệu siêu mỏng",
-		description: "Độ dày vừa vặn, không ảnh hưởng đến độ nảy hay phản hồi của phím khi gõ, không chạm màn hình.",
+		description:
+			"Độ dày vừa vặn, không ảnh hưởng đến độ nảy hay phản hồi của phím khi gõ, không chạm màn hình.",
 		icon: <WorkspacePremiumIcon color="primary" />,
 	},
 	{
 		title: "In xuyên thấu thông minh",
-		description: "Hỗ trợ cắt hở font chữ cho cả led phím xuyên qua (đối với một số dòng máy có led).",
+		description:
+			"Hỗ trợ cắt hở font chữ cho cả led phím xuyên qua (đối với một số dòng máy có led).",
 		icon: <LocalPrintshopIcon color="primary" />,
 	},
 	{
@@ -41,7 +44,8 @@ const HIGHLIGHTS = [
 	},
 	{
 		title: "Tái tạo phím cũ",
-		description: "Khôi phục vẻ đẹp cho những bàn phím đã bị bóng, tróc sơn hoặc mờ chữ do quá trình sử dụng.",
+		description:
+			"Khôi phục vẻ đẹp cho những bàn phím đã bị bóng, tróc sơn hoặc mờ chữ do quá trình sử dụng.",
 		icon: <BoltIcon color="primary" />,
 	},
 ];
@@ -67,7 +71,8 @@ const MACNUT_TYPES = [
 	},
 	{
 		name: "Decal Set Phím Lẻ",
-		description: "Chỉ in và dán một số phím thông dụng (Space, W A S D) theo ý định gaming, làm việc",
+		description:
+			"Chỉ in và dán một số phím thông dụng (Space, W A S D) theo ý định gaming, làm việc",
 		image: HERO_IMAGE,
 	},
 	{
@@ -106,25 +111,6 @@ const APPLICATIONS = [
 	},
 ];
 
-const CONTACTS = [
-	{
-		name: "MR. TOM",
-		role: "INUT Product Manager",
-		roleBadge: "INUT PRODUCT\nMANAGER",
-		phone: "0792359996",
-		displayPhone: "0792 359 996",
-		photoUrl: "/lighters-storage/contact-1.avif",
-	},
-	{
-		name: "MS. BOO",
-		role: "INUT Sale Manager",
-		roleBadge: "INUT SALE\nMANAGER",
-		phone: "0777208215",
-		displayPhone: "0777 208 215",
-		photoUrl: "/lighters-storage/contact-2.avif",
-	},
-];
-
 const MacnutCustomizePage: NextPageWithLayout = () => {
 	return (
 		<>
@@ -154,7 +140,7 @@ const MacnutCustomizePage: NextPageWithLayout = () => {
 
 					<Divider sx={{ my: { xs: 2, md: 3 } }} />
 
-					<ContactSection contacts={CONTACTS} />
+					<ContactSection type={FormQuoteRequestType.MACNUT_CUSTOMIZE} />
 
 					<Divider sx={{ my: { xs: 2, md: 3 } }} />
 

@@ -1,6 +1,7 @@
+import { FormQuoteRequestType } from "@/models";
 import { Box, Button, Grid, Link, Paper, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import React from "react";
+import React, { ReactNode } from "react";
 
 interface Contact {
 	name: string;
@@ -12,10 +13,18 @@ interface Contact {
 }
 
 interface ContactSectionProps {
-	contacts: Contact[];
+	contacts?: Contact[];
+	title?: ReactNode;
+	description?: ReactNode;
+	type?: FormQuoteRequestType;
 }
 
-export const ContactSection: React.FC<ContactSectionProps> = ({ contacts }) => {
+export const ContactSection: React.FC<ContactSectionProps> = ({
+	title = "Đặt in theo yêu cầu",
+	description = "Liên hệ ngay để nhận báo giá nhanh và tư vấn mẫu thiết kế phù hợp nhất với dòng máy của bạn.",
+	contacts = CONTACTS,
+	type,
+}) => {
 	return (
 		<Box id="order">
 			<Paper
@@ -34,13 +43,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ contacts }) => {
 						fontWeight={800}
 						sx={{ fontSize: { xs: "1.5rem", md: "2.125rem" } }}
 					>
-						Đặt in theo yêu cầu
+						{title}
 					</Typography>
 					<Typography color="text.secondary" sx={{ fontSize: { xs: "0.875rem", md: "1rem" } }}>
-						Liên hệ ngay để nhận báo giá nhanh và tư vấn mẫu thiết kế phù hợp nhất với dòng máy của bạn.
+						{description}
 					</Typography>
 					<Stack direction="row" justifyContent="center" sx={{ pt: 0.5 }}>
-						<Link href="/contact/form" passHref>
+						<Link href={`/contact/form?from=${type}`}>
 							<Button
 								variant="contained"
 								color="primary"
@@ -81,3 +90,22 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ contacts }) => {
 		</Box>
 	);
 };
+
+export const CONTACTS = [
+	{
+		name: "MR. TOM",
+		role: "INUT Product Manager",
+		roleBadge: "INUT PRODUCT\nMANAGER",
+		phone: "0792359996",
+		displayPhone: "0792 359 996",
+		photoUrl: "/lighters-storage/contact-1.avif",
+	},
+	{
+		name: "MS. BOO",
+		role: "INUT Sale Manager",
+		roleBadge: "INUT SALE\nMANAGER",
+		phone: "0777208215",
+		displayPhone: "0777 208 215",
+		photoUrl: "/lighters-storage/contact-2.avif",
+	},
+];

@@ -16,8 +16,9 @@ import {
 	LighterTypesSection,
 	ProductGallery,
 	WhyInutSection,
-	ContactSection,
 } from "./components/customize";
+import { FormQuoteRequestType } from "@/models/quoteRequest";
+import { ContactSection } from "../macnut/components/customize";
 
 const HERO_IMAGE = "/branding/logo.webp";
 
@@ -155,7 +156,10 @@ const LightersCustomizePage: NextPageWithLayout = () => {
 
 					<Divider sx={{ my: { xs: 2, md: 3 } }} />
 
-					<ContactSection contacts={CONTACTS} />
+					<ContactSection
+						description="Liên hệ ngay để nhận báo giá nhanh và tư vấn mẫu thiết kế phù hợp nhất với nhu cầu của bạn."
+						type={FormQuoteRequestType.LIGHTER_CUSTOMIZE}
+					/>
 
 					<Divider sx={{ my: { xs: 2, md: 3 } }} />
 
