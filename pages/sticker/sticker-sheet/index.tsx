@@ -31,7 +31,7 @@ const HIGHLIGHTS = [
 		icon: <DesignServicesIcon color="primary" />,
 	},
 	{
-		title: "Thiết Kế",
+		title: "Thiết kế",
 		description:
 			"Mỗi hình ảnh được tạo đường cắt tỉ mỉ, dễ bóc dễ dùng. Hỗ trợ đa dạng thiết kế từ logo, chữ cho đến hình ảnh phức tạp.",
 		icon: <LocalPrintshopIcon color="primary" />,
@@ -43,7 +43,7 @@ const HIGHLIGHTS = [
 		icon: <WorkspacePremiumIcon color="primary" />,
 	},
 	{
-		title: "Công Năng",
+		title: "Công năng",
 		description:
 			"Giải pháp quà tặng hiệu quả cho doanh nghiệp: truyền tải logo, slogan, mascot và thông điệp để tăng ghi nhớ thương hiệu.",
 		icon: <BoltIcon color="primary" />,
@@ -54,7 +54,7 @@ const CUSTOM_BULLETS = [
 	"Sticker Sheet là giải pháp lý tưởng cho người yêu sự đa dạng và sáng tạo, đặc biệt khi cần nhiều mẫu trên cùng một tờ.",
 	"Chống nước, bền màu và không phai dưới nắng, phù hợp sử dụng trong nhiều điều kiện thời tiết.",
 	"Sticker Sheet linh hoạt hơn khi gom nhiều thiết kế trên một bề mặt đã cắt bế sẵn.",
-	"Giúp bạn vừa tối ưu chi phí in, vừa tăng tính nhận diện cho cá nhân, shop online và thương hiệu.",
+	"Giúp bạn vừa tối ưu chi phí in, vừa tăng nhận diện cho cá nhân, cửa hàng trực tuyến và thương hiệu.",
 	"Đặt hàng nhanh: chỉ cần gửi thiết kế, số lượng và kích thước mong muốn để INUT triển khai.",
 ];
 
@@ -99,7 +99,7 @@ const APPLICATIONS = [
 	},
 	{
 		title: "Sản phẩm bán lẻ",
-		description: "Mở rộng danh mục bán hàng, dễ upsell trong các chiến dịch online.",
+		description: "Mở rộng danh mục bán hàng, dễ bán kèm trong các chiến dịch bán hàng trực tuyến.",
 		icon: <EventAvailableIcon color="primary" />,
 	},
 	{

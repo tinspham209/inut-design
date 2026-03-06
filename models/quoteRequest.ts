@@ -34,8 +34,15 @@ export type QuoteRequestForm = CreateQuoteRequestInput & {
 };
 
 export enum FormQuoteRequestType {
+	IN_ANH = "in-anh",
+	BANG_CUNG_IN_THONG_TIN = "bang-cung-in-thong-tin",
+	MOC_KHOA_MICA = "moc-khoa-mica",
+	PIN_CAI_AO_MICA = "pin-cai-ao-mica",
+	ACRYLIC_MAGNET = "acrylic-magnet",
 	STICKER_SHEET = "sticker-sheet",
+	STICKER_MAGNET = "sticker-magnet",
 	STICKER_DIECUT = "sticker-diecut",
+	STICKER_KISSCUT = "sticker-kisscut",
 	LAPTOP_CUSTOMIZE = "laptop-customize",
 	PHONE_CUSTOMIZE = "phone-customize",
 	LIGHTER_CUSTOMIZE = "lighter-customize",

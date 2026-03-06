@@ -86,7 +86,7 @@ export const WhyInutSection: React.FC<WhyInutSectionProps> = ({ applications }) 
 										variant="body2"
 										sx={{ fontSize: { xs: "0.8125rem", md: "0.875rem" } }}
 									>
-										Đáp ứng tốt các kế hoạch event, quà tặng hoặc ra mắt sản phẩm đúng tiến độ.
+										Đáp ứng tốt các kế hoạch sự kiện, quà tặng hoặc ra mắt sản phẩm đúng tiến độ.
 									</Typography>
 								</Box>
 							</Stack>

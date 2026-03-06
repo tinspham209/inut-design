@@ -117,7 +117,7 @@ export const StickerSheetTypesSection: React.FC<StickerSheetTypesSectionProps> =
 						gutterBottom
 						sx={{ fontSize: { xs: "1rem", md: "1.25rem" } }}
 					>
-						Tùy chọn kíck thước giấy in
+						Tùy chọn kích thước giấy in
 					</Typography>
 					<List sx={{ color: "text.primary", py: 0 }}>
 						{paperOptions.map((option) => (

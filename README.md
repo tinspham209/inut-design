@@ -91,6 +91,18 @@ sanity deploy
 - [Copilot Instructions](./.github/copilot-instructions.md) - Development guidelines
 - [Sanity Architecture](./sanity/docs/ARCHITECTURE.md) - CMS documentation
 
+### AI Assistant Toolkit
+- [Copilot Repo Instructions](./.github/copilot-instructions.md) - Global agent behavior for this codebase
+- [Scoped Instructions](./.github/instructions/) - File-pattern specific instructions (frontend, Sanity, analytics, blog)
+- [Maintainer Agent](./.github/agents/inut-maintainer.agent.md) - Specialized agent mode for medium/large tasks
+- [Content Writer Agent](./.github/agents/inut-content-writer.agent.md) - Specialized agent mode for Vietnamese SEO product/marketing copy
+- [Project Skill](./.github/skills/inut-design-workflow/SKILL.md) - Repeatable implementation workflow
+- [Content Writer Skill](./.github/skills/inut-content-writer/SKILL.md) - Vietnamese SEO product-content writing system prompt for INUT Design
+- [Prompt Templates](./.github/prompts/) - Reusable prompts for feature work, bug fixing, regression checks, and content writing
+- [Write Product Content Prompt](./.github/prompts/write-product-content.prompt.md) - Guided prompt for product name + keyword + audience
+- [MCP Tooling Guide](./docs/ai/MCP_TOOLING_GUIDE.md) - Tool/MCP usage playbook for this repo
+- [Developer Effectiveness Playbook](./docs/ai/DEVELOPER_EFFECTIVENESS.md) - Fast QA and productivity recommendations
+
 ## 🏗️ Project Structure
 
 ```

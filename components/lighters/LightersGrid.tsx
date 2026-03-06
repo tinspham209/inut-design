@@ -29,8 +29,6 @@ const LightersGrid: React.FC<LightersGridProps> = ({ lighters, lighterTypes, onC
 		lighter.typeSlug.includes((filter as string) || "")
 	);
 
-	console.log("filteredLighters: ", filteredLighters);
-
 	return (
 		<>
 			<Grid item {...gridItemProps}>

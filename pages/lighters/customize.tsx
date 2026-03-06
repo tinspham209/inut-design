@@ -16,9 +16,9 @@ import {
 	LighterTypesSection,
 	ProductGallery,
 	WhyInutSection,
-} from "./components/customize";
+} from "../../components/lighters/customize";
 import { FormQuoteRequestType } from "@/models/quoteRequest";
-import { ContactSection } from "../macnut/components/customize";
+import { ContactSection } from "@/components/macnut-customize";
 
 const HERO_IMAGE = "/branding/logo.webp";
 

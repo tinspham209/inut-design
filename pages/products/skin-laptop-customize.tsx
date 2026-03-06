@@ -16,7 +16,7 @@ import {
 	ProductGallery,
 	WhyInutSection,
 	ContactSection,
-} from "./components/skin-laptop-customize";
+} from "../../components/skin-laptop-customize";
 import { FormQuoteRequestType } from "@/models/quoteRequest";
 
 const HERO_IMAGE = "/branding/logo.webp";

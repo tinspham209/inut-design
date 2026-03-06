@@ -16,7 +16,7 @@ import {
 	MacnutTypesSection,
 	ProductGallery,
 	WhyInutSection,
-} from "./components/customize";
+} from "@/components/macnut-customize";
 import { FormQuoteRequestType } from "@/models/quoteRequest";
 
 const HERO_IMAGE = "/branding/logo.webp";
