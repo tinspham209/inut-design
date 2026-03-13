@@ -132,6 +132,8 @@ docs/
 
 ### Project Root Documents
 - [/.github/copilot-instructions.md](../.github/copilot-instructions.md) - Project overview and conventions
+- [/AGENTS.md](../AGENTS.md) - Editor-agnostic AI rules and multi-editor workflow baseline
+- [/docs/ai/DUAL_EDITOR_WORKFLOW.md](../docs/ai/DUAL_EDITOR_WORKFLOW.md) - Unified AI workflow across editors
 - [/sanity/docs/ARCHITECTURE.md](../sanity/docs/ARCHITECTURE.md) - Sanity CMS architecture
 - [/sanity/docs/shopping-cart.md](../sanity/docs/shopping-cart.md) - Shopping cart implementation
 

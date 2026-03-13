@@ -1,13 +1,14 @@
-# Dual Editor AI Workflow (GitHub Copilot + Antigravity)
+# Multi Editor AI Workflow (GitHub Copilot + Antigravity + Codex)
 
 This guide lets the team run one consistent AI workflow in:
 
 - **VS Code + GitHub Copilot**
 - **Antigravity Editor**
+- **Codex IDE**
 
 ## Why this exists
 
-Current `.github/*` assets are optimized for Copilot (agents, skills, prompt frontmatter). Antigravity can still follow the same behavior when we use:
+Current `.github/*` assets are optimized for Copilot (agents, skills, prompt frontmatter). Antigravity and Codex can still follow the same behavior when we use:
 
 1. Shared repo rules in `AGENTS.md`
 2. Editor-agnostic prompt templates in `docs/ai/PORTABLE_PROMPTS.md`
@@ -31,15 +32,21 @@ Current `.github/*` assets are optimized for Copilot (agents, skills, prompt fro
 3. Start tasks from `docs/ai/PORTABLE_PROMPTS.md` templates or the `/add-feature`, `/fix-bug` workflows.
 4. Reuse the same guardrails (cart/checkout/Sanity/analytics/blog) and verification order.
 
+### In Codex IDE
+
+1. Use `AGENTS.md` as your baseline project behavior.
+2. Ensure `.codex/{agents,prompts,skills,workflows}` are symlinked to `.agents/*`.
+3. Use the same workflows and skills as Antigravity (they are identical files).
+
 ## Mapping table
 
-| Intent                      | Copilot-native asset                     | Antigravity equivalent                                    |
-| --------------------------- | ---------------------------------------- | --------------------------------------------------------- |
-| Global repo rules           | `.github/copilot-instructions.md`        | `AGENTS.md`                                               |
-| Scoped coding rules         | `.github/instructions/*.instructions.md` | Follow referenced rules via `AGENTS.md` + this doc        |
-| Specialized execution modes | `.github/agents/*.agent.md`              | `.agents/agents/*.agent.md`                               |
-| Reusable task prompts       | `.github/prompts/*.prompt.md`            | `docs/ai/PORTABLE_PROMPTS.md` or `.agents/workflows/*.md` |
-| Workflow playbook           | `.github/skills/*/SKILL.md`              | `.agents/skills/*/SKILL.md`                               |
+| Intent                      | Copilot-native asset                     | Antigravity equivalent                                    | Codex equivalent                                          |
+| --------------------------- | ---------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
+| Global repo rules           | `.github/copilot-instructions.md`        | `AGENTS.md`                                               | `AGENTS.md`                                               |
+| Scoped coding rules         | `.github/instructions/*.instructions.md` | Follow referenced rules via `AGENTS.md` + this doc        | Follow referenced rules via `AGENTS.md` + this doc        |
+| Specialized execution modes | `.github/agents/*.agent.md`              | `.agents/agents/*.agent.md`                               | `.codex/agents/*.agent.md`                                |
+| Reusable task prompts       | `.github/prompts/*.prompt.md`            | `docs/ai/PORTABLE_PROMPTS.md` or `.agents/workflows/*.md` | `docs/ai/PORTABLE_PROMPTS.md` or `.codex/workflows/*.md`  |
+| Workflow playbook           | `.github/skills/*/SKILL.md`              | `.agents/skills/*/SKILL.md`                               | `.codex/skills/*/SKILL.md`                                |
 
 ## Team operating model
 
@@ -52,8 +59,9 @@ For consistency across editors:
 
 ## Notes
 
-- Keep both trees aligned for native editor support:
+- Keep all trees aligned for native editor support:
    - `.github/*` for Copilot
    - `.agents/{agents,prompts,skills,workflows}/*` for Antigravity
-- Canonical source is `.agents/*`; `.github/{agents,prompts,skills}` are symlinked mirrors.
+   - `.codex/{agents,prompts,skills,workflows}/*` for Codex
+- Canonical source is `.agents/*`; `.github/{agents,prompts,skills}` and `.codex/{agents,prompts,skills,workflows}` are symlinked mirrors.
 - Keep `AGENTS.md` and `docs/ai/PORTABLE_PROMPTS.md` updated whenever prompts/workflows are changed.

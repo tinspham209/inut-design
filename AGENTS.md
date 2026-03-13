@@ -4,6 +4,7 @@ This file defines the **shared working contract** for AI assistants used in this
 
 - GitHub Copilot in VS Code
 - Antigravity Editor assistants
+- Codex IDE assistants
 
 If an editor supports `AGENTS.md`, treat this file as the primary repo behavior baseline.
 
@@ -80,10 +81,12 @@ Canonical order item shape:
 - Antigravity-native assets: `.agents/workflows/*` (use `/` inside Antigravity to run them)
 - Copilot-native assets: `.github/copilot-instructions.md`, `.github/prompts/*`, `.github/skills/*`, `.github/agents/*`
 
-## Dual-editor compatibility policy
+## Multi-editor compatibility policy
 
-- Keep both trees available for native IDE ingestion:
+- Keep all trees available for native IDE ingestion:
   - Copilot reads `.github/*`
   - Antigravity reads `.agents/{agents,prompts,skills,workflows}/*`
+  - Codex reads `.codex/{agents,prompts,skills,workflows}/*`
 - Keep `.agents/*` as the single source of truth.
 - `.github/{agents,prompts,skills}` should be symlinked to `.agents/{agents,prompts,skills}`.
+- `.codex/{agents,prompts,skills,workflows}` should be symlinked to `.agents/{agents,prompts,skills,workflows}`.
