@@ -8,7 +8,8 @@ import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
-import React from "react";
+import React, { useEffect } from "react";
+import { trackViewProduct } from "@/utils/analytics";
 import {
 	HeroSection,
 	IntroductionSection,
@@ -110,6 +111,14 @@ const APPLICATIONS = [
 ];
 
 const SkinLaptopCustomizePage: NextPageWithLayout = () => {
+	useEffect(() => {
+		trackViewProduct({
+			id: "skin-laptop-customize",
+			name: "Skin Laptop",
+			category: "Skin Laptop",
+		});
+	}, []);
+
 	return (
 		<>
 			<Seo

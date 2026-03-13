@@ -9,7 +9,8 @@ import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
-import React from "react";
+import React, { useEffect } from "react";
+import { trackViewProduct } from "@/utils/analytics";
 import { HeroSection } from "@/components/san-pham-luu-niem/pin-cai-ao-mica/HeroSection";
 import { IntroductionSection } from "@/components/san-pham-luu-niem/pin-cai-ao-mica/IntroductionSection";
 import { PinBadgeTypesSection } from "@/components/san-pham-luu-niem/pin-cai-ao-mica/PinBadgeTypesSection";
@@ -123,6 +124,14 @@ const APPLICATIONS = [
 ];
 
 const PinCaiAoMicaPage: NextPageWithLayout = () => {
+	useEffect(() => {
+		trackViewProduct({
+			id: "pin-cai-ao-mica",
+			name: "Pin cài áo mica",
+			category: "Sản phẩm lưu niệm",
+		});
+	}, []);
+
 	return (
 		<>
 			<Seo

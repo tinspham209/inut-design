@@ -17,7 +17,8 @@ import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import { Box, Container, Divider } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { trackViewProduct } from "@/utils/analytics";
 
 const HERO_IMAGE = "/branding/logo.webp";
 
@@ -123,6 +124,14 @@ const APPLICATIONS = [
 ];
 
 const MocKhoaMicaPage: NextPageWithLayout = () => {
+	useEffect(() => {
+		trackViewProduct({
+			id: "moc-khoa-mica",
+			name: "Móc khóa mica",
+			category: "Sản phẩm lưu niệm",
+		});
+	}, []);
+
 	return (
 		<>
 			<Seo

@@ -17,7 +17,8 @@ import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
-import React from "react";
+import React, { useEffect } from "react";
+import { trackViewProduct } from "@/utils/analytics";
 
 const HERO_IMAGE = "/branding/logo.webp";
 
@@ -112,6 +113,14 @@ const APPLICATIONS = [
 ];
 
 const StickerMagnetPage: NextPageWithLayout = () => {
+	useEffect(() => {
+		trackViewProduct({
+			id: "sticker-magnet",
+			name: "Sticker Magnet",
+			category: "Sticker",
+		});
+	}, []);
+
 	return (
 		<>
 			<Seo

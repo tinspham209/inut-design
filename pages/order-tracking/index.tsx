@@ -1,6 +1,7 @@
 import { MainLayout } from "@/components/layout";
 import ContactInfo from "@/components/orderTracking/lighters/ContactInfo";
 import { NextPageWithLayout } from "@/models/common";
+import { trackSearch } from "@/utils/analytics";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import SearchIcon from "@mui/icons-material/Search";
 import {
@@ -43,6 +44,9 @@ const OrderConfirmationSearch: NextPageWithLayout = () => {
 			setError("Vui lòng chọn loại đơn hàng");
 			return;
 		}
+
+		// Track search event
+		trackSearch(orderNumber.trim());
 
 		// Navigate to the specific order tracking page
 		router.push(`/order-tracking/${orderType}/${orderNumber.trim()}`);

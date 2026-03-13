@@ -18,7 +18,8 @@ import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import ViewAgendaIcon from "@mui/icons-material/ViewAgenda";
 import BoltIcon from "@mui/icons-material/Bolt";
 import { Box, Container, Divider } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { trackViewProduct } from "@/utils/analytics";
 
 const HERO_IMAGE = "/branding/logo.webp";
 
@@ -138,6 +139,14 @@ const APPLICATIONS = [
 ];
 
 const BangCungInThongTinPage: NextPageWithLayout = () => {
+	useEffect(() => {
+		trackViewProduct({
+			id: "bang-cung-in-thong-tin",
+			name: "Bảng cứng in thông tin",
+			category: "Ấn phẩm văn phòng",
+		});
+	}, []);
+
 	return (
 		<>
 			<Seo

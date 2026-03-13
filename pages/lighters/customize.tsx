@@ -9,7 +9,8 @@ import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
-import React from "react";
+import React, { useEffect } from "react";
+import { trackViewProduct } from "@/utils/analytics";
 import {
 	HeroSection,
 	IntroductionSection,
@@ -128,6 +129,14 @@ const CONTACTS = [
 ];
 
 const LightersCustomizePage: NextPageWithLayout = () => {
+	useEffect(() => {
+		trackViewProduct({
+			id: "lighters-customize",
+			name: "Bật lửa custom",
+			category: "Lighters",
+		});
+	}, []);
+
 	return (
 		<>
 			<Seo

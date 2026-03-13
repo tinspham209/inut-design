@@ -17,7 +17,8 @@ import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import ShieldIcon from "@mui/icons-material/Shield";
 import WorkspacesIcon from "@mui/icons-material/Workspaces";
 import { Box, Container, Divider } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { trackViewProduct } from "@/utils/analytics";
 
 const HERO_IMAGE = "/branding/logo.webp";
 
@@ -135,6 +136,14 @@ const APPLICATIONS = [
 ];
 
 const ArcylicMagnetPage: NextPageWithLayout = () => {
+	useEffect(() => {
+		trackViewProduct({
+			id: "acrylic-magnet",
+			name: "Nam Châm Mica",
+			category: "Sản phẩm lưu niệm",
+		});
+	}, []);
+
 	return (
 		<>
 			<Seo

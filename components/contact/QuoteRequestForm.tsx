@@ -7,6 +7,7 @@ import {
 	UsagePurposeValue,
 } from "@/models/quoteRequest";
 import { COLOR_CODE } from "@/utils";
+import { trackFormSubmit } from "@/utils/analytics";
 import {
 	Alert,
 	Button,
@@ -59,6 +60,10 @@ export default function QuoteRequestFormComponent() {
 	const onSubmit = async (data: CreateQuoteRequestInput) => {
 		try {
 			const result = await submit(data);
+			
+			// Track successful quote request submission
+			trackFormSubmit("quote_request");
+			
 			toast.success("Gửi yêu cầu báo giá thành công!");
 
 			// Send Telegram notification

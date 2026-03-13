@@ -2,6 +2,7 @@ import { FormQuoteRequestType } from "@/models";
 import { Box, Button, Grid, Link, Paper, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import React, { ReactNode } from "react";
+import { trackContactClick } from "@/utils/analytics";
 
 interface Contact {
 	name: string;
@@ -49,7 +50,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 						{description}
 					</Typography>
 					<Stack direction="row" justifyContent="center" sx={{ pt: 0.5 }}>
-						<Link href={`/contact/form?from=${type}`}>
+						<Link 
+							href={`/contact/form?from=${type}`}
+							onClick={() => trackContactClick("form", String(type))}
+						>
 							<Button
 								variant="contained"
 								color="primary"
@@ -73,6 +77,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 									sx={{ display: "block" }}
 									target="_blank"
 									rel="noopener noreferrer"
+									onClick={() => trackContactClick("zalo", String(type))}
 								>
 									<Image
 										src={contact.photoUrl}
