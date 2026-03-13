@@ -92,6 +92,9 @@ sanity deploy
 - [Sanity Architecture](./sanity/docs/ARCHITECTURE.md) - CMS documentation
 
 ### AI Assistant Toolkit
+- [AGENTS Playbook](./AGENTS.md) - Editor-agnostic AI baseline for both Copilot and Antigravity
+- [Dual Editor Workflow](./docs/ai/DUAL_EDITOR_WORKFLOW.md) - How to run the same workflow across VS Code Copilot and Antigravity
+- [Portable Prompt Pack](./docs/ai/PORTABLE_PROMPTS.md) - Editor-agnostic prompt templates (feature, bug, blog, checkout, product page)
 - [Copilot Repo Instructions](./.github/copilot-instructions.md) - Global agent behavior for this codebase
 - [Scoped Instructions](./.github/instructions/) - File-pattern specific instructions (frontend, Sanity, analytics, blog)
 - [Maintainer Agent](./.github/agents/inut-maintainer.agent.md) - Specialized agent mode for medium/large tasks
@@ -100,6 +103,8 @@ sanity deploy
 - [Content Writer Skill](./.github/skills/inut-content-writer/SKILL.md) - Vietnamese SEO product-content writing system prompt for INUT Design
 - [Prompt Templates](./.github/prompts/) - Reusable prompts for feature work, bug fixing, regression checks, and content writing
 - [Write Product Content Prompt](./.github/prompts/write-product-content.prompt.md) - Guided prompt for product name + keyword + audience
+- [Antigravity Workflows](./.agents/workflows/) - Slash-command workflows for Antigravity editor
+- [Antigravity Agent Mirrors](./.agents/) - Native agent/skill/prompt files for Antigravity ingestion
 - [MCP Tooling Guide](./docs/ai/MCP_TOOLING_GUIDE.md) - Tool/MCP usage playbook for this repo
 - [Developer Effectiveness Playbook](./docs/ai/DEVELOPER_EFFECTIVENESS.md) - Fast QA and productivity recommendations
 

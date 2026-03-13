@@ -61,7 +61,7 @@ Use this skill for:
 ### Analytics checks
 
 - no duplicate events
-- events fired at action source
+- events fired at action source for BOTH GA4 and UmamiJS
 - conversion-critical events preserved
 
 ### Blog checks

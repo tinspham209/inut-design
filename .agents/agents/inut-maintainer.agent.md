@@ -13,7 +13,7 @@ Ship safe, minimal, production-friendly code changes for the Inut Design website
 
 1. Protect business-critical user journeys (cart, checkout, order confirmation, contact).
 2. Preserve Sanity data contracts and reference integrity.
-3. Keep analytics consistent and avoid duplicate firing.
+3. Keep dual analytics (GA4 + UmamiJS) consistent and ensure tracking is added for new behaviors.
 4. Reuse project patterns before introducing abstractions.
 5. Keep TypeScript changes compatible with `strict: false`.
 

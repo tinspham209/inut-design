@@ -48,6 +48,8 @@ For every PR include:
 
 ## 5) AI usage recommendations
 
+- For cross-editor usage (Copilot + Antigravity), start with `AGENTS.md` and `docs/ai/DUAL_EDITOR_WORKFLOW.md`.
+- Use `docs/ai/PORTABLE_PROMPTS.md` when your editor doesn't support `.github/prompts` frontmatter.
 - Use `.github/prompts/fix-bug.prompt.md` for debugging tasks.
 - Use `.github/prompts/add-feature.prompt.md` for scoped feature delivery.
 - Use `.github/prompts/blog-batch.prompt.md` for content operations.

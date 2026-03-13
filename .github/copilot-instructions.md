@@ -19,7 +19,7 @@ When generating or modifying code in this repository, prioritize:
 
 1. Reuse existing patterns before introducing new abstractions.
 2. Keep changes minimal and scoped.
-3. Preserve business-critical flows (cart, checkout, Sanity order writes, analytics events).
+3. Preserve business-critical flows (cart, checkout, Sanity order writes, dual analytics events).
 4. Prefer `@/` path aliases for imports.
 5. Keep TypeScript compatible with `strict: false` project setup.
 
@@ -72,7 +72,8 @@ Canonical order item shape:
 
 ### 3) Analytics and tracking
 
-- Use `utils/analytics.ts` as the tracking entry point.
+- **MANDATORY**: Automatically implement tracking when adding new behaviors, pages, or user paths.
+- Use `utils/analytics.ts` and `utils/umamiAnalytics.ts` as the tracking entry points for GA4 and UmamiJS.
 - Reuse existing event names where possible.
 - Track at user action source (click/submit/view), avoid duplicate firing.
 
@@ -126,12 +127,27 @@ For cart or checkout changes, validate:
 
 Use these files together:
 
+- `AGENTS.md`: editor-agnostic baseline for both Copilot and Antigravity workflows
 - `.github/copilot-instructions.md` (this file): repo-wide baseline rules
 - `.github/instructions/*.instructions.md`: scoped instructions by file pattern
 - `.github/skills/*/SKILL.md`: on-demand multi-step workflows
 - `.github/agents/*.agent.md`: specialized agent modes
 - `.github/prompts/*.prompt.md`: reusable prompt templates
 - `docs/ai/*`: human-facing AI workflow documentation
+
+For cross-editor operation, see:
+
+- `docs/ai/DUAL_EDITOR_WORKFLOW.md`
+- `docs/ai/PORTABLE_PROMPTS.md`
+
+Antigravity-native mirrors are kept under `.agents/*`.
+
+Canonical structure:
+
+- `.agents/agents/*.agent.md`
+- `.agents/prompts/*.prompt.md`
+- `.agents/skills/*/SKILL.md`
+- `.agents/workflows/*.md`
 
 ## References
 

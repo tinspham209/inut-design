@@ -2,6 +2,12 @@
 
 This guide helps developers and AI agents pick the right tool quickly for common project tasks.
 
+For cross-editor consistency (GitHub Copilot + Antigravity), pair this guide with:
+
+- `AGENTS.md`
+- `docs/ai/DUAL_EDITOR_WORKFLOW.md`
+- `docs/ai/PORTABLE_PROMPTS.md`
+
 ## Core principle
 
 Use the smallest capable tool for the job:
