@@ -27,6 +27,7 @@ import {
 	trackUmamiTimeOnPage,
 	trackUmamiPageView,
 	type UmamiProductData,
+	trackUmamiZaloClick,
 } from "./umamiAnalytics";
 
 declare global {
@@ -330,6 +331,18 @@ export const trackPhoneClick = (): void => {
 
 	// Track to Umami
 	trackUmamiPhoneClick();
+};
+
+/**
+ * Track Zalo clicks
+ */
+export const trackZaloClick = (): void => {
+	trackEvent("zalo_click", {
+		contact_method: "zalo",
+	});
+
+	// Track to Umami
+	trackUmamiZaloClick();
 };
 
 /**

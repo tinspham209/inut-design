@@ -198,6 +198,13 @@ export const trackUmamiPhoneClick = (): void => {
 };
 
 /**
+ * Track Zalo click
+ */
+export const trackUmamiZaloClick = (): void => {
+	umami.track("zalo_click");
+};
+
+/**
  * Track form submission
  */
 export const trackUmamiFormSubmit = (formType: string): void => {

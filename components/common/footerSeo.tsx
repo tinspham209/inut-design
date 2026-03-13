@@ -1,16 +1,6 @@
 export function FooterSeo() {
 	return (
-		<div
-			style={{
-				clip: "rect(0 0 0 0)",
-				clipPath: "inset(50%)",
-				height: "1px",
-				overflow: "hidden",
-				position: "absolute",
-				whiteSpace: "nowrap",
-				width: "1px",
-			}}
-		>
+		<div hidden>
 			<h1>Skin laptop đà nẵng, skin laptop da nang, dan laptop da nang, dán laptop đà nẵng</h1>
 			<h2>INUT Design</h2>
 			<p>
@@ -30,10 +20,11 @@ export function FooterSeo() {
 			<p>Thiết kế tạo mẫu hoàn toàn theo sở thích của bạn</p>
 			<p>Cắt và tạo khuân chính xác 100% bo kín từng vị trí con ốc nhỏ nhất</p>
 			<p>Giá cả luôn tốt nhất trên thị trường hiện nay</p>
-			<p>Địa chỉ: K574/5 Ông Ích Khiêm, Đà Nẵng, Việt Nam</p>
+			<p>Địa chỉ: K574/5 Ông Ích Khiêm, Tổ 22, Phường Hải Châu, Thành phố Đà Nẵng</p>
 
-			<a href="tel:0792359996">Hotline: 079 235 9996</a>
-			<p>Giờ làm việc: 09:00 - 20:00 (từ T3 đến CN)</p>
+			<a href="tel:0327124321">Số điện thoại: 0327124321</a>
+			<p>Email: inutstudio.dn@gmail.com</p>
+			<p>Giờ làm việc: 08:00 - 17:30 (từ T2 đến T7)</p>
 			<p>
 				Thiết kế Website:
 				<a href="https://www.tinspham.dev" target="__blank">
