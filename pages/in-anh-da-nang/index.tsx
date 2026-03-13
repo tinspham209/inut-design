@@ -8,8 +8,7 @@ import {
 	ProductGallery,
 	WhyInutSection,
 } from "@/components/in-anh";
-import { FormQuoteRequestType } from "@/models";
-import { NextPageWithLayout } from "@/models/common";
+import { NextPageWithLayout, UsagePurposeValue } from "@/models";
 import { Box, Container, Divider } from "@mui/material";
 import BoltIcon from "@mui/icons-material/Bolt";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
@@ -157,7 +156,7 @@ const InAnhPage: NextPageWithLayout = () => {
 
 					<ContactSection
 						description="Liên hệ ngay để nhận báo giá in ảnh kỹ thuật số nhanh và tư vấn quy cách phù hợp nhất với nhu cầu của bạn."
-						type={FormQuoteRequestType.IN_ANH}
+						type={UsagePurposeValue.IN_ANH}
 					/>
 
 					<Divider sx={{ my: { xs: 2, md: 3 } }} />

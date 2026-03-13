@@ -18,7 +18,7 @@ import {
 	WhyInutSection,
 	ContactSection,
 } from "../../components/skin-laptop-customize";
-import { FormQuoteRequestType } from "@/models/quoteRequest";
+import { UsagePurposeValue } from "@/models/quoteRequest";
 
 const HERO_IMAGE = "/branding/logo.webp";
 
@@ -147,7 +147,7 @@ const SkinLaptopCustomizePage: NextPageWithLayout = () => {
 
 					<Divider sx={{ my: { xs: 2, md: 3 } }} />
 
-					<ContactSection type={FormQuoteRequestType.LAPTOP_CUSTOMIZE} />
+					<ContactSection type={UsagePurposeValue.LAPTOP_CUSTOMIZE} />
 
 					<Divider sx={{ my: { xs: 2, md: 3 } }} />
 

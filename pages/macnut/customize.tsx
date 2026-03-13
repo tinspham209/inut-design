@@ -18,7 +18,7 @@ import {
 	ProductGallery,
 	WhyInutSection,
 } from "@/components/macnut-customize";
-import { FormQuoteRequestType } from "@/models/quoteRequest";
+import { UsagePurposeValue } from "@/models/quoteRequest";
 
 const HERO_IMAGE = "/branding/logo.webp";
 
@@ -149,7 +149,7 @@ const MacnutCustomizePage: NextPageWithLayout = () => {
 
 					<Divider sx={{ my: { xs: 2, md: 3 } }} />
 
-					<ContactSection type={FormQuoteRequestType.MACNUT_CUSTOMIZE} />
+					<ContactSection type={UsagePurposeValue.MACNUT_CUSTOMIZE} />
 
 					<Divider sx={{ my: { xs: 2, md: 3 } }} />
 

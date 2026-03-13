@@ -1,4 +1,4 @@
-import { FormQuoteRequestType } from "@/models";
+import { UsagePurposeValue } from "@/models";
 import { Box, Button, Grid, Link, Paper, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import React, { ReactNode } from "react";
@@ -17,7 +17,7 @@ interface ContactSectionProps {
 	contacts?: Contact[];
 	title?: ReactNode;
 	description?: ReactNode;
-	type?: FormQuoteRequestType;
+	type?: UsagePurposeValue;
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = ({

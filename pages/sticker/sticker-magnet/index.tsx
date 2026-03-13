@@ -8,7 +8,7 @@ import {
 	StickerMagnetTypesSection,
 	WhyInutSection,
 } from "@/components/sticker/sticker-magnet";
-import { FormQuoteRequestType } from "@/models";
+import { UsagePurposeValue } from "@/models";
 import { NextPageWithLayout } from "@/models/common";
 import { Box, Container, Divider } from "@mui/material";
 import BoltIcon from "@mui/icons-material/Bolt";
@@ -154,7 +154,7 @@ const StickerMagnetPage: NextPageWithLayout = () => {
 
 					<ContactSection
 						description="Liên hệ ngay để nhận báo giá nhanh và tư vấn mẫu Sticker Magnet phù hợp nhất với nhu cầu của bạn."
-						type={FormQuoteRequestType.STICKER_MAGNET}
+						type={UsagePurposeValue.STICKER_MAGNET}
 					/>
 
 					<Divider sx={{ my: { xs: 2, md: 3 } }} />

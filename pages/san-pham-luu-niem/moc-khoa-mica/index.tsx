@@ -8,7 +8,7 @@ import {
 	ProductGallery,
 	WhyInutSection,
 } from "@/components/san-pham-luu-niem/moc-khoa-mica";
-import { FormQuoteRequestType } from "@/models";
+import { UsagePurposeValue } from "@/models";
 import { NextPageWithLayout } from "@/models/common";
 import BoltIcon from "@mui/icons-material/Bolt";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
@@ -165,7 +165,7 @@ const MocKhoaMicaPage: NextPageWithLayout = () => {
 
 					<ContactSection
 						description="Liên hệ ngay để nhận báo giá móc khóa mica, tư vấn mẫu thiết kế và ưu đãi cho đơn hàng đầu tiên tại INUT Design."
-						type={FormQuoteRequestType.MOC_KHOA_MICA}
+						type={UsagePurposeValue.MOC_KHOA_MICA}
 					/>
 
 					<Divider sx={{ my: { xs: 2, md: 3 } }} />

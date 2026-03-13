@@ -18,7 +18,7 @@ import {
 	StickerSheetTypesSection,
 	WhyInutSection,
 } from "@/components/sticker/sticker-sheet";
-import { FormQuoteRequestType } from "@/models";
+import { UsagePurposeValue } from "@/models";
 
 const HERO_IMAGE = "/branding/logo.webp";
 
@@ -152,7 +152,7 @@ const StickerSheetPage: NextPageWithLayout = () => {
 
 					<ContactSection
 						description="Liên hệ ngay để nhận báo giá nhanh và tư vấn mẫu thiết kế phù hợp nhất với nhu cầu của bạn."
-						type={FormQuoteRequestType.STICKER_SHEET}
+						type={UsagePurposeValue.STICKER_SHEET}
 					/>
 
 					<Divider sx={{ my: { xs: 2, md: 3 } }} />

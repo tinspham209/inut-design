@@ -18,7 +18,7 @@ import {
 	StickerKisscutTypesSection,
 	WhyInutSection,
 } from "@/components/sticker/sticker-kisscut";
-import { FormQuoteRequestType } from "@/models";
+import { UsagePurposeValue } from "@/models";
 
 const HERO_IMAGE = "/branding/logo.webp";
 
@@ -154,7 +154,7 @@ const StickerKisscutPage: NextPageWithLayout = () => {
 
 					<ContactSection
 						description="Liên hệ ngay để nhận báo giá nhanh và tư vấn mẫu Sticker Kiss Cut phù hợp nhất với nhu cầu của bạn."
-						type={FormQuoteRequestType.STICKER_KISSCUT}
+						type={UsagePurposeValue.STICKER_KISSCUT}
 					/>
 
 					<Divider sx={{ my: { xs: 2, md: 3 } }} />

@@ -8,7 +8,7 @@ import {
 	ProductGallery,
 	WhyInutSection,
 } from "@/components/an-pham-van-phong/bang-cung-in-thong-tin";
-import { FormQuoteRequestType } from "@/models";
+import { UsagePurposeValue } from "@/models";
 import { NextPageWithLayout } from "@/models/common";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
@@ -179,7 +179,7 @@ const BangCungInThongTinPage: NextPageWithLayout = () => {
 						description={`Liên hệ INUT Design để nhận báo giá nhanh bảng cứng in thông tin, tư vấn vật liệu và bố cục phù hợp cho ${TARGET_CUSTOMERS.join(
 							", "
 						)}.`}
-						type={FormQuoteRequestType.BANG_CUNG_IN_THONG_TIN}
+						type={UsagePurposeValue.BANG_CUNG_IN_THONG_TIN}
 					/>
 
 					<Divider sx={{ my: { xs: 2, md: 3 } }} />

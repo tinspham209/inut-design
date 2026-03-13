@@ -4,6 +4,7 @@ import {
 	CreateQuoteRequestInput,
 	DesignStatusValue,
 	PriorityLevelValue,
+	ReceiveQuoteChannelValue,
 	UsagePurposeValue,
 } from "@/models/quoteRequest";
 import { COLOR_CODE } from "@/utils";
@@ -18,26 +19,53 @@ import {
 	FormControlLabel,
 	FormLabel,
 	Grid,
+	MenuItem,
 	Radio,
 	RadioGroup,
 	TextareaAutosize,
 	TextField,
 	Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useRouter } from "next/router";
+
+const USAGE_PURPOSE_OPTIONS = [
+	{ title: "Kinh doanh", value: UsagePurposeValue.KINH_DOANH },
+	{ title: "Cá nhân", value: UsagePurposeValue.CA_NHAN },
+	{ title: "Nhãn dán bao bì", value: UsagePurposeValue.NHAN_DAN_BAO_BI },
+	{ title: "Sticker", value: UsagePurposeValue.STICKER },
+	{ title: "In ảnh", value: UsagePurposeValue.IN_ANH },
+	{ title: "Bảng cứng in thông tin", value: UsagePurposeValue.BANG_CUNG_IN_THONG_TIN },
+	{ title: "Móc khóa mica", value: UsagePurposeValue.MOC_KHOA_MICA },
+	{ title: "Pin cài áo mica", value: UsagePurposeValue.PIN_CAI_AO_MICA },
+	{ title: "Acrylic magnet", value: UsagePurposeValue.ACRYLIC_MAGNET },
+	{ title: "Sticker sheet", value: UsagePurposeValue.STICKER_SHEET },
+	{ title: "Sticker magnet", value: UsagePurposeValue.STICKER_MAGNET },
+	{ title: "Sticker diecut", value: UsagePurposeValue.STICKER_DIECUT },
+	{ title: "Sticker kisscut", value: UsagePurposeValue.STICKER_KISSCUT },
+	{ title: "Skin laptop customize", value: UsagePurposeValue.LAPTOP_CUSTOMIZE },
+	{ title: "Skin phone customize", value: UsagePurposeValue.PHONE_CUSTOMIZE },
+	{ title: "Lighter customize", value: UsagePurposeValue.LIGHTER_CUSTOMIZE },
+	{ title: "Macnut customize", value: UsagePurposeValue.MACNUT_CUSTOMIZE },
+	{ title: "Khác", value: UsagePurposeValue.OTHER },
+];
 
 export default function QuoteRequestFormComponent() {
 	const { submit, isSubmitting } = useSubmitQuoteRequest();
 	const { sendNotification } = useTelegramQuoteNotification();
 	const [submitSuccess, setSubmitSuccess] = React.useState(false);
 
+	const router = useRouter();
+	const fromQuery = router.query.from as string;
+
 	const {
 		control,
 		handleSubmit,
 		watch,
 		reset,
+		setValue,
 		formState: { errors },
 	} = useForm<CreateQuoteRequestInput>({
 		defaultValues: {
@@ -47,6 +75,8 @@ export default function QuoteRequestFormComponent() {
 			email: "",
 			usagePurpose: undefined,
 			usagePurposeOtherDetail: "",
+			receiveQuoteChannel: undefined,
+			receiveQuoteChannelOtherDetail: "",
 			designStatus: undefined,
 			priorityLevel: undefined,
 			urgentDate: "",
@@ -55,7 +85,14 @@ export default function QuoteRequestFormComponent() {
 	});
 
 	const usagePurpose = watch("usagePurpose");
+	const receiveQuoteChannel = watch("receiveQuoteChannel");
 	const priorityLevel = watch("priorityLevel");
+
+	useEffect(() => {
+		if (fromQuery && Object.values(UsagePurposeValue).includes(fromQuery as UsagePurposeValue)) {
+			setValue("usagePurpose", fromQuery as UsagePurposeValue, { shouldValidate: true });
+		}
+	}, [fromQuery, setValue]);
 
 	const onSubmit = async (data: CreateQuoteRequestInput) => {
 		try {
@@ -199,48 +236,28 @@ export default function QuoteRequestFormComponent() {
 
 						{/* Usage Purpose */}
 						<Grid item xs={12}>
-							<FormControl component="fieldset" error={!!errors.usagePurpose}>
-								<FormLabel component="legend">Mục đích sử dụng *</FormLabel>
-								<Controller
-									name="usagePurpose"
-									control={control}
-									rules={{ required: "Vui lòng chọn mục đích sử dụng" }}
-									render={({ field }) => (
-										<RadioGroup {...field}>
-											<FormControlLabel
-												value={UsagePurposeValue.KINH_DOANH}
-												control={<Radio />}
-												label="Kinh doanh"
-											/>
-											<FormControlLabel
-												value={UsagePurposeValue.CA_NHAN}
-												control={<Radio />}
-												label="Cá nhân"
-											/>
-											<FormControlLabel
-												value={UsagePurposeValue.NHAN_DAN_BAO_BI}
-												control={<Radio />}
-												label="Nhãn dán bao bì"
-											/>
-											<FormControlLabel
-												value={UsagePurposeValue.STICKER}
-												control={<Radio />}
-												label="Sticker"
-											/>
-											<FormControlLabel
-												value={UsagePurposeValue.OTHER}
-												control={<Radio />}
-												label="Khác"
-											/>
-										</RadioGroup>
-									)}
-								/>
-								{errors.usagePurpose && (
-									<Typography variant="caption" color="error">
-										{errors.usagePurpose.message}
-									</Typography>
+							<Controller
+								name="usagePurpose"
+								control={control}
+								rules={{ required: "Vui lòng chọn mục đích sử dụng" }}
+								render={({ field }) => (
+									<TextField
+										{...field}
+										select
+										fullWidth
+										label="Mục đích sử dụng *"
+										error={!!errors.usagePurpose}
+										helperText={errors.usagePurpose?.message}
+										value={field.value || ""}
+									>
+										{USAGE_PURPOSE_OPTIONS.map((option) => (
+											<MenuItem key={option.value} value={option.value}>
+												{option.title}
+											</MenuItem>
+										))}
+									</TextField>
 								)}
-							</FormControl>
+							/>
 						</Grid>
 
 						{/* Other Purpose Detail */}
@@ -249,13 +266,60 @@ export default function QuoteRequestFormComponent() {
 								<Controller
 									name="usagePurposeOtherDetail"
 									control={control}
+									rules={{ required: "Vui lòng mô tả mục đích sử dụng" }}
 									render={({ field }) => (
 										<TextField
 											{...field}
 											fullWidth
 											multiline
 											rows={2}
-											label="Vui lòng mô tả mục đích sử dụng"
+											label="Vui lòng mô tả mục đích sử dụng *"
+											error={!!errors.usagePurposeOtherDetail}
+											helperText={errors.usagePurposeOtherDetail?.message}
+										/>
+									)}
+								/>
+							</Grid>
+						)}
+
+						{/* Receive Quote Channel */}
+						<Grid item xs={12}>
+							<FormControl component="fieldset" error={!!errors.receiveQuoteChannel}>
+								<FormLabel component="legend">Nhận bảng báo giá qua kênh *</FormLabel>
+								<Controller
+									name="receiveQuoteChannel"
+									control={control}
+									rules={{ required: "Vui lòng chọn kênh nhận báo giá" }}
+									render={({ field }) => (
+										<RadioGroup {...field} row>
+											<FormControlLabel value="email" control={<Radio />} label="Email" />
+											<FormControlLabel value="zalo" control={<Radio />} label="Zalo" />
+											<FormControlLabel value="other" control={<Radio />} label="Khác" />
+										</RadioGroup>
+									)}
+								/>
+								{errors.receiveQuoteChannel && (
+									<Typography variant="caption" color="error">
+										{errors.receiveQuoteChannel.message}
+									</Typography>
+								)}
+							</FormControl>
+						</Grid>
+
+						{/* Other Receive Quote Channel Detail */}
+						{receiveQuoteChannel === "other" && (
+							<Grid item xs={12}>
+								<Controller
+									name="receiveQuoteChannelOtherDetail"
+									control={control}
+									rules={{ required: "Vui lòng nhập nền tảng nhận báo giá" }}
+									render={({ field }) => (
+										<TextField
+											{...field}
+											fullWidth
+											label="Vui lòng nhập nền tảng bạn muốn *"
+											error={!!errors.receiveQuoteChannelOtherDetail}
+											helperText={errors.receiveQuoteChannelOtherDetail?.message}
 										/>
 									)}
 								/>

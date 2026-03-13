@@ -8,7 +8,7 @@ import {
 	ProductGallery,
 	WhyInutSection,
 } from "@/components/san-pham-luu-niem/arcylic-magnet";
-import { FormQuoteRequestType } from "@/models";
+import { UsagePurposeValue } from "@/models";
 import { NextPageWithLayout } from "@/models/common";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import BoltIcon from "@mui/icons-material/Bolt";
@@ -179,7 +179,7 @@ const ArcylicMagnetPage: NextPageWithLayout = () => {
 						description={`Liên hệ INUT Design ngay để nhận báo giá Acrylic Magnet, tư vấn chất liệu và các phương án triển khai phù hợp cho: ${TARGET_CUSTOMERS.join(
 							" "
 						)}`}
-						type={FormQuoteRequestType.ACRYLIC_MAGNET}
+						type={UsagePurposeValue.ACRYLIC_MAGNET}
 					/>
 
 					<Divider sx={{ my: { xs: 2, md: 3 } }} />

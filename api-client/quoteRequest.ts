@@ -11,6 +11,8 @@ export const quoteRequestApi = {
 			email: input.email,
 			usagePurpose: input.usagePurpose,
 			usagePurposeOtherDetail: input.usagePurposeOtherDetail,
+			receiveQuoteChannel: input.receiveQuoteChannel,
+			receiveQuoteChannelOtherDetail: input.receiveQuoteChannelOtherDetail,
 			designStatus: input.designStatus,
 			priorityLevel: input.priorityLevel,
 			urgentDate: input.urgentDate,
