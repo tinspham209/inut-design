@@ -29,7 +29,7 @@ date: '2025-05-27T10:00:00.000Z'
 - **Tư vấn tận tâm**: Đội ngũ nhân viên nhiệt tình, sẵn sàng giải đáp mọi thắc mắc và đưa ra lời khuyên hữu ích.
 
 **Địa chỉ:** [K574/5 Ông Ích Khiêm, Đà Nẵng, Việt Nam](https://maps.app.goo.gl/dAdKSbnBEvarx6LK8")
-**Liên hệ:** [079 235 9996](tel:0792359996) (Sdt/Zalo)
+**Liên hệ:** [0327 124 321](tel:0327124321) (Sdt/Zalo)
 **Website:** [www.inutdesign.com](https://www.inutdesign.com")
 
 ### 2. Xưởng In Nhanh Đà Nẵng
@@ -66,6 +66,6 @@ Việc lựa chọn một xưởng in ấn uy tín tại Đà Nẵng là yếu t
 ### Thông Tin Liên Hệ
 
 #### INUT Design - Dịch vụ thiết kế và in ấn tại Đà Nẵng
-- Sdt/Zalo : [079 235 9996](tel:0792359996)
+- Sdt/Zalo : [0327 124 321](tel:0327124321)
 - Facebook : [facebook.com/inutdesign](https://www.facebook.com/inutdesign)
 - Địa chỉ : [K574/5 Ông Ích Khiêm, Đà Nẵng, Việt Nam](https://maps.app.goo.gl/dAdKSbnBEvarx6LK8)

@@ -233,7 +233,7 @@ const BankTransferInfo: React.FC<BankTransferInfoProps> = ({
 				<Alert severity="warning" sx={{ mt: 3 }}>
 					<Typography variant="body2">
 						<strong>Lưu ý:</strong> Nếu bạn đang cần gấp, sau khi chuyển khoản, vui lòng chụp ảnh
-						màn hình và gửi cho chúng tôi qua Zalo (079 235 9996) /{" "}
+						màn hình và gửi cho chúng tôi qua Zalo (0327 124 321) /{" "}
 						<MuiLink href="https://www.facebook.com/inutdesign" target="_blank">
 							Facebook: INUT Design
 						</MuiLink>{" "}

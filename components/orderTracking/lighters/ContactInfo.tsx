@@ -17,7 +17,7 @@ const ContactInfo: React.FC = () => (
 			sx={{ mt: 1 }}
 		>
 			<Typography variant="body2" fontWeight="bold">
-				📞 SĐT/Zalo: <MuiLink href="tel:0792359996">079 235 9996</MuiLink>
+				📞 SĐT/Zalo: <MuiLink href="tel:0327124321">0327 124 321</MuiLink>
 			</Typography>
 			<Typography variant="body2" fontWeight="bold">
 				📧 Facebook:{" "}

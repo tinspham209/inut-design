@@ -4,7 +4,6 @@ import {
 	CreateQuoteRequestInput,
 	DesignStatusValue,
 	PriorityLevelValue,
-	ReceiveQuoteChannelValue,
 	UsagePurposeValue,
 } from "@/models/quoteRequest";
 import { COLOR_CODE } from "@/utils";
@@ -26,10 +25,10 @@ import {
 	TextField,
 	Typography,
 } from "@mui/material";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useRouter } from "next/router";
 
 const USAGE_PURPOSE_OPTIONS = [
 	{ title: "Kinh doanh", value: UsagePurposeValue.KINH_DOANH },
@@ -45,10 +44,10 @@ const USAGE_PURPOSE_OPTIONS = [
 	{ title: "Sticker magnet", value: UsagePurposeValue.STICKER_MAGNET },
 	{ title: "Sticker diecut", value: UsagePurposeValue.STICKER_DIECUT },
 	{ title: "Sticker kisscut", value: UsagePurposeValue.STICKER_KISSCUT },
-	{ title: "Skin laptop customize", value: UsagePurposeValue.LAPTOP_CUSTOMIZE },
-	{ title: "Skin phone customize", value: UsagePurposeValue.PHONE_CUSTOMIZE },
-	{ title: "Lighter customize", value: UsagePurposeValue.LIGHTER_CUSTOMIZE },
-	{ title: "Macnut customize", value: UsagePurposeValue.MACNUT_CUSTOMIZE },
+	{ title: "Skin laptop custom theo yêu cầu", value: UsagePurposeValue.LAPTOP_CUSTOMIZE },
+	{ title: "Skin phone custom theo yêu cầu", value: UsagePurposeValue.PHONE_CUSTOMIZE },
+	{ title: "Bật lửa custom theo yêu cầu", value: UsagePurposeValue.LIGHTER_CUSTOMIZE },
+	{ title: "Nút phím custom theo yêu cầu", value: UsagePurposeValue.MACNUT_CUSTOMIZE },
 	{ title: "Khác", value: UsagePurposeValue.OTHER },
 ];
 
@@ -97,10 +96,10 @@ export default function QuoteRequestFormComponent() {
 	const onSubmit = async (data: CreateQuoteRequestInput) => {
 		try {
 			const result = await submit(data);
-			
+
 			// Track successful quote request submission
 			trackFormSubmit("quote_request");
-			
+
 			toast.success("Gửi yêu cầu báo giá thành công!");
 
 			// Send Telegram notification

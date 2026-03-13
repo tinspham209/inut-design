@@ -80,6 +80,19 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 								</Typography>
 							</MuiLink>
 
+							<MuiLink href="tel:0327124321" target="_blank" rel="noopener noreferrer">
+								<Typography
+									variant="body1"
+									sx={{
+										mt: 1,
+										"&:hover": {
+											color: "primary.main",
+										},
+									}}
+								>
+									Số điện thoại: 0327 124 321
+								</Typography>
+							</MuiLink>
 							<MuiLink href="tel:0792359996" target="_blank" rel="noopener noreferrer">
 								<Typography
 									variant="body1"
@@ -99,7 +112,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 									mt: 1,
 								}}
 							>
-								Giờ làm việc: 09:00 - 20:00 (từ T3 đến CN)
+								Giờ làm việc: 08:00 - 17:30 (từ T2 đến T7)
 							</Typography>
 						</Box>
 					</Stack>
@@ -200,7 +213,7 @@ const listContacts = [
 		title: "Địa chỉ",
 	},
 	{
-		link: "tel:+792359996",
+		link: "tel:+84327124321",
 		trackingType: "phone" as const,
 		icon: (
 			<Phone
@@ -210,6 +223,18 @@ const listContacts = [
 			/>
 		),
 		title: "Số điện thoại",
+	},
+	{
+		link: "https://www.facebook.com/INUTdesign1003",
+		trackingType: "social" as const,
+		icon: (
+			<Facebook
+				sx={{
+					fontSize: 48,
+				}}
+			/>
+		),
+		title: "Facebook",
 	},
 	{
 		link: "https://www.facebook.com/inutdesign",
