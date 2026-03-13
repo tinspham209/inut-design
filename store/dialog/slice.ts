@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { DIALOG_TYPES, DialogData, DialogDataKey } from "./type";
-import _ from "lodash";
+import cloneDeep from "lodash/cloneDeep";
 import { Callback } from "@/utils";
 
 export interface IDialogState {
@@ -37,7 +37,7 @@ const useDialogSlice = create<IDialogState & IDialogActions>(
 		loading: {},
 		hideDialog: () =>
 			set((state) => {
-				const _state = _.cloneDeep(state);
+				const _state = cloneDeep(state);
 				const keys = Object.keys(_state.isVisible);
 				const newKey = Object.values(DialogDataKey)[keys.length - 1];
 				delete _state.isVisible[newKey];
@@ -55,7 +55,7 @@ const useDialogSlice = create<IDialogState & IDialogActions>(
 
 		showDialog: ({ data, type }) =>
 			set((state) => {
-				const _state = _.cloneDeep(state);
+				const _state = cloneDeep(state);
 				const keys = Object.keys(_state.isVisible);
 				const newKey = Object.values(DialogDataKey)[keys.length];
 

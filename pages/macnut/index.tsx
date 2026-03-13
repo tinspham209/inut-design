@@ -32,7 +32,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { GetStaticProps } from "next/types";
 import React, { useEffect, useState } from "react";
-import CountUp from "react-countup";
+import dynamic from "next/dynamic";
+const CountUp = dynamic(() => import("react-countup"), { ssr: false });
 const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => {
 	const router = useRouter();
 	const { filter } = router.query;

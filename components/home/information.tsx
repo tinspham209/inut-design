@@ -1,6 +1,5 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import { Element } from "react-scroll";
 
 export const INFO_ID_ELEMENT = "information";
 
@@ -10,7 +9,7 @@ type Props = {
 
 export function InfoSection({ imgUrl }: Props) {
 	return (
-		<Element name={INFO_ID_ELEMENT}>
+		<div id={INFO_ID_ELEMENT}>
 			<Box
 				component={"section"}
 				pt={2}
@@ -116,6 +115,7 @@ export function InfoSection({ imgUrl }: Props) {
 					</Stack>
 				</Container>
 			</Box>
-		</Element>
+		</div>
 	);
 }
+

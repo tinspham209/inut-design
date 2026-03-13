@@ -4,7 +4,7 @@ import { Seo } from "@/components/common";
 import { Banner } from "@/models/banner";
 import { LighterProduct, LighterType } from "@/models/cart";
 import { Box, Container, Grid, Stack } from "@mui/material";
-import _ from "lodash";
+import isEmpty from "lodash/isEmpty";
 import React, { useEffect, useState } from "react";
 import { LayoutViewSwitch, LightersFilter, LightersGrid, LightersPageHeader } from ".";
 import { useLightersPage } from "@/hooks/useLightersPage";
@@ -60,7 +60,7 @@ const LightersPageContainer: React.FC<LightersPageContainerProps> = ({
 						"Custom printed lighters with high quality materials. Various designs and bulk order options available.",
 					url: "https://inutdesign.com/lighters",
 					thumbnailUrl:
-						(banner && !_.isEmpty(banner) && urlFor(banner[0]?.image || "").url()) ||
+						(banner && !isEmpty(banner) && urlFor(banner[0]?.image || "").url()) ||
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
 				}}
 			/>

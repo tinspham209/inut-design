@@ -11,7 +11,8 @@ import { getPostList } from "@/utils";
 import { Box, Breadcrumbs, Container, Divider, Link as MuiLink, Typography } from "@mui/material";
 import Link from "next/link";
 import { GetStaticProps } from "next/types";
-import CountUp from "react-countup";
+import dynamic from "next/dynamic";
+const CountUp = dynamic(() => import("react-countup"), { ssr: false });
 
 const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
 	return (

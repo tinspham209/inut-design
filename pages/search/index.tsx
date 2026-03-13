@@ -28,12 +28,13 @@ import {
 	useMediaQuery,
 	useTheme,
 } from "@mui/material";
-import _ from "lodash";
+import isEmpty from "lodash/isEmpty";
 import { GetStaticProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import CountUp from "react-countup";
+import dynamic from "next/dynamic";
+const CountUp = dynamic(() => import("react-countup"), { ssr: false });
 const Search: NextPageWithLayout = ({ products, productTypes, banner }: Props) => {
 	const router = useRouter();
 	const { q } = router.query;
@@ -87,7 +88,7 @@ const Search: NextPageWithLayout = ({ products, productTypes, banner }: Props) =
 						"Thiết kế & In ấn - Skin Laptop - Sticker - Decal - Thiệp - Card - Tem Nhãn, skin laptop da nang, skin laptop đà nẵng",
 					url: "https://inutdesign.com/products",
 					thumbnailUrl:
-						(banner && !_.isEmpty(banner) && urlFor(banner[0]?.image || "").url()) ||
+						(banner && !isEmpty(banner) && urlFor(banner[0]?.image || "").url()) ||
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
 				}}
 			/>

@@ -1,7 +1,17 @@
 import axiosClient from "@/api/axios-client";
-import { ProductCartWrapper } from "@/components/cart/CartWrapper";
-import { DialogContainer } from "@/components/common";
+import dynamic from "next/dynamic";
 import { EmptyLayout } from "@/components/layout";
+
+const ProductCartWrapper = dynamic(
+	() => import("@/components/cart/CartWrapper").then((mod) => mod.ProductCartWrapper),
+	{ ssr: false }
+);
+const DialogContainer = dynamic(() => import("@/components/common").then((mod) => mod.DialogContainer), {
+	ssr: false,
+});
+const Toaster = dynamic(() => import("react-hot-toast").then((mod) => mod.Toaster), {
+	ssr: false,
+});
 import { AppPropsWithLayout } from "@/models";
 import { createEmotionCache, theme, trackPageView } from "@/utils";
 import { useUmamiEngagement } from "@/hooks/useUmamiEngagement";
@@ -9,10 +19,8 @@ import { CacheProvider } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import { Analytics } from "@vercel/analytics/react";
-import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { Toaster } from "react-hot-toast";
 import { SWRConfig } from "swr";
 
 import "../styles/globals.css";
@@ -60,22 +68,20 @@ function MyApp({
 				<ThemeProvider theme={theme}>
 					<CssBaseline />
 
-					<AnimatePresence mode="wait" initial={true}>
-						<SWRConfig
-							value={{
-								fetcher: (url) => axiosClient.get(url),
-								shouldRetryOnError: true,
-								provider: () => new Map(),
-							}}
-						>
-							<Layout>
-								<Component {...pageProps} />
-								<ProductCartWrapper />
-								<Toaster />
-								<DialogContainer />
-							</Layout>
-						</SWRConfig>
-					</AnimatePresence>
+					<SWRConfig
+						value={{
+							fetcher: (url) => axiosClient.get(url),
+							shouldRetryOnError: true,
+							provider: () => new Map(),
+						}}
+					>
+						<Layout>
+							<Component {...pageProps} />
+							<ProductCartWrapper />
+							<Toaster />
+							<DialogContainer />
+						</Layout>
+					</SWRConfig>
 				</ThemeProvider>
 			</CacheProvider>
 			<Analytics mode="production" />
