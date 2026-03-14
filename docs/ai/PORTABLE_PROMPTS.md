@@ -1,6 +1,17 @@
 # Portable AI Prompt Pack (Editor-Agnostic)
 
-Use these prompts in editors that do not natively support `.github/prompts/*.prompt.md` metadata/frontmatter.
+Use these prompts in editors that do not natively support `.github/prompts/*.prompt.md` or `.trae/prompts/*.prompt.md` metadata/frontmatter.
+
+---
+
+## Organizational Rule
+
+All prompt source files reside in `.agents/prompts/`. Symbolic links are maintained for:
+- `.github/prompts/` (Copilot)
+- `.trae/prompts/` (Trae)
+- `.codex/prompts/` (Codex)
+
+**Always create and edit files in `.agents/prompts/` to ensure consistency across all IDEs. Creating files in `.trae/prompts/` or `.github/prompts/` is strictly prohibited.**
 
 ---
 

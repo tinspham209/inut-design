@@ -50,7 +50,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 						{description}
 					</Typography>
 					<Stack direction="row" justifyContent="center" sx={{ pt: 0.5 }}>
-						<Link 
+						<Link
 							href={`/contact/form?from=${type}`}
 							onClick={() => trackContactClick("form", String(type))}
 						>
@@ -103,7 +103,7 @@ export const CONTACTS = [
 		roleBadge: "INUT PRODUCT\nMANAGER",
 		phone: "0792359996",
 		displayPhone: "0792 359 996",
-		photoUrl: "/lighters-storage/contact-1.avif",
+		photoUrl: "/branding/contacts/contact-01.avif",
 	},
 	{
 		name: "MS. BOO",
@@ -111,6 +111,6 @@ export const CONTACTS = [
 		roleBadge: "INUT SALE\nMANAGER",
 		phone: "0777208215",
 		displayPhone: "0777 208 215",
-		photoUrl: "/lighters-storage/contact-2.avif",
+		photoUrl: "/contacts/contact-2.avif",
 	},
 ];

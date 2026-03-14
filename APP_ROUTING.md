@@ -47,4 +47,13 @@
 │   └── thong-tin-thanh-toan/
 └── api/                            # API Routes
     └── telegram/                   # Telegram Notifications
+
+## AI Governance Structure
+AI-related configuration and logic are managed in a centralized structure:
+- **Source of Truth**: `/.agents/`
+- **Trae/Cursor Bridge**: `/.trae/` (symlinked to `/.agents/`)
+- **Copilot Bridge**: `/.github/` (symlinked to `/.agents/`)
+- **Codex Bridge**: `/.codex/` (symlinked to `/.agents/`)
+
+**Rule**: All new AI files must be created in `/.agents/`. Direct creation in `/.trae/` is prohibited.
 ```

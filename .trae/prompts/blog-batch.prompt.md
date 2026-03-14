@@ -1,0 +1,1 @@
+../../.agents/prompts/blog-batch.prompt.md

@@ -21,6 +21,11 @@ Current instructions and assets are centralized in `.agents/` to ensure all AI t
 1. Trae automatically picks up project context.
 2. Root symlinks `.cursorrules` and `.traerules` provide the global baseline from `.agents/instructions/global-rules.md`.
 3. Use Trae's built-in search and context tools; they are already optimized for this structure.
+4. **Governance & File Creation**:
+   - **STRICT PROHIBITION**: Do NOT create new files directly in `.trae/`.
+   - **MANDATORY**: Create all new skills, prompts, and instructions exclusively in the `.agents/` directory structure.
+   - **Synchronization**: Skills and prompts are symlinked from `.agents/` to `.trae/`. Trae will see them via these links, but the source of truth remains in `.agents/`.
+5. **Skills and Prompts**: Trae skills are symlinked from `.agents/skills` to `.trae/skills`, and prompts from `.agents/prompts` to `.trae/prompts`. Always edit the source in `.agents/`.
 
 ### In VS Code Copilot
 

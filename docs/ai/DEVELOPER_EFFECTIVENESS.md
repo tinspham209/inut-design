@@ -48,10 +48,11 @@ For every PR include:
 
 ## 5) AI usage recommendations
 
-- For cross-editor usage (Copilot + Antigravity), start with `AGENTS.md` and `docs/ai/DUAL_EDITOR_WORKFLOW.md`.
-- Use `docs/ai/PORTABLE_PROMPTS.md` when your editor doesn't support `.github/prompts` frontmatter.
-- Use `.github/prompts/fix-bug.prompt.md` for debugging tasks.
-- Use `.github/prompts/add-feature.prompt.md` for scoped feature delivery.
-- Use `.github/prompts/blog-batch.prompt.md` for content operations.
-- Use `.github/agents/inut-maintainer.agent.md` for larger multi-file work.
-- Use `.github/skills/inut-design-workflow/SKILL.md` for repeatable end-to-end implementation.
+- For cross-editor usage (Copilot + Trae + Antigravity), start with `AGENTS.md` and `docs/ai/DUAL_EDITOR_WORKFLOW.md`.
+- **File Governance**: Always create new AI assets (skills, prompts, instructions) in `.agents/`. Do not create them in `.trae/`.
+- Use `docs/ai/PORTABLE_PROMPTS.md` when your editor doesn't support `.github/prompts` or `.trae/prompts` frontmatter.
+- Use `.agents/prompts/fix-bug.prompt.md` for debugging tasks (accessible via symlinks).
+- Use `.agents/prompts/add-feature.prompt.md` for scoped feature delivery.
+- Use `.agents/prompts/blog-batch.prompt.md` for content operations.
+- Use `.agents/agents/inut-maintainer.agent.md` for larger multi-file work.
+- Use `.agents/skills/inut-design-workflow/SKILL.md` for repeatable end-to-end implementation.

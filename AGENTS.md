@@ -89,8 +89,9 @@ Canonical order item shape:
   - Trae reads `.cursorrules` and `.traerules`.
   - Copilot reads `.github/*`.
   - Antigravity reads `.agents/{agents,prompts,skills,workflows,instructions}/*`.
-  - Codex reads `.codex/{agents,prompts,skills,workflows,instructions}/*`.
-- Keep `.agents/*` as the single source of truth.
-- Root rules (`.cursorrules`, `.traerules`) are symlinked to `.agents/instructions/global-rules.md`.
-- `.github/{agents,prompts,skills,instructions}` and `copilot-instructions.md` are symlinked to `.agents/` equivalents.
-- `.codex/{agents,prompts,skills,workflows,instructions}` are symlinked to `.agents/` equivalents.
+  - `.codex/{agents,prompts,skills,workflows,instructions}` are symlinked to `.agents/` equivalents.
+- **CRITICAL GOVERNANCE**:
+  - Do NOT create new files in `.trae/`. 
+  - All AI instructions, skills, agents, and prompts MUST be created exclusively in the `.agents/` directory structure.
+  - Symbolic links are used to bridge `.agents/` to specific IDE environments (`.trae/`, `.github/`, `.codex/`).
+  - For every new skill or prompt file created in `.agents/`, ensure the corresponding symlink exists in all target IDE folders.

@@ -13,6 +13,7 @@ The deployment of new AI instructions, agents, or workflows follows the "Write O
 
 ### 2. Implementation
 - Always make changes in the `.agents/` directory.
+- **Strict Rule**: Never create new files in `.trae/`. Create in `.agents/` and verify symlink propagation.
 - Ensure naming conventions are followed (`*.agent.md`, `*.prompt.md`, `*.instructions.md`).
 
 ### 3. Verification
@@ -44,7 +45,7 @@ If the AI starts hallucinating or ignoring rules:
 
 ### Scenario C: Emergency Reset (Full Re-link)
 If the symlink structure is heavily compromised:
-1. Remove all AI-specific symlinks in `.github/`, `.codex/`, and root (`.cursorrules`, `.traerules`).
+1. Remove all AI-specific symlinks in `.github/`, `.codex/`, `.trae/`, and root (`.cursorrules`, `.traerules`).
 2. Run the initialization commands to restore standard links:
    ```bash
    # Re-link root
@@ -64,16 +65,20 @@ If the symlink structure is heavily compromised:
    ln -sf ../.agents/skills .codex/skills
    ln -sf ../.agents/workflows .codex/workflows
    ln -sf ../.agents/instructions .codex/instructions
+
+   # Re-link .trae
+   ln -sf ../.agents/prompts .trae/prompts
+   ln -sf ../.agents/skills .trae/skills
    ```
 3. Run `./scripts/validate-ai-config.sh`.
 
 ## Naming & Organization Standards
 
-| Category | Location | Pattern |
-| :--- | :--- | :--- |
-| Global Baseline | `.agents/instructions/global-rules.md` | Single source for all IDE instructions. |
-| Scoped Rules | `.agents/instructions/*.instructions.md` | `[topic].instructions.md` (e.g., `analytics.instructions.md`). |
-| Specialized Agents | `.agents/agents/*.agent.md` | `[name].agent.md`. |
-| Prompt Templates | `.agents/prompts/*.prompt.md` | `[task].prompt.md`. |
-| Skill Workflows | `.agents/skills/[name]/SKILL.md` | Folder-based skill definition. |
-| Playbooks | `.agents/workflows/*.md` | Narrative multi-step workflows. |
+| Category           | Location                                 | Pattern                                                        |
+| :----------------- | :--------------------------------------- | :------------------------------------------------------------- |
+| Global Baseline    | `.agents/instructions/global-rules.md`   | Single source for all IDE instructions.                        |
+| Scoped Rules       | `.agents/instructions/*.instructions.md` | `[topic].instructions.md` (e.g., `analytics.instructions.md`). |
+| Specialized Agents | `.agents/agents/*.agent.md`              | `[name].agent.md`.                                             |
+| Prompt Templates   | `.agents/prompts/*.prompt.md`            | `[task].prompt.md`.                                            |
+| Skill Workflows    | `.agents/skills/[name]/SKILL.md`         | Folder-based skill definition.                                 |
+| Playbooks          | `.agents/workflows/*.md`                 | Narrative multi-step workflows.                                |

@@ -1,0 +1,1 @@
+../../.agents/prompts/new-product-page.prompt.md
