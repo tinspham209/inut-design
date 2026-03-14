@@ -6,6 +6,7 @@ export enum UsagePurposeValue {
 	OTHER = "other",
 	IN_ANH = "in-anh",
 	BANG_CUNG_IN_THONG_TIN = "bang-cung-in-thong-tin",
+	IN_BI_THU = "in-bi-thu",
 	MOC_KHOA_MICA = "moc-khoa-mica",
 	PIN_CAI_AO_MICA = "pin-cai-ao-mica",
 	ACRYLIC_MAGNET = "acrylic-magnet",
@@ -17,6 +18,12 @@ export enum UsagePurposeValue {
 	PHONE_CUSTOMIZE = "phone-customize",
 	LIGHTER_CUSTOMIZE = "lighter-customize",
 	MACNUT_CUSTOMIZE = "macnut-customize",
+	THANK_CARD_GIFT_CARD = "thank-card-gift-card",
+	IN_POSTCARD = "in-postcard",
+	GIAY_KHEN_GIAY_CHUNG_NHAN = "giay-khen-giay-chung-nhan",
+	SO_TAY_KY_YEU_SO_BAM_GHIM = "so-tay-ky-yeu-so-bam-ghim",
+	CATALOGUE_BROCHURE = "catalogue-brochure",
+	IN_CARD_VISIT = "in-card-visit",
 }
 
 export enum DesignStatusValue {

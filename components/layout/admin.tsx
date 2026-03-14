@@ -6,10 +6,9 @@ export function AdminLayout({ children }: LayoutProps) {
 	return (
 		<Auth>
 			<>
+				<Header />
 				<article className="page-transition">
 					<Stack minHeight="100vh">
-						<Header />
-
 						<Box component="main" flexGrow={1} mt={10}>
 							{children}
 						</Box>
