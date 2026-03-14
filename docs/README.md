@@ -34,6 +34,33 @@ Dual tracking implementation guide for Umami.is analytics alongside GA4.
 
 ---
 
+### 3. **Notifications & Integrations**
+
+#### [implement_tele_webhook_send_noti.md](./implement_tele_webhook_send_noti.md)
+Complete implementation guide for Telegram order notifications.
+
+**Topics covered:**
+- Architecture design and data flow
+- Telegram Bot setup
+- API route implementation
+- Error handling & retry logic
+
+**Status:** ✅ Implemented
+
+---
+
+#### [SHIPPING_FEE_FEATURE.md](./SHIPPING_FEE_FEATURE.md)
+Dynamic shipping fee detection and management for the checkout flow.
+
+**Topics covered:**
+- Sanity schema for shipping fees
+- Region detection (Đà Nẵng vs. nationwide)
+- Frontend integration and state management
+
+**Status:** ✅ Implemented
+
+---
+
 ### 2. **Performance & Optimization**
 
 #### [ISR-REVALIDATION.md](./ISR-REVALIDATION.md)
@@ -47,33 +74,22 @@ Guide for Incremental Static Regeneration (ISR) and on-demand revalidation.
 
 ---
 
-### 3. **Notifications & Integrations**
+### 4. **AI Assistant & Workflow**
 
-#### [implement_tele_webhook_send_noti.md](./implement_tele_webhook_send_noti.md) 🆕
-Complete implementation plan for Telegram webhook notifications when customers place orders.
+#### [ai/DUAL_EDITOR_WORKFLOW.md](./ai/DUAL_EDITOR_WORKFLOW.md)
+Guide for multi-IDE (VS Code, Trae, Antigravity) collaboration and consistency.
 
-**Topics covered:**
-- Architecture design and data flow
-- Telegram Bot setup (step-by-step)
-- Environment configuration
-- API route implementation
-- Frontend integration
-- Error handling & retry logic
-- Security considerations
-- Testing strategy
-- Deployment checklist
-- Monitoring & analytics
-- Future enhancements
+#### [ai/PORTABLE_PROMPTS.md](./ai/PORTABLE_PROMPTS.md)
+A library of editor-agnostic prompt templates for common tasks.
 
-**Key Features:**
-- ✅ Real-time order notifications (< 2 seconds)
-- ✅ Rich formatted messages with order details
-- ✅ Direct links to Sanity Studio
-- ✅ Retry mechanism for reliability
-- ✅ Zero impact on order creation flow
+#### [ai/MCP_TOOLING_GUIDE.md](./ai/MCP_TOOLING_GUIDE.md)
+How to use Model Context Protocol (MCP) tools within AI-native editors.
 
-**Implementation Time:** 2-3 hours  
-**Status:** 📝 Planned
+#### [ai/DEVELOPER_EFFECTIVENESS.md](./ai/DEVELOPER_EFFECTIVENESS.md)
+Best practices for leveraging AI assistants to improve development speed and quality.
+
+#### [ai/DEPLOYMENT_ROLLBACK.md](./ai/DEPLOYMENT_ROLLBACK.md)
+Procedures for deploying and rolling back changes safely.
 
 ---
 
@@ -83,9 +99,16 @@ Complete implementation plan for Telegram webhook notifications when customers p
 docs/
 ├── README.md                              # This file
 ├── ANALYTICS_GUIDE.md                     # GA4 analytics guide
-├── implement__track_event_umami.md        # Umami tracking implementation
+├── implement__track_event_umami.md        # Umami tracking guide
+├── implement_tele_webhook_send_noti.md    # Telegram notification guide
+├── SHIPPING_FEE_FEATURE.md                # Shipping fee logic
 ├── ISR-REVALIDATION.md                    # ISR and revalidation guide
-└── implement_tele_webhook_send_noti.md    # Telegram notification implementation
+└── ai/                                    # AI Assistant documentation
+    ├── DEPLOYMENT_ROLLBACK.md
+    ├── DEVELOPER_EFFECTIVENESS.md
+    ├── DUAL_EDITOR_WORKFLOW.md
+    ├── MCP_TOOLING_GUIDE.md
+    └── PORTABLE_PROMPTS.md
 ```
 
 ---
