@@ -3,6 +3,7 @@
 This file defines the **shared working contract** for AI assistants used in this repository, including:
 
 - GitHub Copilot in VS Code
+- Trae IDE (AI-native)
 - Antigravity Editor assistants
 - Codex IDE assistants
 
@@ -76,17 +77,20 @@ Canonical order item shape:
 
 ## Where to find task workflows
 
-- Shared docs for both editors: `docs/ai/DUAL_EDITOR_WORKFLOW.md`
+- Shared docs for all editors: `docs/ai/DUAL_EDITOR_WORKFLOW.md`
 - Portable prompt pack: `docs/ai/PORTABLE_PROMPTS.md`
+- Trae/Cursor rules: `.cursorrules`, `.traerules` (symlinked to `.agents/instructions/global-rules.md`)
 - Antigravity-native assets: `.agents/workflows/*` (use `/` inside Antigravity to run them)
 - Copilot-native assets: `.github/copilot-instructions.md`, `.github/prompts/*`, `.github/skills/*`, `.github/agents/*`
 
 ## Multi-editor compatibility policy
 
 - Keep all trees available for native IDE ingestion:
-  - Copilot reads `.github/*`
-  - Antigravity reads `.agents/{agents,prompts,skills,workflows}/*`
-  - Codex reads `.codex/{agents,prompts,skills,workflows}/*`
+  - Trae reads `.cursorrules` and `.traerules`.
+  - Copilot reads `.github/*`.
+  - Antigravity reads `.agents/{agents,prompts,skills,workflows,instructions}/*`.
+  - Codex reads `.codex/{agents,prompts,skills,workflows,instructions}/*`.
 - Keep `.agents/*` as the single source of truth.
-- `.github/{agents,prompts,skills}` should be symlinked to `.agents/{agents,prompts,skills}`.
-- `.codex/{agents,prompts,skills,workflows}` should be symlinked to `.agents/{agents,prompts,skills,workflows}`.
+- Root rules (`.cursorrules`, `.traerules`) are symlinked to `.agents/instructions/global-rules.md`.
+- `.github/{agents,prompts,skills,instructions}` and `copilot-instructions.md` are symlinked to `.agents/` equivalents.
+- `.codex/{agents,prompts,skills,workflows,instructions}` are symlinked to `.agents/` equivalents.
