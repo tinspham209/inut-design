@@ -1,6 +1,11 @@
 import { Box, ImageList, ImageListItem, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import React from "react";
+import { Portal } from "../common/Portal";
+
+const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
+import "yet-another-react-lightbox/styles.css";
 
 interface ProductGalleryProps {
 	images: string[];
@@ -30,6 +35,8 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 	const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
+	const [isOpenLightBox, setIsOpenLightBox] = React.useState(false);
+	const [lightboxIndex, setLightboxIndex] = React.useState(0);
 
 	// Determine number of columns based on breakpoints
 	const cols = isMobile ? 2 : isTablet ? 3 : 4;
@@ -43,7 +50,7 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
 			<ImageList
 				variant="quilted"
 				cols={cols}
-				rowHeight={isMobile ? 150 : 200}
+				rowHeight={isMobile ? 100 : 150}
 				gap={8}
 				sx={{
 					width: "100%",
@@ -59,7 +66,16 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
 					const itemRows = isMobile ? Math.min(pattern.rows, 2) : pattern.rows;
 
 					return (
-						<ImageListItem key={index} cols={itemCols} rows={itemRows}>
+						<ImageListItem
+							key={index}
+							cols={itemCols}
+							rows={itemRows}
+							onClick={() => {
+								setLightboxIndex(index);
+								setIsOpenLightBox(true);
+							}}
+							sx={{ cursor: "pointer" }}
+						>
 							<Box
 								sx={{
 									position: "relative",
@@ -87,6 +103,17 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
 					);
 				})}
 			</ImageList>
+
+			{isOpenLightBox && (
+				<Portal>
+					<Lightbox
+						open={isOpenLightBox}
+						close={() => setIsOpenLightBox(false)}
+						index={lightboxIndex}
+						slides={images.map((img) => ({ src: img }))}
+					/>
+				</Portal>
+			)}
 		</Box>
 	);
 };

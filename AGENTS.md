@@ -69,6 +69,12 @@ Canonical order item shape:
 - Keep GROQ projections explicit and minimal.
 - Maintain reference integrity (`_ref`, `->` shape compatibility).
 
+### Browser Automation
+
+- **MANDATORY**: Use `agent-browser` for UI verification of critical flows (cart/checkout/blog).
+- Always prefer `agent-browser snapshot -i` for token efficiency.
+- Follow the workflow in `.agents/skills/agent-browser-automation/SKILL.md`.
+
 ## Verification order
 
 1. `pnpm lint`

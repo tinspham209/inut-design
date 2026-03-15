@@ -3,7 +3,7 @@ import { Stack, Switch, Typography } from "@mui/material";
 import React from "react";
 import { Control, Controller, FieldErrors, FieldValues } from "react-hook-form";
 
-const ControllerSwitch: React.FC<Props> = ({ id, errors, control, label, required }) => {
+export const ControllerSwitch: React.FC<Props> = ({ id, errors, control, label, required }) => {
 	return (
 		<>
 			<Controller

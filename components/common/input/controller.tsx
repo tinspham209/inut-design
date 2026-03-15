@@ -3,7 +3,7 @@ import { TextField } from "@mui/material";
 import React from "react";
 import { Control, Controller, FieldErrors, FieldValues } from "react-hook-form";
 
-const ControllerInput: React.FC<Props> = ({
+export const ControllerInput: React.FC<Props> = ({
 	id,
 	label,
 	placeholder,

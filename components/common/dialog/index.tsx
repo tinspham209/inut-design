@@ -16,7 +16,7 @@ import {
 import React from "react";
 import { REASON_CLOSE_DIALOG } from "./helpers";
 import cn from "clsx";
-import { Close } from "@mui/icons-material";
+import Close from "@mui/icons-material/Close";
 import { Callback, isEmpty } from "@/utils";
 
 const Dialog: React.FC<

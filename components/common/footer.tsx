@@ -5,17 +5,15 @@ import {
 	trackPhoneClick,
 	trackSocialClick,
 } from "@/utils";
-import { Facebook, Instagram } from "@mui/icons-material";
-import {
-	Box,
-	Container,
-	Divider,
-	Grid,
-	Icon,
-	Link as MuiLink,
-	Stack,
-	Typography,
-} from "@mui/material";
+import Facebook from "@mui/icons-material/Facebook";
+import Instagram from "@mui/icons-material/Instagram";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import MuiLink from "@mui/material/Link";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import Link from "next/link";
 
 const taxInfoUrl = "https://masothue.com/0402325801-cong-ty-tnhh-inut-design";
@@ -249,7 +247,7 @@ export function Footer() {
 											},
 										}}
 									>
-										<Icon component={link.icon} sx={{ fontSize: 24 }} />
+										<link.icon sx={{ fontSize: 24 }} />
 									</MuiLink>
 								))}
 							</Stack>

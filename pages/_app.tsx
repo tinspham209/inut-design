@@ -1,20 +1,9 @@
 import axiosClient from "@/api/axios-client";
-import dynamic from "next/dynamic";
 import { EmptyLayout } from "@/components/layout";
+import dynamic from "next/dynamic";
 
-const ProductCartWrapper = dynamic(
-	() => import("@/components/cart/CartWrapper").then((mod) => mod.ProductCartWrapper),
-	{ ssr: false }
-);
-const DialogContainer = dynamic(() => import("@/components/common").then((mod) => mod.DialogContainer), {
-	ssr: false,
-});
-const Toaster = dynamic(() => import("react-hot-toast").then((mod) => mod.Toaster), {
-	ssr: false,
-});
 import { AppPropsWithLayout } from "@/models";
 import { createEmotionCache, theme, trackPageView } from "@/utils";
-import { useUmamiEngagement } from "@/hooks/useUmamiEngagement";
 import { CacheProvider } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
@@ -23,9 +12,23 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { SWRConfig } from "swr";
 
+const ProductCartWrapper = dynamic(
+	() => import("@/components/cart/CartWrapper").then((mod) => mod.ProductCartWrapper),
+	{ ssr: false }
+);
+const DialogContainer = dynamic(
+	() => import("@/components/common").then((mod) => mod.DialogContainer),
+	{
+		ssr: false,
+	}
+);
+const Toaster = dynamic(() => import("react-hot-toast").then((mod) => mod.Toaster), {
+	ssr: false,
+});
+
+import useEngagementTracking from "@/hooks/useEngagementTracking";
 import "../styles/globals.css";
 import "../styles/prism.css";
-import useEngagementTracking from "@/hooks/useEngagementTracking";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();

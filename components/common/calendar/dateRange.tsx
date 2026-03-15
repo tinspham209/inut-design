@@ -14,7 +14,7 @@ interface DateRangePickerProps {
 	maxDate?: Date;
 }
 
-const DateRangePicker: React.FC<DateRangePickerProps> = ({
+export const DateRangePicker: React.FC<DateRangePickerProps> = ({
 	value,
 	onChange,
 	disabledDates,

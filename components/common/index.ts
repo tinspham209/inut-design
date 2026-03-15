@@ -1,11 +1,11 @@
-export * from "./auth";
+export * from "./Portal";
 export * from "./header";
 export * from "./footer";
 export * from "./seo";
 export * from "./footerSeo";
-export { default as Input } from "./input";
-export { default as DateRangePicker } from "./calendar/dateRange";
-export { default as DialogContainer } from "./dialog/container";
-export { default as ControllerInput } from "./input/controller";
-export { default as ControllerDatePicker } from "./calendar/datePicker";
-export { default as ControllerSwitch } from "./switch";
+export * from "./input";
+export * from "./calendar/dateRange";
+export * from "./dialog/container";
+export * from "./input/controller";
+export * from "./calendar/datePicker";
+export * from "./switch";

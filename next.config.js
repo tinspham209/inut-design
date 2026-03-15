@@ -1,5 +1,9 @@
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+	enabled: process.env.ANALYZE === "true",
+});
+
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
 	reactStrictMode: true,
 	images: {
 		domains: ["res.cloudinary.com", "cdn.sanity.io"],
@@ -16,3 +20,5 @@ module.exports = {
 		ignoreDuringBuilds: true,
 	},
 };
+
+module.exports = withBundleAnalyzer(nextConfig);

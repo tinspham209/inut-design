@@ -1,8 +1,9 @@
 import { Box, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import React, { useState } from "react";
-import Lightbox from "react-awesome-lightbox";
-import "react-awesome-lightbox/build/style.css";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+import { Portal } from "../../common/Portal";
 
 interface ProductGalleryProps {
 	images: string[];
@@ -17,7 +18,7 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({ images }) => {
 		setLightboxOpen(true);
 	};
 
-	const lightboxImages = images.map((img) => ({ url: img, title: "Bật lửa custom" }));
+	const lightboxImages = images.map((img) => ({ src: img }));
 
 	return (
 		<Grid container spacing={1} id="gallery">
@@ -72,11 +73,14 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({ images }) => {
 			})}
 
 			{lightboxOpen && (
-				<Lightbox
-					images={lightboxImages}
-					startIndex={currentImageIndex}
-					onClose={() => setLightboxOpen(false)}
-				/>
+				<Portal>
+					<Lightbox
+						open={lightboxOpen}
+						close={() => setLightboxOpen(false)}
+						index={currentImageIndex}
+						slides={lightboxImages}
+					/>
+				</Portal>
 			)}
 		</Grid>
 	);

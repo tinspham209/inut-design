@@ -6,7 +6,7 @@ import React, { Suspense } from "react";
 
 const DialogRenderer = dynamic(() => import("./renderer"));
 
-const DialogContainer: React.FC = () => {
+export const DialogContainer: React.FC = () => {
 	const dialogSlice = useDialogSlice();
 
 	const { isVisible, type, data } = dialogSlice;

@@ -1,17 +1,15 @@
 import { COLOR_CODE } from "@/utils";
 import MenuIcon from "@mui/icons-material/Menu";
-import {
-	Box,
-	Button,
-	Container,
-	Drawer,
-	IconButton,
-	List,
-	ListItem,
-	ListItemButton,
-	Link as MuiLink,
-	Stack,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import MuiLink from "@mui/material/Link";
+import Stack from "@mui/material/Stack";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";

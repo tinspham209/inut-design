@@ -4,7 +4,7 @@ import React from "react";
 import { Calendar } from "react-date-range";
 import { Control, Controller, FieldErrors, FieldValues } from "react-hook-form";
 
-const ControllerDatePicker: React.FC<Props> = ({ id, errors, control, closePopover }) => {
+export const ControllerDatePicker: React.FC<Props> = ({ id, errors, control, closePopover }) => {
 	return (
 		<>
 			<Controller

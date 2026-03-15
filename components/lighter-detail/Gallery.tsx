@@ -1,10 +1,12 @@
 import React from "react";
 import { Box } from "@mui/material";
 import Image from "next/image";
-import { Carousel } from "react-responsive-carousel";
-import Lightbox from "react-awesome-lightbox";
-import "react-awesome-lightbox/build/style.css";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import dynamic from "next/dynamic";
+import { Portal } from "../common/Portal";
+
+const Carousel = dynamic(() => import("react-material-ui-carousel"), { ssr: false });
+const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
+import "yet-another-react-lightbox/styles.css";
 
 export type GalleryImage = {
 	_key: string;
@@ -26,45 +28,27 @@ const Gallery: React.FC<GalleryProps> = ({ images, productName }) => {
 		<Box>
 			<Carousel
 				autoPlay
-				infiniteLoop
-				showIndicators
-				showThumbs
-				thumbWidth={80}
-				renderThumbs={() =>
-					images.map((img) => (
-						<Image
-							src={img.thumbUrl || img.url}
-							alt={img.alt}
-							key={img._key}
-							unoptimized
-							width={80}
-							height={80}
-							style={{ objectFit: "cover" }}
-						/>
-					))
-				}
-				useKeyboardArrows
-				stopOnHover
-				swipeable
-				emulateTouch
-				interval={3000}
-				transitionTime={500}
-				centerSlidePercentage={80}
-				ariaLabel={`Carousel ${productName}`}
-				selectedItem={lightboxIndex}
-				onClickItem={(idx) => {
-					setLightboxIndex(idx);
-					setIsOpenLightBox(true);
+				indicators={true}
+				navButtonsAlwaysVisible={true}
+				index={lightboxIndex}
+				onChange={(now) => setLightboxIndex(now as number)}
+				sx={{
+					"& .MuiImage-root": {
+						objectFit: "cover",
+						borderRadius: "16px",
+					},
 				}}
 			>
 				{images.map((img, idx) => (
-					<Box key={img._key} sx={{ cursor: "pointer" }}>
+					<Box
+						key={img._key}
+						sx={{ cursor: "pointer", position: "relative", height: 400 }}
+						onClick={() => setIsOpenLightBox(true)}
+					>
 						<Image
 							src={img.url}
-							width="100%"
-							height="100%"
-							layout="responsive"
-							priority={true}
+							layout="fill"
+							priority={idx === 0}
 							unoptimized
 							alt={img.alt}
 							style={{
@@ -72,18 +56,51 @@ const Gallery: React.FC<GalleryProps> = ({ images, productName }) => {
 								border: "1px solid",
 								borderColor: "divider",
 								borderRadius: "16px",
-								transition: "all 0.2 ease-in-out",
 							}}
 						/>
 					</Box>
 				))}
 			</Carousel>
+			{/* Thumbnails */}
+			<Box sx={{ display: "flex", gap: 1, mt: 2, overflowX: "auto", pb: 1 }}>
+				{images.map((img, idx) => (
+					<Box
+						key={`thumb-${img._key}`}
+						onClick={() => setLightboxIndex(idx)}
+						sx={{
+							width: 80,
+							height: 80,
+							flexShrink: 0,
+							cursor: "pointer",
+							border: "2px solid",
+							borderColor: lightboxIndex === idx ? "primary.main" : "transparent",
+							borderRadius: "8px",
+							overflow: "hidden",
+							opacity: lightboxIndex === idx ? 1 : 0.6,
+							transition: "all 0.2s",
+							"&:hover": { opacity: 1 },
+						}}
+					>
+						<Image
+							src={img.thumbUrl || img.url}
+							alt={img.alt}
+							width={80}
+							height={80}
+							unoptimized
+							style={{ objectFit: "cover" }}
+						/>
+					</Box>
+				))}
+			</Box>
 			{isOpenLightBox && (
-				<Lightbox
-					images={images.map((img) => ({ url: img.url, title: productName }))}
-					startIndex={lightboxIndex}
-					onClose={() => setIsOpenLightBox(false)}
-				/>
+				<Portal>
+					<Lightbox
+						open={isOpenLightBox}
+						close={() => setIsOpenLightBox(false)}
+						index={lightboxIndex}
+						slides={images.map((img) => ({ src: img.url }))}
+					/>
+				</Portal>
 			)}
 		</Box>
 	);

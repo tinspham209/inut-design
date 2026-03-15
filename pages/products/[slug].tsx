@@ -15,19 +15,23 @@ import {
 	Link as MuiLink,
 	Stack,
 	Typography,
+	useMediaQuery,
+	useTheme,
 } from "@mui/material";
 import { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import Lightbox from "react-awesome-lightbox";
-import "react-awesome-lightbox/build/style.css";
+import "yet-another-react-lightbox/styles.css";
+import { Portal } from "@/components/common/Portal";
 // import CountUp from "react-countup";
 // import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { useRouter } from "next/router";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import dynamic from "next/dynamic";
 import styles from "./productItem.module.css";
+
+const Carousel = dynamic(() => import("react-material-ui-carousel"), { ssr: false });
+const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
 import { staticContentEachPageApi } from "@/api-client/staticContentEachPage";
 import { StaticContentEachPage } from "@/models";
 import BlockContentWrapper from "@/components/common/block-content";
@@ -35,6 +39,7 @@ import BlockContentWrapper from "@/components/common/block-content";
 const ProductDetail = ({ product, products, staticContent }: Props) => {
 	const router = useRouter();
 	const [isOpenLightBox, setIsOpenLightBox] = React.useState(false);
+	const [lightboxIndex, setLightboxIndex] = React.useState(0);
 
 	// Track product view on mount
 	React.useEffect(() => {
@@ -48,6 +53,19 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 		}
 	}, [product]);
 
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+	const isTablet = useMediaQuery(theme.breakpoints.down("md"));
+	const itemsPerPage = isMobile ? 1 : isTablet ? 3 : 5;
+
+	const chunkedProducts = React.useMemo(() => {
+		const chunks = [];
+		for (let i = 0; i < products.length; i += itemsPerPage) {
+			chunks.push(products.slice(i, i + itemsPerPage));
+		}
+		return chunks;
+	}, [products, itemsPerPage]);
+
 	return (
 		<>
 			<Seo
@@ -59,16 +77,16 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 				}}
 			/>
 			{isOpenLightBox && (
-				<Lightbox
-					className=""
-					images={product.image.map((image) => {
-						return {
-							url: urlFor(image),
-							title: product.name,
-						};
-					})}
-					onClose={() => setIsOpenLightBox(false)}
-				/>
+				<Portal>
+					<Lightbox
+						open={isOpenLightBox}
+						close={() => setIsOpenLightBox(false)}
+						index={lightboxIndex}
+						slides={product.image.map((image) => ({
+							src: urlFor(image).url(),
+						}))}
+					/>
+				</Portal>
 			)}
 			<Box component={"section"}>
 				<Container>
@@ -105,34 +123,12 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 						<Grid item xs={12} md={6}>
 							<Carousel
 								autoPlay
-								infiniteLoop
-								showIndicators
-								showThumbs
-								thumbWidth={80}
-								renderThumbs={() =>
-									product.image.map((thumbnail) => (
-										<Image
-											src={urlFor(thumbnail).width(200).url()}
-											alt={"product-image-thumbnail"}
-											key={thumbnail._key}
-											unoptimized
-											width="100%"
-											height="100%"
-											layout="responsive"
-											className={styles.productImage}
-										/>
-									))
-								}
-								useKeyboardArrows
-								stopOnHover
-								swipeable
-								emulateTouch
-								interval={3000}
-								transitionTime={500}
-								centerSlidePercentage={80}
-								ariaLabel="Carousel Product Image"
+								indicators={true}
+								navButtonsAlwaysVisible={true}
+								index={lightboxIndex}
+								onChange={(now) => setLightboxIndex(now as number)}
 							>
-								{product.image.map((image) => (
+								{product.image.map((image, idx) => (
 									<Box
 										key={image._key}
 										onClick={() => {
@@ -140,28 +136,60 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 										}}
 										sx={{
 											cursor: "pointer",
+											position: "relative",
+											height: { xs: 300, md: 500 },
 										}}
 									>
 										<Image
 											src={urlFor(image).width(1000).url()}
-											width="100%"
-											height={"100%"}
-											layout="responsive"
-											priority={true}
+											layout="fill"
+											priority={idx === 0}
 											unoptimized
 											alt="product-image"
 											className={styles.productImage}
+											style={{ objectFit: "cover" }}
 										/>
 									</Box>
 								))}
 							</Carousel>
+							{/* Thumbnails */}
+							<Box sx={{ display: "flex", gap: 1, mt: 2, overflowX: "auto", pb: 1 }}>
+								{product.image.map((thumbnail, idx) => (
+									<Box
+										key={`thumb-${thumbnail._key}`}
+										onClick={() => setLightboxIndex(idx)}
+										sx={{
+											width: 80,
+											height: 80,
+											flexShrink: 0,
+											cursor: "pointer",
+											border: "2px solid",
+											borderColor: lightboxIndex === idx ? "primary.main" : "transparent",
+											borderRadius: "8px",
+											overflow: "hidden",
+											opacity: lightboxIndex === idx ? 1 : 0.6,
+											transition: "all 0.2s",
+											"&:hover": { opacity: 1 },
+										}}
+									>
+										<Image
+											src={urlFor(thumbnail).width(200).url()}
+											alt={"product-image-thumbnail"}
+											width={80}
+											height={80}
+											unoptimized
+											style={{ objectFit: "cover" }}
+										/>
+									</Box>
+								))}
+							</Box>
 						</Grid>
 						<Grid item xs={12} md={6}>
 							<Typography
 								variant="h3"
 								fontWeight="bold"
 								mt={{
-									xs: 10,
+									xs: 2,
 									md: 2,
 								}}
 							>
@@ -239,46 +267,83 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 			</Box>
 
 			<Box component={"section"} pt={2} mt={2}>
-				{/* <Container> */}
 				<Typography variant="h3" mt={2} fontWeight="bold" textAlign="center">
 					Có thể bạn sẽ thích
 				</Typography>
-				<div className="">
-					<div className="marquee">
-						<div className="maylike-products-container track">
-							{products.map((product) => (
-								<Link href={`/products/${product.slug.current}`} passHref key={product._id}>
-									<MuiLink>
-										<img
-											src={urlFor(product.image[0]).width(500).url()}
-											width={250}
-											height={250}
-											alt="product-image"
-											className={styles.productImage}
-										/>
-										<Typography
-											variant="h6"
-											mt={1}
-											fontWeight="bold"
-											textAlign="center"
-											sx={{
-												mt: 1,
-												fontWeight: "bold",
-												textAlign: "center",
-												whiteSpace: "nowrap",
-												textOverflow: "ellipsis",
-												overflow: "hidden",
-											}}
+				<Box sx={{ maxWidth: "100%", overflow: "hidden", px: { xs: 2, md: 4 }, py: 4 }}>
+					<Carousel
+						autoPlay
+						animation="slide"
+						indicators={chunkedProducts.length > 1}
+						navButtonsAlwaysVisible={!isMobile && chunkedProducts.length > 1}
+						cycleNavigation
+						interval={5000}
+						duration={1000}
+						sx={{
+							minHeight: 350,
+							"& .MuiButtonBase-root": {
+								backgroundColor: "rgba(0,0,0,0.1)",
+								color: "black",
+								"&:hover": {
+									backgroundColor: "rgba(0,0,0,0.2)",
+								},
+							},
+						}}
+					>
+						{chunkedProducts.map((chunk, chunkIdx) => (
+							<Grid container spacing={2} key={chunkIdx} justifyContent="center">
+								{chunk.map((relatedProduct) => (
+									<Grid item xs={12} sm={4} md={2.4} key={relatedProduct._id}>
+										<Link
+											href={`/products/${relatedProduct.slug.current}`}
+											passHref
+											style={{ textDecoration: "none" }}
 										>
-											{product.name}
-										</Typography>
-									</MuiLink>
-								</Link>
-							))}
-						</div>
-					</div>
-				</div>
-				{/* </Container> */}
+											<MuiLink sx={{ textDecoration: "none", display: "block" }}>
+												<Box
+													sx={{
+														position: "relative",
+														width: "100%",
+														pt: "100%", // 1:1 Aspect Ratio
+														borderRadius: "8px",
+														overflow: "hidden",
+														boxShadow: 1,
+														transition: "transform 0.3s",
+														"&:hover": {
+															transform: "scale(1.05)",
+														},
+													}}
+												>
+													<Image
+														src={urlFor(relatedProduct.image[0]).width(500).url()}
+														layout="fill"
+														objectFit="cover"
+														unoptimized
+														alt={relatedProduct.name}
+													/>
+												</Box>
+												<Typography
+													variant="h6"
+													mt={1}
+													fontWeight="bold"
+													textAlign="center"
+													sx={{
+														color: "text.primary",
+														whiteSpace: "nowrap",
+														textOverflow: "ellipsis",
+														overflow: "hidden",
+													}}
+												>
+													{relatedProduct.name}
+												</Typography>
+											</MuiLink>
+										</Link>
+									</Grid>
+								))}
+							</Grid>
+						))}
+					</Carousel>
+				</Box>
 				<Divider />
 			</Box>
 		</>

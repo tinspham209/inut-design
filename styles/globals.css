@@ -36,50 +36,6 @@ a {
 	cursor: pointer;
 }
 
-.marquee {
-	position: relative;
-	height: 350px;
-	width: 100%;
-	overflow-x: hidden;
-}
-
-.maylike-products-container {
-	display: flex;
-	justify-content: center;
-	gap: 15px;
-	margin-top: 20px;
-}
-.track {
-	position: absolute;
-	white-space: nowrap;
-	will-change: transform;
-	animation: marquee 60s linear infinite;
-	width: 200%;
-}
-
-.track.macnut {
-	width: 200%;
-}
-.track:hover {
-	animation-play-state: paused;
-	background-color: rgb(250, 250, 251);
-}
-@keyframes marquee {
-	from {
-		transform: translateX(0);
-	}
-	to {
-		transform: translateX(-50%);
-	}
-}
-
-@media screen and (max-width: 600px) {
-	.track {
-		animation-duration: 8s;
-		width: 500%;
-	}
-}
-
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,

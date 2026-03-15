@@ -3,7 +3,7 @@ import { IconButton, InputAdornment, InputBaseComponentProps, TextField } from "
 import React, { HTMLProps, MouseEventHandler, RefObject } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-const Input: React.FC<InputProps> = ({
+export const Input: React.FC<InputProps> = ({
 	errorMessage,
 	label,
 	className,
