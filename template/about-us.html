@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Về Chúng Tôi — INUT Design</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			*,
+			*::before,
+			*::after {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			:root {
+				--orange: #ff4d00;
+				--orange-hi: #ff6b25;
+				--yellow: #ffe234;
+				--ink: #080706;
+				--ink3: #1c1a16;
+				--ink4: #282420;
+				--ash: #3d3830;
+				--cream: #f5f0e8;
+				--smoke: #a89e94;
+				--dust: #6b6157;
+			}
+
+			html {
+				scroll-behavior: smooth;
+			}
+
+			body {
+				background: var(--ink);
+				color: var(--cream);
+				font-family: "DM Sans", sans-serif;
+				font-weight: 400;
+				overflow-x: hidden;
+			}
+
+			/* ─── TYPOGRAPHY UTILS ─── */
+			.font-syne {
+				font-family: "Syne", sans-serif;
+			}
+			.font-dm-serif {
+				font-family: "DM Serif Display", serif;
+			}
+			.accent {
+				font-family: "DM Serif Display", serif;
+				font-style: italic;
+				color: var(--orange);
+			}
+
+			/* ─── EYEBROW ─── */
+			.eyebrow {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 12px;
+				letter-spacing: 0.15em;
+				text-transform: uppercase;
+				color: var(--orange);
+				margin-bottom: 20px;
+			}
+			.eyebrow::before {
+				content: "";
+				display: block;
+				width: 20px;
+				height: 2px;
+				background: var(--orange);
+				flex-shrink: 0;
+			}
+
+			/* ─── NAV ─── */
+			nav {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 100;
+				padding: 18px 60px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				background: rgba(8, 7, 6, 0.85);
+				backdrop-filter: blur(12px);
+				border-bottom: 1px solid var(--ink4);
+			}
+			.nav-logo {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 20px;
+				color: var(--cream);
+				letter-spacing: -0.02em;
+			}
+			.nav-logo span {
+				color: var(--orange);
+			}
+			.nav-links {
+				display: flex;
+				gap: 32px;
+				list-style: none;
+			}
+			.nav-links a {
+				font-family: "Syne", sans-serif;
+				font-weight: 400;
+				font-size: 13px;
+				color: var(--smoke);
+				text-decoration: none;
+				letter-spacing: 0.05em;
+				text-transform: uppercase;
+				transition: color 0.2s;
+			}
+			.nav-links a:hover {
+				color: var(--cream);
+			}
+			.nav-cta {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 13px;
+				color: var(--ink);
+				background: var(--orange);
+				border: none;
+				padding: 10px 24px;
+				cursor: pointer;
+				letter-spacing: 0.05em;
+				text-transform: uppercase;
+				text-decoration: none;
+				transition: background 0.2s;
+			}
+			.nav-cta:hover {
+				background: var(--orange-hi);
+			}
+
+			/* ─── HERO ─── */
+			#hero {
+				min-height: 100vh;
+				display: flex;
+				align-items: center;
+				padding: 120px 60px 80px;
+				position: relative;
+				overflow: hidden;
+			}
+			.hero-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 80px;
+				align-items: center;
+				max-width: 1300px;
+				margin: 0 auto;
+				width: 100%;
+			}
+			.hero-headline {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: clamp(48px, 6vw, 84px);
+				line-height: 1;
+				letter-spacing: -0.03em;
+				color: var(--cream);
+			}
+			.hero-sub {
+				font-size: 17px;
+				line-height: 1.7;
+				color: var(--smoke);
+				margin-top: 28px;
+				max-width: 420px;
+			}
+			.hero-badges {
+				display: flex;
+				gap: 12px;
+				margin-top: 36px;
+				flex-wrap: wrap;
+			}
+			.badge {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 11px;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				padding: 6px 16px;
+				border: 1px solid var(--ash);
+				color: var(--smoke);
+			}
+			.badge-yellow {
+				background: var(--yellow);
+				color: var(--ink);
+				border-color: var(--yellow);
+			}
+			.hero-visual {
+				display: flex;
+				flex-direction: column;
+				gap: 16px;
+			}
+			.hero-card-big {
+				background: var(--ink3);
+				border: 1px solid var(--ash);
+				padding: 40px;
+				position: relative;
+				overflow: hidden;
+			}
+			.hero-card-big::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 4px;
+				height: 100%;
+				background: var(--orange);
+			}
+			.hero-card-num {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 64px;
+				color: var(--orange);
+				line-height: 1;
+				letter-spacing: -0.04em;
+			}
+			.hero-card-label {
+				font-family: "DM Sans", sans-serif;
+				font-weight: 300;
+				font-size: 14px;
+				color: var(--smoke);
+				margin-top: 8px;
+				letter-spacing: 0.02em;
+			}
+			.hero-cards-row {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 16px;
+			}
+			.hero-card-sm {
+				background: var(--ink3);
+				border: 1px solid var(--ash);
+				padding: 24px;
+				position: relative;
+				overflow: hidden;
+			}
+			.hero-card-sm .hero-card-num {
+				font-size: 40px;
+			}
+
+			/* ─── BG NOISE / GRAIN ─── */
+			#hero::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+				pointer-events: none;
+				opacity: 0.4;
+			}
+			.hero-content {
+				position: relative;
+				z-index: 1;
+			}
+
+			/* ─── SECTION BASE ─── */
+			section {
+				padding: 100px 60px;
+			}
+			.section-inner {
+				max-width: 1300px;
+				margin: 0 auto;
+			}
+
+			/* ─── DIVIDER ─── */
+			.divider {
+				height: 1px;
+				background: var(--ash);
+				max-width: 1300px;
+				margin: 0 auto;
+			}
+
+			/* ─── STORY SECTION ─── */
+			#story {
+				background: var(--ink);
+			}
+			.story-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 100px;
+				align-items: start;
+			}
+			.story-headline {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: clamp(36px, 4vw, 56px);
+				line-height: 1.05;
+				letter-spacing: -0.03em;
+				color: var(--cream);
+			}
+			.story-body {
+				font-size: 16px;
+				line-height: 1.85;
+				color: var(--smoke);
+				margin-top: 28px;
+			}
+			.story-body p + p {
+				margin-top: 20px;
+			}
+			.story-pull {
+				font-family: "DM Serif Display", serif;
+				font-size: clamp(22px, 2.5vw, 32px);
+				line-height: 1.3;
+				color: var(--cream);
+				border-left: 3px solid var(--orange);
+				padding-left: 28px;
+				margin-top: 48px;
+			}
+			.story-timeline {
+				display: flex;
+				flex-direction: column;
+				gap: 0;
+			}
+			.timeline-item {
+				display: flex;
+				gap: 24px;
+				padding-bottom: 40px;
+				position: relative;
+			}
+			.timeline-item:not(:last-child)::after {
+				content: "";
+				position: absolute;
+				left: 19px;
+				top: 40px;
+				width: 1px;
+				height: calc(100% - 20px);
+				background: var(--ash);
+			}
+			.timeline-dot {
+				width: 40px;
+				height: 40px;
+				flex-shrink: 0;
+				border: 1px solid var(--ash);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 12px;
+				color: var(--orange);
+				background: var(--ink);
+				position: relative;
+				z-index: 1;
+			}
+			.timeline-dot.active {
+				background: var(--orange);
+				color: var(--ink);
+				border-color: var(--orange);
+			}
+			.timeline-year {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 11px;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--orange);
+				margin-bottom: 6px;
+			}
+			.timeline-title {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 15px;
+				color: var(--cream);
+				margin-bottom: 6px;
+			}
+			.timeline-desc {
+				font-size: 14px;
+				line-height: 1.6;
+				color: var(--smoke);
+			}
+
+			/* ─── PRODUCTS ─── */
+			#products {
+				background: var(--ink3);
+			}
+			.products-intro {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-end;
+				margin-bottom: 56px;
+				gap: 40px;
+			}
+			.products-headline {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: clamp(32px, 4vw, 52px);
+				line-height: 1.05;
+				letter-spacing: -0.03em;
+				color: var(--cream);
+				max-width: 520px;
+			}
+			.products-note {
+				font-size: 15px;
+				line-height: 1.7;
+				color: var(--smoke);
+				max-width: 340px;
+				flex-shrink: 0;
+			}
+			.products-grid {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 2px;
+			}
+			.product-card {
+				background: var(--ink4);
+				padding: 36px 28px;
+				display: flex;
+				flex-direction: column;
+				gap: 16px;
+				cursor: pointer;
+				transition: background 0.25s;
+				border-top: 2px solid transparent;
+				position: relative;
+				overflow: hidden;
+			}
+			.product-card:hover {
+				background: var(--ash);
+				border-top-color: var(--orange);
+			}
+			.product-card:hover .product-arrow {
+				transform: translateX(4px);
+			}
+			.product-icon {
+				width: 48px;
+				height: 48px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border: 1px solid var(--ash);
+				color: var(--orange);
+				font-size: 22px;
+				flex-shrink: 0;
+			}
+			.product-name {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 17px;
+				color: var(--cream);
+				line-height: 1.2;
+			}
+			.product-desc {
+				font-size: 13px;
+				line-height: 1.65;
+				color: var(--smoke);
+				flex: 1;
+			}
+			.product-tag {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 10px;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--yellow);
+				background: rgba(255, 226, 52, 0.08);
+				padding: 4px 10px;
+				align-self: flex-start;
+			}
+			.product-arrow {
+				font-size: 18px;
+				color: var(--orange);
+				align-self: flex-end;
+				transition: transform 0.2s;
+				margin-top: auto;
+			}
+
+			/* ─── PHILOSOPHY ─── */
+			#philosophy {
+				background: var(--orange);
+			}
+			#philosophy .eyebrow {
+				color: var(--ink);
+			}
+			#philosophy .eyebrow::before {
+				background: var(--ink);
+			}
+			.philosophy-headline {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: clamp(42px, 6vw, 80px);
+				line-height: 1;
+				letter-spacing: -0.04em;
+				color: var(--ink);
+				max-width: 900px;
+				margin-bottom: 60px;
+			}
+			.philosophy-headline .serif-italic {
+				font-family: "DM Serif Display", serif;
+				font-style: italic;
+				color: var(--cream);
+			}
+			.pillars-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 2px;
+			}
+			.pillar {
+				background: rgba(8, 7, 6, 0.12);
+				padding: 36px 32px;
+				border-top: 2px solid rgba(8, 7, 6, 0.25);
+			}
+			.pillar-num {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 48px;
+				color: var(--ink);
+				opacity: 0.15;
+				line-height: 1;
+				margin-bottom: 16px;
+			}
+			.pillar-title {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 18px;
+				color: var(--ink);
+				margin-bottom: 10px;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+			}
+			.pillar-body {
+				font-size: 14px;
+				line-height: 1.7;
+				color: rgba(8, 7, 6, 0.65);
+			}
+
+			/* ─── TEAM / WHY US ─── */
+			#why {
+				background: var(--ink);
+			}
+			.why-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 80px;
+				align-items: center;
+			}
+			.why-headline {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: clamp(34px, 4vw, 54px);
+				line-height: 1.05;
+				letter-spacing: -0.03em;
+				color: var(--cream);
+				margin-bottom: 32px;
+			}
+			.why-list {
+				display: flex;
+				flex-direction: column;
+				gap: 0;
+				list-style: none;
+			}
+			.why-item {
+				display: flex;
+				gap: 20px;
+				padding: 24px 0;
+				border-bottom: 1px solid var(--ash);
+				align-items: flex-start;
+			}
+			.why-item:first-child {
+				border-top: 1px solid var(--ash);
+			}
+			.why-check {
+				width: 28px;
+				height: 28px;
+				background: var(--orange);
+				color: var(--ink);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 14px;
+				flex-shrink: 0;
+				margin-top: 2px;
+			}
+			.why-text-title {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 15px;
+				color: var(--cream);
+				margin-bottom: 4px;
+			}
+			.why-text-desc {
+				font-size: 14px;
+				line-height: 1.6;
+				color: var(--smoke);
+			}
+			.stats-panel {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 16px;
+			}
+			.stat-card {
+				background: var(--ink3);
+				border: 1px solid var(--ash);
+				padding: 32px 28px;
+				position: relative;
+				overflow: hidden;
+			}
+			.stat-card::after {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 3px;
+				background: var(--orange);
+				transform: scaleX(0);
+				transform-origin: left;
+				transition: transform 0.3s;
+			}
+			.stat-card:hover::after {
+				transform: scaleX(1);
+			}
+			.stat-num {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 48px;
+				color: var(--cream);
+				line-height: 1;
+				letter-spacing: -0.04em;
+			}
+			.stat-num span {
+				color: var(--orange);
+			}
+			.stat-label {
+				font-size: 13px;
+				color: var(--smoke);
+				margin-top: 8px;
+				line-height: 1.5;
+			}
+
+			/* ─── CTA / CONTACT ─── */
+			#contact {
+				background: var(--ink3);
+			}
+			.contact-inner {
+				max-width: 1300px;
+				margin: 0 auto;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 80px;
+				align-items: start;
+			}
+			.contact-headline {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: clamp(36px, 4vw, 58px);
+				line-height: 1.05;
+				letter-spacing: -0.03em;
+				color: var(--cream);
+				margin-bottom: 24px;
+			}
+			.contact-sub {
+				font-size: 16px;
+				line-height: 1.75;
+				color: var(--smoke);
+				margin-bottom: 40px;
+			}
+			.btn-primary {
+				display: inline-block;
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 14px;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--ink);
+				background: var(--orange);
+				padding: 16px 40px;
+				text-decoration: none;
+				transition: background 0.2s;
+			}
+			.btn-primary:hover {
+				background: var(--orange-hi);
+			}
+			.btn-ghost {
+				display: inline-block;
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 14px;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--cream);
+				background: transparent;
+				border: 1px solid var(--ash);
+				padding: 15px 32px;
+				text-decoration: none;
+				transition: border-color 0.2s, color 0.2s;
+				margin-left: 16px;
+			}
+			.btn-ghost:hover {
+				border-color: var(--cream);
+			}
+			.contact-info-list {
+				display: flex;
+				flex-direction: column;
+				gap: 0;
+				list-style: none;
+				border: 1px solid var(--ash);
+			}
+			.contact-info-item {
+				display: flex;
+				gap: 16px;
+				align-items: flex-start;
+				padding: 22px 28px;
+				border-bottom: 1px solid var(--ash);
+				transition: background 0.2s;
+			}
+			.contact-info-item:last-child {
+				border-bottom: none;
+			}
+			.contact-info-item:hover {
+				background: var(--ink4);
+			}
+			.contact-info-icon {
+				width: 36px;
+				height: 36px;
+				background: rgba(255, 77, 0, 0.1);
+				border: 1px solid rgba(255, 77, 0, 0.2);
+				color: var(--orange);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 16px;
+				flex-shrink: 0;
+			}
+			.contact-info-label {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 11px;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--dust);
+				margin-bottom: 4px;
+			}
+			.contact-info-val {
+				font-size: 15px;
+				color: var(--cream);
+				text-decoration: none;
+				transition: color 0.2s;
+			}
+			a.contact-info-val:hover {
+				color: var(--orange);
+			}
+
+			/* ─── FOOTER ─── */
+			footer {
+				background: var(--ink);
+				border-top: 1px solid var(--ash);
+				padding: 32px 60px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			.footer-logo {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 18px;
+				color: var(--cream);
+			}
+			.footer-logo span {
+				color: var(--orange);
+			}
+			.footer-copy {
+				font-size: 13px;
+				color: var(--dust);
+			}
+			.footer-tagline {
+				font-family: "DM Serif Display", serif;
+				font-style: italic;
+				font-size: 14px;
+				color: var(--smoke);
+			}
+
+			/* ─── ANIMATIONS ─── */
+			@keyframes fadeUp {
+				from {
+					opacity: 0;
+					transform: translateY(32px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+			.animate-in {
+				opacity: 0;
+			}
+			.animate-in.visible {
+				animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+			}
+			.delay-1 {
+				animation-delay: 0.1s;
+			}
+			.delay-2 {
+				animation-delay: 0.2s;
+			}
+			.delay-3 {
+				animation-delay: 0.35s;
+			}
+			.delay-4 {
+				animation-delay: 0.5s;
+			}
+
+			/* ─── RESPONSIVE ─── */
+			@media (max-width: 1024px) {
+				nav {
+					padding: 18px 32px;
+				}
+				.nav-links {
+					display: none;
+				}
+				section {
+					padding: 72px 32px;
+				}
+				#hero {
+					padding: 100px 32px 72px;
+				}
+				.hero-grid,
+				.story-grid,
+				.why-grid,
+				.contact-inner {
+					grid-template-columns: 1fr;
+					gap: 48px;
+				}
+				.products-grid {
+					grid-template-columns: 1fr 1fr;
+				}
+				.pillars-grid {
+					grid-template-columns: 1fr;
+				}
+				.products-intro {
+					flex-direction: column;
+					align-items: flex-start;
+				}
+				footer {
+					flex-direction: column;
+					gap: 12px;
+					text-align: center;
+					padding: 28px 32px;
+				}
+			}
+			@media (max-width: 600px) {
+				.products-grid {
+					grid-template-columns: 1fr;
+				}
+				.stats-panel {
+					grid-template-columns: 1fr;
+				}
+				.hero-cards-row {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<!-- ─── NAV ─── -->
+		<nav>
+			<div class="nav-logo">INUT<span>.</span>design</div>
+			<ul class="nav-links">
+				<li><a href="#story">Câu Chuyện</a></li>
+				<li><a href="#products">Sản Phẩm</a></li>
+				<li><a href="#philosophy">Triết Lý</a></li>
+				<li><a href="#contact">Liên Hệ</a></li>
+			</ul>
+			<a href="https://zalo.me/0327124321" class="nav-cta">Inbox Ngay</a>
+		</nav>
+
+		<!-- ─── HERO ─── -->
+		<section id="hero">
+			<div class="hero-grid">
+				<div class="hero-content">
+					<div class="eyebrow animate-in">Về Chúng Tôi</div>
+					<h1 class="hero-headline animate-in delay-1">
+						In ấn là kỹ thuật.<br />
+						Thiết kế là <span class="accent">linh hồn.</span>
+					</h1>
+					<p class="hero-sub animate-in delay-2">
+						INUT Design — xưởng in tại Đà Nẵng nơi hai thứ đó gặp nhau. Mỗi sản phẩm chúng tôi tạo
+						ra đều mang một câu chuyện riêng. Của bạn.
+					</p>
+					<div class="hero-badges animate-in delay-3">
+						<span class="badge badge-yellow">Đà Nẵng · Việt Nam</span>
+						<span class="badge">Since 2020</span>
+						<span class="badge">500+ Khách Hàng</span>
+					</div>
+				</div>
+				<div class="hero-visual animate-in delay-2">
+					<div class="hero-card-big">
+						<div class="hero-card-num">48h</div>
+						<div class="hero-card-label">
+							Thời gian giao hàng tiêu chuẩn — từ lúc bạn inbox đến lúc cầm sản phẩm trên tay.
+						</div>
+					</div>
+					<div class="hero-cards-row">
+						<div class="hero-card-sm">
+							<div class="hero-card-num">
+								100<span style="color: var(--cream); font-size: 28px">%</span>
+							</div>
+							<div class="hero-card-label">Tùy chỉnh theo yêu cầu — không có template.</div>
+						</div>
+						<div class="hero-card-sm" style="border-top: 3px solid var(--yellow)">
+							<div class="hero-card-num" style="color: var(--yellow)">15'</div>
+							<div class="hero-card-label">Phản hồi & báo giá — không cần đặt cọc trước.</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="divider"></div>
+
+		<!-- ─── STORY ─── -->
+		<section id="story">
+			<div class="section-inner">
+				<div class="story-grid">
+					<div>
+						<div class="eyebrow animate-in">Câu Chuyện</div>
+						<h2 class="story-headline animate-in delay-1">
+							Bắt đầu từ<br />
+							một <span class="accent">đam mê</span>
+						</h2>
+						<div class="story-body animate-in delay-2">
+							<p>
+								INUT ra đời không phải để làm thêm một xưởng in. Chúng tôi ra đời vì chúng tôi tin
+								rằng mỗi chiếc laptop, mỗi bộ keyboard, mỗi tờ name card — đều có thể trở thành
+								tuyên ngôn của người cầm nó.
+							</p>
+							<p>
+								Từ một góc nhỏ ở Đà Nẵng, chúng tôi xây dựng Chromatic Offset — hệ thống thiết kế
+								riêng của mình. Không phải để phô trương, mà để mỗi sản phẩm đều nhất quán, có hồn,
+								và thực sự bền.
+							</p>
+							<p>
+								Bây giờ, INUT phục vụ cá nhân, doanh nghiệp, và những người muốn nói chuyện với thế
+								giới theo cách của riêng mình.
+							</p>
+						</div>
+						<blockquote class="story-pull animate-in delay-3">
+							"Chúng tôi làm điều này, và chúng tôi làm rất tốt."
+						</blockquote>
+					</div>
+
+					<div class="story-timeline animate-in delay-2">
+						<div class="timeline-item">
+							<div class="timeline-dot">20</div>
+							<div>
+								<div class="timeline-year">2020</div>
+								<div class="timeline-title">INUT ra đời</div>
+								<div class="timeline-desc">
+									Xưởng in đầu tiên tại K574/5 Ông Ích Khiêm, Đà Nẵng. Sản phẩm đầu tiên: skin
+									laptop in theo yêu cầu.
+								</div>
+							</div>
+						</div>
+						<div class="timeline-item">
+							<div class="timeline-dot">21</div>
+							<div>
+								<div class="timeline-year">2021</div>
+								<div class="timeline-title">Ra mắt MACNUT</div>
+								<div class="timeline-desc">
+									Dòng skin keyboard chuyên biệt cho Macbook — chính xác từng phím, bền theo thời
+									gian. MACNUT trở thành sản phẩm flagship.
+								</div>
+							</div>
+						</div>
+						<div class="timeline-item">
+							<div class="timeline-dot">23</div>
+							<div>
+								<div class="timeline-year">2023</div>
+								<div class="timeline-title">Chromatic Offset ra đời</div>
+								<div class="timeline-desc">
+									Hệ thống nhận diện thương hiệu hoàn chỉnh được xây dựng — màu sắc, font chữ, ngôn
+									ngữ hình ảnh. INUT bắt đầu được biết đến trên toàn quốc.
+								</div>
+							</div>
+						</div>
+						<div class="timeline-item">
+							<div class="timeline-dot active">25</div>
+							<div>
+								<div class="timeline-year">2025 — Hiện Tại</div>
+								<div class="timeline-title">500+ khách hàng tin dùng</div>
+								<div class="timeline-desc">
+									In ấn doanh nghiệp, skin, sticker, lighter — và nhiều hơn nữa. Mỗi đơn hàng vẫn
+									được làm với cùng sự chú tâm như ngày đầu.
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="divider"></div>
+
+		<!-- ─── PRODUCTS ─── -->
+		<section id="products">
+			<div class="section-inner">
+				<div class="products-intro">
+					<div>
+						<div class="eyebrow animate-in">Sản Phẩm</div>
+						<h2 class="products-headline animate-in delay-1">
+							Tất cả những gì bạn cần — <span class="accent">in đẹp hơn.</span>
+						</h2>
+					</div>
+					<p class="products-note animate-in delay-2">
+						Từ skin laptop cá nhân đến vật phẩm doanh nghiệp — INUT xử lý tất cả với cùng một tiêu
+						chuẩn: chính xác, bền, đúng hạn.
+					</p>
+				</div>
+
+				<div class="products-grid">
+					<div class="product-card animate-in">
+						<div class="product-icon">💻</div>
+						<div class="product-name">Skin Laptop</div>
+						<div class="product-desc">
+							In theo thiết kế riêng hoặc chọn từ kho mẫu. Chất liệu vinyl cao cấp, không bong,
+							không bọt khí.
+						</div>
+						<div class="product-tag">Bestseller</div>
+						<div class="product-arrow">→</div>
+					</div>
+					<div class="product-card animate-in delay-1">
+						<div class="product-icon">⌨️</div>
+						<div class="product-name">MACNUT — Skin Keyboard</div>
+						<div class="product-desc">
+							Dòng skin keyboard chuyên cho Macbook. Chính xác từng phím, không cản tay khi gõ. Thay
+							theo mood.
+						</div>
+						<div class="product-tag">Flagship</div>
+						<div class="product-arrow">→</div>
+					</div>
+					<div class="product-card animate-in delay-2">
+						<div class="product-icon">🔥</div>
+						<div class="product-name">Lighter &amp; Sticker</div>
+						<div class="product-desc">
+							Lighter in hình tùy chọn, sticker decal chất lượng cao. Phù hợp cá nhân và làm quà
+							tặng doanh nghiệp.
+						</div>
+						<div class="product-tag">Custom Gift</div>
+						<div class="product-arrow">→</div>
+					</div>
+					<div class="product-card animate-in delay-3">
+						<div class="product-icon">📄</div>
+						<div class="product-name">In Ấn Doanh Nghiệp</div>
+						<div class="product-desc">
+							Name card, brochure, banner, backdrop, standee, postcard — thiết kế chuyên nghiệp,
+							giao nhanh, giá tốt.
+						</div>
+						<div class="product-tag">B2B</div>
+						<div class="product-arrow">→</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ─── PHILOSOPHY ─── -->
+		<section id="philosophy">
+			<div class="section-inner">
+				<div class="eyebrow animate-in">Triết Lý</div>
+				<h2 class="philosophy-headline animate-in delay-1">
+					Sắc nét. Trực tiếp.<br />
+					Không <span class="serif-italic">làm màu</span> — chỉ làm tốt.
+				</h2>
+				<div class="pillars-grid">
+					<div class="pillar animate-in">
+						<div class="pillar-num">01</div>
+						<div class="pillar-title">Sharp — Sắc Nét</div>
+						<div class="pillar-body">
+							Mỗi đường cắt, mỗi màu in, mỗi chi tiết nhỏ — đều được kiểm soát. Không có "tạm được"
+							trong từ điển của INUT.
+						</div>
+					</div>
+					<div class="pillar animate-in delay-1">
+						<div class="pillar-num">02</div>
+						<div class="pillar-title">Direct — Thẳng Thắn</div>
+						<div class="pillar-body">
+							Báo giá rõ, timeline rõ, chất lượng rõ. Bạn biết mình đang nhận được gì từ phút đầu
+							inbox — không bất ngờ xấu.
+						</div>
+					</div>
+					<div class="pillar animate-in delay-2">
+						<div class="pillar-num">03</div>
+						<div class="pillar-title">High Energy — Toàn Lực</div>
+						<div class="pillar-body">
+							Dù đơn nhỏ hay lớn, INUT đầu tư như nhau. Vì chúng tôi biết mỗi sản phẩm là lần đầu
+							tiên với khách hàng đó.
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ─── WHY US ─── -->
+		<section id="why">
+			<div class="section-inner">
+				<div class="why-grid">
+					<div>
+						<div class="eyebrow animate-in">Tại Sao Chọn INUT</div>
+						<h2 class="why-headline animate-in delay-1">
+							Không phải vì chúng tôi rẻ —<br />vì chúng tôi <span class="accent">đáng tin.</span>
+						</h2>
+						<ul class="why-list animate-in delay-2">
+							<li class="why-item">
+								<div class="why-check">✓</div>
+								<div>
+									<div class="why-text-title">Giao trong 48 giờ — cam kết</div>
+									<div class="why-text-desc">
+										Từ lúc bạn duyệt file đến lúc cầm sản phẩm. Không trễ hẹn không lý do.
+									</div>
+								</div>
+							</li>
+							<li class="why-item">
+								<div class="why-check">✓</div>
+								<div>
+									<div class="why-text-title">Không cần đặt cọc trước</div>
+									<div class="why-text-desc">
+										INUT tin bạn — bạn tin chúng tôi. Thanh toán khi nhận hàng hoặc theo thỏa thuận.
+									</div>
+								</div>
+							</li>
+							<li class="why-item">
+								<div class="why-check">✓</div>
+								<div>
+									<div class="why-text-title">Chất liệu cao cấp, bền thực sự</div>
+									<div class="why-text-desc">
+										Vinyl chính hãng, mực in UV, cắt laser CNC — không phải chất liệu rẻ tiền bán
+										giá cao.
+									</div>
+								</div>
+							</li>
+							<li class="why-item">
+								<div class="why-check">✓</div>
+								<div>
+									<div class="why-text-title">Tư vấn thiết kế miễn phí</div>
+									<div class="why-text-desc">
+										Bạn có ý tưởng thô, chúng tôi biến nó thành file in chuẩn — không tính phí tư
+										vấn cơ bản.
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="stats-panel animate-in delay-2">
+						<div class="stat-card">
+							<div class="stat-num">500<span>+</span></div>
+							<div class="stat-label">Khách hàng hài lòng trên cả nước</div>
+						</div>
+						<div class="stat-card">
+							<div class="stat-num">48<span>h</span></div>
+							<div class="stat-label">Thời gian giao hàng tiêu chuẩn</div>
+						</div>
+						<div class="stat-card">
+							<div class="stat-num">5<span>+</span></div>
+							<div class="stat-label">Năm kinh nghiệm in ấn chuyên nghiệp</div>
+						</div>
+						<div class="stat-card" style="border-top: 2px solid var(--yellow)">
+							<div class="stat-num" style="color: var(--yellow)">
+								100<span style="color: var(--yellow)">%</span>
+							</div>
+							<div class="stat-label">Tùy chỉnh — không template copy-paste</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="divider"></div>
+
+		<!-- ─── CONTACT ─── -->
+		<section id="contact">
+			<div class="contact-inner">
+				<div>
+					<div class="eyebrow animate-in">Bắt Đầu Ngay</div>
+					<h2 class="contact-headline animate-in delay-1">
+						Sẵn sàng biến<br />ý tưởng thành<br /><span class="accent">sản phẩm?</span>
+					</h2>
+					<p class="contact-sub animate-in delay-2">
+						Inbox ngay — báo giá trong 15 phút. Không cần đặt cọc. Không cần có file sẵn.
+					</p>
+					<div class="animate-in delay-3">
+						<a href="https://zalo.me/0327124321" class="btn-primary">Inbox Zalo Ngay</a>
+						<a href="mailto:inutstudio.dn@gmail.com" class="btn-ghost">Gửi Email</a>
+					</div>
+				</div>
+				<ul class="contact-info-list animate-in delay-2">
+					<li class="contact-info-item">
+						<div class="contact-info-icon">📞</div>
+						<div>
+							<div class="contact-info-label">Mr. Tom</div>
+							<a href="tel:0792359996" class="contact-info-val">0792 359 996</a>
+						</div>
+					</li>
+					<li class="contact-info-item">
+						<div class="contact-info-icon">📞</div>
+						<div>
+							<div class="contact-info-label">Ms. Boo</div>
+							<a href="tel:0777208215" class="contact-info-val">0777 208 215</a>
+						</div>
+					</li>
+					<li class="contact-info-item">
+						<div class="contact-info-icon">✉️</div>
+						<div>
+							<div class="contact-info-label">Email</div>
+							<a href="mailto:inutstudio.dn@gmail.com" class="contact-info-val"
+								>inutstudio.dn@gmail.com</a
+							>
+						</div>
+					</li>
+					<li class="contact-info-item">
+						<div class="contact-info-icon">💬</div>
+						<div>
+							<div class="contact-info-label">Zalo</div>
+							<a href="https://zalo.me/0327124321" class="contact-info-val">zalo.me/0327124321</a>
+						</div>
+					</li>
+					<li class="contact-info-item">
+						<div class="contact-info-icon">📍</div>
+						<div>
+							<div class="contact-info-label">Địa Chỉ</div>
+							<a
+								href="https://maps.app.goo.gl/dAdKSbnBEvarx6LK8"
+								class="contact-info-val"
+								target="_blank"
+								>K574/5 Ông Ích Khiêm, Đà Nẵng</a
+							>
+						</div>
+					</li>
+					<li class="contact-info-item">
+						<div class="contact-info-icon">🌐</div>
+						<div>
+							<div class="contact-info-label">Website</div>
+							<a href="https://inutdesign.com" class="contact-info-val" target="_blank"
+								>inutdesign.com</a
+							>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- ─── FOOTER ─── -->
+		<footer>
+			<div class="footer-logo">INUT<span>.</span>design</div>
+			<span class="footer-tagline">"In ấn là kỹ thuật. Thiết kế là linh hồn."</span>
+			<span class="footer-copy">© 2025 INUT Design · Chromatic Offset · Đà Nẵng, Việt Nam</span>
+		</footer>
+
+		<script>
+			// Scroll-triggered animation
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add("visible");
+						}
+					});
+				},
+				{ threshold: 0.15 }
+			);
+
+			document.querySelectorAll(".animate-in").forEach((el) => observer.observe(el));
+
+			// Active nav on scroll
+			const sections = document.querySelectorAll("section[id]");
+			const navLinks = document.querySelectorAll(".nav-links a");
+			window.addEventListener("scroll", () => {
+				let current = "";
+				sections.forEach((section) => {
+					if (window.scrollY >= section.offsetTop - 120) current = section.id;
+				});
+				navLinks.forEach((link) => {
+					link.style.color = link.getAttribute("href") === "#" + current ? "var(--orange)" : "";
+				});
+			});
+		</script>
+	</body>
+</html>

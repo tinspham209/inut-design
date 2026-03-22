@@ -12,7 +12,7 @@ const BreadcrumbsNav: React.FC<BreadcrumbsNavProps> = ({ lighterName, lighterSlu
 		<Link href="/" passHref>
 			<MuiLink>Trang chủ</MuiLink>
 		</Link>
-		<Link href={`/lighters#${lighterSlug}`} passHref>
+		<Link href={`/san-pham/lighters#${lighterSlug}`} passHref>
 			<MuiLink>Lighters</MuiLink>
 		</Link>
 		<Typography color="text.primary">{lighterName}</Typography>

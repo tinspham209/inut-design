@@ -6,7 +6,7 @@ import React from "react";
 
 export const MacnutCustomizeCard: React.FC = () => {
 	return (
-		<Link href="/macnut/customize" passHref>
+		<Link href="/services/ca-nhan-hoa/skin-nut-phim-customize" passHref>
 			<MuiLink sx={{ textDecoration: "none" }}>
 				<Card
 					variant="outlined"
@@ -43,11 +43,11 @@ export const MacnutCustomizeCard: React.FC = () => {
 							<Box
 								sx={{
 									background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
-									borderRadius: '4px',
+									borderRadius: "4px",
 									width: "100%",
 									paddingTop: "100%",
 									position: "relative",
-									overflow: "hidden"
+									overflow: "hidden",
 								}}
 							>
 								<Image

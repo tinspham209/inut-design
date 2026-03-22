@@ -86,7 +86,7 @@ const Search: NextPageWithLayout = ({ products, productTypes, banner }: Props) =
 					title: "Tìm kiếm - INUT Design",
 					description:
 						"Thiết kế & In ấn - Skin Laptop - Sticker - Decal - Thiệp - Card - Tem Nhãn, skin laptop da nang, skin laptop đà nẵng",
-					url: "https://inutdesign.com/products",
+					url: "https://inutdesign.com/san-pham/skin-laptop",
 					thumbnailUrl:
 						(banner && !isEmpty(banner) && urlFor(banner[0]?.image || "").url()) ||
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",

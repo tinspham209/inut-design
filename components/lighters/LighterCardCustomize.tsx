@@ -6,7 +6,7 @@ import React from "react";
 
 const LighterCardCustomize: React.FC = () => {
 	return (
-		<Link href="/lighters/customize" passHref>
+		<Link href="/services/ca-nhan-hoa/skin-bat-lua-customize" passHref>
 			<MuiLink sx={{ textDecoration: "none" }}>
 				<Card
 					variant="outlined"

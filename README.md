@@ -34,7 +34,22 @@
 - Google Tag Manager
 - Telegram Bot API
 
-## 🚀 Setup
+## 🛣️ Routing Update (2026-03-17)
+
+The application routing structure has been systematically updated to align with the new product and service hierarchy.
+
+### Key Changes:
+- **Product Routes**: Moved from `/products`, `/macnut`, and `/lighters` to `/san-pham/skin-laptop`, `/san-pham/skin-nut-phim`, and `/san-pham/lighters` respectively.
+- **Service Routes**: Moved various landing pages (Stickers, Marketing, Office, etc.) into the `/services/` subfolder.
+- **Typo Fixes**: Corrected `arcylic-magnet` to `acrylic-magnet` in all paths and references.
+- **Redirects**: Implemented 301 (permanent) redirects in `next.config.js` to preserve SEO and existing links.
+- **Internal Links**: Updated all `Link` components and `router.push` calls to use the new paths.
+
+For full details, see [APP_ROUTING.md](file:///Users/tin.phamv/work/personal/inut-design/APP_ROUTING.md).
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js 22+

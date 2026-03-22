@@ -26,7 +26,7 @@ export const GIAY_KHEN_DATA: ProductPageData = {
 		title: "In Giấy Khen, Giấy Chứng Nhận Chuyên Nghiệp | INUT Design",
 		description:
 			"In ấn giấy khen, giấy chứng nhận cao cấp tại Đà Nẵng với giấy Couche, Mỹ thuật chuyên nghiệp. Thiết kế chuẩn nhận diện, tùy chọn ép kim sang trọng, nâng tầm uy tín doanh nghiệp.",
-		url: "https://inutdesign.com/an-pham-van-phong/giay-khen-giay-chung-nhan",
+		url: "https://inutdesign.com/services/an-pham-van-phong/giay-khen-giay-chung-nhan",
 		thumbnailUrl: HERO_IMAGE,
 	},
 	hero: {
@@ -35,32 +35,49 @@ export const GIAY_KHEN_DATA: ProductPageData = {
 			"Thể hiện sự trân trọng và vinh danh xứng đáng với dịch vụ in giấy khen, giấy chứng nhận chuyên nghiệp: thiết kế trang trọng, chất liệu cao cấp và gia công tinh tế.",
 		image: HERO_IMAGE,
 		chips: ["Thiết kế trang trọng", "Chất liệu cao cấp"],
+		ctaLabel: "Nhận báo giá nhanh",
+		secondaryCtaLabel: "Xem mẫu thiết kế",
+		ticker: [
+			"In Giấy Khen Cao Cấp",
+			"Chứng Nhận Sang Trọng",
+			"Gia Công Ép Kim",
+			"Thiết Kế Trang Trọng",
+		],
+		stats: [
+			{ value: "5.000", unit: "+", label: "Bản in vinh danh" },
+			{ value: "200", unit: "+", label: "Trường học & Tổ chức" },
+			{ value: "5.0", unit: "★", label: "Độ sắc nét bản in" },
+			{ value: "1-2", unit: "ngày", label: "Sản xuất nhanh" },
+		],
 	},
 	introduction: {
-		title: "Vinh danh thành tích",
+		eyebrow: "Vinh danh thành tích",
+		title: "Trân trọng giá trị nỗ lực",
+		description:
+			"Giấy khen and giấy chứng nhận không chỉ là vật phẩm lưu niệm, mà là sự công nhận chính thức giúp tạo động lực and nâng tầm uy tín cho tổ chức cấp phát.",
 		bullets: [
 			"Thể hiện sự công nhận chính thức, tạo động lực mạnh mẽ.",
 			"Nâng cao hình ảnh chuyên nghiệp của đơn vị cấp phát.",
-			"Tạo ấn tượng trang trọng và đánh giá cao người nhận.",
-			"Lưu trữ thông tin, thành tích và kết quả minh bạch.",
+			"Tạo ấn tượng trang trọng and đánh giá cao người nhận.",
+			"Lưu trữ thông tin, thành tích and kết quả minh bạch.",
 		],
 		highlights: [
 			{
 				title: "Giấy khen vinh danh",
 				description:
-					"Khen thưởng thành tích, nỗ lực hoặc đóng góp của cá nhân hay tập thể. Mang tính vinh danh, khích lệ và tạo động lực.",
+					"Khen thưởng thành tích, nỗ lực hoặc đóng góp của cá nhân hay tập thể. Mang tính vinh danh, khích lệ and tạo động lực.",
 				icon: <WorkspacePremiumIcon fontSize="small" />,
 			},
 			{
 				title: "Giấy chứng nhận",
 				description:
-					"Xác nhận kết quả, năng lực, tư cách, sự hoàn thành khóa học hoặc tham gia sự kiện. Có tính xác thực và lưu trữ cao.",
+					"Xác nhận kết quả, năng lực, tư cách, sự hoàn thành khóa học hoặc tham gia sự kiện. Có tính xác thực and lưu trữ cao.",
 				icon: <SchoolIcon fontSize="small" />,
 			},
 			{
 				title: "Chất liệu cao cấp",
 				description:
-					"Đa dạng định lượng giấy như Couche, mỹ thuật, Fort, Ivory bảo đảm độ dày dặn, bám mực tốt và sang trọng.",
+					"Đa dạng định lượng giấy như Couche, mỹ thuật, Fort, Ivory bảo đảm độ dày dặn, bám mực tốt and sang trọng.",
 				icon: <LocalPrintshopIcon fontSize="small" />,
 			},
 			{
@@ -72,8 +89,9 @@ export const GIAY_KHEN_DATA: ProductPageData = {
 		],
 	},
 	types: {
+		eyebrow: "Dòng sản phẩm",
 		title: "Quy cách sản phẩm",
-		description: "Đa dạng các loại giấy và quy cách thành phẩm chuyên nghiệp.",
+		description: "Đa dạng các loại giấy and quy cách thành phẩm chuyên nghiệp.",
 		items: [
 			{
 				name: "Giấy khen / Bằng khen",
@@ -88,6 +106,7 @@ export const GIAY_KHEN_DATA: ProductPageData = {
 		],
 	},
 	whyInut: {
+		eyebrow: "Sự chuyên nghiệp",
 		title: "Vì sao chọn dịch vụ tại INUT Design?",
 		description: "Ấn phẩm trang trọng cho những khoảnh khắc vinh danh đáng nhớ.",
 		productionProcess: {
@@ -112,7 +131,7 @@ export const GIAY_KHEN_DATA: ProductPageData = {
 		},
 		applications: {
 			title: "Ứng dụng rộng rãi",
-			description: "Sản phẩm phù hợp cho mọi tổ chức và cá nhân.",
+			description: "Sản phẩm phù hợp cho mọi tổ chức and cá nhân.",
 			items: [
 				{
 					title: "Doanh nghiệp",
@@ -142,12 +161,43 @@ export const GIAY_KHEN_DATA: ProductPageData = {
 			icon: <VerifiedIcon />,
 		},
 	},
+	testimonials: {
+		eyebrow: "Phản hồi khách hàng",
+		title: "Sự hài lòng của <em>đối tác</em>",
+		items: [
+			{
+				name: "Thầy Minh Tâm",
+				role: "Hiệu trưởng trường THCS",
+				text: "Nhà trường rất hài lòng với chất lượng giấy khen năm nay. Thiết kế trang trọng, màu sắc in rất đẹp and giao hàng đúng tiến độ.",
+				initials: "MT",
+				color: "#1b5e20",
+			},
+			{
+				name: "Chị Ngọc Mai",
+				role: "HR Manager · Tech Corp",
+				text: "Giấy chứng nhận cho khóa đào tạo nội bộ được thiết kế rất chuyên nghiệp. Ép kim logo trông rất sang trọng.",
+				initials: "NM",
+				color: "#0d47a1",
+			},
+		],
+		score: "5.0★",
+		countText: "Dựa trên 200+ tổ chức",
+	},
 	contact: {
+		eyebrow: "Liên hệ ngay",
 		description: "Liên hệ ngay để nhận báo giá in giấy khen, giấy chứng nhận nhanh chóng.",
 		type: "giay-khen-giay-chung-nhan",
+		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
+		persons: [
+			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+		],
 	},
 	gallery: {
+		eyebrow: "Dự án đã thực hiện",
+		title: "Mẫu sản phẩm thực tế",
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
+		filters: ["Tất cả", "Giấy khen", "Chứng nhận", "Ép kim"],
 	},
 };
 
@@ -159,7 +209,7 @@ export const IN_BI_THU_DATA: ProductPageData = {
 		title: "In Bì Thư Chuyên Nghiệp Tại Đà Nẵng | INUT Design",
 		description:
 			"Dịch vụ in bì thư (bao thư) chất lượng cao cho doanh nghiệp. Đầy đủ các kích thước A4, A5, A6. Thiết kế chuyên nghiệp, in sắc nét, giá cả cạnh tranh.",
-		url: "https://inutdesign.com/an-pham-van-phong/in-bi-thu",
+		url: "https://inutdesign.com/services/an-pham-van-phong/in-bi-thu",
 		thumbnailUrl: HERO_IMAGE,
 	},
 	hero: {
@@ -168,13 +218,30 @@ export const IN_BI_THU_DATA: ProductPageData = {
 			"Xây dựng bộ nhận diện thương hiệu chuyên nghiệp ngay từ những chi tiết nhỏ nhất. Bì thư in sắc nét, chất liệu giấy tốt giúp bảo vệ tài liệu và tạo ấn tượng tốt với đối tác.",
 		image: HERO_IMAGE,
 		chips: ["Thiết kế đồng bộ", "In sắc nét"],
+		ctaLabel: "Nhận báo giá nhanh",
+		secondaryCtaLabel: "Xem portfolio",
+		ticker: [
+			"In Bì Thư Doanh Nghiệp",
+			"Kích Thước A4 A5 A6",
+			"Chất Liệu Giấy Fort",
+			"In Offset Sắc Nét",
+		],
+		stats: [
+			{ value: "50.000", unit: "+", label: "Bì thư đã xuất xưởng" },
+			{ value: "300", unit: "+", label: "Doanh nghiệp tin dùng" },
+			{ value: "100", unit: "%", label: "Chất lượng keo dán" },
+			{ value: "3-5", unit: "ngày", label: "Thời gian in offset" },
+		],
 	},
 	introduction: {
-		title: "Nhận diện thương hiệu đồng bộ",
+		eyebrow: "Nhận diện thương hiệu",
+		title: "Chuyên nghiệp từ chi tiết nhỏ",
+		description:
+			"Bì thư không chỉ bảo vệ tài liệu mà còn là công cụ truyền thông hiệu quả, thể hiện sự chuyên nghiệp and chỉn chu của doanh nghiệp trong mọi giao dịch.",
 		bullets: [
 			"Bì thư là một phần quan trọng trong bộ nhận diện.",
 			"Giúp bảo mật tài liệu, thư từ khi gửi đối tác.",
-			"Thể hiện sự chuyên nghiệp và tôn trọng người nhận.",
+			"Thể hiện sự chuyên nghiệp and tôn trọng người nhận.",
 			"Đa dạng kích thước phù hợp với mục đích sử dụng.",
 		],
 		highlights: [
@@ -186,7 +253,7 @@ export const IN_BI_THU_DATA: ProductPageData = {
 			},
 			{
 				title: "Đa dạng kích thước",
-				description: "Bì thư lớn (A4), bì thư vừa (A5) và bì thư nhỏ (A6/DL) đáp ứng mọi nhu cầu.",
+				description: "Bì thư lớn (A4), bì thư vừa (A5) and bì thư nhỏ (A6/DL) đáp ứng mọi nhu cầu.",
 				icon: <BusinessIcon fontSize="small" />,
 			},
 			{
@@ -203,6 +270,7 @@ export const IN_BI_THU_DATA: ProductPageData = {
 		],
 	},
 	types: {
+		eyebrow: "Kích thước tiêu chuẩn",
 		title: "Quy cách bì thư",
 		description: "Đa dạng các kích thước tiêu chuẩn cho doanh nghiệp.",
 		items: [
@@ -224,6 +292,7 @@ export const IN_BI_THU_DATA: ProductPageData = {
 		],
 	},
 	whyInut: {
+		eyebrow: "Lợi ích dịch vụ",
 		title: "Vì sao chọn dịch vụ tại INUT Design?",
 		description: "Bì thư in ấn sắc nét, chuyên nghiệp cho mọi giao dịch.",
 		productionProcess: {
@@ -278,12 +347,43 @@ export const IN_BI_THU_DATA: ProductPageData = {
 			icon: <VerifiedIcon />,
 		},
 	},
+	testimonials: {
+		eyebrow: "Đánh giá đối tác",
+		title: "Khách hàng nói gì về <em>chúng tôi?</em>",
+		items: [
+			{
+				name: "Anh Hoàng",
+				role: "Giám đốc Công ty Xây dựng",
+				text: "Bì thư in rất sắc nét, màu logo chuẩn xác. Giấy Fort 120gsm dày dặn, gửi hồ sơ thầu rất yên tâm.",
+				initials: "AH",
+				color: "#3e2723",
+			},
+			{
+				name: "Chị Lan Anh",
+				role: "Phòng Hành chính · Logistics",
+				text: "Dịch vụ in nhanh, dán keo sẵn rất tiện lợi cho việc gửi thư từ hàng ngày của công ty.",
+				initials: "LA",
+				color: "#e65100",
+			},
+		],
+		score: "5.0★",
+		countText: "Dựa trên 300+ doanh nghiệp",
+	},
 	contact: {
+		eyebrow: "Nhận báo giá",
 		description: "Liên hệ ngay để được tư vấn chất liệu và nhận báo giá tốt nhất.",
 		type: "in-bi-thu",
+		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
+		persons: [
+			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+		],
 	},
 	gallery: {
+		eyebrow: "Mẫu bì thư thực tế",
+		title: "Thư viện dự án",
 		images: Array.from({ length: 8 }).map(() => HERO_IMAGE),
+		filters: ["Tất cả", "Bì thư A4", "Bì thư A5", "Bì thư A6"],
 	},
 };
 
@@ -295,7 +395,7 @@ export const SO_TAY_DATA: ProductPageData = {
 		title: "In Sổ Tay, Kỷ Yếu & Sổ Bấm Ghim Chuyên Nghiệp | INUT Design",
 		description:
 			"Dịch vụ in sổ tay, kỷ yếu, sổ bấm ghim tại Đà Nẵng: thiết kế đẹp, gia công chỉn chu, đa dạng chất liệu. Lưu giữ kỷ niệm, nâng tầm thương hiệu.",
-		url: "https://inutdesign.com/an-pham-van-phong/so-tay-ky-yeu-so-bam-ghim",
+		url: "https://inutdesign.com/services/an-pham-van-phong/so-tay-ky-yeu-so-bam-ghim",
 		thumbnailUrl: HERO_IMAGE,
 	},
 	hero: {
@@ -304,9 +404,21 @@ export const SO_TAY_DATA: ProductPageData = {
 			"Sản phẩm ghi chép và lưu giữ kỷ niệm chuyên nghiệp: từ sổ tay quà tặng thương hiệu đến kỷ yếu tập thể sang trọng.",
 		image: HERO_IMAGE,
 		chips: ["In từ 10 cuốn", "Đa dạng kiểu đóng gáy"],
+		ctaLabel: "Nhận báo giá nhanh",
+		secondaryCtaLabel: "Xem portfolio",
+		ticker: ["Sổ Tay Quà Tặng", "Kỷ Yếu Lớp", "Sổ Bấm Ghim", "Thiết Kế Độc Quyền"],
+		stats: [
+			{ value: "10.000", unit: "+", label: "Cuốn sổ đã in" },
+			{ value: "500", unit: "+", label: "Dự án kỷ yếu" },
+			{ value: "5.0", unit: "★", label: "Chất lượng hoàn thiện" },
+			{ value: "3-5", unit: "ngày", label: "Sản xuất tiêu chuẩn" },
+		],
 	},
 	introduction: {
-		title: "Lưu giữ và Ghi chép",
+		eyebrow: "Ghi chép & Lưu giữ",
+		title: "Đồng hành cùng kỷ niệm",
+		description:
+			"Từ những cuốn sổ tay ghi chép hàng ngày đến những bộ kỷ yếu lưu giữ thanh xuân, chúng tôi chăm chút từng trang in để mỗi sản phẩm đều là một món quà ý nghĩa.",
 		bullets: [
 			"Sổ tay, kỷ yếu có tính ứng dụng cao trong công việc.",
 			"Dễ cá nhân hóa theo nhận diện thương hiệu.",
@@ -323,7 +435,7 @@ export const SO_TAY_DATA: ProductPageData = {
 			{
 				title: "Kỷ yếu",
 				description:
-					"Lưu giữ hình ảnh, kỷ niệm và dấu mốc đáng nhớ của lớp học, tổ chức hoặc doanh nghiệp. Đóng keo gáy sang trọng.",
+					"Lưu giữ hình ảnh, kỷ niệm and dấu mốc đáng nhớ của lớp học, tổ chức hoặc doanh nghiệp. Đóng keo gáy sang trọng.",
 				icon: <SchoolIcon fontSize="small" />,
 			},
 			{
@@ -335,12 +447,13 @@ export const SO_TAY_DATA: ProductPageData = {
 			{
 				title: "Gia công đa dạng",
 				description:
-					"Cán màng, ép kim, bo góc hoặc gia công bìa theo yêu cầu để tăng độ bền và tính thẩm mỹ.",
+					"Cán màng, ép kim, bo góc hoặc gia công bìa theo yêu cầu để tăng độ bền and tính thẩm mỹ.",
 				icon: <BoltIcon fontSize="small" />,
 			},
 		],
 	},
 	types: {
+		eyebrow: "Kiểu dáng đóng cuốn",
 		title: "Các loại sổ",
 		description: "Lựa chọn quy cách đóng cuốn phù hợp với mục đích sử dụng.",
 		items: [
@@ -362,6 +475,7 @@ export const SO_TAY_DATA: ProductPageData = {
 		],
 	},
 	whyInut: {
+		eyebrow: "Chất lượng vượt trội",
 		title: "Vì sao chọn dịch vụ tại INUT Design?",
 		description: "Sổ tay in ấn sắc nét, gia công tỉ mỉ từng chi tiết.",
 		productionProcess: {
@@ -379,14 +493,14 @@ export const SO_TAY_DATA: ProductPageData = {
 				},
 				{
 					title: "Tư vấn thiết kế",
-					description: "Hỗ trợ lên layout ruột và bìa.",
+					description: "Hỗ trợ lên layout ruột and bìa.",
 					icon: <DesignServicesIcon fontSize="small" />,
 				},
 			],
 		},
 		applications: {
 			title: "Ứng dụng đa dạng",
-			description: "Sổ tay là món quà tặng ý nghĩa và chuyên nghiệp.",
+			description: "Sổ tay là món quà tặng ý nghĩa and chuyên nghiệp.",
 			items: [
 				{
 					title: "Doanh nghiệp",
@@ -416,12 +530,43 @@ export const SO_TAY_DATA: ProductPageData = {
 			icon: <VerifiedIcon />,
 		},
 	},
+	testimonials: {
+		eyebrow: "Chia sẻ từ khách hàng",
+		title: "Kỷ niệm <em>đáng nhớ</em>",
+		items: [
+			{
+				name: "Bạn Thùy Trang",
+				role: "Lớp trưởng 12A1",
+				text: "Kỷ yếu in ra cực kỳ đẹp, hình ảnh sắc nét, bìa cứng rất chắc chắn. Cảm ơn team INUT đã giúp lớp lưu giữ những khoảnh khắc đẹp.",
+				initials: "TT",
+				color: "#d81b60",
+			},
+			{
+				name: "Anh Minh Quân",
+				role: "CEO Start-up",
+				text: "Đặt sổ tay quà tặng cho nhân viên, mọi người đều rất thích. Thiết kế bìa tối giản and sang trọng đúng tinh thần thương hiệu.",
+				initials: "MQ",
+				color: "#333333",
+			},
+		],
+		score: "5.0★",
+		countText: "Dựa trên 500+ dự án",
+	},
 	contact: {
-		description: "Liên hệ ngay để được tư vấn thiết kế và nhận báo giá tốt nhất.",
+		eyebrow: "Liên hệ ngay",
+		description: "Liên hệ ngay để được tư vấn thiết kế and nhận báo giá tốt nhất.",
 		type: "so-tay-ky-yeu-so-bam-ghim",
+		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
+		persons: [
+			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+		],
 	},
 	gallery: {
+		eyebrow: "Dự án tiêu biểu",
+		title: "Hình ảnh thực tế",
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
+		filters: ["Tất cả", "Sổ tay lò xo", "Kỷ yếu", "Sổ bấm ghim"],
 	},
 };
 
@@ -433,7 +578,7 @@ export const BANG_CUNG_IN_THONG_TIN_DATA: ProductPageData = {
 		title: "In Bảng Cứng In Thông Tin Chuyên Nghiệp | INUT Design",
 		description:
 			"Dịch vụ in bảng cứng in thông tin chuyên nghiệp tại Đà Nẵng: thiết kế đẹp, in sắc nét, chất liệu bền bỉ. Trình bày nội dung rõ ràng, nâng tầm không gian.",
-		url: "https://inutdesign.com/an-pham-van-phong/bang-cung-in-thong-tin",
+		url: "https://inutdesign.com/services/an-pham-van-phong/bang-cung-in-thong-tin",
 		thumbnailUrl: HERO_IMAGE,
 	},
 	hero: {
@@ -442,9 +587,21 @@ export const BANG_CUNG_IN_THONG_TIN_DATA: ProductPageData = {
 			"Giải pháp trình bày thông tin chuyên nghiệp: từ bảng giá, menu quầy kệ đến bảng hướng dẫn không gian.",
 		image: HERO_IMAGE,
 		chips: ["In sắc nét", "Bồi cứng bền bỉ"],
+		ctaLabel: "Nhận báo giá nhanh",
+		secondaryCtaLabel: "Xem mẫu",
+		ticker: ["Bảng Cứng Formex", "Bảng Menu Quầy Kệ", "Bảng Giá Sản Phẩm", "Hướng Dẫn Văn Phòng"],
+		stats: [
+			{ value: "3.000", unit: "+", label: "Bảng đã sản xuất" },
+			{ value: "150", unit: "+", label: "Cửa hàng & Văn phòng" },
+			{ value: "100", unit: "%", label: "Độ bền màu sắc" },
+			{ value: "24", unit: "h", label: "Hỗ trợ thiết kế" },
+		],
 	},
 	introduction: {
-		title: "Trình bày thông tin trực quan",
+		eyebrow: "Thông tin trực quan",
+		title: "Trình bày thông tin hiệu quả",
+		description:
+			"Bảng cứng giúp truyền tải nội dung một cách rõ ràng and chuyên nghiệp tại các điểm chạm khách hàng, từ quầy tư vấn đến khu vực hướng dẫn.",
 		bullets: [
 			"Giúp trình bày nội dung rõ ràng tại quầy tư vấn.",
 			"Phù hợp cho cửa hàng, văn phòng, sự kiện.",
@@ -455,30 +612,31 @@ export const BANG_CUNG_IN_THONG_TIN_DATA: ProductPageData = {
 			{
 				title: "Bảng cứng in thông tin là gì?",
 				description:
-					"Là ấn phẩm in được bồi lên vật liệu cứng để tăng độ đứng, độ bền và hiệu quả hiển thị thông tin tại điểm chạm.",
+					"Là ấn phẩm in được bồi lên vật liệu cứng để tăng độ đứng, độ bền and hiệu quả hiển thị thông tin tại điểm chạm.",
 				icon: <DesignServicesIcon fontSize="small" />,
 			},
 			{
 				title: "Thiết kế đúng mục tiêu",
 				description:
-					"Tối ưu phân cấp nội dung, font chữ và khoảng cách đọc để người xem nắm thông tin nhanh chỉ trong vài giây.",
+					"Tối ưu phân cấp nội dung, font chữ and khoảng cách đọc để người xem nắm thông tin nhanh chỉ trong vài giây.",
 				icon: <LocalPrintshopIcon fontSize="small" />,
 			},
 			{
 				title: "Quy trình sản xuất rõ ràng",
 				description:
-					"In - cán - bồi cứng - cắt thành phẩm - kiểm tra chất lượng, giúp sản phẩm đồng đều và ổn định.",
+					"In - cán - bồi cứng - cắt thành phẩm - kiểm tra chất lượng, giúp sản phẩm đồng đều and ổn định.",
 				icon: <WorkspacePremiumIcon fontSize="small" />,
 			},
 			{
 				title: "Lợi ích vận hành",
 				description:
-					"Nâng độ chuyên nghiệp không gian bán hàng, hỗ trợ truyền thông ưu đãi và hướng dẫn khách hàng hiệu quả.",
+					"Nâng độ chuyên nghiệp không gian bán hàng, hỗ trợ truyền thông ưu đãi and hướng dẫn khách hàng hiệu quả.",
 				icon: <BoltIcon fontSize="small" />,
 			},
 		],
 	},
 	types: {
+		eyebrow: "Ứng dụng phổ biến",
 		title: "Quy cách bảng cứng",
 		description: "Đa dạng các loại bảng cứng cho mọi nhu cầu hiển thị.",
 		items: [
@@ -505,6 +663,7 @@ export const BANG_CUNG_IN_THONG_TIN_DATA: ProductPageData = {
 		],
 	},
 	whyInut: {
+		eyebrow: "Sự tin cậy",
 		title: "Vì sao chọn dịch vụ tại INUT Design?",
 		description: "Bảng cứng bền bỉ, in ấn sắc nét giúp nâng tầm không gian.",
 		productionProcess: {
@@ -559,11 +718,42 @@ export const BANG_CUNG_IN_THONG_TIN_DATA: ProductPageData = {
 			icon: <VerifiedIcon />,
 		},
 	},
+	testimonials: {
+		eyebrow: "Phản hồi tích cực",
+		title: "Khách hàng <em>nói gì?</em>",
+		items: [
+			{
+				name: "Anh Việt",
+				role: "Quản lý chuỗi Cafe",
+				text: "Bảng menu quầy order làm bằng formex bồi decal rất bền, in màu sắc thực phẩm nhìn rất bắt mắt and kích thích vị giác.",
+				initials: "AV",
+				color: "#bf360c",
+			},
+			{
+				name: "Chị Hạnh",
+				role: "Admin văn phòng",
+				text: "Các bảng hướng dẫn trong văn phòng được in rất rõ nét, giúp không gian làm việc chuyên nghiệp and gọn gàng hơn hẳn.",
+				initials: "CH",
+				color: "#004d40",
+			},
+		],
+		score: "5.0★",
+		countText: "Dựa trên 150+ đơn vị",
+	},
 	contact: {
+		eyebrow: "Liên hệ ngay",
 		description: "Liên hệ ngay để nhận báo giá in bảng cứng thông tin nhanh nhất.",
 		type: "bang-cung-in-thong-tin",
+		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
+		persons: [
+			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+		],
 	},
 	gallery: {
+		eyebrow: "Sản phẩm thực tế",
+		title: "Hình ảnh thi công",
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
+		filters: ["Tất cả", "Bảng giá", "Menu", "Hướng dẫn"],
 	},
 };

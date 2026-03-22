@@ -1,31 +1,35 @@
 import { COLOR_CODE } from "@/utils";
+import CloseIcon from "@mui/icons-material/Close";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 import MenuIcon from "@mui/icons-material/Menu";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Collapse from "@mui/material/Collapse";
 import Container from "@mui/material/Container";
+import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import MuiLink from "@mui/material/Link";
+import ListItemText from "@mui/material/ListItemText";
 import Stack from "@mui/material/Stack";
-import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
-import { ROUTE_LIST } from "./routes";
+import React, { useState } from "react";
+import { ROUTE_LIST, RouteItem } from "./routes";
 
 export function HeaderMobile() {
-	const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = useState(false);
+	const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({
+		"Dịch vụ": true,
+		"Sản Phẩm": true,
+	});
 	const router = useRouter();
 
-	const routeList = React.useMemo(() => {
-		return ROUTE_LIST;
-	}, []);
-
-	const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+	const toggleDrawer = (isOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
 		if (
 			event.type === "keydown" &&
 			((event as React.KeyboardEvent).key === "Tab" ||
@@ -33,7 +37,74 @@ export function HeaderMobile() {
 		) {
 			return;
 		}
-		setOpen(open);
+		setOpen(isOpen);
+	};
+
+	const handleExpand = (label: string) => {
+		setExpandedItems((prev) => ({
+			...prev,
+			[label]: !prev[label],
+		}));
+	};
+
+	const isActive = (path: string) => {
+		if (path === "/") return router.pathname === "/";
+		return router.pathname.startsWith(path);
+	};
+
+	const renderNavItem = (item: RouteItem, level = 0) => {
+		const hasChildren = item.children && item.children.length > 0;
+		const isExpanded = expandedItems[item.label];
+
+		if (item.isButton) return null;
+
+		return (
+			<React.Fragment key={item.path + item.label}>
+				<ListItem disablePadding>
+					<Stack direction="row" alignItems="center" sx={{ width: "100%" }}>
+						<Link href={item.path} passHref>
+							<ListItemButton
+								onClick={toggleDrawer(false)}
+								sx={{
+									pl: level * 2 + 2,
+									flexGrow: 1,
+								}}
+								selected={isActive(item.path)}
+								data-umami-event={
+									"header_navigation_click_mobile_" + item.label.toLowerCase().replace(/\s+/g, "_")
+								}
+							>
+								<ListItemText
+									primary={item.label}
+									primaryTypographyProps={{
+										fontWeight: level === 0 ? "bold" : "medium",
+										fontSize: level === 0 ? 16 : 14,
+										textTransform: level === 0 ? "uppercase" : "none",
+										color: isActive(item.path) ? COLOR_CODE.PRIMARY : "text.primary",
+									}}
+								/>
+							</ListItemButton>
+						</Link>
+						{hasChildren && (
+							<IconButton
+								size="small"
+								onClick={() => handleExpand(item.label)}
+								sx={{ mr: 1, color: COLOR_CODE.PRIMARY }}
+							>
+								{isExpanded ? <ExpandLess /> : <ExpandMore />}
+							</IconButton>
+						)}
+					</Stack>
+				</ListItem>
+				{hasChildren && (
+					<Collapse in={isExpanded} timeout="auto" unmountOnExit>
+						<List component="div" disablePadding sx={{ backgroundColor: "rgba(0,0,0,0.02)" }}>
+							{item.children?.map((child) => renderNavItem(child, level + 1))}
+						</List>
+					</Collapse>
+				)}
+			</React.Fragment>
+		);
 	};
 
 	return (
@@ -45,77 +116,88 @@ export function HeaderMobile() {
 				position: "fixed",
 				top: 0,
 				width: "100%",
-				backgroundColor: COLOR_CODE.WHITE,
+				backgroundColor: "white",
 				zIndex: 99,
 				borderBottom: `1px solid ${COLOR_CODE.BORDER}`,
-				backdropFilter: "blur(20px)",
+				boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
 			}}
 		>
-			<Container maxWidth="xs">
-				<Stack direction="row" justifyContent={"flex-start"} alignItems="center">
-					<IconButton
-						onClick={toggleDrawer(true)}
-						onKeyDown={toggleDrawer(true)}
-						sx={{
-							"& svg": {
+			<Container maxWidth="lg">
+				<Stack direction="row" justifyContent={"space-between"} alignItems="center">
+					<Stack direction="row" alignItems="center" spacing={1}>
+						<IconButton
+							onClick={toggleDrawer(true)}
+							sx={{
 								color: COLOR_CODE.TEXT_DARK,
-							},
-						}}
-					>
-						<MenuIcon />
-					</IconButton>
-					<Link href={"/"} passHref>
-						<Image src={"/branding/logo.webp"} alt="logo" width={"103px"} height={"32px"} />
+								p: 0,
+							}}
+						>
+							<MenuIcon />
+						</IconButton>
+						<Link href={"/"} passHref>
+							<Box sx={{ display: "flex", cursor: "pointer" }}>
+								<Image src={"/branding/logo.webp"} alt="logo" width={103} height={32} />
+							</Box>
+						</Link>
+					</Stack>
+
+					<Link href={"/contact/form"} passHref>
+						<Button
+							variant="contained"
+							size="small"
+							sx={{
+								fontSize: "0.75rem",
+								fontWeight: "bold",
+								textTransform: "uppercase",
+							}}
+						>
+							Báo giá
+						</Button>
 					</Link>
 				</Stack>
-				<Drawer anchor={"left"} open={open} onClose={toggleDrawer(false)}>
-					<List
-						sx={{
-							minWidth: "180px",
-						}}
+
+				<Drawer
+					anchor={"left"}
+					open={open}
+					onClose={toggleDrawer(false)}
+					PaperProps={{
+						sx: {
+							width: "80%",
+							maxWidth: 320,
+							display: "flex",
+							flexDirection: "column",
+						},
+					}}
+				>
+					<Box
+						sx={{ p: 2, display: "flex", justifyContent: "space-between", alignItems: "center" }}
 					>
-						{routeList.map((route) => (
-							<ListItem
-								key={route.path}
-								onClick={toggleDrawer(false)}
-								disableGutters
-								data-umami-event={"header_navigation_click_mobile_" + route.label.toLowerCase()}
-							>
-								<ListItemButton
-									sx={{
-										justifyContent: "center",
-									}}
-									selected={router.pathname === route.path}
-								>
-									<Link href={route.path} passHref>
-										<MuiLink
-											sx={{ fontWeight: "medium", textTransform: "uppercase" }}
-											underline="hover"
-											className={clsx({ active: router.pathname === route.path })}
-										>
-											{route.label}
-										</MuiLink>
-									</Link>
-								</ListItemButton>
-							</ListItem>
-						))}
-						<ListItem
-							onClick={toggleDrawer(false)}
-							disableGutters
-							data-umami-event={"header_navigation_click_mobile_contact_form"}
-						>
-							<Link href={"/contact/form"} passHref>
+						<Image src={"/branding/logo.webp"} alt="logo" width={103} height={32} />
+						<IconButton onClick={toggleDrawer(false)}>
+							<CloseIcon />
+						</IconButton>
+					</Box>
+					<Divider />
+					<List sx={{ flexGrow: 1, py: 0 }}>{ROUTE_LIST.map((route) => renderNavItem(route))}</List>
+					<Divider />
+					<Box sx={{ p: 2 }}>
+						{ROUTE_LIST.filter((r) => r.isButton).map((route) => (
+							<Link key={route.path} href={route.path} passHref>
 								<Button
+									fullWidth
 									variant="contained"
+									onClick={toggleDrawer(false)}
 									sx={{
-										mx: "auto",
+										py: 1.5,
+										fontWeight: "bold",
+										textTransform: "uppercase",
 									}}
 								>
-									Nhận báo giá
+									{route.label}
 								</Button>
 							</Link>
-						</ListItem>
-					</List>
+						))}
+					</Box>
 				</Drawer>
 			</Container>
 		</Box>

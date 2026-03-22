@@ -6,28 +6,28 @@ import { CartRouteConfig, ProductCategory } from "@/models/cart";
  */
 export const CART_ROUTES: CartRouteConfig[] = [
 	{
-		routePattern: /^\/lighters/,
+		routePattern: /^\/san-pham\/lighters/,
 		category: "lighters",
 		orderType: "ordersLighter",
 		orderPrefix: "LIGHT",
 		checkoutPath: "/checkout/lighters",
 	},
 	{
-		routePattern: /^\/products/,
+		routePattern: /^\/san-pham\/skin-laptop/,
 		category: "skinLaptop",
 		orderType: "ordersSkinLaptop",
 		orderPrefix: "SKIN",
 		checkoutPath: "/checkout/skin-laptop",
 	},
 	{
-		routePattern: /^\/macnut/,
+		routePattern: /^\/san-pham\/skin-nut-phim/,
 		category: "macnut",
 		orderType: "ordersMacnut",
 		orderPrefix: "MAC",
 		checkoutPath: "/checkout/macnut",
 	},
 	{
-		routePattern: /^\/stickers/,
+		routePattern: /^\/services\/sticker/,
 		category: "stickers",
 		orderType: "ordersSticker",
 		orderPrefix: "STICK",
@@ -37,7 +37,7 @@ export const CART_ROUTES: CartRouteConfig[] = [
 
 /**
  * Determine which cart to use based on the current route
- * @param pathname - Current route pathname (e.g., "/lighters", "/products")
+ * @param pathname - Current route pathname (e.g., "/san-pham/lighters", "/san-pham/skin-laptop")
  * @returns Cart configuration for the current route, or null if no match
  */
 export function getCartConfigByRoute(pathname: string): CartRouteConfig | null {

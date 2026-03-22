@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>INUT Design — Bật Lửa Carousel Builder</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;700&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--orange: #ff4d00;
+				--orange-hi: #ff6b25;
+				--yellow: #ffe234;
+				--ink: #080706;
+				--ink3: #1c1a16;
+				--ink4: #282420;
+				--ash: #3d3830;
+				--cream: #f5f0e8;
+				--smoke: #a89e94;
+				--dust: #6b6157;
+				--frame-size: 540px;
+			}
+
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			body {
+				background: #0d0b09;
+				color: var(--cream);
+				font-family: "DM Sans", sans-serif;
+				min-height: 100vh;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				padding: 32px 16px 60px;
+			}
+
+			/* ─── HEADER ─── */
+			.app-header {
+				width: 100%;
+				max-width: 900px;
+				display: flex;
+				align-items: center;
+				gap: 14px;
+				margin-bottom: 36px;
+			}
+			.logo-mark {
+				width: 36px;
+				height: 36px;
+				background: var(--orange);
+				border-radius: 6px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-style: italic;
+				font-size: 18px;
+				color: white;
+				flex-shrink: 0;
+			}
+			.logo-word {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 20px;
+				color: var(--cream);
+				letter-spacing: -0.5px;
+			}
+			.logo-word span {
+				color: var(--orange);
+			}
+			.header-tag {
+				margin-left: auto;
+				background: var(--ink3);
+				border: 1px solid var(--ash);
+				color: var(--smoke);
+				font-size: 11px;
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				padding: 5px 12px;
+				border-radius: 20px;
+			}
+
+			/* ─── FRAME NAV ─── */
+			.frame-nav {
+				display: flex;
+				gap: 8px;
+				margin-bottom: 24px;
+				width: 100%;
+				max-width: 900px;
+			}
+			.frame-btn {
+				flex: 1;
+				padding: 10px 4px;
+				background: var(--ink3);
+				border: 1px solid var(--ash);
+				border-radius: 8px;
+				cursor: pointer;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 4px;
+				transition: all 0.2s;
+			}
+			.frame-btn:hover {
+				border-color: var(--dust);
+			}
+			.frame-btn.active {
+				border-color: var(--orange);
+				background: rgba(255, 77, 0, 0.08);
+			}
+			.frame-btn .num {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 16px;
+				color: var(--dust);
+			}
+			.frame-btn.active .num {
+				color: var(--orange);
+			}
+			.frame-btn .label {
+				font-size: 10px;
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				letter-spacing: 0.5px;
+				color: var(--dust);
+				text-transform: uppercase;
+				text-align: center;
+			}
+			.frame-btn.active .label {
+				color: var(--smoke);
+			}
+
+			/* ─── WORKSPACE ─── */
+			.workspace {
+				width: 100%;
+				max-width: 900px;
+				display: flex;
+				gap: 24px;
+				align-items: flex-start;
+			}
+
+			/* ─── CANVAS ─── */
+			.canvas-wrap {
+				position: relative;
+				width: var(--frame-size);
+				height: var(--frame-size);
+				flex-shrink: 0;
+				border-radius: 4px;
+				overflow: hidden;
+				box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+			}
+
+			.frame {
+				display: none;
+				width: 100%;
+				height: 100%;
+				position: relative;
+				overflow: hidden;
+			}
+			.frame.active {
+				display: block;
+			}
+
+			/* ─── IMPORT OVERLAY ─── */
+			.import-zone {
+				position: absolute;
+				inset: 0;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				background: var(--ink3);
+				cursor: pointer;
+				z-index: 5;
+				transition: opacity 0.3s;
+				gap: 12px;
+			}
+			.import-zone.has-image {
+				opacity: 0;
+				pointer-events: none;
+			}
+			.import-zone:hover {
+				background: var(--ink4);
+			}
+			.import-zone svg {
+				opacity: 0.4;
+			}
+			.import-zone p {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 12px;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				color: var(--dust);
+			}
+			.import-zone p span {
+				color: var(--orange);
+			}
+			input[type="file"] {
+				display: none;
+			}
+
+			.img-bg {
+				position: absolute;
+				inset: 0;
+				background-size: cover;
+				background-position: center;
+				z-index: 1;
+			}
+
+			/* ─── SHARED FRAME ELEMENTS ─── */
+			.frame-overlay {
+				position: absolute;
+				inset: 0;
+				z-index: 2;
+				pointer-events: none;
+			}
+			.eyebrow {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 11px;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				color: var(--orange);
+			}
+			.eyebrow::before {
+				content: "";
+				display: block;
+				width: 20px;
+				height: 2px;
+				background: var(--orange);
+				flex-shrink: 0;
+			}
+			.headline-syne {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				color: var(--cream);
+				line-height: 1.05;
+			}
+			.headline-accent {
+				font-family: "DM Serif Display", serif;
+				font-style: italic;
+				color: var(--orange);
+			}
+			.body-text {
+				font-family: "DM Sans", sans-serif;
+				font-weight: 400;
+				color: var(--smoke);
+				line-height: 1.5;
+			}
+			.inut-logo-small {
+				display: flex;
+				align-items: center;
+				gap: 6px;
+			}
+			.inut-logo-small .lm {
+				width: 22px;
+				height: 22px;
+				background: var(--orange);
+				border-radius: 4px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-style: italic;
+				font-size: 11px;
+				color: white;
+			}
+			.inut-logo-small .wm {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 13px;
+				color: var(--cream);
+				letter-spacing: -0.3px;
+			}
+			.inut-logo-small .wm span {
+				color: var(--orange);
+			}
+
+			/* ══════════════════════════════
+     FRAME 1 — COVER / HERO
+  ══════════════════════════════ */
+			#frame1 .img-bg {
+				background: linear-gradient(
+						to top,
+						rgba(8, 7, 6, 0.95) 0%,
+						rgba(8, 7, 6, 0.3) 50%,
+						transparent 100%
+					),
+					var(--ink) center/cover;
+			}
+			#frame1 .glow {
+				position: absolute;
+				top: -60px;
+				right: -60px;
+				width: 300px;
+				height: 300px;
+				background: radial-gradient(circle, rgba(255, 77, 0, 0.2) 0%, transparent 65%);
+				z-index: 2;
+				pointer-events: none;
+			}
+			#frame1 .content {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				padding: 32px;
+				z-index: 3;
+			}
+			#frame1 .eyebrow {
+				margin-bottom: 12px;
+			}
+			#frame1 .headline-syne {
+				font-size: 52px;
+				margin-bottom: 10px;
+			}
+			#frame1 .sub {
+				font-size: 14px;
+				color: var(--smoke);
+				margin-bottom: 24px;
+			}
+			#frame1 .footer {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				border-top: 1px solid rgba(255, 255, 255, 0.08);
+				padding-top: 16px;
+			}
+			#frame1 .url {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 11px;
+				letter-spacing: 1px;
+				color: var(--dust);
+				text-transform: uppercase;
+			}
+			#frame1 .badge {
+				background: var(--orange);
+				color: white;
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 10px;
+				letter-spacing: 1.5px;
+				text-transform: uppercase;
+				padding: 5px 12px;
+				border-radius: 2px;
+			}
+
+			/* ══════════════════════════════
+     FRAME 2 — COLLECTION GRID
+  ══════════════════════════════ */
+			#frame2 {
+				background: var(--ink);
+				display: none;
+				flex-direction: column;
+			}
+			#frame2.active {
+				display: flex;
+			}
+			#frame2 .f2-top {
+				padding: 28px 28px 0;
+				flex-shrink: 0;
+			}
+			#frame2 .f2-title {
+				display: flex;
+				align-items: flex-end;
+				justify-content: space-between;
+				margin-top: 10px;
+			}
+			#frame2 .headline-syne {
+				font-size: 32px;
+			}
+			#frame2 .count {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 48px;
+				color: var(--orange);
+				line-height: 1;
+				opacity: 0.3;
+			}
+			#frame2 .grid-wrap {
+				flex: 1;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 3px;
+				padding: 16px 28px 0;
+			}
+			.grid-slot {
+				background: var(--ink3);
+				border-radius: 4px;
+				overflow: hidden;
+				position: relative;
+				cursor: pointer;
+				aspect-ratio: 1/2.2;
+				transition: all 0.2s;
+			}
+			.grid-slot:hover {
+				opacity: 0.8;
+			}
+			.grid-slot .slot-bg {
+				position: absolute;
+				inset: 0;
+				background-size: cover;
+				background-position: center;
+			}
+			.grid-slot .slot-placeholder {
+				position: absolute;
+				inset: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				gap: 6px;
+				color: var(--dust);
+				font-size: 10px;
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+			}
+			.grid-slot .slot-placeholder.hidden {
+				display: none;
+			}
+			#frame2 .f2-footer {
+				padding: 16px 28px 28px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			#frame2 .tag {
+				background: var(--ink3);
+				border: 1px solid var(--ash);
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 10px;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				color: var(--smoke);
+				padding: 6px 12px;
+				border-radius: 2px;
+			}
+			#frame2 .tag.accent {
+				background: var(--yellow);
+				color: var(--ink);
+				border-color: var(--yellow);
+			}
+
+			/* ══════════════════════════════
+     FRAME 3 — DETAIL CLOSEUP
+  ══════════════════════════════ */
+			#frame3 {
+				background: var(--ink);
+				display: none;
+			}
+			#frame3.active {
+				display: block;
+			}
+			#frame3 .img-bg {
+				width: 55%;
+				height: 100%;
+				right: 0;
+				left: auto;
+				background: linear-gradient(to right, var(--ink) 0%, transparent 25%),
+					var(--ink) center/cover;
+			}
+			#frame3 .side-glow {
+				position: absolute;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				width: 60%;
+				background: radial-gradient(ellipse at 80% 40%, rgba(255, 77, 0, 0.12) 0%, transparent 60%);
+				z-index: 2;
+				pointer-events: none;
+			}
+			#frame3 .content {
+				position: absolute;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				width: 58%;
+				padding: 36px 32px;
+				z-index: 3;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+			}
+			#frame3 .specs {
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+				margin-top: 24px;
+			}
+			#frame3 .spec-item {
+				display: flex;
+				flex-direction: column;
+				gap: 2px;
+			}
+			#frame3 .spec-label {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 9px;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				color: var(--dust);
+			}
+			#frame3 .spec-val {
+				font-family: "DM Sans", sans-serif;
+				font-weight: 400;
+				font-size: 13px;
+				color: var(--cream);
+			}
+			#frame3 .price-block {
+				background: var(--ink3);
+				border: 1px solid var(--ash);
+				border-left: 3px solid var(--orange);
+				padding: 14px 16px;
+				border-radius: 4px;
+			}
+			#frame3 .price-label {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 9px;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				color: var(--dust);
+				margin-bottom: 4px;
+			}
+			#frame3 .price-val {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 26px;
+				color: var(--orange);
+			}
+			#frame3 .headline-syne {
+				font-size: 34px;
+			}
+
+			/* ══════════════════════════════
+     FRAME 4 — GIFT / LIFESTYLE
+  ══════════════════════════════ */
+			#frame4 {
+				background: var(--orange);
+				display: none;
+			}
+			#frame4.active {
+				display: block;
+			}
+			#frame4 .img-bg {
+				left: auto;
+				right: 0;
+				width: 50%;
+				height: 100%;
+				background: linear-gradient(to right, var(--orange) 0%, transparent 30%),
+					var(--orange) center/cover;
+			}
+			#frame4 .content {
+				position: absolute;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				width: 56%;
+				padding: 40px 36px;
+				z-index: 3;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+			}
+			#frame4 .headline-syne {
+				font-size: 42px;
+				color: var(--ink);
+				line-height: 1;
+			}
+			#frame4 .headline-accent {
+				color: var(--ink);
+				opacity: 0.5;
+			}
+			#frame4 .body-text {
+				color: rgba(8, 7, 6, 0.7);
+				font-size: 13px;
+				margin-top: 12px;
+			}
+			#frame4 .cta-btn {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				background: var(--ink);
+				color: var(--cream);
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 11px;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				padding: 12px 20px;
+				border-radius: 2px;
+				width: fit-content;
+			}
+			#frame4 .cta-btn .arrow {
+				color: var(--orange);
+				font-size: 14px;
+			}
+			#frame4 .f4-logo .lm {
+				background: var(--ink);
+			}
+			#frame4 .f4-logo .wm {
+				color: var(--ink);
+			}
+			#frame4 .f4-logo .wm span {
+				color: var(--ink);
+				opacity: 0.4;
+			}
+
+			/* ══════════════════════════════
+     FRAME 5 — CTA / CONTACT
+  ══════════════════════════════ */
+			#frame5 {
+				background: var(--ink);
+				display: none;
+			}
+			#frame5.active {
+				display: block;
+			}
+			#frame5 .img-bg {
+				opacity: 0.12;
+				filter: grayscale(40%);
+			}
+			#frame5 .gradient {
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(
+					135deg,
+					rgba(255, 77, 0, 0.15) 0%,
+					transparent 50%,
+					rgba(255, 226, 52, 0.06) 100%
+				);
+				z-index: 2;
+				pointer-events: none;
+			}
+			#frame5 .content {
+				position: absolute;
+				inset: 0;
+				padding: 40px;
+				z-index: 3;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+				gap: 0;
+			}
+			#frame5 .big-label {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 11px;
+				letter-spacing: 4px;
+				text-transform: uppercase;
+				color: var(--orange);
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				margin-bottom: 16px;
+			}
+			#frame5 .big-label::before,
+			#frame5 .big-label::after {
+				content: "";
+				display: block;
+				height: 1px;
+				width: 32px;
+				background: var(--orange);
+				opacity: 0.5;
+			}
+			#frame5 .cta-headline {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 46px;
+				color: var(--cream);
+				line-height: 1;
+				margin-bottom: 8px;
+			}
+			#frame5 .cta-headline .accent {
+				font-family: "DM Serif Display", serif;
+				font-style: italic;
+				color: var(--orange);
+				display: block;
+			}
+			#frame5 .cta-sub {
+				font-family: "DM Sans", sans-serif;
+				color: var(--smoke);
+				font-size: 14px;
+				margin-bottom: 28px;
+				line-height: 1.5;
+			}
+			#frame5 .contact-row {
+				display: flex;
+				gap: 12px;
+				margin-bottom: 28px;
+			}
+			#frame5 .contact-chip {
+				background: var(--ink3);
+				border: 1px solid var(--ash);
+				padding: 10px 16px;
+				border-radius: 2px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 2px;
+			}
+			#frame5 .contact-chip .ch-label {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 9px;
+				letter-spacing: 1.5px;
+				text-transform: uppercase;
+				color: var(--dust);
+			}
+			#frame5 .contact-chip .ch-val {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 13px;
+				color: var(--cream);
+			}
+			#frame5 .orange-bar {
+				width: 100%;
+				height: 3px;
+				background: linear-gradient(to right, transparent, var(--orange), transparent);
+				margin: 20px 0;
+				opacity: 0.5;
+			}
+			#frame5 .hashtags {
+				font-family: "DM Sans", sans-serif;
+				font-weight: 300;
+				font-size: 11px;
+				color: var(--dust);
+				line-height: 1.8;
+				text-align: center;
+			}
+
+			/* ─── CONTROLS PANEL ─── */
+			.controls {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				gap: 16px;
+			}
+			.ctrl-title {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 11px;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				color: var(--orange);
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				margin-bottom: 4px;
+			}
+			.ctrl-title::before {
+				content: "";
+				display: block;
+				width: 16px;
+				height: 2px;
+				background: var(--orange);
+			}
+			.ctrl-card {
+				background: var(--ink3);
+				border: 1px solid var(--ash);
+				border-radius: 8px;
+				padding: 16px;
+			}
+			.ctrl-card h3 {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 13px;
+				color: var(--cream);
+				margin-bottom: 12px;
+			}
+			.import-btn {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				background: rgba(255, 77, 0, 0.1);
+				border: 1px dashed var(--orange);
+				border-radius: 6px;
+				padding: 12px 16px;
+				cursor: pointer;
+				width: 100%;
+				color: var(--orange);
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 12px;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				transition: all 0.2s;
+			}
+			.import-btn:hover {
+				background: rgba(255, 77, 0, 0.18);
+			}
+			.import-btn svg {
+				flex-shrink: 0;
+			}
+
+			.grid-import-row {
+				display: grid;
+				grid-template-columns: 1fr 1fr 1fr;
+				gap: 8px;
+				margin-top: 8px;
+			}
+			.grid-import-btn {
+				aspect-ratio: 1/1.8;
+				background: var(--ink4);
+				border: 1px dashed var(--ash);
+				border-radius: 4px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 4px;
+				cursor: pointer;
+				transition: all 0.2s;
+				overflow: hidden;
+				position: relative;
+			}
+			.grid-import-btn:hover {
+				border-color: var(--orange);
+			}
+			.grid-import-btn .gi-label {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 9px;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				color: var(--dust);
+			}
+			.grid-import-btn .gi-preview {
+				position: absolute;
+				inset: 0;
+				background-size: cover;
+				background-position: center;
+				display: none;
+			}
+			.grid-import-btn.loaded .gi-preview {
+				display: block;
+			}
+
+			.tip {
+				background: rgba(255, 226, 52, 0.06);
+				border: 1px solid rgba(255, 226, 52, 0.2);
+				border-radius: 6px;
+				padding: 10px 14px;
+				font-size: 12px;
+				color: var(--smoke);
+				line-height: 1.5;
+			}
+			.tip strong {
+				color: var(--yellow);
+			}
+
+			.frame-info {
+				display: flex;
+				flex-direction: column;
+				gap: 6px;
+			}
+			.info-row {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 6px 0;
+				border-bottom: 1px solid var(--ink4);
+			}
+			.info-row:last-child {
+				border-bottom: none;
+			}
+			.info-key {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 10px;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				color: var(--dust);
+			}
+			.info-val {
+				font-size: 12px;
+				color: var(--smoke);
+			}
+			.info-val.accent {
+				color: var(--orange);
+				font-weight: 700;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="app-header">
+			<div class="logo-mark">N</div>
+			<div class="logo-word">INUT<span>.</span></div>
+			<div class="header-tag">Carousel Builder — Bật Lửa</div>
+		</div>
+
+		<!-- FRAME NAVIGATION -->
+		<div class="frame-nav">
+			<div class="frame-btn active" onclick="switchFrame(1, this)">
+				<div class="num">01</div>
+				<div class="label">COVER</div>
+			</div>
+			<div class="frame-btn" onclick="switchFrame(2, this)">
+				<div class="num">02</div>
+				<div class="label">COLLECTION</div>
+			</div>
+			<div class="frame-btn" onclick="switchFrame(3, this)">
+				<div class="num">03</div>
+				<div class="label">DETAIL</div>
+			</div>
+			<div class="frame-btn" onclick="switchFrame(4, this)">
+				<div class="num">04</div>
+				<div class="label">GIFT</div>
+			</div>
+			<div class="frame-btn" onclick="switchFrame(5, this)">
+				<div class="num">05</div>
+				<div class="label">CTA</div>
+			</div>
+		</div>
+
+		<!-- WORKSPACE -->
+		<div class="workspace">
+			<!-- CANVAS -->
+			<div class="canvas-wrap">
+				<!-- ── FRAME 1: COVER ── -->
+				<div class="frame active" id="frame1">
+					<div class="img-bg" id="bg1"></div>
+					<div class="glow"></div>
+					<div class="import-zone" id="zone1" onclick="triggerImport('img1')">
+						<svg
+							width="32"
+							height="32"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linecap="round"
+						>
+							<rect x="3" y="3" width="18" height="18" rx="2" />
+							<circle cx="8.5" cy="8.5" r="1.5" />
+							<path d="m21 15-5-5L5 21" />
+						</svg>
+						<p>Import <span>ảnh bật lửa</span> chính</p>
+					</div>
+					<div class="frame-overlay">
+						<div class="content">
+							<div class="eyebrow">BẬT LỬA CUSTOM</div>
+							<div class="headline-syne">
+								Nghệ thuật<br /><span class="headline-accent">cháy.</span>
+							</div>
+							<div class="sub">In theo yêu cầu — Chrome Material — Pocket Size</div>
+							<div class="footer">
+								<div class="inut-logo-small">
+									<div class="lm">N</div>
+									<div class="wm">INUT<span>.</span></div>
+								</div>
+								<div class="url">INUTDESIGN.COM →</div>
+								<div class="badge">CRICKET CUSTOM</div>
+							</div>
+						</div>
+					</div>
+					<input
+						type="file"
+						id="img1"
+						accept="image/*"
+						onchange="loadImage(this, 'bg1', 'zone1')"
+					/>
+				</div>
+
+				<!-- ── FRAME 2: COLLECTION ── -->
+				<div class="frame" id="frame2">
+					<div class="f2-top">
+						<div class="eyebrow">BỘ SƯU TẬP</div>
+						<div class="f2-title">
+							<div class="headline-syne">
+								Van Gogh<br /><span class="headline-accent">Series</span>
+							</div>
+							<div class="count">10</div>
+						</div>
+					</div>
+					<div class="grid-wrap">
+						<div class="grid-slot" onclick="triggerImport('gimg1')">
+							<div class="slot-bg" id="gbg1"></div>
+							<div class="slot-placeholder" id="gph1">
+								<svg
+									width="20"
+									height="20"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.5"
+									stroke-linecap="round"
+								>
+									<rect x="3" y="3" width="18" height="18" rx="2" />
+									<circle cx="8.5" cy="8.5" r="1.5" />
+									<path d="m21 15-5-5L5 21" />
+								</svg>
+								<span
+									style="font-family: Syne; font-size: 9px; letter-spacing: 1px; color: var(--dust)"
+									>LIGHTER 1</span
+								>
+							</div>
+						</div>
+						<div class="grid-slot" onclick="triggerImport('gimg2')">
+							<div class="slot-bg" id="gbg2"></div>
+							<div class="slot-placeholder" id="gph2">
+								<svg
+									width="20"
+									height="20"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.5"
+									stroke-linecap="round"
+								>
+									<rect x="3" y="3" width="18" height="18" rx="2" />
+									<circle cx="8.5" cy="8.5" r="1.5" />
+									<path d="m21 15-5-5L5 21" />
+								</svg>
+								<span
+									style="font-family: Syne; font-size: 9px; letter-spacing: 1px; color: var(--dust)"
+									>LIGHTER 2</span
+								>
+							</div>
+						</div>
+						<div class="grid-slot" onclick="triggerImport('gimg3')">
+							<div class="slot-bg" id="gbg3"></div>
+							<div class="slot-placeholder" id="gph3">
+								<svg
+									width="20"
+									height="20"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.5"
+									stroke-linecap="round"
+								>
+									<rect x="3" y="3" width="18" height="18" rx="2" />
+									<circle cx="8.5" cy="8.5" r="1.5" />
+									<path d="m21 15-5-5L5 21" />
+								</svg>
+								<span
+									style="font-family: Syne; font-size: 9px; letter-spacing: 1px; color: var(--dust)"
+									>LIGHTER 3</span
+								>
+							</div>
+						</div>
+					</div>
+					<div class="f2-footer">
+						<div class="inut-logo-small">
+							<div class="lm">N</div>
+							<div class="wm">INUT<span>.</span></div>
+						</div>
+						<div style="display: flex; gap: 8px">
+							<div class="tag">CHROME MATERIAL</div>
+							<div class="tag accent">POCKET SIZE</div>
+						</div>
+					</div>
+					<input
+						type="file"
+						id="gimg1"
+						accept="image/*"
+						onchange="loadGridImage(this, 'gbg1', 'gph1')"
+					/>
+					<input
+						type="file"
+						id="gimg2"
+						accept="image/*"
+						onchange="loadGridImage(this, 'gbg2', 'gph2')"
+					/>
+					<input
+						type="file"
+						id="gimg3"
+						accept="image/*"
+						onchange="loadGridImage(this, 'gbg3', 'gph3')"
+					/>
+				</div>
+
+				<!-- ── FRAME 3: DETAIL ── -->
+				<div class="frame" id="frame3">
+					<div
+						class="img-bg"
+						id="bg3"
+						style="
+							left: auto;
+							right: 0;
+							width: 55%;
+							height: 100%;
+							background-size: cover;
+							background-position: center;
+						"
+					></div>
+					<div
+						style="
+							position: absolute;
+							left: auto;
+							right: 0;
+							width: 55%;
+							height: 100%;
+							background: linear-gradient(to right, var(--ink) 0%, transparent 30%);
+							z-index: 2;
+							pointer-events: none;
+						"
+					></div>
+					<div class="side-glow"></div>
+					<div
+						class="import-zone"
+						id="zone3"
+						style="left: auto; right: 0; width: 55%"
+						onclick="triggerImport('img3')"
+					>
+						<svg
+							width="28"
+							height="28"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linecap="round"
+						>
+							<rect x="3" y="3" width="18" height="18" rx="2" />
+							<circle cx="8.5" cy="8.5" r="1.5" />
+							<path d="m21 15-5-5L5 21" />
+						</svg>
+						<p style="font-size: 10px; text-align: center">Import<br /><span>closeup</span></p>
+					</div>
+					<div class="content">
+						<div>
+							<div class="eyebrow" style="font-size: 10px; margin-bottom: 12px">DETAIL VIEW</div>
+							<div class="headline-syne" style="font-size: 30px">
+								Starry<br /><span class="headline-accent">Night.</span>
+							</div>
+							<div class="specs">
+								<div class="spec-item">
+									<div class="spec-label">Chất liệu</div>
+									<div class="spec-val">Chrome cao cấp</div>
+								</div>
+								<div class="spec-item">
+									<div class="spec-label">Kỹ thuật in</div>
+									<div class="spec-val">UV Full-wrap</div>
+								</div>
+								<div class="spec-item">
+									<div class="spec-label">Kích thước</div>
+									<div class="spec-val">Pocket Size</div>
+								</div>
+								<div class="spec-item">
+									<div class="spec-label">Độ bền màu</div>
+									<div class="spec-val">Vĩnh viễn</div>
+								</div>
+							</div>
+						</div>
+						<div>
+							<div class="price-block">
+								<div class="price-label">Giá từ</div>
+								<div class="price-val">Inbox →</div>
+							</div>
+							<div style="margin-top: 16px">
+								<div class="inut-logo-small">
+									<div class="lm">N</div>
+									<div class="wm">INUT<span>.</span></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<input
+						type="file"
+						id="img3"
+						accept="image/*"
+						onchange="loadSideImage(this, 'bg3', 'zone3')"
+					/>
+				</div>
+
+				<!-- ── FRAME 4: GIFT ── -->
+				<div class="frame" id="frame4">
+					<div
+						class="img-bg"
+						id="bg4"
+						style="
+							left: auto;
+							right: 0;
+							width: 55%;
+							height: 100%;
+							background-size: cover;
+							background-position: center;
+						"
+					></div>
+					<div
+						style="
+							position: absolute;
+							left: auto;
+							right: 0;
+							width: 55%;
+							height: 100%;
+							background: linear-gradient(to right, var(--orange) 0%, transparent 35%);
+							z-index: 2;
+							pointer-events: none;
+						"
+					></div>
+					<div
+						class="import-zone"
+						id="zone4"
+						style="left: auto; right: 0; width: 55%; background: rgba(255, 77, 0, 0.15)"
+						onclick="triggerImport('img4')"
+					>
+						<svg
+							width="28"
+							height="28"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linecap="round"
+						>
+							<rect x="3" y="3" width="18" height="18" rx="2" />
+							<circle cx="8.5" cy="8.5" r="1.5" />
+							<path d="m21 15-5-5L5 21" />
+						</svg>
+						<p style="font-size: 10px; text-align: center; color: #080706">
+							Import<br /><span style="color: #080706; font-weight: 800">gift photo</span>
+						</p>
+					</div>
+					<div class="content f4-content">
+						<div>
+							<div class="eyebrow" style="color: var(--ink); gap: 8px; margin-bottom: 16px">
+								<span
+									style="
+										display: block;
+										width: 20px;
+										height: 2px;
+										background: var(--ink);
+										opacity: 0.4;
+									"
+								></span>
+								QUÀ TẶNG
+							</div>
+							<div class="headline-syne" style="font-size: 38px; color: var(--ink)">
+								Quà tặng<br /><span
+									style="
+										font-family: 'DM Serif Display', serif;
+										font-style: italic;
+										color: rgba(8, 7, 6, 0.5);
+									"
+									>độc nhất.</span
+								>
+							</div>
+							<div
+								style="
+									font-family: 'DM Sans', sans-serif;
+									font-size: 13px;
+									color: rgba(8, 7, 6, 0.65);
+									margin-top: 12px;
+									line-height: 1.6;
+								"
+							>
+								In logo doanh nghiệp hoặc<br />hình ảnh cá nhân theo yêu cầu.<br />Giao toàn quốc.
+							</div>
+						</div>
+						<div>
+							<div
+								style="
+									display: inline-flex;
+									align-items: center;
+									gap: 8px;
+									background: var(--ink);
+									color: var(--cream);
+									font-family: 'Syne', sans-serif;
+									font-weight: 700;
+									font-size: 11px;
+									letter-spacing: 1px;
+									text-transform: uppercase;
+									padding: 12px 20px;
+									border-radius: 2px;
+									margin-bottom: 20px;
+								"
+							>
+								INBOX NGAY
+								<span style="color: var(--orange); font-size: 16px">→</span>
+							</div>
+							<div class="inut-logo-small f4-logo">
+								<div class="lm" style="background: var(--ink)">N</div>
+								<div class="wm" style="color: var(--ink)">
+									INUT<span style="color: rgba(8, 7, 6, 0.4)">.</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<input
+						type="file"
+						id="img4"
+						accept="image/*"
+						onchange="loadSideImage(this, 'bg4', 'zone4')"
+					/>
+				</div>
+
+				<!-- ── FRAME 5: CTA ── -->
+				<div class="frame" id="frame5">
+					<div class="img-bg" id="bg5"></div>
+					<div class="gradient"></div>
+					<div class="import-zone" id="zone5" onclick="triggerImport('img5')" style="opacity: 0.6">
+						<svg
+							width="28"
+							height="28"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linecap="round"
+						>
+							<rect x="3" y="3" width="18" height="18" rx="2" />
+							<circle cx="8.5" cy="8.5" r="1.5" />
+							<path d="m21 15-5-5L5 21" />
+						</svg>
+						<p>BG image <span>(tùy chọn)</span></p>
+					</div>
+					<div class="content">
+						<div class="big-label">ĐẶT HÀNG NGAY</div>
+						<div class="cta-headline">
+							Inbox ngay —
+							<span class="accent">báo giá 15 phút.</span>
+						</div>
+						<div class="cta-sub">Không cần đặt cọc. Giao hàng toàn quốc 3–5 ngày.</div>
+						<div class="contact-row">
+							<div class="contact-chip">
+								<div class="ch-label">Zalo / Call</div>
+								<div class="ch-val">0792 359 996</div>
+							</div>
+							<div class="contact-chip">
+								<div class="ch-label">Website</div>
+								<div class="ch-val">INUTDESIGN.COM</div>
+							</div>
+						</div>
+						<div class="orange-bar"></div>
+						<div class="inut-logo-small" style="margin-bottom: 12px">
+							<div class="lm">N</div>
+							<div class="wm">INUT<span>.</span></div>
+						</div>
+						<div class="hashtags">
+							#INUTDesign #BatLuaCustom #INUTPrint #DaNangPrint<br />
+							#LighterCustom #QuaTangDocDao #ChromaticOffset
+						</div>
+					</div>
+					<input
+						type="file"
+						id="img5"
+						accept="image/*"
+						onchange="loadImage(this, 'bg5', 'zone5')"
+					/>
+				</div>
+			</div>
+			<!-- /canvas-wrap -->
+
+			<!-- CONTROLS PANEL -->
+			<div class="controls" id="controls-panel">
+				<!-- Frame 1 controls -->
+				<div id="ctrl1">
+					<div class="ctrl-title">FRAME 01 — COVER</div>
+					<div class="ctrl-card">
+						<h3>Import ảnh chính</h3>
+						<label class="import-btn" for="img1">
+							<svg
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+							>
+								<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+								<polyline points="17 8 12 3 7 8" />
+								<line x1="12" y1="3" x2="12" y2="15" />
+							</svg>
+							Chọn ảnh bật lửa
+						</label>
+					</div>
+					<div class="ctrl-card">
+						<div class="frame-info">
+							<div class="info-row">
+								<span class="info-key">Size</span><span class="info-val">1080 × 1080px</span>
+							</div>
+							<div class="info-row">
+								<span class="info-key">Layout</span
+								><span class="info-val">Full bleed + gradient overlay</span>
+							</div>
+							<div class="info-row">
+								<span class="info-key">Theme</span><span class="info-val accent">Classic Dark</span>
+							</div>
+							<div class="info-row">
+								<span class="info-key">Role</span><span class="info-val">Thumb-stop · Hook</span>
+							</div>
+						</div>
+					</div>
+					<div class="tip">
+						<strong>Tip:</strong> Dùng ảnh 1 bật lửa nổi bật nhất — Starry Night hoặc Sunflowers.
+						Ánh sáng từ trên xuống, nền tối tự nhiên.
+					</div>
+				</div>
+
+				<!-- Frame 2 controls -->
+				<div id="ctrl2" style="display: none">
+					<div class="ctrl-title">FRAME 02 — COLLECTION</div>
+					<div class="ctrl-card">
+						<h3>Import 3 ảnh bật lửa</h3>
+						<div class="grid-import-row">
+							<label class="grid-import-btn" for="gimg1" id="gbtn1">
+								<div class="gi-preview" id="gpr1"></div>
+								<svg
+									width="18"
+									height="18"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.5"
+									stroke-linecap="round"
+								>
+									<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+									<polyline points="17 8 12 3 7 8" />
+									<line x1="12" y1="3" x2="12" y2="15" />
+								</svg>
+								<div class="gi-label">Lighter 1</div>
+							</label>
+							<label class="grid-import-btn" for="gimg2" id="gbtn2">
+								<div class="gi-preview" id="gpr2"></div>
+								<svg
+									width="18"
+									height="18"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.5"
+									stroke-linecap="round"
+								>
+									<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+									<polyline points="17 8 12 3 7 8" />
+									<line x1="12" y1="3" x2="12" y2="15" />
+								</svg>
+								<div class="gi-label">Lighter 2</div>
+							</label>
+							<label class="grid-import-btn" for="gimg3" id="gbtn3">
+								<div class="gi-preview" id="gpr3"></div>
+								<svg
+									width="18"
+									height="18"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.5"
+									stroke-linecap="round"
+								>
+									<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+									<polyline points="17 8 12 3 7 8" />
+									<line x1="12" y1="3" x2="12" y2="15" />
+								</svg>
+								<div class="gi-label">Lighter 3</div>
+							</label>
+						</div>
+					</div>
+					<div class="ctrl-card">
+						<div class="frame-info">
+							<div class="info-row">
+								<span class="info-key">Layout</span
+								><span class="info-val">3-column portrait grid</span>
+							</div>
+							<div class="info-row">
+								<span class="info-key">Theme</span><span class="info-val accent">Classic Dark</span>
+							</div>
+							<div class="info-row">
+								<span class="info-key">Role</span><span class="info-val">Collection showcase</span>
+							</div>
+						</div>
+					</div>
+					<div class="tip">
+						<strong>Tip:</strong> Chọn 3 mẫu contrast nhau về màu sắc — ví dụ Starry Night (xanh),
+						Sunflowers (vàng), The Scream (ấm).
+					</div>
+				</div>
+
+				<!-- Frame 3 controls -->
+				<div id="ctrl3" style="display: none">
+					<div class="ctrl-title">FRAME 03 — DETAIL</div>
+					<div class="ctrl-card">
+						<h3>Import ảnh closeup</h3>
+						<label class="import-btn" for="img3">
+							<svg
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+							>
+								<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+								<polyline points="17 8 12 3 7 8" />
+								<line x1="12" y1="3" x2="12" y2="15" />
+							</svg>
+							Chọn ảnh chi tiết sản phẩm
+						</label>
+					</div>
+					<div class="ctrl-card">
+						<div class="frame-info">
+							<div class="info-row">
+								<span class="info-key">Layout</span
+								><span class="info-val">Split: text left / image right</span>
+							</div>
+							<div class="info-row">
+								<span class="info-key">Theme</span
+								><span class="info-val accent">Classic Dark + Orange glow</span>
+							</div>
+							<div class="info-row">
+								<span class="info-key">Role</span
+								><span class="info-val">Product detail · Trust-build</span>
+							</div>
+						</div>
+					</div>
+					<div class="tip">
+						<strong>Tip:</strong> Ảnh macro close-up texture của bề mặt chrome + họa tiết in. Góc
+						45° dưới ánh đèn studio sẽ nổi nhất.
+					</div>
+				</div>
+
+				<!-- Frame 4 controls -->
+				<div id="ctrl4" style="display: none">
+					<div class="ctrl-title">FRAME 04 — GIFT</div>
+					<div class="ctrl-card">
+						<h3>Import ảnh lifestyle / gift</h3>
+						<label
+							class="import-btn"
+							for="img4"
+							style="
+								border-color: var(--ink);
+								color: var(--ink);
+								background: rgba(255, 77, 0, 0.15);
+							"
+						>
+							<svg
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+							>
+								<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+								<polyline points="17 8 12 3 7 8" />
+								<line x1="12" y1="3" x2="12" y2="15" />
+							</svg>
+							Chọn ảnh quà tặng
+						</label>
+					</div>
+					<div class="ctrl-card">
+						<div class="frame-info">
+							<div class="info-row">
+								<span class="info-key">Layout</span
+								><span class="info-val">Split: text left / image right</span>
+							</div>
+							<div class="info-row">
+								<span class="info-key">Theme</span><span class="info-val accent">Orange Blast</span>
+							</div>
+							<div class="info-row">
+								<span class="info-key">Role</span
+								><span class="info-val">Gift angle · B2B + cá nhân</span>
+							</div>
+						</div>
+					</div>
+					<div class="tip">
+						<strong>Tip:</strong> Ảnh bật lửa trong hộp quà hoặc trên bàn gỗ với ribbon. Background
+						có thể tối để tương phản với nền cam của frame.
+					</div>
+				</div>
+
+				<!-- Frame 5 controls -->
+				<div id="ctrl5" style="display: none">
+					<div class="ctrl-title">FRAME 05 — CTA</div>
+					<div class="ctrl-card">
+						<h3>Background ảnh (tùy chọn)</h3>
+						<label class="import-btn" for="img5">
+							<svg
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+							>
+								<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+								<polyline points="17 8 12 3 7 8" />
+								<line x1="12" y1="3" x2="12" y2="15" />
+							</svg>
+							Chọn ảnh nền (mờ)
+						</label>
+					</div>
+					<div class="ctrl-card">
+						<div class="frame-info">
+							<div class="info-row">
+								<span class="info-key">Layout</span
+								><span class="info-val">Centered CTA + contact</span>
+							</div>
+							<div class="info-row">
+								<span class="info-key">Theme</span
+								><span class="info-val accent">Classic Dark + Orange glow</span>
+							</div>
+							<div class="info-row">
+								<span class="info-key">Role</span
+								><span class="info-val">Close · Drive DM / Zalo</span>
+							</div>
+						</div>
+					</div>
+					<div class="tip">
+						<strong>Tip:</strong> Frame này không cần ảnh nền — text đã đủ lực. Nếu có, dùng ảnh
+						tổng hợp collection mờ đẹp hơn.
+					</div>
+				</div>
+			</div>
+			<!-- /controls -->
+		</div>
+		<!-- /workspace -->
+
+		<script>
+			let currentFrame = 1;
+
+			function switchFrame(n, btn) {
+				// Hide all frames
+				document.querySelectorAll(".frame").forEach((f) => f.classList.remove("active"));
+				document.querySelectorAll(".frame-btn").forEach((b) => b.classList.remove("active"));
+				document.querySelectorAll('[id^="ctrl"]').forEach((c) => (c.style.display = "none"));
+
+				document.getElementById("frame" + n).classList.add("active");
+				btn.classList.add("active");
+				document.getElementById("ctrl" + n).style.display = "block";
+				currentFrame = n;
+			}
+
+			function triggerImport(inputId) {
+				document.getElementById(inputId).click();
+			}
+
+			function loadImage(input, bgId, zoneId) {
+				if (!input.files || !input.files[0]) return;
+				const reader = new FileReader();
+				reader.onload = function (e) {
+					const bg = document.getElementById(bgId);
+					bg.style.backgroundImage = "url(" + e.target.result + ")";
+					bg.style.backgroundSize = "cover";
+					bg.style.backgroundPosition = "center";
+					const zone = document.getElementById(zoneId);
+					zone.classList.add("has-image");
+				};
+				reader.readAsDataURL(input.files[0]);
+			}
+
+			function loadSideImage(input, bgId, zoneId) {
+				if (!input.files || !input.files[0]) return;
+				const reader = new FileReader();
+				reader.onload = function (e) {
+					const bg = document.getElementById(bgId);
+					bg.style.backgroundImage = "url(" + e.target.result + ")";
+					const zone = document.getElementById(zoneId);
+					if (zone) zone.classList.add("has-image");
+				};
+				reader.readAsDataURL(input.files[0]);
+			}
+
+			function loadGridImage(input, bgId, phId) {
+				if (!input.files || !input.files[0]) return;
+				const reader = new FileReader();
+				reader.onload = function (e) {
+					const bg = document.getElementById(bgId);
+					bg.style.backgroundImage = "url(" + e.target.result + ")";
+					bg.style.backgroundSize = "cover";
+					bg.style.backgroundPosition = "center";
+					const ph = document.getElementById(phId);
+					if (ph) ph.classList.add("hidden");
+					// Also update preview in controls
+					const slotNum = bgId.replace("gbg", "");
+					const pr = document.getElementById("gpr" + slotNum);
+					if (pr) {
+						pr.style.backgroundImage = "url(" + e.target.result + ")";
+						pr.style.backgroundSize = "cover";
+						pr.style.backgroundPosition = "center";
+						pr.style.display = "block";
+						const btn = document.getElementById("gbtn" + slotNum);
+						if (btn) btn.classList.add("loaded");
+					}
+				};
+				reader.readAsDataURL(input.files[0]);
+			}
+		</script>
+	</body>
+</html>

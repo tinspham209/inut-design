@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>INUT Design — Thiết Kế Skin Bật Lửa</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+			rel="stylesheet"
+		/>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+		<style>
+			:root {
+				--bg: #080706;
+				--surface: #100f0d;
+				--surface-2: #1a1916;
+				--surface-3: #242220;
+				--border: #2c2b28;
+				--border-light: #3a3936;
+				--orange: #ff4d00;
+				--orange-dim: rgba(255, 77, 0, 0.15);
+				--yellow: #ffe234;
+				--white: #f5f3ee;
+				--white-dim: rgba(245, 243, 238, 0.55);
+				--muted: #7a7870;
+				--radius: 8px;
+				--tr: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			html,
+			body {
+				height: 100%;
+				background: var(--bg);
+				color: var(--white);
+				font-family: "DM Sans", sans-serif;
+				font-size: 14px;
+				line-height: 1.5;
+				overflow: hidden;
+			}
+
+			/* ── APP SHELL ─────────────────────────────── */
+			#app {
+				display: grid;
+				grid-template-rows: 52px 1fr;
+				height: 100vh;
+			}
+
+			/* ── HEADER ────────────────────────────────── */
+			header {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 20px;
+				border-bottom: 1px solid var(--border);
+				background: var(--surface);
+				z-index: 50;
+			}
+
+			.logo {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				text-decoration: none;
+			}
+			.logo-mark {
+				width: 26px;
+				height: 26px;
+				background: var(--orange);
+				clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+				flex-shrink: 0;
+			}
+			.logo-text {
+				line-height: 1;
+			}
+			.logo-name {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 14px;
+				color: var(--white);
+				letter-spacing: 0.04em;
+			}
+			.logo-sub {
+				font-size: 10px;
+				color: var(--muted);
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+			}
+
+			/* steps */
+			.steps {
+				display: flex;
+				align-items: center;
+				gap: 0;
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+			.step {
+				display: flex;
+				align-items: center;
+				gap: 7px;
+				padding: 0 14px;
+				font-size: 12px;
+				color: var(--muted);
+				font-family: "Syne", sans-serif;
+				font-weight: 600;
+				letter-spacing: 0.04em;
+				text-transform: uppercase;
+				position: relative;
+			}
+			.step + .step::before {
+				content: "";
+				position: absolute;
+				left: 0;
+				width: 1px;
+				height: 16px;
+				background: var(--border-light);
+			}
+			.step-num {
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				border: 1.5px solid currentColor;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 10px;
+				flex-shrink: 0;
+			}
+			.step.done {
+				color: var(--orange);
+			}
+			.step.done .step-num {
+				background: var(--orange);
+				border-color: var(--orange);
+				color: #fff;
+				font-size: 9px;
+			}
+			.step.active {
+				color: var(--white);
+			}
+			.step.active .step-num {
+				background: var(--orange);
+				border-color: var(--orange);
+				color: #fff;
+			}
+
+			.badge {
+				font-size: 10px;
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				color: var(--yellow);
+				border: 1px solid rgba(255, 226, 52, 0.35);
+				padding: 3px 8px;
+				border-radius: 4px;
+				background: rgba(255, 226, 52, 0.06);
+			}
+
+			/* ── MAIN ──────────────────────────────────── */
+			main {
+				display: grid;
+				grid-template-columns: 1fr 340px;
+				overflow: hidden;
+			}
+
+			/* ── 3D CANVAS ─────────────────────────────── */
+			#canvas-area {
+				position: relative;
+				overflow: hidden;
+				background: var(--bg);
+			}
+			#canvas-area canvas {
+				display: block;
+				width: 100% !important;
+				height: 100% !important;
+			}
+
+			/* drag hint overlay */
+			.drag-hint {
+				position: absolute;
+				bottom: 20px;
+				left: 50%;
+				transform: translateX(-50%);
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				font-size: 12px;
+				color: var(--muted);
+				pointer-events: none;
+				opacity: 1;
+				transition: opacity 0.4s;
+			}
+			.drag-hint svg {
+				opacity: 0.5;
+			}
+			.drag-hint.hidden {
+				opacity: 0;
+			}
+
+			/* no-image overlay */
+			#upload-overlay {
+				position: absolute;
+				inset: 0;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 12px;
+				pointer-events: none;
+			}
+			#upload-overlay.hidden {
+				display: none;
+			}
+			.overlay-icon {
+				width: 56px;
+				height: 56px;
+				border-radius: 50%;
+				background: var(--surface-3);
+				border: 1px solid var(--border);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: var(--muted);
+			}
+			.overlay-title {
+				font-family: "Syne", sans-serif;
+				font-size: 15px;
+				font-weight: 700;
+				color: var(--white-dim);
+			}
+			.overlay-sub {
+				font-size: 12px;
+				color: var(--muted);
+			}
+
+			/* ── PANEL ─────────────────────────────────── */
+			#panel {
+				display: flex;
+				flex-direction: column;
+				border-left: 1px solid var(--border);
+				background: var(--surface);
+				overflow-y: auto;
+				overflow-x: hidden;
+			}
+
+			/* tabs */
+			.tabs {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				border-bottom: 1px solid var(--border);
+				flex-shrink: 0;
+			}
+			.tab-btn {
+				padding: 13px 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 7px;
+				font-family: "Syne", sans-serif;
+				font-size: 12px;
+				font-weight: 700;
+				letter-spacing: 0.05em;
+				text-transform: uppercase;
+				color: var(--muted);
+				border: none;
+				background: transparent;
+				cursor: pointer;
+				transition: color var(--tr);
+				border-bottom: 2px solid transparent;
+				margin-bottom: -1px;
+			}
+			.tab-btn:hover {
+				color: var(--white-dim);
+			}
+			.tab-btn.active {
+				color: var(--orange);
+				border-bottom-color: var(--orange);
+			}
+			.tab-btn svg {
+				flex-shrink: 0;
+			}
+
+			/* panel content */
+			.tab-content {
+				display: none;
+				padding: 18px 16px;
+			}
+			.tab-content.active {
+				display: block;
+			}
+
+			.panel-section {
+				margin-bottom: 20px;
+			}
+			.section-label {
+				font-size: 10px;
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--muted);
+				margin-bottom: 10px;
+			}
+
+			/* image upload area */
+			#dropzone {
+				border: 1.5px dashed var(--border-light);
+				border-radius: var(--radius);
+				padding: 28px 16px;
+				text-align: center;
+				cursor: pointer;
+				transition: border-color var(--tr), background var(--tr);
+				background: var(--surface-2);
+			}
+			#dropzone:hover,
+			#dropzone.drag-over {
+				border-color: var(--orange);
+				background: var(--orange-dim);
+			}
+			#dropzone-icon {
+				width: 36px;
+				height: 36px;
+				border-radius: 50%;
+				background: var(--surface-3);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin: 0 auto 10px;
+				color: var(--orange);
+			}
+			#dropzone p {
+				font-size: 13px;
+				color: var(--white-dim);
+				line-height: 1.5;
+			}
+			#dropzone span {
+				color: var(--orange);
+				font-weight: 500;
+			}
+			#dropzone small {
+				display: block;
+				margin-top: 6px;
+				font-size: 11px;
+				color: var(--muted);
+			}
+			#file-input {
+				display: none;
+			}
+
+			/* preview thumbnail */
+			#preview-area {
+				display: none;
+			}
+			#preview-area.visible {
+				display: block;
+			}
+
+			.preview-img-wrap {
+				border-radius: var(--radius);
+				overflow: hidden;
+				border: 1px solid var(--border);
+				margin-bottom: 10px;
+				background: var(--surface-2);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 80px;
+			}
+			#preview-thumb {
+				max-width: 100%;
+				max-height: 140px;
+				object-fit: contain;
+				display: block;
+			}
+			.preview-meta {
+				font-size: 11px;
+				color: var(--muted);
+				margin-bottom: 10px;
+			}
+			.preview-meta strong {
+				color: var(--white-dim);
+				font-weight: 500;
+			}
+
+			.img-actions {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 8px;
+			}
+
+			/* resolution warning */
+			#res-warning {
+				display: none;
+				background: rgba(255, 226, 52, 0.08);
+				border: 1px solid rgba(255, 226, 52, 0.25);
+				border-radius: 6px;
+				padding: 8px 10px;
+				font-size: 12px;
+				color: var(--yellow);
+				margin-top: 10px;
+				gap: 8px;
+				align-items: flex-start;
+			}
+			#res-warning.visible {
+				display: flex;
+			}
+			#res-warning svg {
+				flex-shrink: 0;
+				margin-top: 1px;
+			}
+
+			/* controls */
+			.control-row {
+				margin-bottom: 16px;
+			}
+			.control-label {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 8px;
+				font-size: 12px;
+				color: var(--white-dim);
+			}
+			.control-label .val {
+				font-family: "Syne", sans-serif;
+				font-size: 12px;
+				font-weight: 700;
+				color: var(--orange);
+				min-width: 42px;
+				text-align: right;
+			}
+
+			input[type="range"] {
+				-webkit-appearance: none;
+				width: 100%;
+				height: 4px;
+				border-radius: 2px;
+				background: var(--border-light);
+				outline: none;
+				cursor: pointer;
+			}
+			input[type="range"]::-webkit-slider-thumb {
+				-webkit-appearance: none;
+				width: 16px;
+				height: 16px;
+				border-radius: 50%;
+				background: var(--orange);
+				cursor: pointer;
+				box-shadow: 0 0 0 3px rgba(255, 77, 0, 0.2);
+				transition: box-shadow var(--tr);
+			}
+			input[type="range"]::-webkit-slider-thumb:hover {
+				box-shadow: 0 0 0 5px rgba(255, 77, 0, 0.3);
+			}
+
+			/* rotation dots (like Cricket) */
+			.rotation-track {
+				display: flex;
+				align-items: center;
+				gap: 4px;
+				margin-bottom: 6px;
+			}
+			.rotation-track input[type="range"] {
+				flex: 1;
+			}
+			.rotation-display {
+				font-family: "Syne", sans-serif;
+				font-size: 12px;
+				font-weight: 700;
+				color: var(--orange);
+				min-width: 38px;
+				text-align: right;
+			}
+
+			/* buttons */
+			.btn {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 6px;
+				padding: 9px 14px;
+				border-radius: var(--radius);
+				font-family: "Syne", sans-serif;
+				font-size: 12px;
+				font-weight: 700;
+				letter-spacing: 0.05em;
+				cursor: pointer;
+				border: none;
+				transition: background var(--tr), transform var(--tr), opacity var(--tr);
+				white-space: nowrap;
+			}
+			.btn:active {
+				transform: scale(0.97);
+			}
+			.btn-ghost {
+				background: var(--surface-3);
+				color: var(--white-dim);
+				border: 1px solid var(--border);
+			}
+			.btn-ghost:hover {
+				background: var(--border);
+				color: var(--white);
+			}
+			.btn-danger {
+				background: rgba(220, 38, 38, 0.12);
+				color: #f87171;
+				border: 1px solid rgba(220, 38, 38, 0.25);
+			}
+			.btn-danger:hover {
+				background: rgba(220, 38, 38, 0.2);
+			}
+			.btn-primary {
+				background: var(--orange);
+				color: #fff;
+			}
+			.btn-primary:hover {
+				background: #e04400;
+			}
+			.btn-primary:disabled {
+				opacity: 0.4;
+				cursor: not-allowed;
+			}
+			.btn-full {
+				width: 100%;
+			}
+
+			.divider {
+				border: none;
+				border-top: 1px solid var(--border);
+				margin: 18px 0;
+			}
+
+			/* form fields */
+			.field {
+				margin-bottom: 12px;
+			}
+			.field label {
+				display: block;
+				font-size: 11px;
+				color: var(--muted);
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				margin-bottom: 5px;
+				font-weight: 500;
+			}
+			.field input,
+			.field textarea,
+			.field select {
+				width: 100%;
+				background: var(--surface-2);
+				border: 1px solid var(--border);
+				border-radius: var(--radius);
+				color: var(--white);
+				font-family: "DM Sans", sans-serif;
+				font-size: 13px;
+				padding: 9px 11px;
+				outline: none;
+				transition: border-color var(--tr);
+				resize: none;
+			}
+			.field input::placeholder,
+			.field textarea::placeholder {
+				color: var(--muted);
+			}
+			.field input:focus,
+			.field textarea:focus,
+			.field select:focus {
+				border-color: var(--orange);
+			}
+			.field select option {
+				background: var(--surface-2);
+			}
+			.field textarea {
+				min-height: 72px;
+			}
+
+			.field-row {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 10px;
+			}
+
+			/* lighter type selector */
+			.type-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 8px;
+				margin-bottom: 4px;
+			}
+			.type-card {
+				padding: 12px 10px;
+				border-radius: var(--radius);
+				border: 1.5px solid var(--border);
+				background: var(--surface-2);
+				cursor: pointer;
+				transition: border-color var(--tr), background var(--tr);
+				text-align: center;
+			}
+			.type-card:hover {
+				border-color: var(--border-light);
+			}
+			.type-card.selected {
+				border-color: var(--orange);
+				background: var(--orange-dim);
+			}
+			.type-card .type-name {
+				font-family: "Syne", sans-serif;
+				font-size: 13px;
+				font-weight: 700;
+				color: var(--white);
+				margin-bottom: 2px;
+			}
+			.type-card .type-dim {
+				font-size: 10px;
+				color: var(--muted);
+			}
+			.type-card.selected .type-name {
+				color: var(--orange);
+			}
+
+			/* submit area */
+			.submit-area {
+				padding: 16px;
+				border-top: 1px solid var(--border);
+				background: var(--surface);
+				flex-shrink: 0;
+			}
+
+			.submit-note {
+				font-size: 11px;
+				color: var(--muted);
+				text-align: center;
+				margin-top: 8px;
+			}
+			.submit-note span {
+				color: var(--orange);
+			}
+
+			/* toast */
+			#toast {
+				position: fixed;
+				bottom: 24px;
+				left: 50%;
+				transform: translateX(-50%) translateY(20px);
+				background: var(--surface-3);
+				border: 1px solid var(--border);
+				color: var(--white);
+				padding: 10px 18px;
+				border-radius: 8px;
+				font-size: 13px;
+				opacity: 0;
+				transition: opacity 0.2s, transform 0.2s;
+				pointer-events: none;
+				z-index: 999;
+				white-space: nowrap;
+			}
+			#toast.show {
+				opacity: 1;
+				transform: translateX(-50%) translateY(0);
+			}
+			#toast.warning {
+				border-color: rgba(255, 226, 52, 0.35);
+				color: var(--yellow);
+			}
+			#toast.success {
+				border-color: rgba(34, 197, 94, 0.3);
+				color: #4ade80;
+			}
+
+			/* confirmation overlay */
+			#confirm-overlay {
+				display: none;
+				position: fixed;
+				inset: 0;
+				background: rgba(8, 7, 6, 0.85);
+				z-index: 100;
+				align-items: center;
+				justify-content: center;
+			}
+			#confirm-overlay.visible {
+				display: flex;
+			}
+			.confirm-card {
+				background: var(--surface-2);
+				border: 1px solid var(--border);
+				border-radius: 12px;
+				padding: 36px 32px;
+				text-align: center;
+				max-width: 340px;
+			}
+			.confirm-icon {
+				width: 56px;
+				height: 56px;
+				border-radius: 50%;
+				background: rgba(34, 197, 94, 0.1);
+				border: 1px solid rgba(34, 197, 94, 0.3);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin: 0 auto 16px;
+				color: #4ade80;
+				font-size: 24px;
+			}
+			.confirm-title {
+				font-family: "Syne", sans-serif;
+				font-size: 17px;
+				font-weight: 800;
+				color: var(--white);
+				margin-bottom: 8px;
+			}
+			.confirm-body {
+				font-size: 13px;
+				color: var(--white-dim);
+				line-height: 1.6;
+				margin-bottom: 20px;
+			}
+			.confirm-body strong {
+				color: var(--orange);
+			}
+
+			/* scrollbar */
+			#panel::-webkit-scrollbar {
+				width: 4px;
+			}
+			#panel::-webkit-scrollbar-track {
+				background: transparent;
+			}
+			#panel::-webkit-scrollbar-thumb {
+				background: var(--border);
+				border-radius: 2px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<header>
+				<a class="logo" href="#">
+					<div class="logo-mark"></div>
+					<div class="logo-text">
+						<div class="logo-name">INUT Design</div>
+						<div class="logo-sub">Lighter Builder</div>
+					</div>
+				</a>
+
+				<div class="steps">
+					<div class="step active" id="step-1">
+						<div class="step-num">1</div>
+						Tải ảnh
+					</div>
+					<div class="step" id="step-2">
+						<div class="step-num">2</div>
+						Xem trước
+					</div>
+					<div class="step" id="step-3">
+						<div class="step-num">3</div>
+						Gửi đơn
+					</div>
+				</div>
+
+				<span class="badge">PROTOTYPE</span>
+			</header>
+
+			<main>
+				<!-- 3D CANVAS -->
+				<div id="canvas-area">
+					<div id="upload-overlay">
+						<div class="overlay-icon">
+							<svg
+								width="22"
+								height="22"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.5"
+							>
+								<path d="M3 16v2a2 2 0 002 2h14a2 2 0 002-2v-2M8 10l4-4 4 4M12 6v10" />
+							</svg>
+						</div>
+						<div class="overlay-title">Chưa có ảnh thiết kế</div>
+						<div class="overlay-sub">Tải ảnh lên ở bảng bên phải để xem trước</div>
+					</div>
+					<div class="drag-hint" id="drag-hint">
+						<svg
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.5"
+						>
+							<path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20" />
+						</svg>
+						Kéo để xoay bật lửa
+					</div>
+				</div>
+
+				<!-- RIGHT PANEL -->
+				<div id="panel">
+					<div class="tabs">
+						<button class="tab-btn active" data-tab="design">
+							<svg
+								width="14"
+								height="14"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+							>
+								<path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
+							</svg>
+							Thiết kế
+						</button>
+						<button class="tab-btn" data-tab="order">
+							<svg
+								width="14"
+								height="14"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+							>
+								<path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
+							</svg>
+							Gửi đơn
+						</button>
+					</div>
+
+					<!-- DESIGN TAB -->
+					<div class="tab-content active" id="tab-design">
+						<!-- Lighter type -->
+						<div class="panel-section">
+							<div class="section-label">Loại bật lửa</div>
+							<div class="type-grid">
+								<div class="type-card selected" data-type="normal">
+									<div class="type-name">Normal</div>
+									<div class="type-dim">80 × 26 mm</div>
+								</div>
+								<div class="type-card" data-type="mini">
+									<div class="type-name">Mini</div>
+									<div class="type-dim">60 × 20 mm</div>
+								</div>
+							</div>
+						</div>
+
+						<hr class="divider" style="margin-top: 4px" />
+
+						<!-- Upload -->
+						<div class="panel-section">
+							<div class="section-label">Ảnh thiết kế</div>
+
+							<div id="dropzone">
+								<div id="dropzone-icon">
+									<svg
+										width="18"
+										height="18"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="1.8"
+									>
+										<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+									</svg>
+								</div>
+								<p>Kéo thả ảnh vào đây<br />hoặc <span>nhấp để chọn file</span></p>
+								<small>PNG · JPG · WEBP · tối đa 30 MB</small>
+							</div>
+							<input type="file" id="file-input" accept="image/png,image/jpeg,image/webp" />
+
+							<!-- After upload -->
+							<div id="preview-area">
+								<div class="preview-img-wrap">
+									<img id="preview-thumb" src="" alt="preview" />
+								</div>
+								<div class="preview-meta">
+									<strong id="meta-name">—</strong><br />
+									<span id="meta-dims">—</span> · <span id="meta-size">—</span>
+								</div>
+								<div id="res-warning">
+									<svg
+										width="14"
+										height="14"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+									>
+										<path
+											d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"
+										/>
+									</svg>
+									<span
+										>Độ phân giải thấp. Nên dùng ảnh từ <strong>1640 × 2048 px</strong> trở lên để
+										in đẹp nhất.</span
+									>
+								</div>
+								<div class="img-actions" style="margin-top: 10px">
+									<button class="btn btn-ghost" id="btn-replace">
+										<svg
+											width="12"
+											height="12"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+										>
+											<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+										</svg>
+										Thay ảnh
+									</button>
+									<button class="btn btn-danger" id="btn-clear">
+										<svg
+											width="12"
+											height="12"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+										>
+											<polyline points="3 6 5 6 21 6" />
+											<path d="M19 6l-1 14H6L5 6M10 11v6M14 11v6M9 6V4h6v2" />
+										</svg>
+										Xóa ảnh
+									</button>
+								</div>
+							</div>
+						</div>
+
+						<hr class="divider" />
+
+						<!-- Controls -->
+						<div class="panel-section" id="controls-section">
+							<div class="section-label">Điều chỉnh xem trước</div>
+
+							<div class="control-row">
+								<div class="control-label">
+									<span>Xoay</span>
+								</div>
+								<div class="rotation-track">
+									<input
+										type="range"
+										id="rotation-slider"
+										min="-180"
+										max="180"
+										value="0"
+										step="1"
+									/>
+									<span class="rotation-display" id="rotation-val">0°</span>
+								</div>
+							</div>
+
+							<div class="control-row">
+								<div class="control-label">
+									<span>Thu phóng</span>
+									<span class="val" id="scale-val">100%</span>
+								</div>
+								<input type="range" id="scale-slider" min="60" max="150" value="100" step="1" />
+							</div>
+
+							<button class="btn btn-ghost btn-full" id="btn-reset" style="margin-top: 4px">
+								<svg
+									width="12"
+									height="12"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+								>
+									<path d="M3 12a9 9 0 109-9 9.75 9.75 0 00-6.74 2.74L3 8" />
+									<path d="M3 3v5h5" />
+								</svg>
+								Reset
+							</button>
+
+							<p style="font-size: 11px; color: var(--muted); margin-top: 12px; text-align: center">
+								Kéo chuột trên bật lửa để xoay tự do
+							</p>
+						</div>
+
+						<!-- Res hint -->
+						<div style="padding: 10px 0 6px">
+							<p style="font-size: 11px; color: var(--muted); text-align: center; line-height: 1.6">
+								Để in đẹp nhất, dùng ảnh<br />
+								<strong style="color: var(--white-dim)">1640 × 2048 px</strong> trở lên, giữ nguyên
+								tỉ lệ gốc
+							</p>
+						</div>
+					</div>
+					<!-- /tab-design -->
+
+					<!-- ORDER TAB -->
+					<div class="tab-content" id="tab-order">
+						<div class="panel-section">
+							<div class="section-label">Thông tin đơn hàng</div>
+
+							<div class="field">
+								<label>Tên khách hàng *</label>
+								<input type="text" id="f-name" placeholder="Nguyễn Văn A" />
+							</div>
+							<div class="field">
+								<label>SĐT / Zalo *</label>
+								<input type="tel" id="f-phone" placeholder="0912 345 678" />
+							</div>
+							<div class="field-row">
+								<div class="field">
+									<label>Số lượng *</label>
+									<input type="number" id="f-qty" min="1" value="50" placeholder="50" />
+								</div>
+								<div class="field">
+									<label>Loại bật lửa</label>
+									<select id="f-type">
+										<option value="normal">Normal</option>
+										<option value="mini">Mini</option>
+									</select>
+								</div>
+							</div>
+							<div class="field">
+								<label>Ghi chú</label>
+								<textarea
+									id="f-notes"
+									placeholder="Ghi chú thêm về đơn hàng, yêu cầu đặc biệt..."
+								></textarea>
+							</div>
+						</div>
+					</div>
+					<!-- /tab-order -->
+
+					<!-- SUBMIT (always visible at bottom) -->
+					<div style="flex: 1"></div>
+					<div class="submit-area">
+						<button class="btn btn-primary btn-full" id="btn-submit" disabled>
+							<svg
+								width="14"
+								height="14"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+							>
+								<line x1="22" y1="2" x2="11" y2="13" />
+								<polygon points="22 2 15 22 11 13 2 9 22 2" />
+							</svg>
+							Gửi thiết kế
+						</button>
+						<p class="submit-note">Thiếu ảnh? Tải lên ở tab <span>Thiết kế</span></p>
+					</div>
+				</div>
+			</main>
+		</div>
+
+		<!-- Confirmation -->
+		<div id="confirm-overlay">
+			<div class="confirm-card">
+				<div class="confirm-icon">✓</div>
+				<div class="confirm-title">Đã nhận thiết kế!</div>
+				<div class="confirm-body">
+					Cảm ơn bạn đã sử dụng INUT Lighter Builder.<br />
+					<strong>MR. TOM</strong> hoặc <strong>MS. BOO</strong> sẽ liên hệ bạn trong vòng
+					<strong>24h</strong>.
+				</div>
+				<button class="btn btn-ghost btn-full" id="btn-new">Tạo thiết kế mới</button>
+			</div>
+		</div>
+
+		<div id="toast"></div>
+
+		<script>
+			/* ═══════════════════════════════════════════════
+   THREE.JS SETUP
+═══════════════════════════════════════════════ */
+			const canvasArea = document.getElementById("canvas-area");
+
+			const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+			renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+			renderer.shadowMap.enabled = true;
+			renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+			renderer.outputEncoding = THREE.sRGBEncoding;
+			renderer.toneMapping = THREE.ACESFilmicToneMapping;
+			renderer.toneMappingExposure = 1.1;
+			canvasArea.appendChild(renderer.domElement);
+
+			const scene = new THREE.Scene();
+			scene.background = new THREE.Color(0x080706);
+
+			// subtle fog for depth
+			scene.fog = new THREE.FogExp2(0x080706, 0.08);
+
+			const W = canvasArea.clientWidth;
+			const H = canvasArea.clientHeight;
+			const camera = new THREE.PerspectiveCamera(38, W / H, 0.1, 100);
+			camera.position.set(0, 0.35, 4.2);
+			camera.lookAt(0, 0.35, 0);
+
+			/* LIGHTS */
+			const ambient = new THREE.AmbientLight(0xffffff, 0.35);
+			scene.add(ambient);
+
+			const keyLight = new THREE.DirectionalLight(0xfff5ee, 1.6);
+			keyLight.position.set(2.5, 3.5, 3);
+			keyLight.castShadow = true;
+			scene.add(keyLight);
+
+			const rimLight = new THREE.DirectionalLight(0x3355aa, 0.4);
+			rimLight.position.set(-3, 1, -3);
+			scene.add(rimLight);
+
+			const fillLight = new THREE.DirectionalLight(0xffffff, 0.3);
+			fillLight.position.set(-1, -1, 2);
+			scene.add(fillLight);
+
+			/* ── LIGHTER MODEL ──────────────────────────── */
+			const lighterGroup = new THREE.Group();
+			scene.add(lighterGroup);
+
+			// Body dimensions (normalized units, portrait)
+			const bodyR = 0.24; // radius
+			const bodyH = 2.2; // height of printable body
+			const capR = 0.255; // cap slightly wider
+			const capH = 0.88;
+			const bodyY = 0;
+			const capY = bodyH / 2 + capH / 2 - 0.04;
+
+			// Default skin material (no texture yet)
+			const bodyMat = new THREE.MeshStandardMaterial({
+				color: 0x2a2825,
+				roughness: 0.55,
+				metalness: 0.05,
+			});
+
+			// Body cylinder (skin area)
+			const bodyGeo = new THREE.CylinderGeometry(bodyR, bodyR, bodyH, 64, 1, false);
+			const bodyMesh = new THREE.Mesh(bodyGeo, bodyMat);
+			bodyMesh.position.y = bodyY;
+			bodyMesh.castShadow = true;
+			lighterGroup.add(bodyMesh);
+
+			// Top cap (black mechanism)
+			const capGeo = new THREE.CylinderGeometry(capR, capR, capH, 64);
+			const capMat = new THREE.MeshStandardMaterial({
+				color: 0x111010,
+				roughness: 0.25,
+				metalness: 0.15,
+			});
+			const capMesh = new THREE.Mesh(capGeo, capMat);
+			capMesh.position.y = capY;
+			lighterGroup.add(capMesh);
+
+			// Small ridge between body and cap
+			const ridgeGeo = new THREE.CylinderGeometry(capR + 0.01, capR + 0.01, 0.04, 64);
+			const ridgeMat = new THREE.MeshStandardMaterial({
+				color: 0x080808,
+				roughness: 0.2,
+				metalness: 0.3,
+			});
+			const ridgeMesh = new THREE.Mesh(ridgeGeo, ridgeMat);
+			ridgeMesh.position.y = capY - capH / 2 + 0.02;
+			lighterGroup.add(ridgeMesh);
+
+			// Striker wheel (metallic disk)
+			const wheelY = capY + capH / 2 - 0.12;
+			const wheelGeo = new THREE.CylinderGeometry(0.09, 0.09, 0.07, 20);
+			const wheelMat = new THREE.MeshStandardMaterial({
+				color: 0x999999,
+				roughness: 0.2,
+				metalness: 0.85,
+			});
+			const wheelMesh = new THREE.Mesh(wheelGeo, wheelMat);
+			wheelMesh.position.y = wheelY;
+			wheelMesh.position.x = 0.06;
+			lighterGroup.add(wheelMesh);
+
+			// Nozzle/spark guard (small rounded top)
+			const guardGeo = new THREE.CylinderGeometry(0.04, 0.06, 0.12, 16);
+			const guardMat = new THREE.MeshStandardMaterial({
+				color: 0x333333,
+				roughness: 0.3,
+				metalness: 0.4,
+			});
+			const guardMesh = new THREE.Mesh(guardGeo, guardMat);
+			guardMesh.position.y = capY + capH / 2 + 0.04;
+			guardMesh.position.x = -0.06;
+			lighterGroup.add(guardMesh);
+
+			// Bottom flat cap
+			const bottomGeo = new THREE.CircleGeometry(bodyR - 0.005, 48);
+			const bottomMat = new THREE.MeshStandardMaterial({ color: 0x1a1916, roughness: 0.6 });
+			const bottomMesh = new THREE.Mesh(bottomGeo, bottomMat);
+			bottomMesh.rotation.x = -Math.PI / 2;
+			bottomMesh.position.y = -(bodyH / 2);
+			lighterGroup.add(bottomMesh);
+
+			// Top body flat cap (covered by black cap)
+			const topCapGeo = new THREE.CircleGeometry(bodyR - 0.005, 48);
+			const topCapMesh = new THREE.Mesh(topCapGeo, bottomMat.clone());
+			topCapMesh.rotation.x = Math.PI / 2;
+			topCapMesh.position.y = bodyH / 2;
+			lighterGroup.add(topCapMesh);
+
+			// Ground shadow plane
+			const shadowGeo = new THREE.PlaneGeometry(3, 3);
+			const shadowMat = new THREE.MeshBasicMaterial({
+				color: 0x080706,
+				transparent: true,
+				opacity: 0,
+			});
+			const shadowPlane = new THREE.Mesh(shadowGeo, shadowMat);
+			shadowPlane.rotation.x = -Math.PI / 2;
+			shadowPlane.position.y = -(bodyH / 2) - 0.01;
+			lighterGroup.add(shadowPlane);
+
+			// Center the group visually
+			lighterGroup.position.y = -(bodyY + capY) / 4;
+
+			/* ── RENDER LOOP ────────────────────────────── */
+			let autoRotate = true;
+			let autoRotateSpeed = 0.003;
+			let hasImage = false;
+
+			function animate() {
+				requestAnimationFrame(animate);
+				if (autoRotate) {
+					lighterGroup.rotation.y += autoRotateSpeed;
+					// Sync slider without triggering event
+					const deg = Math.round(((lighterGroup.rotation.y * 180) / Math.PI) % 360);
+					document.getElementById("rotation-val").textContent = deg + "°";
+					document.getElementById("rotation-slider").value =
+						((deg % 360) + 360) % 360 > 180
+							? (((deg % 360) + 360) % 360) - 360
+							: ((deg % 360) + 360) % 360;
+				}
+				renderer.render(scene, camera);
+			}
+			animate();
+
+			/* ── RESIZE ─────────────────────────────────── */
+			function onResize() {
+				const w = canvasArea.clientWidth;
+				const h = canvasArea.clientHeight;
+				camera.aspect = w / h;
+				camera.updateProjectionMatrix();
+				renderer.setSize(w, h);
+			}
+			window.addEventListener("resize", onResize);
+			onResize();
+
+			/* ── DRAG TO ROTATE ─────────────────────────── */
+			let isDragging = false;
+			let lastMouse = { x: 0, y: 0 };
+			let autoRotateTimer = null;
+
+			renderer.domElement.addEventListener("mousedown", (e) => {
+				isDragging = true;
+				autoRotate = false;
+				clearTimeout(autoRotateTimer);
+				lastMouse = { x: e.clientX, y: e.clientY };
+				renderer.domElement.style.cursor = "grabbing";
+			});
+
+			window.addEventListener("mousemove", (e) => {
+				if (!isDragging) return;
+				const dx = e.clientX - lastMouse.x;
+				const dy = e.clientY - lastMouse.y;
+				lighterGroup.rotation.y += dx * 0.008;
+				lighterGroup.rotation.x += dy * 0.004;
+				lighterGroup.rotation.x = Math.max(-0.4, Math.min(0.4, lighterGroup.rotation.x));
+				lastMouse = { x: e.clientX, y: e.clientY };
+				const deg = Math.round((lighterGroup.rotation.y * 180) / Math.PI) % 360;
+				document.getElementById("rotation-val").textContent = deg + "°";
+				const norm = ((deg % 360) + 360) % 360;
+				document.getElementById("rotation-slider").value = norm > 180 ? norm - 360 : norm;
+			});
+
+			window.addEventListener("mouseup", () => {
+				if (isDragging) {
+					isDragging = false;
+					renderer.domElement.style.cursor = "grab";
+					// resume auto-rotate after 4s inactivity
+					autoRotateTimer = setTimeout(() => {
+						if (hasImage) return; // don't auto-rotate when image is loaded
+						autoRotate = true;
+					}, 4000);
+				}
+			});
+
+			// Touch support
+			renderer.domElement.addEventListener(
+				"touchstart",
+				(e) => {
+					isDragging = true;
+					autoRotate = false;
+					lastMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+				},
+				{ passive: true }
+			);
+			window.addEventListener(
+				"touchmove",
+				(e) => {
+					if (!isDragging) return;
+					const dx = e.touches[0].clientX - lastMouse.x;
+					lighterGroup.rotation.y += dx * 0.008;
+					lastMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+				},
+				{ passive: true }
+			);
+			window.addEventListener("touchend", () => {
+				isDragging = false;
+			});
+
+			renderer.domElement.style.cursor = "grab";
+
+			/* ═══════════════════════════════════════════════
+   TEXTURE UPLOAD
+═══════════════════════════════════════════════ */
+			const dropzone = document.getElementById("dropzone");
+			const fileInput = document.getElementById("file-input");
+			const previewArea = document.getElementById("preview-area");
+			const uploadOverlay = document.getElementById("upload-overlay");
+			const dragHint = document.getElementById("drag-hint");
+
+			function loadImageTexture(file) {
+				if (!file || !file.type.startsWith("image/")) {
+					showToast("File không hợp lệ. Vui lòng chọn ảnh PNG, JPG, hoặc WEBP.", "warning");
+					return;
+				}
+				if (file.size > 30 * 1024 * 1024) {
+					showToast("File quá lớn (tối đa 30 MB).", "warning");
+					return;
+				}
+
+				const reader = new FileReader();
+				reader.onload = (e) => {
+					const dataUrl = e.target.result;
+					const img = new Image();
+					img.onload = () => {
+						// Check resolution
+						const w = img.naturalWidth;
+						const h = img.naturalHeight;
+						const resWarn = document.getElementById("res-warning");
+						if (w < 1640 || h < 2048) {
+							resWarn.classList.add("visible");
+						} else {
+							resWarn.classList.remove("visible");
+						}
+
+						// Show meta
+						document.getElementById("preview-thumb").src = dataUrl;
+						document.getElementById("meta-name").textContent =
+							file.name.length > 28 ? file.name.slice(0, 25) + "…" : file.name;
+						document.getElementById("meta-dims").textContent = `${w} × ${h} px`;
+						document.getElementById("meta-size").textContent =
+							(file.size / 1024 / 1024).toFixed(1) + " MB";
+
+						// Apply texture to Three.js
+						const texture = new THREE.Texture(img);
+						texture.encoding = THREE.sRGBEncoding;
+						texture.needsUpdate = true;
+
+						// Fix UV orientation: skin wraps around cylinder
+						// Default cylinder UV: u=0..1 = full circumference, v=0..1 = bottom to top
+						bodyMat.map = texture;
+						bodyMat.color.set(0xffffff);
+						bodyMat.roughness = 0.4;
+						bodyMat.metalness = 0.02;
+						bodyMat.needsUpdate = true;
+
+						// Update UI
+						dropzone.style.display = "none";
+						previewArea.classList.add("visible");
+						uploadOverlay.classList.add("hidden");
+						dragHint.classList.remove("hidden");
+						hasImage = true;
+						autoRotate = false;
+
+						// Update steps
+						setStep(2);
+						document.getElementById("btn-submit").disabled = false;
+						document.querySelector(".submit-note").innerHTML =
+							"Kiểm tra thông tin ở tab <span>Gửi đơn</span>";
+
+						showToast("Ảnh đã được tải lên thành công!", "success");
+					};
+					img.src = dataUrl;
+				};
+				reader.readAsDataURL(file);
+			}
+
+			// Dropzone click
+			dropzone.addEventListener("click", () => fileInput.click());
+			fileInput.addEventListener("change", (e) => {
+				if (e.target.files[0]) loadImageTexture(e.target.files[0]);
+			});
+
+			// Drag & drop on dropzone
+			dropzone.addEventListener("dragover", (e) => {
+				e.preventDefault();
+				dropzone.classList.add("drag-over");
+			});
+			dropzone.addEventListener("dragleave", () => dropzone.classList.remove("drag-over"));
+			dropzone.addEventListener("drop", (e) => {
+				e.preventDefault();
+				dropzone.classList.remove("drag-over");
+				const file = e.dataTransfer.files[0];
+				if (file) loadImageTexture(file);
+			});
+
+			// Drag & drop on entire canvas
+			canvasArea.addEventListener("dragover", (e) => {
+				e.preventDefault();
+			});
+			canvasArea.addEventListener("drop", (e) => {
+				e.preventDefault();
+				const file = e.dataTransfer.files[0];
+				if (file) {
+					// Switch to design tab
+					switchTab("design");
+					loadImageTexture(file);
+				}
+			});
+
+			/* ── REPLACE / CLEAR ─────────────────────────── */
+			document.getElementById("btn-replace").addEventListener("click", () => {
+				fileInput.value = "";
+				fileInput.click();
+			});
+
+			document.getElementById("btn-clear").addEventListener("click", () => {
+				clearImage();
+			});
+
+			function clearImage() {
+				bodyMat.map = null;
+				bodyMat.color.set(0x2a2825);
+				bodyMat.needsUpdate = true;
+
+				document.getElementById("preview-thumb").src = "";
+				previewArea.classList.remove("visible");
+				dropzone.style.display = "";
+				uploadOverlay.classList.remove("hidden");
+				dragHint.classList.add("hidden");
+				document.getElementById("res-warning").classList.remove("visible");
+				fileInput.value = "";
+
+				hasImage = false;
+				autoRotate = true;
+				setStep(1);
+				document.getElementById("btn-submit").disabled = true;
+				document.querySelector(".submit-note").innerHTML =
+					"Thiếu ảnh? Tải lên ở tab <span>Thiết kế</span>";
+			}
+
+			/* ═══════════════════════════════════════════════
+   CONTROLS
+═══════════════════════════════════════════════ */
+			const rotSlider = document.getElementById("rotation-slider");
+			const scaleSlider = document.getElementById("scale-slider");
+
+			rotSlider.addEventListener("input", (e) => {
+				autoRotate = false;
+				const deg = parseInt(e.target.value);
+				lighterGroup.rotation.y = (deg * Math.PI) / 180;
+				document.getElementById("rotation-val").textContent = deg + "°";
+			});
+
+			scaleSlider.addEventListener("input", (e) => {
+				const s = parseInt(e.target.value) / 100;
+				lighterGroup.scale.setScalar(s);
+				document.getElementById("scale-val").textContent = e.target.value + "%";
+			});
+
+			document.getElementById("btn-reset").addEventListener("click", () => {
+				rotSlider.value = 0;
+				scaleSlider.value = 100;
+				lighterGroup.rotation.set(0, 0, 0);
+				lighterGroup.scale.setScalar(1);
+				document.getElementById("rotation-val").textContent = "0°";
+				document.getElementById("scale-val").textContent = "100%";
+				autoRotate = !hasImage;
+			});
+
+			/* ── LIGHTER TYPE CARDS ─────────────────────── */
+			document.querySelectorAll(".type-card").forEach((card) => {
+				card.addEventListener("click", () => {
+					document.querySelectorAll(".type-card").forEach((c) => c.classList.remove("selected"));
+					card.classList.add("selected");
+					const type = card.dataset.type;
+					document.getElementById("f-type").value = type;
+					// Adjust scale slightly for mini
+					if (type === "mini") {
+						lighterGroup.scale.setScalar(0.82);
+						scaleSlider.value = 82;
+						document.getElementById("scale-val").textContent = "82%";
+					} else {
+						lighterGroup.scale.setScalar(1.0);
+						scaleSlider.value = 100;
+						document.getElementById("scale-val").textContent = "100%";
+					}
+				});
+			});
+
+			/* ═══════════════════════════════════════════════
+   TABS
+═══════════════════════════════════════════════ */
+			function switchTab(name) {
+				document
+					.querySelectorAll(".tab-btn")
+					.forEach((b) => b.classList.toggle("active", b.dataset.tab === name));
+				document
+					.querySelectorAll(".tab-content")
+					.forEach((c) => c.classList.toggle("active", c.id === "tab-" + name));
+				if (name === "order") setStep(3);
+				else if (hasImage) setStep(2);
+			}
+
+			document.querySelectorAll(".tab-btn").forEach((btn) => {
+				btn.addEventListener("click", () => switchTab(btn.dataset.tab));
+			});
+
+			/* ═══════════════════════════════════════════════
+   STEP INDICATOR
+═══════════════════════════════════════════════ */
+			function setStep(n) {
+				for (let i = 1; i <= 3; i++) {
+					const el = document.getElementById("step-" + i);
+					el.classList.remove("done", "active");
+					if (i < n) el.classList.add("done"), (el.querySelector(".step-num").innerHTML = "✓");
+					else if (i === n)
+						el.classList.add("active"), (el.querySelector(".step-num").textContent = i);
+					else el.querySelector(".step-num").textContent = i;
+				}
+			}
+
+			/* ═══════════════════════════════════════════════
+   SUBMIT
+═══════════════════════════════════════════════ */
+			document.getElementById("btn-submit").addEventListener("click", () => {
+				const name = document.getElementById("f-name").value.trim();
+				const phone = document.getElementById("f-phone").value.trim();
+				const qty = document.getElementById("f-qty").value.trim();
+
+				if (!hasImage) {
+					showToast("Vui lòng tải ảnh thiết kế trước khi gửi.", "warning");
+					switchTab("design");
+					return;
+				}
+				if (!name || !phone || !qty) {
+					showToast("Vui lòng điền đầy đủ thông tin đơn hàng.", "warning");
+					switchTab("order");
+					return;
+				}
+
+				// Simulate submission
+				const btn = document.getElementById("btn-submit");
+				btn.disabled = true;
+				btn.innerHTML =
+					'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 0.8s linear infinite"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0"/></svg> Đang gửi...';
+
+				setTimeout(() => {
+					document.getElementById("confirm-overlay").classList.add("visible");
+					btn.disabled = false;
+					btn.innerHTML =
+						'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Gửi thiết kế';
+				}, 1400);
+			});
+
+			document.getElementById("btn-new").addEventListener("click", () => {
+				document.getElementById("confirm-overlay").classList.remove("visible");
+				clearImage();
+				["f-name", "f-phone", "f-qty", "f-notes"].forEach((id) => {
+					document.getElementById(id).value = "";
+				});
+				document.getElementById("f-qty").value = 50;
+				switchTab("design");
+			});
+
+			/* ═══════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════ */
+			let toastTimer = null;
+			function showToast(msg, type = "") {
+				const t = document.getElementById("toast");
+				t.textContent = msg;
+				t.className = "show" + (type ? " " + type : "");
+				clearTimeout(toastTimer);
+				toastTimer = setTimeout(() => {
+					t.className = "";
+				}, 3000);
+			}
+
+			/* ── SPIN ANIMATION ─────────────────────────── */
+			const style = document.createElement("style");
+			style.textContent = `@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`;
+			document.head.appendChild(style);
+		</script>
+	</body>
+</html>

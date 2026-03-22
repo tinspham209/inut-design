@@ -1,16 +1,28 @@
 import { lightersApi } from "@/api-client/lighters";
 import { productsApi } from "@/api-client/products";
 import { Seo } from "@/components/common";
-import { BlogsHome, HeroImage, ListSpecialProducts } from "@/components/home";
-import { ListSpecialLighters } from "@/components/home/list-special-lighters";
-import { Services } from "@/components/home/services";
+import { ROUTE_LIST } from "@/components/common/header/routes";
+import {
+	BlogsHome,
+	CauChuyen,
+	ChotDon,
+	FeaturedProductsSection,
+	HeroImage,
+	HeroSection,
+	ServiceChildrenGrid,
+	ServicesSection,
+} from "@/components/home";
 import { MainLayout } from "@/components/layout";
 import { LighterProduct, Post } from "@/models";
 import { NextPageWithLayout } from "@/models/common";
 import { Products } from "@/models/products";
-import { COLOR_CODE, getPostList } from "@/utils";
+import { COLOR_CODE, getPostListLimit } from "@/utils";
 import { Box } from "@mui/material";
 import { GetStaticProps } from "next";
+
+const servicesRoute = ROUTE_LIST.find((r) => r.path === "/services");
+const stickerChildren =
+	servicesRoute?.children?.find((r) => r.path === "/services/sticker")?.children ?? [];
 
 const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs }: Props) => {
 	return (
@@ -24,16 +36,66 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs }: Props)
 					thumbnailUrl: "/branding/ogImage.jpg",
 				}}
 			/>
-			{/* <HeroSection /> */}
-			<Box pt={2} bgcolor={COLOR_CODE.BACKGROUND}>
+			{/* <Box pt={2} bgcolor={COLOR_CODE.BACKGROUND}>
 				<HeroImage imgUrl="/cover-web.webp" />
+			</Box> */}
+			<Box>
+				<HeroSection />
 			</Box>
-			{/* <InfoSection imgUrl={banner && urlFor(banner[0].image).url()} /> */}
-			<ListSpecialLighters products={lighters} />
-			<ListSpecialProducts products={macnuts} isMacnut />
-			<ListSpecialProducts products={products} />
-			<Services />
+
+			{/* Bật lửa — 8 special items, light bg, above-fold priority */}
+			<FeaturedProductsSection
+				id="lighters"
+				title="Bật lửa"
+				items={lighters}
+				viewAllHref="/san-pham/lighters"
+				itemHref={(slug) => `/san-pham/lighters/${slug}`}
+				analyticsCategory="Bật lửa"
+				priorityCount={4}
+			/>
+
+			{/* Sticker — 4 sub-types from ROUTE_LIST, dark bg */}
+			<ServiceChildrenGrid
+				title="Sticker"
+				id="sticker"
+				titleHref="/services/sticker"
+				items={stickerChildren}
+				maxItems={4}
+				darkMode
+			/>
+
+			{/* Skin Nút Phím — 8 special items, light bg */}
+			<FeaturedProductsSection
+				id="macnuts"
+				title="Skin Nút Phím"
+				items={macnuts}
+				viewAllHref="/san-pham/skin-nut-phim"
+				itemHref={(slug) => `/san-pham/skin-nut-phim/${slug}`}
+				analyticsCategory="Skin Nút Phím"
+			/>
+
+			{/* Skin Laptop — 8 special items, dark bg */}
+			<FeaturedProductsSection
+				title="Skin Laptop"
+				id="skin-laptop"
+				items={products}
+				viewAllHref="/san-pham/skin-laptop"
+				itemHref={(slug) => `/san-pham/skin-laptop/${slug}`}
+				analyticsCategory="Skin Laptop"
+				darkMode
+			/>
+
+			{/* Dịch vụ — all service sub-categories with children */}
+			<ServicesSection id="services" />
+
+			{/* Tin tức — 3 latest blog posts */}
 			<BlogsHome posts={blogs} />
+
+			{/* Câu chuyện — brand story + timeline */}
+			<CauChuyen />
+
+			{/* Chốt đơn — contact CTA */}
+			<ChotDon />
 		</Box>
 	);
 };
@@ -48,19 +110,20 @@ type Props = {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-	const postList = await getPostList();
+	const blogs = await getPostListLimit(3);
 
-	const specialProducts = await productsApi.getSpecialProducts(12);
-	const specialMacnuts = await productsApi.getSpecialProductsMacnut(12);
-	const specialLighters = await lightersApi.getSpecialLighters(12);
-	const blogs = postList.sort((a, b) => (a.publishedDate < b.publishedDate ? 1 : -1)).slice(0, 3);
+	const [specialProducts, specialMacnuts, specialLighters] = await Promise.all([
+		productsApi.getSpecialProducts(8),
+		productsApi.getSpecialProductsMacnut(8),
+		lightersApi.getSpecialLighters(8),
+	]);
 
 	return {
 		props: {
 			products: specialProducts,
 			macnuts: specialMacnuts,
 			lighters: specialLighters,
-			blogs: blogs,
+			blogs,
 		},
 	};
 };

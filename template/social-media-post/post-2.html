@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>INUT Design — Sticker Sheet Instagram Templates</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--ink: #080706;
+				--ink-2: #111009;
+				--ink-3: #1c1a16;
+				--ink-4: #282420;
+				--ash: #3d3830;
+				--dust: #6b6157;
+				--smoke: #a89e94;
+				--cream: #f5f0e8;
+				--orange: #ff4d00;
+				--orange-hi: #ff6b25;
+				--orange-lo: rgba(255, 77, 0, 0.14);
+				--yellow: #ffe234;
+				--f-d: "Syne", sans-serif;
+				--f-s: "DM Serif Display", serif;
+				--f-b: "DM Sans", sans-serif;
+			}
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				background: #0d0c0a;
+				color: var(--cream);
+				font-family: var(--f-b);
+				min-height: 100vh;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				padding: 24px 16px 48px;
+			}
+
+			/* ── TOP BAR ── */
+			.top-bar {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				width: 100%;
+				max-width: 1100px;
+				margin-bottom: 28px;
+				padding-bottom: 20px;
+				border-bottom: 1px solid var(--ink-4);
+			}
+			.top-logo {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+			.top-logo-mark {
+				width: 32px;
+				height: 32px;
+				background: var(--orange);
+				border-radius: 5px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--f-d);
+				font-weight: 900;
+				font-style: italic;
+				font-size: 1rem;
+				color: white;
+			}
+			.top-logo-text {
+				font-family: var(--f-d);
+				font-weight: 800;
+				font-size: 1.1rem;
+				color: white;
+			}
+			.top-logo-text span {
+				color: var(--orange);
+			}
+			.top-tag {
+				font-family: var(--f-d);
+				font-size: 0.65rem;
+				font-weight: 700;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				color: var(--dust);
+				padding: 5px 12px;
+				border: 1px solid var(--ash);
+				border-radius: 99px;
+			}
+
+			/* ── MAIN LAYOUT ── */
+			.layout {
+				display: flex;
+				gap: 20px;
+				width: 100%;
+				max-width: 1100px;
+				align-items: flex-start;
+			}
+
+			/* ── SIDEBAR ── */
+			.sidebar {
+				width: 200px;
+				flex-shrink: 0;
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+				position: sticky;
+				top: 24px;
+			}
+			.sidebar-label {
+				font-family: var(--f-d);
+				font-size: 0.6rem;
+				font-weight: 700;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				color: var(--dust);
+				margin-bottom: 4px;
+				padding-left: 4px;
+			}
+			.frame-thumb {
+				background: var(--ink-3);
+				border: 1px solid var(--ink-4);
+				border-radius: 8px;
+				padding: 10px 14px;
+				cursor: pointer;
+				transition: border-color 180ms, background 180ms;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+			.frame-thumb:hover {
+				border-color: var(--ash);
+				background: #201d19;
+			}
+			.frame-thumb.active {
+				border-color: var(--orange);
+				background: var(--orange-lo);
+			}
+			.frame-num {
+				font-family: var(--f-d);
+				font-weight: 800;
+				font-size: 0.8rem;
+				color: var(--orange);
+				min-width: 20px;
+			}
+			.frame-thumb.active .frame-num {
+				color: var(--orange);
+			}
+			.frame-info {
+			}
+			.frame-name {
+				font-family: var(--f-d);
+				font-weight: 700;
+				font-size: 0.72rem;
+				color: var(--cream);
+				line-height: 1.2;
+			}
+			.frame-slots {
+				font-size: 0.65rem;
+				color: var(--dust);
+				margin-top: 2px;
+			}
+
+			/* ── CANVAS AREA ── */
+			.canvas-area {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				gap: 16px;
+				min-width: 0;
+			}
+			.canvas-header {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			.canvas-title {
+				font-family: var(--f-d);
+				font-weight: 800;
+				font-size: 1rem;
+				letter-spacing: -0.02em;
+				color: var(--cream);
+			}
+			.canvas-subtitle {
+				font-size: 0.75rem;
+				color: var(--dust);
+				margin-top: 2px;
+			}
+			.export-btn {
+				font-family: var(--f-d);
+				font-size: 0.68rem;
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				padding: 8px 18px;
+				background: var(--orange);
+				color: white;
+				border: none;
+				border-radius: 99px;
+				cursor: pointer;
+				transition: background 150ms;
+				flex-shrink: 0;
+			}
+			.export-btn:hover {
+				background: var(--orange-hi);
+			}
+
+			/* ── FRAME WRAPPER ── */
+			.frame-wrapper {
+				width: 100%;
+				aspect-ratio: 1 / 1;
+				max-width: 600px;
+				position: relative;
+				border-radius: 12px;
+				overflow: hidden;
+				box-shadow: 0 0 0 1px var(--ink-4), 0 32px 80px rgba(0, 0, 0, 0.7);
+			}
+
+			/* ── FRAMES (all 1080×1080 scaled) ── */
+			.frame {
+				display: none;
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				inset: 0;
+			}
+			.frame.active {
+				display: block;
+			}
+
+			/* ════ FRAME 1 — PRODUCT HERO ════ */
+			#f1 {
+				background: var(--ink);
+				display: none;
+				flex-direction: column;
+			}
+			#f1.active {
+				display: flex;
+			}
+			.f1-img-zone {
+				flex: 1;
+				position: relative;
+				overflow: hidden;
+				background: var(--ink-3);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+			}
+			.f1-img-zone img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
+			}
+			.f1-overlay {
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(
+					to top,
+					rgba(8, 7, 6, 0.92) 0%,
+					rgba(8, 7, 6, 0.3) 40%,
+					transparent 70%
+				);
+				pointer-events: none;
+			}
+			.f1-glow {
+				position: absolute;
+				inset: 0;
+				background: radial-gradient(circle at 80% 20%, rgba(255, 77, 0, 0.22) 0%, transparent 55%);
+				pointer-events: none;
+			}
+			.f1-content {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				padding: 5% 7%;
+				z-index: 2;
+			}
+			.f1-eyebrow {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				font-family: var(--f-d);
+				font-weight: 700;
+				font-size: clamp(0.5rem, 1.5vw, 0.72rem);
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				color: var(--orange);
+				margin-bottom: 6px;
+			}
+			.f1-eyebrow::before {
+				content: "";
+				display: block;
+				width: 16px;
+				height: 2px;
+				background: var(--orange);
+				flex-shrink: 0;
+			}
+			.f1-headline {
+				font-family: var(--f-d);
+				font-weight: 800;
+				font-size: clamp(1.4rem, 5.5vw, 3rem);
+				letter-spacing: -0.04em;
+				line-height: 1.05;
+				color: var(--cream);
+			}
+			.f1-headline .ia {
+				font-family: var(--f-s);
+				font-style: italic;
+				font-weight: 400;
+				color: var(--orange);
+				letter-spacing: 0;
+			}
+			.f1-bottom {
+				padding: 3% 7%;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				background: var(--ink);
+				border-top: 1px solid var(--ink-4);
+				flex-shrink: 0;
+			}
+			.f-logo {
+				display: flex;
+				align-items: center;
+				gap: 6px;
+			}
+			.f-logo-mark {
+				width: clamp(18px, 3.5vw, 26px);
+				height: clamp(18px, 3.5vw, 26px);
+				background: var(--orange);
+				border-radius: 4px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--f-d);
+				font-weight: 900;
+				font-style: italic;
+				font-size: clamp(0.55rem, 1.4vw, 0.85rem);
+				color: white;
+			}
+			.f-logo-text {
+				font-family: var(--f-d);
+				font-weight: 800;
+				font-size: clamp(0.65rem, 1.6vw, 0.95rem);
+				color: white;
+			}
+			.f-logo-text span {
+				color: var(--orange);
+			}
+			.f1-cta {
+				font-family: var(--f-d);
+				font-weight: 700;
+				font-size: clamp(0.5rem, 1.3vw, 0.72rem);
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--orange);
+			}
+
+			/* ════ FRAME 2 — COLLECTION GRID ════ */
+			#f2 {
+				background: var(--ink);
+				display: none;
+				flex-direction: column;
+			}
+			#f2.active {
+				display: flex;
+			}
+			.f2-header {
+				padding: 5% 7% 3%;
+				flex-shrink: 0;
+			}
+			.f2-headline {
+				font-family: var(--f-d);
+				font-weight: 800;
+				font-size: clamp(1.1rem, 4vw, 2.2rem);
+				letter-spacing: -0.04em;
+				line-height: 1;
+				color: var(--cream);
+			}
+			.f2-headline .ia {
+				font-family: var(--f-s);
+				font-style: italic;
+				font-weight: 400;
+				color: var(--orange);
+				letter-spacing: 0;
+			}
+			.f2-sub {
+				font-family: var(--f-b);
+				font-size: clamp(0.55rem, 1.4vw, 0.8rem);
+				color: var(--smoke);
+				margin-top: 4px;
+			}
+			.f2-grid {
+				flex: 1;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				grid-template-rows: 1fr 1fr;
+				gap: 3px;
+				padding: 0 3px 3px;
+				overflow: hidden;
+			}
+			.f2-cell {
+				background: var(--ink-3);
+				position: relative;
+				overflow: hidden;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				border-radius: 4px;
+			}
+			.f2-cell img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+			.f2-cell-overlay {
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(to top, rgba(8, 7, 6, 0.5) 0%, transparent 40%);
+				pointer-events: none;
+			}
+			.f2-cell-label {
+				position: absolute;
+				bottom: 6%;
+				left: 6%;
+				font-family: var(--f-d);
+				font-weight: 700;
+				font-size: clamp(0.45rem, 1.2vw, 0.65rem);
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--orange);
+				z-index: 2;
+			}
+			.f2-bottom {
+				flex-shrink: 0;
+				padding: 2.5% 7%;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				border-top: 1px solid var(--ink-4);
+			}
+			.f2-tag {
+				font-family: var(--f-d);
+				font-size: clamp(0.5rem, 1.2vw, 0.65rem);
+				font-weight: 700;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--dust);
+			}
+
+			/* ════ FRAME 3 — BOLD PROMO (no image) ════ */
+			#f3 {
+				background: var(--orange);
+				display: none;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				position: relative;
+				overflow: hidden;
+			}
+			#f3.active {
+				display: flex;
+			}
+			.f3-bg-text {
+				position: absolute;
+				font-family: var(--f-d);
+				font-weight: 800;
+				font-size: clamp(6rem, 22vw, 14rem);
+				color: rgba(8, 7, 6, 0.1);
+				letter-spacing: -0.06em;
+				line-height: 0.9;
+				pointer-events: none;
+				user-select: none;
+				right: -5%;
+				bottom: -5%;
+				white-space: nowrap;
+			}
+			.f3-corner {
+				position: absolute;
+				top: 6%;
+				left: 7%;
+				display: flex;
+				align-items: center;
+				gap: 6px;
+			}
+			.f3-logo-mark {
+				width: clamp(20px, 4vw, 30px);
+				height: clamp(20px, 4vw, 30px);
+				background: white;
+				border-radius: 4px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--f-d);
+				font-weight: 900;
+				font-style: italic;
+				font-size: clamp(0.6rem, 1.5vw, 0.95rem);
+				color: var(--orange);
+			}
+			.f3-logo-text {
+				font-family: var(--f-d);
+				font-weight: 800;
+				font-size: clamp(0.7rem, 1.8vw, 1.1rem);
+				color: white;
+			}
+			.f3-content {
+				text-align: center;
+				padding: 7%;
+				position: relative;
+				z-index: 1;
+			}
+			.f3-eyebrow {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				font-family: var(--f-d);
+				font-weight: 700;
+				font-size: clamp(0.55rem, 1.4vw, 0.75rem);
+				letter-spacing: 0.2em;
+				text-transform: uppercase;
+				color: rgba(8, 7, 6, 0.65);
+				margin-bottom: 14px;
+			}
+			.f3-eyebrow::before,
+			.f3-eyebrow::after {
+				content: "—";
+			}
+			.f3-headline {
+				font-family: var(--f-d);
+				font-weight: 800;
+				font-size: clamp(2rem, 8.5vw, 5rem);
+				letter-spacing: -0.05em;
+				line-height: 0.95;
+				color: white;
+				margin-bottom: 16px;
+			}
+			.f3-headline .dark {
+				color: var(--ink);
+			}
+			.f3-body {
+				font-family: var(--f-b);
+				font-size: clamp(0.75rem, 2.2vw, 1.1rem);
+				color: rgba(255, 255, 255, 0.85);
+				line-height: 1.5;
+				max-width: 80%;
+				margin: 0 auto 24px;
+			}
+			.f3-badge {
+				display: inline-block;
+				font-family: var(--f-d);
+				font-weight: 800;
+				font-size: clamp(0.65rem, 1.8vw, 1rem);
+				letter-spacing: 0.04em;
+				background: var(--ink);
+				color: white;
+				padding: 8px 20px;
+				border-radius: 99px;
+				margin: 4px;
+			}
+			.f3-badge.outline {
+				background: transparent;
+				border: 2px solid rgba(255, 255, 255, 0.4);
+				color: white;
+			}
+			.f3-bottom {
+				position: absolute;
+				bottom: 5%;
+				right: 7%;
+				font-family: var(--f-d);
+				font-size: clamp(0.5rem, 1.2vw, 0.68rem);
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: rgba(8, 7, 6, 0.5);
+			}
+
+			/* ════ FRAME 4 — HOW TO ORDER (no image) ════ */
+			#f4 {
+				background: var(--ink);
+				display: none;
+				flex-direction: column;
+			}
+			#f4.active {
+				display: flex;
+			}
+			.f4-header {
+				padding: 6% 8% 4%;
+				flex-shrink: 0;
+			}
+			.f4-eyebrow {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				font-family: var(--f-d);
+				font-weight: 700;
+				font-size: clamp(0.5rem, 1.4vw, 0.7rem);
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				color: var(--orange);
+				margin-bottom: 8px;
+			}
+			.f4-eyebrow::before {
+				content: "";
+				display: block;
+				width: 16px;
+				height: 2px;
+				background: var(--orange);
+			}
+			.f4-headline {
+				font-family: var(--f-d);
+				font-weight: 800;
+				font-size: clamp(1.3rem, 4.5vw, 2.4rem);
+				letter-spacing: -0.04em;
+				line-height: 1.05;
+				color: var(--cream);
+			}
+			.f4-headline .ia {
+				font-family: var(--f-s);
+				font-style: italic;
+				font-weight: 400;
+				color: var(--orange);
+				letter-spacing: 0;
+			}
+			.f4-steps {
+				flex: 1;
+				padding: 0 8% 5%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				gap: 2.5%;
+			}
+			.f4-step {
+				display: flex;
+				align-items: flex-start;
+				gap: 4%;
+				background: var(--ink-3);
+				border: 1px solid var(--ink-4);
+				border-radius: 8px;
+				padding: 3.5% 4%;
+				position: relative;
+				overflow: hidden;
+			}
+			.f4-step::before {
+				content: "";
+				position: absolute;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				width: 3px;
+				background: var(--orange);
+			}
+			.f4-step-num {
+				font-family: var(--f-d);
+				font-weight: 800;
+				font-size: clamp(1.2rem, 4vw, 2rem);
+				line-height: 1;
+				color: var(--orange);
+				flex-shrink: 0;
+				padding-left: 2%;
+			}
+			.f4-step-content {
+			}
+			.f4-step-title {
+				font-family: var(--f-d);
+				font-weight: 700;
+				font-size: clamp(0.7rem, 2vw, 1rem);
+				color: var(--cream);
+				margin-bottom: 2px;
+			}
+			.f4-step-desc {
+				font-family: var(--f-b);
+				font-size: clamp(0.55rem, 1.5vw, 0.8rem);
+				color: var(--smoke);
+				line-height: 1.4;
+			}
+			.f4-step-desc strong {
+				color: var(--orange);
+			}
+			.f4-bottom {
+				flex-shrink: 0;
+				padding: 3% 8%;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				border-top: 1px solid var(--ink-4);
+				background: var(--ink-3);
+			}
+			.f4-contact {
+				font-family: var(--f-d);
+				font-size: clamp(0.5rem, 1.3vw, 0.72rem);
+				font-weight: 700;
+				color: var(--orange);
+				letter-spacing: 0.06em;
+			}
+
+			/* ════ FRAME 5 — PRODUCT SHOWCASE (3 images) ════ */
+			#f5 {
+				background: var(--ink);
+				display: none;
+				flex-direction: column;
+			}
+			#f5.active {
+				display: flex;
+			}
+			.f5-top {
+				flex: 1;
+				display: flex;
+				gap: 3px;
+				overflow: hidden;
+				padding: 3px 3px 0;
+			}
+			.f5-main {
+				flex: 1.5;
+				background: var(--ink-3);
+				border-radius: 6px;
+				position: relative;
+				overflow: hidden;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+			}
+			.f5-main img,
+			.f5-side-cell img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+			.f5-main-overlay {
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(
+					to top,
+					rgba(8, 7, 6, 0.85) 0%,
+					rgba(8, 7, 6, 0.2) 50%,
+					transparent 70%
+				);
+				pointer-events: none;
+				z-index: 1;
+			}
+			.f5-main-glow {
+				position: absolute;
+				inset: 0;
+				background: radial-gradient(circle at 30% 30%, rgba(255, 77, 0, 0.18) 0%, transparent 60%);
+				pointer-events: none;
+				z-index: 1;
+			}
+			.f5-main-label {
+				position: absolute;
+				bottom: 6%;
+				left: 7%;
+				z-index: 2;
+			}
+			.f5-main-eyebrow {
+				font-family: var(--f-d);
+				font-weight: 700;
+				font-size: clamp(0.45rem, 1.2vw, 0.62rem);
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				color: var(--orange);
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				margin-bottom: 4px;
+			}
+			.f5-main-eyebrow::before {
+				content: "";
+				display: block;
+				width: 12px;
+				height: 2px;
+				background: var(--orange);
+			}
+			.f5-main-title {
+				font-family: var(--f-d);
+				font-weight: 800;
+				font-size: clamp(0.9rem, 3vw, 1.6rem);
+				letter-spacing: -0.04em;
+				line-height: 1.05;
+				color: var(--cream);
+			}
+			.f5-main-title .ia {
+				font-family: var(--f-s);
+				font-style: italic;
+				font-weight: 400;
+				color: var(--orange);
+				letter-spacing: 0;
+			}
+			.f5-side {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				gap: 3px;
+			}
+			.f5-side-cell {
+				flex: 1;
+				background: var(--ink-3);
+				border-radius: 6px;
+				position: relative;
+				overflow: hidden;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+			}
+			.f5-side-overlay {
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(to top, rgba(8, 7, 6, 0.6) 0%, transparent 50%);
+				pointer-events: none;
+			}
+			.f5-side-tag {
+				position: absolute;
+				bottom: 8%;
+				left: 8%;
+				font-family: var(--f-d);
+				font-weight: 700;
+				font-size: clamp(0.4rem, 1vw, 0.55rem);
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--orange);
+				z-index: 2;
+			}
+			.f5-bottom {
+				flex-shrink: 0;
+				padding: 3% 5% 3% 7%;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 3%;
+				border-top: 1px solid var(--ink-4);
+			}
+			.f5-desc {
+				font-family: var(--f-b);
+				font-size: clamp(0.5rem, 1.3vw, 0.7rem);
+				color: var(--smoke);
+				line-height: 1.45;
+				flex: 1;
+			}
+			.f5-desc strong {
+				color: var(--cream);
+			}
+			.f5-price-tag {
+				flex-shrink: 0;
+				background: var(--orange-lo);
+				border: 1px solid var(--orange);
+				border-radius: 6px;
+				padding: 5% 8%;
+				text-align: center;
+			}
+			.f5-price-label {
+				font-family: var(--f-d);
+				font-size: clamp(0.4rem, 1vw, 0.55rem);
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--dust);
+				margin-bottom: 2px;
+			}
+			.f5-price-val {
+				font-family: var(--f-d);
+				font-weight: 800;
+				font-size: clamp(0.75rem, 2.2vw, 1.1rem);
+				color: var(--orange);
+				letter-spacing: -0.02em;
+			}
+
+			/* ── UPLOAD PLACEHOLDER ── */
+			.upload-ph {
+				position: absolute;
+				inset: 0;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 6px;
+				z-index: 5;
+			}
+			.upload-ph-icon {
+				width: clamp(28px, 6vw, 48px);
+				height: clamp(28px, 6vw, 48px);
+				border: 2px dashed var(--ash);
+				border-radius: 8px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: var(--dust);
+				font-size: clamp(0.9rem, 2.5vw, 1.5rem);
+				transition: border-color 150ms;
+			}
+			.f2-cell:hover .upload-ph-icon,
+			.f5-main:hover .upload-ph-icon,
+			.f5-side-cell:hover .upload-ph-icon,
+			.f1-img-zone:hover .upload-ph-icon {
+				border-color: var(--orange);
+				color: var(--orange);
+			}
+			.upload-ph-text {
+				font-family: var(--f-d);
+				font-size: clamp(0.45rem, 1.1vw, 0.62rem);
+				font-weight: 700;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--dust);
+				text-align: center;
+			}
+			.has-image .upload-ph {
+				display: none;
+			}
+			.has-image .f1-overlay,
+			.has-image .f1-glow,
+			.has-image .f5-main-overlay,
+			.has-image .f5-main-glow {
+				display: block;
+			}
+
+			/* ── PANEL BELOW CANVAS ── */
+			.panel {
+				background: var(--ink-3);
+				border: 1px solid var(--ink-4);
+				border-radius: 10px;
+				padding: 16px 20px;
+				max-width: 600px;
+				width: 100%;
+			}
+			.panel-title {
+				font-family: var(--f-d);
+				font-size: 0.68rem;
+				font-weight: 700;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--orange);
+				margin-bottom: 10px;
+			}
+			.panel-slots {
+				display: flex;
+				gap: 8px;
+				flex-wrap: wrap;
+			}
+			.slot-btn {
+				font-family: var(--f-d);
+				font-size: 0.65rem;
+				font-weight: 700;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				padding: 6px 14px;
+				border-radius: 99px;
+				cursor: pointer;
+				border: 1px solid var(--ash);
+				background: transparent;
+				color: var(--smoke);
+				transition: all 150ms;
+			}
+			.slot-btn:hover {
+				border-color: var(--orange);
+				color: var(--orange);
+				background: var(--orange-lo);
+			}
+			.slot-btn.filled {
+				border-color: #22c55e;
+				color: #22c55e;
+				background: rgba(34, 197, 94, 0.1);
+			}
+
+			/* ── EDITABLE TEXT NOTE ── */
+			.edit-note {
+				background: rgba(255, 77, 0, 0.07);
+				border: 1px solid rgba(255, 77, 0, 0.2);
+				border-radius: 8px;
+				padding: 10px 14px;
+				max-width: 600px;
+				width: 100%;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+			.edit-note-icon {
+				font-size: 0.9rem;
+				flex-shrink: 0;
+			}
+			.edit-note-text {
+				font-size: 0.72rem;
+				color: var(--smoke);
+				font-family: var(--f-b);
+				line-height: 1.5;
+			}
+			.edit-note-text strong {
+				color: var(--cream);
+			}
+
+			/* ── hidden file inputs ── */
+			input[type="file"] {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- TOP BAR -->
+		<div class="top-bar">
+			<div class="top-logo">
+				<div class="top-logo-mark">N</div>
+				<div class="top-logo-text">INUT<span>.</span></div>
+			</div>
+			<div style="text-align: center">
+				<div
+					style="font-family: var(--f-d); font-weight: 800; font-size: 0.85rem; color: var(--cream)"
+				>
+					Sticker Sheet — Instagram Templates
+				</div>
+				<div
+					style="font-family: var(--f-d); font-size: 0.62rem; color: var(--dust); margin-top: 2px"
+				>
+					5 Frames · 1080 × 1080px
+				</div>
+			</div>
+			<div class="top-tag">Chromatic Offset v1.0</div>
+		</div>
+
+		<!-- MAIN LAYOUT -->
+		<div class="layout">
+			<!-- SIDEBAR -->
+			<div class="sidebar">
+				<div class="sidebar-label">Frames</div>
+				<div class="frame-thumb active" onclick="switchFrame(1)">
+					<div class="frame-num">01</div>
+					<div class="frame-info">
+						<div class="frame-name">Product Hero</div>
+						<div class="frame-slots">1 image slot</div>
+					</div>
+				</div>
+				<div class="frame-thumb" onclick="switchFrame(2)">
+					<div class="frame-num">02</div>
+					<div class="frame-info">
+						<div class="frame-name">Collection Grid</div>
+						<div class="frame-slots">4 image slots</div>
+					</div>
+				</div>
+				<div class="frame-thumb" onclick="switchFrame(3)">
+					<div class="frame-num">03</div>
+					<div class="frame-info">
+						<div class="frame-name">Bold Promo</div>
+						<div class="frame-slots">No images</div>
+					</div>
+				</div>
+				<div class="frame-thumb" onclick="switchFrame(4)">
+					<div class="frame-num">04</div>
+					<div class="frame-info">
+						<div class="frame-name">How to Order</div>
+						<div class="frame-slots">No images</div>
+					</div>
+				</div>
+				<div class="frame-thumb" onclick="switchFrame(5)">
+					<div class="frame-num">05</div>
+					<div class="frame-info">
+						<div class="frame-name">Product Showcase</div>
+						<div class="frame-slots">3 image slots</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- CANVAS AREA -->
+			<div class="canvas-area">
+				<div class="canvas-header">
+					<div>
+						<div class="canvas-title" id="canvas-title">01 — Product Hero</div>
+						<div class="canvas-subtitle" id="canvas-sub">
+							Click vào vùng ảnh để chọn hình từ máy tính
+						</div>
+					</div>
+					<button
+						class="export-btn"
+						onclick="alert('Screenshot frame này để dùng — Ctrl+Shift+S (Windows) hoặc Cmd+Shift+4 (Mac)')"
+					>
+						↓ Export
+					</button>
+				</div>
+
+				<!-- THE FRAME -->
+				<div class="frame-wrapper">
+					<!-- ══ FRAME 1 ══ -->
+					<div class="frame active" id="f1">
+						<div class="f1-img-zone" id="zone-f1" onclick="triggerUpload('inp-f1')">
+							<img id="img-f1" style="display: none" />
+							<div class="f1-overlay"></div>
+							<div class="f1-glow"></div>
+							<div class="upload-ph">
+								<div class="upload-ph-icon">＋</div>
+								<div class="upload-ph-text">Click to upload<br />Product image</div>
+							</div>
+							<div class="f1-content">
+								<div class="f1-eyebrow">Sticker Sheet</div>
+								<div class="f1-headline">Dán là<br /><span class="ia">thích ngay</span></div>
+							</div>
+						</div>
+						<div class="f1-bottom">
+							<div class="f-logo">
+								<div class="f-logo-mark">N</div>
+								<div class="f-logo-text">INUT<span>.</span></div>
+							</div>
+							<div class="f1-cta">inutdesign.com →</div>
+						</div>
+					</div>
+
+					<!-- ══ FRAME 2 ══ -->
+					<div class="frame" id="f2">
+						<div class="f2-header">
+							<div
+								class="f2-eyebrow"
+								style="
+									display: flex;
+									align-items: center;
+									gap: 8px;
+									font-family: var(--f-d);
+									font-weight: 700;
+									font-size: clamp(0.5rem, 1.3vw, 0.68rem);
+									letter-spacing: 0.18em;
+									text-transform: uppercase;
+									color: var(--orange);
+									margin-bottom: 6px;
+								"
+							>
+								<span
+									style="
+										display: block;
+										width: 14px;
+										height: 2px;
+										background: var(--orange);
+										flex-shrink: 0;
+									"
+								></span>
+								Collection
+							</div>
+							<div class="f2-headline">Muôn kiểu <span class="ia">sticker</span></div>
+							<div class="f2-sub">Từ cute đến badass — cái gì cũng có ở INUT.</div>
+						</div>
+						<div class="f2-grid">
+							<div class="f2-cell" id="zone-f2a" onclick="triggerUpload('inp-f2a')">
+								<img id="img-f2a" style="display: none" />
+								<div class="f2-cell-overlay"></div>
+								<div class="f2-cell-label">Cute Animals</div>
+								<div class="upload-ph">
+									<div class="upload-ph-icon">＋</div>
+									<div class="upload-ph-text">Image 1</div>
+								</div>
+							</div>
+							<div class="f2-cell" id="zone-f2b" onclick="triggerUpload('inp-f2b')">
+								<img id="img-f2b" style="display: none" />
+								<div class="f2-cell-overlay"></div>
+								<div class="f2-cell-label">Chibi / Anime</div>
+								<div class="upload-ph">
+									<div class="upload-ph-icon">＋</div>
+									<div class="upload-ph-text">Image 2</div>
+								</div>
+							</div>
+							<div class="f2-cell" id="zone-f2c" onclick="triggerUpload('inp-f2c')">
+								<img id="img-f2c" style="display: none" />
+								<div class="f2-cell-overlay"></div>
+								<div class="f2-cell-label">Meme / Viral</div>
+								<div class="upload-ph">
+									<div class="upload-ph-icon">＋</div>
+									<div class="upload-ph-text">Image 3</div>
+								</div>
+							</div>
+							<div class="f2-cell" id="zone-f2d" onclick="triggerUpload('inp-f2d')">
+								<img id="img-f2d" style="display: none" />
+								<div class="f2-cell-overlay"></div>
+								<div class="f2-cell-label">Custom Brand</div>
+								<div class="upload-ph">
+									<div class="upload-ph-icon">＋</div>
+									<div class="upload-ph-text">Image 4</div>
+								</div>
+							</div>
+						</div>
+						<div class="f2-bottom">
+							<div class="f-logo">
+								<div class="f-logo-mark">N</div>
+								<div class="f-logo-text">INUT<span>.</span></div>
+							</div>
+							<div class="f2-tag">In số lượng · Giao toàn quốc</div>
+						</div>
+					</div>
+
+					<!-- ══ FRAME 3 — BOLD PROMO ══ -->
+					<div class="frame" id="f3">
+						<div class="f3-bg-text">STICKER.</div>
+						<div class="f3-corner">
+							<div class="f3-logo-mark">N</div>
+							<div class="f3-logo-text">INUT<span style="color: var(--ink)">.</span></div>
+						</div>
+						<div class="f3-content">
+							<div class="f3-eyebrow">Ưu đãi tháng này</div>
+							<div class="f3-headline">
+								Mua 2<br /><span class="dark">tặng 1</span><br />sticker pack
+							</div>
+							<div class="f3-body">
+								Chỉ áp dụng đến cuối tháng.<br />
+								Không giới hạn mẫu — chọn thoải mái.
+							</div>
+							<div>
+								<span class="f3-badge">Inbox ngay 💬</span>
+								<span class="f3-badge outline">Báo giá trong 15'</span>
+							</div>
+						</div>
+						<div class="f3-bottom">inutdesign.com · 0792 359 996</div>
+					</div>
+
+					<!-- ══ FRAME 4 — HOW TO ORDER ══ -->
+					<div class="frame" id="f4">
+						<div class="f4-header">
+							<div class="f4-eyebrow">Đặt hàng dễ như ăn kẹo</div>
+							<div class="f4-headline">4 bước là<br />có <span class="ia">sticker</span> tay</div>
+						</div>
+						<div class="f4-steps">
+							<div class="f4-step">
+								<div class="f4-step-num">01</div>
+								<div class="f4-step-content">
+									<div class="f4-step-title">Inbox hoặc Zalo</div>
+									<div class="f4-step-desc">
+										Gửi yêu cầu cho INUT — mẫu có sẵn hoặc <strong>thiết kế riêng</strong> đều được.
+									</div>
+								</div>
+							</div>
+							<div class="f4-step">
+								<div class="f4-step-num">02</div>
+								<div class="f4-step-content">
+									<div class="f4-step-title">Nhận báo giá trong 15 phút</div>
+									<div class="f4-step-desc">
+										Giá minh bạch theo số lượng — càng nhiều <strong>càng rẻ</strong>.
+									</div>
+								</div>
+							</div>
+							<div class="f4-step">
+								<div class="f4-step-num">03</div>
+								<div class="f4-step-content">
+									<div class="f4-step-title">Xác nhận & Thanh toán</div>
+									<div class="f4-step-desc">
+										Duyệt file thiết kế, chuyển khoản — INUT bắt đầu <strong>in ngay</strong>.
+									</div>
+								</div>
+							</div>
+							<div class="f4-step">
+								<div class="f4-step-num">04</div>
+								<div class="f4-step-content">
+									<div class="f4-step-title">Nhận hàng toàn quốc</div>
+									<div class="f4-step-desc">
+										Ship tận nhà trong <strong>2–5 ngày</strong>. Hàng đẹp, đóng gói cẩn thận.
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="f4-bottom">
+							<div class="f-logo">
+								<div class="f-logo-mark">N</div>
+								<div class="f-logo-text">INUT<span>.</span></div>
+							</div>
+							<div class="f4-contact">Zalo: 0792 359 996</div>
+						</div>
+					</div>
+
+					<!-- ══ FRAME 5 — PRODUCT SHOWCASE ══ -->
+					<div class="frame" id="f5">
+						<div class="f5-top">
+							<!-- Main large image -->
+							<div class="f5-main" id="zone-f5a" onclick="triggerUpload('inp-f5a')">
+								<img id="img-f5a" style="display: none" />
+								<div class="f5-main-overlay"></div>
+								<div class="f5-main-glow"></div>
+								<div class="upload-ph">
+									<div class="upload-ph-icon">＋</div>
+									<div class="upload-ph-text">Main image</div>
+								</div>
+								<div class="f5-main-label">
+									<div class="f5-main-eyebrow">Sticker Sheet</div>
+									<div class="f5-main-title">Cắt viền<br /><span class="ia">siêu chuẩn</span></div>
+								</div>
+							</div>
+							<!-- Side 2 small images -->
+							<div class="f5-side">
+								<div class="f5-side-cell" id="zone-f5b" onclick="triggerUpload('inp-f5b')">
+									<img id="img-f5b" style="display: none" />
+									<div class="f5-side-overlay"></div>
+									<div class="f5-side-tag">Chi tiết</div>
+									<div class="upload-ph">
+										<div class="upload-ph-icon">＋</div>
+										<div class="upload-ph-text">Image 2</div>
+									</div>
+								</div>
+								<div class="f5-side-cell" id="zone-f5c" onclick="triggerUpload('inp-f5c')">
+									<img id="img-f5c" style="display: none" />
+									<div class="f5-side-overlay"></div>
+									<div class="f5-side-tag">Close-up</div>
+									<div class="upload-ph">
+										<div class="upload-ph-icon">＋</div>
+										<div class="upload-ph-text">Image 3</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="f5-bottom">
+							<div class="f-logo" style="flex-shrink: 0">
+								<div class="f-logo-mark">N</div>
+								<div class="f-logo-text">INUT<span>.</span></div>
+							</div>
+							<div class="f5-desc">
+								<strong>Sticker chống nước</strong> · In màu sắc nét<br />Cắt theo hình (die-cut)
+								hoặc hình chữ nhật
+							</div>
+							<div class="f5-price-tag">
+								<div class="f5-price-label">Từ</div>
+								<div class="f5-price-val">5K / cái</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /frame-wrapper -->
+
+				<!-- UPLOAD PANEL -->
+				<div class="panel" id="upload-panel">
+					<div class="panel-title" id="panel-title">↑ Image slots — Frame 01</div>
+					<div class="panel-slots" id="panel-slots">
+						<button class="slot-btn" id="btn-f1" onclick="triggerUpload('inp-f1')">
+							Slot 1 — Hero Image
+						</button>
+					</div>
+				</div>
+
+				<div class="edit-note">
+					<div class="edit-note-icon">✏️</div>
+					<div class="edit-note-text">
+						<strong>Để export:</strong> Mở DevTools (F12) → tab Elements → click vào
+						<code>.frame-wrapper</code> → chuột phải → Capture node screenshot. Hoặc dùng screenshot
+						toàn màn hình rồi crop.
+					</div>
+				</div>
+			</div>
+			<!-- /canvas-area -->
+		</div>
+		<!-- /layout -->
+
+		<!-- Hidden file inputs -->
+		<input
+			type="file"
+			id="inp-f1"
+			accept="image/*"
+			onchange="loadImage(this,'img-f1','zone-f1','btn-f1')"
+		/>
+		<input
+			type="file"
+			id="inp-f2a"
+			accept="image/*"
+			onchange="loadImage(this,'img-f2a','zone-f2a','btn-f2a')"
+		/>
+		<input
+			type="file"
+			id="inp-f2b"
+			accept="image/*"
+			onchange="loadImage(this,'img-f2b','zone-f2b','btn-f2b')"
+		/>
+		<input
+			type="file"
+			id="inp-f2c"
+			accept="image/*"
+			onchange="loadImage(this,'img-f2c','zone-f2c','btn-f2c')"
+		/>
+		<input
+			type="file"
+			id="inp-f2d"
+			accept="image/*"
+			onchange="loadImage(this,'img-f2d','zone-f2d','btn-f2d')"
+		/>
+		<input
+			type="file"
+			id="inp-f5a"
+			accept="image/*"
+			onchange="loadImage(this,'img-f5a','zone-f5a','btn-f5a')"
+		/>
+		<input
+			type="file"
+			id="inp-f5b"
+			accept="image/*"
+			onchange="loadImage(this,'img-f5b','zone-f5b','btn-f5b')"
+		/>
+		<input
+			type="file"
+			id="inp-f5c"
+			accept="image/*"
+			onchange="loadImage(this,'img-f5c','zone-f5c','btn-f5c')"
+		/>
+
+		<script>
+			const FRAMES = {
+				1: {
+					title: "01 — Product Hero",
+					sub: "Full-bleed image, bold headline, logo bar",
+					slots: [{ id: "inp-f1", btn: "btn-f1", label: "Slot 1 — Hero Image" }],
+				},
+				2: {
+					title: "02 — Collection Grid",
+					sub: "2×2 grid — upload 4 different sticker styles",
+					slots: [
+						{ id: "inp-f2a", btn: "btn-f2a", label: "Slot 1 — Cute Animals" },
+						{ id: "inp-f2b", btn: "btn-f2b", label: "Slot 2 — Chibi / Anime" },
+						{ id: "inp-f2c", btn: "btn-f2c", label: "Slot 3 — Meme / Viral" },
+						{ id: "inp-f2d", btn: "btn-f2d", label: "Slot 4 — Custom Brand" },
+					],
+				},
+				3: {
+					title: "03 — Bold Promo",
+					sub: "Typography-only — no image needed",
+					slots: [],
+				},
+				4: {
+					title: "04 — How to Order",
+					sub: "Step-by-step guide — no image needed",
+					slots: [],
+				},
+				5: {
+					title: "05 — Product Showcase",
+					sub: "1 large + 2 small — highlight detail & usage",
+					slots: [
+						{ id: "inp-f5a", btn: "btn-f5a", label: "Slot 1 — Main Image" },
+						{ id: "inp-f5b", btn: "btn-f5b", label: "Slot 2 — Detail Shot" },
+						{ id: "inp-f5c", btn: "btn-f5c", label: "Slot 3 — Close-up" },
+					],
+				},
+			};
+
+			let current = 1;
+
+			function switchFrame(n) {
+				// Hide all frames
+				document.querySelectorAll(".frame").forEach((f) => f.classList.remove("active"));
+				document.querySelectorAll(".frame-thumb").forEach((t) => t.classList.remove("active"));
+				// Show target
+				document.getElementById("f" + n).classList.add("active");
+				document.querySelectorAll(".frame-thumb")[n - 1].classList.add("active");
+				current = n;
+
+				const fd = FRAMES[n];
+				document.getElementById("canvas-title").textContent = fd.title;
+				document.getElementById("canvas-sub").textContent = fd.sub;
+				document.getElementById("panel-title").textContent = "↑ Image slots — Frame 0" + n;
+
+				const slotsEl = document.getElementById("panel-slots");
+				if (fd.slots.length === 0) {
+					slotsEl.innerHTML =
+						'<span style="font-family:var(--f-d);font-size:0.68rem;color:var(--dust);">— Không cần ảnh. Frame này dùng typography thuần. —</span>';
+				} else {
+					slotsEl.innerHTML = fd.slots
+						.map(
+							(s) =>
+								`<button class="slot-btn" id="${s.btn}" onclick="triggerUpload('${s.id}')">${s.label}</button>`
+						)
+						.join("");
+				}
+			}
+
+			function triggerUpload(inputId) {
+				document.getElementById(inputId).click();
+			}
+
+			function loadImage(input, imgId, zoneId, btnId) {
+				const file = input.files[0];
+				if (!file) return;
+				const url = URL.createObjectURL(file);
+				const img = document.getElementById(imgId);
+				img.src = url;
+				img.style.display = "block";
+				const zone = document.getElementById(zoneId);
+				zone.classList.add("has-image");
+				// Mark button as filled
+				const btn = document.getElementById(btnId);
+				if (btn) btn.classList.add("filled");
+			}
+		</script>
+	</body>
+</html>

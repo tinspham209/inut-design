@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>INUT Design — Sticker Sheet Instagram Template</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--ink: #080706;
+				--ink-2: #111009;
+				--ink-3: #1c1a16;
+				--ink-4: #282420;
+				--ash: #3d3830;
+				--dust: #6b6157;
+				--smoke: #a89e94;
+				--cream: #f5f0e8;
+				--orange: #ff4d00;
+				--orange-hi: #ff6b25;
+				--orange-lo: rgba(255, 77, 0, 0.14);
+				--yellow: #ffe234;
+				--f-display: "Syne", sans-serif;
+				--f-serif: "DM Serif Display", serif;
+				--f-body: "DM Sans", sans-serif;
+			}
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				background: #0e0d0b;
+				color: var(--cream);
+				font-family: var(--f-body);
+				min-height: 100vh;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				padding: 24px 16px 60px;
+				gap: 0;
+			}
+
+			/* ── TOP BAR ── */
+			.topbar {
+				width: 100%;
+				max-width: 640px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 0 24px;
+			}
+			.logo {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+			.logo-mark {
+				width: 30px;
+				height: 30px;
+				background: var(--orange);
+				border-radius: 5px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--f-display);
+				font-weight: 900;
+				font-style: italic;
+				font-size: 1rem;
+				color: white;
+			}
+			.logo-text {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: 1.1rem;
+				color: white;
+				letter-spacing: -0.02em;
+			}
+			.logo-text span {
+				color: var(--orange);
+			}
+			.topbar-label {
+				font-family: var(--f-display);
+				font-size: 0.65rem;
+				font-weight: 700;
+				letter-spacing: 0.15em;
+				text-transform: uppercase;
+				color: var(--dust);
+			}
+
+			/* ── FRAME TABS ── */
+			.tabs {
+				width: 100%;
+				max-width: 640px;
+				display: flex;
+				gap: 6px;
+				margin-bottom: 20px;
+				flex-wrap: wrap;
+			}
+			.tab {
+				flex: 1;
+				min-width: 80px;
+				padding: 8px 10px;
+				border: 1px solid var(--ash);
+				background: var(--ink-3);
+				border-radius: 8px;
+				cursor: pointer;
+				text-align: center;
+				transition: all 180ms;
+			}
+			.tab .tab-num {
+				font-family: var(--f-display);
+				font-size: 0.6rem;
+				font-weight: 700;
+				color: var(--dust);
+				letter-spacing: 0.1em;
+				display: block;
+			}
+			.tab .tab-name {
+				font-family: var(--f-display);
+				font-size: 0.7rem;
+				font-weight: 700;
+				color: var(--smoke);
+				display: block;
+				margin-top: 2px;
+			}
+			.tab:hover {
+				border-color: var(--orange);
+			}
+			.tab.active {
+				border-color: var(--orange);
+				background: var(--orange-lo);
+			}
+			.tab.active .tab-num {
+				color: var(--orange);
+			}
+			.tab.active .tab-name {
+				color: var(--cream);
+			}
+
+			/* ── CANVAS WRAPPER ── */
+			.canvas-wrap {
+				width: 100%;
+				max-width: 540px;
+				aspect-ratio: 1 / 1;
+				position: relative;
+				border-radius: 4px;
+				overflow: hidden;
+				box-shadow: 0 0 60px rgba(255, 77, 0, 0.1), 0 30px 80px rgba(0, 0, 0, 0.6);
+			}
+
+			/* ── DOWNLOAD BTN ── */
+			.dl-btn {
+				margin-top: 16px;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				padding: 10px 24px;
+				border: 1px solid var(--orange);
+				background: var(--orange-lo);
+				border-radius: 99px;
+				color: var(--orange);
+				font-family: var(--f-display);
+				font-size: 0.75rem;
+				font-weight: 700;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				cursor: pointer;
+				transition: all 160ms;
+			}
+			.dl-btn:hover {
+				background: var(--orange);
+				color: white;
+			}
+
+			/* ── HINT ── */
+			.hint {
+				margin-top: 12px;
+				font-family: var(--f-display);
+				font-size: 0.68rem;
+				color: var(--dust);
+				letter-spacing: 0.06em;
+				text-align: center;
+			}
+
+			/* ══════════════════════════════════
+   FRAME CANVASES (1080×1080 scaled)
+   ══════════════════════════════════ */
+			.frame {
+				position: absolute;
+				inset: 0;
+				display: none;
+			}
+			.frame.visible {
+				display: block;
+			}
+
+			/* shared canvas size reference — we use CSS % inside each frame */
+
+			/* ── IMAGE DROP ZONE ── */
+			.img-zone {
+				position: absolute;
+				cursor: pointer;
+				overflow: hidden;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				gap: 6px;
+				transition: opacity 150ms;
+			}
+			.img-zone input {
+				display: none;
+			}
+			.img-zone img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
+			}
+			.img-zone .drop-hint {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 4px;
+				pointer-events: none;
+				z-index: 2;
+			}
+			.img-zone .drop-hint svg {
+				opacity: 0.5;
+			}
+			.img-zone .drop-hint span {
+				font-family: var(--f-display);
+				font-size: 0.6rem;
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: rgba(245, 240, 232, 0.4);
+			}
+			.img-zone:hover .drop-hint {
+				opacity: 0.7;
+			}
+			.img-zone.has-img .drop-hint {
+				display: none;
+			}
+			.img-zone.has-img:hover::after {
+				content: "↺ Replace";
+				position: absolute;
+				inset: 0;
+				background: rgba(8, 7, 6, 0.55);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--f-display);
+				font-size: 0.65rem;
+				font-weight: 700;
+				letter-spacing: 0.12em;
+				color: white;
+				text-transform: uppercase;
+			}
+
+			/* ════ FRAME 1 — Product Hero ════ */
+			#f1 {
+				background: var(--ink);
+			}
+			#f1 .img-main {
+				inset: 0;
+				background: var(--ink-3);
+			}
+			#f1 .overlay {
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(
+					to top,
+					rgba(8, 7, 6, 0.88) 0%,
+					rgba(8, 7, 6, 0.3) 45%,
+					transparent 100%
+				);
+				pointer-events: none;
+				z-index: 3;
+			}
+			#f1 .glow {
+				position: absolute;
+				inset: 0;
+				background: radial-gradient(circle at 75% 25%, rgba(255, 77, 0, 0.22) 0%, transparent 60%);
+				pointer-events: none;
+				z-index: 4;
+			}
+			#f1 .content {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				padding: 6% 7% 7%;
+				z-index: 5;
+				pointer-events: none;
+			}
+			#f1 .eyebrow {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: clamp(0.55rem, 1.3vw, 0.75rem);
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				color: var(--orange);
+				margin-bottom: 8px;
+			}
+			#f1 .eyebrow::before {
+				content: "";
+				width: 16px;
+				height: 2px;
+				background: var(--orange);
+				flex-shrink: 0;
+			}
+			#f1 .headline {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: clamp(1.6rem, 6vw, 3.4rem);
+				letter-spacing: -0.04em;
+				line-height: 1;
+				color: var(--cream);
+			}
+			#f1 .headline em {
+				font-family: var(--f-serif);
+				font-style: italic;
+				font-weight: 400;
+				color: var(--orange);
+			}
+			#f1 .sub {
+				margin-top: 10px;
+				font-family: var(--f-body);
+				font-size: clamp(0.65rem, 1.4vw, 0.85rem);
+				color: var(--smoke);
+				line-height: 1.5;
+			}
+			#f1 .footer {
+				position: absolute;
+				bottom: 4%;
+				left: 0;
+				right: 0;
+				padding: 0 7%;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				z-index: 6;
+				pointer-events: none;
+			}
+			#f1 .logo-sm {
+				display: flex;
+				align-items: center;
+				gap: 5px;
+			}
+			#f1 .logo-sm .lm {
+				width: 20px;
+				height: 20px;
+				background: var(--orange);
+				border-radius: 3px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--f-display);
+				font-weight: 900;
+				font-style: italic;
+				font-size: 0.7rem;
+				color: white;
+			}
+			#f1 .logo-sm .lt {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: 0.8rem;
+				color: white;
+				letter-spacing: -0.02em;
+			}
+			#f1 .logo-sm .lt span {
+				color: var(--orange);
+			}
+			#f1 .cta-sm {
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.6rem;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--orange);
+			}
+
+			/* ════ FRAME 2 — Collection Grid ════ */
+			#f2 {
+				background: var(--ink);
+			}
+			#f2 .top-bar {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 18%;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 7%;
+				z-index: 5;
+				pointer-events: none;
+				background: linear-gradient(to bottom, rgba(8, 7, 6, 1) 60%, transparent);
+			}
+			#f2 .top-eyebrow {
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: clamp(0.5rem, 1.2vw, 0.7rem);
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				color: var(--orange);
+				display: flex;
+				align-items: center;
+				gap: 6px;
+			}
+			#f2 .top-eyebrow::before {
+				content: "";
+				width: 12px;
+				height: 2px;
+				background: var(--orange);
+			}
+			#f2 .top-title {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: clamp(1rem, 3.5vw, 2rem);
+				letter-spacing: -0.04em;
+				color: var(--cream);
+			}
+			#f2 .grid-area {
+				position: absolute;
+				top: 17%;
+				left: 2%;
+				right: 2%;
+				bottom: 14%;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				grid-template-rows: 1fr 1fr;
+				gap: 1.2%;
+			}
+			#f2 .grid-area .img-zone {
+				position: relative;
+				inset: auto;
+				width: 100%;
+				height: 100%;
+				border-radius: 8px;
+				background: var(--ink-3);
+			}
+			#f2 .bottom-bar {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				height: 13%;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 7%;
+				z-index: 5;
+				pointer-events: none;
+				background: linear-gradient(to top, rgba(8, 7, 6, 1) 60%, transparent);
+			}
+			#f2 .bottom-logo {
+				display: flex;
+				align-items: center;
+				gap: 5px;
+			}
+			#f2 .bottom-logo .lm {
+				width: 20px;
+				height: 20px;
+				background: var(--orange);
+				border-radius: 3px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--f-display);
+				font-weight: 900;
+				font-style: italic;
+				font-size: 0.7rem;
+				color: white;
+			}
+			#f2 .bottom-logo .lt {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: 0.8rem;
+				color: white;
+			}
+			#f2 .bottom-logo .lt span {
+				color: var(--orange);
+			}
+			#f2 .bottom-tag {
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.6rem;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--dust);
+			}
+
+			/* ════ FRAME 3 — Bold Promo ════ */
+			#f3 {
+				background: var(--orange);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			#f3 .bg-text {
+				position: absolute;
+				inset: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: clamp(5rem, 22vw, 14rem);
+				letter-spacing: -0.06em;
+				line-height: 1;
+				color: rgba(8, 7, 6, 0.08);
+				pointer-events: none;
+				user-select: none;
+				text-align: center;
+			}
+			#f3 .center {
+				position: absolute;
+				inset: 0;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				padding: 10%;
+				text-align: center;
+				z-index: 2;
+				pointer-events: none;
+			}
+			#f3 .tag {
+				display: inline-flex;
+				align-items: center;
+				gap: 6px;
+				background: rgba(8, 7, 6, 0.12);
+				border: 1px solid rgba(8, 7, 6, 0.2);
+				border-radius: 99px;
+				padding: 5px 14px;
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: clamp(0.5rem, 1.2vw, 0.7rem);
+				letter-spacing: 0.15em;
+				text-transform: uppercase;
+				color: var(--ink);
+				margin-bottom: 14px;
+			}
+			#f3 .main-text {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: clamp(2rem, 9vw, 5rem);
+				letter-spacing: -0.04em;
+				line-height: 1;
+				color: white;
+			}
+			#f3 .main-text em {
+				font-family: var(--f-serif);
+				font-style: italic;
+				font-weight: 400;
+				color: var(--ink);
+			}
+			#f3 .desc {
+				margin-top: 14px;
+				font-family: var(--f-body);
+				font-weight: 700;
+				font-size: clamp(0.65rem, 1.6vw, 0.95rem);
+				color: rgba(8, 7, 6, 0.75);
+				line-height: 1.5;
+				max-width: 75%;
+			}
+			#f3 .price-badge {
+				margin-top: 18px;
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+				background: var(--ink);
+				border-radius: 12px;
+				padding: 10px 22px;
+			}
+			#f3 .price-badge .pl {
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: clamp(0.55rem, 1.2vw, 0.7rem);
+				color: var(--smoke);
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+			}
+			#f3 .price-badge .pv {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: clamp(0.9rem, 2.5vw, 1.5rem);
+				color: var(--yellow);
+				letter-spacing: -0.02em;
+			}
+			#f3 .bottom-logo {
+				position: absolute;
+				bottom: 5%;
+				right: 6%;
+				display: flex;
+				align-items: center;
+				gap: 5px;
+				pointer-events: none;
+				z-index: 3;
+			}
+			#f3 .bottom-logo .lm {
+				width: 22px;
+				height: 22px;
+				background: white;
+				border-radius: 4px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--f-display);
+				font-weight: 900;
+				font-style: italic;
+				font-size: 0.75rem;
+				color: var(--orange);
+			}
+			#f3 .bottom-logo .lt {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: 0.85rem;
+				color: white;
+			}
+			#f3 .bottom-logo .lt span {
+				color: rgba(8, 7, 6, 0.5);
+			}
+
+			/* ════ FRAME 4 — How to Order ════ */
+			#f4 {
+				background: var(--ink);
+			}
+			#f4 .deco-bg {
+				position: absolute;
+				inset: 0;
+				background: radial-gradient(circle at 90% 10%, rgba(255, 77, 0, 0.12) 0%, transparent 55%),
+					radial-gradient(circle at 10% 90%, rgba(255, 226, 52, 0.06) 0%, transparent 45%);
+				pointer-events: none;
+			}
+			#f4 .corner-text {
+				position: absolute;
+				right: -10px;
+				top: 5%;
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: clamp(4rem, 15vw, 9rem);
+				color: var(--cream);
+				opacity: 0.025;
+				letter-spacing: -0.06em;
+				line-height: 1;
+				pointer-events: none;
+				user-select: none;
+				writing-mode: vertical-rl;
+			}
+			#f4 .wrap {
+				position: absolute;
+				inset: 0;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				padding: 8% 8%;
+				z-index: 2;
+				pointer-events: none;
+			}
+			#f4 .eyebrow {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: clamp(0.5rem, 1.2vw, 0.68rem);
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				color: var(--orange);
+				margin-bottom: 10px;
+			}
+			#f4 .eyebrow::before {
+				content: "";
+				width: 16px;
+				height: 2px;
+				background: var(--orange);
+			}
+			#f4 .title {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: clamp(1.4rem, 5.5vw, 3rem);
+				letter-spacing: -0.04em;
+				line-height: 1;
+				color: var(--cream);
+				margin-bottom: 6%;
+			}
+			#f4 .title em {
+				font-family: var(--f-serif);
+				font-style: italic;
+				font-weight: 400;
+				color: var(--orange);
+			}
+			#f4 .steps {
+				display: flex;
+				flex-direction: column;
+				gap: 3.5%;
+			}
+			#f4 .step {
+				display: flex;
+				align-items: flex-start;
+				gap: 4%;
+			}
+			#f4 .step-num {
+				flex-shrink: 0;
+				width: clamp(28px, 6vw, 40px);
+				height: clamp(28px, 6vw, 40px);
+				background: var(--orange);
+				border-radius: 8px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: clamp(0.75rem, 1.8vw, 1rem);
+				color: white;
+			}
+			#f4 .step-body {
+			}
+			#f4 .step-title {
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: clamp(0.75rem, 1.9vw, 1.05rem);
+				color: var(--cream);
+				letter-spacing: -0.01em;
+				line-height: 1.2;
+			}
+			#f4 .step-desc {
+				font-family: var(--f-body);
+				font-size: clamp(0.55rem, 1.3vw, 0.75rem);
+				color: var(--smoke);
+				margin-top: 2px;
+				line-height: 1.45;
+			}
+			#f4 .divider-line {
+				height: 1px;
+				background: linear-gradient(to right, var(--orange), transparent);
+				opacity: 0.2;
+				margin: 3% 0;
+			}
+			#f4 .cta-row {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				margin-top: 4%;
+			}
+			#f4 .cta-box {
+				background: var(--orange);
+				border-radius: 8px;
+				padding: 8px 18px;
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: clamp(0.55rem, 1.3vw, 0.75rem);
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				color: white;
+			}
+			#f4 .cta-contact {
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: clamp(0.65rem, 1.5vw, 0.88rem);
+				color: var(--cream);
+			}
+			#f4 .cta-contact span {
+				color: var(--orange);
+			}
+			#f4 .bottom-logo {
+				position: absolute;
+				bottom: 4%;
+				right: 6%;
+				display: flex;
+				align-items: center;
+				gap: 5px;
+				z-index: 3;
+				pointer-events: none;
+			}
+			#f4 .bottom-logo .lm {
+				width: 20px;
+				height: 20px;
+				background: var(--orange);
+				border-radius: 3px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--f-display);
+				font-weight: 900;
+				font-style: italic;
+				font-size: 0.7rem;
+				color: white;
+			}
+			#f4 .bottom-logo .lt {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: 0.8rem;
+				color: white;
+			}
+			#f4 .bottom-logo .lt span {
+				color: var(--orange);
+			}
+
+			/* ════ FRAME 5 — Product Showcase ════ */
+			#f5 {
+				background: var(--ink);
+			}
+			#f5 .img-large {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 60%;
+				height: 58%;
+				background: var(--ink-3);
+				border-radius: 0 0 12px 0;
+				overflow: hidden;
+			}
+			#f5 .img-large .img-zone {
+				inset: 0;
+				position: absolute;
+			}
+			#f5 .img-tr {
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 38%;
+				height: 28%;
+				background: var(--ink-3);
+				border-radius: 0 0 0 12px;
+				overflow: hidden;
+			}
+			#f5 .img-tr .img-zone {
+				inset: 0;
+				position: absolute;
+			}
+			#f5 .img-br {
+				position: absolute;
+				top: 30%;
+				right: 0;
+				width: 38%;
+				height: 28%;
+				background: var(--ink-3);
+				border-radius: 12px 0 0 12px;
+				overflow: hidden;
+			}
+			#f5 .img-br .img-zone {
+				inset: 0;
+				position: absolute;
+			}
+			#f5 .gap-line {
+				position: absolute;
+				background: var(--ink);
+			}
+			#f5 .gap-h {
+				left: 0;
+				right: 0;
+				top: 58%;
+				height: 2px;
+			}
+			#f5 .gap-v {
+				top: 0;
+				bottom: 0;
+				left: 60%;
+				width: 2px;
+			}
+
+			#f5 .content-panel {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				height: 42%;
+				background: var(--ink-3);
+				padding: 4% 6%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				pointer-events: none;
+			}
+			#f5 .content-panel::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: radial-gradient(circle at 80% 50%, rgba(255, 77, 0, 0.1) 0%, transparent 60%);
+				pointer-events: none;
+			}
+			#f5 .eyebrow {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: clamp(0.48rem, 1.1vw, 0.65rem);
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				color: var(--orange);
+				margin-bottom: 6px;
+				z-index: 1;
+				position: relative;
+			}
+			#f5 .eyebrow::before {
+				content: "";
+				width: 14px;
+				height: 2px;
+				background: var(--orange);
+			}
+			#f5 .title {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: clamp(1rem, 4vw, 2.2rem);
+				letter-spacing: -0.04em;
+				line-height: 1.05;
+				color: var(--cream);
+				z-index: 1;
+				position: relative;
+			}
+			#f5 .title em {
+				font-family: var(--f-serif);
+				font-style: italic;
+				font-weight: 400;
+				color: var(--orange);
+			}
+			#f5 .specs {
+				display: flex;
+				gap: 3%;
+				margin-top: 4%;
+				z-index: 1;
+				position: relative;
+			}
+			#f5 .spec-item {
+				flex: 1;
+			}
+			#f5 .spec-label {
+				font-family: var(--f-display);
+				font-size: clamp(0.45rem, 1vw, 0.6rem);
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--dust);
+			}
+			#f5 .spec-value {
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: clamp(0.55rem, 1.3vw, 0.78rem);
+				color: var(--cream);
+				margin-top: 2px;
+			}
+			#f5 .bottom-logo {
+				position: absolute;
+				bottom: 4%;
+				right: 5%;
+				display: flex;
+				align-items: center;
+				gap: 5px;
+				z-index: 6;
+				pointer-events: none;
+			}
+			#f5 .bottom-logo .lm {
+				width: 20px;
+				height: 20px;
+				background: var(--orange);
+				border-radius: 3px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--f-display);
+				font-weight: 900;
+				font-style: italic;
+				font-size: 0.7rem;
+				color: white;
+			}
+			#f5 .bottom-logo .lt {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: 0.8rem;
+				color: white;
+			}
+			#f5 .bottom-logo .lt span {
+				color: var(--orange);
+			}
+			#f5 .orange-accent {
+				position: absolute;
+				top: 0;
+				right: 60%;
+				height: 3px;
+				background: var(--orange);
+				width: 8%;
+				pointer-events: none;
+			}
+
+			/* drop overlay */
+			.canvas-wrap.drag-over {
+				outline: 2px dashed var(--orange);
+			}
+		</style>
+	</head>
+	<body>
+		<!-- TOP BAR -->
+		<div class="topbar">
+			<div class="logo">
+				<div class="logo-mark">N</div>
+				<div class="logo-text">INUT<span>.</span></div>
+			</div>
+			<span class="topbar-label">Sticker Sheet — IG Template</span>
+		</div>
+
+		<!-- TABS -->
+		<div class="tabs">
+			<div class="tab active" onclick="switchFrame(1)">
+				<span class="tab-num">01</span>
+				<span class="tab-name">Product Hero</span>
+			</div>
+			<div class="tab" onclick="switchFrame(2)">
+				<span class="tab-num">02</span>
+				<span class="tab-name">Collection Grid</span>
+			</div>
+			<div class="tab" onclick="switchFrame(3)">
+				<span class="tab-num">03</span>
+				<span class="tab-name">Bold Promo</span>
+			</div>
+			<div class="tab" onclick="switchFrame(4)">
+				<span class="tab-num">04</span>
+				<span class="tab-name">How to Order</span>
+			</div>
+			<div class="tab" onclick="switchFrame(5)">
+				<span class="tab-num">05</span>
+				<span class="tab-name">Showcase</span>
+			</div>
+		</div>
+
+		<!-- CANVAS -->
+		<div class="canvas-wrap" id="canvas">
+			<!-- ══ FRAME 1 — Product Hero (1 image) ══ -->
+			<div class="frame visible" id="f1">
+				<div class="img-zone img-main" onclick="triggerUpload('img-f1-main')">
+					<input
+						type="file"
+						id="img-f1-main"
+						accept="image/*"
+						onchange="loadImage(this,'img-f1-main')"
+					/>
+					<div class="drop-hint">
+						<svg
+							width="28"
+							height="28"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.5"
+						>
+							<rect x="3" y="3" width="18" height="18" rx="2" />
+							<path d="M3 9l4-4 4 4 4-4 4 4" />
+							<circle cx="8.5" cy="13.5" r="1.5" />
+						</svg>
+						<span>Tap to add image</span>
+					</div>
+				</div>
+				<div class="overlay"></div>
+				<div class="glow"></div>
+				<div class="content">
+					<div class="eyebrow">Sticker Sheet</div>
+					<div class="headline">In sticker<br /><em>cực chất</em></div>
+					<div class="sub">
+						Chống nước · Màu chuẩn · Die-cut theo hình<br />Giao toàn quốc trong 3–5 ngày làm việc
+					</div>
+				</div>
+				<div class="footer">
+					<div class="logo-sm">
+						<div class="lm">N</div>
+						<div class="lt">INUT<span>.</span></div>
+					</div>
+					<div class="cta-sm">inutdesign.com →</div>
+				</div>
+			</div>
+
+			<!-- ══ FRAME 2 — Collection Grid (4 images) ══ -->
+			<div class="frame" id="f2">
+				<div class="top-bar">
+					<div>
+						<div class="top-eyebrow">Sticker Collection</div>
+						<div class="top-title">Mẫu đã in</div>
+					</div>
+				</div>
+				<div class="grid-area">
+					<div class="img-zone" onclick="triggerUpload('img-f2-a')">
+						<input
+							type="file"
+							id="img-f2-a"
+							accept="image/*"
+							onchange="loadImage(this,'img-f2-a')"
+						/>
+						<div class="drop-hint">
+							<svg
+								width="20"
+								height="20"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.5"
+							>
+								<rect x="3" y="3" width="18" height="18" rx="2" />
+								<circle cx="8.5" cy="8.5" r="1.5" />
+								<path d="M21 15l-5-5L5 21" />
+							</svg>
+							<span>Image 1</span>
+						</div>
+					</div>
+					<div class="img-zone" onclick="triggerUpload('img-f2-b')">
+						<input
+							type="file"
+							id="img-f2-b"
+							accept="image/*"
+							onchange="loadImage(this,'img-f2-b')"
+						/>
+						<div class="drop-hint">
+							<svg
+								width="20"
+								height="20"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.5"
+							>
+								<rect x="3" y="3" width="18" height="18" rx="2" />
+								<circle cx="8.5" cy="8.5" r="1.5" />
+								<path d="M21 15l-5-5L5 21" />
+							</svg>
+							<span>Image 2</span>
+						</div>
+					</div>
+					<div class="img-zone" onclick="triggerUpload('img-f2-c')">
+						<input
+							type="file"
+							id="img-f2-c"
+							accept="image/*"
+							onchange="loadImage(this,'img-f2-c')"
+						/>
+						<div class="drop-hint">
+							<svg
+								width="20"
+								height="20"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.5"
+							>
+								<rect x="3" y="3" width="18" height="18" rx="2" />
+								<circle cx="8.5" cy="8.5" r="1.5" />
+								<path d="M21 15l-5-5L5 21" />
+							</svg>
+							<span>Image 3</span>
+						</div>
+					</div>
+					<div class="img-zone" onclick="triggerUpload('img-f2-d')">
+						<input
+							type="file"
+							id="img-f2-d"
+							accept="image/*"
+							onchange="loadImage(this,'img-f2-d')"
+						/>
+						<div class="drop-hint">
+							<svg
+								width="20"
+								height="20"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.5"
+							>
+								<rect x="3" y="3" width="18" height="18" rx="2" />
+								<circle cx="8.5" cy="8.5" r="1.5" />
+								<path d="M21 15l-5-5L5 21" />
+							</svg>
+							<span>Image 4</span>
+						</div>
+					</div>
+				</div>
+				<div class="bottom-bar">
+					<div class="bottom-logo">
+						<div class="lm">N</div>
+						<div class="lt">INUT<span>.</span></div>
+					</div>
+					<div class="bottom-tag">#StickerCustom · #INUTDesign</div>
+				</div>
+			</div>
+
+			<!-- ══ FRAME 3 — Bold Promo (0 images) ══ -->
+			<div class="frame" id="f3">
+				<div class="bg-text">STICKER</div>
+				<div class="center">
+					<div class="tag">✦ Khuyến mãi đặc biệt</div>
+					<div class="main-text">Mua 2<br />tặng <em>1</em></div>
+					<div class="desc">
+						Mua 2 tờ sticker bất kỳ — tặng ngay 1 sticker pack theo yêu cầu. Chỉ đến hết tháng.
+					</div>
+					<div class="price-badge">
+						<div>
+							<div class="pl">Từ chỉ</div>
+							<div class="pv">35.000đ</div>
+						</div>
+						<div style="width: 1px; height: 28px; background: rgba(168, 158, 148, 0.2)"></div>
+						<div>
+							<div class="pl">Tờ A5</div>
+							<div class="pv">Die-cut</div>
+						</div>
+					</div>
+				</div>
+				<div class="bottom-logo">
+					<div class="lm">N</div>
+					<div class="lt">INUT<span>.</span></div>
+				</div>
+			</div>
+
+			<!-- ══ FRAME 4 — How to Order (0 images) ══ -->
+			<div class="frame" id="f4">
+				<div class="deco-bg"></div>
+				<div class="corner-text">ORDER</div>
+				<div class="wrap">
+					<div class="eyebrow">Đặt hàng dễ dàng</div>
+					<div class="title">Chỉ <em>4 bước</em><br />nhận sticker</div>
+					<div class="steps">
+						<div class="step">
+							<div class="step-num">01</div>
+							<div class="step-body">
+								<div class="step-title">Gửi file thiết kế</div>
+								<div class="step-desc">
+									File AI / PNG / PDF độ phân giải cao. Không có file? INUT thiết kế giúp.
+								</div>
+							</div>
+						</div>
+						<div class="step">
+							<div class="step-num">02</div>
+							<div class="step-body">
+								<div class="step-title">Xác nhận mẫu & báo giá</div>
+								<div class="step-desc">Nhận báo giá trong 15 phút. Duyệt mẫu in thử miễn phí.</div>
+							</div>
+						</div>
+						<div class="step">
+							<div class="step-num">03</div>
+							<div class="step-body">
+								<div class="step-title">Thanh toán & sản xuất</div>
+								<div class="step-desc">Đặt cọc 50%. In xong trong 1–2 ngày làm việc.</div>
+							</div>
+						</div>
+						<div class="step">
+							<div class="step-num">04</div>
+							<div class="step-body">
+								<div class="step-title">Giao hàng toàn quốc</div>
+								<div class="step-desc">
+									Ship tận nhà qua GHN · J&T · VNPost. Đà Nẵng nhận tại xưởng.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="divider-line"></div>
+					<div class="cta-row">
+						<div class="cta-box">Inbox ngay</div>
+						<div class="cta-contact">Zalo / FB: <span>INUT Design</span></div>
+					</div>
+				</div>
+				<div class="bottom-logo">
+					<div class="lm">N</div>
+					<div class="lt">INUT<span>.</span></div>
+				</div>
+			</div>
+
+			<!-- ══ FRAME 5 — Product Showcase (3 images) ══ -->
+			<div class="frame" id="f5">
+				<div class="gap-line gap-h"></div>
+				<div class="gap-line gap-v"></div>
+				<div class="orange-accent"></div>
+				<div class="img-large">
+					<div class="img-zone" onclick="triggerUpload('img-f5-a')">
+						<input
+							type="file"
+							id="img-f5-a"
+							accept="image/*"
+							onchange="loadImage(this,'img-f5-a')"
+						/>
+						<div class="drop-hint">
+							<svg
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.5"
+							>
+								<rect x="3" y="3" width="18" height="18" rx="2" />
+								<circle cx="8.5" cy="8.5" r="1.5" />
+								<path d="M21 15l-5-5L5 21" />
+							</svg>
+							<span>Main Image</span>
+						</div>
+					</div>
+				</div>
+				<div class="img-tr">
+					<div class="img-zone" onclick="triggerUpload('img-f5-b')">
+						<input
+							type="file"
+							id="img-f5-b"
+							accept="image/*"
+							onchange="loadImage(this,'img-f5-b')"
+						/>
+						<div class="drop-hint">
+							<svg
+								width="18"
+								height="18"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.5"
+							>
+								<rect x="3" y="3" width="18" height="18" rx="2" />
+								<circle cx="8.5" cy="8.5" r="1.5" />
+								<path d="M21 15l-5-5L5 21" />
+							</svg>
+							<span>Detail 1</span>
+						</div>
+					</div>
+				</div>
+				<div class="img-br">
+					<div class="img-zone" onclick="triggerUpload('img-f5-c')">
+						<input
+							type="file"
+							id="img-f5-c"
+							accept="image/*"
+							onchange="loadImage(this,'img-f5-c')"
+						/>
+						<div class="drop-hint">
+							<svg
+								width="18"
+								height="18"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.5"
+							>
+								<rect x="3" y="3" width="18" height="18" rx="2" />
+								<circle cx="8.5" cy="8.5" r="1.5" />
+								<path d="M21 15l-5-5L5 21" />
+							</svg>
+							<span>Detail 2</span>
+						</div>
+					</div>
+				</div>
+				<div class="content-panel">
+					<div class="eyebrow">Sticker chống nước</div>
+					<div class="title">Thiết kế<br />theo <em>ý bạn</em></div>
+					<div class="specs">
+						<div class="spec-item">
+							<div class="spec-label">Chất liệu</div>
+							<div class="spec-value">PVC / Vinyl</div>
+						</div>
+						<div class="spec-item">
+							<div class="spec-label">Kích thước</div>
+							<div class="spec-value">A4 / A5 / Custom</div>
+						</div>
+						<div class="spec-item">
+							<div class="spec-label">Thời gian</div>
+							<div class="spec-value">1–2 ngày</div>
+						</div>
+					</div>
+				</div>
+				<div class="bottom-logo">
+					<div class="lm">N</div>
+					<div class="lt">INUT<span>.</span></div>
+				</div>
+			</div>
+		</div>
+
+		<button class="dl-btn" onclick="downloadFrame()">
+			<svg
+				width="14"
+				height="14"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2.5"
+			>
+				<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+				<polyline points="7 10 12 15 17 10" />
+				<line x1="12" y1="15" x2="12" y2="3" />
+			</svg>
+			Xuất Frame này
+		</button>
+		<div class="hint">Nhấn vào ô ảnh để upload · Xuất PNG 1080×1080 để đăng Instagram</div>
+
+		<script>
+			let currentFrame = 1;
+
+			function switchFrame(n) {
+				document.querySelectorAll(".frame").forEach((f) => f.classList.remove("visible"));
+				document.querySelectorAll(".tab").forEach((t) => t.classList.remove("active"));
+				document.getElementById("f" + n).classList.add("visible");
+				document.querySelectorAll(".tab")[n - 1].classList.add("active");
+				currentFrame = n;
+			}
+
+			function triggerUpload(id) {
+				document.getElementById(id).click();
+			}
+
+			function loadImage(input, id) {
+				if (!input.files || !input.files[0]) return;
+				const reader = new FileReader();
+				reader.onload = function (e) {
+					const zone = input.closest(".img-zone");
+					// Remove old img if any
+					const old = zone.querySelector("img");
+					if (old) old.remove();
+					const img = document.createElement("img");
+					img.src = e.target.result;
+					img.style.cssText = "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;";
+					zone.insertBefore(img, zone.firstChild);
+					zone.classList.add("has-img");
+				};
+				reader.readAsDataURL(input.files[0]);
+			}
+
+			function downloadFrame() {
+				const frame = document.getElementById("f" + currentFrame);
+				const canvas = document.getElementById("canvas");
+				const size = canvas.offsetWidth;
+
+				// Use html2canvas via CDN
+				const script = document.createElement("script");
+				script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+				script.onload = function () {
+					html2canvas(frame, {
+						width: size,
+						height: size,
+						scale: Math.ceil(1080 / size),
+						useCORS: true,
+						backgroundColor: null,
+						logging: false,
+					}).then((c) => {
+						const link = document.createElement("a");
+						link.download = "INUT-Sticker-Frame-0" + currentFrame + ".png";
+						link.href = c.toDataURL("image/png");
+						link.click();
+					});
+				};
+				document.head.appendChild(script);
+			}
+		</script>
+	</body>
+</html>

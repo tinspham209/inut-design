@@ -40,7 +40,10 @@ const socialLinks = [
 
 const introLinks = [
 	{ label: "Về Chúng Tôi", url: "/about-us" },
-	{ label: "Sản phẩm", url: "/products" },
+	{ label: "Sản phẩm", url: "/san-pham" },
+	{ label: "Dịch vụ", url: "/services" },
+	{ label: "Tin tức", url: "/blog" },
+	{ label: "Liên hệ", url: "/contact" },
 ];
 
 const policyLinks = [
@@ -160,7 +163,13 @@ export function Footer() {
 								<Box component="span" sx={{ color: COLOR_CODE.PRIMARY, fontWeight: 700, mr: 0.5 }}>
 									VPĐD:
 								</Box>
-								K574/5 Ông Ích Khiêm, Tổ 22, Phường Hải Châu, Thành phố Đà Nẵng
+								<MuiLink
+									onClick={() => trackOutboundClick("https://maps.app.goo.gl/dAdKSbnBEvarx6LK8")}
+									href="https://maps.app.goo.gl/dAdKSbnBEvarx6LK8"
+									target="_blank"
+								>
+									K574/5 Ông Ích Khiêm, Tổ 22, Phường Hải Châu, Thành phố Đà Nẵng
+								</MuiLink>
 							</Typography>
 							<Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.75)" }}>
 								<Box component="span" sx={{ color: COLOR_CODE.PRIMARY, fontWeight: 700, mr: 0.5 }}>
@@ -309,6 +318,29 @@ export function Footer() {
 					</Stack>
 				</Box>
 			</Container>
+			<Box
+				className="footer__bigname"
+				aria-hidden="true"
+				sx={{
+					// font-family: var(--f-display);
+					fontSize: "clamp(3.5rem, 8vw, 8rem)",
+					fontWeight: 800,
+					letterSpacing: "-0.05em",
+					color: "rgba(255, 255, 255, 0.1)",
+					textAlign: "center",
+					padding: "1.5rem 0 0",
+					borderTop: "1px solid var(--ink-3)",
+					marginTop: "2rem",
+					lineHeight: 1,
+					userSelect: "none",
+
+					"& span": {
+						color: "rgba(255, 77, 0, 0.12)",
+					},
+				}}
+			>
+				INUT<span>.</span>DESIGN
+			</Box>
 		</Box>
 	);
 }

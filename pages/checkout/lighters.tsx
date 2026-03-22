@@ -265,7 +265,7 @@ const LighterCheckout: NextPageWithLayout = () => {
 								variant="contained"
 								color="primary"
 								size="large"
-								onClick={() => router.push("/lighters")}
+								onClick={() => router.push("/san-pham/lighters")}
 							>
 								Quay lại trang sản phẩm
 							</Button>

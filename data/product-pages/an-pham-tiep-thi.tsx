@@ -28,7 +28,7 @@ export const IN_CARD_VISIT_DATA: ProductPageData = {
 		title: "In Card Visit Tại Đà Nẵng Chuyên Nghiệp Theo Yêu Cầu | INUT Design",
 		description:
 			"Dịch vụ in card visit (danh thiếp) tại Đà Nẵng: thiết kế chuyên nghiệp, in sắc nét, tùy chọn đa dạng chất liệu giấy/nhựa. Gia công mờ, bóng, ép kim sang trọng.",
-		url: "https://inutdesign.com/an-pham-tiep-thi/in-card-visit",
+		url: "https://inutdesign.com/services/an-pham-tiep-thi/in-card-visit",
 		thumbnailUrl: HERO_IMAGE,
 	},
 	hero: {
@@ -38,9 +38,25 @@ export const IN_CARD_VISIT_DATA: ProductPageData = {
 		image: HERO_IMAGE,
 		chips: ["In offset", "Đa dạng chất liệu"],
 		ctaLabel: "Nhận báo giá nhanh",
+		secondaryCtaLabel: "Xem portfolio",
+		ticker: [
+			"In Card Visit Lấy Ngay",
+			"Đa Dạng Chất Liệu",
+			"Thiết Kế Chuyên Nghiệp",
+			"Giao Hàng Toàn Quốc",
+		],
+		stats: [
+			{ value: "10.000", unit: "+", label: "Hộp card đã in" },
+			{ value: "500", unit: "+", label: "Khách hàng tin dùng" },
+			{ value: "5.0", unit: "★", label: "Đánh giá hài lòng" },
+			{ value: "2-3", unit: "ngày", label: "Thời gian sản xuất" },
+		],
 	},
 	introduction: {
+		eyebrow: "Nhận diện thương hiệu",
 		title: "Danh thiếp chuyên nghiệp",
+		description:
+			"Card visit không chỉ là mảnh giấy ghi thông tin, mà là lời chào đầu tiên thể hiện vị thế and phong cách chuyên nghiệp của bạn.",
 		bullets: [
 			"Kết nối thông tin liên lạc (họ tên, SĐT, Email, Địa chỉ, QR code).",
 			"Đóng vai trò quan trọng trong bộ nhận diện thương hiệu.",
@@ -73,6 +89,7 @@ export const IN_CARD_VISIT_DATA: ProductPageData = {
 		],
 	},
 	types: {
+		eyebrow: "Chất liệu & Quy cách",
 		title: "Các dòng Card Visit",
 		description: "Lựa chọn chất liệu phù hợp để thể hiện đẳng cấp thương hiệu.",
 		items: [
@@ -98,6 +115,7 @@ export const IN_CARD_VISIT_DATA: ProductPageData = {
 		],
 	},
 	whyInut: {
+		eyebrow: "Lợi ích dịch vụ",
 		title: "Vì sao chọn dịch vụ tại INUT Design?",
 		description: "Giải pháp in ấn toàn diện giúp nâng tầm thương hiệu của bạn.",
 		productionProcess: {
@@ -152,11 +170,41 @@ export const IN_CARD_VISIT_DATA: ProductPageData = {
 			icon: <VerifiedIcon />,
 		},
 	},
+	testimonials: {
+		eyebrow: "Khách hàng tin tưởng",
+		title: "Đánh giá từ <em>đối tác</em>",
+		items: [
+			{
+				name: "Trần Thế Vinh",
+				role: "CEO Tech Solutions",
+				text: "In card tại INUT rất ưng ý. Thiết kế hiện đại, chất liệu giấy mỹ thuật sờ rất thích tay. Sẽ ủng hộ lâu dài.",
+				initials: "TV",
+				color: "#1a237e",
+			},
+			{
+				name: "Lê Thu Thảo",
+				role: "Chủ Spa cao cấp",
+				text: "Màu sắc in rất chuẩn, đường cắt sắc nét. Team tư vấn rất nhiệt tình về các loại gia công ép kim.",
+				initials: "TT",
+				color: "#880e4f",
+			},
+		],
+		score: "5.0★",
+		countText: "Dựa trên 500+ khách hàng",
+	},
 	contact: {
+		eyebrow: "Liên hệ ngay",
 		description: "Liên hệ ngay để được tư vấn mẫu Card Visit phù hợp nhất.",
 		type: "in-card-visit",
+		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
+		persons: [
+			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+		],
 	},
 	gallery: {
+		eyebrow: "Mẫu Card Visit đẹp",
+		title: "Dự án tiêu biểu",
 		images: [
 			"/branding/services/thiet-ke-in-an.avif",
 			"/branding/services/sticker.avif",
@@ -165,6 +213,7 @@ export const IN_CARD_VISIT_DATA: ProductPageData = {
 			"/branding/services/nhan-chai-san-pham.avif",
 			"/branding/hero-bg.webp",
 		],
+		filters: ["Tất cả", "Giấy Couche", "Giấy Mỹ thuật", "Thẻ nhựa"],
 	},
 };
 
@@ -176,7 +225,7 @@ export const CATALOGUE_BROCHURE_DATA: ProductPageData = {
 		title: "In Catalogue, Brochure Chuyên Nghiệp Theo Yêu Cầu | INUT Design Đà Nẵng",
 		description:
 			"Dịch vụ in Catalogue, Brochure chuyên nghiệp tại Đà Nẵng: thiết kế đẹp, gia công chỉn chu, hình ảnh sắc nét. Nâng tầm thương hiệu, hỗ trợ bán hàng hiệu quả.",
-		url: "https://inutdesign.com/an-pham-tiep-thi/catalogue-brochure",
+		url: "https://inutdesign.com/services/an-pham-tiep-thi/catalogue-brochure",
 		thumbnailUrl: HERO_IMAGE,
 	},
 	hero: {
@@ -186,20 +235,36 @@ export const CATALOGUE_BROCHURE_DATA: ProductPageData = {
 		image: HERO_IMAGE,
 		chips: ["Thiết kế chuẩn", "In sắc nét"],
 		ctaLabel: "Nhận báo giá nhanh",
+		secondaryCtaLabel: "Xem portfolio",
+		ticker: [
+			"Thiết Kế Catalogue",
+			"In Brochure Sắc Nét",
+			"Gia Công Chỉn Chu",
+			"Nâng Tầm Thương Hiệu",
+		],
+		stats: [
+			{ value: "500", unit: "+", label: "Dự án hoàn thành" },
+			{ value: "100", unit: "+", label: "Doanh nghiệp tin dùng" },
+			{ value: "5.0", unit: "★", label: "Chất lượng thiết kế" },
+			{ value: "3-5", unit: "ngày", label: "Sản xuất tiêu chuẩn" },
+		],
 	},
 	introduction: {
+		eyebrow: "Tài liệu quảng bá",
 		title: "Ấn phẩm quảng bá chuyên nghiệp",
+		description:
+			"Catalogue and Brochure là 'bộ mặt' của sản phẩm, giúp khách hàng nắm bắt trọn vẹn giá trị thương hiệu thông qua hình ảnh and nội dung được sắp xếp tinh tế.",
 		bullets: [
 			"Giới thiệu sản phẩm, dịch vụ hệ thống và trực quan.",
-			"Tăng tính chuyên nghiệp và độ tin cậy cho thương hiệu.",
-			"Hỗ trợ đội ngũ bán hàng và tư vấn khách hàng.",
+			"Tăng tính chuyên nghiệp và độ tin cậy for thương hiệu.",
+			"Hỗ trợ đội ngũ bán hàng and tư vấn khách hàng.",
 			"Tạo tài liệu phát tay tiện lợi tại showroom, hội chợ.",
 		],
 		highlights: [
 			{
 				title: "Catalogue",
 				description:
-					"Ấn phẩm nhiều trang giới thiệu danh mục sản phẩm, dịch vụ chi tiết, có hệ thống. Giúp khách hàng dễ tìm hiểu và so sánh.",
+					"Ấn phẩm nhiều trang giới thiệu danh mục sản phẩm, dịch vụ chi tiết, có hệ thống. Giúp khách hàng dễ tìm hiểu and so sánh.",
 				icon: <MenuBookIcon fontSize="small" />,
 			},
 			{
@@ -217,12 +282,13 @@ export const CATALOGUE_BROCHURE_DATA: ProductPageData = {
 			{
 				title: "Chất liệu đa dạng",
 				description:
-					"Từ giấy Couche mịn màng, Bristol cứng cáp đến giấy mỹ thuật cao cấp dành cho những thiết kế sang trọng.",
+					"Từ giấy Couche mịn màng, Bristol cứng cáp đến giấy mỹ thuật cao cấp dành for những thiết kế sang trọng.",
 				icon: <LocalPrintshopIcon fontSize="small" />,
 			},
 		],
 	},
 	types: {
+		eyebrow: "Phân loại ấn phẩm",
 		title: "Quy cách ấn phẩm",
 		description: "Lựa chọn hình thức phù hợp để truyền tải thông tin hiệu quả nhất.",
 		items: [
@@ -239,8 +305,9 @@ export const CATALOGUE_BROCHURE_DATA: ProductPageData = {
 		],
 	},
 	whyInut: {
+		eyebrow: "Giá trị cốt lõi",
 		title: "Vì sao chọn dịch vụ tại INUT Design?",
-		description: "Giải pháp truyền thông chuyên nghiệp cho mọi doanh nghiệp.",
+		description: "Giải pháp truyền thông chuyên nghiệp for mọi doanh nghiệp.",
 		productionProcess: {
 			title: "Quy trình chuyên nghiệp",
 			items: [
@@ -262,8 +329,8 @@ export const CATALOGUE_BROCHURE_DATA: ProductPageData = {
 			],
 		},
 		applications: {
-			title: "Ứng dụng cho mọi lĩnh vực",
-			description: "Catalogue và Brochure là công cụ bán hàng không thể thiếu.",
+			title: "Ứng dụng for mọi lĩnh vực",
+			description: "Catalogue and Brochure là công cụ bán hàng không thể thiếu.",
 			items: [
 				{
 					title: "Doanh nghiệp",
@@ -293,11 +360,42 @@ export const CATALOGUE_BROCHURE_DATA: ProductPageData = {
 			icon: <VerifiedIcon />,
 		},
 	},
+	testimonials: {
+		eyebrow: "Phản hồi tích cực",
+		title: "Khách hàng nói gì về <em>chúng tôi?</em>",
+		items: [
+			{
+				name: "Hoàng Nam",
+				role: "Marketing Manager · BĐS",
+				text: "Catalogue in rất sang, hình ảnh nhà mẫu lên màu cực chuẩn. Rất hài lòng với dịch vụ thiết kế and in ấn tại đây.",
+				initials: "HN",
+				color: "#bf360c",
+			},
+			{
+				name: "Bích Phương",
+				role: "Chủ thương hiệu mỹ phẩm",
+				text: "Brochure gấp 3 thiết kế rất bắt mắt, nhỏ gọn and tinh tế. Giúp ích rất nhiều cho việc giới thiệu sản phẩm mới.",
+				initials: "BP",
+				color: "#1b5e20",
+			},
+		],
+		score: "5.0★",
+		countText: "Dựa trên 100+ doanh nghiệp",
+	},
 	contact: {
+		eyebrow: "Nhận báo giá",
 		description: "Liên hệ ngay để được tư vấn mẫu Catalogue, Brochure phù hợp nhất.",
 		type: "catalogue-brochure",
+		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
+		persons: [
+			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+		],
 	},
 	gallery: {
+		eyebrow: "Sản phẩm thực tế",
+		title: "Thư viện dự án",
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
+		filters: ["Tất cả", "Catalogue", "Brochure", "Profile"],
 	},
 };

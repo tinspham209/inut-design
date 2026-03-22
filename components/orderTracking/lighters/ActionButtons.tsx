@@ -25,7 +25,7 @@ const ActionButtons: React.FC = () => {
 			<Button
 				variant="outlined"
 				startIcon={<ShoppingBagIcon />}
-				onClick={() => router.push("/lighters")}
+				onClick={() => router.push("/san-pham/lighters")}
 				size="large"
 			>
 				Tiếp tục mua sắm

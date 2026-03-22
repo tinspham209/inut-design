@@ -13,14 +13,7 @@ export function MainLayout({ children }: LayoutProps) {
 			<Header />
 			<article className="page-transition">
 				<Stack minHeight="100vh">
-					<Box
-						component="main"
-						flexGrow={1}
-						mt={{
-							xs: 10,
-							md: 9,
-						}}
-					>
+					<Box component="main" flexGrow={1} mt={8}>
 						{children}
 					</Box>
 

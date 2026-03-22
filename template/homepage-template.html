@@ -1,0 +1,2954 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>INUT Design – In Ấn Chuyên Nghiệp Đà Nẵng</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--ink: #080706;
+				--ink-2: #111009;
+				--ink-3: #1c1a16;
+				--ink-4: #282420;
+				--ash: #3d3830;
+				--dust: #6b6157;
+				--smoke: #a89e94;
+				--cream: #f5f0e8;
+				--orange: #ff4d00;
+				--orange-hi: #ff6b25;
+				--orange-lo: rgba(255, 77, 0, 0.14);
+				--orange-glow: rgba(255, 77, 0, 0.3);
+				--yellow: #ffe234;
+				--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+				--f-display: "Syne", sans-serif;
+				--f-serif: "DM Serif Display", serif;
+				--f-body: "DM Sans", sans-serif;
+			}
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+			html {
+				font-size: 16px;
+			}
+			body {
+				background: var(--ink);
+				color: var(--cream);
+				font-family: var(--f-body);
+				line-height: 1.6;
+				overflow-x: hidden;
+			}
+			img {
+				display: block;
+				max-width: 100%;
+			}
+			a {
+				color: inherit;
+				text-decoration: none;
+			}
+
+			/* SCROLL PROGRESS */
+			#progress-bar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 0%;
+				height: 3px;
+				background: linear-gradient(90deg, var(--orange), var(--yellow));
+				box-shadow: 0 0 8px var(--orange-glow);
+				z-index: 9999;
+				transition: width 100ms linear;
+			}
+
+			/* NAVBAR */
+			nav {
+				position: sticky;
+				top: 0;
+				z-index: 100;
+				padding: 0 16px;
+			}
+			.nav-inner {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 10px 20px;
+				background: rgba(8, 7, 6, 0.85);
+				backdrop-filter: blur(12px);
+				border-bottom: 1px solid var(--ink-4);
+				transition: all 200ms var(--ease-out);
+			}
+			.nav-inner.scrolled {
+				padding: 6px 20px;
+				box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+			}
+			.logo {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+			.logo-mark {
+				width: 30px;
+				height: 30px;
+				background: var(--orange);
+				border-radius: 6px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--f-display);
+				font-weight: 900;
+				font-style: italic;
+				color: #fff;
+				font-size: 18px;
+				flex-shrink: 0;
+			}
+			.logo-text {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: 1.1rem;
+				color: #fff;
+				letter-spacing: -0.02em;
+			}
+			.logo-text span {
+				color: var(--orange);
+			}
+			nav ul {
+				list-style: none;
+				display: none;
+				gap: 4px;
+			}
+			.nav-cta {
+				background: var(--orange);
+				color: #fff;
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.75rem;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				padding: 10px 18px;
+				border-radius: 4px;
+				white-space: nowrap;
+				transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+				min-height: 44px;
+				display: flex;
+				align-items: center;
+			}
+			.nav-cta:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 6px 20px var(--orange-glow);
+			}
+			.hamburger {
+				background: none;
+				border: 1px solid var(--ash);
+				border-radius: 4px;
+				color: var(--cream);
+				width: 44px;
+				height: 44px;
+				cursor: pointer;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 5px;
+			}
+			.hamburger span {
+				display: block;
+				width: 18px;
+				height: 2px;
+				background: var(--cream);
+				border-radius: 2px;
+				transition: all 150ms;
+			}
+
+			/* MOBILE DRAWER */
+			.drawer {
+				position: fixed;
+				inset: 0;
+				z-index: 200;
+				display: flex;
+				visibility: hidden;
+				opacity: 0;
+				transition: opacity 200ms, visibility 200ms;
+			}
+			.drawer.open {
+				visibility: visible;
+				opacity: 1;
+			}
+			.drawer-overlay {
+				position: absolute;
+				inset: 0;
+				background: rgba(0, 0, 0, 0.7);
+			}
+			.drawer-panel {
+				position: relative;
+				width: 280px;
+				height: 100%;
+				background: var(--ink);
+				border-right: 1px solid var(--ash);
+				padding: 32px 24px;
+				display: flex;
+				flex-direction: column;
+				transform: translateX(-100%);
+				transition: transform 200ms var(--ease-out);
+			}
+			.drawer.open .drawer-panel {
+				transform: translateX(0);
+			}
+			.drawer-close {
+				align-self: flex-end;
+				background: none;
+				border: none;
+				color: var(--smoke);
+				font-size: 1.5rem;
+				cursor: pointer;
+				line-height: 1;
+				padding: 4px;
+				margin-bottom: 24px;
+			}
+			.drawer-links {
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+				flex: 1;
+			}
+			.drawer-links a {
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 1.4rem;
+				color: var(--cream);
+				padding: 12px 0;
+				border-bottom: 1px solid var(--ink-4);
+				letter-spacing: -0.03em;
+				transition: color 150ms;
+			}
+			.drawer-links a:hover {
+				color: var(--orange);
+			}
+			.drawer-cta {
+				background: var(--orange);
+				color: #fff;
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.85rem;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				padding: 14px;
+				border-radius: 4px;
+				text-align: center;
+				margin-top: 24px;
+				min-height: 44px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			/* HERO */
+			.hero {
+				padding: 64px 16px 80px;
+				position: relative;
+				overflow: hidden;
+			}
+			.hero::before {
+				content: "";
+				position: absolute;
+				top: -40%;
+				right: -10%;
+				width: 60%;
+				height: 180%;
+				background: radial-gradient(ellipse at center, rgba(255, 77, 0, 0.12) 0%, transparent 70%);
+				pointer-events: none;
+			}
+			.hero-eyebrow {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				margin-bottom: 20px;
+			}
+			.eyebrow-bar {
+				width: 20px;
+				height: 2px;
+				background: var(--orange);
+				flex-shrink: 0;
+			}
+			.eyebrow-label {
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.68rem;
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				color: var(--orange);
+			}
+			.hero h1 {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: clamp(2.2rem, 8vw, 4.5rem);
+				line-height: 1.05;
+				letter-spacing: -0.04em;
+				margin-bottom: 16px;
+			}
+			.hero h1 em {
+				font-family: var(--f-serif);
+				font-style: italic;
+				color: var(--orange);
+				font-weight: 400;
+			}
+			.hero-sub {
+				font-family: var(--f-body);
+				color: var(--smoke);
+				font-size: 1rem;
+				max-width: 480px;
+				line-height: 1.7;
+				margin-bottom: 32px;
+			}
+			.hero-actions {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 12px;
+			}
+			.btn-primary {
+				background: var(--orange);
+				color: #fff;
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.8rem;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				padding: 14px 28px;
+				border-radius: 4px;
+				min-height: 44px;
+				display: inline-flex;
+				align-items: center;
+				transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+			}
+			.btn-primary:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 8px 24px var(--orange-glow);
+			}
+			.btn-outline {
+				border: 1px solid var(--ash);
+				color: var(--smoke);
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.8rem;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				padding: 14px 28px;
+				border-radius: 4px;
+				min-height: 44px;
+				display: inline-flex;
+				align-items: center;
+				transition: all 150ms;
+			}
+			.btn-outline:hover {
+				border-color: var(--orange);
+				color: var(--orange);
+			}
+			.hero-badge-row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 10px;
+				margin-top: 40px;
+			}
+			.hero-badge {
+				background: var(--ink-3);
+				border: 1px solid var(--ink-4);
+				border-radius: 8px;
+				padding: 10px 16px;
+				font-family: var(--f-display);
+				font-size: 0.75rem;
+				font-weight: 600;
+				color: var(--smoke);
+				letter-spacing: 0.04em;
+				text-transform: uppercase;
+			}
+			.hero-badge strong {
+				color: var(--cream);
+				display: block;
+				font-size: 0.9rem;
+				margin-bottom: 2px;
+			}
+
+			/* SECTION HEADER */
+			.sec-header {
+				margin-bottom: 36px;
+			}
+			.sec-header .eyebrow-bar {
+				display: inline-block;
+			}
+			.sec-header h2 {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: clamp(1.6rem, 4vw, 2.4rem);
+				line-height: 1.05;
+				letter-spacing: -0.04em;
+				margin-top: 12px;
+			}
+			.sec-header h2 em {
+				font-family: var(--f-serif);
+				font-style: italic;
+				color: var(--orange);
+				font-weight: 400;
+			}
+
+			/* PRODUCT SECTION */
+			.section {
+				padding: 60px 16px;
+			}
+			.section.dark {
+				background: var(--ink-2);
+			}
+
+			/* PRODUCT GRID */
+			.product-grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 12px;
+			}
+			.product-card {
+				background: var(--ink-3);
+				border: 1px solid var(--ink-4);
+				border-radius: 12px;
+				overflow: hidden;
+				transition: border-color 200ms, transform 200ms var(--ease-out);
+				cursor: pointer;
+			}
+			.product-card:hover {
+				border-color: rgba(255, 77, 0, 0.25);
+				transform: translateY(-3px);
+			}
+			.product-img {
+				aspect-ratio: 1/1;
+				background: var(--ink-4);
+				position: relative;
+				overflow: hidden;
+			}
+			.product-img-ph {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 2rem;
+				color: var(--dust);
+			}
+			.product-info {
+				padding: 10px 12px 12px;
+			}
+			.product-name {
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.78rem;
+				color: var(--cream);
+				letter-spacing: 0.02em;
+				margin-bottom: 4px;
+			}
+			.product-tag {
+				font-size: 0.7rem;
+				color: var(--dust);
+				text-transform: uppercase;
+				letter-spacing: 0.06em;
+			}
+			.product-badge {
+				position: absolute;
+				top: 8px;
+				left: 8px;
+				background: var(--orange);
+				color: #fff;
+				font-family: var(--f-display);
+				font-size: 0.62rem;
+				font-weight: 700;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				padding: 3px 7px;
+				border-radius: 3px;
+			}
+			.view-more {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin-top: 24px;
+			}
+			.btn-secondary {
+				background: var(--yellow);
+				color: var(--ink);
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.8rem;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				padding: 14px 28px;
+				border-radius: 4px;
+				min-height: 44px;
+				display: inline-flex;
+				align-items: center;
+				transition: transform 200ms var(--ease-out);
+			}
+			.btn-secondary:hover {
+				transform: translateY(-2px);
+			}
+
+			/* LAPTOP GRID — mosaic */
+			.laptop-mosaic {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 10px;
+			}
+			.laptop-card {
+				background: var(--ink-3);
+				border: 1px solid var(--ink-4);
+				border-radius: 10px;
+				overflow: hidden;
+				cursor: pointer;
+				transition: border-color 200ms, transform 200ms var(--ease-out);
+			}
+			.laptop-card:hover {
+				border-color: rgba(255, 77, 0, 0.25);
+				transform: translateY(-3px);
+			}
+			.laptop-card.tall {
+				grid-row: span 2;
+			}
+			.lc-img {
+				background: var(--ink-4);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 2.5rem;
+				color: var(--dust);
+			}
+			.lc-img.h-sm {
+				height: 100px;
+			}
+			.lc-img.h-md {
+				height: 160px;
+			}
+			.lc-img.h-tall {
+				height: 220px;
+			}
+			.lc-label {
+				padding: 8px 10px;
+				font-family: var(--f-display);
+				font-size: 0.72rem;
+				font-weight: 700;
+				color: var(--smoke);
+				letter-spacing: 0.04em;
+				text-transform: uppercase;
+			}
+
+			/* SERVICES */
+			.services-grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 12px;
+			}
+			.service-card {
+				background: var(--ink-3);
+				border: 1px solid var(--ink-4);
+				border-radius: 12px;
+				padding: 20px 16px;
+				transition: border-color 200ms, transform 200ms var(--ease-out);
+				cursor: pointer;
+				min-height: 44px;
+			}
+			.service-card:hover {
+				border-color: rgba(255, 77, 0, 0.25);
+				transform: translateY(-3px);
+			}
+			.service-icon {
+				width: 40px;
+				height: 40px;
+				background: var(--orange-lo);
+				border-radius: 8px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin-bottom: 12px;
+				font-size: 20px;
+			}
+			.service-name {
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.85rem;
+				color: var(--cream);
+				margin-bottom: 4px;
+				letter-spacing: 0.02em;
+			}
+			.service-desc {
+				font-size: 0.78rem;
+				color: var(--dust);
+				line-height: 1.5;
+			}
+
+			/* NEWS */
+			.news-list {
+				display: flex;
+				flex-direction: column;
+				gap: 1px;
+				background: var(--ink-4);
+				border-radius: 12px;
+				overflow: hidden;
+			}
+			.news-item {
+				background: var(--ink-3);
+				padding: 18px 16px;
+				cursor: pointer;
+				transition: background 150ms;
+			}
+			.news-item:hover {
+				background: var(--ink-4);
+			}
+			.news-meta {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				margin-bottom: 6px;
+			}
+			.news-date {
+				font-size: 0.72rem;
+				color: var(--dust);
+				font-family: var(--f-display);
+				font-weight: 600;
+				letter-spacing: 0.04em;
+				text-transform: uppercase;
+			}
+			.news-cat {
+				font-size: 0.66rem;
+				background: var(--orange-lo);
+				color: var(--orange);
+				font-family: var(--f-display);
+				font-weight: 700;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				padding: 2px 7px;
+				border-radius: 3px;
+			}
+			.news-title {
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.9rem;
+				color: var(--cream);
+				line-height: 1.35;
+				letter-spacing: -0.01em;
+			}
+			.news-excerpt {
+				font-size: 0.78rem;
+				color: var(--dust);
+				margin-top: 5px;
+				line-height: 1.55;
+			}
+
+			/* STATS BANNER */
+			.stats-banner {
+				background: var(--ink-3);
+				border-top: 1px solid var(--ink-4);
+				border-bottom: 1px solid var(--ink-4);
+				padding: 36px 16px;
+			}
+			.stats-grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 20px;
+			}
+			.stat-item {
+				text-align: center;
+			}
+			.stat-num {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: 2rem;
+				color: var(--orange);
+				letter-spacing: -0.04em;
+			}
+			.stat-num span {
+				color: var(--yellow);
+			}
+			.stat-label {
+				font-size: 0.75rem;
+				color: var(--smoke);
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				font-family: var(--f-display);
+				font-weight: 600;
+				margin-top: 2px;
+			}
+
+			/* FOOTER */
+			footer {
+				background: var(--ink-2);
+				border-top: 1px solid var(--ink-4);
+				padding: 48px 16px 24px;
+			}
+			.footer-brand {
+				margin-bottom: 32px;
+			}
+			.footer-brand .logo {
+				margin-bottom: 12px;
+			}
+			.footer-tagline {
+				font-size: 0.82rem;
+				color: var(--smoke);
+				line-height: 1.6;
+				max-width: 280px;
+			}
+			.footer-contact {
+				margin-top: 16px;
+			}
+			.footer-contact a {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				font-size: 0.82rem;
+				color: var(--dust);
+				padding: 4px 0;
+				transition: color 150ms;
+			}
+			.footer-contact a:hover {
+				color: var(--orange);
+			}
+			.contact-icon {
+				width: 18px;
+				height: 18px;
+				background: var(--ink-4);
+				border-radius: 3px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 10px;
+				flex-shrink: 0;
+			}
+			.footer-cols {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 24px;
+				margin-bottom: 32px;
+			}
+			.footer-col-title {
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.75rem;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--smoke);
+				margin-bottom: 12px;
+			}
+			.footer-col ul {
+				list-style: none;
+				display: flex;
+				flex-direction: column;
+				gap: 6px;
+			}
+			.footer-col ul li a {
+				font-size: 0.82rem;
+				color: var(--dust);
+				transition: color 150ms;
+			}
+			.footer-col ul li a:hover {
+				color: var(--orange);
+			}
+			.footer-bottom {
+				border-top: 1px solid var(--ink-4);
+				padding-top: 16px;
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+			}
+			.footer-copy {
+				font-size: 0.75rem;
+				color: var(--dust);
+			}
+			.footer-watermark {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: 3rem;
+				color: var(--cream);
+				opacity: 0.04;
+				letter-spacing: -0.04em;
+				pointer-events: none;
+				line-height: 1;
+				overflow: hidden;
+			}
+			.social-row {
+				display: flex;
+				gap: 8px;
+				margin-top: 12px;
+			}
+			.social-btn {
+				width: 34px;
+				height: 34px;
+				border: 1px solid var(--ash);
+				border-radius: 4px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: var(--smoke);
+				font-size: 0.75rem;
+				font-family: var(--f-display);
+				font-weight: 700;
+				transition: all 150ms;
+				cursor: pointer;
+			}
+			.social-btn:hover {
+				background: var(--orange);
+				border-color: var(--orange);
+				color: #fff;
+			}
+
+			/* ZALO FLOAT */
+			#zalo-btn {
+				position: fixed;
+				bottom: 20px;
+				right: 20px;
+				width: 52px;
+				height: 52px;
+				background: #0068ff;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: #fff;
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.8rem;
+				z-index: 150;
+				cursor: pointer;
+				box-shadow: 0 4px 16px rgba(0, 104, 255, 0.4);
+				animation: zalo-pulse 2s ease-in-out infinite;
+			}
+			@keyframes zalo-pulse {
+				0%,
+				100% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0.7;
+				}
+			}
+
+			/* DIVIDER */
+			.section-divider {
+				height: 1px;
+				background: linear-gradient(90deg, transparent, var(--ash), transparent);
+				margin: 0 16px;
+			}
+
+			/* RESPONSIVE MD+ */
+			@media (min-width: 640px) {
+				.product-grid {
+					grid-template-columns: repeat(3, 1fr);
+				}
+				.services-grid {
+					grid-template-columns: repeat(3, 1fr);
+				}
+				.stats-grid {
+					grid-template-columns: repeat(4, 1fr);
+				}
+				.footer-cols {
+					grid-template-columns: repeat(4, 1fr);
+				}
+			}
+			@media (min-width: 768px) {
+				nav {
+					padding: 12px 32px;
+				}
+				.nav-inner {
+					border-radius: 99px;
+					border: 1px solid rgba(255, 255, 255, 0.06);
+					margin: 0 auto;
+					max-width: 900px;
+					background: rgba(8, 7, 6, 0.7);
+					backdrop-filter: blur(20px);
+					border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+				}
+				nav ul {
+					display: flex;
+				}
+				nav ul li a {
+					font-family: var(--f-display);
+					font-weight: 600;
+					font-size: 0.78rem;
+					letter-spacing: 0.04em;
+					text-transform: uppercase;
+					color: var(--smoke);
+					padding: 8px 12px;
+					border-radius: 4px;
+					transition: color 150ms;
+					display: block;
+					min-height: 44px;
+					display: flex;
+					align-items: center;
+				}
+				nav ul li a:hover {
+					color: var(--cream);
+				}
+				nav ul li a.active {
+					color: var(--orange);
+				}
+				.hamburger {
+					display: none;
+				}
+				.hero {
+					padding: 100px 32px 100px;
+					max-width: 1100px;
+					margin: 0 auto;
+				}
+				.product-grid {
+					grid-template-columns: repeat(4, 1fr);
+					gap: 16px;
+				}
+				.section {
+					padding: 80px 32px;
+					max-width: 1100px;
+					margin: 0 auto;
+				}
+				.stats-banner {
+					padding: 48px 32px;
+				}
+				.stats-grid .stat-num {
+					font-size: 2.6rem;
+				}
+				.laptop-mosaic {
+					grid-template-columns: repeat(3, 1fr);
+				}
+				.services-grid {
+					grid-template-columns: repeat(5, 1fr);
+				}
+				footer {
+					padding: 64px 32px 32px;
+					max-width: 1100px;
+					margin: 0 auto;
+				}
+				#zalo-btn {
+					bottom: 32px;
+					right: 32px;
+				}
+			}
+
+			/* LIGHTER SECTION */
+			.lighter-hero {
+				background: var(--ink-3);
+				border: 1px solid var(--ink-4);
+				border-radius: 16px;
+				padding: 28px 20px;
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+				margin-bottom: 24px;
+			}
+			.lighter-hero-text h3 {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: 1.4rem;
+				letter-spacing: -0.04em;
+				color: var(--cream);
+				margin-bottom: 8px;
+			}
+			.lighter-hero-text h3 em {
+				font-family: var(--f-serif);
+				font-style: italic;
+				color: var(--orange);
+			}
+			.lighter-hero-text p {
+				font-size: 0.85rem;
+				color: var(--smoke);
+				line-height: 1.6;
+			}
+			.lighter-variants {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 10px;
+			}
+			.lighter-card {
+				background: var(--ink-2);
+				border: 1px solid var(--ink-4);
+				border-radius: 10px;
+				padding: 16px 12px;
+				text-align: center;
+				cursor: pointer;
+				transition: border-color 200ms, transform 200ms var(--ease-out);
+			}
+			.lighter-card:hover {
+				border-color: rgba(255, 77, 0, 0.25);
+				transform: translateY(-3px);
+			}
+			.lighter-icon {
+				font-size: 1.8rem;
+				margin-bottom: 8px;
+			}
+			.lighter-name {
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.72rem;
+				color: var(--cream);
+				text-transform: uppercase;
+				letter-spacing: 0.04em;
+			}
+			.lighter-moq {
+				font-size: 0.68rem;
+				color: var(--dust);
+				margin-top: 3px;
+			}
+
+			/* AN PHAM ACCORDION */
+			.anpham-list {
+				display: flex;
+				flex-direction: column;
+				gap: 4px;
+			}
+			.accordion-item {
+				background: var(--ink-3);
+				border: 1px solid var(--ink-4);
+				border-radius: 10px;
+				overflow: hidden;
+			}
+			.accordion-trigger {
+				width: 100%;
+				background: none;
+				border: none;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 16px 18px;
+				cursor: pointer;
+				min-height: 52px;
+				text-align: left;
+				transition: background 150ms;
+			}
+			.accordion-trigger:hover {
+				background: var(--ink-4);
+			}
+			.acc-left {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+			}
+			.acc-icon {
+				width: 34px;
+				height: 34px;
+				background: var(--orange-lo);
+				border-radius: 7px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 16px;
+				flex-shrink: 0;
+			}
+			.acc-title {
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.88rem;
+				color: var(--cream);
+				letter-spacing: -0.01em;
+			}
+			.acc-count {
+				font-size: 0.72rem;
+				color: var(--dust);
+				margin-top: 1px;
+			}
+			.acc-arrow {
+				color: var(--smoke);
+				font-size: 0.9rem;
+				transition: transform 200ms var(--ease-out);
+				flex-shrink: 0;
+			}
+			.accordion-item.open .acc-arrow {
+				transform: rotate(180deg);
+			}
+			.accordion-body {
+				display: none;
+				padding: 0 18px 16px;
+			}
+			.accordion-item.open .accordion-body {
+				display: block;
+			}
+			.sub-links {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 8px;
+				margin-top: 4px;
+			}
+			.sub-link {
+				background: var(--ink-2);
+				border: 1px solid var(--ink-4);
+				border-radius: 6px;
+				padding: 8px 14px;
+				font-family: var(--f-display);
+				font-size: 0.75rem;
+				font-weight: 600;
+				color: var(--smoke);
+				letter-spacing: 0.03em;
+				cursor: pointer;
+				transition: all 150ms;
+				display: inline-flex;
+				align-items: center;
+				gap: 6px;
+				min-height: 36px;
+				text-decoration: none;
+			}
+			.sub-link:hover {
+				border-color: var(--orange);
+				color: var(--orange);
+			}
+			.sub-link-arrow {
+				font-size: 0.7rem;
+				transition: transform 150ms;
+			}
+			.sub-link:hover .sub-link-arrow {
+				transform: translateX(3px);
+			}
+
+			/* CUSTOMIZE CTA */
+			.customize-grid {
+				display: grid;
+				grid-template-columns: 1fr;
+				gap: 16px;
+			}
+			.customize-card {
+				background: var(--ink-3);
+				border: 1px solid var(--ink-4);
+				border-radius: 16px;
+				padding: 28px 22px;
+				cursor: pointer;
+				transition: border-color 200ms, transform 200ms var(--ease-out);
+				position: relative;
+				overflow: hidden;
+			}
+			.customize-card::before {
+				content: "";
+				position: absolute;
+				top: -30%;
+				right: -10%;
+				width: 200px;
+				height: 200px;
+				background: var(--orange-lo);
+				border-radius: 50%;
+				pointer-events: none;
+			}
+			.customize-card.secondary::before {
+				background: rgba(255, 226, 52, 0.08);
+			}
+			.customize-card:hover {
+				border-color: rgba(255, 77, 0, 0.25);
+				transform: translateY(-3px);
+			}
+			.cc-eyebrow {
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.66rem;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				color: var(--orange);
+				margin-bottom: 10px;
+			}
+			.customize-card.secondary .cc-eyebrow {
+				color: var(--yellow);
+			}
+			.cc-title {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: 1.25rem;
+				letter-spacing: -0.04em;
+				color: var(--cream);
+				margin-bottom: 8px;
+				line-height: 1.1;
+			}
+			.cc-title em {
+				font-family: var(--f-serif);
+				font-style: italic;
+				color: var(--orange);
+			}
+			.customize-card.secondary .cc-title em {
+				color: var(--yellow);
+			}
+			.cc-desc {
+				font-size: 0.82rem;
+				color: var(--smoke);
+				line-height: 1.6;
+				margin-bottom: 18px;
+			}
+			.cc-steps {
+				display: flex;
+				flex-direction: column;
+				gap: 6px;
+				margin-bottom: 20px;
+			}
+			.cc-step {
+				display: flex;
+				align-items: flex-start;
+				gap: 10px;
+				font-size: 0.78rem;
+				color: var(--dust);
+			}
+			.step-num {
+				width: 20px;
+				height: 20px;
+				background: var(--orange-lo);
+				border-radius: 4px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.65rem;
+				color: var(--orange);
+				flex-shrink: 0;
+				margin-top: 1px;
+			}
+			.customize-card.secondary .step-num {
+				background: rgba(255, 226, 52, 0.1);
+				color: var(--yellow);
+			}
+
+			/* ORDER TRACKING */
+			.tracking-banner {
+				background: var(--ink-3);
+				border-top: 1px solid var(--ink-4);
+				border-bottom: 1px solid var(--ink-4);
+				padding: 36px 16px;
+			}
+			.tracking-inner {
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+				max-width: 1100px;
+				margin: 0 auto;
+			}
+			.tracking-text h3 {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: 1.2rem;
+				letter-spacing: -0.04em;
+				color: var(--cream);
+				margin-bottom: 6px;
+			}
+			.tracking-text p {
+				font-size: 0.82rem;
+				color: var(--smoke);
+			}
+			.tracking-form {
+				display: flex;
+				gap: 10px;
+				flex-direction: column;
+			}
+			.tracking-input {
+				background: var(--ink-2);
+				border: 1px solid var(--ash);
+				border-radius: 4px;
+				padding: 12px 16px;
+				color: var(--cream);
+				font-family: var(--f-body);
+				font-size: 16px;
+				outline: none;
+				transition: border-color 150ms;
+				min-height: 44px;
+			}
+			.tracking-input:focus {
+				border-color: var(--orange);
+			}
+			.tracking-input::placeholder {
+				color: var(--dust);
+			}
+
+			/* CONTACT SECTION */
+			.contact-section {
+				padding: 60px 16px;
+				background: var(--ink);
+			}
+			.contact-grid {
+				display: grid;
+				grid-template-columns: 1fr;
+				gap: 20px;
+				max-width: 1100px;
+				margin: 0 auto;
+			}
+			.contact-info-card {
+				background: var(--ink-3);
+				border: 1px solid var(--ink-4);
+				border-radius: 16px;
+				padding: 28px 22px;
+			}
+			.contact-info-card h3 {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: 1.2rem;
+				letter-spacing: -0.04em;
+				color: var(--cream);
+				margin-bottom: 6px;
+			}
+			.contact-info-card .sub {
+				font-size: 0.82rem;
+				color: var(--smoke);
+				margin-bottom: 20px;
+			}
+			.contact-row {
+				display: flex;
+				align-items: flex-start;
+				gap: 12px;
+				padding: 12px 0;
+				border-bottom: 1px solid var(--ink-4);
+			}
+			.contact-row:last-child {
+				border-bottom: none;
+			}
+			.cicon {
+				width: 38px;
+				height: 38px;
+				background: var(--orange-lo);
+				border-radius: 8px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 16px;
+				flex-shrink: 0;
+			}
+			.cinfo-label {
+				font-family: var(--f-display);
+				font-size: 0.66rem;
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--dust);
+				margin-bottom: 2px;
+			}
+			.cinfo-val {
+				font-size: 0.9rem;
+				color: var(--cream);
+				font-weight: 500;
+			}
+			.cinfo-val a {
+				color: var(--cream);
+				transition: color 150ms;
+			}
+			.cinfo-val a:hover {
+				color: var(--orange);
+			}
+			.contact-form-card {
+				background: var(--ink-3);
+				border: 1px solid var(--ink-4);
+				border-radius: 16px;
+				padding: 28px 22px;
+			}
+			.contact-form-card h3 {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: 1.2rem;
+				letter-spacing: -0.04em;
+				color: var(--cream);
+				margin-bottom: 20px;
+			}
+			.form-field {
+				margin-bottom: 16px;
+			}
+			.form-label {
+				display: block;
+				font-family: var(--f-display);
+				font-size: 0.72rem;
+				font-weight: 700;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--smoke);
+				margin-bottom: 6px;
+			}
+			.form-input,
+			.form-textarea {
+				width: 100%;
+				background: var(--ink-2);
+				border: 1px solid var(--ash);
+				border-radius: 4px;
+				padding: 12px 14px;
+				color: var(--cream);
+				font-family: var(--f-body);
+				font-size: 16px;
+				outline: none;
+				transition: border-color 150ms;
+				min-height: 44px;
+			}
+			.form-input:focus,
+			.form-textarea:focus {
+				border-color: var(--orange);
+			}
+			.form-input::placeholder,
+			.form-textarea::placeholder {
+				color: var(--dust);
+			}
+			.form-textarea {
+				resize: vertical;
+				min-height: 100px;
+			}
+			.form-submit {
+				width: 100%;
+				background: var(--orange);
+				color: #fff;
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.82rem;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				padding: 14px;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				min-height: 44px;
+				transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+			}
+			.form-submit:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 8px 24px var(--orange-glow);
+			}
+			.hours-badge {
+				display: inline-flex;
+				align-items: center;
+				gap: 6px;
+				background: rgba(255, 226, 52, 0.1);
+				border: 1px solid rgba(255, 226, 52, 0.2);
+				border-radius: 6px;
+				padding: 6px 12px;
+				margin-top: 12px;
+			}
+			.hours-dot {
+				width: 7px;
+				height: 7px;
+				background: var(--yellow);
+				border-radius: 50%;
+			}
+			.hours-text {
+				font-family: var(--f-display);
+				font-size: 0.72rem;
+				font-weight: 700;
+				color: var(--yellow);
+				letter-spacing: 0.04em;
+			}
+
+			/* ═══════════════════════════════════════════
+   VỀ CHÚNG TÔI SECTION
+═══════════════════════════════════════════ */
+			.about-section {
+				padding: 60px 16px;
+				background: var(--ink);
+				position: relative;
+				overflow: hidden;
+			}
+			.about-section::before {
+				content: "";
+				position: absolute;
+				bottom: -20%;
+				left: -5%;
+				width: 50%;
+				height: 140%;
+				background: radial-gradient(ellipse at center, rgba(255, 77, 0, 0.07) 0%, transparent 70%);
+				pointer-events: none;
+			}
+			.about-inner {
+				display: grid;
+				grid-template-columns: 1fr;
+				gap: 32px;
+				max-width: 1100px;
+				margin: 0 auto;
+				position: relative;
+			}
+
+			/* LEFT – text column */
+			.about-text {
+			}
+			.about-intro {
+				font-size: 1rem;
+				color: var(--smoke);
+				line-height: 1.75;
+				margin-bottom: 20px;
+				font-style: italic;
+			}
+			.about-body {
+				display: flex;
+				flex-direction: column;
+				gap: 14px;
+				margin-bottom: 28px;
+			}
+			.about-body p {
+				font-size: 0.88rem;
+				color: var(--dust);
+				line-height: 1.75;
+			}
+			.about-body p strong {
+				color: var(--cream);
+				font-weight: 600;
+			}
+			.about-quote {
+				border-left: 3px solid var(--orange);
+				padding: 14px 18px;
+				background: var(--ink-3);
+				border-radius: 0 8px 8px 0;
+				font-family: var(--f-serif);
+				font-style: italic;
+				font-size: 1.05rem;
+				color: var(--cream);
+				line-height: 1.55;
+				margin-bottom: 28px;
+			}
+			.about-link {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.78rem;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				color: var(--orange);
+				transition: gap 150ms;
+				min-height: 44px;
+			}
+			.about-link:hover {
+				gap: 14px;
+			}
+			.about-link-arrow {
+				font-size: 0.9rem;
+			}
+
+			/* RIGHT – visual card */
+			.about-visual {
+				background: var(--ink-3);
+				border: 1px solid var(--ink-4);
+				border-radius: 16px;
+				overflow: hidden;
+				position: relative;
+				display: flex;
+				flex-direction: column;
+			}
+			/* Orange header stripe */
+			.about-visual-header {
+				background: var(--orange);
+				padding: 20px 24px 18px;
+				position: relative;
+				overflow: hidden;
+			}
+			.about-visual-header::after {
+				content: "";
+				position: absolute;
+				top: -40%;
+				right: -10%;
+				width: 160px;
+				height: 160px;
+				background: rgba(255, 255, 255, 0.08);
+				border-radius: 50%;
+			}
+			.avh-url {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+				color: #fff;
+				letter-spacing: -0.01em;
+				margin-bottom: 4px;
+			}
+			.avh-badge {
+				display: inline-flex;
+				align-items: center;
+				gap: 6px;
+				background: rgba(255, 255, 255, 0.18);
+				border-radius: 4px;
+				padding: 4px 10px;
+			}
+			.avh-badge-text {
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.62rem;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: #fff;
+			}
+			/* Headline area */
+			.about-visual-body {
+				padding: 22px 24px;
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				gap: 16px;
+			}
+			.avb-headline {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: clamp(1.5rem, 4vw, 2rem);
+				letter-spacing: -0.04em;
+				color: var(--cream);
+				line-height: 1.05;
+			}
+			.avb-headline em {
+				font-family: var(--f-serif);
+				font-style: italic;
+				color: var(--orange);
+				font-weight: 400;
+			}
+			.avb-sub {
+				font-size: 0.82rem;
+				color: var(--smoke);
+				line-height: 1.6;
+			}
+			/* Product tags strip */
+			.avb-tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 8px;
+			}
+			.avb-tag {
+				background: var(--ink-2);
+				border: 1px solid var(--ink-4);
+				border-radius: 6px;
+				padding: 6px 12px;
+				font-family: var(--f-display);
+				font-size: 0.68rem;
+				font-weight: 700;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				color: var(--smoke);
+				transition: border-color 150ms, color 150ms;
+				cursor: default;
+			}
+			.avb-tag.active,
+			.avb-tag:hover {
+				border-color: var(--orange);
+				color: var(--orange);
+			}
+			/* Delivery row */
+			.avb-delivery {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				background: var(--ink-2);
+				border: 1px solid var(--ink-4);
+				border-radius: 10px;
+				padding: 14px 16px;
+				margin-top: auto;
+			}
+			.avb-delivery-icon {
+				width: 38px;
+				height: 38px;
+				background: var(--orange);
+				border-radius: 8px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 18px;
+				flex-shrink: 0;
+			}
+			.avb-delivery-label {
+				font-family: var(--f-display);
+				font-size: 0.66rem;
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--dust);
+				margin-bottom: 1px;
+			}
+			.avb-delivery-val {
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: 0.92rem;
+				color: var(--cream);
+				letter-spacing: -0.01em;
+			}
+			/* Values row */
+			.avb-values {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 8px;
+				border-top: 1px solid var(--ink-4);
+				padding-top: 16px;
+			}
+			.avb-value {
+				text-align: center;
+			}
+			.avb-value-icon {
+				font-size: 1.3rem;
+				margin-bottom: 4px;
+			}
+			.avb-value-label {
+				font-family: var(--f-display);
+				font-size: 0.64rem;
+				font-weight: 700;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				color: var(--dust);
+				line-height: 1.3;
+			}
+
+			@media (min-width: 640px) {
+				.about-inner {
+					grid-template-columns: 1fr 1fr;
+					align-items: start;
+				}
+				.about-section {
+					padding: 80px 32px;
+				}
+			}
+			@media (min-width: 768px) {
+				.about-section {
+					padding: 100px 32px;
+				}
+				.about-visual-header {
+					padding: 28px 32px 24px;
+				}
+				.about-visual-body {
+					padding: 28px 32px;
+				}
+			}
+			/* ═══════════════════════════════════════════ */
+
+			@media (min-width: 640px) {
+				.customize-grid {
+					grid-template-columns: repeat(2, 1fr);
+				}
+				.tracking-form {
+					flex-direction: row;
+				}
+				.tracking-input {
+					flex: 1;
+				}
+				.contact-grid {
+					grid-template-columns: 1fr 1fr;
+				}
+				.lighter-hero {
+					flex-direction: row;
+					align-items: center;
+				}
+				.lighter-hero-text {
+					flex: 1;
+				}
+			}
+			@media (min-width: 768px) {
+				.tracking-banner {
+					padding: 48px 32px;
+				}
+				.contact-section {
+					padding: 80px 32px;
+				}
+			}
+
+			/* REDUCED MOTION */
+			@media (prefers-reduced-motion: reduce) {
+				*,
+				*::before,
+				*::after {
+					animation: none !important;
+					transition-duration: 1ms !important;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<!-- SCROLL PROGRESS -->
+		<div
+			id="progress-bar"
+			role="progressbar"
+			aria-valuemin="0"
+			aria-valuemax="100"
+			aria-valuenow="0"
+		></div>
+
+		<!-- NAVBAR -->
+		<nav aria-label="Điều hướng chính">
+			<div class="nav-inner" id="nav-inner">
+				<a href="/" class="logo" aria-label="INUT Design – Trang chủ">
+					<div class="logo-mark" aria-hidden="true">N</div>
+					<span class="logo-text">INUT<span>.</span></span>
+				</a>
+				<ul>
+					<li><a href="#" class="active">Trang Chủ</a></li>
+					<li><a href="#">Laptop</a></li>
+					<li><a href="#">Nút Phím</a></li>
+					<li><a href="#">Tin Tức</a></li>
+					<li><a href="#">Liên Hệ</a></li>
+				</ul>
+				<a href="#lienhe" class="nav-cta">Nhận Báo Giá</a>
+				<button class="hamburger" aria-label="Mở menu" id="menu-btn">
+					<span></span><span></span><span></span>
+				</button>
+			</div>
+		</nav>
+
+		<!-- MOBILE DRAWER -->
+		<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu điều hướng">
+			<div class="drawer-overlay" id="drawer-overlay"></div>
+			<div class="drawer-panel">
+				<button class="drawer-close" id="drawer-close" aria-label="Đóng menu">✕</button>
+				<nav class="drawer-links">
+					<a href="#">Trang Chủ</a>
+					<a href="#">Laptop</a>
+					<a href="#">Nút Phím</a>
+					<a href="#">Tin Tức</a>
+					<a href="#">Liên Hệ</a>
+				</nav>
+				<a href="#lienhe" class="drawer-cta">Nhận Báo Giá Ngay</a>
+			</div>
+		</div>
+
+		<!-- HERO -->
+		<section class="hero" aria-labelledby="hero-heading">
+			<div class="hero-eyebrow">
+				<span class="eyebrow-bar" aria-hidden="true"></span>
+				<span class="eyebrow-label">In Ấn Chuyên Nghiệp · Đà Nẵng</span>
+			</div>
+			<h1 id="hero-heading">
+				Skin, Sticker &amp;<br />
+				<em>In Ấn Sáng Tạo</em><br />
+				Theo Yêu Cầu
+			</h1>
+			<p class="hero-sub">
+				Thiết kế và in ấn chuyên nghiệp tại Đà Nẵng — skin laptop, skin nút phím, sticker, postcard,
+				ấn phẩm doanh nghiệp &amp; sự kiện.
+			</p>
+			<div class="hero-actions">
+				<a href="#sanpham" class="btn-primary">Xem Sản Phẩm</a>
+				<a href="#lienhe" class="btn-outline">Liên Hệ Tư Vấn</a>
+			</div>
+			<div class="hero-badge-row" role="list">
+				<div class="hero-badge" role="listitem">
+					<strong>Skin Laptop</strong>Dán lại không dính keo
+				</div>
+				<div class="hero-badge" role="listitem"><strong>MACNUT</strong>Skin nút phím</div>
+				<div class="hero-badge" role="listitem"><strong>Custom</strong>In theo yêu cầu</div>
+				<div class="hero-badge" role="listitem"><strong>Bật lửa</strong>In logo thương hiệu</div>
+			</div>
+		</section>
+
+		<!-- STATS -->
+		<div class="stats-banner" aria-label="Thống kê">
+			<div class="stats-grid">
+				<div class="stat-item">
+					<div class="stat-num">10K<span>+</span></div>
+					<div class="stat-label">Khách hàng</div>
+				</div>
+				<div class="stat-item">
+					<div class="stat-num">500<span>+</span></div>
+					<div class="stat-label">Mẫu thiết kế</div>
+				</div>
+				<div class="stat-item">
+					<div class="stat-num">5<span>★</span></div>
+					<div class="stat-label">Đánh giá</div>
+				</div>
+				<div class="stat-item">
+					<div class="stat-num">24h</div>
+					<div class="stat-label">Giao hàng nhanh</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="section-divider" aria-hidden="true"></div>
+
+		<!-- SKIN NUT PHIM -->
+		<section id="sanpham" class="section" aria-labelledby="nut-heading">
+			<div class="sec-header">
+				<div class="hero-eyebrow">
+					<span class="eyebrow-bar" aria-hidden="true"></span>
+					<span class="eyebrow-label">MACNUT Collection</span>
+				</div>
+				<h2 id="nut-heading">Skin <em>Nút Phím</em></h2>
+			</div>
+			<div class="product-grid" role="list">
+				<article class="product-card" role="listitem" tabindex="0" aria-label="Galaxy Keys">
+					<div class="product-img">
+						<div class="product-img-ph" aria-hidden="true">🌌</div>
+						<span class="product-badge">HOT</span>
+					</div>
+					<div class="product-info">
+						<div class="product-name">Galaxy Keys</div>
+						<div class="product-tag">MacBook / Magic KB</div>
+					</div>
+				</article>
+				<article class="product-card" role="listitem" tabindex="0" aria-label="Anime Series">
+					<div class="product-img">
+						<div class="product-img-ph" aria-hidden="true">⛩️</div>
+					</div>
+					<div class="product-info">
+						<div class="product-name">Anime Series</div>
+						<div class="product-tag">Custom Design</div>
+					</div>
+				</article>
+				<article class="product-card" role="listitem" tabindex="0" aria-label="Lo-Fi Pastel">
+					<div class="product-img">
+						<div class="product-img-ph" aria-hidden="true">🎨</div>
+						<span class="product-badge">MỚI</span>
+					</div>
+					<div class="product-info">
+						<div class="product-name">Lo-Fi Pastel</div>
+						<div class="product-tag">Giới hạn</div>
+					</div>
+				</article>
+				<article class="product-card" role="listitem" tabindex="0" aria-label="Cyberpunk City">
+					<div class="product-img">
+						<div class="product-img-ph" aria-hidden="true">🏙️</div>
+					</div>
+					<div class="product-info">
+						<div class="product-name">Cyberpunk City</div>
+						<div class="product-tag">All Sizes</div>
+					</div>
+				</article>
+				<article class="product-card" role="listitem" tabindex="0" aria-label="Botanical">
+					<div class="product-img">
+						<div class="product-img-ph" aria-hidden="true">🌿</div>
+					</div>
+					<div class="product-info">
+						<div class="product-name">Botanical</div>
+						<div class="product-tag">Minimalist</div>
+					</div>
+				</article>
+				<article class="product-card" role="listitem" tabindex="0" aria-label="Abstract Art">
+					<div class="product-img">
+						<div class="product-img-ph" aria-hidden="true">🎭</div>
+					</div>
+					<div class="product-info">
+						<div class="product-name">Abstract Art</div>
+						<div class="product-tag">Custom</div>
+					</div>
+				</article>
+				<article class="product-card" role="listitem" tabindex="0" aria-label="Music Vibes">
+					<div class="product-img">
+						<div class="product-img-ph" aria-hidden="true">🎵</div>
+					</div>
+					<div class="product-info">
+						<div class="product-name">Music Vibes</div>
+						<div class="product-tag">All Models</div>
+					</div>
+				</article>
+				<article class="product-card" role="listitem" tabindex="0" aria-label="Dark Mode">
+					<div class="product-img">
+						<div class="product-img-ph" aria-hidden="true">🌙</div>
+						<span class="product-badge">HOT</span>
+					</div>
+					<div class="product-info">
+						<div class="product-name">Dark Mode</div>
+						<div class="product-tag">Premium</div>
+					</div>
+				</article>
+			</div>
+			<div class="view-more">
+				<a href="#" class="btn-secondary">Xem Thêm Sản Phẩm</a>
+			</div>
+		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
+
+		<!-- SKIN LAPTOP -->
+		<section class="section dark" aria-labelledby="laptop-heading">
+			<div style="max-width: 1100px; margin: 0 auto">
+				<div class="sec-header">
+					<div class="hero-eyebrow">
+						<span class="eyebrow-bar" aria-hidden="true"></span>
+						<span class="eyebrow-label">Bảo Vệ &amp; Cá Nhân Hoá</span>
+					</div>
+					<h2 id="laptop-heading">Skin <em>Laptop</em></h2>
+				</div>
+				<div class="laptop-mosaic" role="list">
+					<article
+						class="laptop-card tall"
+						role="listitem"
+						tabindex="0"
+						aria-label="One Piece Epic"
+					>
+						<div class="lc-img h-tall" aria-hidden="true" style="height: 232px">🏴‍☠️</div>
+						<div class="lc-label">One Piece Epic</div>
+					</article>
+					<article class="laptop-card" role="listitem" tabindex="0" aria-label="Studio Ghibli">
+						<div class="lc-img h-sm" aria-hidden="true">🌾</div>
+						<div class="lc-label">Studio Ghibli</div>
+					</article>
+					<article class="laptop-card" role="listitem" tabindex="0" aria-label="Starry Night">
+						<div class="lc-img h-sm" aria-hidden="true">🌟</div>
+						<div class="lc-label">Starry Night</div>
+					</article>
+					<article class="laptop-card" role="listitem" tabindex="0" aria-label="Dragon Ball Z">
+						<div class="lc-img h-md" aria-hidden="true">🐉</div>
+						<div class="lc-label">Dragon Ball Z</div>
+					</article>
+					<article class="laptop-card" role="listitem" tabindex="0" aria-label="Geometric Abstract">
+						<div class="lc-img h-md" aria-hidden="true">🔷</div>
+						<div class="lc-label">Geometric Abstract</div>
+					</article>
+					<article class="laptop-card" role="listitem" tabindex="0" aria-label="Vintage Maps">
+						<div class="lc-img h-sm" aria-hidden="true">🗺️</div>
+						<div class="lc-label">Vintage Maps</div>
+					</article>
+					<article class="laptop-card" role="listitem" tabindex="0" aria-label="Neon Tokyo">
+						<div class="lc-img h-sm" aria-hidden="true">🗼</div>
+						<div class="lc-label">Neon Tokyo</div>
+					</article>
+				</div>
+				<div class="view-more">
+					<a href="#" class="btn-secondary">Xem Thêm Skin Laptop</a>
+				</div>
+			</div>
+		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
+
+		<!-- BAT LUA -->
+		<section class="section" id="batlua" aria-labelledby="bl-heading">
+			<div class="sec-header">
+				<div class="hero-eyebrow">
+					<span class="eyebrow-bar" aria-hidden="true"></span>
+					<span class="eyebrow-label">Sản Phẩm · Lighters</span>
+				</div>
+				<h2 id="bl-heading">Bật Lửa <em>In Logo</em></h2>
+			</div>
+			<div class="lighter-hero" role="region" aria-label="Giới thiệu bật lửa in logo">
+				<div class="lighter-hero-text">
+					<h3>Thương Hiệu Trên<br /><em>Từng Ngọn Lửa</em></h3>
+					<p>
+						In logo, slogan doanh nghiệp trực tiếp lên bật lửa — quà tặng sự kiện ấn tượng, độc đáo.
+						Nhiều kiểu dáng, số lượng linh hoạt từ 50 cái.
+					</p>
+					<div class="hours-badge" style="margin-top: 16px">
+						<span class="hours-dot"></span>
+						<span class="hours-text">Giao hàng toàn quốc · MOQ 50 cái</span>
+					</div>
+				</div>
+				<div class="lighter-variants" role="list" aria-label="Các loại bật lửa">
+					<div class="lighter-card" role="listitem" tabindex="0">
+						<div class="lighter-icon" aria-hidden="true">🔥</div>
+						<div class="lighter-name">Zippo Style</div>
+						<div class="lighter-moq">từ 50 cái</div>
+					</div>
+					<div class="lighter-card" role="listitem" tabindex="0">
+						<div class="lighter-icon" aria-hidden="true">💡</div>
+						<div class="lighter-name">Gas Slim</div>
+						<div class="lighter-moq">từ 100 cái</div>
+					</div>
+					<div class="lighter-card" role="listitem" tabindex="0">
+						<div class="lighter-icon" aria-hidden="true">✨</div>
+						<div class="lighter-name">Plasma Arc</div>
+						<div class="lighter-moq">từ 30 cái</div>
+					</div>
+				</div>
+			</div>
+			<div class="view-more">
+				<a href="/san-pham/lighters" class="btn-primary">Xem Tất Cả Bật Lửa</a>
+				<a href="#lienhe" class="btn-outline" style="margin-left: 12px">Đặt Hàng Sỉ</a>
+			</div>
+		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
+
+		<!-- SERVICES -->
+		<section class="section" id="dichvu" aria-labelledby="sv-heading">
+			<div class="sec-header">
+				<div class="hero-eyebrow">
+					<span class="eyebrow-bar" aria-hidden="true"></span>
+					<span class="eyebrow-label">Dịch Vụ</span>
+				</div>
+				<h2 id="sv-heading">Chúng Tôi <em>Làm Gì</em></h2>
+			</div>
+			<div class="services-grid" role="list">
+				<div class="service-card" role="listitem" tabindex="0">
+					<div class="service-icon" aria-hidden="true">💻</div>
+					<div class="service-name">Skin Laptop</div>
+					<div class="service-desc">Dán lại không dính keo, không bong tróc</div>
+				</div>
+				<div class="service-card" role="listitem" tabindex="0">
+					<div class="service-icon" aria-hidden="true">⌨️</div>
+					<div class="service-name">Skin Nút Phím</div>
+					<div class="service-desc">MACNUT – cá nhân hoá từng phím</div>
+				</div>
+				<div class="service-card" role="listitem" tabindex="0">
+					<div class="service-icon" aria-hidden="true">🎴</div>
+					<div class="service-name">Sticker / Decal</div>
+					<div class="service-desc">In màu sắc nét, chống nước, chống UV</div>
+				</div>
+				<div class="service-card" role="listitem" tabindex="0">
+					<div class="service-icon" aria-hidden="true">🔥</div>
+					<div class="service-name">Bật Lửa In Logo</div>
+					<div class="service-desc">In thương hiệu doanh nghiệp &amp; sự kiện</div>
+				</div>
+				<div class="service-card" role="listitem" tabindex="0">
+					<div class="service-icon" aria-hidden="true">🖨️</div>
+					<div class="service-name">Thiết Kế &amp; In Ấn</div>
+					<div class="service-desc">Postcard, ấn phẩm tiếp thị, lưu niệm</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
+
+		<!-- STICKER & DECAL -->
+		<section class="section" id="sticker" aria-labelledby="sticker-heading">
+			<div class="sec-header">
+				<div class="hero-eyebrow">
+					<span class="eyebrow-bar" aria-hidden="true"></span>
+					<span class="eyebrow-label">In Ấn · Sticker</span>
+				</div>
+				<h2 id="sticker-heading">Sticker &amp; <em>Decal</em></h2>
+			</div>
+			<div class="product-grid" role="list">
+				<article class="product-card" role="listitem" tabindex="0">
+					<a href="/services/sticker/sticker-sheet" style="display: contents">
+						<div class="product-img">
+							<div class="product-img-ph" aria-hidden="true">🗂️</div>
+						</div>
+						<div class="product-info">
+							<div class="product-name">Sticker Sheet</div>
+							<div class="product-tag">Tờ nhiều hình</div>
+						</div>
+					</a>
+				</article>
+				<article class="product-card" role="listitem" tabindex="0">
+					<a href="/services/sticker/sticker-diecut" style="display: contents">
+						<div class="product-img">
+							<div class="product-img-ph" aria-hidden="true">✂️</div>
+							<span class="product-badge">HOT</span>
+						</div>
+						<div class="product-info">
+							<div class="product-name">Sticker Diecut</div>
+							<div class="product-tag">Cắt theo viền hình</div>
+						</div>
+					</a>
+				</article>
+				<article class="product-card" role="listitem" tabindex="0">
+					<a href="/services/sticker/sticker-kisscut" style="display: contents">
+						<div class="product-img">
+							<div class="product-img-ph" aria-hidden="true">🔲</div>
+						</div>
+						<div class="product-info">
+							<div class="product-name">Sticker Kisscut</div>
+							<div class="product-tag">Cắt nửa chừng</div>
+						</div>
+					</a>
+				</article>
+				<article class="product-card" role="listitem" tabindex="0">
+					<a href="/services/sticker/sticker-magnet" style="display: contents">
+						<div class="product-img">
+							<div class="product-img-ph" aria-hidden="true">🧲</div>
+						</div>
+						<div class="product-info">
+							<div class="product-name">Sticker Magnet</div>
+							<div class="product-tag">Nam châm dán</div>
+						</div>
+					</a>
+				</article>
+			</div>
+			<div class="view-more">
+				<a href="/services/sticker" class="btn-secondary">Xem Thêm Sticker</a>
+			</div>
+		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
+
+		<!-- ẤN PHẨM TIẾP THỊ -->
+		<section class="section dark" id="tiepthi" aria-labelledby="tiepthi-heading">
+			<div style="max-width: 1100px; margin: 0 auto">
+				<div class="sec-header">
+					<div class="hero-eyebrow">
+						<span class="eyebrow-bar" aria-hidden="true"></span>
+						<span class="eyebrow-label">In Ấn · Marketing</span>
+					</div>
+					<h2 id="tiepthi-heading">Ấn Phẩm <em>Tiếp Thị</em></h2>
+				</div>
+				<div class="product-grid" role="list">
+					<article class="product-card" role="listitem" tabindex="0">
+						<a href="/services/an-pham-tiep-thi/catalogue-brochure" style="display: contents">
+							<div class="product-img">
+								<div class="product-img-ph" aria-hidden="true">📖</div>
+							</div>
+							<div class="product-info">
+								<div class="product-name">Catalogue &amp; Brochure</div>
+								<div class="product-tag">In gấp nhiều trang</div>
+							</div>
+						</a>
+					</article>
+					<article class="product-card" role="listitem" tabindex="0">
+						<a href="/services/an-pham-tiep-thi/in-card-visit" style="display: contents">
+							<div class="product-img">
+								<div class="product-img-ph" aria-hidden="true">💳</div>
+								<span class="product-badge">HOT</span>
+							</div>
+							<div class="product-info">
+								<div class="product-name">Card Visit</div>
+								<div class="product-tag">Danh thiếp cao cấp</div>
+							</div>
+						</a>
+					</article>
+					<article class="product-card" role="listitem" tabindex="0">
+						<div class="product-img">
+							<div class="product-img-ph" aria-hidden="true">🗓️</div>
+							<span class="product-badge" style="background: var(--dust)">Sắp Ra</span>
+						</div>
+						<div class="product-info">
+							<div class="product-name">Tờ Rơi / Flyer</div>
+							<div class="product-tag">Coming soon</div>
+						</div>
+					</article>
+					<article class="product-card" role="listitem" tabindex="0">
+						<div class="product-img">
+							<div class="product-img-ph" aria-hidden="true">📦</div>
+							<span class="product-badge" style="background: var(--dust)">Sắp Ra</span>
+						</div>
+						<div class="product-info">
+							<div class="product-name">Bao Bì &amp; Túi In</div>
+							<div class="product-tag">Coming soon</div>
+						</div>
+					</article>
+				</div>
+				<div class="view-more">
+					<a href="/services/an-pham-tiep-thi" class="btn-secondary">Xem Thêm Ấn Phẩm Tiếp Thị</a>
+				</div>
+			</div>
+		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
+
+		<!-- ẤN PHẨM VĂN PHÒNG -->
+		<section class="section" id="vanphong" aria-labelledby="vanphong-heading">
+			<div class="sec-header">
+				<div class="hero-eyebrow">
+					<span class="eyebrow-bar" aria-hidden="true"></span>
+					<span class="eyebrow-label">In Ấn · Office</span>
+				</div>
+				<h2 id="vanphong-heading">Ấn Phẩm <em>Văn Phòng</em></h2>
+			</div>
+			<div class="product-grid" role="list">
+				<article class="product-card" role="listitem" tabindex="0">
+					<a href="/services/an-pham-van-phong/bang-cung-in-thong-tin" style="display: contents">
+						<div class="product-img">
+							<div class="product-img-ph" aria-hidden="true">🪧</div>
+						</div>
+						<div class="product-info">
+							<div class="product-name">Bảng Cứng In Thông Tin</div>
+							<div class="product-tag">Biển hiệu &amp; bảng tên</div>
+						</div>
+					</a>
+				</article>
+				<article class="product-card" role="listitem" tabindex="0">
+					<a href="/services/an-pham-van-phong/giay-khen-giay-chung-nhan" style="display: contents">
+						<div class="product-img">
+							<div class="product-img-ph" aria-hidden="true">🏅</div>
+							<span class="product-badge">HOT</span>
+						</div>
+						<div class="product-info">
+							<div class="product-name">Giấy Khen &amp; Chứng Nhận</div>
+							<div class="product-tag">In khổ A4 / A3</div>
+						</div>
+					</a>
+				</article>
+				<article class="product-card" role="listitem" tabindex="0">
+					<a href="/services/an-pham-van-phong/in-bi-thu" style="display: contents">
+						<div class="product-img">
+							<div class="product-img-ph" aria-hidden="true">✉️</div>
+						</div>
+						<div class="product-info">
+							<div class="product-name">Bì Thư</div>
+							<div class="product-tag">Logo thương hiệu</div>
+						</div>
+					</a>
+				</article>
+				<article class="product-card" role="listitem" tabindex="0">
+					<a href="/services/an-pham-van-phong/so-tay-ky-yeu-so-bam-ghim" style="display: contents">
+						<div class="product-img">
+							<div class="product-img-ph" aria-hidden="true">📒</div>
+							<span class="product-badge">MỚI</span>
+						</div>
+						<div class="product-info">
+							<div class="product-name">Sổ Tay · Kỷ Yếu · Sổ Bấm Ghim</div>
+							<div class="product-tag">Nhiều kiểu đóng</div>
+						</div>
+					</a>
+				</article>
+			</div>
+			<div class="view-more">
+				<a href="/services/an-pham-van-phong" class="btn-secondary">Xem Thêm Ấn Phẩm Văn Phòng</a>
+			</div>
+		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
+
+		<!-- ẤN PHẨM LƯU NIỆM -->
+		<section class="section dark" id="luuniem" aria-labelledby="luuniem-heading">
+			<div style="max-width: 1100px; margin: 0 auto">
+				<div class="sec-header">
+					<div class="hero-eyebrow">
+						<span class="eyebrow-bar" aria-hidden="true"></span>
+						<span class="eyebrow-label">In Ấn · Souvenir</span>
+					</div>
+					<h2 id="luuniem-heading">Ấn Phẩm <em>Lưu Niệm</em></h2>
+				</div>
+				<div class="product-grid" role="list">
+					<article class="product-card" role="listitem" tabindex="0">
+						<a href="/services/an-pham-luu-niem/acrylic-magnet" style="display: contents">
+							<div class="product-img">
+								<div class="product-img-ph" aria-hidden="true">🧲</div>
+								<span class="product-badge">HOT</span>
+							</div>
+							<div class="product-info">
+								<div class="product-name">Acrylic Magnet</div>
+								<div class="product-tag">Nam châm mica trong</div>
+							</div>
+						</a>
+					</article>
+					<article class="product-card" role="listitem" tabindex="0">
+						<a href="/services/an-pham-luu-niem/in-postcard" style="display: contents">
+							<div class="product-img">
+								<div class="product-img-ph" aria-hidden="true">🎴</div>
+							</div>
+							<div class="product-info">
+								<div class="product-name">Postcard</div>
+								<div class="product-tag">In 2 mặt cao cấp</div>
+							</div>
+						</a>
+					</article>
+					<article class="product-card" role="listitem" tabindex="0">
+						<a href="/services/an-pham-luu-niem/moc-khoa-mica" style="display: contents">
+							<div class="product-img">
+								<div class="product-img-ph" aria-hidden="true">🗝️</div>
+							</div>
+							<div class="product-info">
+								<div class="product-name">Móc Khoá Mica</div>
+								<div class="product-tag">In hình theo yêu cầu</div>
+							</div>
+						</a>
+					</article>
+					<article class="product-card" role="listitem" tabindex="0">
+						<a href="/services/an-pham-luu-niem/pin-cai-ao-mica" style="display: contents">
+							<div class="product-img">
+								<div class="product-img-ph" aria-hidden="true">📌</div>
+								<span class="product-badge">MỚI</span>
+							</div>
+							<div class="product-info">
+								<div class="product-name">Pin Cài Áo Mica</div>
+								<div class="product-tag">Kích thước linh hoạt</div>
+							</div>
+						</a>
+					</article>
+				</div>
+				<div class="view-more">
+					<a href="/services/an-pham-luu-niem" class="btn-secondary">Xem Thêm Ấn Phẩm Lưu Niệm</a>
+				</div>
+			</div>
+		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
+
+		<!-- ẤN PHẨM SỰ KIỆN -->
+		<section class="section" id="sukien" aria-labelledby="sukien-heading">
+			<div class="sec-header">
+				<div class="hero-eyebrow">
+					<span class="eyebrow-bar" aria-hidden="true"></span>
+					<span class="eyebrow-label">In Ấn · Events</span>
+				</div>
+				<h2 id="sukien-heading">Ấn Phẩm <em>Sự Kiện</em></h2>
+			</div>
+			<div class="product-grid" role="list">
+				<article class="product-card" role="listitem" tabindex="0">
+					<a href="/services/an-pham-su-kien/hashtag-cam-tay" style="display: contents">
+						<div class="product-img">
+							<div class="product-img-ph" aria-hidden="true">#️⃣</div>
+							<span class="product-badge">HOT</span>
+						</div>
+						<div class="product-info">
+							<div class="product-name">Hashtag Cầm Tay</div>
+							<div class="product-tag">Props chụp ảnh sự kiện</div>
+						</div>
+					</a>
+				</article>
+				<article class="product-card" role="listitem" tabindex="0">
+					<a href="/services/an-pham-su-kien/postter-decal" style="display: contents">
+						<div class="product-img">
+							<div class="product-img-ph" aria-hidden="true">🎬</div>
+						</div>
+						<div class="product-info">
+							<div class="product-name">Poster &amp; Decal</div>
+							<div class="product-tag">Backdrop &amp; trang trí</div>
+						</div>
+					</a>
+				</article>
+				<article class="product-card" role="listitem" tabindex="0">
+					<div class="product-img">
+						<div class="product-img-ph" aria-hidden="true">🎪</div>
+						<span class="product-badge" style="background: var(--dust)">Sắp Ra</span>
+					</div>
+					<div class="product-info">
+						<div class="product-name">Banner Sự Kiện</div>
+						<div class="product-tag">Coming soon</div>
+					</div>
+				</article>
+				<article class="product-card" role="listitem" tabindex="0">
+					<div class="product-img">
+						<div class="product-img-ph" aria-hidden="true">🎟️</div>
+						<span class="product-badge" style="background: var(--dust)">Sắp Ra</span>
+					</div>
+					<div class="product-info">
+						<div class="product-name">Vé &amp; Thẻ Sự Kiện</div>
+						<div class="product-tag">Coming soon</div>
+					</div>
+				</article>
+			</div>
+			<div class="view-more">
+				<a href="/services/an-pham-su-kien" class="btn-secondary">Xem Thêm Ấn Phẩm Sự Kiện</a>
+			</div>
+		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
+
+		<!-- CUSTOMIZE CTA -->
+		<section class="section" id="customize" aria-labelledby="ct-heading">
+			<div class="sec-header">
+				<div class="hero-eyebrow">
+					<span class="eyebrow-bar" aria-hidden="true"></span>
+					<span class="eyebrow-label">Tùy Chỉnh Theo Yêu Cầu</span>
+				</div>
+				<h2 id="ct-heading">Thiết Kế <em>Của Bạn</em></h2>
+			</div>
+			<div class="customize-grid">
+				<div class="customize-card" tabindex="0" role="button" aria-label="Tùy chỉnh Skin Laptop">
+					<div class="cc-eyebrow">Skin Laptop · Custom</div>
+					<div class="cc-title">Tùy Chỉnh<br /><em>Skin Laptop</em></div>
+					<p class="cc-desc">
+						Upload ảnh, chọn model, chọn chất liệu — nhận skin in riêng trong 24–48h.
+					</p>
+					<div class="cc-steps">
+						<div class="cc-step">
+							<span class="step-num">1</span>Chọn model laptop &amp; kích thước
+						</div>
+						<div class="cc-step">
+							<span class="step-num">2</span>Upload thiết kế hoặc để đội INUT làm
+						</div>
+						<div class="cc-step">
+							<span class="step-num">3</span>Xác nhận &amp; thanh toán, nhận hàng
+						</div>
+					</div>
+					<a
+						href="/services/skin-laptop/skin-laptop-customize"
+						class="btn-primary"
+						style="display: inline-flex"
+						>Bắt Đầu Tùy Chỉnh →</a
+					>
+				</div>
+				<div
+					class="customize-card secondary"
+					tabindex="0"
+					role="button"
+					aria-label="Tùy chỉnh Skin Nút Phím"
+				>
+					<div class="cc-eyebrow">MACNUT · Custom</div>
+					<div class="cc-title">
+						Tùy Chỉnh<br /><em style="color: var(--yellow)">Skin Nút Phím</em>
+					</div>
+					<p class="cc-desc">
+						Cá nhân hoá từng phím — ký tự, màu sắc, icon theo phong cách riêng của bạn.
+					</p>
+					<div class="cc-steps">
+						<div class="cc-step">
+							<span
+								class="step-num"
+								style="background: rgba(255, 226, 52, 0.1); color: var(--yellow)"
+								>1</span
+							>Chọn layout bàn phím
+						</div>
+						<div class="cc-step">
+							<span
+								class="step-num"
+								style="background: rgba(255, 226, 52, 0.1); color: var(--yellow)"
+								>2</span
+							>Chỉnh ký tự &amp; màu từng key
+						</div>
+						<div class="cc-step">
+							<span
+								class="step-num"
+								style="background: rgba(255, 226, 52, 0.1); color: var(--yellow)"
+								>3</span
+							>Đặt hàng, nhận trong 2–3 ngày
+						</div>
+					</div>
+					<a
+						href="/services/skin-nut-phim/skin-nut-phim-customize"
+						class="btn-secondary"
+						style="display: inline-flex"
+						>Thiết Kế Nút Phím →</a
+					>
+				</div>
+			</div>
+		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
+
+		<!-- NEWS -->
+		<section class="section dark" id="tintuc" aria-labelledby="news-heading">
+			<div style="max-width: 1100px; margin: 0 auto">
+				<div class="sec-header">
+					<div class="hero-eyebrow">
+						<span class="eyebrow-bar" aria-hidden="true"></span>
+						<span class="eyebrow-label">Blog</span>
+					</div>
+					<h2 id="news-heading">Tin <em>Tức</em></h2>
+				</div>
+				<div class="news-list" role="list">
+					<article class="news-item" role="listitem" tabindex="0">
+						<div class="news-meta">
+							<span class="news-date">04 Jun 2025</span>
+							<span class="news-cat">Xu Hướng</span>
+						</div>
+						<h3 class="news-title">
+							Top 7 Xu Hướng Laptop Skin Giúp Góc Làm Việc Nổi Bật Nhất Năm 2025
+						</h3>
+						<p class="news-excerpt">
+							Từ thiết kế minimalist đến anime phong cách Nhật Bản, đây là những mẫu đang được săn
+							đón nhiều nhất...
+						</p>
+					</article>
+					<article class="news-item" role="listitem" tabindex="0">
+						<div class="news-meta">
+							<span class="news-date">03 Jun 2025</span>
+							<span class="news-cat">Hướng Dẫn</span>
+						</div>
+						<h3 class="news-title">Từ Đơn Điệu Đến Cá Tính – Cách Laptop Skin Biến Hoá Thiết Bị</h3>
+						<p class="news-excerpt">
+							Chỉ cần vài phút dán skin, laptop của bạn sẽ trở thành một tuyên ngôn cá tính thực
+							sự...
+						</p>
+					</article>
+					<article class="news-item" role="listitem" tabindex="0">
+						<div class="news-meta">
+							<span class="news-date">02 Jun 2025</span>
+							<span class="news-cat">Kiến Thức</span>
+						</div>
+						<h3 class="news-title">Skin Laptop Đà Nẵng – Lựa Chọn Phong Cách, Bảo Vệ Đinh Cao</h3>
+						<p class="news-excerpt">
+							Lựa chọn chất liệu skin phù hợp không chỉ là thẩm mỹ – đó còn là cách bảo vệ máy hiệu
+							quả...
+						</p>
+					</article>
+				</div>
+				<div class="view-more" style="margin-top: 24px">
+					<a href="#" class="btn-outline">Xem Tất Cả Tin Tức</a>
+				</div>
+			</div>
+		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
+
+		<!-- ═══════════════════════════════════════════
+     VỀ CHÚNG TÔI
+═══════════════════════════════════════════ -->
+		<section class="about-section" id="ve-chung-toi" aria-labelledby="about-heading">
+			<div class="about-inner">
+				<!-- LEFT: Story text -->
+				<div class="about-text">
+					<div class="hero-eyebrow" style="margin-bottom: 16px">
+						<span class="eyebrow-bar" aria-hidden="true"></span>
+						<span class="eyebrow-label">Về Chúng Tôi</span>
+					</div>
+					<h2
+						id="about-heading"
+						style="
+							font-family: var(--f-display);
+							font-weight: 800;
+							font-size: clamp(1.6rem, 4vw, 2.4rem);
+							line-height: 1.05;
+							letter-spacing: -0.04em;
+							margin-bottom: 20px;
+						"
+					>
+						Câu Chuyện<br /><em
+							style="
+								font-family: var(--f-serif);
+								font-style: italic;
+								color: var(--orange);
+								font-weight: 400;
+							"
+							>INUT Design</em
+						>
+					</h2>
+
+					<p class="about-intro">
+						Xin chào! INUT Design là xưởng in ấn sáng tạo tại Đà Nẵng, chuyên cung cấp sản phẩm cá
+						nhân hoá và giải pháp in ấn toàn diện — kết hợp chất lượng offline với trải nghiệm đặt
+						hàng online.
+					</p>
+
+					<div class="about-body">
+						<p>
+							Chúng tôi xây dựng INUT dựa trên <strong>giá trị thật và trải nghiệm thật</strong> của
+							từng khách hàng. Vì vậy, đội ngũ INUT không ngừng cải thiện dịch vụ chăm sóc khách
+							hàng với hai nguyên tắc cốt lõi: <strong>Tận tâm</strong> và
+							<strong>Vượt kỳ vọng</strong>.
+						</p>
+						<p>
+							Hiểu rằng môi trường làm việc năng động, tích cực giúp tối đa hoá tinh thần đội nhóm,
+							chúng tôi — những doanh nhân trẻ không ngừng học hỏi — luôn đầu tư vào đào tạo và phát
+							triển kỹ năng cho toàn bộ đội ngũ.
+						</p>
+						<p>
+							Với triết lý <strong>"Chỉ sự khác biệt mới tồn tại được"</strong>, INUT Design không
+							ngừng cải tiến và mang đến những sản phẩm, dịch vụ
+							<strong>Chất lượng – Độc đáo – Khác biệt</strong> để phục vụ khách hàng của mình.
+						</p>
+					</div>
+
+					<blockquote class="about-quote">
+						"70% cơ thể bạn là nước — 70% công việc của INUT là thiết kế."
+					</blockquote>
+
+					<a
+						href="/ve-chung-toi"
+						class="about-link"
+						aria-label="Đọc thêm về câu chuyện INUT Design"
+					>
+						Tìm hiểu thêm về chúng tôi
+						<span class="about-link-arrow" aria-hidden="true">→</span>
+					</a>
+				</div>
+
+				<!-- RIGHT: Visual card -->
+				<div class="about-visual" aria-hidden="true">
+					<!-- Orange header stripe -->
+					<div class="about-visual-header">
+						<div class="avh-url">inutdesign.vn</div>
+						<div class="avh-badge">
+							<span class="avh-badge-text">In Ấn &amp; Sáng Tạo · Đà Nẵng</span>
+						</div>
+					</div>
+
+					<!-- Body -->
+					<div class="about-visual-body">
+						<div>
+							<div class="avb-headline">
+								Thiết Kế &amp;<br />
+								In Ấn <em>Online</em>
+							</div>
+							<p class="avb-sub">
+								Đặt hàng dễ dàng, giao hàng nhanh — sản phẩm cá nhân hoá theo đúng phong cách của
+								bạn.
+							</p>
+						</div>
+
+						<div class="avb-tags" role="list" aria-label="Sản phẩm chính">
+							<span class="avb-tag active" role="listitem">Skin Laptop</span>
+							<span class="avb-tag active" role="listitem">Skin Nút Phím</span>
+							<span class="avb-tag" role="listitem">Sticker</span>
+							<span class="avb-tag" role="listitem">Bật Lửa</span>
+							<span class="avb-tag" role="listitem">Postcard</span>
+							<span class="avb-tag" role="listitem">Ấn Phẩm</span>
+						</div>
+
+						<!-- Delivery badge -->
+						<div class="avb-delivery">
+							<div class="avb-delivery-icon">🚚</div>
+							<div>
+								<div class="avb-delivery-label">Giao Hàng</div>
+								<div class="avb-delivery-val">Nhanh · Toàn Quốc</div>
+							</div>
+						</div>
+
+						<!-- Values row -->
+						<div class="avb-values">
+							<div class="avb-value">
+								<div class="avb-value-icon">⭐</div>
+								<div class="avb-value-label">Chất lượng cao</div>
+							</div>
+							<div class="avb-value">
+								<div class="avb-value-icon">🎨</div>
+								<div class="avb-value-label">Độc đáo &amp; sáng tạo</div>
+							</div>
+							<div class="avb-value">
+								<div class="avb-value-icon">💬</div>
+								<div class="avb-value-label">Hỗ trợ tận tâm</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
+
+		<!-- ORDER TRACKING BANNER -->
+		<div class="tracking-banner" id="order-tracking">
+			<div class="tracking-inner">
+				<div class="tracking-text">
+					<h3>Theo Dõi Đơn Hàng</h3>
+					<p>Nhập mã đơn hàng để kiểm tra trạng thái vận chuyển và dự kiến nhận hàng.</p>
+				</div>
+				<div class="tracking-form" role="search" aria-label="Tra cứu đơn hàng">
+					<input
+						type="text"
+						class="tracking-input"
+						placeholder="Nhập mã đơn hàng..."
+						aria-label="Mã đơn hàng"
+						id="order-input"
+					/>
+					<a href="/order-tracking" class="btn-primary" id="track-btn" style="white-space: nowrap"
+						>Tra Cứu →</a
+					>
+				</div>
+			</div>
+		</div>
+
+		<div class="section-divider" aria-hidden="true"></div>
+
+		<!-- CONTACT SECTION -->
+		<section class="contact-section" id="lienhe-section" aria-labelledby="contact-heading">
+			<div class="sec-header" style="max-width: 1100px; margin: 0 auto 28px">
+				<div class="hero-eyebrow">
+					<span class="eyebrow-bar" aria-hidden="true"></span>
+					<span class="eyebrow-label">Liên Hệ</span>
+				</div>
+				<h2 id="contact-heading">Hỏi &amp; <em>Đặt Hàng</em></h2>
+			</div>
+			<div class="contact-grid">
+				<div class="contact-info-card">
+					<h3>Thông Tin Liên Hệ</h3>
+					<p class="sub">Đội ngũ INUT Design phản hồi trong vòng 30 phút trong giờ làm việc.</p>
+					<div class="hours-badge">
+						<span class="hours-dot"></span>
+						<span class="hours-text">Giờ làm: 09:00 – 22:00 · Hằng ngày</span>
+					</div>
+					<div style="margin-top: 16px">
+						<div class="contact-row">
+							<span class="cicon" aria-hidden="true">📞</span>
+							<div>
+								<div class="cinfo-label">MR. TOM</div>
+								<div class="cinfo-val"><a href="tel:0792359996">0792 359 996</a></div>
+							</div>
+						</div>
+						<div class="contact-row">
+							<span class="cicon" aria-hidden="true">📞</span>
+							<div>
+								<div class="cinfo-label">MS. BOO</div>
+								<div class="cinfo-val"><a href="tel:0777208215">0777 208 215</a></div>
+							</div>
+						</div>
+						<div class="contact-row">
+							<span class="cicon" aria-hidden="true">✉</span>
+							<div>
+								<div class="cinfo-label">Email</div>
+								<div class="cinfo-val">
+									<a href="/cdn-cgi/l/email-protection#83eaedf6f7e7e6f0eae4edc3e4eee2eaefade0ecee"
+										><span
+											class="__cf_email__"
+											data-cfemail="d0b9bea5a4b4b5a3b9b7be90b7bdb1b9bcfeb3bfbd"
+											>[email&#160;protected]</span
+										></a
+									>
+								</div>
+							</div>
+						</div>
+						<div class="contact-row">
+							<span class="cicon" aria-hidden="true">💬</span>
+							<div>
+								<div class="cinfo-label">Zalo</div>
+								<div class="cinfo-val">
+									<a href="https://zalo.me/0792359996" target="_blank" rel="noopener"
+										>zalo.me/0792359996</a
+									>
+								</div>
+							</div>
+						</div>
+						<div class="contact-row">
+							<span class="cicon" aria-hidden="true">📍</span>
+							<div>
+								<div class="cinfo-label">Địa Chỉ</div>
+								<div class="cinfo-val">Đà Nẵng, Việt Nam</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="contact-form-card">
+					<h3>Gửi Yêu Cầu Báo Giá</h3>
+					<div class="form-field">
+						<label class="form-label" for="f-name">Họ và tên</label>
+						<input
+							type="text"
+							id="f-name"
+							class="form-input"
+							placeholder="Nguyễn Văn A"
+							autocomplete="name"
+						/>
+					</div>
+					<div class="form-field">
+						<label class="form-label" for="f-phone">Số điện thoại / Zalo</label>
+						<input
+							type="tel"
+							id="f-phone"
+							class="form-input"
+							placeholder="09xx xxx xxx"
+							autocomplete="tel"
+						/>
+					</div>
+					<div class="form-field">
+						<label class="form-label" for="f-service">Dịch vụ quan tâm</label>
+						<select id="f-service" class="form-input" style="cursor: pointer">
+							<option value="">Chọn dịch vụ...</option>
+							<option>Skin Laptop</option>
+							<option>Skin Nút Phím (MACNUT)</option>
+							<option>Bật Lửa In Logo</option>
+							<option>Sticker / Decal</option>
+							<option>Ấn Phẩm Tiếp Thị</option>
+							<option>Ấn Phẩm Văn Phòng</option>
+							<option>Ấn Phẩm Lưu Niệm / Sự Kiện</option>
+							<option>Khác</option>
+						</select>
+					</div>
+					<div class="form-field">
+						<label class="form-label" for="f-msg">Mô tả yêu cầu</label>
+						<textarea
+							id="f-msg"
+							class="form-textarea"
+							placeholder="Số lượng, kích thước, ý tưởng thiết kế..."
+						></textarea>
+					</div>
+					<button type="button" class="form-submit">Gửi Yêu Cầu Ngay</button>
+				</div>
+			</div>
+		</section>
+
+		<div class="section-divider" aria-hidden="true"></div>
+		<footer id="lienhe" aria-label="Footer">
+			<div class="footer-brand">
+				<a href="/" class="logo">
+					<div class="logo-mark" aria-hidden="true">N</div>
+					<span class="logo-text">INUT<span>.</span>DESIGN</span>
+				</a>
+				<p class="footer-tagline">
+					In ấn chuyên nghiệp tại Đà Nẵng – skin, sticker, ấn phẩm theo yêu cầu.
+				</p>
+				<div class="footer-contact">
+					<a href="tel:0792359996"
+						><span class="contact-icon" aria-hidden="true">📞</span>MR. TOM – 0792 359 996</a
+					>
+					<a href="tel:0777208215"
+						><span class="contact-icon" aria-hidden="true">📞</span>MS. BOO – 0777 208 215</a
+					>
+					<a href="/cdn-cgi/l/email-protection#f29b9c87869697819b959cb2959f939b9edc919d9f"
+						><span class="contact-icon" aria-hidden="true">✉</span
+						><span class="__cf_email__" data-cfemail="f990978c8d9d9c8a909e97b99e94989095d79a9694"
+							>[email&#160;protected]</span
+						></a
+					>
+					<a href="https://zalo.me/0792359996" target="_blank" rel="noopener"
+						><span class="contact-icon" aria-hidden="true">💬</span>Zalo: 0792 359 996</a
+					>
+				</div>
+				<div class="social-row">
+					<a href="#" class="social-btn" aria-label="Facebook">fb</a>
+					<a href="#" class="social-btn" aria-label="Instagram">ig</a>
+					<a
+						href="https://zalo.me/0792359996"
+						class="social-btn"
+						aria-label="Zalo"
+						target="_blank"
+						rel="noopener"
+						>zl</a
+					>
+				</div>
+			</div>
+			<div class="footer-cols">
+				<div class="footer-col">
+					<div class="footer-col-title">Sản Phẩm</div>
+					<ul>
+						<li><a href="#">Skin Laptop</a></li>
+						<li><a href="#">Skin Nút Phím</a></li>
+						<li><a href="#">Sticker &amp; Decal</a></li>
+						<li><a href="#">Bật Lửa</a></li>
+						<li><a href="#">Postcard</a></li>
+					</ul>
+				</div>
+				<div class="footer-col">
+					<div class="footer-col-title">Dịch Vụ</div>
+					<ul>
+						<li><a href="#">In Theo Yêu Cầu</a></li>
+						<li><a href="#">Thiết Kế</a></li>
+						<li><a href="#">Ấn Phẩm Doanh Nghiệp</a></li>
+						<li><a href="#">Quà Tặng Sự Kiện</a></li>
+					</ul>
+				</div>
+				<div class="footer-col">
+					<div class="footer-col-title">Chính Sách</div>
+					<ul>
+						<li><a href="#">Bảo Mật</a></li>
+						<li><a href="#">Vận Chuyển</a></li>
+						<li><a href="#">Đổi Trả</a></li>
+						<li><a href="#">Thanh Toán</a></li>
+					</ul>
+				</div>
+				<div class="footer-col">
+					<div class="footer-col-title">Thông Tin</div>
+					<ul>
+						<li><a href="#">Giờ Làm Việc: 9:00–22:00</a></li>
+						<li><a href="#">Đà Nẵng, Việt Nam</a></li>
+						<li><a href="#">Tin Tức</a></li>
+						<li><a href="/ve-chung-toi">Về Chúng Tôi</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<div class="footer-watermark" aria-hidden="true">INUT.DESIGN</div>
+				<p class="footer-copy">© 2025 INUT Design. Đà Nẵng, Việt Nam.</p>
+			</div>
+		</footer>
+
+		<!-- ZALO FLOAT -->
+		<a
+			href="https://zalo.me/0792359996"
+			id="zalo-btn"
+			target="_blank"
+			rel="noopener"
+			aria-label="Liên hệ qua Zalo – 0792 359 996"
+			>ZL</a
+		>
+
+		<script>
+			// Accordion
+			document.querySelectorAll(".accordion-trigger").forEach((btn) => {
+				btn.addEventListener("click", () => {
+					const item = btn.closest(".accordion-item");
+					const isOpen = item.classList.contains("open");
+					item.classList.toggle("open", !isOpen);
+					btn.setAttribute("aria-expanded", String(!isOpen));
+				});
+			});
+
+			// Scroll progress
+			const bar = document.getElementById("progress-bar");
+			const updateProgress = () => {
+				const s = document.documentElement.scrollTop || document.body.scrollTop;
+				const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+				const p = h > 0 ? (s / h) * 100 : 0;
+				bar.style.width = p + "%";
+				bar.setAttribute("aria-valuenow", Math.round(p));
+			};
+			window.addEventListener("scroll", updateProgress, { passive: true });
+
+			// Nav compact on scroll
+			const navInner = document.getElementById("nav-inner");
+			const onScroll = () => {
+				if (window.scrollY > 60) {
+					navInner.classList.add("scrolled");
+				} else {
+					navInner.classList.remove("scrolled");
+				}
+			};
+			window.addEventListener("scroll", onScroll, { passive: true });
+
+			// Drawer
+			const drawer = document.getElementById("drawer");
+			const menuBtn = document.getElementById("menu-btn");
+			const closeBtn = document.getElementById("drawer-close");
+			const overlay = document.getElementById("drawer-overlay");
+			const openDrawer = () => {
+				drawer.classList.add("open");
+				document.body.style.overflow = "hidden";
+			};
+			const closeDrawer = () => {
+				drawer.classList.remove("open");
+				document.body.style.overflow = "";
+			};
+			menuBtn.addEventListener("click", openDrawer);
+			closeBtn.addEventListener("click", closeDrawer);
+			overlay.addEventListener("click", closeDrawer);
+			document.addEventListener("keydown", (e) => {
+				if (e.key === "Escape") closeDrawer();
+			});
+		</script>
+	</body>
+</html>

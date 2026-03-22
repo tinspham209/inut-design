@@ -70,7 +70,7 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ products }) => {
 							{chunk.map((product) => (
 								<Grid item xs={12} sm={4} md={2.4} key={product._id}>
 									<Link
-										href={`/lighters/${product.slug.current}`}
+										href={`/san-pham/lighters/${product.slug.current}`}
 										passHref
 										style={{ textDecoration: "none" }}
 									>

@@ -1,0 +1,2708 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>INUT Design — Tạo Tờ Sticker</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Serif+Display&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--bg: #080706;
+				--surface: #100f0d;
+				--surface-2: #1a1916;
+				--surface-3: #242220;
+				--border: #2c2b28;
+				--border-light: #3a3936;
+				--orange: #ff4d00;
+				--orange-dim: rgba(255, 77, 0, 0.15);
+				--yellow: #ffe234;
+				--yellow-dim: rgba(255, 226, 52, 0.12);
+				--white: #f5f3ee;
+				--white-dim: rgba(245, 243, 238, 0.6);
+				--muted: #7a7870;
+				--paper: #fafaf8;
+				--bleed: rgba(255, 77, 0, 0.35);
+				--radius: 8px;
+				--transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			html,
+			body {
+				height: 100%;
+				background: var(--bg);
+				color: var(--white);
+				font-family: "DM Sans", sans-serif;
+				font-size: 14px;
+				line-height: 1.5;
+				overflow: hidden;
+			}
+
+			/* ─── APP SHELL ──────────────────────────────────────── */
+			#app {
+				display: grid;
+				grid-template-rows: 56px 1fr 64px;
+				height: 100vh;
+				max-height: 100vh;
+			}
+
+			/* ─── HEADER ─────────────────────────────────────────── */
+			header {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 24px;
+				border-bottom: 1px solid var(--border);
+				background: var(--surface);
+				position: relative;
+				z-index: 50;
+			}
+
+			.logo {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				text-decoration: none;
+			}
+			.logo-mark {
+				width: 28px;
+				height: 28px;
+				background: var(--orange);
+				clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+				flex-shrink: 0;
+			}
+			.logo-text {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 15px;
+				letter-spacing: 0.04em;
+				color: var(--white);
+			}
+			.logo-sub {
+				font-size: 10px;
+				color: var(--muted);
+				font-weight: 400;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				display: block;
+				line-height: 1;
+				margin-top: 1px;
+			}
+
+			.step-indicator {
+				display: flex;
+				align-items: center;
+				gap: 0;
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+
+			.step-dot {
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				padding: 4px 12px;
+				border-radius: 20px;
+				font-family: "Syne", sans-serif;
+				font-size: 12px;
+				font-weight: 600;
+				letter-spacing: 0.04em;
+				color: var(--muted);
+				transition: var(--transition);
+				white-space: nowrap;
+			}
+			.step-dot.active {
+				color: var(--orange);
+			}
+			.step-dot.done {
+				color: var(--white-dim);
+			}
+			.step-dot-num {
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				border: 1.5px solid currentColor;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 10px;
+				flex-shrink: 0;
+				transition: var(--transition);
+			}
+			.step-dot.active .step-dot-num {
+				background: var(--orange);
+				border-color: var(--orange);
+				color: white;
+			}
+			.step-dot.done .step-dot-num {
+				background: var(--surface-3);
+				border-color: var(--border-light);
+			}
+			.step-dot.done .step-dot-num::after {
+				content: "✓";
+				font-size: 9px;
+			}
+			.step-dot.done .step-dot-num span {
+				display: none;
+			}
+			.step-sep {
+				width: 24px;
+				height: 1px;
+				background: var(--border);
+				flex-shrink: 0;
+			}
+
+			.header-actions {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+			.badge-proto {
+				font-size: 10px;
+				font-family: "Syne", sans-serif;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--yellow);
+				border: 1px solid var(--yellow-dim);
+				padding: 3px 8px;
+				border-radius: 4px;
+				background: var(--yellow-dim);
+			}
+
+			/* ─── MAIN ───────────────────────────────────────────── */
+			main {
+				overflow: hidden;
+				position: relative;
+			}
+
+			.step {
+				display: none;
+				height: 100%;
+				flex-direction: column;
+			}
+			.step.active {
+				display: flex;
+			}
+
+			/* ─── FOOTER NAV ─────────────────────────────────────── */
+			footer {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 24px;
+				border-top: 1px solid var(--border);
+				background: var(--surface);
+			}
+
+			.btn {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				padding: 10px 20px;
+				border-radius: var(--radius);
+				font-family: "Syne", sans-serif;
+				font-size: 13px;
+				font-weight: 600;
+				letter-spacing: 0.04em;
+				cursor: pointer;
+				border: none;
+				transition: var(--transition);
+				text-transform: uppercase;
+			}
+			.btn-ghost {
+				background: transparent;
+				color: var(--muted);
+				border: 1px solid var(--border);
+			}
+			.btn-ghost:hover {
+				color: var(--white);
+				border-color: var(--border-light);
+			}
+			.btn-primary {
+				background: var(--orange);
+				color: white;
+			}
+			.btn-primary:hover {
+				background: #ff6020;
+			}
+			.btn-primary:disabled {
+				background: var(--surface-3);
+				color: var(--muted);
+				cursor: not-allowed;
+			}
+			.btn-sm {
+				padding: 6px 12px;
+				font-size: 11px;
+			}
+			.btn-icon {
+				width: 32px;
+				height: 32px;
+				padding: 0;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				background: var(--surface-3);
+				color: var(--muted);
+				border: 1px solid var(--border);
+				border-radius: 6px;
+				cursor: pointer;
+				font-size: 14px;
+				transition: var(--transition);
+			}
+			.btn-icon:hover {
+				color: var(--white);
+				border-color: var(--border-light);
+			}
+			.btn-icon.active {
+				color: var(--orange);
+				border-color: var(--orange);
+				background: var(--orange-dim);
+			}
+
+			/* ─── STEP 1: SIZE PICKER ────────────────────────────── */
+			#step-1 {
+				align-items: center;
+				justify-content: center;
+				gap: 48px;
+				padding: 32px;
+			}
+
+			.step-header {
+				text-align: center;
+			}
+			.step-eyebrow {
+				font-family: "Syne", sans-serif;
+				font-size: 11px;
+				font-weight: 600;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--orange);
+				margin-bottom: 10px;
+			}
+			.step-title {
+				font-family: "DM Serif Display", serif;
+				font-size: 32px;
+				color: var(--white);
+				line-height: 1.15;
+				margin-bottom: 8px;
+			}
+			.step-desc {
+				color: var(--muted);
+				font-size: 14px;
+				font-weight: 300;
+			}
+
+			.size-cards {
+				display: flex;
+				gap: 20px;
+				align-items: flex-end;
+			}
+
+			.size-card {
+				position: relative;
+				border: 2px solid var(--border);
+				border-radius: 10px;
+				background: var(--surface);
+				cursor: pointer;
+				transition: var(--transition);
+				overflow: hidden;
+				padding: 20px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 14px;
+			}
+			.size-card::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background: var(--orange-dim);
+				opacity: 0;
+				transition: var(--transition);
+			}
+			.size-card:hover {
+				border-color: var(--border-light);
+			}
+			.size-card.selected {
+				border-color: var(--orange);
+			}
+			.size-card.selected::before {
+				opacity: 1;
+			}
+
+			.size-paper {
+				background: var(--paper);
+				border: 1px solid rgba(0, 0, 0, 0.1);
+				border-radius: 3px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				position: relative;
+				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+				flex-shrink: 0;
+			}
+			.size-paper-label {
+				font-family: "Syne", sans-serif;
+				font-size: 22px;
+				font-weight: 800;
+				color: rgba(0, 0, 0, 0.08);
+				letter-spacing: 0.02em;
+				user-select: none;
+			}
+
+			.size-card[data-size="A5"] .size-paper {
+				width: 84px;
+				height: 119px;
+			}
+			.size-card[data-size="A6"] .size-paper {
+				width: 74px;
+				height: 105px;
+			}
+
+			.size-info {
+				text-align: center;
+				position: relative;
+				z-index: 1;
+			}
+			.size-name {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 18px;
+				color: var(--white);
+				display: block;
+			}
+			.size-dims {
+				font-size: 12px;
+				color: var(--muted);
+				display: block;
+				margin-top: 2px;
+			}
+			.size-dpi {
+				font-size: 11px;
+				color: var(--orange);
+				font-weight: 500;
+				margin-top: 4px;
+				display: block;
+			}
+
+			.size-badge {
+				position: absolute;
+				top: -1px;
+				right: -1px;
+				background: var(--orange);
+				color: white;
+				font-family: "Syne", sans-serif;
+				font-size: 9px;
+				font-weight: 700;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				padding: 3px 8px;
+				border-radius: 0 8px 0 6px;
+				opacity: 0;
+				transition: var(--transition);
+			}
+			.size-card.selected .size-badge {
+				opacity: 1;
+			}
+
+			/* ─── STEP 2: ASSET UPLOADER ─────────────────────────── */
+			#step-2 {
+				padding: 24px 32px;
+				gap: 20px;
+				overflow: hidden;
+			}
+
+			.upload-zone {
+				border: 2px dashed var(--border);
+				border-radius: 10px;
+				background: var(--surface);
+				padding: 32px;
+				text-align: center;
+				cursor: pointer;
+				transition: var(--transition);
+				flex-shrink: 0;
+				position: relative;
+			}
+			.upload-zone:hover,
+			.upload-zone.drag-over {
+				border-color: var(--orange);
+				background: var(--orange-dim);
+			}
+			.upload-zone input {
+				display: none;
+			}
+			.upload-icon {
+				font-size: 32px;
+				margin-bottom: 10px;
+				display: block;
+			}
+			.upload-title {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 15px;
+				color: var(--white);
+				margin-bottom: 4px;
+			}
+			.upload-sub {
+				color: var(--muted);
+				font-size: 13px;
+			}
+			.upload-limit {
+				margin-top: 8px;
+				font-size: 11px;
+				color: var(--muted);
+				font-family: "Syne", sans-serif;
+				letter-spacing: 0.04em;
+			}
+
+			.asset-count-bar {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				flex-shrink: 0;
+			}
+			.asset-count-label {
+				font-family: "Syne", sans-serif;
+				font-size: 12px;
+				font-weight: 600;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				color: var(--muted);
+			}
+			.asset-count-num {
+				color: var(--orange);
+			}
+			.btn-load-demo {
+				font-size: 11px;
+				padding: 5px 12px;
+				background: var(--yellow-dim);
+				color: var(--yellow);
+				border: 1px solid rgba(255, 226, 52, 0.2);
+				border-radius: 5px;
+				cursor: pointer;
+				font-family: "Syne", sans-serif;
+				font-weight: 600;
+				letter-spacing: 0.04em;
+				text-transform: uppercase;
+				transition: var(--transition);
+			}
+			.btn-load-demo:hover {
+				background: rgba(255, 226, 52, 0.2);
+			}
+
+			.asset-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+				gap: 10px;
+				overflow-y: auto;
+				flex: 1;
+				padding-right: 4px;
+			}
+			.asset-grid::-webkit-scrollbar {
+				width: 4px;
+			}
+			.asset-grid::-webkit-scrollbar-track {
+				background: transparent;
+			}
+			.asset-grid::-webkit-scrollbar-thumb {
+				background: var(--border);
+				border-radius: 2px;
+			}
+
+			.asset-thumb {
+				aspect-ratio: 1;
+				border-radius: 8px;
+				background: var(--surface-2);
+				border: 1.5px solid var(--border);
+				overflow: hidden;
+				position: relative;
+				cursor: pointer;
+				transition: var(--transition);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.asset-thumb:hover {
+				border-color: var(--orange);
+				transform: scale(1.03);
+			}
+			.asset-thumb img {
+				width: 85%;
+				height: 85%;
+				object-fit: contain;
+				pointer-events: none;
+			}
+			.asset-thumb-del {
+				position: absolute;
+				top: 3px;
+				right: 3px;
+				width: 18px;
+				height: 18px;
+				background: rgba(0, 0, 0, 0.7);
+				border: none;
+				border-radius: 50%;
+				color: var(--white-dim);
+				font-size: 10px;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				opacity: 0;
+				transition: var(--transition);
+			}
+			.asset-thumb:hover .asset-thumb-del {
+				opacity: 1;
+			}
+
+			/* ─── STEP 3: CANVAS EDITOR ──────────────────────────── */
+			#step-3 {
+				overflow: hidden;
+				padding: 0;
+			}
+
+			.canvas-workspace {
+				display: grid;
+				grid-template-columns: 1fr 260px;
+				grid-template-rows: 44px 1fr 88px;
+				height: 100%;
+				gap: 0;
+			}
+
+			/* Toolbar */
+			.canvas-toolbar {
+				grid-column: 1 / 2;
+				grid-row: 1;
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				padding: 0 16px;
+				border-bottom: 1px solid var(--border);
+				background: var(--surface);
+				overflow-x: auto;
+			}
+			.toolbar-sep {
+				width: 1px;
+				height: 24px;
+				background: var(--border);
+				flex-shrink: 0;
+				margin: 0 4px;
+			}
+			.toolbar-label {
+				font-family: "Syne", sans-serif;
+				font-size: 10px;
+				font-weight: 600;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--muted);
+				white-space: nowrap;
+			}
+
+			/* Canvas area */
+			.canvas-area {
+				grid-column: 1;
+				grid-row: 2;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: var(--bg);
+				overflow: hidden;
+				position: relative;
+			}
+			.canvas-area::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+				background-size: 24px 24px;
+				opacity: 0.4;
+			}
+
+			#paper-canvas {
+				background: var(--paper);
+				position: relative;
+				overflow: hidden;
+				box-shadow: 0 8px 48px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
+				cursor: default;
+				flex-shrink: 0;
+				z-index: 1;
+			}
+
+			.bleed-guide {
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				z-index: 100;
+			}
+			.bleed-guide.visible::before {
+				content: "";
+				position: absolute;
+				inset: 11px; /* 3mm at screen scale */
+				border: 1.5px dashed var(--bleed);
+				pointer-events: none;
+			}
+
+			/* Sticker items */
+			.sticker-item {
+				position: absolute;
+				cursor: move;
+				user-select: none;
+				-webkit-user-select: none;
+			}
+
+			.sticker-wrap {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				position: relative;
+			}
+			.sticker-wrap.mask-circle {
+				border-radius: 50%;
+			}
+			.sticker-wrap.mask-rounded {
+				border-radius: 20%;
+			}
+
+			.sticker-img {
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+				display: block;
+				pointer-events: none;
+				-webkit-user-drag: none;
+			}
+
+			/* Selection outline via pseudo */
+			.sticker-item.selected::after {
+				content: "";
+				position: absolute;
+				inset: -2px;
+				border: 2px solid var(--orange);
+				pointer-events: none;
+				border-radius: 2px;
+			}
+			.sticker-item.selected.mask-circle::after {
+				border-radius: 50%;
+			}
+			.sticker-item.selected.mask-rounded::after {
+				border-radius: 20%;
+			}
+
+			.s-handle {
+				position: absolute;
+				width: 10px;
+				height: 10px;
+				background: white;
+				border: 2px solid var(--orange);
+				border-radius: 2px;
+				opacity: 0;
+				pointer-events: none;
+				transition: opacity 0.1s;
+				z-index: 10;
+			}
+			.sticker-item.selected .s-handle {
+				opacity: 1;
+				pointer-events: all;
+			}
+			.s-tl {
+				top: -6px;
+				left: -6px;
+				cursor: nw-resize;
+			}
+			.s-tr {
+				top: -6px;
+				right: -6px;
+				cursor: ne-resize;
+			}
+			.s-bl {
+				bottom: -6px;
+				left: -6px;
+				cursor: sw-resize;
+			}
+			.s-br {
+				bottom: -6px;
+				right: -6px;
+				cursor: se-resize;
+			}
+
+			.s-rotate {
+				position: absolute;
+				top: -26px;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 14px;
+				height: 14px;
+				background: var(--yellow);
+				border: 2px solid white;
+				border-radius: 50%;
+				cursor: grab;
+				opacity: 0;
+				pointer-events: none;
+				z-index: 10;
+				transition: opacity 0.1s;
+			}
+			.sticker-item.selected .s-rotate {
+				opacity: 1;
+				pointer-events: all;
+			}
+			.s-rotate::before {
+				content: "↻";
+				position: absolute;
+				font-size: 8px;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				color: var(--bg);
+				font-weight: bold;
+			}
+
+			.s-rotate-line {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				width: 1px;
+				height: 16px;
+				background: var(--orange);
+				transform: translateX(-50%);
+				opacity: 0;
+				pointer-events: none;
+				z-index: 9;
+			}
+			.sticker-item.selected .s-rotate-line {
+				opacity: 0.5;
+			}
+
+			.s-delete {
+				position: absolute;
+				top: -7px;
+				right: -7px;
+				width: 18px;
+				height: 18px;
+				background: #cc2200;
+				border: 1.5px solid white;
+				border-radius: 50%;
+				color: white;
+				font-size: 10px;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				opacity: 0;
+				pointer-events: none;
+				z-index: 11;
+				line-height: 1;
+				transition: opacity 0.1s;
+			}
+			.sticker-item.selected .s-delete {
+				opacity: 1;
+				pointer-events: all;
+			}
+
+			/* Text overlay items */
+			.text-item {
+				position: absolute;
+				cursor: move;
+				user-select: none;
+				min-width: 60px;
+				min-height: 24px;
+			}
+			.text-item.selected::after {
+				content: "";
+				position: absolute;
+				inset: -2px;
+				border: 2px dashed var(--orange);
+				pointer-events: none;
+			}
+			.text-content {
+				font-family: "DM Sans", sans-serif;
+				color: #111;
+				white-space: nowrap;
+				pointer-events: none;
+				line-height: 1.2;
+				outline: none;
+			}
+			.text-item .s-delete {
+				top: -7px;
+				right: -7px;
+			}
+
+			/* Asset tray (bottom of canvas) */
+			.asset-tray {
+				grid-column: 1;
+				grid-row: 3;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				padding: 12px 16px;
+				border-top: 1px solid var(--border);
+				background: var(--surface);
+				overflow-x: auto;
+			}
+			.asset-tray::-webkit-scrollbar {
+				height: 4px;
+			}
+			.asset-tray::-webkit-scrollbar-track {
+				background: transparent;
+			}
+			.asset-tray::-webkit-scrollbar-thumb {
+				background: var(--border);
+				border-radius: 2px;
+			}
+
+			.tray-label {
+				font-family: "Syne", sans-serif;
+				font-size: 10px;
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--muted);
+				white-space: nowrap;
+				flex-shrink: 0;
+			}
+
+			.tray-thumb {
+				width: 56px;
+				height: 56px;
+				border-radius: 7px;
+				background: var(--surface-2);
+				border: 1.5px solid var(--border);
+				overflow: hidden;
+				cursor: pointer;
+				transition: var(--transition);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-shrink: 0;
+			}
+			.tray-thumb:hover {
+				border-color: var(--orange);
+				transform: scale(1.06);
+				box-shadow: 0 0 0 2px var(--orange-dim);
+			}
+			.tray-thumb img {
+				width: 80%;
+				height: 80%;
+				object-fit: contain;
+				pointer-events: none;
+			}
+			.tray-add-text {
+				width: 56px;
+				height: 56px;
+				border-radius: 7px;
+				background: var(--surface-3);
+				border: 1.5px dashed var(--border-light);
+				cursor: pointer;
+				transition: var(--transition);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 3px;
+				flex-shrink: 0;
+				color: var(--muted);
+				font-size: 10px;
+				font-family: "Syne", sans-serif;
+				font-weight: 600;
+				letter-spacing: 0.04em;
+			}
+			.tray-add-text:hover {
+				border-color: var(--yellow);
+				color: var(--yellow);
+			}
+			.tray-add-text-icon {
+				font-size: 18px;
+				line-height: 1;
+			}
+
+			/* Right panel */
+			.canvas-panel {
+				grid-column: 2;
+				grid-row: 1 / 4;
+				background: var(--surface);
+				border-left: 1px solid var(--border);
+				overflow-y: auto;
+				display: flex;
+				flex-direction: column;
+			}
+			.canvas-panel::-webkit-scrollbar {
+				width: 4px;
+			}
+			.canvas-panel::-webkit-scrollbar-thumb {
+				background: var(--border);
+			}
+
+			.panel-section {
+				padding: 16px;
+				border-bottom: 1px solid var(--border);
+			}
+			.panel-title {
+				font-family: "Syne", sans-serif;
+				font-size: 10px;
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--muted);
+				margin-bottom: 12px;
+			}
+
+			.info-row {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				margin-bottom: 6px;
+			}
+			.info-label {
+				font-size: 12px;
+				color: var(--muted);
+			}
+			.info-val {
+				font-family: "Syne", sans-serif;
+				font-size: 12px;
+				font-weight: 600;
+				color: var(--white);
+			}
+			.info-val.orange {
+				color: var(--orange);
+			}
+
+			.panel-row {
+				margin-bottom: 10px;
+			}
+			.panel-row label {
+				display: block;
+				font-size: 11px;
+				color: var(--muted);
+				margin-bottom: 5px;
+				font-family: "Syne", sans-serif;
+				letter-spacing: 0.04em;
+			}
+
+			.color-row {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+			.color-swatch {
+				width: 28px;
+				height: 28px;
+				border-radius: 6px;
+				border: 1.5px solid var(--border);
+				cursor: pointer;
+				flex-shrink: 0;
+				transition: var(--transition);
+			}
+			.color-swatch:hover {
+				border-color: var(--border-light);
+			}
+			input[type="color"] {
+				display: none;
+			}
+
+			.color-presets {
+				display: flex;
+				gap: 5px;
+				flex-wrap: wrap;
+			}
+			.color-preset {
+				width: 20px;
+				height: 20px;
+				border-radius: 4px;
+				cursor: pointer;
+				border: 1.5px solid transparent;
+				transition: var(--transition);
+				flex-shrink: 0;
+			}
+			.color-preset:hover,
+			.color-preset.active {
+				border-color: var(--white);
+				transform: scale(1.15);
+			}
+
+			.mask-btns {
+				display: flex;
+				gap: 6px;
+			}
+			.mask-btn {
+				flex: 1;
+				height: 30px;
+				background: var(--surface-3);
+				border: 1.5px solid var(--border);
+				border-radius: 6px;
+				cursor: pointer;
+				color: var(--muted);
+				font-size: 11px;
+				font-family: "Syne", sans-serif;
+				font-weight: 600;
+				letter-spacing: 0.04em;
+				transition: var(--transition);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 4px;
+			}
+			.mask-btn:hover {
+				border-color: var(--border-light);
+				color: var(--white);
+			}
+			.mask-btn.active {
+				border-color: var(--orange);
+				color: var(--orange);
+				background: var(--orange-dim);
+			}
+			.mask-icon {
+				font-size: 14px;
+			}
+
+			.layer-btns {
+				display: flex;
+				gap: 6px;
+			}
+			.layer-btn {
+				flex: 1;
+				height: 28px;
+				background: var(--surface-3);
+				border: 1px solid var(--border);
+				border-radius: 5px;
+				cursor: pointer;
+				color: var(--muted);
+				font-size: 10px;
+				font-family: "Syne", sans-serif;
+				font-weight: 600;
+				letter-spacing: 0.04em;
+				transition: var(--transition);
+			}
+			.layer-btn:hover {
+				color: var(--white);
+				border-color: var(--border-light);
+			}
+
+			.toggle-row {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				margin-bottom: 8px;
+			}
+			.toggle-label {
+				font-size: 12px;
+				color: var(--muted);
+			}
+			.toggle {
+				width: 36px;
+				height: 20px;
+				background: var(--surface-3);
+				border-radius: 10px;
+				position: relative;
+				cursor: pointer;
+				border: 1px solid var(--border);
+				transition: var(--transition);
+				flex-shrink: 0;
+			}
+			.toggle.on {
+				background: var(--orange);
+				border-color: var(--orange);
+			}
+			.toggle::after {
+				content: "";
+				position: absolute;
+				top: 2px;
+				left: 2px;
+				width: 14px;
+				height: 14px;
+				background: white;
+				border-radius: 50%;
+				transition: var(--transition);
+			}
+			.toggle.on::after {
+				left: 18px;
+			}
+
+			.bg-img-upload {
+				width: 100%;
+				height: 64px;
+				border-radius: 7px;
+				border: 1.5px dashed var(--border);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 3px;
+				cursor: pointer;
+				color: var(--muted);
+				font-size: 11px;
+				font-family: "Syne", sans-serif;
+				font-weight: 600;
+				letter-spacing: 0.04em;
+				transition: var(--transition);
+				position: relative;
+				overflow: hidden;
+			}
+			.bg-img-upload:hover {
+				border-color: var(--orange);
+				color: var(--orange);
+			}
+			.bg-img-upload input {
+				display: none;
+			}
+			.bg-img-preview {
+				position: absolute;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				opacity: 0.7;
+				display: none;
+			}
+			.bg-img-upload.has-img .bg-img-text {
+				display: none;
+			}
+			.bg-img-upload.has-img .bg-img-preview {
+				display: block;
+			}
+			.bg-clear {
+				width: 100%;
+				margin-top: 6px;
+				height: 26px;
+				background: transparent;
+				border: 1px solid var(--border);
+				border-radius: 5px;
+				color: var(--muted);
+				font-size: 11px;
+				font-family: "Syne", sans-serif;
+				font-weight: 600;
+				cursor: pointer;
+				transition: var(--transition);
+				display: none;
+			}
+			.bg-clear:hover {
+				color: var(--white);
+				border-color: var(--border-light);
+			}
+			.bg-img-upload.has-img ~ .bg-clear {
+				display: block;
+			}
+
+			.no-selection-hint {
+				padding: 20px 16px;
+				text-align: center;
+				color: var(--muted);
+				font-size: 12px;
+				line-height: 1.6;
+			}
+			.no-selection-hint-icon {
+				font-size: 24px;
+				margin-bottom: 8px;
+				display: block;
+			}
+
+			/* ─── STEP 4: ORDER FORM ─────────────────────────────── */
+			#step-4 {
+				align-items: center;
+				justify-content: center;
+				padding: 24px 32px;
+			}
+
+			.form-layout {
+				display: grid;
+				grid-template-columns: 280px 1fr;
+				gap: 32px;
+				width: 100%;
+				max-width: 760px;
+				align-items: start;
+			}
+
+			.form-preview {
+				background: var(--surface);
+				border: 1px solid var(--border);
+				border-radius: 10px;
+				overflow: hidden;
+			}
+			.form-preview-header {
+				padding: 12px 14px;
+				border-bottom: 1px solid var(--border);
+				font-family: "Syne", sans-serif;
+				font-size: 11px;
+				font-weight: 700;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--muted);
+				display: flex;
+				align-items: center;
+				gap: 6px;
+			}
+			.preview-dot {
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				background: var(--orange);
+			}
+			.form-preview-canvas {
+				width: 100%;
+				background: #e8e8e6;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 12px;
+				min-height: 160px;
+			}
+			.preview-thumb {
+				background: var(--paper);
+				box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: "Syne", sans-serif;
+				font-size: 10px;
+				font-weight: 600;
+				color: rgba(0, 0, 0, 0.2);
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				overflow: hidden;
+				flex-shrink: 0;
+				position: relative;
+			}
+			.preview-thumb img {
+				position: absolute;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+			.form-preview-info {
+				padding: 12px 14px;
+				display: flex;
+				flex-direction: column;
+				gap: 4px;
+			}
+			.preview-info-row {
+				display: flex;
+				justify-content: space-between;
+				font-size: 12px;
+			}
+			.preview-info-row span:first-child {
+				color: var(--muted);
+			}
+			.preview-info-row span:last-child {
+				font-weight: 500;
+			}
+
+			.form-fields {
+				display: flex;
+				flex-direction: column;
+				gap: 14px;
+			}
+
+			.field {
+				display: flex;
+				flex-direction: column;
+				gap: 5px;
+			}
+			.field label {
+				font-family: "Syne", sans-serif;
+				font-size: 11px;
+				font-weight: 600;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				color: var(--muted);
+			}
+			.field input,
+			.field textarea,
+			.field select {
+				background: var(--surface);
+				border: 1.5px solid var(--border);
+				border-radius: 7px;
+				padding: 10px 12px;
+				color: var(--white);
+				font-family: "DM Sans", sans-serif;
+				font-size: 14px;
+				outline: none;
+				transition: var(--transition);
+				width: 100%;
+				resize: none;
+			}
+			.field input::placeholder,
+			.field textarea::placeholder {
+				color: var(--muted);
+			}
+			.field input:focus,
+			.field textarea:focus,
+			.field select:focus {
+				border-color: var(--orange);
+				background: var(--surface-2);
+			}
+			.field textarea {
+				height: 72px;
+			}
+
+			.field-row {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 12px;
+			}
+
+			.captcha-hint {
+				font-size: 11px;
+				color: var(--muted);
+				display: flex;
+				align-items: center;
+				gap: 6px;
+			}
+			.captcha-dot {
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				background: #4caf50;
+				flex-shrink: 0;
+			}
+
+			/* ─── SUCCESS ────────────────────────────────────────── */
+			#step-success {
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+				padding: 32px;
+				gap: 20px;
+			}
+			.success-icon {
+				width: 72px;
+				height: 72px;
+				border-radius: 50%;
+				background: rgba(76, 175, 80, 0.12);
+				border: 2px solid rgba(76, 175, 80, 0.4);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 32px;
+			}
+			.success-title {
+				font-family: "DM Serif Display", serif;
+				font-size: 28px;
+				color: var(--white);
+			}
+			.success-sub {
+				color: var(--muted);
+				max-width: 360px;
+				line-height: 1.6;
+			}
+			.success-detail {
+				background: var(--surface);
+				border: 1px solid var(--border);
+				border-radius: 10px;
+				padding: 16px 20px;
+				display: flex;
+				gap: 24px;
+				font-size: 13px;
+			}
+			.success-detail-item {
+				display: flex;
+				flex-direction: column;
+				gap: 3px;
+			}
+			.success-detail-item span:first-child {
+				color: var(--muted);
+				font-size: 11px;
+				text-transform: uppercase;
+				font-family: "Syne", sans-serif;
+				letter-spacing: 0.06em;
+			}
+			.success-detail-item span:last-child {
+				font-weight: 600;
+				color: var(--white);
+			}
+			.contact-strip {
+				display: flex;
+				gap: 16px;
+				font-size: 13px;
+				color: var(--muted);
+			}
+			.contact-strip a {
+				color: var(--orange);
+				text-decoration: none;
+			}
+
+			/* ─── TOAST ──────────────────────────────────────────── */
+			#toast {
+				position: fixed;
+				bottom: 80px;
+				left: 50%;
+				transform: translateX(-50%) translateY(10px);
+				background: var(--surface-3);
+				border: 1px solid var(--border-light);
+				color: var(--white);
+				padding: 10px 18px;
+				border-radius: 8px;
+				font-size: 13px;
+				font-family: "DM Sans", sans-serif;
+				pointer-events: none;
+				opacity: 0;
+				transition: all 0.25s;
+				z-index: 999;
+				white-space: nowrap;
+			}
+			#toast.show {
+				opacity: 1;
+				transform: translateX(-50%) translateY(0);
+			}
+			#toast.error {
+				border-color: #cc2200;
+				color: #ff6644;
+			}
+
+			/* ─── SCROLLBAR GLOBAL ───────────────────────────────── */
+			::-webkit-scrollbar {
+				width: 4px;
+				height: 4px;
+			}
+			::-webkit-scrollbar-track {
+				background: transparent;
+			}
+			::-webkit-scrollbar-thumb {
+				background: var(--border);
+				border-radius: 2px;
+			}
+
+			/* ─── ANIMATIONS ─────────────────────────────────────── */
+			@keyframes fadeUp {
+				from {
+					opacity: 0;
+					transform: translateY(16px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+			.step.active > * {
+				animation: fadeUp 0.28s cubic-bezier(0.4, 0, 0.2, 1) both;
+			}
+			.step.active > *:nth-child(2) {
+				animation-delay: 0.04s;
+			}
+			.step.active > *:nth-child(3) {
+				animation-delay: 0.08s;
+			}
+			.step.active > *:nth-child(4) {
+				animation-delay: 0.12s;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!-- HEADER -->
+			<header>
+				<a class="logo" href="#">
+					<div class="logo-mark"></div>
+					<div>
+						<span class="logo-text">INUT Design</span>
+						<span class="logo-sub">Sticker Builder</span>
+					</div>
+				</a>
+
+				<div class="step-indicator">
+					<div class="step-dot active" id="sdot-1">
+						<div class="step-dot-num"><span>1</span></div>
+						Khổ giấy
+					</div>
+					<div class="step-sep"></div>
+					<div class="step-dot" id="sdot-2">
+						<div class="step-dot-num"><span>2</span></div>
+						Tải ảnh
+					</div>
+					<div class="step-sep"></div>
+					<div class="step-dot" id="sdot-3">
+						<div class="step-dot-num"><span>3</span></div>
+						Sắp xếp
+					</div>
+					<div class="step-sep"></div>
+					<div class="step-dot" id="sdot-4">
+						<div class="step-dot-num"><span>4</span></div>
+						Gửi đơn
+					</div>
+				</div>
+
+				<div class="header-actions">
+					<span class="badge-proto">Prototype</span>
+				</div>
+			</header>
+
+			<!-- MAIN -->
+			<main>
+				<!-- STEP 1: SIZE PICKER -->
+				<div class="step active" id="step-1">
+					<div class="step-header">
+						<div class="step-eyebrow">Bước 1 / 4</div>
+						<h1 class="step-title">Chọn khổ giấy</h1>
+						<p class="step-desc">
+							Tờ sticker của bạn sẽ được in tại độ phân giải 300 DPI, sẵn sàng cho sản xuất
+						</p>
+					</div>
+
+					<div class="size-cards">
+						<div class="size-card" data-size="A5" onclick="selectSize('A5')">
+							<div class="size-badge">Phổ biến</div>
+							<div class="size-paper">
+								<span class="size-paper-label">A5</span>
+							</div>
+							<div class="size-info">
+								<span class="size-name">A5</span>
+								<span class="size-dims">148 × 210 mm</span>
+								<span class="size-dpi">2480 × 3508 px @ 300dpi</span>
+							</div>
+						</div>
+
+						<div class="size-card" data-size="A6" onclick="selectSize('A6')">
+							<div class="size-badge">Nhỏ gọn</div>
+							<div class="size-paper">
+								<span class="size-paper-label">A6</span>
+							</div>
+							<div class="size-info">
+								<span class="size-name">A6</span>
+								<span class="size-dims">105 × 148 mm</span>
+								<span class="size-dpi">1748 × 2480 px @ 300dpi</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- STEP 2: ASSET UPLOADER -->
+				<div class="step" id="step-2">
+					<div class="asset-count-bar">
+						<span class="asset-count-label"
+							>Ảnh đã tải: <span class="asset-count-num" id="asset-count">0</span> / 20</span
+						>
+						<button class="btn-load-demo" onclick="loadDemoAssets()">⚡ Tải ảnh demo</button>
+					</div>
+
+					<div
+						class="upload-zone"
+						id="upload-zone"
+						onclick="document.getElementById('file-input').click()"
+					>
+						<input
+							type="file"
+							id="file-input"
+							accept="image/*"
+							multiple
+							onchange="handleFileInput(event)"
+						/>
+						<span class="upload-icon">📁</span>
+						<div class="upload-title">Kéo thả hoặc nhấn để chọn ảnh</div>
+						<div class="upload-sub">Hỗ trợ PNG · JPG · WEBP · SVG — tối đa 10MB mỗi file</div>
+						<div class="upload-limit">Tối đa 20 ảnh / tờ sticker</div>
+					</div>
+
+					<div class="asset-grid" id="asset-grid"></div>
+				</div>
+
+				<!-- STEP 3: CANVAS EDITOR -->
+				<div class="step" id="step-3">
+					<div class="canvas-workspace">
+						<!-- Toolbar -->
+						<div class="canvas-toolbar">
+							<span class="toolbar-label">Canvas</span>
+							<div class="toolbar-sep"></div>
+
+							<button class="btn-icon" id="snap-btn" title="Snap to grid" onclick="toggleSnap()">
+								⊞
+							</button>
+							<button class="btn-icon" id="bleed-btn" title="Bleed guide" onclick="toggleBleed()">
+								⬜
+							</button>
+
+							<div class="toolbar-sep"></div>
+							<span class="toolbar-label">Mask</span>
+							<button
+								class="btn-icon"
+								id="mask-none-btn"
+								title="No mask"
+								onclick="setSelectedMask('none')"
+								style="font-size: 10px; font-family: Syne, sans-serif; font-weight: 700"
+							>
+								□
+							</button>
+							<button
+								class="btn-icon"
+								id="mask-circle-btn"
+								title="Circle mask"
+								onclick="setSelectedMask('circle')"
+							>
+								◯
+							</button>
+							<button
+								class="btn-icon"
+								id="mask-rounded-btn"
+								title="Rounded mask"
+								onclick="setSelectedMask('rounded')"
+								style="font-size: 10px"
+							>
+								▢
+							</button>
+
+							<div class="toolbar-sep"></div>
+							<span class="toolbar-label">Layer</span>
+							<button class="btn-icon" title="Bring forward" onclick="bringForward()">↑</button>
+							<button class="btn-icon" title="Send back" onclick="sendBack()">↓</button>
+
+							<div class="toolbar-sep"></div>
+							<button
+								class="btn-icon"
+								title="Delete selected"
+								onclick="deleteSelected()"
+								style="color: #cc4433"
+							>
+								🗑
+							</button>
+
+							<div style="margin-left: auto; display: flex; align-items: center; gap: 6px">
+								<span
+									class="toolbar-label"
+									id="canvas-info-label"
+									style="color: var(--orange)"
+								></span>
+							</div>
+						</div>
+
+						<!-- Canvas Area -->
+						<div class="canvas-area" id="canvas-area" onmousedown="onCanvasAreaClick(event)">
+							<div id="paper-canvas">
+								<div class="bleed-guide" id="bleed-guide"></div>
+							</div>
+						</div>
+
+						<!-- Asset Tray -->
+						<div class="asset-tray" id="asset-tray">
+							<span class="tray-label">Ảnh của bạn</span>
+							<div class="tray-thumb tray-add-text" onclick="addTextOverlay()" title="Thêm chữ">
+								<span class="tray-add-text-icon">T</span>
+								<span>Chữ</span>
+							</div>
+						</div>
+
+						<!-- Right Panel -->
+						<div class="canvas-panel">
+							<div class="panel-section">
+								<div class="panel-title">Thông tin tờ</div>
+								<div class="info-row">
+									<span class="info-label">Khổ giấy</span>
+									<span class="info-val orange" id="panel-size">—</span>
+								</div>
+								<div class="info-row">
+									<span class="info-label">Độ phân giải</span>
+									<span class="info-val" id="panel-res">—</span>
+								</div>
+								<div class="info-row">
+									<span class="info-label">Số sticker</span>
+									<span class="info-val" id="panel-count">0</span>
+								</div>
+							</div>
+
+							<div class="panel-section">
+								<div class="panel-title">Nền canvas</div>
+								<div class="panel-row">
+									<label>Màu nền</label>
+									<div class="color-row">
+										<div
+											class="color-swatch"
+											id="bg-swatch"
+											onclick="document.getElementById('bg-color-inp').click()"
+											title="Chọn màu"
+										></div>
+										<input
+											type="color"
+											id="bg-color-inp"
+											value="#FAFAF8"
+											oninput="setBgColor(this.value)"
+										/>
+										<div class="color-presets">
+											<div
+												class="color-preset active"
+												style="background: #fafaf8"
+												onclick="setBgColor('#FAFAF8')"
+												title="Trắng kem"
+											></div>
+											<div
+												class="color-preset"
+												style="background: #fff"
+												onclick="setBgColor('#ffffff')"
+												title="Trắng thuần"
+											></div>
+											<div
+												class="color-preset"
+												style="background: #fff9e6"
+												onclick="setBgColor('#FFF9E6')"
+												title="Vàng nhạt"
+											></div>
+											<div
+												class="color-preset"
+												style="background: #f0f4ff"
+												onclick="setBgColor('#F0F4FF')"
+												title="Xanh nhạt"
+											></div>
+											<div
+												class="color-preset"
+												style="background: #f5f0ff"
+												onclick="setBgColor('#F5F0FF')"
+												title="Tím nhạt"
+											></div>
+											<div
+												class="color-preset"
+												style="background: #1a1916"
+												onclick="setBgColor('#1a1916')"
+												title="Tối"
+											></div>
+										</div>
+									</div>
+								</div>
+								<div class="panel-row">
+									<label>Ảnh nền</label>
+									<label class="bg-img-upload" id="bg-img-upload" for="bg-img-input">
+										<img class="bg-img-preview" id="bg-img-preview" />
+										<span
+											class="bg-img-text"
+											style="
+												display: flex;
+												flex-direction: column;
+												align-items: center;
+												gap: 3px;
+												pointer-events: none;
+											"
+										>
+											<span style="font-size: 20px">🖼</span>
+											<span>Tải ảnh nền</span>
+										</span>
+										<input
+											type="file"
+											id="bg-img-input"
+											accept="image/*"
+											onchange="setBgImage(event)"
+											style="display: none"
+										/>
+									</label>
+									<button class="bg-clear" id="bg-clear-btn" onclick="clearBgImage()">
+										Xóa ảnh nền
+									</button>
+								</div>
+								<div class="toggle-row">
+									<span class="toggle-label">Đường bleed (3mm)</span>
+									<div class="toggle" id="bleed-toggle" onclick="toggleBleed()"></div>
+								</div>
+							</div>
+
+							<div class="panel-section" id="selection-panel">
+								<div class="panel-title">Sticker đang chọn</div>
+								<div id="no-selection" class="no-selection-hint">
+									<span class="no-selection-hint-icon">👆</span>
+									Nhấn vào một sticker<br />trên canvas để chỉnh sửa
+								</div>
+								<div id="has-selection" style="display: none">
+									<div class="panel-row">
+										<label>Shape mask</label>
+										<div class="mask-btns">
+											<button
+												class="mask-btn active"
+												id="sp-mask-none"
+												onclick="setSelectedMask('none')"
+											>
+												<span class="mask-icon">□</span> Không
+											</button>
+											<button
+												class="mask-btn"
+												id="sp-mask-circle"
+												onclick="setSelectedMask('circle')"
+											>
+												<span class="mask-icon">◯</span> Tròn
+											</button>
+											<button
+												class="mask-btn"
+												id="sp-mask-rounded"
+												onclick="setSelectedMask('rounded')"
+											>
+												<span class="mask-icon">▢</span> Bo
+											</button>
+										</div>
+									</div>
+									<div class="panel-row">
+										<label>Layer</label>
+										<div class="layer-btns">
+											<button class="layer-btn" onclick="bringForward()">↑ Lên trên</button>
+											<button class="layer-btn" onclick="sendBack()">↓ Xuống dưới</button>
+										</div>
+									</div>
+									<button
+										class="btn btn-ghost btn-sm"
+										style="
+											width: 100%;
+											margin-top: 4px;
+											justify-content: center;
+											color: #cc4433;
+											border-color: #552222;
+										"
+										onclick="deleteSelected()"
+									>
+										🗑 Xóa sticker
+									</button>
+								</div>
+							</div>
+
+							<div class="panel-section" style="border-bottom: none; flex: 1">
+								<div class="toggle-row">
+									<span class="toggle-label">Snap to grid (8px)</span>
+									<div class="toggle" id="snap-toggle" onclick="toggleSnap()"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- STEP 4: ORDER FORM -->
+				<div class="step" id="step-4">
+					<div class="form-layout">
+						<div>
+							<div class="form-preview">
+								<div class="form-preview-header">
+									<div class="preview-dot"></div>
+									Thiết kế của bạn
+								</div>
+								<div class="form-preview-canvas">
+									<div class="preview-thumb" id="form-preview-thumb">
+										<span id="form-preview-label">Xem trước</span>
+									</div>
+								</div>
+								<div class="form-preview-info">
+									<div class="preview-info-row">
+										<span>Khổ giấy</span>
+										<span id="form-size-val">—</span>
+									</div>
+									<div class="preview-info-row">
+										<span>Số sticker</span>
+										<span id="form-sticker-count">0</span>
+									</div>
+									<div class="preview-info-row">
+										<span>Xuất file</span>
+										<span style="color: var(--orange)">PNG · 300 DPI</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-fields">
+							<div style="margin-bottom: 4px">
+								<div class="step-eyebrow" style="text-align: left">Bước 4 / 4</div>
+								<h2
+									style="
+										font-family: 'DM Serif Display', serif;
+										font-size: 22px;
+										color: var(--white);
+									"
+								>
+									Thông tin đặt hàng
+								</h2>
+								<p style="color: var(--muted); font-size: 13px; margin-top: 4px">
+									Sales INUT sẽ liên hệ bạn trong vòng 24 giờ để xác nhận đơn.
+								</p>
+							</div>
+
+							<div class="field-row">
+								<div class="field">
+									<label>Họ và tên *</label>
+									<input type="text" id="f-name" placeholder="Nguyễn Văn A" />
+								</div>
+								<div class="field">
+									<label>SĐT / Zalo *</label>
+									<input type="tel" id="f-phone" placeholder="0xxx xxx xxx" />
+								</div>
+							</div>
+
+							<div class="field-row">
+								<div class="field">
+									<label>Số lượng *</label>
+									<input type="number" id="f-qty" placeholder="VD: 50" min="1" />
+								</div>
+								<div class="field">
+									<label>Chất liệu</label>
+									<select id="f-material">
+										<option value="">Để sales tư vấn</option>
+										<option>Decal trong suốt</option>
+										<option>Decal trắng</option>
+										<option>Giấy kraft</option>
+										<option>Holographic</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="field">
+								<label>Ghi chú thêm</label>
+								<textarea
+									id="f-notes"
+									placeholder="Ví dụ: in cắt theo viền, ép kim, màu đặc biệt..."
+								></textarea>
+							</div>
+
+							<div class="captcha-hint">
+								<div class="captcha-dot"></div>
+								Được bảo vệ bởi reCAPTCHA v3 (ẩn) · Không cần nhập captcha
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- SUCCESS -->
+				<div class="step" id="step-success">
+					<div class="success-icon">✓</div>
+					<h2 class="success-title">Gửi thiết kế thành công!</h2>
+					<p class="success-sub">
+						Thiết kế và thông tin đơn hàng của bạn đã được lưu lại. Đội ngũ INUT sẽ liên hệ trong 24
+						giờ.
+					</p>
+					<div class="success-detail">
+						<div class="success-detail-item">
+							<span>Mã đơn</span>
+							<span id="order-id" style="color: var(--orange)">#INS-00241</span>
+						</div>
+						<div class="success-detail-item">
+							<span>Khổ giấy</span>
+							<span id="order-size">A5</span>
+						</div>
+						<div class="success-detail-item">
+							<span>Số sticker</span>
+							<span id="order-sticker-cnt">0</span>
+						</div>
+					</div>
+					<div class="contact-strip">
+						MR. TOM: <a href="tel:0792359996">0792 359 996</a> &nbsp;·&nbsp; MS. BOO:
+						<a href="tel:0777208215">0777 208 215</a> &nbsp;·&nbsp; Zalo: <a href="#">inutdesign</a>
+					</div>
+					<button class="btn btn-ghost" onclick="resetAll()">← Tạo tờ sticker mới</button>
+				</div>
+			</main>
+
+			<!-- FOOTER NAV -->
+			<footer>
+				<button class="btn btn-ghost" id="btn-back" onclick="goBack()" style="visibility: hidden">
+					← Quay lại
+				</button>
+				<div style="display: flex; align-items: center; gap: 8px">
+					<span id="footer-hint" style="font-size: 12px; color: var(--muted)"></span>
+				</div>
+				<button class="btn btn-primary" id="btn-next" onclick="goNext()" disabled>
+					Tiếp theo <span>→</span>
+				</button>
+			</footer>
+		</div>
+
+		<div id="toast"></div>
+
+		<script>
+			// ─── STATE ──────────────────────────────────────────────────────────
+			const state = {
+				step: 1,
+				paperSize: null,
+				assets: [], // { id, src, name }
+				stickers: [], // { id, assetId, x, y, w, h, rot, mask, z, isText, text, fontSize, color }
+				selectedId: null,
+				bgColor: "#FAFAF8",
+				bgImageSrc: null,
+				showBleed: false,
+				snapToGrid: false,
+				nextId: 1,
+			};
+
+			const PAPER = {
+				A5: { w: 400, h: 566, dpi: "2480 × 3508 px" },
+				A6: { w: 340, h: 481, dpi: "1748 × 2480 px" },
+			};
+
+			// ─── DEMO ASSETS (SVG data URIs) ─────────────────────────────────────
+			const DEMO_ASSETS = [
+				{
+					name: "Star",
+					src: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+      <polygon points='50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35' fill='%23FFE234' stroke='%23E6C800' stroke-width='2'/></svg>`,
+				},
+				{
+					name: "Heart",
+					src: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+      <path d='M50 85 C50 85 10 58 10 32 C10 18 22 8 35 8 C42 8 48 12 50 16 C52 12 58 8 65 8 C78 8 90 18 90 32 C90 58 50 85 50 85Z' fill='%23FF4D6A' stroke='%23CC1A35' stroke-width='2'/></svg>`,
+				},
+				{
+					name: "Lightning",
+					src: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+      <polygon points='58,5 28,55 52,55 42,95 72,45 48,45' fill='%23FF4D00' stroke='%23CC2200' stroke-width='2'/></svg>`,
+				},
+				{
+					name: "Leaf",
+					src: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+      <path d='M50 10 C80 10 90 40 70 70 C60 85 40 90 30 80 C10 60 20 10 50 10Z' fill='%234CAF50' stroke='%23388E3C' stroke-width='2'/>
+      <line x1='50' y1='10' x2='35' y2='85' stroke='%23388E3C' stroke-width='2'/></svg>`,
+				},
+				{
+					name: "Diamond",
+					src: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+      <polygon points='50,5 95,35 50,95 5,35' fill='%2300BCD4' stroke='%230097A7' stroke-width='2'/></svg>`,
+				},
+				{
+					name: "Flower",
+					src: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+      <circle cx='50' cy='50' r='12' fill='%23FFE234'/>
+      <ellipse cx='50' cy='20' rx='10' ry='16' fill='%23FF4D6A' transform='rotate(0,50,50)'/>
+      <ellipse cx='50' cy='20' rx='10' ry='16' fill='%23FF8FA0' transform='rotate(60,50,50)'/>
+      <ellipse cx='50' cy='20' rx='10' ry='16' fill='%23FF4D6A' transform='rotate(120,50,50)'/>
+      <ellipse cx='50' cy='20' rx='10' ry='16' fill='%23FF8FA0' transform='rotate(180,50,50)'/>
+      <ellipse cx='50' cy='20' rx='10' ry='16' fill='%23FF4D6A' transform='rotate(240,50,50)'/>
+      <ellipse cx='50' cy='20' rx='10' ry='16' fill='%23FF8FA0' transform='rotate(300,50,50)'/></svg>`,
+				},
+			];
+
+			// ─── STEP NAVIGATION ─────────────────────────────────────────────────
+			function showStep(n) {
+				document.querySelectorAll(".step").forEach((s) => s.classList.remove("active"));
+				const target =
+					n === "success"
+						? document.getElementById("step-success")
+						: document.getElementById("step-" + n);
+				if (target) target.classList.add("active");
+				if (n !== "success") state.step = n;
+				updateNav();
+				updateStepIndicator();
+				if (n === 3) initCanvasStep();
+				if (n === 4) initFormStep();
+			}
+
+			function goNext() {
+				if (state.step === 1) {
+					if (!state.paperSize) return;
+					showStep(2);
+				} else if (state.step === 2) {
+					if (state.assets.length === 0) {
+						showToast("Vui lòng tải ít nhất 1 ảnh", true);
+						return;
+					}
+					showStep(3);
+				} else if (state.step === 3) {
+					if (state.stickers.filter((s) => !s.isText).length === 0) {
+						showToast("Vui lòng đặt ít nhất 1 sticker lên canvas", true);
+						return;
+					}
+					showStep(4);
+				} else if (state.step === 4) {
+					submitOrder();
+				}
+			}
+
+			function goBack() {
+				if (state.step > 1) showStep(state.step - 1);
+			}
+
+			function updateNav() {
+				const btnBack = document.getElementById("btn-back");
+				const btnNext = document.getElementById("btn-next");
+				const hint = document.getElementById("footer-hint");
+
+				btnBack.style.visibility = state.step > 1 ? "visible" : "hidden";
+
+				if (state.step === 1) {
+					btnNext.textContent = "Tiếp theo →";
+					btnNext.disabled = !state.paperSize;
+					hint.textContent = "Chọn khổ giấy để tiếp tục";
+				} else if (state.step === 2) {
+					btnNext.textContent = "Đến canvas →";
+					btnNext.disabled = state.assets.length === 0;
+					hint.textContent = `${state.assets.length} / 20 ảnh`;
+				} else if (state.step === 3) {
+					btnNext.textContent = "Điền thông tin →";
+					btnNext.disabled = false;
+					hint.textContent = `${
+						state.stickers.filter((s) => !s.isText).length
+					} sticker trên canvas`;
+				} else if (state.step === 4) {
+					btnNext.textContent = "✓ Gửi thiết kế";
+					btnNext.disabled = false;
+					hint.textContent = "Dữ liệu được bảo mật";
+				}
+			}
+
+			function updateStepIndicator() {
+				for (let i = 1; i <= 4; i++) {
+					const dot = document.getElementById("sdot-" + i);
+					dot.classList.remove("active", "done");
+					if (i === state.step) dot.classList.add("active");
+					else if (i < state.step) dot.classList.add("done");
+				}
+			}
+
+			// ─── STEP 1: SIZE ─────────────────────────────────────────────────────
+			function selectSize(size) {
+				state.paperSize = size;
+				document.querySelectorAll(".size-card").forEach((c) => {
+					c.classList.toggle("selected", c.dataset.size === size);
+				});
+				updateNav();
+			}
+
+			// ─── STEP 2: ASSETS ───────────────────────────────────────────────────
+			function loadDemoAssets() {
+				DEMO_ASSETS.forEach((a) => {
+					if (state.assets.length >= 20) return;
+					addAsset({ id: state.nextId++, src: a.src, name: a.name });
+				});
+				updateNav();
+			}
+
+			function handleFileInput(e) {
+				const files = Array.from(e.target.files);
+				files.forEach((f) => {
+					if (state.assets.length >= 20) {
+						showToast("Tối đa 20 ảnh", true);
+						return;
+					}
+					if (f.size > 10 * 1024 * 1024) {
+						showToast(`${f.name} vượt 10MB`, true);
+						return;
+					}
+					const reader = new FileReader();
+					reader.onload = (ev) => {
+						addAsset({ id: state.nextId++, src: ev.target.result, name: f.name });
+						updateNav();
+					};
+					reader.readAsDataURL(f);
+				});
+				e.target.value = "";
+			}
+
+			function addAsset(asset) {
+				state.assets.push(asset);
+				renderAssetThumb(asset);
+				document.getElementById("asset-count").textContent = state.assets.length;
+			}
+
+			function renderAssetThumb(asset) {
+				const grid = document.getElementById("asset-grid");
+				const div = document.createElement("div");
+				div.className = "asset-thumb";
+				div.dataset.assetId = asset.id;
+				div.innerHTML = `<img src="${asset.src}" alt="${asset.name}">
+    <button class="asset-thumb-del" onclick="removeAsset(${asset.id},event)">×</button>`;
+				grid.appendChild(div);
+			}
+
+			function removeAsset(id, e) {
+				e && e.stopPropagation();
+				state.assets = state.assets.filter((a) => a.id !== id);
+				document.querySelector(`[data-asset-id="${id}"]`)?.remove();
+				document.getElementById("asset-count").textContent = state.assets.length;
+				updateNav();
+			}
+
+			// Drag-over on upload zone
+			const uploadZone = document.getElementById("upload-zone");
+			uploadZone.addEventListener("dragover", (e) => {
+				e.preventDefault();
+				uploadZone.classList.add("drag-over");
+			});
+			uploadZone.addEventListener("dragleave", () => uploadZone.classList.remove("drag-over"));
+			uploadZone.addEventListener("drop", (e) => {
+				e.preventDefault();
+				uploadZone.classList.remove("drag-over");
+				const files = Array.from(e.dataTransfer.files).filter((f) => f.type.startsWith("image/"));
+				files.forEach((f) => {
+					if (state.assets.length >= 20) return;
+					const reader = new FileReader();
+					reader.onload = (ev) => {
+						addAsset({ id: state.nextId++, src: ev.target.result, name: f.name });
+						updateNav();
+					};
+					reader.readAsDataURL(f);
+				});
+			});
+
+			// ─── STEP 3: CANVAS ───────────────────────────────────────────────────
+			let interacting = false;
+			let dragState = null;
+
+			function initCanvasStep() {
+				const paper = document.getElementById("paper-canvas");
+				const ps = PAPER[state.paperSize];
+				paper.style.width = ps.w + "px";
+				paper.style.height = ps.h + "px";
+				paper.style.background = state.bgColor;
+
+				document.getElementById("panel-size").textContent = state.paperSize;
+				document.getElementById("panel-res").textContent = ps.dpi;
+
+				// Populate asset tray
+				const tray = document.getElementById("asset-tray");
+				// Remove old tray thumbs (keep label and add-text btn)
+				tray.querySelectorAll(".tray-thumb:not(.tray-add-text)").forEach((t) => t.remove());
+				state.assets.forEach((a) => {
+					const div = document.createElement("div");
+					div.className = "tray-thumb";
+					div.title = a.name;
+					div.innerHTML = `<img src="${a.src}" alt="${a.name}">`;
+					div.onclick = () => addStickerToCanvas(a.id);
+					tray.appendChild(div);
+				});
+
+				updatePanelCount();
+			}
+
+			function addStickerToCanvas(assetId) {
+				const ps = PAPER[state.paperSize];
+				const s = {
+					id: state.nextId++,
+					assetId,
+					x: Math.round(ps.w / 2 - 60),
+					y: Math.round(ps.h / 2 - 60),
+					w: 120,
+					h: 120,
+					rot: 0,
+					mask: "none",
+					z: maxZ() + 1,
+					isText: false,
+				};
+				state.stickers.push(s);
+				renderSticker(s);
+				selectSticker(s.id);
+				updatePanelCount();
+				updateNav();
+			}
+
+			function addTextOverlay() {
+				const ps = PAPER[state.paperSize];
+				const t = {
+					id: state.nextId++,
+					isText: true,
+					x: Math.round(ps.w / 2 - 60),
+					y: Math.round(ps.h / 2 - 16),
+					w: 140,
+					h: 32,
+					rot: 0,
+					z: maxZ() + 1,
+					text: "Nhập chữ tại đây",
+					fontSize: 20,
+					color: "#111111",
+				};
+				state.stickers.push(t);
+				renderTextItem(t);
+				selectSticker(t.id);
+				updatePanelCount();
+			}
+
+			function maxZ() {
+				return state.stickers.reduce((m, s) => Math.max(m, s.z), 0);
+			}
+
+			function renderSticker(s) {
+				const paper = document.getElementById("paper-canvas");
+				let el = paper.querySelector(`[data-sid="${s.id}"]`);
+				if (!el) {
+					el = document.createElement("div");
+					el.className = "sticker-item";
+					el.dataset.sid = s.id;
+					const asset = state.assets.find((a) => a.id === s.assetId);
+					el.innerHTML = `
+      <div class="sticker-wrap">
+        <img class="sticker-img" src="${asset?.src || ""}" draggable="false">
+      </div>
+      <div class="s-rotate-line"></div>
+      <div class="s-rotate" data-action="rotate"></div>
+      <div class="s-handle s-tl" data-action="resize-tl"></div>
+      <div class="s-handle s-tr" data-action="resize-tr"></div>
+      <div class="s-handle s-bl" data-action="resize-bl"></div>
+      <div class="s-handle s-br" data-action="resize-br"></div>
+      <button class="s-delete" data-action="delete">×</button>`;
+					paper.appendChild(el);
+					el.addEventListener("mousedown", onItemMouseDown);
+				}
+				applyStickerStyle(el, s);
+			}
+
+			function renderTextItem(s) {
+				const paper = document.getElementById("paper-canvas");
+				const el = document.createElement("div");
+				el.className = "text-item";
+				el.dataset.sid = s.id;
+				el.innerHTML = `
+    <div class="text-content" contenteditable="true" spellcheck="false">${s.text}</div>
+    <div class="s-rotate-line"></div>
+    <div class="s-rotate" data-action="rotate"></div>
+    <div class="s-handle s-br" data-action="resize-br"></div>
+    <button class="s-delete" data-action="delete">×</button>`;
+				paper.appendChild(el);
+				applyStickerStyle(el, s);
+				const tc = el.querySelector(".text-content");
+				tc.style.fontSize = s.fontSize + "px";
+				tc.style.color = s.color;
+				tc.addEventListener("input", () => {
+					s.text = tc.innerText;
+				});
+				tc.addEventListener("mousedown", (e) => e.stopPropagation());
+				el.addEventListener("mousedown", onItemMouseDown);
+			}
+
+			function applyStickerStyle(el, s) {
+				el.style.left = s.x + "px";
+				el.style.top = s.y + "px";
+				el.style.width = s.w + "px";
+				el.style.height = s.h + "px";
+				el.style.transform = `rotate(${s.rot}deg)`;
+				el.style.zIndex = s.z;
+
+				if (!s.isText) {
+					const wrap = el.querySelector(".sticker-wrap");
+					wrap.className = "sticker-wrap" + (s.mask && s.mask !== "none" ? ` mask-${s.mask}` : "");
+					// Update selection ring
+					el.classList.remove("selected");
+					if (s.id === state.selectedId) {
+						el.classList.add("selected");
+						if (s.mask === "circle") el.style.setProperty("--sel-radius", "50%");
+						else if (s.mask === "rounded") el.style.setProperty("--sel-radius", "20%");
+						else el.style.setProperty("--sel-radius", "2px");
+					}
+				}
+				el.classList.toggle("selected", s.id === state.selectedId);
+			}
+
+			function selectSticker(id) {
+				state.selectedId = id;
+				const paper = document.getElementById("paper-canvas");
+				paper.querySelectorAll(".sticker-item,.text-item").forEach((el) => {
+					el.classList.toggle("selected", el.dataset.sid == id);
+				});
+				updateSelectionPanel();
+			}
+
+			function updateSelectionPanel() {
+				const s = state.stickers.find((s) => s.id === state.selectedId);
+				document.getElementById("no-selection").style.display = s ? "none" : "";
+				document.getElementById("has-selection").style.display = s ? "" : "none";
+				if (s && !s.isText) {
+					["none", "circle", "rounded"].forEach((m) => {
+						document
+							.getElementById(`sp-mask-${m}`)
+							.classList.toggle("active", (s.mask || "none") === m);
+					});
+				}
+			}
+
+			function updatePanelCount() {
+				const cnt = state.stickers.filter((s) => !s.isText).length;
+				document.getElementById("panel-count").textContent = cnt;
+				document.getElementById("footer-hint").textContent = `${cnt} sticker trên canvas`;
+			}
+
+			// ─── MOUSE INTERACTION ────────────────────────────────────────────────
+			function onItemMouseDown(e) {
+				const el = e.currentTarget;
+				const sid = parseInt(el.dataset.sid);
+				const action = e.target.dataset.action;
+
+				if (action === "delete") {
+					deleteSticker(sid);
+					return;
+				}
+
+				selectSticker(sid);
+				e.stopPropagation();
+				e.preventDefault();
+
+				const s = state.stickers.find((x) => x.id === sid);
+				if (!s) return;
+
+				const paper = document.getElementById("paper-canvas");
+				const rect = paper.getBoundingClientRect();
+
+				const mx = e.clientX - rect.left;
+				const my = e.clientY - rect.top;
+
+				let type = "move";
+				if (action && action.startsWith("resize")) type = action;
+				if (action === "rotate") type = "rotate";
+
+				dragState = {
+					type,
+					sid,
+					startMX: mx,
+					startMY: my,
+					startX: s.x,
+					startY: s.y,
+					startW: s.w,
+					startH: s.h,
+					startRot: s.rot,
+					cx: s.x + s.w / 2,
+					cy: s.y + s.h / 2,
+				};
+
+				interacting = true;
+			}
+
+			function onCanvasAreaClick(e) {
+				if (
+					e.target === document.getElementById("canvas-area") ||
+					e.target === document.getElementById("paper-canvas")
+				) {
+					selectSticker(null);
+				}
+			}
+
+			document.addEventListener("mousemove", (e) => {
+				if (!interacting || !dragState) return;
+				const paper = document.getElementById("paper-canvas");
+				const rect = paper.getBoundingClientRect();
+				const mx = e.clientX - rect.left;
+				const my = e.clientY - rect.top;
+				const dx = mx - dragState.startMX;
+				const dy = my - dragState.startMY;
+
+				const s = state.stickers.find((x) => x.id === dragState.sid);
+				if (!s) return;
+
+				const snap = state.snapToGrid ? (v) => Math.round(v / 8) * 8 : (v) => v;
+
+				if (dragState.type === "move") {
+					s.x = snap(dragState.startX + dx);
+					s.y = snap(dragState.startY + dy);
+				} else if (dragState.type === "resize-br") {
+					s.w = Math.max(40, snap(dragState.startW + dx));
+					s.h = Math.max(40, snap(dragState.startH + dy));
+				} else if (dragState.type === "resize-tl") {
+					const nw = Math.max(40, dragState.startW - dx);
+					const nh = Math.max(40, dragState.startH - dy);
+					s.x = snap(dragState.startX + dragState.startW - nw);
+					s.y = snap(dragState.startY + dragState.startH - nh);
+					s.w = nw;
+					s.h = nh;
+				} else if (dragState.type === "resize-tr") {
+					const nw = Math.max(40, dragState.startW + dx);
+					const nh = Math.max(40, dragState.startH - dy);
+					s.y = snap(dragState.startY + dragState.startH - nh);
+					s.w = nw;
+					s.h = nh;
+				} else if (dragState.type === "resize-bl") {
+					const nw = Math.max(40, dragState.startW - dx);
+					const nh = Math.max(40, dragState.startH + dy);
+					s.x = snap(dragState.startX + dragState.startW - nw);
+					s.w = nw;
+					s.h = nh;
+				} else if (dragState.type === "rotate") {
+					const cx = dragState.cx;
+					const cy = dragState.cy;
+					const startAngle = Math.atan2(dragState.startMY - cy, dragState.startMX - cx);
+					const curAngle = Math.atan2(my - cy, mx - cx);
+					const diff = (curAngle - startAngle) * (180 / Math.PI);
+					s.rot = dragState.startRot + diff;
+					if (state.snapToGrid) s.rot = Math.round(s.rot / 15) * 15;
+				}
+
+				const el = paper.querySelector(`[data-sid="${s.id}"]`);
+				if (el) applyStickerStyle(el, s);
+			});
+
+			document.addEventListener("mouseup", () => {
+				interacting = false;
+				dragState = null;
+			});
+
+			// ─── TOOLBAR ACTIONS ──────────────────────────────────────────────────
+			function setSelectedMask(mask) {
+				const s = state.stickers.find((x) => x.id === state.selectedId && !x.isText);
+				if (!s) {
+					showToast("Chọn một sticker ảnh trước", true);
+					return;
+				}
+				s.mask = mask;
+				const paper = document.getElementById("paper-canvas");
+				const el = paper.querySelector(`[data-sid="${s.id}"]`);
+				if (el) applyStickerStyle(el, s);
+				updateSelectionPanel();
+			}
+
+			function bringForward() {
+				const s = state.stickers.find((x) => x.id === state.selectedId);
+				if (!s) return;
+				s.z = maxZ() + 1;
+				const el = document.querySelector(`[data-sid="${s.id}"]`);
+				if (el) el.style.zIndex = s.z;
+			}
+
+			function sendBack() {
+				const s = state.stickers.find((x) => x.id === state.selectedId);
+				if (!s) return;
+				const minZ = state.stickers.reduce((m, x) => Math.min(m, x.z), Infinity);
+				s.z = minZ - 1;
+				const el = document.querySelector(`[data-sid="${s.id}"]`);
+				if (el) el.style.zIndex = s.z;
+			}
+
+			function deleteSelected() {
+				if (state.selectedId) deleteSticker(state.selectedId);
+			}
+
+			function deleteSticker(id) {
+				state.stickers = state.stickers.filter((s) => s.id !== id);
+				document.querySelector(`[data-sid="${id}"]`)?.remove();
+				if (state.selectedId === id) selectSticker(null);
+				updatePanelCount();
+				updateNav();
+			}
+
+			function toggleSnap() {
+				state.snapToGrid = !state.snapToGrid;
+				document.getElementById("snap-toggle").classList.toggle("on", state.snapToGrid);
+				document.getElementById("snap-btn").classList.toggle("active", state.snapToGrid);
+			}
+
+			function toggleBleed() {
+				state.showBleed = !state.showBleed;
+				document.getElementById("bleed-guide").classList.toggle("visible", state.showBleed);
+				document.getElementById("bleed-toggle").classList.toggle("on", state.showBleed);
+				document.getElementById("bleed-btn").classList.toggle("active", state.showBleed);
+			}
+
+			function setBgColor(color) {
+				state.bgColor = color;
+				document.getElementById("paper-canvas").style.background = color;
+				document.getElementById("bg-swatch").style.background = color;
+				document.getElementById("bg-color-inp").value = color;
+				document.querySelectorAll(".color-preset").forEach((p) => {
+					p.classList.toggle(
+						"active",
+						p.style.background === color ||
+							p.style.backgroundColor === color ||
+							rgbToHex(p.style.backgroundColor) === color.toLowerCase()
+					);
+				});
+			}
+
+			function rgbToHex(rgb) {
+				const m = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+				if (!m) return rgb;
+				return (
+					"#" + [m[1], m[2], m[3]].map((x) => parseInt(x).toString(16).padStart(2, "0")).join("")
+				);
+			}
+
+			function setBgImage(e) {
+				const f = e.target.files[0];
+				if (!f) return;
+				const reader = new FileReader();
+				reader.onload = (ev) => {
+					state.bgImageSrc = ev.target.result;
+					const preview = document.getElementById("bg-img-preview");
+					const upload = document.getElementById("bg-img-upload");
+					preview.src = ev.target.result;
+					upload.classList.add("has-img");
+					document.getElementById(
+						"paper-canvas"
+					).style.backgroundImage = `url(${ev.target.result})`;
+					document.getElementById("paper-canvas").style.backgroundSize = "cover";
+				};
+				reader.readAsDataURL(f);
+			}
+
+			function clearBgImage() {
+				state.bgImageSrc = null;
+				document.getElementById("bg-img-preview").src = "";
+				document.getElementById("bg-img-upload").classList.remove("has-img");
+				document.getElementById("paper-canvas").style.backgroundImage = "";
+				document.getElementById("bg-img-input").value = "";
+			}
+
+			// ─── STEP 4: FORM ─────────────────────────────────────────────────────
+			function initFormStep() {
+				document.getElementById("form-size-val").textContent = state.paperSize || "—";
+				document.getElementById("form-sticker-count").textContent = state.stickers.filter(
+					(s) => !s.isText
+				).length;
+
+				const ps = PAPER[state.paperSize];
+				const thumb = document.getElementById("form-preview-thumb");
+				const ratio = ps.h / ps.w;
+				thumb.style.width = "140px";
+				thumb.style.height = Math.round(140 * ratio) + "px";
+				document.getElementById("form-preview-label").textContent = state.paperSize;
+			}
+
+			function submitOrder() {
+				const name = document.getElementById("f-name").value.trim();
+				const phone = document.getElementById("f-phone").value.trim();
+				const qty = document.getElementById("f-qty").value.trim();
+
+				if (!name) {
+					showToast("Vui lòng nhập họ tên", true);
+					return;
+				}
+				if (!phone) {
+					showToast("Vui lòng nhập SĐT / Zalo", true);
+					return;
+				}
+				if (!qty) {
+					showToast("Vui lòng nhập số lượng", true);
+					return;
+				}
+
+				// Mock submit
+				const orderId = "#INS-" + (Math.floor(Math.random() * 90000) + 10000);
+				document.getElementById("order-id").textContent = orderId;
+				document.getElementById("order-size").textContent = state.paperSize;
+				document.getElementById("order-sticker-cnt").textContent = state.stickers.filter(
+					(s) => !s.isText
+				).length;
+
+				showToast("Đang gửi thiết kế...");
+				setTimeout(() => {
+					showStep("success");
+					document.getElementById("btn-back").style.visibility = "hidden";
+					document.getElementById("btn-next").style.display = "none";
+					document.getElementById("footer-hint").textContent = "";
+				}, 1200);
+			}
+
+			function resetAll() {
+				state.step = 1;
+				state.paperSize = null;
+				state.assets = [];
+				state.stickers = [];
+				state.selectedId = null;
+				state.bgColor = "#FAFAF8";
+				state.bgImageSrc = null;
+				state.showBleed = false;
+				state.snapToGrid = false;
+				state.nextId = 1;
+
+				// Reset DOM
+				document.getElementById("asset-grid").innerHTML = "";
+				document.getElementById("asset-count").textContent = "0";
+				document.querySelectorAll(".size-card").forEach((c) => c.classList.remove("selected"));
+				const paper = document.getElementById("paper-canvas");
+				paper.querySelectorAll(".sticker-item,.text-item").forEach((e) => e.remove());
+				document.getElementById("btn-next").style.display = "";
+
+				showStep(1);
+			}
+
+			// ─── TOAST ────────────────────────────────────────────────────────────
+			let toastTimer;
+			function showToast(msg, isError = false) {
+				const t = document.getElementById("toast");
+				t.textContent = msg;
+				t.className = "show" + (isError ? " error" : "");
+				clearTimeout(toastTimer);
+				toastTimer = setTimeout(() => (t.className = ""), 2500);
+			}
+
+			// ─── INIT ─────────────────────────────────────────────────────────────
+			setBgColor("#FAFAF8");
+			updateNav();
+		</script>
+	</body>
+</html>

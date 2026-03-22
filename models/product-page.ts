@@ -29,6 +29,20 @@ export interface ComparisonRow {
 	[key: string]: string;
 }
 
+export interface Testimonial {
+	name: string;
+	role: string;
+	text: string;
+	initials?: string;
+	color?: string;
+}
+
+export interface ProductStat {
+	value: string;
+	unit: string;
+	label: string;
+}
+
 export interface ProductPageData {
 	id: string;
 	name: string;
@@ -45,14 +59,20 @@ export interface ProductPageData {
 		image: string;
 		chips?: string[];
 		ctaLabel?: string;
+		secondaryCtaLabel?: string;
+		ticker?: string[];
+		stats?: ProductStat[];
 	};
 	introduction: {
 		title?: string;
+		eyebrow?: string;
+		description?: string;
 		bullets: string[];
 		highlights: ProductHighlight[];
 	};
 	types: {
 		title?: string;
+		eyebrow?: string;
 		description?: string;
 		items: ProductType[];
 		specOptions?: string[];
@@ -62,6 +82,7 @@ export interface ProductPageData {
 	};
 	whyInut: {
 		title?: string;
+		eyebrow?: string;
 		description?: string;
 		productionProcess?: {
 			title: string;
@@ -78,13 +99,30 @@ export interface ProductPageData {
 			icon: ReactNode;
 		};
 	};
+	testimonials?: {
+		title?: string;
+		eyebrow?: string;
+		items: Testimonial[];
+		score?: string;
+		countText?: string;
+	};
 	contact: {
 		title?: string;
+		eyebrow?: string;
 		description: string;
 		type?: string;
+		address?: string;
+		persons?: Array<{
+			name: string;
+			role: string;
+			phone: string;
+			initial: string;
+		}>;
 	};
 	gallery: {
 		title?: string;
+		eyebrow?: string;
 		images: string[];
+		filters?: string[];
 	};
 }

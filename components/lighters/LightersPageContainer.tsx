@@ -58,7 +58,7 @@ const LightersPageContainer: React.FC<LightersPageContainerProps> = ({
 					title: "Lighters - INUT Design",
 					description:
 						"Custom printed lighters with high quality materials. Various designs and bulk order options available.",
-					url: "https://inutdesign.com/lighters",
+					url: "https://inutdesign.com/san-pham/lighters",
 					thumbnailUrl:
 						(banner && !isEmpty(banner) && urlFor(banner[0]?.image || "").url()) ||
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",

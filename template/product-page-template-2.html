@@ -1,0 +1,2874 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="INUT Design – In Postcard Chất Lượng Cao Theo Yêu Cầu tại Đà Nẵng"
+		/>
+		<title>INUT Design v2 – In Postcard Theo Yêu Cầu</title>
+
+		<!-- Vietnamese-friendly fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap"
+			rel="stylesheet"
+		/>
+
+		<style>
+			/* ============================================
+       DESIGN TOKENS & CSS VARIABLES
+    ============================================ */
+			:root {
+				/* Brand Colors */
+				--orange: #f5520a;
+				--orange-light: #ff6b2b;
+				--orange-dim: rgba(245, 82, 10, 0.12);
+				--orange-glow: rgba(245, 82, 10, 0.25);
+
+				/* Neutrals – warm-tinted */
+				--cream: #fafaf7;
+				--cream-deep: #f2f0eb;
+				--parchment: #ede9e0;
+				--dark: #141210;
+				--dark-2: #1f1c19;
+				--dark-3: #2b2825;
+				--warm-gray: #8a857f;
+				--warm-gray-2: #c4bfb8;
+				--text: #1a1714;
+				--text-muted: #6b6560;
+
+				/* Typography */
+				--font-display: "Playfair Display", Georgia, serif;
+				--font-body: "Be Vietnam Pro", sans-serif;
+
+				/* Spacing scale */
+				--space-xs: 0.5rem;
+				--space-sm: 1rem;
+				--space-md: 1.5rem;
+				--space-lg: 2.5rem;
+				--space-xl: 4rem;
+				--space-2xl: 6rem;
+				--space-3xl: 9rem;
+
+				/* Border radius */
+				--radius-sm: 6px;
+				--radius-md: 14px;
+				--radius-lg: 24px;
+				--radius-xl: 40px;
+
+				/* Transitions */
+				--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+				--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+			}
+
+			/* ============================================
+       RESET & BASE
+    ============================================ */
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			html {
+				scroll-behavior: smooth;
+				-webkit-text-size-adjust: 100%;
+			}
+
+			body {
+				font-family: var(--font-body);
+				background: var(--cream);
+				color: var(--text);
+				line-height: 1.65;
+				overflow-x: hidden;
+				font-size: 16px;
+			}
+
+			img {
+				display: block;
+				max-width: 100%;
+			}
+			a {
+				color: inherit;
+				text-decoration: none;
+			}
+			button {
+				cursor: pointer;
+				border: none;
+				background: none;
+				font: inherit;
+			}
+			ul {
+				list-style: none;
+			}
+
+			/* ============================================
+       UTILITY CLASSES
+    ============================================ */
+			.container {
+				width: 100%;
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 0 var(--space-md);
+			}
+
+			.tag {
+				display: inline-flex;
+				align-items: center;
+				gap: 6px;
+				font-size: 0.7rem;
+				font-weight: 700;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				padding: 5px 14px;
+				border-radius: 99px;
+				background: var(--orange-dim);
+				color: var(--orange);
+			}
+
+			.section-label {
+				font-size: 0.72rem;
+				font-weight: 700;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				color: var(--warm-gray);
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+			.section-label::before {
+				content: "";
+				display: inline-block;
+				width: 28px;
+				height: 2px;
+				background: var(--orange);
+				border-radius: 2px;
+			}
+
+			/* Scroll-reveal animation */
+			.reveal {
+				opacity: 0;
+				transform: translateY(32px);
+				transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+			}
+			.reveal.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+			.reveal-delay-1 {
+				transition-delay: 0.08s;
+			}
+			.reveal-delay-2 {
+				transition-delay: 0.16s;
+			}
+			.reveal-delay-3 {
+				transition-delay: 0.24s;
+			}
+			.reveal-delay-4 {
+				transition-delay: 0.32s;
+			}
+
+			/* ============================================
+       NAVIGATION
+    ============================================ */
+			.navbar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 1000;
+				background: rgba(250, 250, 247, 0.9);
+				backdrop-filter: blur(16px);
+				-webkit-backdrop-filter: blur(16px);
+				border-bottom: 1px solid transparent;
+				transition: border-color 0.3s, box-shadow 0.3s;
+			}
+			.navbar.scrolled {
+				border-color: var(--parchment);
+				box-shadow: 0 2px 24px rgba(0, 0, 0, 0.06);
+			}
+
+			.navbar__inner {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				height: 68px;
+				gap: var(--space-md);
+			}
+
+			/* Logo */
+			.logo {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				font-weight: 900;
+				font-size: 1.35rem;
+				letter-spacing: -0.03em;
+				color: var(--dark);
+				flex-shrink: 0;
+			}
+			.logo__mark {
+				width: 34px;
+				height: 34px;
+				background: var(--orange);
+				border-radius: 8px;
+				display: grid;
+				place-items: center;
+				position: relative;
+				overflow: hidden;
+			}
+			.logo__mark::after {
+				content: "N";
+				font-size: 1.1rem;
+				font-weight: 900;
+				color: white;
+				font-style: italic;
+			}
+
+			/* Nav links */
+			.nav-links {
+				display: flex;
+				align-items: center;
+				gap: var(--space-md);
+			}
+			.nav-links a {
+				font-size: 0.82rem;
+				font-weight: 500;
+				letter-spacing: 0.02em;
+				color: var(--text-muted);
+				transition: color 0.2s;
+				white-space: nowrap;
+			}
+			.nav-links a:hover {
+				color: var(--orange);
+			}
+
+			.nav-cta {
+				display: flex;
+				align-items: center;
+				gap: var(--space-sm);
+				flex-shrink: 0;
+			}
+
+			.btn {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				gap: 8px;
+				padding: 10px 22px;
+				border-radius: 99px;
+				font-size: 0.82rem;
+				font-weight: 700;
+				letter-spacing: 0.02em;
+				transition: all 0.25s var(--ease-out);
+				white-space: nowrap;
+			}
+			.btn--primary {
+				background: var(--orange);
+				color: white;
+				box-shadow: 0 4px 16px var(--orange-glow);
+			}
+			.btn--primary:hover {
+				background: var(--orange-light);
+				transform: translateY(-2px);
+				box-shadow: 0 8px 24px var(--orange-glow);
+			}
+			.btn--outline {
+				border: 1.5px solid var(--parchment);
+				color: var(--text-muted);
+			}
+			.btn--outline:hover {
+				border-color: var(--orange);
+				color: var(--orange);
+			}
+			.btn--ghost {
+				color: var(--orange);
+				padding-left: 0;
+				display: inline-flex;
+				align-items: center;
+				gap: 6px;
+			}
+			.btn--ghost .arrow {
+				display: inline-flex;
+				align-items: center;
+				transition: transform 0.25s var(--ease-spring);
+			}
+			.btn--ghost:hover .arrow {
+				transform: translateX(4px);
+			}
+
+			/* Hamburger */
+			.nav-hamburger {
+				display: none;
+				flex-direction: column;
+				gap: 5px;
+				width: 28px;
+				padding: 4px;
+			}
+			.nav-hamburger span {
+				display: block;
+				height: 2px;
+				background: var(--dark);
+				border-radius: 2px;
+				transition: all 0.3s;
+			}
+
+			/* ============================================
+       HERO SECTION
+    ============================================ */
+			.hero {
+				min-height: 100svh;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				align-items: center;
+				background: var(--dark);
+				padding-top: 68px;
+				overflow: hidden;
+				position: relative;
+			}
+
+			/* Decorative background grid */
+			.hero::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+					linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+				background-size: 64px 64px;
+				pointer-events: none;
+			}
+
+			.hero__content {
+				padding: var(--space-3xl) var(--space-xl) var(--space-3xl) 0;
+				padding-left: max(var(--space-md), calc((100vw - 1200px) / 2 + var(--space-md)));
+				position: relative;
+				z-index: 1;
+			}
+
+			.hero__breadcrumbs {
+				display: flex;
+				gap: 8px;
+				margin-bottom: var(--space-lg);
+			}
+
+			.hero__title {
+				font-family: var(--font-display);
+				font-size: clamp(2.6rem, 5vw, 4.2rem);
+				font-weight: 900;
+				line-height: 1.08;
+				letter-spacing: -0.03em;
+				color: white;
+				margin-bottom: var(--space-md);
+			}
+			.hero__title em {
+				font-style: italic;
+				color: var(--orange);
+			}
+
+			.hero__subtitle {
+				font-size: 1rem;
+				line-height: 1.7;
+				color: var(--warm-gray-2);
+				max-width: 420px;
+				margin-bottom: var(--space-lg);
+			}
+
+			.hero__actions {
+				display: flex;
+				flex-wrap: wrap;
+				gap: var(--space-sm);
+				align-items: center;
+			}
+
+			.hero__stats {
+				display: flex;
+				gap: var(--space-xl);
+				margin-top: var(--space-xl);
+				padding-top: var(--space-xl);
+				border-top: 1px solid rgba(255, 255, 255, 0.08);
+			}
+			.hero__stat-num {
+				font-family: var(--font-display);
+				font-size: 2rem;
+				font-weight: 700;
+				color: white;
+				line-height: 1;
+			}
+			.hero__stat-label {
+				font-size: 0.75rem;
+				color: var(--warm-gray);
+				margin-top: 4px;
+				font-weight: 500;
+			}
+
+			/* Hero visual side */
+			.hero__visual {
+				height: 100%;
+				min-height: 100svh;
+				position: relative;
+				overflow: hidden;
+				background: var(--dark-2);
+			}
+
+			.hero__visual-inner {
+				position: absolute;
+				inset: 0;
+				display: grid;
+				grid-template-rows: 1fr 1fr;
+				grid-template-columns: 1fr 1fr;
+				gap: 3px;
+			}
+
+			.hero__card {
+				background: var(--dark-3);
+				position: relative;
+				overflow: hidden;
+				display: flex;
+				align-items: flex-end;
+				padding: var(--space-md);
+				transition: background 0.3s;
+			}
+			.hero__card:hover {
+				background: var(--dark-2);
+			}
+
+			.hero__card--accent {
+				background: var(--orange);
+				grid-column: span 2;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.hero__card--large {
+				grid-row: span 2;
+			}
+
+			.hero__card-monogram {
+				font-family: var(--font-display);
+				font-size: clamp(4rem, 10vw, 9rem);
+				font-weight: 900;
+				color: rgba(255, 255, 255, 0.1);
+				font-style: italic;
+				position: absolute;
+				bottom: -10px;
+				right: -8px;
+				line-height: 1;
+				pointer-events: none;
+				letter-spacing: -0.05em;
+			}
+
+			.hero__card-badge {
+				position: relative;
+				z-index: 1;
+				background: rgba(255, 255, 255, 0.15);
+				backdrop-filter: blur(8px);
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				border-radius: 99px;
+				padding: 6px 14px;
+				font-size: 0.72rem;
+				font-weight: 700;
+				color: white;
+				letter-spacing: 0.06em;
+			}
+
+			/* ============================================
+       TRUST BAR
+    ============================================ */
+			.trust-bar {
+				background: var(--orange);
+				padding: var(--space-sm) 0;
+				overflow: hidden;
+			}
+
+			.trust-bar__track {
+				display: flex;
+				gap: var(--space-xl);
+				animation: marquee 18s linear infinite;
+				width: max-content;
+			}
+
+			@keyframes marquee {
+				from {
+					transform: translateX(0);
+				}
+				to {
+					transform: translateX(-50%);
+				}
+			}
+
+			.trust-bar__item {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				white-space: nowrap;
+				font-size: 0.8rem;
+				font-weight: 700;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				color: white;
+			}
+			.trust-bar__dot {
+				width: 5px;
+				height: 5px;
+				background: rgba(255, 255, 255, 0.5);
+				border-radius: 50%;
+			}
+
+			/* ============================================
+       FEATURE HIGHLIGHT SECTION
+    ============================================ */
+			.features {
+				padding: var(--space-3xl) 0;
+				background: var(--cream);
+			}
+
+			.features__header {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: var(--space-xl);
+				align-items: end;
+				margin-bottom: var(--space-2xl);
+			}
+
+			.features__title {
+				font-family: var(--font-display);
+				font-size: clamp(2rem, 4vw, 3.2rem);
+				font-weight: 700;
+				line-height: 1.15;
+				letter-spacing: -0.02em;
+			}
+
+			.features__intro {
+				color: var(--text-muted);
+				font-size: 1rem;
+				line-height: 1.75;
+				max-width: 400px;
+			}
+
+			/* Feature cards bento grid */
+			.features__grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: auto auto;
+				gap: var(--space-sm);
+			}
+
+			.feature-card {
+				background: white;
+				border-radius: var(--radius-lg);
+				padding: var(--space-lg);
+				border: 1px solid var(--parchment);
+				transition: box-shadow 0.3s, transform 0.3s var(--ease-out), border-color 0.3s;
+				position: relative;
+				overflow: hidden;
+			}
+			.feature-card:hover {
+				box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+				transform: translateY(-4px);
+				border-color: var(--orange-dim);
+			}
+
+			.feature-card--wide {
+				grid-column: span 2;
+			}
+			.feature-card--dark {
+				background: var(--dark);
+				border-color: var(--dark-3);
+				color: white;
+			}
+
+			.feature-card__icon {
+				width: 48px;
+				height: 48px;
+				border-radius: var(--radius-sm);
+				background: var(--orange-dim);
+				color: var(--orange);
+				display: grid;
+				place-items: center;
+				font-size: 1.3rem;
+				margin-bottom: var(--space-md);
+			}
+			.feature-card--dark .feature-card__icon {
+				background: rgba(245, 82, 10, 0.18);
+			}
+
+			.feature-card__title {
+				font-size: 1.05rem;
+				font-weight: 700;
+				margin-bottom: 8px;
+				letter-spacing: -0.01em;
+			}
+
+			.feature-card__desc {
+				font-size: 0.875rem;
+				color: var(--text-muted);
+				line-height: 1.65;
+			}
+			.feature-card--dark .feature-card__desc {
+				color: var(--warm-gray);
+			}
+
+			.feature-card__bg-text {
+				position: absolute;
+				bottom: -20px;
+				right: -10px;
+				font-family: var(--font-display);
+				font-size: 5rem;
+				font-weight: 900;
+				color: rgba(0, 0, 0, 0.04);
+				pointer-events: none;
+				line-height: 1;
+				letter-spacing: -0.05em;
+			}
+			.feature-card--dark .feature-card__bg-text {
+				color: rgba(255, 255, 255, 0.04);
+			}
+
+			/* ============================================
+       PRODUCT LINES SECTION
+    ============================================ */
+			.products {
+				padding: var(--space-3xl) 0;
+				background: var(--dark);
+			}
+
+			.products__header {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-end;
+				margin-bottom: var(--space-2xl);
+			}
+			.products__header .section-label {
+				color: var(--warm-gray);
+			}
+			.products__header .section-label::before {
+				background: var(--orange);
+			}
+
+			.products__title {
+				font-family: var(--font-display);
+				font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+				font-weight: 700;
+				color: white;
+				letter-spacing: -0.02em;
+				margin-top: var(--space-sm);
+			}
+
+			/* Horizontal scroll card row */
+			.products__scroll-wrapper {
+				overflow-x: auto;
+				scrollbar-width: none;
+				cursor: grab;
+				-webkit-user-select: none;
+				user-select: none;
+			}
+			.products__scroll-wrapper::-webkit-scrollbar {
+				display: none;
+			}
+			.products__scroll-wrapper.grabbing {
+				cursor: grabbing;
+			}
+
+			.products__row {
+				display: flex;
+				gap: var(--space-md);
+				padding-bottom: var(--space-sm);
+				width: max-content;
+			}
+
+			.product-card {
+				width: 280px;
+				flex-shrink: 0;
+				border-radius: var(--radius-lg);
+				overflow: hidden;
+				background: var(--dark-2);
+				border: 1px solid rgba(255, 255, 255, 0.06);
+				transition: transform 0.35s var(--ease-out), box-shadow 0.35s;
+				position: relative;
+			}
+			.product-card:hover {
+				transform: translateY(-6px) scale(1.01);
+				box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+			}
+
+			.product-card__img {
+				height: 200px;
+				position: relative;
+				overflow: hidden;
+			}
+			.product-card__img-inner {
+				width: 100%;
+				height: 100%;
+				background: var(--dark-3);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--font-display);
+				font-size: 3rem;
+				font-weight: 900;
+				color: var(--orange);
+				letter-spacing: -0.05em;
+				font-style: italic;
+				transition: transform 0.5s var(--ease-out);
+			}
+			.product-card:hover .product-card__img-inner {
+				transform: scale(1.06);
+			}
+
+			.product-card__body {
+				padding: var(--space-md) var(--space-lg);
+			}
+
+			.product-card__type {
+				font-size: 0.68rem;
+				font-weight: 700;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--orange);
+				margin-bottom: 6px;
+			}
+
+			.product-card__name {
+				font-weight: 700;
+				font-size: 1.05rem;
+				color: white;
+				margin-bottom: 8px;
+			}
+
+			.product-card__desc {
+				font-size: 0.82rem;
+				color: var(--warm-gray);
+				line-height: 1.6;
+				margin-bottom: var(--space-md);
+			}
+
+			.product-card__footer {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			.product-card__price {
+				font-size: 0.8rem;
+				color: var(--warm-gray);
+			}
+			.product-card__price strong {
+				font-size: 1rem;
+				color: white;
+			}
+
+			.product-card__btn {
+				width: 34px;
+				height: 34px;
+				border-radius: 50%;
+				background: var(--orange);
+				color: white;
+				display: grid;
+				place-items: center;
+				font-size: 0.9rem;
+				transition: transform 0.25s var(--ease-spring), background 0.2s;
+			}
+			.product-card__btn:hover {
+				transform: scale(1.15) rotate(45deg);
+				background: var(--orange-light);
+			}
+
+			/* Scroll indicator dots */
+			.products__dots {
+				display: flex;
+				gap: 6px;
+				justify-content: center;
+				margin-top: var(--space-lg);
+			}
+			.products__dot {
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				background: rgba(255, 255, 255, 0.2);
+				transition: background 0.3s, width 0.3s;
+				cursor: pointer;
+			}
+			.products__dot.active {
+				background: var(--orange);
+				width: 20px;
+				border-radius: 3px;
+			}
+
+			/* ============================================
+       WHY US / PROCESS SECTION
+    ============================================ */
+			.why-us {
+				padding: var(--space-3xl) 0;
+				background: var(--cream-deep);
+			}
+
+			.why-us__grid {
+				display: grid;
+				grid-template-columns: 5fr 7fr;
+				gap: var(--space-2xl);
+				align-items: start;
+			}
+
+			.why-us__left {
+				position: sticky;
+				top: 100px;
+			}
+
+			.why-us__title {
+				font-family: var(--font-display);
+				font-size: clamp(2rem, 3.5vw, 2.9rem);
+				font-weight: 700;
+				line-height: 1.18;
+				letter-spacing: -0.025em;
+				margin: var(--space-sm) 0 var(--space-md);
+			}
+
+			.why-us__desc {
+				color: var(--text-muted);
+				line-height: 1.75;
+				margin-bottom: var(--space-lg);
+			}
+
+			/* Process steps */
+			.process {
+				display: flex;
+				flex-direction: column;
+				gap: 2px;
+			}
+
+			.process-step {
+				display: grid;
+				grid-template-columns: 52px 1fr;
+				gap: var(--space-md);
+				padding: var(--space-md) var(--space-lg);
+				border-radius: var(--radius-md);
+				background: white;
+				border: 1px solid var(--parchment);
+				transition: all 0.3s var(--ease-out);
+				cursor: pointer;
+				position: relative;
+			}
+			.process-step:hover,
+			.process-step.active {
+				background: var(--dark);
+				border-color: transparent;
+				box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+			}
+
+			.process-step__num {
+				width: 40px;
+				height: 40px;
+				border-radius: var(--radius-sm);
+				background: var(--orange-dim);
+				color: var(--orange);
+				font-size: 0.78rem;
+				font-weight: 800;
+				display: grid;
+				place-items: center;
+				letter-spacing: 0.04em;
+				align-self: center;
+				transition: background 0.3s, color 0.3s;
+			}
+			.process-step:hover .process-step__num,
+			.process-step.active .process-step__num {
+				background: var(--orange);
+				color: white;
+			}
+
+			.process-step__content {
+				align-self: center;
+			}
+
+			.process-step__title {
+				font-weight: 700;
+				font-size: 0.95rem;
+				margin-bottom: 4px;
+				transition: color 0.3s;
+			}
+			.process-step:hover .process-step__title,
+			.process-step.active .process-step__title {
+				color: white;
+			}
+
+			.process-step__text {
+				font-size: 0.82rem;
+				color: var(--text-muted);
+				line-height: 1.55;
+				transition: color 0.3s;
+			}
+			.process-step:hover .process-step__text,
+			.process-step.active .process-step__text {
+				color: var(--warm-gray);
+			}
+
+			/* Right: benefit grid */
+			.why-us__benefits {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: var(--space-sm);
+			}
+
+			.benefit-card {
+				background: white;
+				border-radius: var(--radius-lg);
+				padding: var(--space-lg);
+				border: 1px solid var(--parchment);
+				transition: all 0.3s var(--ease-out);
+				position: relative;
+				overflow: hidden;
+			}
+			.benefit-card:hover {
+				border-color: var(--orange);
+				transform: translateY(-3px);
+				box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+			}
+			.benefit-card--tall {
+				grid-row: span 2;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+			}
+			.benefit-card--accent {
+				background: var(--orange);
+				border-color: transparent;
+				color: white;
+			}
+
+			.benefit-card__num {
+				font-family: var(--font-display);
+				font-size: 3rem;
+				font-weight: 900;
+				line-height: 1;
+				color: var(--orange);
+				margin-bottom: var(--space-sm);
+				letter-spacing: -0.03em;
+			}
+			.benefit-card--accent .benefit-card__num {
+				color: rgba(255, 255, 255, 0.4);
+			}
+
+			.benefit-card__title {
+				font-weight: 700;
+				font-size: 1rem;
+				margin-bottom: 6px;
+			}
+			.benefit-card--accent .benefit-card__title {
+				color: white;
+			}
+
+			.benefit-card__text {
+				font-size: 0.82rem;
+				color: var(--text-muted);
+				line-height: 1.6;
+			}
+			.benefit-card--accent .benefit-card__text {
+				color: rgba(255, 255, 255, 0.8);
+			}
+
+			.benefit-card__bg {
+				position: absolute;
+				top: 0;
+				right: 0;
+				font-size: 5rem;
+				opacity: 0.06;
+				line-height: 1;
+				pointer-events: none;
+			}
+
+			/* ============================================
+       PORTFOLIO / GALLERY
+    ============================================ */
+			.portfolio {
+				padding: var(--space-3xl) 0;
+				background: var(--cream);
+			}
+
+			.portfolio__header {
+				display: grid;
+				grid-template-columns: 1fr auto;
+				align-items: end;
+				margin-bottom: var(--space-2xl);
+			}
+
+			.portfolio__title {
+				font-family: var(--font-display);
+				font-size: clamp(2rem, 3.8vw, 3rem);
+				font-weight: 700;
+				letter-spacing: -0.025em;
+				margin-top: var(--space-sm);
+			}
+
+			/* Filter tabs */
+			.filter-tabs {
+				display: flex;
+				gap: 6px;
+				background: white;
+				padding: 5px;
+				border-radius: 99px;
+				border: 1px solid var(--parchment);
+			}
+			.filter-tab {
+				padding: 7px 18px;
+				border-radius: 99px;
+				font-size: 0.78rem;
+				font-weight: 600;
+				color: var(--text-muted);
+				transition: all 0.2s;
+				cursor: pointer;
+			}
+			.filter-tab.active,
+			.filter-tab:hover {
+				background: var(--orange);
+				color: white;
+			}
+
+			/* Masonry grid */
+			.portfolio__masonry {
+				columns: 4;
+				column-gap: var(--space-sm);
+			}
+			@media (max-width: 768px) {
+				.portfolio__masonry {
+					columns: 2;
+				}
+			}
+
+			.portfolio__item {
+				break-inside: avoid;
+				margin-bottom: var(--space-sm);
+				border-radius: var(--radius-md);
+				overflow: hidden;
+				position: relative;
+				cursor: pointer;
+			}
+
+			.portfolio__item-img {
+				width: 100%;
+				aspect-ratio: 3/4;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--font-display);
+				font-weight: 900;
+				font-style: italic;
+				font-size: clamp(1.5rem, 3vw, 3rem);
+				color: white;
+				letter-spacing: -0.04em;
+				transition: transform 0.4s var(--ease-out);
+			}
+			.portfolio__item:nth-child(2n) .portfolio__item-img {
+				aspect-ratio: 4/3;
+			}
+			.portfolio__item:nth-child(3n) .portfolio__item-img {
+				aspect-ratio: 1;
+			}
+
+			.portfolio__item:hover .portfolio__item-img {
+				transform: scale(1.06);
+			}
+
+			.portfolio__item-overlay {
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(to top, rgba(20, 18, 16, 0.85) 0%, transparent 60%);
+				opacity: 0;
+				transition: opacity 0.3s;
+				display: flex;
+				align-items: flex-end;
+				padding: var(--space-md);
+			}
+			.portfolio__item:hover .portfolio__item-overlay {
+				opacity: 1;
+			}
+
+			.portfolio__item-info {
+				color: white;
+				transform: translateY(8px);
+				transition: transform 0.3s var(--ease-out);
+			}
+			.portfolio__item:hover .portfolio__item-info {
+				transform: translateY(0);
+			}
+
+			.portfolio__item-info strong {
+				display: block;
+				font-size: 0.88rem;
+				font-weight: 700;
+			}
+			.portfolio__item-info span {
+				font-size: 0.72rem;
+				color: rgba(255, 255, 255, 0.65);
+			}
+
+			/* ============================================
+       TESTIMONIALS
+    ============================================ */
+			.testimonials {
+				padding: var(--space-3xl) 0;
+				background: var(--dark);
+			}
+
+			.testimonials__inner {
+				display: grid;
+				grid-template-columns: 1fr 2fr;
+				gap: var(--space-2xl);
+				align-items: start;
+			}
+
+			.testimonials__title {
+				font-family: var(--font-display);
+				font-size: clamp(1.8rem, 3vw, 2.5rem);
+				font-weight: 700;
+				color: white;
+				letter-spacing: -0.025em;
+				margin-top: var(--space-sm);
+				margin-bottom: var(--space-md);
+			}
+
+			.testimonials__count {
+				font-size: 0.82rem;
+				color: var(--warm-gray);
+			}
+			.testimonials__count strong {
+				font-size: 1.5rem;
+				font-weight: 700;
+				font-family: var(--font-display);
+				color: var(--orange);
+				display: block;
+			}
+
+			.testimonials__cards {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: var(--space-sm);
+			}
+
+			.testi-card {
+				background: var(--dark-2);
+				border: 1px solid rgba(255, 255, 255, 0.06);
+				border-radius: var(--radius-lg);
+				padding: var(--space-lg);
+				transition: border-color 0.3s, transform 0.3s var(--ease-out);
+			}
+			.testi-card:hover {
+				border-color: var(--orange);
+				transform: translateY(-4px);
+			}
+
+			.testi-card__stars {
+				display: flex;
+				gap: 3px;
+				margin-bottom: var(--space-sm);
+			}
+			.testi-card__star {
+				color: var(--orange);
+				font-size: 0.85rem;
+			}
+
+			.testi-card__text {
+				font-size: 0.88rem;
+				color: var(--warm-gray-2);
+				line-height: 1.7;
+				margin-bottom: var(--space-md);
+				font-style: italic;
+			}
+
+			.testi-card__author {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+			.testi-card__avatar {
+				width: 36px;
+				height: 36px;
+				border-radius: 50%;
+				background: var(--orange);
+				display: grid;
+				place-items: center;
+				font-weight: 700;
+				font-size: 0.8rem;
+				color: white;
+				flex-shrink: 0;
+			}
+			.testi-card__name {
+				font-weight: 600;
+				font-size: 0.85rem;
+				color: white;
+			}
+			.testi-card__role {
+				font-size: 0.72rem;
+				color: var(--warm-gray);
+			}
+
+			/* ============================================
+       CTA SECTION
+    ============================================ */
+			.cta-section {
+				padding: var(--space-3xl) 0;
+				background: var(--cream);
+				position: relative;
+				overflow: hidden;
+			}
+
+			.cta-section::before {
+				content: "IN";
+				position: absolute;
+				right: -2%;
+				top: 50%;
+				transform: translateY(-50%);
+				font-family: var(--font-display);
+				font-size: 25vw;
+				font-weight: 900;
+				font-style: italic;
+				color: var(--parchment);
+				pointer-events: none;
+				line-height: 0.85;
+				letter-spacing: -0.06em;
+			}
+
+			.cta-box {
+				background: var(--dark);
+				border-radius: var(--radius-xl);
+				padding: var(--space-2xl);
+				display: grid;
+				grid-template-columns: 1fr auto;
+				gap: var(--space-xl);
+				align-items: center;
+				position: relative;
+				z-index: 1;
+				overflow: hidden;
+			}
+			.cta-box::after {
+				content: "";
+				position: absolute;
+				top: -80px;
+				right: -80px;
+				width: 300px;
+				height: 300px;
+				background: radial-gradient(circle, var(--orange-glow), transparent 70%);
+				pointer-events: none;
+			}
+
+			.cta-box__title {
+				font-family: var(--font-display);
+				font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+				font-weight: 700;
+				color: white;
+				letter-spacing: -0.025em;
+				margin-bottom: var(--space-sm);
+			}
+
+			.cta-box__sub {
+				color: var(--warm-gray);
+				font-size: 0.95rem;
+				line-height: 1.65;
+				max-width: 480px;
+			}
+
+			.cta-box__actions {
+				display: flex;
+				flex-direction: column;
+				gap: var(--space-sm);
+				align-items: flex-end;
+				flex-shrink: 0;
+			}
+
+			/* Contact cards */
+			.contact-cards {
+				display: flex;
+				gap: var(--space-sm);
+				margin-top: var(--space-xl);
+			}
+
+			.contact-card {
+				flex: 1;
+				background: white;
+				border: 1px solid var(--parchment);
+				border-radius: var(--radius-lg);
+				padding: var(--space-md) var(--space-lg);
+				display: flex;
+				align-items: center;
+				gap: var(--space-md);
+				transition: all 0.3s var(--ease-out);
+			}
+			.contact-card:hover {
+				border-color: var(--orange);
+				box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+				transform: translateY(-3px);
+			}
+
+			.contact-card__avatar {
+				width: 52px;
+				height: 52px;
+				border-radius: var(--radius-sm);
+				background: var(--orange);
+				display: grid;
+				place-items: center;
+				font-weight: 800;
+				font-size: 0.8rem;
+				color: white;
+				letter-spacing: 0.04em;
+				flex-shrink: 0;
+			}
+
+			.contact-card__role {
+				font-size: 0.68rem;
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--text-muted);
+				margin-bottom: 2px;
+			}
+
+			.contact-card__name {
+				font-weight: 700;
+				font-size: 0.95rem;
+				margin-bottom: 4px;
+			}
+
+			.contact-card__phone {
+				font-size: 0.85rem;
+				color: var(--orange);
+				font-weight: 600;
+			}
+
+			.contact-card__zalo {
+				margin-left: auto;
+				background: #0066ff;
+				color: white;
+				font-size: 0.7rem;
+				font-weight: 700;
+				padding: 5px 10px;
+				border-radius: 6px;
+				letter-spacing: 0.04em;
+			}
+
+			/* ============================================
+       FOOTER
+    ============================================ */
+			.footer {
+				background: var(--dark);
+				color: var(--warm-gray);
+				padding: var(--space-2xl) 0 var(--space-lg);
+			}
+
+			.footer__top {
+				display: grid;
+				grid-template-columns: 2fr 1fr 1fr 1fr;
+				gap: var(--space-xl);
+				padding-bottom: var(--space-xl);
+				border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+				margin-bottom: var(--space-xl);
+			}
+
+			.footer__brand-desc {
+				font-size: 0.85rem;
+				line-height: 1.75;
+				margin-top: var(--space-md);
+				margin-bottom: var(--space-lg);
+			}
+
+			.footer__socials {
+				display: flex;
+				gap: 10px;
+			}
+			.footer__social {
+				width: 36px;
+				height: 36px;
+				border-radius: 8px;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				display: grid;
+				place-items: center;
+				font-size: 0.82rem;
+				font-weight: 700;
+				color: var(--warm-gray);
+				transition: all 0.2s;
+			}
+			.footer__social:hover {
+				background: var(--orange);
+				border-color: var(--orange);
+				color: white;
+			}
+
+			.footer__col-title {
+				font-size: 0.75rem;
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--warm-gray-2);
+				margin-bottom: var(--space-md);
+			}
+
+			.footer__links {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+			.footer__link {
+				font-size: 0.82rem;
+				color: var(--warm-gray);
+				transition: color 0.2s;
+			}
+			.footer__link:hover {
+				color: var(--orange);
+			}
+
+			.footer__contact-item {
+				font-size: 0.82rem;
+				line-height: 1.6;
+				margin-bottom: 10px;
+			}
+			.footer__contact-label {
+				font-size: 0.68rem;
+				font-weight: 700;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: rgba(255, 255, 255, 0.3);
+				margin-bottom: 2px;
+			}
+
+			.footer__bottom {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: var(--space-md);
+			}
+			.footer__copyright {
+				font-size: 0.78rem;
+				color: rgba(255, 255, 255, 0.25);
+			}
+			.footer__bottom-links {
+				display: flex;
+				gap: var(--space-md);
+			}
+			.footer__bottom-link {
+				font-size: 0.78rem;
+				color: rgba(255, 255, 255, 0.25);
+				transition: color 0.2s;
+			}
+			.footer__bottom-link:hover {
+				color: var(--orange);
+			}
+
+			/* ============================================
+       MOBILE MENU OVERLAY
+    ============================================ */
+			.mobile-menu {
+				position: fixed;
+				inset: 0;
+				background: var(--dark);
+				z-index: 999;
+				display: flex;
+				flex-direction: column;
+				padding: var(--space-2xl) var(--space-md);
+				transform: translateX(100%);
+				transition: transform 0.4s var(--ease-out);
+			}
+			.mobile-menu.open {
+				transform: translateX(0);
+			}
+
+			.mobile-menu__links {
+				display: flex;
+				flex-direction: column;
+				gap: var(--space-md);
+				margin-top: var(--space-xl);
+			}
+			.mobile-menu__link {
+				font-family: var(--font-display);
+				font-size: 2rem;
+				font-weight: 700;
+				color: white;
+				letter-spacing: -0.025em;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+				padding-bottom: var(--space-md);
+				transition: color 0.2s, padding-left 0.3s;
+			}
+			.mobile-menu__link:hover {
+				color: var(--orange);
+				padding-left: var(--space-sm);
+			}
+
+			/* ============================================
+       RESPONSIVE
+    ============================================ */
+			@media (max-width: 1024px) {
+				.hero {
+					grid-template-columns: 1fr;
+					min-height: auto;
+				}
+				.hero__visual {
+					display: none;
+				}
+				.hero__content {
+					padding: var(--space-2xl) var(--space-md);
+					padding-top: calc(68px + var(--space-xl));
+				}
+				.features__header {
+					grid-template-columns: 1fr;
+				}
+				.features__grid {
+					grid-template-columns: 1fr 1fr;
+				}
+				.feature-card--wide {
+					grid-column: span 2;
+				}
+				.why-us__grid {
+					grid-template-columns: 1fr;
+				}
+				.why-us__left {
+					position: static;
+				}
+				.why-us__benefits {
+					grid-template-columns: 1fr 1fr;
+				}
+				.benefit-card--tall {
+					grid-row: auto;
+				}
+				.testimonials__inner {
+					grid-template-columns: 1fr;
+				}
+				.cta-box {
+					grid-template-columns: 1fr;
+				}
+				.cta-box__actions {
+					align-items: flex-start;
+					flex-direction: row;
+				}
+				.footer__top {
+					grid-template-columns: 1fr 1fr;
+				}
+			}
+
+			@media (max-width: 768px) {
+				:root {
+					--space-3xl: 5rem;
+					--space-2xl: 3rem;
+				}
+
+				.nav-links,
+				.nav-cta .btn--outline {
+					display: none;
+				}
+				.nav-hamburger {
+					display: flex;
+				}
+
+				.features__grid {
+					grid-template-columns: 1fr;
+				}
+				.feature-card--wide {
+					grid-column: span 1;
+				}
+
+				.products__row {
+					padding: 0 var(--space-md) var(--space-md);
+				}
+
+				.why-us__benefits {
+					grid-template-columns: 1fr;
+				}
+				.testimonials__cards {
+					grid-template-columns: 1fr;
+				}
+
+				.cta-section::before {
+					content: none;
+				}
+				.cta-box {
+					padding: var(--space-lg);
+				}
+				.cta-box__actions {
+					flex-direction: column;
+				}
+				.contact-cards {
+					flex-direction: column;
+				}
+
+				.portfolio__header {
+					grid-template-columns: 1fr;
+					gap: var(--space-md);
+				}
+				.filter-tabs {
+					width: 100%;
+					overflow-x: auto;
+				}
+
+				.footer__top {
+					grid-template-columns: 1fr;
+				}
+				.footer__bottom {
+					flex-direction: column;
+					text-align: center;
+				}
+			}
+
+			/* ============================================
+       SCROLLBAR STYLING
+    ============================================ */
+			::-webkit-scrollbar {
+				width: 6px;
+			}
+			::-webkit-scrollbar-track {
+				background: var(--cream-deep);
+			}
+			::-webkit-scrollbar-thumb {
+				background: var(--warm-gray-2);
+				border-radius: 99px;
+			}
+			::-webkit-scrollbar-thumb:hover {
+				background: var(--orange);
+			}
+		</style>
+	</head>
+	<body>
+		<!-- ===== MOBILE MENU ===== -->
+		<div
+			class="mobile-menu"
+			id="mobileMenu"
+			role="dialog"
+			aria-modal="true"
+			aria-label="Menu điều hướng"
+		>
+			<div style="display: flex; justify-content: space-between; align-items: center">
+				<div class="logo">
+					<div class="logo__mark"></div>
+					INUT
+				</div>
+				<button
+					class="btn"
+					onclick="toggleMenu()"
+					aria-label="Đóng menu"
+					style="color: white; font-size: 1.5rem"
+				>
+					✕
+				</button>
+			</div>
+			<nav class="mobile-menu__links">
+				<a class="mobile-menu__link" href="#features">Dịch vụ</a>
+				<a class="mobile-menu__link" href="#products">Sản phẩm</a>
+				<a class="mobile-menu__link" href="#portfolio">Portfolio</a>
+				<a class="mobile-menu__link" href="#why-us">Về chúng tôi</a>
+				<a class="mobile-menu__link" href="#contact">Liên hệ</a>
+			</nav>
+			<div style="margin-top: auto">
+				<a
+					href="#contact"
+					class="btn btn--primary"
+					style="width: 100%; justify-content: center; padding: 16px"
+					onclick="toggleMenu()"
+					>Đặt In Ngay →</a
+				>
+			</div>
+		</div>
+
+		<!-- ===== NAVBAR ===== -->
+		<header class="navbar" id="navbar" role="banner">
+			<div class="container">
+				<nav class="navbar__inner" aria-label="Điều hướng chính">
+					<a href="/" class="logo" aria-label="INUT Design – Trang chủ">
+						<div class="logo__mark" aria-hidden="true"></div>
+						INUT<span style="color: var(--orange)">.</span>
+					</a>
+
+					<ul class="nav-links" role="list">
+						<li><a href="#features">Dịch vụ</a></li>
+						<li><a href="#products">Sản phẩm</a></li>
+						<li><a href="#portfolio">Portfolio</a></li>
+						<li><a href="#why-us">Vì sao chọn chúng tôi</a></li>
+						<li><a href="#contact">Liên hệ</a></li>
+					</ul>
+
+					<div class="nav-cta">
+						<a href="tel:0792359996" class="btn btn--outline">☎ Gọi ngay</a>
+						<a href="#contact" class="btn btn--primary">Đặt In →</a>
+						<button
+							class="nav-hamburger"
+							id="hamburger"
+							onclick="toggleMenu()"
+							aria-label="Mở menu"
+							aria-expanded="false"
+						>
+							<span></span><span></span><span></span>
+						</button>
+					</div>
+				</nav>
+			</div>
+		</header>
+
+		<main id="main" tabindex="-1">
+			<!-- ===== HERO ===== -->
+			<section class="hero" aria-labelledby="hero-title">
+				<div class="hero__content">
+					<div class="hero__breadcrumbs">
+						<span class="tag">✦ In ấn chuyên nghiệp</span>
+						<span
+							class="tag"
+							style="background: rgba(255, 255, 255, 0.07); color: var(--warm-gray-2)"
+							>Đà Nẵng</span
+						>
+					</div>
+
+					<h1 class="hero__title" id="hero-title">
+						In <em>Postcard</em><br />
+						Theo Yêu Cầu —<br />
+						Đẳng cấp riêng
+					</h1>
+
+					<p class="hero__subtitle">
+						Kết nối cảm xúc qua những tấm postcard được thiết kế và in ấn với chất lượng cao nhất.
+						Giao hàng nhanh — chất lượng đỉnh.
+					</p>
+
+					<div class="hero__actions">
+						<a
+							href="#contact"
+							class="btn btn--primary"
+							style="padding: 14px 28px; font-size: 0.9rem"
+						>
+							Đặt In Ngay
+							<span aria-hidden="true">→</span>
+						</a>
+						<a href="#portfolio" class="btn btn--ghost" style="color: var(--warm-gray-2)">
+							Xem mẫu sản phẩm
+							<span class="arrow" aria-hidden="true">↗</span>
+						</a>
+					</div>
+
+					<div class="hero__stats" role="list" aria-label="Thống kê">
+						<div role="listitem">
+							<div class="hero__stat-num">10K+</div>
+							<div class="hero__stat-label">Postcard đã in</div>
+						</div>
+						<div role="listitem">
+							<div class="hero__stat-num">500+</div>
+							<div class="hero__stat-label">Khách hàng tin tưởng</div>
+						</div>
+						<div role="listitem">
+							<div class="hero__stat-num">5★</div>
+							<div class="hero__stat-label">Đánh giá trung bình</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="hero__visual" aria-hidden="true">
+					<div class="hero__visual-inner">
+						<div class="hero__card hero__card--large" style="background: #1a1714">
+							<div class="hero__card-monogram">N</div>
+							<span class="hero__card-badge">Giấy Mỹ Thuật</span>
+						</div>
+						<div class="hero__card" style="background: #241f1b">
+							<div class="hero__card-monogram" style="font-size: 3.5rem">I</div>
+							<span class="hero__card-badge">Couche 350gsm</span>
+						</div>
+						<div class="hero__card hero__card--accent">
+							<div
+								style="
+									font-family: var(--font-display);
+									font-size: 5rem;
+									font-weight: 900;
+									color: rgba(255, 255, 255, 0.2);
+									font-style: italic;
+									letter-spacing: -0.05em;
+									position: absolute;
+								"
+							>
+								INUT
+							</div>
+							<span class="hero__card-badge" style="position: relative; z-index: 1"
+								>Kraft · Premium</span
+							>
+						</div>
+						<div class="hero__card" style="background: #1c1917">
+							<div class="hero__card-monogram" style="font-size: 3rem">U</div>
+							<span class="hero__card-badge">Thiết kế hài mặt</span>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ===== TRUST BAR ===== -->
+			<div class="trust-bar" aria-hidden="true">
+				<div class="trust-bar__track">
+					<span class="trust-bar__item">✦ Giao hàng toàn quốc</span>
+					<span class="trust-bar__dot"></span>
+					<span class="trust-bar__item">Giấy Couche cao cấp</span>
+					<span class="trust-bar__dot"></span>
+					<span class="trust-bar__item">Thiết kế miễn phí</span>
+					<span class="trust-bar__dot"></span>
+					<span class="trust-bar__item">In từ 50 tờ</span>
+					<span class="trust-bar__dot"></span>
+					<span class="trust-bar__item">Hỗ trợ 7 ngày / tuần</span>
+					<span class="trust-bar__dot"></span>
+					<span class="trust-bar__item">Cam kết chất lượng</span>
+					<span class="trust-bar__dot"></span>
+					<!-- duplicated for seamless loop -->
+					<span class="trust-bar__item">✦ Giao hàng toàn quốc</span>
+					<span class="trust-bar__dot"></span>
+					<span class="trust-bar__item">Giấy Couche cao cấp</span>
+					<span class="trust-bar__dot"></span>
+					<span class="trust-bar__item">Thiết kế miễn phí</span>
+					<span class="trust-bar__dot"></span>
+					<span class="trust-bar__item">In từ 50 tờ</span>
+					<span class="trust-bar__dot"></span>
+					<span class="trust-bar__item">Hỗ trợ 7 ngày / tuần</span>
+					<span class="trust-bar__dot"></span>
+					<span class="trust-bar__item">Cam kết chất lượng</span>
+					<span class="trust-bar__dot"></span>
+				</div>
+			</div>
+
+			<!-- ===== FEATURES ===== -->
+			<section class="features" id="features" aria-labelledby="features-title">
+				<div class="container">
+					<div class="features__header">
+						<div>
+							<span class="section-label">Giá trị cốt lõi</span>
+							<h2 class="features__title" id="features-title">
+								Cầu nối<br />
+								<em
+									style="font-family: var(--font-display); font-style: italic; color: var(--orange)"
+									>cảm xúc</em
+								><br />
+								qua từng tấm in
+							</h2>
+						</div>
+						<p class="features__intro reveal reveal-delay-1">
+							Mỗi tấm postcard từ INUT Design là một câu chuyện riêng — được thiết kế, lựa chọn chất
+							liệu và in ấn với sự tỉ mỉ tuyệt đối để ghi lại khoảnh khắc đáng nhớ nhất.
+						</p>
+					</div>
+
+					<div class="features__grid">
+						<div class="feature-card reveal">
+							<div class="feature-card__icon" aria-hidden="true">🎨</div>
+							<h3 class="feature-card__title">Postcard Nghệ Thuật</h3>
+							<p class="feature-card__desc">
+								Sử dụng công nghệ in hiện đại kết hợp chất liệu cao cấp, đảm bảo màu sắc trung thực
+								và chi tiết ảnh sắc nét.
+							</p>
+							<div class="feature-card__bg-text" aria-hidden="true">Art</div>
+						</div>
+
+						<div class="feature-card feature-card--dark reveal reveal-delay-1">
+							<div class="feature-card__icon" aria-hidden="true">✈️</div>
+							<h3 class="feature-card__title">Postcard Du Lịch</h3>
+							<p class="feature-card__desc">
+								Lưu giữ những khoảnh khắc du lịch khó quên, phù hợp cho cá nhân và doanh nghiệp
+								ngành du lịch — lữ hành.
+							</p>
+							<div class="feature-card__bg-text" aria-hidden="true">Trip</div>
+						</div>
+
+						<div class="feature-card reveal reveal-delay-2">
+							<div class="feature-card__icon" aria-hidden="true">📦</div>
+							<h3 class="feature-card__title">Chất Liệu Giấy Tuyển Chọn</h3>
+							<p class="feature-card__desc">
+								Ba dòng giấy chính: Mỹ thuật, Couche và Kraft — mỗi loại đáp ứng nhu cầu thẩm mỹ và
+								ngân sách khác nhau.
+							</p>
+							<div class="feature-card__bg-text" aria-hidden="true">Mat</div>
+						</div>
+
+						<div class="feature-card reveal reveal-delay-3">
+							<div class="feature-card__icon" aria-hidden="true">💎</div>
+							<h3 class="feature-card__title">Thiết Kế Hai Mặt</h3>
+							<p class="feature-card__desc">
+								Tận dụng tối đa không gian in — mặt trước hiển thị hình ảnh, mặt sau in thông điệp
+								cá nhân hay thương hiệu.
+							</p>
+							<div class="feature-card__bg-text" aria-hidden="true">2in1</div>
+						</div>
+
+						<div
+							class="feature-card feature-card--wide reveal reveal-delay-1"
+							style="background: var(--orange-dim); border-color: rgba(245, 82, 10, 0.2)"
+						>
+							<div
+								style="
+									display: grid;
+									grid-template-columns: 1fr 1fr;
+									gap: var(--space-lg);
+									align-items: center;
+								"
+							>
+								<div>
+									<div
+										class="feature-card__icon"
+										style="background: var(--orange); color: white"
+										aria-hidden="true"
+									>
+										🚀
+									</div>
+									<h3 class="feature-card__title">Hỗ Trợ Từ Đầu Đến Cuối</h3>
+									<p class="feature-card__desc">
+										Tư vấn thiết kế miễn phí, đồng hành cùng bạn từ ý tưởng đến thành phẩm hoàn
+										chỉnh. Phù hợp cho cá nhân, doanh nghiệp và travel blogger.
+									</p>
+								</div>
+								<div style="display: flex; flex-direction: column; gap: 12px">
+									<div
+										style="
+											background: white;
+											border-radius: var(--radius-md);
+											padding: 14px;
+											display: flex;
+											align-items: center;
+											gap: 10px;
+											font-size: 0.82rem;
+											font-weight: 600;
+										"
+									>
+										<span>✓</span> Tư vấn thiết kế miễn phí
+									</div>
+									<div
+										style="
+											background: white;
+											border-radius: var(--radius-md);
+											padding: 14px;
+											display: flex;
+											align-items: center;
+											gap: 10px;
+											font-size: 0.82rem;
+											font-weight: 600;
+										"
+									>
+										<span>✓</span> Giao hàng tận nơi
+									</div>
+									<div
+										style="
+											background: white;
+											border-radius: var(--radius-md);
+											padding: 14px;
+											display: flex;
+											align-items: center;
+											gap: 10px;
+											font-size: 0.82rem;
+											font-weight: 600;
+										"
+									>
+										<span>✓</span> Cam kết đúng hạn
+									</div>
+								</div>
+							</div>
+							<div class="feature-card__bg-text" aria-hidden="true">Pro</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ===== PRODUCTS ===== -->
+			<section class="products" id="products" aria-labelledby="products-title">
+				<div class="container">
+					<div class="products__header">
+						<div>
+							<span class="section-label">Dòng sản phẩm</span>
+							<h2 class="products__title reveal" id="products-title">Các dòng Postcard</h2>
+						</div>
+						<a href="#contact" class="btn btn--ghost" style="color: var(--warm-gray)">
+							Xem tất cả
+							<span class="arrow" aria-hidden="true">→</span>
+						</a>
+					</div>
+				</div>
+
+				<div
+					class="products__scroll-wrapper"
+					id="productScroll"
+					role="region"
+					aria-label="Dòng sản phẩm"
+					tabindex="0"
+				>
+					<div
+						class="products__row"
+						style="
+							padding-left: max(var(--space-md), calc((100vw - 1200px) / 2 + var(--space-md)));
+							padding-right: var(--space-md);
+						"
+					>
+						<article class="product-card">
+							<div class="product-card__img">
+								<div
+									class="product-card__img-inner"
+									style="background: linear-gradient(135deg, #1a1714, #2d2621)"
+								>
+									INUT
+								</div>
+							</div>
+							<div class="product-card__body">
+								<p class="product-card__type">Dòng cao cấp</p>
+								<h3 class="product-card__name">Giấy Mỹ Thuật</h3>
+								<p class="product-card__desc">
+									Bề mặt mịn, màu sắc sống động, phù hợp với postcard nghệ thuật và bộ sưu tập.
+								</p>
+								<div class="product-card__footer">
+									<div class="product-card__price">Từ <strong>500đ/tờ</strong></div>
+									<a href="#contact" class="product-card__btn" aria-label="Đặt in Giấy Mỹ Thuật"
+										>→</a
+									>
+								</div>
+							</div>
+						</article>
+
+						<article class="product-card">
+							<div class="product-card__img">
+								<div
+									class="product-card__img-inner"
+									style="background: linear-gradient(135deg, #2a1f14, #3d2e1e)"
+								>
+									IN
+								</div>
+							</div>
+							<div class="product-card__body">
+								<p class="product-card__type">Phổ biến nhất</p>
+								<h3 class="product-card__name">Giấy Couche</h3>
+								<p class="product-card__desc">
+									Bề mặt bóng hoặc mờ, lựa chọn lý tưởng cho marketing và sự kiện doanh nghiệp.
+								</p>
+								<div class="product-card__footer">
+									<div class="product-card__price">Từ <strong>350đ/tờ</strong></div>
+									<a href="#contact" class="product-card__btn" aria-label="Đặt in Giấy Couche">→</a>
+								</div>
+							</div>
+						</article>
+
+						<article class="product-card">
+							<div class="product-card__img">
+								<div
+									class="product-card__img-inner"
+									style="background: linear-gradient(135deg, #1e1a0e, #2e2710)"
+								>
+									NU
+								</div>
+							</div>
+							<div class="product-card__body">
+								<p class="product-card__type">Thân thiện môi trường</p>
+								<h3 class="product-card__name">Giấy Kraft</h3>
+								<p class="product-card__desc">
+									Phong cách vintage tự nhiên, phù hợp với thương hiệu lifestyle và sản phẩm thủ
+									công.
+								</p>
+								<div class="product-card__footer">
+									<div class="product-card__price">Từ <strong>450đ/tờ</strong></div>
+									<a href="#contact" class="product-card__btn" aria-label="Đặt in Giấy Kraft">→</a>
+								</div>
+							</div>
+						</article>
+
+						<article class="product-card">
+							<div class="product-card__img">
+								<div
+									class="product-card__img-inner"
+									style="background: linear-gradient(135deg, #1d1014, #2b1520)"
+								>
+									UT
+								</div>
+							</div>
+							<div class="product-card__body">
+								<p class="product-card__type">Đặc biệt</p>
+								<h3 class="product-card__name">Postcard Foil</h3>
+								<p class="product-card__desc">
+									Nhũ vàng, bạc và các màu đặc biệt — tạo điểm nhấn sang trọng và khó quên.
+								</p>
+								<div class="product-card__footer">
+									<div class="product-card__price">Từ <strong>800đ/tờ</strong></div>
+									<a href="#contact" class="product-card__btn" aria-label="Đặt in Postcard Foil"
+										>→</a
+									>
+								</div>
+							</div>
+						</article>
+
+						<article class="product-card">
+							<div class="product-card__img">
+								<div
+									class="product-card__img-inner"
+									style="background: linear-gradient(135deg, #0f1a1e, #162530)"
+								>
+									NI
+								</div>
+							</div>
+							<div class="product-card__body">
+								<p class="product-card__type">Xu hướng mới</p>
+								<h3 class="product-card__name">Postcard Lenticular</h3>
+								<p class="product-card__desc">
+									Hiệu ứng 3D thay đổi theo góc nhìn — độc đáo và gây ấn tượng mạnh.
+								</p>
+								<div class="product-card__footer">
+									<div class="product-card__price">Từ <strong>1.200đ/tờ</strong></div>
+									<a
+										href="#contact"
+										class="product-card__btn"
+										aria-label="Đặt in Postcard Lenticular"
+										>→</a
+									>
+								</div>
+							</div>
+						</article>
+					</div>
+				</div>
+
+				<div class="products__dots" aria-hidden="true">
+					<div class="products__dot active"></div>
+					<div class="products__dot"></div>
+					<div class="products__dot"></div>
+					<div class="products__dot"></div>
+					<div class="products__dot"></div>
+				</div>
+			</section>
+
+			<!-- ===== WHY US ===== -->
+			<section class="why-us" id="why-us" aria-labelledby="why-title">
+				<div class="container">
+					<div class="why-us__grid">
+						<div class="why-us__left">
+							<span class="section-label reveal">Vì sao chọn INUT</span>
+							<h2 class="why-us__title reveal reveal-delay-1" id="why-title">
+								Quy trình<br />
+								chuyên nghiệp —<br />
+								<em
+									style="font-family: var(--font-display); color: var(--orange); font-style: italic"
+									>Kết quả đỉnh</em
+								>
+							</h2>
+							<p class="why-us__desc reveal reveal-delay-2">
+								Từ bước nhận yêu cầu đến khi thành phẩm đến tay bạn, mỗi giai đoạn đều được kiểm
+								soát chặt chẽ để đảm bảo chất lượng cao nhất.
+							</p>
+							<div class="reveal reveal-delay-3">
+								<a href="#contact" class="btn btn--primary" style="padding: 14px 28px"
+									>Bắt đầu ngay →</a
+								>
+							</div>
+						</div>
+
+						<div>
+							<div class="process reveal" role="list">
+								<div class="process-step active" role="listitem">
+									<div class="process-step__num" aria-hidden="true">01</div>
+									<div class="process-step__content">
+										<h3 class="process-step__title">Tiếp nhận yêu cầu</h3>
+										<p class="process-step__text">
+											Tư vấn miễn phí qua Zalo, Facebook hoặc email. Xác định kích thước, chất liệu
+											và số lượng phù hợp.
+										</p>
+									</div>
+								</div>
+
+								<div class="process-step" role="listitem">
+									<div class="process-step__num" aria-hidden="true">02</div>
+									<div class="process-step__content">
+										<h3 class="process-step__title">Thiết kế & duyệt mẫu</h3>
+										<p class="process-step__text">
+											Đội ngũ designer giàu kinh nghiệm trực tiếp thiết kế hoặc hỗ trợ chỉnh sửa
+											file có sẵn của bạn.
+										</p>
+									</div>
+								</div>
+
+								<div class="process-step" role="listitem">
+									<div class="process-step__num" aria-hidden="true">03</div>
+									<div class="process-step__content">
+										<h3 class="process-step__title">In ấn & kiểm tra chất lượng</h3>
+										<p class="process-step__text">
+											In offset hoặc kỹ thuật số trên máy hiện đại, kiểm tra màu sắc và độ sắc nét
+											trước khi đóng gói.
+										</p>
+									</div>
+								</div>
+
+								<div class="process-step" role="listitem">
+									<div class="process-step__num" aria-hidden="true">04</div>
+									<div class="process-step__content">
+										<h3 class="process-step__title">Giao hàng tận nơi</h3>
+										<p class="process-step__text">
+											Đóng gói cẩn thận, giao hàng nhanh tại Đà Nẵng và toàn quốc qua đơn vị vận
+											chuyển uy tín.
+										</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="why-us__benefits reveal" style="margin-top: var(--space-md)">
+								<div class="benefit-card benefit-card--tall">
+									<div class="benefit-card__bg" aria-hidden="true">🏆</div>
+									<div class="benefit-card__num">5★</div>
+									<h3 class="benefit-card__title">Đánh giá khách hàng</h3>
+									<p class="benefit-card__text">
+										Hơn 500 đánh giá 5 sao từ khách hàng cá nhân và doanh nghiệp trên toàn quốc.
+									</p>
+								</div>
+
+								<div class="benefit-card">
+									<div class="benefit-card__bg" aria-hidden="true">⚡</div>
+									<div class="benefit-card__num">24h</div>
+									<h3 class="benefit-card__title">Giao hàng hỏa tốc</h3>
+									<p class="benefit-card__text">
+										Có thể in và giao trong 24 giờ cho đơn hàng gấp tại Đà Nẵng.
+									</p>
+								</div>
+
+								<div class="benefit-card benefit-card--accent">
+									<div class="benefit-card__num">10K+</div>
+									<h3 class="benefit-card__title">Postcard đã xuất xưởng</h3>
+									<p class="benefit-card__text">
+										Số lượng tích lũy từ ngày đầu thành lập, không ngừng tăng trưởng.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ===== PORTFOLIO ===== -->
+			<section class="portfolio" id="portfolio" aria-labelledby="portfolio-title">
+				<div class="container">
+					<div class="portfolio__header">
+						<div>
+							<span class="section-label reveal">Hình ảnh mẫu</span>
+							<h2 class="portfolio__title reveal reveal-delay-1" id="portfolio-title">
+								Portfolio<br />thực tế
+							</h2>
+						</div>
+						<div
+							class="filter-tabs reveal reveal-delay-2"
+							role="tablist"
+							aria-label="Lọc portfolio"
+						>
+							<button
+								class="filter-tab active"
+								role="tab"
+								aria-selected="true"
+								onclick="setFilter(this,'all')"
+							>
+								Tất cả
+							</button>
+							<button
+								class="filter-tab"
+								role="tab"
+								aria-selected="false"
+								onclick="setFilter(this,'art')"
+							>
+								Nghệ thuật
+							</button>
+							<button
+								class="filter-tab"
+								role="tab"
+								aria-selected="false"
+								onclick="setFilter(this,'travel')"
+							>
+								Du lịch
+							</button>
+							<button
+								class="filter-tab"
+								role="tab"
+								aria-selected="false"
+								onclick="setFilter(this,'biz')"
+							>
+								Doanh nghiệp
+							</button>
+						</div>
+					</div>
+
+					<div class="portfolio__masonry reveal" role="list" aria-label="Danh sách mẫu portfolio">
+						<!-- Portfolio items with decorative colored placeholders -->
+						<div class="portfolio__item" role="listitem">
+							<div
+								class="portfolio__item-img"
+								style="background: linear-gradient(135deg, #f5520a, #ff8c42)"
+								aria-label="Postcard nghệ thuật 01"
+							>
+								<span style="font-family: var(--font-display); font-style: italic">01</span>
+							</div>
+							<div class="portfolio__item-overlay" aria-hidden="true">
+								<div class="portfolio__item-info">
+									<strong>Travel Blogger Set</strong>
+									<span>Giấy Couche · A6</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="portfolio__item" role="listitem">
+							<div
+								class="portfolio__item-img"
+								style="background: linear-gradient(135deg, #141210, #2d2621); aspect-ratio: 4/3"
+								aria-label="Postcard doanh nghiệp 02"
+							>
+								<span
+									style="
+										font-family: var(--font-display);
+										font-style: italic;
+										font-size: 4rem;
+										color: var(--orange);
+									"
+									>IN</span
+								>
+							</div>
+							<div class="portfolio__item-overlay" aria-hidden="true">
+								<div class="portfolio__item-info">
+									<strong>Corporate Edition</strong>
+									<span>Giấy Mỹ Thuật · 10×15</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="portfolio__item" role="listitem">
+							<div
+								class="portfolio__item-img"
+								style="background: linear-gradient(135deg, #3d2b18, #6b4a2e)"
+								aria-label="Postcard Kraft 03"
+							>
+								<span style="font-family: var(--font-display); font-style: italic">KR</span>
+							</div>
+							<div class="portfolio__item-overlay" aria-hidden="true">
+								<div class="portfolio__item-info">
+									<strong>Vintage Kraft</strong>
+									<span>Giấy Kraft · 9×14</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="portfolio__item" role="listitem">
+							<div
+								class="portfolio__item-img"
+								style="background: linear-gradient(135deg, #0f2744, #1a3d6b); aspect-ratio: 1"
+								aria-label="Postcard du lịch 04"
+							>
+								<span style="font-family: var(--font-display); font-style: italic">UT</span>
+							</div>
+							<div class="portfolio__item-overlay" aria-hidden="true">
+								<div class="portfolio__item-info">
+									<strong>Ocean Postcard</strong>
+									<span>Couche Bóng · A6</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="portfolio__item" role="listitem">
+							<div
+								class="portfolio__item-img"
+								style="background: linear-gradient(135deg, #1a0f2e, #2d1855)"
+								aria-label="Postcard foil 05"
+							>
+								<span style="font-family: var(--font-display); font-style: italic">NU</span>
+							</div>
+							<div class="portfolio__item-overlay" aria-hidden="true">
+								<div class="portfolio__item-info">
+									<strong>Midnight Foil</strong>
+									<span>Foil Vàng · A5</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="portfolio__item" role="listitem">
+							<div
+								class="portfolio__item-img"
+								style="background: linear-gradient(135deg, #0f2b1a, #1a4d2e); aspect-ratio: 4/3"
+								aria-label="Postcard thiên nhiên 06"
+							>
+								<span style="font-family: var(--font-display); font-style: italic">NI</span>
+							</div>
+							<div class="portfolio__item-overlay" aria-hidden="true">
+								<div class="portfolio__item-info">
+									<strong>Forest Series</strong>
+									<span>Giấy Tái Chế · A6</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="portfolio__item" role="listitem">
+							<div
+								class="portfolio__item-img"
+								style="background: linear-gradient(135deg, #2b1a0f, #4d3015)"
+								aria-label="Postcard lifestyle 07"
+							>
+								<span style="font-family: var(--font-display); font-style: italic">07</span>
+							</div>
+							<div class="portfolio__item-overlay" aria-hidden="true">
+								<div class="portfolio__item-info">
+									<strong>Lifestyle Pack</strong>
+									<span>Couche Mờ · 10×15</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="portfolio__item" role="listitem">
+							<div
+								class="portfolio__item-img"
+								style="background: linear-gradient(135deg, #2b0f0f, #5c1a1a); aspect-ratio: 1"
+								aria-label="Postcard lễ tết 08"
+							>
+								<span style="font-family: var(--font-display); font-style: italic">TẾT</span>
+							</div>
+							<div class="portfolio__item-overlay" aria-hidden="true">
+								<div class="portfolio__item-info">
+									<strong>Lễ Tết Collection</strong>
+									<span>Giấy Mỹ Thuật · A5</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div style="text-align: center; margin-top: var(--space-xl)">
+						<a
+							href="#contact"
+							class="btn btn--outline"
+							style="
+								padding: 14px 32px;
+								font-size: 0.9rem;
+								border-radius: 99px;
+								border-width: 1.5px;
+							"
+						>
+							Xem thêm mẫu →
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- ===== TESTIMONIALS ===== -->
+			<section class="testimonials" aria-labelledby="testi-title">
+				<div class="container">
+					<div class="testimonials__inner">
+						<div>
+							<span class="section-label" style="color: var(--warm-gray)">
+								<span
+									style="
+										background: var(--orange);
+										display: inline-block;
+										width: 28px;
+										height: 2px;
+										border-radius: 2px;
+									"
+								></span>
+								Đánh giá
+							</span>
+							<h2 class="testimonials__title reveal" id="testi-title">
+								Khách hàng<br />
+								nói gì về<br />
+								<em style="color: var(--orange); font-style: italic">INUT?</em>
+							</h2>
+							<div style="margin-top: var(--space-xl)" class="reveal reveal-delay-2">
+								<div class="testimonials__count">
+									<strong>500+</strong>
+									khách hàng tin tưởng
+								</div>
+							</div>
+						</div>
+
+						<div class="testimonials__cards">
+							<div class="testi-card reveal">
+								<div class="testi-card__stars" aria-label="5 sao">
+									<span class="testi-card__star" aria-hidden="true">★</span>
+									<span class="testi-card__star" aria-hidden="true">★</span>
+									<span class="testi-card__star" aria-hidden="true">★</span>
+									<span class="testi-card__star" aria-hidden="true">★</span>
+									<span class="testi-card__star" aria-hidden="true">★</span>
+								</div>
+								<p class="testi-card__text">
+									"Mình order lần đầu mà rất hài lòng. Màu sắc in ra đúng như file thiết kế, giấy
+									dày dặn, đóng gói kỹ. Sẽ tiếp tục ủng hộ INUT!"
+								</p>
+								<div class="testi-card__author">
+									<div class="testi-card__avatar" aria-hidden="true">NA</div>
+									<div>
+										<div class="testi-card__name">Nguyễn Anh Thư</div>
+										<div class="testi-card__role">Travel Blogger · Hà Nội</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="testi-card reveal reveal-delay-1">
+								<div class="testi-card__stars" aria-label="5 sao">
+									<span class="testi-card__star" aria-hidden="true">★</span>
+									<span class="testi-card__star" aria-hidden="true">★</span>
+									<span class="testi-card__star" aria-hidden="true">★</span>
+									<span class="testi-card__star" aria-hidden="true">★</span>
+									<span class="testi-card__star" aria-hidden="true">★</span>
+								</div>
+								<p class="testi-card__text">
+									"Đặt 500 tờ Couche cho sự kiện ra mắt sản phẩm. INUT tư vấn nhiệt tình, giao đúng
+									hẹn và chất lượng vượt kỳ vọng!"
+								</p>
+								<div class="testi-card__author">
+									<div class="testi-card__avatar" style="background: #1a5c3a" aria-hidden="true">
+										MH
+									</div>
+									<div>
+										<div class="testi-card__name">Minh Hoàng Studio</div>
+										<div class="testi-card__role">Nhiếp ảnh gia · Đà Nẵng</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="testi-card reveal reveal-delay-2">
+								<div class="testi-card__stars" aria-label="5 sao">
+									<span class="testi-card__star" aria-hidden="true">★</span>
+									<span class="testi-card__star" aria-hidden="true">★</span>
+									<span class="testi-card__star" aria-hidden="true">★</span>
+									<span class="testi-card__star" aria-hidden="true">★</span>
+									<span class="testi-card__star" aria-hidden="true">★</span>
+								</div>
+								<p class="testi-card__text">
+									"Cần postcard gấp cho tour du lịch, INUT xử lý trong 24h và giao tận nơi. Cảm ơn
+									team đã hỗ trợ nhiệt tình!"
+								</p>
+								<div class="testi-card__author">
+									<div class="testi-card__avatar" style="background: #5c1a5c" aria-hidden="true">
+										LT
+									</div>
+									<div>
+										<div class="testi-card__name">Lan Trinh Travel</div>
+										<div class="testi-card__role">Công ty lữ hành · TP.HCM</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="testi-card reveal reveal-delay-3">
+								<div class="testi-card__stars" aria-label="5 sao">
+									<span class="testi-card__star" aria-hidden="true">★</span>
+									<span class="testi-card__star" aria-hidden="true">★</span>
+									<span class="testi-card__star" aria-hidden="true">★</span>
+									<span class="testi-card__star" aria-hidden="true">★</span>
+									<span class="testi-card__star" aria-hidden="true">★</span>
+								</div>
+								<p class="testi-card__text">
+									"Postcard Kraft rất phù hợp với thương hiệu handmade của mình. Màu in đẹp tự
+									nhiên, khách hàng ai cũng thích!"
+								</p>
+								<div class="testi-card__author">
+									<div class="testi-card__avatar" style="background: #5c4b1a" aria-hidden="true">
+										PQ
+									</div>
+									<div>
+										<div class="testi-card__name">Phạm Quỳnh</div>
+										<div class="testi-card__role">Handmade Shop · Hội An</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ===== CTA ===== -->
+			<section class="cta-section" id="contact" aria-labelledby="cta-title">
+				<div class="container">
+					<div class="cta-box">
+						<div>
+							<span class="tag" style="margin-bottom: var(--space-md); display: inline-flex"
+								>✦ Đặt in ngay hôm nay</span
+							>
+							<h2 class="cta-box__title" id="cta-title">
+								Sẵn sàng tạo<br />
+								<em style="font-style: italic; color: var(--orange)">postcard của bạn?</em>
+							</h2>
+							<p class="cta-box__sub">
+								Liên hệ ngay để nhận tư vấn miễn phí, báo giá nhanh và bắt đầu hành trình in ấn cùng
+								INUT Design.
+							</p>
+						</div>
+						<div class="cta-box__actions">
+							<a
+								href="https://zalo.me/0792359996"
+								class="btn btn--primary"
+								style="padding: 16px 32px; font-size: 1rem; border-radius: var(--radius-md)"
+								target="_blank"
+								rel="noopener"
+							>
+								Nhắn Zalo ngay
+							</a>
+							<a
+								href="mailto:inutdesign@gmail.com"
+								class="btn btn--outline"
+								style="
+									padding: 14px 28px;
+									border-color: rgba(255, 255, 255, 0.15);
+									color: var(--warm-gray-2);
+								"
+							>
+								Gửi email
+							</a>
+						</div>
+					</div>
+
+					<div class="contact-cards">
+						<a
+							href="tel:0792359996"
+							class="contact-card"
+							aria-label="Liên hệ MR. TOM qua số 0792 359 996"
+						>
+							<div class="contact-card__avatar" aria-hidden="true">TOM</div>
+							<div>
+								<div class="contact-card__role">Sales Manager</div>
+								<div class="contact-card__name">MR. TOM</div>
+								<div class="contact-card__phone">0792 359 996</div>
+							</div>
+							<span class="contact-card__zalo" aria-label="Chat Zalo">Zalo</span>
+						</a>
+
+						<a
+							href="tel:0777208215"
+							class="contact-card"
+							aria-label="Liên hệ MS. BOO qua số 0777 208 215"
+						>
+							<div class="contact-card__avatar" style="background: #5c1a5c" aria-hidden="true">
+								BOO
+							</div>
+							<div>
+								<div class="contact-card__role">Design Manager</div>
+								<div class="contact-card__name">MS. BOO</div>
+								<div class="contact-card__phone">0777 208 215</div>
+							</div>
+							<span class="contact-card__zalo" aria-label="Chat Zalo">Zalo</span>
+						</a>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- ===== FOOTER ===== -->
+		<footer class="footer" role="contentinfo">
+			<div class="container">
+				<div class="footer__top">
+					<div>
+						<div class="logo" style="margin-bottom: var(--space-md)">
+							<div class="logo__mark" aria-hidden="true"></div>
+							<span style="color: white; font-size: 1.2rem"
+								>INUT<span style="color: var(--orange)">.</span></span
+							>
+						</div>
+						<p class="footer__brand-desc">
+							Chuyên in postcard cao cấp theo yêu cầu tại Đà Nẵng. Kết nối cảm xúc — trao gửi yêu
+							thương qua từng tấm in chất lượng.
+						</p>
+						<div class="footer__socials">
+							<a href="#" class="footer__social" aria-label="Facebook INUT Design">f</a>
+							<a href="#" class="footer__social" aria-label="Instagram INUT Design">ig</a>
+							<a href="#" class="footer__social" aria-label="Zalo INUT Design">zl</a>
+						</div>
+					</div>
+
+					<div>
+						<h3 class="footer__col-title">Dịch vụ</h3>
+						<ul class="footer__links" role="list">
+							<li><a href="#products" class="footer__link">In Postcard</a></li>
+							<li><a href="#products" class="footer__link">Giấy Couche</a></li>
+							<li><a href="#products" class="footer__link">Giấy Kraft</a></li>
+							<li><a href="#products" class="footer__link">Giấy Mỹ Thuật</a></li>
+							<li><a href="#products" class="footer__link">Postcard Foil</a></li>
+						</ul>
+					</div>
+
+					<div>
+						<h3 class="footer__col-title">Chính sách</h3>
+						<ul class="footer__links" role="list">
+							<li><a href="#" class="footer__link">Chính sách đặt hàng</a></li>
+							<li><a href="#" class="footer__link">Chính sách bảo mật</a></li>
+							<li><a href="#" class="footer__link">Đổi trả hàng</a></li>
+							<li><a href="#" class="footer__link">Điều khoản dịch vụ</a></li>
+							<li><a href="#" class="footer__link">FAQs</a></li>
+						</ul>
+					</div>
+
+					<div>
+						<h3 class="footer__col-title">Liên hệ</h3>
+						<div class="footer__contact-item">
+							<div class="footer__contact-label">Địa chỉ</div>
+							K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng
+						</div>
+						<div class="footer__contact-item">
+							<div class="footer__contact-label">Hotline</div>
+							0807751467
+						</div>
+						<div class="footer__contact-item">
+							<div class="footer__contact-label">Email</div>
+							inutdesign@gmail.com
+						</div>
+					</div>
+				</div>
+
+				<div class="footer__bottom">
+					<p class="footer__copyright">© 2026 INUT Design. Thiết kế bởi INUT team.</p>
+					<nav class="footer__bottom-links" aria-label="Liên kết cuối trang">
+						<a href="#" class="footer__bottom-link">Điều khoản</a>
+						<a href="#" class="footer__bottom-link">Quyền riêng tư</a>
+						<a href="#" class="footer__bottom-link">Sitemap</a>
+					</nav>
+				</div>
+			</div>
+		</footer>
+
+		<!-- Skip to main content (accessibility) -->
+		<a
+			href="#main"
+			style="
+				position: fixed;
+				top: -100px;
+				left: 16px;
+				z-index: 9999;
+				background: var(--orange);
+				color: white;
+				padding: 10px 16px;
+				border-radius: 8px;
+				font-weight: 700;
+				font-size: 0.85rem;
+				transition: top 0.2s;
+			"
+			onfocus="this.style.top='8px'"
+			onblur="this.style.top='-100px'"
+			>Bỏ qua điều hướng</a
+		>
+
+		<script>
+			/* ============================================
+       NAVBAR SCROLL BEHAVIOR
+    ============================================ */
+			const navbar = document.getElementById("navbar");
+			let lastScroll = 0;
+
+			window.addEventListener(
+				"scroll",
+				() => {
+					const current = window.scrollY;
+					if (current > 20) {
+						navbar.classList.add("scrolled");
+					} else {
+						navbar.classList.remove("scrolled");
+					}
+					lastScroll = current;
+				},
+				{ passive: true }
+			);
+
+			/* ============================================
+       MOBILE MENU TOGGLE
+    ============================================ */
+			function toggleMenu() {
+				const menu = document.getElementById("mobileMenu");
+				const hamburger = document.getElementById("hamburger");
+				const isOpen = menu.classList.toggle("open");
+				hamburger.setAttribute("aria-expanded", isOpen);
+				document.body.style.overflow = isOpen ? "hidden" : "";
+			}
+
+			/* ============================================
+       SCROLL REVEAL ANIMATION
+    ============================================ */
+			const revealObserver = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add("visible");
+							revealObserver.unobserve(entry.target);
+						}
+					});
+				},
+				{ threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+			);
+
+			document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+
+			/* ============================================
+       PROCESS STEPS INTERACTION
+    ============================================ */
+			document.querySelectorAll(".process-step").forEach((step) => {
+				step.addEventListener("click", () => {
+					document.querySelectorAll(".process-step").forEach((s) => s.classList.remove("active"));
+					step.classList.add("active");
+				});
+			});
+
+			/* ============================================
+       HORIZONTAL SCROLL (DRAG)
+    ============================================ */
+			const scrollEl = document.getElementById("productScroll");
+			if (scrollEl) {
+				let isDown = false,
+					startX,
+					scrollLeft;
+
+				scrollEl.addEventListener("mousedown", (e) => {
+					isDown = true;
+					scrollEl.classList.add("grabbing");
+					startX = e.pageX - scrollEl.offsetLeft;
+					scrollLeft = scrollEl.scrollLeft;
+				});
+				scrollEl.addEventListener("mouseleave", () => {
+					isDown = false;
+					scrollEl.classList.remove("grabbing");
+				});
+				scrollEl.addEventListener("mouseup", () => {
+					isDown = false;
+					scrollEl.classList.remove("grabbing");
+				});
+				scrollEl.addEventListener("mousemove", (e) => {
+					if (!isDown) return;
+					e.preventDefault();
+					const x = e.pageX - scrollEl.offsetLeft;
+					const walk = (x - startX) * 1.5;
+					scrollEl.scrollLeft = scrollLeft - walk;
+				});
+
+				// Update dots
+				scrollEl.addEventListener(
+					"scroll",
+					() => {
+						const dots = document.querySelectorAll(".products__dot");
+						const total = scrollEl.scrollWidth - scrollEl.clientWidth;
+						const progress = scrollEl.scrollLeft / total;
+						const activeIndex = Math.round(progress * (dots.length - 1));
+						dots.forEach((d, i) => d.classList.toggle("active", i === activeIndex));
+					},
+					{ passive: true }
+				);
+			}
+
+			/* ============================================
+       PORTFOLIO FILTER
+    ============================================ */
+			function setFilter(btn, filter) {
+				document.querySelectorAll(".filter-tab").forEach((t) => {
+					t.classList.remove("active");
+					t.setAttribute("aria-selected", "false");
+				});
+				btn.classList.add("active");
+				btn.setAttribute("aria-selected", "true");
+				// In a real app, this would filter actual content
+				console.log("Filter set to:", filter);
+			}
+
+			/* ============================================
+       SMOOTH ANCHOR SCROLL
+    ============================================ */
+			document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+				anchor.addEventListener("click", (e) => {
+					const target = document.querySelector(anchor.getAttribute("href"));
+					if (target) {
+						e.preventDefault();
+						const offset = 80;
+						const top = target.getBoundingClientRect().top + window.scrollY - offset;
+						window.scrollTo({ top, behavior: "smooth" });
+					}
+				});
+			});
+
+			/* ============================================
+       REDUCED MOTION RESPECT
+    ============================================ */
+			if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+				document.querySelectorAll(".reveal").forEach((el) => {
+					el.style.opacity = "1";
+					el.style.transform = "none";
+				});
+				document.querySelector(".trust-bar__track").style.animation = "none";
+			}
+		</script>
+	</body>
+</html>

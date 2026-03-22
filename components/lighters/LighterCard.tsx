@@ -127,7 +127,7 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, href }
 					flexDirection: "column",
 				}}
 			>
-				<Link href={href || `/lighters/${lighter.slug.current}`} passHref>
+				<Link href={href || `/san-pham/lighters/${lighter.slug.current}`} passHref>
 					<MuiLink
 						sx={{ textDecoration: "none" }}
 						onClick={() =>

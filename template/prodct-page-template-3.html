@@ -1,0 +1,3876 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="INUT Design v3 — In Postcard Chất Lượng Cao. Chromatic Offset — Nơi mỗi tấm in là một tác phẩm nghệ thuật."
+		/>
+		<title>INUT Design v3 — Chromatic Offset</title>
+
+		<!-- Fonts: Syne (architectural display) + DM Sans (crisp Vietnamese body) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap"
+			rel="stylesheet"
+		/>
+
+		<style>
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   DESIGN TOKENS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			:root {
+				/* Chromatic Offset Palette */
+				--ink: #080706;
+				--ink-2: #111009;
+				--ink-3: #1c1a16;
+				--ink-4: #282420;
+				--ash: #3d3830;
+				--dust: #6b6157;
+				--smoke: #a89e94;
+				--fog: #d4cec7;
+				--cream: #f5f0e8;
+				--paper: #fdfaf5;
+
+				--orange: #ff4d00;
+				--orange-hi: #ff6b25;
+				--orange-lo: rgba(255, 77, 0, 0.14);
+				--orange-glow: rgba(255, 77, 0, 0.3);
+
+				--yellow: #ffe234;
+				--yellow-lo: rgba(255, 226, 52, 0.1);
+
+				--cyan: #00d4ff; /* print process accent */
+				--magenta: #ff006e; /* print process accent */
+
+				/* Typography */
+				--f-display: "Syne", sans-serif;
+				--f-serif: "DM Serif Display", Georgia, serif;
+				--f-body: "DM Sans", sans-serif;
+
+				/* Motion */
+				--ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+				--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+				--ease-sharp: cubic-bezier(0.4, 0, 0.2, 1);
+
+				/* Layout */
+				--nav-h: 72px;
+				--max-w: 1280px;
+				--gutter: clamp(1rem, 4vw, 2rem);
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESET
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+			html {
+				scroll-behavior: smooth;
+				-webkit-text-size-adjust: 100%;
+			}
+			body {
+				font-family: var(--f-body);
+				background: var(--ink);
+				color: var(--cream);
+				line-height: 1.6;
+				overflow-x: hidden;
+				cursor: none; /* custom cursor */
+			}
+			img {
+				display: block;
+				max-width: 100%;
+			}
+			a {
+				color: inherit;
+				text-decoration: none;
+			}
+			button {
+				cursor: none;
+				border: none;
+				background: none;
+				font: inherit;
+			}
+			ul,
+			ol {
+				list-style: none;
+			}
+			::selection {
+				background: var(--orange);
+				color: white;
+			}
+			::-webkit-scrollbar {
+				width: 4px;
+			}
+			::-webkit-scrollbar-track {
+				background: var(--ink-2);
+			}
+			::-webkit-scrollbar-thumb {
+				background: var(--orange);
+				border-radius: 99px;
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SCROLL PROGRESS BAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			#progress-bar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				height: 3px;
+				background: linear-gradient(90deg, var(--orange), var(--yellow));
+				width: 0%;
+				z-index: 9999;
+				transition: width 0.1s linear;
+				box-shadow: 0 0 12px var(--orange-glow);
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CUSTOM CURSOR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			#cursor-ring {
+				position: fixed;
+				width: 40px;
+				height: 40px;
+				border: 1.5px solid var(--orange);
+				border-radius: 50%;
+				pointer-events: none;
+				z-index: 9998;
+				transform: translate(-50%, -50%);
+				transition: width 0.3s var(--ease-expo), height 0.3s var(--ease-expo), border-color 0.3s,
+					background 0.3s, opacity 0.3s;
+				mix-blend-mode: exclusion;
+			}
+			#cursor-dot {
+				position: fixed;
+				width: 6px;
+				height: 6px;
+				background: var(--orange);
+				border-radius: 50%;
+				pointer-events: none;
+				z-index: 9999;
+				transform: translate(-50%, -50%);
+				transition: transform 0.1s;
+			}
+			body.cursor-hover #cursor-ring {
+				width: 64px;
+				height: 64px;
+				background: var(--orange);
+				border-color: transparent;
+			}
+			@media (hover: none) {
+				#cursor-ring,
+				#cursor-dot {
+					display: none;
+				}
+				body {
+					cursor: auto;
+				}
+				button {
+					cursor: pointer;
+				}
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PAGE LOADER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			#loader {
+				position: fixed;
+				inset: 0;
+				background: var(--ink);
+				z-index: 9997;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				transition: opacity 0.6s var(--ease-expo), visibility 0.6s;
+			}
+			#loader.hidden {
+				opacity: 0;
+				visibility: hidden;
+				pointer-events: none;
+			}
+
+			.loader__logo {
+				font-family: var(--f-display);
+				font-size: clamp(3rem, 10vw, 7rem);
+				font-weight: 800;
+				letter-spacing: -0.04em;
+				color: white;
+				overflow: hidden;
+				line-height: 1;
+			}
+			.loader__logo span {
+				display: inline-block;
+				transform: translateY(110%);
+				animation: loader-rise 0.8s var(--ease-expo) forwards;
+			}
+			.loader__logo span:nth-child(1) {
+				animation-delay: 0s;
+			}
+			.loader__logo span:nth-child(2) {
+				animation-delay: 0.07s;
+			}
+			.loader__logo span:nth-child(3) {
+				animation-delay: 0.14s;
+			}
+			.loader__logo span:nth-child(4) {
+				animation-delay: 0.21s;
+			}
+			.loader__logo span:nth-child(5) {
+				color: var(--orange);
+				animation-delay: 0.28s;
+			}
+
+			@keyframes loader-rise {
+				to {
+					transform: translateY(0);
+				}
+			}
+
+			.loader__bar-wrap {
+				width: 240px;
+				height: 2px;
+				background: var(--ink-4);
+				border-radius: 99px;
+				overflow: hidden;
+				margin-top: 2.5rem;
+			}
+			.loader__bar {
+				height: 100%;
+				background: linear-gradient(90deg, var(--orange), var(--yellow));
+				border-radius: 99px;
+				width: 0;
+				animation: load-fill 1.6s var(--ease-expo) 0.4s forwards;
+			}
+			@keyframes load-fill {
+				to {
+					width: 100%;
+				}
+			}
+
+			.loader__label {
+				font-size: 0.72rem;
+				font-weight: 600;
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				color: var(--dust);
+				margin-top: 1rem;
+				font-family: var(--f-display);
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   GRAIN OVERLAY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			#grain {
+				position: fixed;
+				inset: 0;
+				pointer-events: none;
+				z-index: 9000;
+				opacity: 0.032;
+				background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+				background-repeat: repeat;
+				background-size: 128px 128px;
+				animation: grain-shift 8s steps(8) infinite;
+			}
+			@keyframes grain-shift {
+				0%,
+				100% {
+					transform: translate(0, 0);
+				}
+				10% {
+					transform: translate(-2%, -3%);
+				}
+				20% {
+					transform: translate(3%, 2%);
+				}
+				30% {
+					transform: translate(-1%, 4%);
+				}
+				40% {
+					transform: translate(4%, -1%);
+				}
+				50% {
+					transform: translate(-3%, 3%);
+				}
+				60% {
+					transform: translate(2%, -4%);
+				}
+				70% {
+					transform: translate(-4%, 1%);
+				}
+				80% {
+					transform: translate(1%, -2%);
+				}
+				90% {
+					transform: translate(3%, 4%);
+				}
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   LAYOUT UTILITIES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			.wrap {
+				width: 100%;
+				max-width: var(--max-w);
+				margin: 0 auto;
+				padding: 0 var(--gutter);
+			}
+
+			.eyebrow {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5rem;
+				font-family: var(--f-display);
+				font-size: 0.68rem;
+				font-weight: 700;
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				color: var(--orange);
+			}
+			.eyebrow::before {
+				content: "";
+				width: 20px;
+				height: 2px;
+				background: var(--orange);
+				border-radius: 2px;
+				flex-shrink: 0;
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   REVEAL ANIMATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			[data-reveal] {
+				opacity: 0;
+				transition: opacity 0.8s var(--ease-expo), transform 0.8s var(--ease-expo);
+			}
+			[data-reveal="up"] {
+				transform: translateY(48px);
+			}
+			[data-reveal="left"] {
+				transform: translateX(-48px);
+			}
+			[data-reveal="right"] {
+				transform: translateX(48px);
+			}
+			[data-reveal="scale"] {
+				transform: scale(0.92);
+			}
+			[data-reveal].in-view {
+				opacity: 1;
+				transform: none;
+			}
+			[data-delay="1"] {
+				transition-delay: 0.1s;
+			}
+			[data-delay="2"] {
+				transition-delay: 0.2s;
+			}
+			[data-delay="3"] {
+				transition-delay: 0.3s;
+			}
+			[data-delay="4"] {
+				transition-delay: 0.4s;
+			}
+			[data-delay="5"] {
+				transition-delay: 0.5s;
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   BUTTONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			.btn {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				gap: 10px;
+				font-family: var(--f-display);
+				font-weight: 700;
+				font-size: 0.82rem;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				padding: 14px 28px;
+				border-radius: 4px;
+				position: relative;
+				overflow: hidden;
+				transition: all 0.3s var(--ease-expo);
+				cursor: none;
+				white-space: nowrap;
+			}
+			.btn::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background: white;
+				opacity: 0;
+				transition: opacity 0.2s;
+			}
+			.btn:hover::after {
+				opacity: 0.08;
+			}
+
+			.btn-primary {
+				background: var(--orange);
+				color: white;
+				box-shadow: 0 0 0 0 var(--orange-glow);
+				transition: box-shadow 0.3s, transform 0.3s var(--ease-spring);
+			}
+			.btn-primary:hover {
+				transform: translateY(-3px) scale(1.02);
+				box-shadow: 0 16px 40px var(--orange-glow);
+			}
+
+			.btn-outline {
+				background: transparent;
+				border: 1.5px solid var(--ash);
+				color: var(--smoke);
+			}
+			.btn-outline:hover {
+				border-color: var(--orange);
+				color: var(--orange);
+			}
+
+			.btn-ghost {
+				background: transparent;
+				color: var(--smoke);
+				padding-left: 0;
+				gap: 6px;
+			}
+			.btn-ghost .ico {
+				transition: transform 0.3s var(--ease-spring);
+			}
+			.btn-ghost:hover {
+				color: var(--cream);
+			}
+			.btn-ghost:hover .ico {
+				transform: translateX(5px);
+			}
+
+			.btn-yellow {
+				background: var(--yellow);
+				color: var(--ink);
+			}
+			.btn-yellow:hover {
+				transform: translateY(-3px);
+				box-shadow: 0 16px 40px rgba(255, 226, 52, 0.3);
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   FLOATING ZALO BUTTON
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			#float-zalo {
+				position: fixed;
+				bottom: 2rem;
+				right: 2rem;
+				z-index: 500;
+				width: 56px;
+				height: 56px;
+				border-radius: 50%;
+				background: #0068ff;
+				color: white;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--f-display);
+				font-size: 0.75rem;
+				font-weight: 800;
+				letter-spacing: 0.04em;
+				box-shadow: 0 8px 32px rgba(0, 104, 255, 0.4);
+				transition: transform 0.3s var(--ease-spring), box-shadow 0.3s;
+				animation: float-pulse 3s ease-in-out infinite;
+			}
+			#float-zalo:hover {
+				transform: scale(1.12) translateY(-4px);
+				box-shadow: 0 16px 40px rgba(0, 104, 255, 0.5);
+			}
+			@keyframes float-pulse {
+				0%,
+				100% {
+					box-shadow: 0 8px 32px rgba(0, 104, 255, 0.4), 0 0 0 0 rgba(0, 104, 255, 0.4);
+				}
+				50% {
+					box-shadow: 0 8px 32px rgba(0, 104, 255, 0.4), 0 0 0 12px rgba(0, 104, 255, 0);
+				}
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   NAVIGATION — floating pill
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			.nav {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 900;
+				padding: 1rem var(--gutter);
+				transition: padding 0.4s var(--ease-expo);
+			}
+			.nav.compact {
+				padding: 0.6rem var(--gutter);
+			}
+
+			.nav__inner {
+				max-width: var(--max-w);
+				margin: 0 auto;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 1.5rem;
+				background: rgba(8, 7, 6, 0.7);
+				backdrop-filter: blur(20px) saturate(180%);
+				-webkit-backdrop-filter: blur(20px) saturate(180%);
+				border: 1px solid rgba(255, 255, 255, 0.06);
+				border-radius: 99px;
+				padding: 0.7rem 1rem 0.7rem 1.4rem;
+				transition: background 0.4s, box-shadow 0.4s;
+			}
+			.nav.compact .nav__inner {
+				box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+			}
+
+			/* Logo */
+			.nav__logo {
+				display: flex;
+				align-items: center;
+				gap: 0.6rem;
+				font-family: var(--f-display);
+				font-size: 1.15rem;
+				font-weight: 800;
+				letter-spacing: -0.02em;
+				color: white;
+				flex-shrink: 0;
+			}
+			.nav__logo-mark {
+				width: 30px;
+				height: 30px;
+				background: var(--orange);
+				border-radius: 6px;
+				display: grid;
+				place-items: center;
+				font-size: 0.85rem;
+				font-style: italic;
+				color: white;
+				font-weight: 900;
+				transition: transform 0.3s var(--ease-spring);
+			}
+			.nav__logo:hover .nav__logo-mark {
+				transform: rotate(-8deg) scale(1.1);
+			}
+
+			/* Links */
+			.nav__links {
+				display: flex;
+				align-items: center;
+				gap: 0.2rem;
+			}
+			.nav__link {
+				padding: 0.4rem 0.85rem;
+				border-radius: 99px;
+				font-size: 0.78rem;
+				font-weight: 500;
+				color: var(--smoke);
+				transition: color 0.2s, background 0.2s;
+				white-space: nowrap;
+			}
+			.nav__link:hover {
+				color: white;
+				background: rgba(255, 255, 255, 0.06);
+			}
+
+			/* CTA */
+			.nav__cta {
+				display: flex;
+				align-items: center;
+				gap: 0.6rem;
+				flex-shrink: 0;
+			}
+
+			/* Theme Toggle */
+			.theme-toggle {
+				width: 32px;
+				height: 32px;
+				border-radius: 50%;
+				border: 1.5px solid var(--ash);
+				color: var(--smoke);
+				display: grid;
+				place-items: center;
+				font-size: 0.9rem;
+				transition: all 0.2s;
+				cursor: none;
+			}
+			.theme-toggle:hover {
+				border-color: var(--orange);
+				color: var(--orange);
+			}
+
+			/* Hamburger */
+			.nav__burger {
+				display: none;
+				flex-direction: column;
+				gap: 4px;
+				width: 28px;
+				padding: 2px;
+			}
+			.nav__burger span {
+				display: block;
+				height: 2px;
+				background: var(--smoke);
+				border-radius: 2px;
+				transition: all 0.3s;
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   MOBILE DRAWER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			.mobile-drawer {
+				position: fixed;
+				inset: 0;
+				background: var(--ink);
+				z-index: 850;
+				display: flex;
+				flex-direction: column;
+				padding: 2rem var(--gutter);
+				transform: translateX(110%);
+				transition: transform 0.5s var(--ease-expo);
+			}
+			.mobile-drawer.open {
+				transform: translateX(0);
+			}
+
+			.mobile-drawer__links {
+				display: flex;
+				flex-direction: column;
+				gap: 0;
+				margin-top: 3rem;
+			}
+			.mobile-drawer__link {
+				font-family: var(--f-display);
+				font-size: clamp(2rem, 8vw, 3.5rem);
+				font-weight: 800;
+				letter-spacing: -0.03em;
+				color: var(--fog);
+				padding: 0.8rem 0;
+				border-bottom: 1px solid var(--ink-4);
+				transition: color 0.2s, padding-left 0.3s var(--ease-expo);
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.mobile-drawer__link:hover {
+				color: var(--orange);
+				padding-left: 1rem;
+			}
+			.mobile-drawer__link-num {
+				font-size: 0.75rem;
+				color: var(--dust);
+				font-family: var(--f-body);
+				font-weight: 500;
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TICKER STRIP (below nav)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			.ticker {
+				background: var(--orange);
+				padding: 0.45rem 0;
+				overflow: hidden;
+				position: relative;
+				z-index: 2;
+				margin-top: 0;
+			}
+			.ticker__track {
+				display: flex;
+				gap: 3rem;
+				width: max-content;
+				animation: ticker-move 22s linear infinite;
+			}
+			.ticker:hover .ticker__track {
+				animation-play-state: paused;
+			}
+			@keyframes ticker-move {
+				from {
+					transform: translateX(0);
+				}
+				to {
+					transform: translateX(-50%);
+				}
+			}
+			.ticker__item {
+				display: flex;
+				align-items: center;
+				gap: 0.6rem;
+				font-family: var(--f-display);
+				font-size: 0.7rem;
+				font-weight: 700;
+				letter-spacing: 0.14em;
+				text-transform: uppercase;
+				color: white;
+				white-space: nowrap;
+			}
+			.ticker__sep {
+				color: rgba(255, 255, 255, 0.45);
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   HERO  —  Chromatic Split
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			.hero {
+				min-height: 100svh;
+				display: grid;
+				grid-template-rows: var(--nav-h) 1fr;
+				position: relative;
+				overflow: hidden;
+				background: var(--ink);
+			}
+
+			/* background radial glow */
+			.hero::before {
+				content: "";
+				position: absolute;
+				width: 900px;
+				height: 900px;
+				border-radius: 50%;
+				background: radial-gradient(circle, rgba(255, 77, 0, 0.12) 0%, transparent 70%);
+				top: -20%;
+				right: -15%;
+				pointer-events: none;
+				animation: glow-drift 12s ease-in-out infinite alternate;
+			}
+			.hero::after {
+				content: "";
+				position: absolute;
+				width: 600px;
+				height: 600px;
+				border-radius: 50%;
+				background: radial-gradient(circle, rgba(255, 226, 52, 0.06) 0%, transparent 70%);
+				bottom: -10%;
+				left: -10%;
+				pointer-events: none;
+				animation: glow-drift 16s ease-in-out infinite alternate-reverse;
+			}
+			@keyframes glow-drift {
+				from {
+					transform: translate(0, 0) scale(1);
+				}
+				to {
+					transform: translate(3%, 3%) scale(1.05);
+				}
+			}
+
+			.hero__content {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				align-items: center;
+				position: relative;
+				z-index: 2;
+			}
+
+			/* Left: copy */
+			.hero__left {
+				padding: var(--gutter);
+				padding-left: max(var(--gutter), calc((100vw - var(--max-w)) / 2 + var(--gutter)));
+				display: flex;
+				flex-direction: column;
+				gap: 2rem;
+			}
+
+			.hero__chips {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+			}
+			.hero__chip {
+				padding: 0.3rem 0.85rem;
+				border-radius: 99px;
+				border: 1px solid var(--ash);
+				font-size: 0.68rem;
+				font-weight: 600;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				color: var(--dust);
+				transition: all 0.2s;
+			}
+			.hero__chip:hover {
+				border-color: var(--orange);
+				color: var(--orange);
+			}
+			.hero__chip--hot {
+				background: var(--orange-lo);
+				border-color: rgba(255, 77, 0, 0.3);
+				color: var(--orange);
+			}
+
+			.hero__headline {
+				font-family: var(--f-display);
+				font-size: clamp(2.8rem, 5.5vw, 5.2rem);
+				font-weight: 800;
+				letter-spacing: -0.04em;
+				line-height: 1;
+				color: white;
+			}
+			.hero__headline .accent {
+				display: inline-block;
+				position: relative;
+				color: var(--orange);
+				font-style: italic;
+				font-family: var(--f-serif);
+				font-weight: 700;
+			}
+			/* underline decoration */
+			.hero__headline .accent::after {
+				content: "";
+				position: absolute;
+				bottom: -4px;
+				left: 0;
+				right: 0;
+				height: 3px;
+				background: var(--yellow);
+				transform: scaleX(0);
+				transform-origin: left;
+				transition: transform 0.6s var(--ease-expo) 0.5s;
+				border-radius: 2px;
+			}
+			.hero__headline .accent.underlined::after {
+				transform: scaleX(1);
+			}
+
+			.hero__sub {
+				font-size: 1rem;
+				line-height: 1.75;
+				color: var(--smoke);
+				max-width: 440px;
+			}
+
+			.hero__actions {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.85rem;
+				align-items: center;
+			}
+
+			/* Right: visual */
+			.hero__right {
+				height: 100%;
+				position: relative;
+				overflow: hidden;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				grid-template-rows: 1fr 1fr 1fr;
+				gap: 3px;
+				background: var(--ink-3);
+			}
+
+			.hero__tile {
+				position: relative;
+				overflow: hidden;
+				display: flex;
+				align-items: flex-end;
+				padding: 1rem;
+				background: var(--ink-4);
+				transition: background 0.3s;
+				cursor: none;
+			}
+			.hero__tile:hover {
+				background: var(--ink-3);
+			}
+			.hero__tile--span2 {
+				grid-column: span 2;
+			}
+			.hero__tile--span-r {
+				grid-row: span 2;
+			}
+			.hero__tile--orange {
+				background: var(--orange);
+			}
+			.hero__tile--orange:hover {
+				background: var(--orange-hi);
+			}
+			.hero__tile--yellow {
+				background: var(--yellow);
+			}
+			.hero__tile--yellow:hover {
+				background: #ffee5a;
+			}
+
+			.hero__tile-mono {
+				position: absolute;
+				font-family: var(--f-display);
+				font-size: clamp(4rem, 8vw, 9rem);
+				font-weight: 800;
+				color: rgba(255, 255, 255, 0.06);
+				bottom: -16px;
+				right: -8px;
+				letter-spacing: -0.05em;
+				line-height: 1;
+				pointer-events: none;
+				transition: transform 0.5s var(--ease-expo);
+			}
+			.hero__tile--orange .hero__tile-mono {
+				color: rgba(255, 255, 255, 0.12);
+			}
+			.hero__tile--yellow .hero__tile-mono {
+				color: rgba(0, 0, 0, 0.08);
+			}
+			.hero__tile:hover .hero__tile-mono {
+				transform: translate(-6px, -6px) scale(1.03);
+			}
+
+			.hero__tile-badge {
+				position: relative;
+				z-index: 1;
+				font-family: var(--f-display);
+				font-size: 0.65rem;
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				background: rgba(0, 0, 0, 0.35);
+				backdrop-filter: blur(8px);
+				border: 1px solid rgba(255, 255, 255, 0.12);
+				border-radius: 99px;
+				padding: 0.35rem 0.9rem;
+				color: white;
+				white-space: nowrap;
+			}
+			.hero__tile--yellow .hero__tile-badge {
+				background: rgba(0, 0, 0, 0.15);
+				color: var(--ink);
+			}
+
+			/* Big watermark rotated text */
+			.hero__wm {
+				position: absolute;
+				left: -2%;
+				top: 50%;
+				transform: translateY(-50%) rotate(-90deg);
+				transform-origin: center;
+				font-family: var(--f-display);
+				font-size: clamp(5rem, 12vw, 14rem);
+				font-weight: 800;
+				letter-spacing: -0.06em;
+				color: rgba(255, 255, 255, 0.025);
+				pointer-events: none;
+				z-index: 0;
+				white-space: nowrap;
+				user-select: none;
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   STATS STRIP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			.stats-strip {
+				background: var(--ink-2);
+				border-top: 1px solid var(--ink-3);
+				border-bottom: 1px solid var(--ink-3);
+				padding: 2.5rem 0;
+			}
+			.stats-strip__grid {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 0;
+			}
+			.stat-item {
+				padding: 1rem 2rem;
+				border-right: 1px solid var(--ink-3);
+				text-align: center;
+			}
+			.stat-item:last-child {
+				border-right: none;
+			}
+
+			.stat-num {
+				font-family: var(--f-display);
+				font-size: clamp(2.2rem, 4vw, 3.2rem);
+				font-weight: 800;
+				letter-spacing: -0.04em;
+				line-height: 1;
+				color: white;
+				display: flex;
+				align-items: baseline;
+				justify-content: center;
+				gap: 3px;
+			}
+			.stat-num .unit {
+				font-size: 0.55em;
+				color: var(--orange);
+			}
+			.stat-label {
+				font-size: 0.75rem;
+				color: var(--dust);
+				margin-top: 0.4rem;
+				font-weight: 500;
+				letter-spacing: 0.04em;
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   FEATURES — Magazine asymmetric grid
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			.features {
+				padding: clamp(4rem, 10vw, 9rem) 0;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.features__intro {
+				display: grid;
+				grid-template-columns: 3fr 2fr;
+				gap: 3rem;
+				align-items: end;
+				margin-bottom: clamp(2.5rem, 6vw, 5rem);
+			}
+
+			.features__h2 {
+				font-family: var(--f-display);
+				font-size: clamp(2.2rem, 4.5vw, 4rem);
+				font-weight: 800;
+				letter-spacing: -0.04em;
+				line-height: 1.05;
+				color: white;
+			}
+			.features__h2 em {
+				font-family: var(--f-serif);
+				font-style: italic;
+				color: var(--orange);
+			}
+
+			.features__desc {
+				color: var(--smoke);
+				line-height: 1.75;
+			}
+
+			/* 6-cell asymmetric bento */
+			.features__bento {
+				display: grid;
+				grid-template-columns: repeat(12, 1fr);
+				grid-auto-rows: 200px;
+				gap: 0.75rem;
+			}
+
+			.f-card {
+				border-radius: 12px;
+				background: var(--ink-2);
+				border: 1px solid var(--ink-3);
+				padding: 1.75rem;
+				position: relative;
+				overflow: hidden;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				transition: border-color 0.3s, transform 0.4s var(--ease-expo), box-shadow 0.4s;
+				cursor: none;
+			}
+			.f-card:hover {
+				border-color: rgba(255, 77, 0, 0.3);
+				transform: translateY(-4px);
+				box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 77, 0, 0.1);
+			}
+
+			.f-card--c5 {
+				grid-column: span 5;
+			}
+			.f-card--c4 {
+				grid-column: span 4;
+			}
+			.f-card--c3 {
+				grid-column: span 3;
+			}
+			.f-card--c7 {
+				grid-column: span 7;
+			}
+			.f-card--c8 {
+				grid-column: span 8;
+			}
+			.f-card--r2 {
+				grid-row: span 2;
+			}
+
+			.f-card--orange {
+				background: var(--orange);
+				border-color: transparent;
+			}
+			.f-card--yellow {
+				background: var(--yellow);
+				border-color: transparent;
+				color: var(--ink);
+			}
+			.f-card--dark3 {
+				background: var(--ink-3);
+			}
+
+			.f-card__icon {
+				position: absolute;
+				top: 1.5rem;
+				left: 1.75rem;
+				width: 44px;
+				height: 44px;
+				border-radius: 10px;
+				background: rgba(255, 255, 255, 0.07);
+				display: grid;
+				place-items: center;
+				font-size: 1.2rem;
+				transition: transform 0.3s var(--ease-spring);
+			}
+			.f-card--orange .f-card__icon {
+				background: rgba(255, 255, 255, 0.2);
+			}
+			.f-card--yellow .f-card__icon {
+				background: rgba(0, 0, 0, 0.1);
+			}
+			.f-card:hover .f-card__icon {
+				transform: scale(1.12) rotate(-5deg);
+			}
+
+			.f-card__bg {
+				position: absolute;
+				bottom: -20px;
+				right: -12px;
+				font-family: var(--f-display);
+				font-size: 6rem;
+				font-weight: 800;
+				color: rgba(255, 255, 255, 0.04);
+				letter-spacing: -0.05em;
+				line-height: 1;
+				pointer-events: none;
+			}
+			.f-card--orange .f-card__bg {
+				color: rgba(255, 255, 255, 0.1);
+			}
+			.f-card--yellow .f-card__bg {
+				color: rgba(0, 0, 0, 0.06);
+			}
+
+			.f-card__title {
+				font-family: var(--f-display);
+				font-size: 1.05rem;
+				font-weight: 700;
+				letter-spacing: -0.01em;
+				margin-bottom: 0.35rem;
+				color: white;
+			}
+			.f-card--yellow .f-card__title {
+				color: var(--ink);
+			}
+
+			.f-card__text {
+				font-size: 0.82rem;
+				color: var(--smoke);
+				line-height: 1.6;
+			}
+			.f-card--orange .f-card__text {
+				color: rgba(255, 255, 255, 0.8);
+			}
+			.f-card--yellow .f-card__text {
+				color: rgba(0, 0, 0, 0.65);
+			}
+
+			.f-card__pill {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+				background: rgba(255, 255, 255, 0.1);
+				border-radius: 99px;
+				padding: 0.3rem 0.8rem;
+				font-size: 0.68rem;
+				font-weight: 700;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: rgba(255, 255, 255, 0.7);
+				margin-bottom: 0.75rem;
+				align-self: flex-start;
+				border: 1px solid rgba(255, 255, 255, 0.08);
+			}
+			.f-card--yellow .f-card__pill {
+				background: rgba(0, 0, 0, 0.1);
+				color: rgba(0, 0, 0, 0.6);
+				border-color: rgba(0, 0, 0, 0.05);
+			}
+
+			/* Big number card */
+			.f-card__big-num {
+				font-family: var(--f-display);
+				font-size: clamp(3rem, 5vw, 5rem);
+				font-weight: 800;
+				letter-spacing: -0.05em;
+				line-height: 1;
+				color: white;
+			}
+
+			/* Checklist inside card */
+			.f-card__checks {
+				display: flex;
+				flex-direction: column;
+				gap: 0.4rem;
+			}
+			.f-card__check {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				font-size: 0.78rem;
+				color: rgba(255, 255, 255, 0.75);
+			}
+			.f-card__check::before {
+				content: "✓";
+				width: 18px;
+				height: 18px;
+				background: rgba(255, 255, 255, 0.15);
+				border-radius: 4px;
+				display: grid;
+				place-items: center;
+				font-size: 0.6rem;
+				font-weight: 900;
+				color: white;
+				flex-shrink: 0;
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PRODUCTS — 3D tilt cards
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			.products {
+				padding: clamp(4rem, 10vw, 9rem) 0;
+				background: var(--ink-2);
+				position: relative;
+				overflow: hidden;
+			}
+
+			.products__line {
+				position: absolute;
+				width: 1px;
+				top: 0;
+				bottom: 0;
+				background: var(--ink-3);
+			}
+
+			.products__header {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-end;
+				margin-bottom: clamp(2rem, 5vw, 4rem);
+				gap: 1.5rem;
+			}
+
+			.products__h2 {
+				font-family: var(--f-display);
+				font-size: clamp(2rem, 4vw, 3.5rem);
+				font-weight: 800;
+				letter-spacing: -0.04em;
+				line-height: 1.05;
+				color: white;
+			}
+
+			/* Drag scroll region */
+			.products__drag {
+				overflow-x: auto;
+				scrollbar-width: none;
+				cursor: grab;
+				-webkit-user-select: none;
+				user-select: none;
+				padding-bottom: 0.5rem;
+			}
+			.products__drag::-webkit-scrollbar {
+				display: none;
+			}
+			.products__drag.grabbing {
+				cursor: grabbing;
+			}
+
+			.products__row {
+				display: flex;
+				gap: 1.25rem;
+				width: max-content;
+				padding: 0.5rem max(var(--gutter), calc((100vw - var(--max-w)) / 2 + var(--gutter)));
+			}
+
+			/* 3D tilt card */
+			.p-card {
+				width: 270px;
+				flex-shrink: 0;
+				background: var(--ink-3);
+				border-radius: 16px;
+				border: 1px solid var(--ink-4);
+				overflow: hidden;
+				position: relative;
+				transform-style: preserve-3d;
+				transition: border-color 0.3s, box-shadow 0.3s;
+				cursor: none;
+				/* JS adds inline transform for tilt */
+			}
+			.p-card:hover {
+				border-color: rgba(255, 77, 0, 0.25);
+			}
+
+			.p-card__img {
+				height: 185px;
+				overflow: hidden;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				position: relative;
+			}
+			.p-card__img-bg {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--f-display);
+				font-size: 3.5rem;
+				font-weight: 800;
+				letter-spacing: -0.06em;
+				font-style: italic;
+				transition: transform 0.5s var(--ease-expo);
+				position: relative;
+			}
+			.p-card:hover .p-card__img-bg {
+				transform: scale(1.08);
+			}
+
+			.p-card__img-overlay {
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.5));
+			}
+
+			.p-card__badge {
+				position: absolute;
+				top: 1rem;
+				right: 1rem;
+				background: var(--orange);
+				color: white;
+				font-family: var(--f-display);
+				font-size: 0.62rem;
+				font-weight: 700;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				padding: 0.25rem 0.7rem;
+				border-radius: 99px;
+			}
+
+			.p-card__body {
+				padding: 1.25rem 1.5rem;
+			}
+
+			.p-card__type {
+				font-size: 0.65rem;
+				font-weight: 700;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--orange);
+				margin-bottom: 0.35rem;
+			}
+
+			.p-card__name {
+				font-family: var(--f-display);
+				font-size: 1rem;
+				font-weight: 700;
+				color: white;
+				margin-bottom: 0.5rem;
+				letter-spacing: -0.015em;
+			}
+
+			.p-card__desc {
+				font-size: 0.78rem;
+				color: var(--dust);
+				line-height: 1.6;
+				margin-bottom: 1.1rem;
+			}
+
+			.p-card__footer {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding-top: 0.85rem;
+				border-top: 1px solid var(--ink-4);
+			}
+
+			.p-card__price {
+				font-size: 0.82rem;
+				color: var(--smoke);
+			}
+			.p-card__price strong {
+				color: white;
+				font-size: 0.95rem;
+			}
+
+			.p-card__cta {
+				width: 36px;
+				height: 36px;
+				border-radius: 50%;
+				background: var(--orange);
+				color: white;
+				display: grid;
+				place-items: center;
+				font-size: 1rem;
+				transition: transform 0.3s var(--ease-spring), background 0.2s;
+			}
+			.p-card__cta:hover {
+				transform: scale(1.15) rotate(45deg);
+				background: var(--orange-hi);
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PROCESS — Diagonal timeline
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			.process-sec {
+				padding: clamp(4rem, 10vw, 9rem) 0;
+				background: var(--cream);
+				color: var(--ink);
+				position: relative;
+				overflow: hidden;
+			}
+
+			/* Diagonal background blobs */
+			.process-sec::before {
+				content: "";
+				position: absolute;
+				width: 600px;
+				height: 600px;
+				border-radius: 50%;
+				background: radial-gradient(circle, rgba(255, 77, 0, 0.06) 0%, transparent 70%);
+				top: -20%;
+				right: -10%;
+				pointer-events: none;
+			}
+
+			.process-sec .eyebrow {
+				color: var(--orange);
+			}
+			.process-sec .eyebrow::before {
+				background: var(--orange);
+			}
+
+			.process-h2 {
+				font-family: var(--f-display);
+				font-size: clamp(2.2rem, 4.5vw, 4rem);
+				font-weight: 800;
+				letter-spacing: -0.04em;
+				line-height: 1.05;
+				color: var(--ink);
+				margin: 0.75rem 0 1.5rem;
+			}
+			.process-h2 em {
+				font-family: var(--f-serif);
+				font-style: italic;
+				color: var(--orange);
+			}
+
+			.process-grid {
+				display: grid;
+				grid-template-columns: 5fr 7fr;
+				gap: 4rem;
+				align-items: start;
+			}
+
+			.process-left {
+				position: sticky;
+				top: 100px;
+			}
+			.process-left p {
+				color: var(--dust);
+				line-height: 1.75;
+				margin-bottom: 1.5rem;
+			}
+
+			/* Steps */
+			.process-steps {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+			}
+
+			.step {
+				display: grid;
+				grid-template-columns: 56px 1fr;
+				gap: 1.25rem;
+				padding: 1.25rem;
+				border-radius: 12px;
+				border: 1.5px solid #e8e2d8;
+				background: white;
+				cursor: none;
+				transition: all 0.35s var(--ease-expo);
+				position: relative;
+				overflow: hidden;
+			}
+			.step::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background: var(--orange);
+				transform: scaleX(0);
+				transform-origin: left;
+				transition: transform 0.35s var(--ease-expo);
+				z-index: 0;
+			}
+			.step.active::before,
+			.step:hover::before {
+				transform: scaleX(1);
+			}
+			.step.active,
+			.step:hover {
+				border-color: var(--orange);
+			}
+
+			.step__num {
+				position: relative;
+				z-index: 1;
+				width: 44px;
+				height: 44px;
+				border-radius: 10px;
+				background: rgba(255, 77, 0, 0.1);
+				color: var(--orange);
+				font-family: var(--f-display);
+				font-size: 0.8rem;
+				font-weight: 800;
+				display: grid;
+				place-items: center;
+				letter-spacing: 0.04em;
+				transition: background 0.3s, color 0.3s;
+				align-self: center;
+				flex-shrink: 0;
+			}
+			.step.active .step__num,
+			.step:hover .step__num {
+				background: rgba(255, 255, 255, 0.2);
+				color: white;
+			}
+
+			.step__content {
+				position: relative;
+				z-index: 1;
+				align-self: center;
+			}
+
+			.step__title {
+				font-family: var(--f-display);
+				font-size: 0.95rem;
+				font-weight: 700;
+				color: var(--ink);
+				margin-bottom: 0.25rem;
+				transition: color 0.3s;
+			}
+			.step.active .step__title,
+			.step:hover .step__title {
+				color: white;
+			}
+
+			.step__text {
+				font-size: 0.8rem;
+				color: #8a7e72;
+				line-height: 1.55;
+				transition: color 0.3s;
+			}
+			.step.active .step__text,
+			.step:hover .step__text {
+				color: rgba(255, 255, 255, 0.75);
+			}
+
+			/* Right: big benefit bento */
+			.process-right {
+				display: flex;
+				flex-direction: column;
+				gap: 0.75rem;
+			}
+
+			.benefit {
+				border-radius: 12px;
+				border: 1.5px solid #e8e2d8;
+				padding: 1.75rem;
+				background: white;
+				display: flex;
+				gap: 1.25rem;
+				align-items: center;
+				transition: all 0.3s var(--ease-expo);
+				cursor: none;
+			}
+			.benefit:hover {
+				border-color: var(--orange);
+				transform: translateX(6px);
+				box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+			}
+			.benefit--accent {
+				background: var(--ink);
+				border-color: var(--ink);
+				color: white;
+			}
+			.benefit__icon {
+				width: 52px;
+				height: 52px;
+				border-radius: 12px;
+				background: rgba(255, 77, 0, 0.08);
+				color: var(--orange);
+				font-size: 1.4rem;
+				display: grid;
+				place-items: center;
+				flex-shrink: 0;
+				transition: transform 0.3s var(--ease-spring);
+			}
+			.benefit--accent .benefit__icon {
+				background: rgba(255, 77, 0, 0.15);
+			}
+			.benefit:hover .benefit__icon {
+				transform: scale(1.12) rotate(-6deg);
+			}
+			.benefit__title {
+				font-family: var(--f-display);
+				font-size: 1rem;
+				font-weight: 700;
+				color: var(--ink);
+				margin-bottom: 0.2rem;
+			}
+			.benefit--accent .benefit__title {
+				color: white;
+			}
+			.benefit__text {
+				font-size: 0.82rem;
+				color: #8a7e72;
+				line-height: 1.55;
+			}
+			.benefit--accent .benefit__text {
+				color: var(--smoke);
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PORTFOLIO — mosaic with RGB glitch hover
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			.portfolio {
+				padding: clamp(4rem, 10vw, 9rem) 0;
+				background: var(--ink);
+			}
+
+			.portfolio__header {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-end;
+				margin-bottom: clamp(2rem, 5vw, 4rem);
+				flex-wrap: wrap;
+				gap: 1.5rem;
+			}
+
+			.portfolio__h2 {
+				font-family: var(--f-display);
+				font-size: clamp(2rem, 4vw, 3.5rem);
+				font-weight: 800;
+				letter-spacing: -0.04em;
+				line-height: 1.05;
+				color: white;
+			}
+
+			/* Filter row */
+			.portfolio__filters {
+				display: flex;
+				gap: 0.4rem;
+				flex-wrap: wrap;
+			}
+			.pf-tab {
+				padding: 0.5rem 1.2rem;
+				border-radius: 99px;
+				border: 1.5px solid var(--ash);
+				font-family: var(--f-display);
+				font-size: 0.72rem;
+				font-weight: 700;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--dust);
+				transition: all 0.2s;
+				cursor: none;
+			}
+			.pf-tab:hover,
+			.pf-tab.active {
+				background: var(--orange);
+				border-color: var(--orange);
+				color: white;
+			}
+
+			/* CSS masonry */
+			.portfolio__mosaic {
+				columns: 4 240px;
+				column-gap: 0.75rem;
+			}
+
+			.po-item {
+				break-inside: avoid;
+				margin-bottom: 0.75rem;
+				border-radius: 12px;
+				overflow: hidden;
+				position: relative;
+				cursor: none;
+				display: block;
+			}
+			.po-item__inner {
+				width: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: 2.5rem;
+				letter-spacing: -0.04em;
+				font-style: italic;
+				color: rgba(255, 255, 255, 0.15);
+				transition: transform 0.5s var(--ease-expo);
+				position: relative;
+			}
+			.po-item:hover .po-item__inner {
+				transform: scale(1.06);
+			}
+
+			/* RGB split on hover */
+			.po-item__inner::before,
+			.po-item__inner::after {
+				content: attr(data-text);
+				position: absolute;
+				font-family: var(--f-display);
+				font-weight: 800;
+				font-size: 2.5rem;
+				letter-spacing: -0.04em;
+				font-style: italic;
+				opacity: 0;
+				transition: opacity 0.2s;
+				mix-blend-mode: screen;
+			}
+			.po-item__inner::before {
+				color: var(--cyan);
+				top: -2px;
+				left: 3px;
+			}
+			.po-item__inner::after {
+				color: var(--magenta);
+				top: 2px;
+				left: -3px;
+			}
+			.po-item:hover .po-item__inner::before,
+			.po-item:hover .po-item__inner::after {
+				opacity: 0.5;
+			}
+
+			.po-item__overlay {
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(to top, rgba(8, 7, 6, 0.9) 0%, transparent 55%);
+				opacity: 0;
+				transition: opacity 0.35s;
+				display: flex;
+				align-items: flex-end;
+				padding: 1.25rem;
+			}
+			.po-item:hover .po-item__overlay {
+				opacity: 1;
+			}
+
+			.po-item__info {
+				transform: translateY(10px);
+				transition: transform 0.35s var(--ease-expo);
+			}
+			.po-item:hover .po-item__info {
+				transform: translateY(0);
+			}
+			.po-item__name {
+				font-family: var(--f-display);
+				font-size: 0.88rem;
+				font-weight: 700;
+				color: white;
+				display: block;
+			}
+			.po-item__sub {
+				font-size: 0.7rem;
+				color: var(--smoke);
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TESTIMONIALS — quote-forward
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			.reviews {
+				padding: clamp(4rem, 10vw, 9rem) 0;
+				background: var(--ink-2);
+				position: relative;
+				overflow: hidden;
+			}
+
+			.reviews__bg-mark {
+				position: absolute;
+				font-family: var(--f-display);
+				font-size: clamp(10rem, 20vw, 22rem);
+				font-weight: 800;
+				color: rgba(255, 255, 255, 0.015);
+				top: 50%;
+				right: -2%;
+				transform: translateY(-50%);
+				letter-spacing: -0.05em;
+				pointer-events: none;
+				user-select: none;
+			}
+
+			.reviews__grid {
+				display: grid;
+				grid-template-columns: 3fr 9fr;
+				gap: 4rem;
+				align-items: start;
+			}
+
+			.reviews__left {
+				position: sticky;
+				top: 100px;
+			}
+			.reviews__h2 {
+				font-family: var(--f-display);
+				font-size: clamp(1.8rem, 3.5vw, 3rem);
+				font-weight: 800;
+				letter-spacing: -0.04em;
+				line-height: 1.1;
+				color: white;
+				margin: 0.75rem 0 1rem;
+			}
+			.reviews__h2 em {
+				font-family: var(--f-serif);
+				font-style: italic;
+				color: var(--orange);
+			}
+			.reviews__score {
+				font-family: var(--f-display);
+				font-size: 3.5rem;
+				font-weight: 800;
+				color: white;
+				letter-spacing: -0.04em;
+				line-height: 1;
+			}
+			.reviews__score span {
+				color: var(--yellow);
+			}
+			.reviews__stars {
+				display: flex;
+				gap: 3px;
+				margin: 0.3rem 0;
+			}
+			.reviews__stars i {
+				color: var(--yellow);
+				font-size: 0.9rem;
+				font-style: normal;
+			}
+			.reviews__count {
+				font-size: 0.78rem;
+				color: var(--dust);
+			}
+
+			.reviews__cards {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 1rem;
+			}
+
+			.r-card {
+				background: var(--ink-3);
+				border: 1.5px solid var(--ink-4);
+				border-radius: 14px;
+				padding: 1.75rem;
+				position: relative;
+				transition: all 0.3s var(--ease-expo);
+				cursor: none;
+				overflow: hidden;
+			}
+			.r-card::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 3px;
+				background: linear-gradient(90deg, var(--orange), var(--yellow));
+				transform: scaleX(0);
+				transform-origin: left;
+				transition: transform 0.4s var(--ease-expo);
+			}
+			.r-card:hover {
+				border-color: rgba(255, 77, 0, 0.2);
+				transform: translateY(-5px);
+				box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+			}
+			.r-card:hover::before {
+				transform: scaleX(1);
+			}
+
+			.r-card__open {
+				font-size: 2rem;
+				line-height: 1;
+				color: var(--orange);
+				font-family: Georgia, serif;
+				margin-bottom: 0.75rem;
+				display: block;
+			}
+			.r-card__text {
+				font-size: 0.88rem;
+				color: var(--smoke);
+				line-height: 1.75;
+				font-style: italic;
+				margin-bottom: 1.25rem;
+			}
+			.r-card__author {
+				display: flex;
+				align-items: center;
+				gap: 0.85rem;
+			}
+			.r-card__av {
+				width: 38px;
+				height: 38px;
+				border-radius: 50%;
+				display: grid;
+				place-items: center;
+				font-family: var(--f-display);
+				font-size: 0.75rem;
+				font-weight: 800;
+				color: white;
+				flex-shrink: 0;
+			}
+			.r-card__name {
+				font-family: var(--f-display);
+				font-size: 0.85rem;
+				font-weight: 700;
+				color: white;
+			}
+			.r-card__role {
+				font-size: 0.7rem;
+				color: var(--dust);
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CTA — full bleed, diagonal split
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			.cta {
+				padding: clamp(4rem, 10vw, 9rem) 0;
+				background: var(--orange);
+				position: relative;
+				overflow: hidden;
+			}
+
+			/* diagonal right panel */
+			.cta::after {
+				content: "";
+				position: absolute;
+				top: 0;
+				right: -5%;
+				bottom: 0;
+				width: 48%;
+				background: rgba(0, 0, 0, 0.15);
+				clip-path: polygon(8% 0, 100% 0, 100% 100%, 0% 100%);
+				pointer-events: none;
+			}
+
+			.cta__inner {
+				display: grid;
+				grid-template-columns: 7fr 5fr;
+				gap: 3rem;
+				align-items: center;
+				position: relative;
+				z-index: 1;
+			}
+
+			.cta__eyebrow {
+				color: rgba(255, 255, 255, 0.7);
+			}
+			.cta__eyebrow::before {
+				background: rgba(255, 255, 255, 0.5);
+			}
+
+			.cta__h2 {
+				font-family: var(--f-display);
+				font-size: clamp(2.2rem, 5vw, 4.5rem);
+				font-weight: 800;
+				letter-spacing: -0.04em;
+				line-height: 1;
+				color: white;
+				margin: 0.75rem 0 1.25rem;
+			}
+			.cta__h2 em {
+				font-family: var(--f-serif);
+				font-style: italic;
+			}
+
+			.cta__sub {
+				font-size: 1.05rem;
+				color: rgba(255, 255, 255, 0.8);
+				line-height: 1.7;
+				max-width: 480px;
+			}
+
+			.cta__right {
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+			}
+
+			/* Contact cards */
+			.cta-contact {
+				background: rgba(0, 0, 0, 0.2);
+				backdrop-filter: blur(12px);
+				border: 1px solid rgba(255, 255, 255, 0.15);
+				border-radius: 14px;
+				padding: 1.25rem;
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				transition: all 0.3s var(--ease-expo);
+				cursor: none;
+			}
+			.cta-contact:hover {
+				background: rgba(0, 0, 0, 0.35);
+				transform: translateX(6px);
+			}
+			.cta-contact__av {
+				width: 46px;
+				height: 46px;
+				border-radius: 10px;
+				background: rgba(255, 255, 255, 0.2);
+				display: grid;
+				place-items: center;
+				font-family: var(--f-display);
+				font-size: 0.7rem;
+				font-weight: 800;
+				color: white;
+				letter-spacing: 0.04em;
+				flex-shrink: 0;
+			}
+			.cta-contact__role {
+				font-size: 0.62rem;
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: rgba(255, 255, 255, 0.55);
+				margin-bottom: 0.1rem;
+			}
+			.cta-contact__name {
+				font-family: var(--f-display);
+				font-size: 0.9rem;
+				font-weight: 700;
+				color: white;
+			}
+			.cta-contact__phone {
+				font-size: 0.85rem;
+				color: rgba(255, 255, 255, 0.8);
+			}
+			.cta-contact__zalo {
+				margin-left: auto;
+				background: #0068ff;
+				color: white;
+				font-family: var(--f-display);
+				font-size: 0.62rem;
+				font-weight: 700;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				padding: 0.3rem 0.7rem;
+				border-radius: 6px;
+			}
+
+			/* Decorative big text */
+			.cta__wm {
+				position: absolute;
+				right: -3%;
+				bottom: -10%;
+				font-family: var(--f-display);
+				font-size: clamp(8rem, 18vw, 20rem);
+				font-weight: 800;
+				letter-spacing: -0.06em;
+				color: rgba(255, 255, 255, 0.06);
+				pointer-events: none;
+				line-height: 1;
+				user-select: none;
+			}
+
+			.cta__actions {
+				display: flex;
+				gap: 1rem;
+				flex-wrap: wrap;
+				margin-top: 1.5rem;
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   FOOTER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			.footer {
+				background: var(--ink);
+				padding: clamp(3rem, 8vw, 7rem) 0 2rem;
+				border-top: 1px solid var(--ink-3);
+			}
+
+			.footer__main {
+				display: grid;
+				grid-template-columns: 2.5fr 1fr 1fr 1.5fr;
+				gap: 3rem;
+				padding-bottom: 3rem;
+				border-bottom: 1px solid var(--ink-3);
+				margin-bottom: 2rem;
+			}
+
+			.footer__brand-name {
+				font-family: var(--f-display);
+				font-size: 1.4rem;
+				font-weight: 800;
+				color: white;
+				letter-spacing: -0.02em;
+				margin-bottom: 1rem;
+			}
+			.footer__brand-name span {
+				color: var(--orange);
+			}
+
+			.footer__desc {
+				font-size: 0.83rem;
+				color: var(--dust);
+				line-height: 1.75;
+				margin-bottom: 1.5rem;
+			}
+
+			.footer__socials {
+				display: flex;
+				gap: 0.5rem;
+			}
+			.footer__soc {
+				width: 34px;
+				height: 34px;
+				border-radius: 8px;
+				border: 1.5px solid var(--ash);
+				display: grid;
+				place-items: center;
+				font-family: var(--f-display);
+				font-size: 0.7rem;
+				font-weight: 800;
+				color: var(--dust);
+				transition: all 0.2s;
+				cursor: none;
+			}
+			.footer__soc:hover {
+				background: var(--orange);
+				border-color: var(--orange);
+				color: white;
+			}
+
+			.footer__col-h {
+				font-family: var(--f-display);
+				font-size: 0.68rem;
+				font-weight: 700;
+				letter-spacing: 0.14em;
+				text-transform: uppercase;
+				color: var(--smoke);
+				margin-bottom: 1.25rem;
+			}
+
+			.footer__links {
+				display: flex;
+				flex-direction: column;
+				gap: 0.7rem;
+			}
+			.footer__link {
+				font-size: 0.82rem;
+				color: var(--dust);
+				transition: color 0.2s;
+				display: flex;
+				align-items: center;
+				gap: 0.4rem;
+			}
+			.footer__link:hover {
+				color: var(--orange);
+			}
+			.footer__link::before {
+				content: "";
+				width: 0;
+				height: 1px;
+				background: var(--orange);
+				transition: width 0.2s;
+				flex-shrink: 0;
+			}
+			.footer__link:hover::before {
+				width: 12px;
+			}
+
+			.footer__info {
+				display: flex;
+				flex-direction: column;
+				gap: 0.75rem;
+			}
+			.footer__info-item {
+				font-size: 0.8rem;
+			}
+			.footer__info-label {
+				font-size: 0.62rem;
+				font-weight: 700;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: rgba(255, 255, 255, 0.25);
+				margin-bottom: 0.2rem;
+			}
+			.footer__info-val {
+				color: var(--dust);
+			}
+
+			.footer__bottom {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 1.5rem;
+				flex-wrap: wrap;
+			}
+			.footer__copy {
+				font-size: 0.75rem;
+				color: rgba(255, 255, 255, 0.2);
+			}
+
+			.footer__bottom-links {
+				display: flex;
+				gap: 1.5rem;
+			}
+			.footer__blink {
+				font-size: 0.75rem;
+				color: rgba(255, 255, 255, 0.2);
+				transition: color 0.2s;
+				cursor: none;
+			}
+			.footer__blink:hover {
+				color: var(--orange);
+			}
+
+			/* Big brand footer name */
+			.footer__bigname {
+				font-family: var(--f-display);
+				font-size: clamp(3.5rem, 8vw, 8rem);
+				font-weight: 800;
+				letter-spacing: -0.05em;
+				color: rgba(255, 255, 255, 0.04);
+				text-align: center;
+				padding: 1.5rem 0 0;
+				border-top: 1px solid var(--ink-3);
+				margin-top: 2rem;
+				line-height: 1;
+				user-select: none;
+			}
+			.footer__bigname span {
+				color: rgba(255, 77, 0, 0.12);
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   LIGHT MODE overrides
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			[data-theme="light"] {
+				--ink: #fdfaf5;
+				--ink-2: #f5f0e8;
+				--ink-3: #ede8df;
+				--ink-4: #e0dad0;
+				--ash: #c8c0b4;
+				--dust: #8a7e72;
+				--smoke: #5a5048;
+				--fog: #3d3830;
+				--cream: #1a1714;
+				--paper: #1a1714;
+			}
+			[data-theme="light"] body {
+				color: var(--cream);
+			}
+			[data-theme="light"] #grain {
+				opacity: 0.02;
+			}
+			[data-theme="light"] .hero {
+				background: var(--ink-3);
+			}
+			[data-theme="light"] .hero__headline,
+			[data-theme="light"] .hero__tile-badge {
+				color: var(--ink) !important;
+			}
+			[data-theme="light"] .stats-strip {
+				background: var(--ink-2);
+			}
+			[data-theme="light"] .stat-num {
+				color: var(--fog);
+			}
+			[data-theme="light"] .features {
+				background: var(--ink);
+			}
+			[data-theme="light"] .f-card {
+				background: white;
+				border-color: var(--ink-3);
+			}
+			[data-theme="light"] .f-card__title {
+				color: var(--ink) !important;
+			}
+			[data-theme="light"] .products {
+				background: var(--ink-2);
+			}
+			[data-theme="light"] .p-card {
+				background: white;
+				border-color: var(--ink-3);
+			}
+			[data-theme="light"] .p-card__name {
+				color: var(--fog);
+			}
+			[data-theme="light"] .portfolio {
+				background: var(--ink-2);
+			}
+			[data-theme="light"] .reviews {
+				background: var(--ink);
+			}
+			[data-theme="light"] .r-card {
+				background: white;
+				border-color: var(--ink-3);
+			}
+			[data-theme="light"] .footer {
+				background: var(--fog);
+				border-color: rgba(0, 0, 0, 0.1);
+			}
+			[data-theme="light"] .footer__bigname {
+				color: rgba(0, 0, 0, 0.05);
+			}
+			[data-theme="light"] #loader {
+				background: var(--ink);
+			}
+
+			/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+			@media (max-width: 1100px) {
+				.features__bento {
+					grid-auto-rows: 180px;
+				}
+				.f-card--c5 {
+					grid-column: span 6;
+				}
+				.f-card--c7 {
+					grid-column: span 6;
+				}
+				.f-card--c4 {
+					grid-column: span 4;
+				}
+				.f-card--c8 {
+					grid-column: span 8;
+				}
+			}
+
+			@media (max-width: 900px) {
+				.hero__content {
+					grid-template-columns: 1fr;
+				}
+				.hero__right {
+					display: none;
+				}
+				.hero__wm {
+					display: none;
+				}
+				.features__bento {
+					grid-auto-rows: auto;
+				}
+				.f-card--c5,
+				.f-card--c4,
+				.f-card--c7,
+				.f-card--c8,
+				.f-card--c3 {
+					grid-column: span 12;
+				}
+				.f-card--r2 {
+					grid-row: auto;
+				}
+				.process-grid {
+					grid-template-columns: 1fr;
+				}
+				.process-left {
+					position: static;
+				}
+				.reviews__grid {
+					grid-template-columns: 1fr;
+				}
+				.reviews__left {
+					position: static;
+				}
+				.reviews__cards {
+					grid-template-columns: 1fr;
+				}
+				.cta__inner {
+					grid-template-columns: 1fr;
+				}
+				.footer__main {
+					grid-template-columns: 1fr 1fr;
+				}
+				.stats-strip__grid {
+					grid-template-columns: 1fr 1fr;
+				}
+				.stat-item {
+					border-right: none;
+					border-bottom: 1px solid var(--ink-3);
+				}
+				.stat-item:nth-child(even) {
+					border-right: none;
+				}
+			}
+
+			@media (max-width: 640px) {
+				.nav__links,
+				.nav__cta .btn-outline {
+					display: none;
+				}
+				.nav__burger {
+					display: flex;
+				}
+				.portfolio__header {
+					flex-direction: column;
+					align-items: flex-start;
+				}
+				.portfolio__mosaic {
+					columns: 2;
+				}
+				.features__intro {
+					grid-template-columns: 1fr;
+				}
+				.footer__main {
+					grid-template-columns: 1fr;
+				}
+				.stats-strip__grid {
+					grid-template-columns: 1fr;
+				}
+				.cta__actions {
+					flex-direction: column;
+				}
+				#float-zalo {
+					bottom: 1.5rem;
+					right: 1.5rem;
+				}
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				*,
+				*::before,
+				*::after {
+					animation-duration: 0.001ms !important;
+					transition-duration: 0.001ms !important;
+				}
+				[data-reveal] {
+					opacity: 1 !important;
+					transform: none !important;
+				}
+				#grain {
+					animation: none;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<!-- ═══ STRUCTURAL UI CHROME ═══ -->
+		<div
+			id="progress-bar"
+			role="progressbar"
+			aria-label="Tiến trình cuộn trang"
+			aria-valuenow="0"
+			aria-valuemin="0"
+			aria-valuemax="100"
+		></div>
+		<div id="cursor-ring" aria-hidden="true"></div>
+		<div id="cursor-dot" aria-hidden="true"></div>
+		<div id="grain" aria-hidden="true"></div>
+
+		<!-- Floating Zalo -->
+		<a
+			id="float-zalo"
+			href="https://zalo.me/0792359996"
+			target="_blank"
+			rel="noopener"
+			aria-label="Nhắn Zalo với INUT Design"
+			>ZL</a
+		>
+
+		<!-- ═══ LOADER ═══ -->
+		<div id="loader" role="status" aria-label="Đang tải trang">
+			<div class="loader__logo" aria-hidden="true">
+				<span>I</span><span>N</span><span>U</span><span>T</span><span>.</span>
+			</div>
+			<div class="loader__bar-wrap" aria-hidden="true">
+				<div class="loader__bar"></div>
+			</div>
+			<p class="loader__label">In ấn chuyên nghiệp</p>
+		</div>
+
+		<!-- ═══ MOBILE DRAWER ═══ -->
+		<div
+			class="mobile-drawer"
+			id="drawer"
+			role="dialog"
+			aria-modal="true"
+			aria-label="Menu điều hướng"
+		>
+			<div style="display: flex; justify-content: space-between; align-items: center">
+				<div class="nav__logo">
+					<div class="nav__logo-mark" aria-hidden="true">N</div>
+					INUT<span style="color: var(--orange)">.</span>
+				</div>
+				<button
+					onclick="closeDrawer()"
+					style="color: var(--smoke); font-size: 1.4rem; cursor: none"
+					aria-label="Đóng menu"
+				>
+					✕
+				</button>
+			</div>
+			<nav class="mobile-drawer__links" aria-label="Điều hướng mobile">
+				<a class="mobile-drawer__link" href="#features" onclick="closeDrawer()"
+					>Dịch vụ <span class="mobile-drawer__link-num">01</span></a
+				>
+				<a class="mobile-drawer__link" href="#products" onclick="closeDrawer()"
+					>Sản phẩm <span class="mobile-drawer__link-num">02</span></a
+				>
+				<a class="mobile-drawer__link" href="#process" onclick="closeDrawer()"
+					>Quy trình <span class="mobile-drawer__link-num">03</span></a
+				>
+				<a class="mobile-drawer__link" href="#portfolio" onclick="closeDrawer()"
+					>Portfolio <span class="mobile-drawer__link-num">04</span></a
+				>
+				<a class="mobile-drawer__link" href="#contact" onclick="closeDrawer()"
+					>Liên hệ <span class="mobile-drawer__link-num">05</span></a
+				>
+			</nav>
+			<div style="margin-top: auto; padding-top: 2rem">
+				<a
+					href="#contact"
+					class="btn btn-primary"
+					style="
+						width: 100%;
+						justify-content: center;
+						padding: 1rem;
+						font-size: 0.9rem;
+						border-radius: 8px;
+					"
+					onclick="closeDrawer()"
+					>Đặt In Ngay →</a
+				>
+			</div>
+		</div>
+
+		<!-- ═══ NAVBAR ═══ -->
+		<header class="nav" id="nav" role="banner">
+			<div class="nav__inner">
+				<a class="nav__logo" href="/" aria-label="INUT Design - Trang chủ">
+					<div class="nav__logo-mark" aria-hidden="true">N</div>
+					INUT<span style="color: var(--orange)">.</span>
+				</a>
+
+				<nav class="nav__links" aria-label="Điều hướng chính">
+					<a class="nav__link" href="#features">Dịch vụ</a>
+					<a class="nav__link" href="#products">Sản phẩm</a>
+					<a class="nav__link" href="#process">Quy trình</a>
+					<a class="nav__link" href="#portfolio">Portfolio</a>
+					<a class="nav__link" href="#contact">Liên hệ</a>
+				</nav>
+
+				<div class="nav__cta">
+					<button
+						class="theme-toggle"
+						id="themeBtn"
+						onclick="toggleTheme()"
+						aria-label="Chuyển chế độ màu"
+						title="Dark/Light mode"
+					>
+						◐
+					</button>
+					<a
+						href="tel:0792359996"
+						class="btn btn-outline"
+						style="padding: 0.55rem 1.1rem; border-radius: 99px"
+						>☎ Gọi ngay</a
+					>
+					<a
+						href="#contact"
+						class="btn btn-primary"
+						style="padding: 0.6rem 1.2rem; border-radius: 99px"
+						>Đặt In →</a
+					>
+					<button
+						class="nav__burger"
+						id="burgerBtn"
+						onclick="openDrawer()"
+						aria-label="Mở menu"
+						aria-expanded="false"
+					>
+						<span></span><span></span><span></span>
+					</button>
+				</div>
+			</div>
+		</header>
+
+		<main id="main" tabindex="-1">
+			<!-- ═══ HERO ═══ -->
+			<section class="hero" aria-labelledby="hero-h1">
+				<div><!-- nav spacer --></div>
+
+				<div class="hero__content">
+					<!-- Left copy -->
+					<div class="hero__left">
+						<div class="hero__chips" data-reveal="up">
+							<span class="hero__chip hero__chip--hot">✦ Chromatic Series v3</span>
+							<span class="hero__chip">Đà Nẵng · Toàn quốc</span>
+							<span class="hero__chip">In từ 50 tờ</span>
+						</div>
+
+						<h1 class="hero__headline" id="hero-h1" data-reveal="up" data-delay="1">
+							In ấn<br />
+							<span class="accent" id="heroAccent">Postcard</span><br />
+							Theo Yêu Cầu
+						</h1>
+
+						<p class="hero__sub" data-reveal="up" data-delay="2">
+							Chúng tôi không chỉ in — chúng tôi tạo ra những tác phẩm. Mỗi tấm postcard là sự giao
+							thoa giữa nghệ thuật và kỹ thuật in ấn hiện đại nhất.
+						</p>
+
+						<div class="hero__actions" data-reveal="up" data-delay="3">
+							<a
+								href="#contact"
+								class="btn btn-primary"
+								style="padding: 14px 32px; border-radius: 8px; font-size: 0.88rem"
+							>
+								Đặt In Ngay <span aria-hidden="true">→</span>
+							</a>
+							<a href="#portfolio" class="btn btn-ghost">
+								Xem portfolio <span class="ico" aria-hidden="true">↗</span>
+							</a>
+						</div>
+
+						<!-- Scroll hint -->
+						<div
+							data-reveal="up"
+							data-delay="4"
+							style="display: flex; align-items: center; gap: 0.75rem; margin-top: 2.5rem"
+						>
+							<div
+								style="
+									width: 1px;
+									height: 40px;
+									background: linear-gradient(to bottom, transparent, var(--ash));
+								"
+							></div>
+							<span
+								style="
+									font-size: 0.68rem;
+									font-weight: 600;
+									letter-spacing: 0.16em;
+									text-transform: uppercase;
+									color: var(--dust);
+								"
+								>Cuộn để khám phá</span
+							>
+						</div>
+					</div>
+
+					<!-- Right visual mosaic -->
+					<div class="hero__right" aria-hidden="true">
+						<div class="hero__tile hero__tile--span-r" style="background: #0f0d0b">
+							<div class="hero__tile-mono">IN</div>
+							<span class="hero__tile-badge">Giấy Mỹ Thuật 300gsm</span>
+						</div>
+						<div class="hero__tile hero__tile--orange">
+							<div class="hero__tile-mono" style="font-size: 4rem">NU</div>
+							<span class="hero__tile-badge" style="background: rgba(0, 0, 0, 0.3)">Premium</span>
+						</div>
+						<div class="hero__tile" style="background: #141210">
+							<div class="hero__tile-mono" style="font-size: 3rem">UT</div>
+							<span class="hero__tile-badge">Kraft · Vintage</span>
+						</div>
+						<div class="hero__tile hero__tile--yellow hero__tile--span2">
+							<div class="hero__tile-mono" style="font-size: 3rem; color: rgba(0, 0, 0, 0.08)">
+								INUT
+							</div>
+							<span
+								class="hero__tile-badge"
+								style="
+									background: rgba(0, 0, 0, 0.12);
+									color: #1a1714;
+									border-color: rgba(0, 0, 0, 0.05);
+								"
+								>✦ Thiết kế độc quyền</span
+							>
+						</div>
+					</div>
+				</div>
+
+				<div class="hero__wm" aria-hidden="true">CHROMATIC</div>
+			</section>
+
+			<!-- ═══ TICKER ═══ -->
+			<div class="ticker" aria-hidden="true">
+				<div class="ticker__track">
+					<span class="ticker__item">✦ In Postcard Chất Lượng Cao</span>
+					<span class="ticker__sep">◆</span>
+					<span class="ticker__item">Giấy Couche · Kraft · Mỹ Thuật</span>
+					<span class="ticker__sep">◆</span>
+					<span class="ticker__item">Thiết Kế Miễn Phí</span>
+					<span class="ticker__sep">◆</span>
+					<span class="ticker__item">Giao Hàng Toàn Quốc</span>
+					<span class="ticker__sep">◆</span>
+					<span class="ticker__item">Đặt Từ 50 Tờ</span>
+					<span class="ticker__sep">◆</span>
+					<span class="ticker__item">Hỗ Trợ 7 Ngày / Tuần</span>
+					<span class="ticker__sep">◆</span>
+					<span class="ticker__item">Cam Kết Chất Lượng</span>
+					<span class="ticker__sep">◆</span>
+					<!-- duplicate for loop -->
+					<span class="ticker__item">✦ In Postcard Chất Lượng Cao</span>
+					<span class="ticker__sep">◆</span>
+					<span class="ticker__item">Giấy Couche · Kraft · Mỹ Thuật</span>
+					<span class="ticker__sep">◆</span>
+					<span class="ticker__item">Thiết Kế Miễn Phí</span>
+					<span class="ticker__sep">◆</span>
+					<span class="ticker__item">Giao Hàng Toàn Quốc</span>
+					<span class="ticker__sep">◆</span>
+					<span class="ticker__item">Đặt Từ 50 Tờ</span>
+					<span class="ticker__sep">◆</span>
+					<span class="ticker__item">Hỗ Trợ 7 Ngày / Tuần</span>
+					<span class="ticker__sep">◆</span>
+					<span class="ticker__item">Cam Kết Chất Lượng</span>
+					<span class="ticker__sep">◆</span>
+				</div>
+			</div>
+
+			<!-- ═══ STATS STRIP ═══ -->
+			<div class="stats-strip">
+				<div class="wrap">
+					<div class="stats-strip__grid">
+						<div class="stat-item" data-reveal="up">
+							<div class="stat-num">
+								<span class="counter" data-target="10000">0</span>
+								<span class="unit">+</span>
+							</div>
+							<div class="stat-label">Postcard đã xuất xưởng</div>
+						</div>
+						<div class="stat-item" data-reveal="up" data-delay="1">
+							<div class="stat-num">
+								<span class="counter" data-target="500">0</span>
+								<span class="unit">+</span>
+							</div>
+							<div class="stat-label">Khách hàng tin tưởng</div>
+						</div>
+						<div class="stat-item" data-reveal="up" data-delay="2">
+							<div class="stat-num">
+								<span class="counter" data-target="5">0</span>
+								<span class="unit">★</span>
+							</div>
+							<div class="stat-label">Điểm đánh giá trung bình</div>
+						</div>
+						<div class="stat-item" data-reveal="up" data-delay="3">
+							<div class="stat-num">
+								<span class="counter" data-target="24">0</span>
+								<span class="unit">h</span>
+							</div>
+							<div class="stat-label">Giao hàng nhanh nhất</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- ═══ FEATURES ═══ -->
+			<section class="features" id="features" aria-labelledby="features-h2">
+				<div class="wrap">
+					<div class="features__intro">
+						<div>
+							<span class="eyebrow" data-reveal="up">Giá trị cốt lõi</span>
+							<h2 class="features__h2" data-reveal="up" data-delay="1" id="features-h2">
+								Cầu nối<br />
+								<em>cảm xúc</em> —<br />
+								Trao gửi yêu thương
+							</h2>
+						</div>
+						<p class="features__desc" data-reveal="up" data-delay="2">
+							Mỗi dự án in ấn tại INUT là một hành trình sáng tạo. Chúng tôi kết hợp công nghệ in
+							hiện đại với thiết kế nghệ thuật để tạo ra những sản phẩm vượt mong đợi.
+						</p>
+					</div>
+
+					<div class="features__bento" data-reveal="up" data-delay="1">
+						<!-- Card 1: Art (wide) -->
+						<div
+							class="f-card f-card--c5 f-card--r2"
+							tabindex="0"
+							role="article"
+							aria-label="Postcard nghệ thuật"
+						>
+							<div class="f-card__icon" aria-hidden="true">🎨</div>
+							<div>
+								<div class="f-card__pill">Bán chạy nhất</div>
+								<h3 class="f-card__title">Postcard Nghệ Thuật</h3>
+								<p class="f-card__text">
+									Kết hợp công nghệ in offset + kỹ thuật số để tái hiện màu sắc trung thực và chi
+									tiết sắc nét trên mọi chất liệu.
+								</p>
+							</div>
+							<div class="f-card__bg" aria-hidden="true">ART</div>
+						</div>
+
+						<!-- Card 2: Travel -->
+						<div
+							class="f-card f-card--c4"
+							tabindex="0"
+							role="article"
+							aria-label="Postcard du lịch"
+						>
+							<div class="f-card__icon" aria-hidden="true">✈️</div>
+							<div>
+								<h3 class="f-card__title">Postcard Du Lịch</h3>
+								<p class="f-card__text">
+									Lưu giữ khoảnh khắc — phù hợp cho travel blogger và ngành lữ hành.
+								</p>
+							</div>
+							<div class="f-card__bg" aria-hidden="true">GO</div>
+						</div>
+
+						<!-- Card 3: Orange accent — stats -->
+						<div
+							class="f-card f-card--c3 f-card--orange"
+							tabindex="0"
+							role="article"
+							aria-label="Chất lượng in ấn"
+						>
+							<div>
+								<div class="f-card__big-num">350+</div>
+								<h3 class="f-card__title">Mẫu thiết kế</h3>
+								<p class="f-card__text" style="color: rgba(255, 255, 255, 0.75)">
+									Thư viện mẫu phong phú, cập nhật liên tục.
+								</p>
+							</div>
+						</div>
+
+						<!-- Card 4: Material -->
+						<div class="f-card f-card--c4" tabindex="0" role="article" aria-label="Chất liệu giấy">
+							<div class="f-card__icon" aria-hidden="true">📦</div>
+							<div>
+								<h3 class="f-card__title">Chất Liệu Tuyển Chọn</h3>
+								<p class="f-card__text">
+									Couche, Kraft, Mỹ thuật, Foil, Lenticular — mỗi loại cho một phong cách riêng.
+								</p>
+							</div>
+							<div class="f-card__bg" aria-hidden="true">MAT</div>
+						</div>
+
+						<!-- Card 5: Yellow — design service -->
+						<div
+							class="f-card f-card--c4 f-card--yellow"
+							tabindex="0"
+							role="article"
+							aria-label="Dịch vụ thiết kế"
+						>
+							<div class="f-card__icon" aria-hidden="true" style="background: rgba(0, 0, 0, 0.1)">
+								✏️
+							</div>
+							<div>
+								<h3 class="f-card__title">Thiết Kế Miễn Phí</h3>
+								<p class="f-card__text">
+									Đội ngũ designer đồng hành từ ý tưởng đến thành phẩm, không tính phí thiết kế cơ
+									bản.
+								</p>
+							</div>
+							<div class="f-card__bg" aria-hidden="true">DES</div>
+						</div>
+
+						<!-- Card 6: Double-sided -->
+						<div class="f-card f-card--c4" tabindex="0" role="article" aria-label="In hai mặt">
+							<div class="f-card__icon" aria-hidden="true">💎</div>
+							<div>
+								<h3 class="f-card__title">Thiết Kế Hai Mặt</h3>
+								<p class="f-card__text">
+									Tối ưu không gian — mặt trước hình ảnh, mặt sau thông điệp cá nhân.
+								</p>
+							</div>
+							<div class="f-card__bg" aria-hidden="true">2×</div>
+						</div>
+
+						<!-- Card 7: Checklist support (wide) -->
+						<div
+							class="f-card f-card--c8 f-card--dark3"
+							tabindex="0"
+							role="article"
+							aria-label="Hỗ trợ toàn diện"
+						>
+							<div class="f-card__icon" aria-hidden="true">🚀</div>
+							<div
+								style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: end"
+							>
+								<div>
+									<h3 class="f-card__title">Hỗ Trợ Toàn Diện</h3>
+									<p class="f-card__text">
+										Từ ý tưởng đầu tiên đến khi sản phẩm đến tay bạn — INUT đồng hành từng bước.
+									</p>
+								</div>
+								<div class="f-card__checks" role="list">
+									<div class="f-card__check" role="listitem">Tư vấn miễn phí 24/7</div>
+									<div class="f-card__check" role="listitem">Giao hàng toàn quốc</div>
+									<div class="f-card__check" role="listitem">Cam kết đúng hạn</div>
+									<div class="f-card__check" role="listitem">Đổi trả nếu lỗi in</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ═══ PRODUCTS ═══ -->
+			<section class="products" id="products" aria-labelledby="products-h2">
+				<!-- decorative vertical lines -->
+				<div class="products__line" style="left: 25%" aria-hidden="true"></div>
+				<div class="products__line" style="left: 50%" aria-hidden="true"></div>
+				<div class="products__line" style="left: 75%" aria-hidden="true"></div>
+
+				<div class="wrap">
+					<div class="products__header">
+						<div>
+							<span class="eyebrow" data-reveal="up">Dòng sản phẩm</span>
+							<h2 class="products__h2" data-reveal="up" data-delay="1" id="products-h2">
+								Các dòng<br />Postcard
+							</h2>
+						</div>
+						<a href="#contact" class="btn btn-ghost" data-reveal="up" data-delay="2">
+							Xem tất cả <span class="ico" aria-hidden="true">→</span>
+						</a>
+					</div>
+				</div>
+
+				<div
+					class="products__drag"
+					id="pDrag"
+					role="region"
+					aria-label="Danh sách sản phẩm — kéo để xem thêm"
+					tabindex="0"
+				>
+					<div class="products__row">
+						<article class="p-card tilt-card" aria-label="Giấy Mỹ Thuật">
+							<div class="p-card__img">
+								<div
+									class="p-card__img-bg"
+									style="background: linear-gradient(135deg, #1a1614, #2e2822)"
+									data-text="IN"
+								>
+									<span>IN</span>
+								</div>
+								<div class="p-card__img-overlay" aria-hidden="true"></div>
+							</div>
+							<div class="p-card__body">
+								<p class="p-card__type">Dòng cao cấp</p>
+								<h3 class="p-card__name">Giấy Mỹ Thuật</h3>
+								<p class="p-card__desc">
+									Bề mặt mịn, màu sắc sống động. Lý tưởng cho postcard nghệ thuật và bộ sưu tập cá
+									nhân.
+								</p>
+								<div class="p-card__footer">
+									<div class="p-card__price">Từ <strong>500đ/tờ</strong></div>
+									<a href="#contact" class="p-card__cta" aria-label="Đặt in Giấy Mỹ Thuật">→</a>
+								</div>
+							</div>
+						</article>
+
+						<article class="p-card tilt-card" aria-label="Giấy Couche">
+							<div class="p-card__img">
+								<div
+									class="p-card__img-bg"
+									style="background: linear-gradient(135deg, #1e180e, #362c18)"
+									data-text="NU"
+								>
+									<span>NU</span>
+								</div>
+								<div class="p-card__img-overlay" aria-hidden="true"></div>
+								<span class="p-card__badge">Phổ biến #1</span>
+							</div>
+							<div class="p-card__body">
+								<p class="p-card__type">Bestseller</p>
+								<h3 class="p-card__name">Giấy Couche</h3>
+								<p class="p-card__desc">
+									Bóng hoặc mờ, lựa chọn lý tưởng cho marketing, sự kiện và doanh nghiệp.
+								</p>
+								<div class="p-card__footer">
+									<div class="p-card__price">Từ <strong>350đ/tờ</strong></div>
+									<a href="#contact" class="p-card__cta" aria-label="Đặt in Giấy Couche">→</a>
+								</div>
+							</div>
+						</article>
+
+						<article class="p-card tilt-card" aria-label="Giấy Kraft">
+							<div class="p-card__img">
+								<div
+									class="p-card__img-bg"
+									style="background: linear-gradient(135deg, #261c0a, #3d2e14)"
+									data-text="UT"
+								>
+									<span>UT</span>
+								</div>
+								<div class="p-card__img-overlay" aria-hidden="true"></div>
+							</div>
+							<div class="p-card__body">
+								<p class="p-card__type">Eco-friendly</p>
+								<h3 class="p-card__name">Giấy Kraft</h3>
+								<p class="p-card__desc">
+									Phong cách vintage tự nhiên, phù hợp thương hiệu lifestyle và sản phẩm thủ công.
+								</p>
+								<div class="p-card__footer">
+									<div class="p-card__price">Từ <strong>450đ/tờ</strong></div>
+									<a href="#contact" class="p-card__cta" aria-label="Đặt in Giấy Kraft">→</a>
+								</div>
+							</div>
+						</article>
+
+						<article class="p-card tilt-card" aria-label="Postcard Foil">
+							<div class="p-card__img">
+								<div
+									class="p-card__img-bg"
+									style="background: linear-gradient(135deg, #1a0a20, #2e1438)"
+									data-text="IT"
+								>
+									<span>IT</span>
+								</div>
+								<div class="p-card__img-overlay" aria-hidden="true"></div>
+								<span class="p-card__badge" style="background: var(--yellow); color: var(--ink)"
+									>Mới</span
+								>
+							</div>
+							<div class="p-card__body">
+								<p class="p-card__type">Đặc biệt</p>
+								<h3 class="p-card__name">Postcard Foil</h3>
+								<p class="p-card__desc">
+									Nhũ vàng, bạc, holographic — điểm nhấn sang trọng và khó quên cho mọi dịp.
+								</p>
+								<div class="p-card__footer">
+									<div class="p-card__price">Từ <strong>800đ/tờ</strong></div>
+									<a href="#contact" class="p-card__cta" aria-label="Đặt in Postcard Foil">→</a>
+								</div>
+							</div>
+						</article>
+
+						<article class="p-card tilt-card" aria-label="Postcard Lenticular">
+							<div class="p-card__img">
+								<div
+									class="p-card__img-bg"
+									style="background: linear-gradient(135deg, #0a1a26, #143040)"
+									data-text="3D"
+								>
+									<span>3D</span>
+								</div>
+								<div class="p-card__img-overlay" aria-hidden="true"></div>
+							</div>
+							<div class="p-card__body">
+								<p class="p-card__type">Xu hướng 2026</p>
+								<h3 class="p-card__name">Lenticular 3D</h3>
+								<p class="p-card__desc">
+									Hiệu ứng 3D thay đổi theo góc nhìn — độc đáo và gây ấn tượng mạnh mẽ.
+								</p>
+								<div class="p-card__footer">
+									<div class="p-card__price">Từ <strong>1.200đ/tờ</strong></div>
+									<a href="#contact" class="p-card__cta" aria-label="Đặt in Postcard 3D">→</a>
+								</div>
+							</div>
+						</article>
+					</div>
+				</div>
+			</section>
+
+			<!-- ═══ PROCESS ═══ -->
+			<section class="process-sec" id="process" aria-labelledby="process-h2">
+				<div class="wrap">
+					<div class="process-grid">
+						<div class="process-left">
+							<span class="eyebrow" data-reveal="up">Quy trình làm việc</span>
+							<h2 class="process-h2" data-reveal="up" data-delay="1" id="process-h2">
+								Chuyên nghiệp —<br />
+								<em>Từng bước</em>
+							</h2>
+							<p data-reveal="up" data-delay="2">
+								Từ khi nhận yêu cầu đến khi giao thành phẩm, mỗi giai đoạn được kiểm soát chặt chẽ
+								để đảm bảo chất lượng tuyệt đối.
+							</p>
+							<a
+								href="#contact"
+								class="btn btn-primary"
+								style="border-radius: 8px"
+								data-reveal="up"
+								data-delay="3"
+								>Bắt đầu dự án →</a
+							>
+						</div>
+
+						<div>
+							<div class="process-steps" role="list">
+								<div
+									class="step active"
+									role="listitem"
+									tabindex="0"
+									onclick="activateStep(this)"
+									onkeydown="if(event.key==='Enter')activateStep(this)"
+								>
+									<div class="step__num" aria-hidden="true">01</div>
+									<div class="step__content">
+										<h3 class="step__title">Tiếp nhận & tư vấn</h3>
+										<p class="step__text">
+											Tư vấn miễn phí qua Zalo / Facebook / email. Xác định kích thước, chất liệu,
+											số lượng và ngân sách phù hợp nhất.
+										</p>
+									</div>
+								</div>
+								<div
+									class="step"
+									role="listitem"
+									tabindex="0"
+									onclick="activateStep(this)"
+									onkeydown="if(event.key==='Enter')activateStep(this)"
+								>
+									<div class="step__num" aria-hidden="true">02</div>
+									<div class="step__content">
+										<h3 class="step__title">Thiết kế & duyệt mẫu</h3>
+										<p class="step__text">
+											Designer làm thiết kế hoặc hỗ trợ chỉnh sửa file. Gửi file preview để khách
+											duyệt — sửa không giới hạn lần.
+										</p>
+									</div>
+								</div>
+								<div
+									class="step"
+									role="listitem"
+									tabindex="0"
+									onclick="activateStep(this)"
+									onkeydown="if(event.key==='Enter')activateStep(this)"
+								>
+									<div class="step__num" aria-hidden="true">03</div>
+									<div class="step__content">
+										<h3 class="step__title">In ấn & kiểm tra QC</h3>
+										<p class="step__text">
+											In offset hoặc kỹ thuật số trên máy hiện đại. Kiểm tra từng tờ về màu sắc, độ
+											sắc nét và chất liệu trước khi đóng gói.
+										</p>
+									</div>
+								</div>
+								<div
+									class="step"
+									role="listitem"
+									tabindex="0"
+									onclick="activateStep(this)"
+									onkeydown="if(event.key==='Enter')activateStep(this)"
+								>
+									<div class="step__num" aria-hidden="true">04</div>
+									<div class="step__content">
+										<h3 class="step__title">Đóng gói & giao hàng</h3>
+										<p class="step__text">
+											Đóng gói cẩn thận, chống ẩm. Giao hàng tận nơi tại Đà Nẵng hoặc ship toàn quốc
+											qua đơn vị vận chuyển uy tín.
+										</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="process-right" style="margin-top: 1.25rem">
+								<div class="benefit" data-reveal="right">
+									<div class="benefit__icon" aria-hidden="true">⚡</div>
+									<div>
+										<h3 class="benefit__title">Giao hàng hỏa tốc 24h</h3>
+										<p class="benefit__text">
+											Cho đơn gấp tại Đà Nẵng — cam kết đúng giờ, không cần chờ đợi lâu.
+										</p>
+									</div>
+								</div>
+								<div class="benefit" data-reveal="right" data-delay="1">
+									<div class="benefit__icon" aria-hidden="true">🔄</div>
+									<div>
+										<h3 class="benefit__title">Đổi trả nếu lỗi in</h3>
+										<p class="benefit__text">
+											Cam kết hoàn tiền hoặc in lại miễn phí nếu sản phẩm không đạt yêu cầu đã
+											duyệt.
+										</p>
+									</div>
+								</div>
+								<div class="benefit benefit--accent" data-reveal="right" data-delay="2">
+									<div class="benefit__icon" aria-hidden="true">🏆</div>
+									<div>
+										<h3 class="benefit__title">500+ khách hàng tin tưởng</h3>
+										<p class="benefit__text">
+											Từ cá nhân đến doanh nghiệp lớn — INUT là đối tác in ấn được tin tưởng nhất
+											miền Trung.
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ═══ PORTFOLIO ═══ -->
+			<section class="portfolio" id="portfolio" aria-labelledby="portfolio-h2">
+				<div class="wrap">
+					<div class="portfolio__header">
+						<div>
+							<span class="eyebrow" data-reveal="up">Hình ảnh thực tế</span>
+							<h2 class="portfolio__h2" data-reveal="up" data-delay="1" id="portfolio-h2">
+								Portfolio<br />Chromatic
+							</h2>
+						</div>
+						<div
+							class="portfolio__filters"
+							role="tablist"
+							aria-label="Lọc danh mục"
+							data-reveal="up"
+							data-delay="2"
+						>
+							<button class="pf-tab active" role="tab" aria-selected="true">Tất cả</button>
+							<button class="pf-tab" role="tab" aria-selected="false">Nghệ thuật</button>
+							<button class="pf-tab" role="tab" aria-selected="false">Du lịch</button>
+							<button class="pf-tab" role="tab" aria-selected="false">Doanh nghiệp</button>
+							<button class="pf-tab" role="tab" aria-selected="false">Lễ tết</button>
+						</div>
+					</div>
+
+					<div class="portfolio__mosaic" data-reveal="scale">
+						<div class="po-item">
+							<div
+								class="po-item__inner"
+								style="background: linear-gradient(135deg, #ff4d00, #ff6b25); aspect-ratio: 3/4"
+								data-text="01"
+								aria-label="Portfolio mẫu 01 - Travel Blogger Set"
+							>
+								01
+							</div>
+							<div class="po-item__overlay" aria-hidden="true">
+								<div class="po-item__info">
+									<strong class="po-item__name">Travel Blogger Set</strong
+									><span class="po-item__sub">Couche 350gsm · A6</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="po-item">
+							<div
+								class="po-item__inner"
+								style="background: linear-gradient(135deg, #141210, #282420); aspect-ratio: 4/3"
+								data-text="CORP"
+								aria-label="Portfolio mẫu - Corporate Edition"
+							>
+								CORP
+							</div>
+							<div class="po-item__overlay" aria-hidden="true">
+								<div class="po-item__info">
+									<strong class="po-item__name">Corporate Edition</strong
+									><span class="po-item__sub">Mỹ Thuật · 10×15cm</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="po-item">
+							<div
+								class="po-item__inner"
+								style="background: linear-gradient(135deg, #3d2b18, #6b4a2e); aspect-ratio: 1"
+								data-text="KR"
+								aria-label="Portfolio - Vintage Kraft"
+							>
+								KR
+							</div>
+							<div class="po-item__overlay" aria-hidden="true">
+								<div class="po-item__info">
+									<strong class="po-item__name">Vintage Kraft</strong
+									><span class="po-item__sub">Kraft · 9×14cm</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="po-item">
+							<div
+								class="po-item__inner"
+								style="background: linear-gradient(135deg, #0f2744, #1a3d6b); aspect-ratio: 3/4"
+								data-text="SEA"
+								aria-label="Portfolio - Ocean Postcard"
+							>
+								SEA
+							</div>
+							<div class="po-item__overlay" aria-hidden="true">
+								<div class="po-item__info">
+									<strong class="po-item__name">Ocean Postcard</strong
+									><span class="po-item__sub">Couche Bóng · A6</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="po-item">
+							<div
+								class="po-item__inner"
+								style="background: linear-gradient(135deg, #ffe234, #ffc107); aspect-ratio: 4/3"
+								data-text="YLW"
+								aria-label="Portfolio - Sunshine Series"
+							>
+								YLW
+							</div>
+							<div class="po-item__overlay" aria-hidden="true">
+								<div class="po-item__info">
+									<strong class="po-item__name">Sunshine Series</strong
+									><span class="po-item__sub">Foil Vàng · A5</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="po-item">
+							<div
+								class="po-item__inner"
+								style="background: linear-gradient(135deg, #1a0f2e, #2d1855); aspect-ratio: 3/4"
+								data-text="NTE"
+								aria-label="Portfolio - Midnight Foil"
+							>
+								NTE
+							</div>
+							<div class="po-item__overlay" aria-hidden="true">
+								<div class="po-item__info">
+									<strong class="po-item__name">Midnight Foil</strong
+									><span class="po-item__sub">Foil Holographic · A6</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="po-item">
+							<div
+								class="po-item__inner"
+								style="background: linear-gradient(135deg, #0f2b1a, #1a4d2e); aspect-ratio: 1"
+								data-text="ECO"
+								aria-label="Portfolio - Forest Series"
+							>
+								ECO
+							</div>
+							<div class="po-item__overlay" aria-hidden="true">
+								<div class="po-item__info">
+									<strong class="po-item__name">Forest Series</strong
+									><span class="po-item__sub">Kraft Tái Chế · A6</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="po-item">
+							<div
+								class="po-item__inner"
+								style="background: linear-gradient(135deg, #2b1a0f, #4d3015); aspect-ratio: 4/3"
+								data-text="LIF"
+								aria-label="Portfolio - Lifestyle Pack"
+							>
+								LIF
+							</div>
+							<div class="po-item__overlay" aria-hidden="true">
+								<div class="po-item__info">
+									<strong class="po-item__name">Lifestyle Pack</strong
+									><span class="po-item__sub">Couche Mờ · 10×15cm</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div style="text-align: center; margin-top: 3rem" data-reveal="up">
+						<a
+							href="#contact"
+							class="btn btn-outline"
+							style="padding: 14px 36px; border-radius: 8px; font-size: 0.85rem"
+						>
+							Xem thêm dự án →
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- ═══ REVIEWS ═══ -->
+			<section class="reviews" aria-labelledby="reviews-h2">
+				<div class="reviews__bg-mark" aria-hidden="true">5★</div>
+				<div class="wrap">
+					<div class="reviews__grid">
+						<div class="reviews__left">
+							<span class="eyebrow" data-reveal="up">Đánh giá</span>
+							<h2 class="reviews__h2" data-reveal="up" data-delay="1" id="reviews-h2">
+								Khách hàng<br />nói gì<br />về <em>INUT?</em>
+							</h2>
+							<div data-reveal="up" data-delay="2">
+								<div class="reviews__score"><span>5.0</span> / 5</div>
+								<div class="reviews__stars" aria-label="5 sao">
+									<i aria-hidden="true">★</i><i aria-hidden="true">★</i><i aria-hidden="true">★</i
+									><i aria-hidden="true">★</i><i aria-hidden="true">★</i>
+								</div>
+								<p class="reviews__count">Dựa trên 500+ đánh giá</p>
+							</div>
+						</div>
+
+						<div class="reviews__cards">
+							<div class="r-card" data-reveal="up">
+								<span class="r-card__open" aria-hidden="true">"</span>
+								<p class="r-card__text">
+									Mình order lần đầu mà rất hài lòng. Màu sắc in ra đúng như file thiết kế, giấy dày
+									dặn, đóng gói kỹ. Sẽ tiếp tục ủng hộ INUT!
+								</p>
+								<div class="r-card__author">
+									<div class="r-card__av" style="background: var(--orange)">NA</div>
+									<div>
+										<div class="r-card__name">Nguyễn Anh Thư</div>
+										<div class="r-card__role">Travel Blogger · Hà Nội</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="r-card" data-reveal="up" data-delay="1">
+								<span class="r-card__open" aria-hidden="true">"</span>
+								<p class="r-card__text">
+									Đặt 500 tờ cho sự kiện ra mắt sản phẩm. INUT tư vấn nhiệt tình, giao đúng hẹn và
+									chất lượng vượt kỳ vọng. Highly recommended!
+								</p>
+								<div class="r-card__author">
+									<div class="r-card__av" style="background: #1a5c3a">MH</div>
+									<div>
+										<div class="r-card__name">Minh Hoàng Studio</div>
+										<div class="r-card__role">Nhiếp ảnh · Đà Nẵng</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="r-card" data-reveal="up" data-delay="2">
+								<span class="r-card__open" aria-hidden="true">"</span>
+								<p class="r-card__text">
+									Cần postcard gấp cho tour du lịch, INUT xử lý trong 24h và giao tận khách sạn. Quá
+									tuyệt vời! Đây sẽ là đối tác in ấn lâu dài của mình.
+								</p>
+								<div class="r-card__author">
+									<div class="r-card__av" style="background: #5c1a5c">LT</div>
+									<div>
+										<div class="r-card__name">Lan Trinh Travel</div>
+										<div class="r-card__role">Lữ hành · TP.HCM</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="r-card" data-reveal="up" data-delay="3">
+								<span class="r-card__open" aria-hidden="true">"</span>
+								<p class="r-card__text">
+									Postcard Kraft rất phù hợp với thương hiệu handmade của mình. Màu in đẹp tự nhiên,
+									texture giấy tuyệt hảo, khách hàng ai cũng thích!
+								</p>
+								<div class="r-card__author">
+									<div class="r-card__av" style="background: #5c4b1a">PQ</div>
+									<div>
+										<div class="r-card__name">Phạm Quỳnh</div>
+										<div class="r-card__role">Handmade Shop · Hội An</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ═══ CTA ═══ -->
+			<section class="cta" id="contact" aria-labelledby="cta-h2">
+				<div class="cta__wm" aria-hidden="true">IN</div>
+				<div class="wrap">
+					<div class="cta__inner">
+						<div>
+							<span class="eyebrow cta__eyebrow">✦ Bắt đầu dự án của bạn</span>
+							<h2 class="cta__h2" id="cta-h2" data-reveal="up">
+								Sẵn sàng tạo<br />
+								<em>postcard</em> của bạn?
+							</h2>
+							<p class="cta__sub" data-reveal="up" data-delay="1">
+								Liên hệ ngay để nhận tư vấn miễn phí, báo giá nhanh trong 15 phút và bắt đầu hành
+								trình in ấn cùng INUT Design — chuyên gia in postcard hàng đầu Đà Nẵng.
+							</p>
+							<div class="cta__actions" data-reveal="up" data-delay="2">
+								<a
+									href="https://zalo.me/0792359996"
+									class="btn btn-yellow"
+									target="_blank"
+									rel="noopener"
+									style="border-radius: 8px; padding: 15px 32px"
+								>
+									💬 Nhắn Zalo Ngay
+								</a>
+								<a
+									href="mailto:inutdesign@gmail.com"
+									class="btn btn-outline"
+									style="
+										border-radius: 8px;
+										border-color: rgba(255, 255, 255, 0.3);
+										color: white;
+										padding: 14px 28px;
+									"
+								>
+									✉ Gửi Email
+								</a>
+							</div>
+						</div>
+
+						<div class="cta__right" data-reveal="right">
+							<a href="tel:0792359996" class="cta-contact" aria-label="Gọi MR. TOM - 0792 359 996">
+								<div class="cta-contact__av">TOM</div>
+								<div>
+									<div class="cta-contact__role">Sales Manager</div>
+									<div class="cta-contact__name">MR. TOM</div>
+									<div class="cta-contact__phone">0792 359 996</div>
+								</div>
+								<span class="cta-contact__zalo" aria-label="Chat Zalo">Zalo</span>
+							</a>
+							<a href="tel:0777208215" class="cta-contact" aria-label="Gọi MS. BOO - 0777 208 215">
+								<div class="cta-contact__av" style="background: rgba(255, 255, 255, 0.25)">BOO</div>
+								<div>
+									<div class="cta-contact__role">Design Manager</div>
+									<div class="cta-contact__name">MS. BOO</div>
+									<div class="cta-contact__phone">0777 208 215</div>
+								</div>
+								<span class="cta-contact__zalo" aria-label="Chat Zalo">Zalo</span>
+							</a>
+							<div
+								style="
+									background: rgba(0, 0, 0, 0.2);
+									border: 1px solid rgba(255, 255, 255, 0.12);
+									border-radius: 12px;
+									padding: 1.1rem;
+									text-align: center;
+								"
+							>
+								<p
+									style="
+										font-size: 0.72rem;
+										color: rgba(255, 255, 255, 0.6);
+										font-family: var(--f-display);
+										font-weight: 700;
+										letter-spacing: 0.1em;
+										text-transform: uppercase;
+										margin-bottom: 0.35rem;
+									"
+								>
+									Địa chỉ xưởng in
+								</p>
+								<p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.85); line-height: 1.6">
+									45/15 Ông Ích Khiêm, P. 12<br />Q. Thanh Khê, Đà Nẵng
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- ═══ FOOTER ═══ -->
+		<footer class="footer" role="contentinfo">
+			<div class="wrap">
+				<div class="footer__main">
+					<div>
+						<div class="footer__brand-name">INUT<span>.</span></div>
+						<p class="footer__desc">
+							Chuyên in postcard cao cấp theo yêu cầu tại Đà Nẵng. Kết nối cảm xúc — trao gửi yêu
+							thương qua từng tấm in chất lượng được tạo ra với đam mê.
+						</p>
+						<div class="footer__socials">
+							<a href="#" class="footer__soc" aria-label="Facebook INUT Design">fb</a>
+							<a href="#" class="footer__soc" aria-label="Instagram INUT Design">ig</a>
+							<a href="#" class="footer__soc" aria-label="Zalo INUT Design">zl</a>
+							<a href="#" class="footer__soc" aria-label="TikTok INUT Design">tk</a>
+						</div>
+					</div>
+
+					<div>
+						<h3 class="footer__col-h">Dịch vụ</h3>
+						<ul class="footer__links" role="list">
+							<li><a href="#products" class="footer__link">In Postcard</a></li>
+							<li><a href="#products" class="footer__link">Giấy Couche</a></li>
+							<li><a href="#products" class="footer__link">Giấy Kraft</a></li>
+							<li><a href="#products" class="footer__link">Giấy Mỹ Thuật</a></li>
+							<li><a href="#products" class="footer__link">Postcard Foil</a></li>
+							<li><a href="#products" class="footer__link">Lenticular 3D</a></li>
+						</ul>
+					</div>
+
+					<div>
+						<h3 class="footer__col-h">Chính sách</h3>
+						<ul class="footer__links" role="list">
+							<li><a href="#" class="footer__link">Đặt hàng</a></li>
+							<li><a href="#" class="footer__link">Bảo mật</a></li>
+							<li><a href="#" class="footer__link">Đổi trả</a></li>
+							<li><a href="#" class="footer__link">Điều khoản</a></li>
+							<li><a href="#" class="footer__link">FAQ</a></li>
+						</ul>
+					</div>
+
+					<div>
+						<h3 class="footer__col-h">Liên hệ</h3>
+						<div class="footer__info">
+							<div class="footer__info-item">
+								<div class="footer__info-label">Địa chỉ</div>
+								<div class="footer__info-val">45/15 Ông Ích Khiêm, P.12, Q. Thanh Khê, Đà Nẵng</div>
+							</div>
+							<div class="footer__info-item">
+								<div class="footer__info-label">Hotline</div>
+								<div class="footer__info-val">0807 751 467</div>
+							</div>
+							<div class="footer__info-item">
+								<div class="footer__info-label">Email</div>
+								<div class="footer__info-val">inutdesign@gmail.com</div>
+							</div>
+							<div class="footer__info-item">
+								<div class="footer__info-label">Giờ làm việc</div>
+								<div class="footer__info-val">T2–T7: 8:00 – 18:00</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="footer__bottom">
+					<p class="footer__copy">© 2026 INUT Design. All rights reserved.</p>
+					<nav class="footer__bottom-links" aria-label="Liên kết footer">
+						<a href="#" class="footer__blink">Điều khoản</a>
+						<a href="#" class="footer__blink">Quyền riêng tư</a>
+						<a href="#" class="footer__blink">Sitemap</a>
+					</nav>
+				</div>
+			</div>
+
+			<div class="footer__bigname" aria-hidden="true">INUT<span>.</span>DESIGN</div>
+		</footer>
+
+		<!-- Skip link -->
+		<a
+			href="#main"
+			style="
+				position: fixed;
+				top: -100px;
+				left: 16px;
+				z-index: 10000;
+				background: var(--orange);
+				color: white;
+				padding: 10px 18px;
+				border-radius: 8px;
+				font-weight: 700;
+				font-size: 0.82rem;
+				transition: top 0.2s;
+			"
+			onfocus="this.style.top='12px'"
+			onblur="this.style.top='-100px'"
+			>Bỏ qua điều hướng</a
+		>
+
+		<script>
+			/* ════════════════════════════════════
+   LOADER
+════════════════════════════════════ */
+			window.addEventListener("load", () => {
+				setTimeout(() => {
+					document.getElementById("loader").classList.add("hidden");
+					// Trigger hero accent underline
+					setTimeout(() => {
+						const acc = document.getElementById("heroAccent");
+						if (acc) acc.classList.add("underlined");
+					}, 400);
+				}, 1900);
+			});
+
+			/* ════════════════════════════════════
+   CUSTOM CURSOR
+════════════════════════════════════ */
+			const ring = document.getElementById("cursor-ring");
+			const dot = document.getElementById("cursor-dot");
+			let mx = 0,
+				my = 0,
+				rx = 0,
+				ry = 0;
+
+			document.addEventListener("mousemove", (e) => {
+				mx = e.clientX;
+				my = e.clientY;
+				dot.style.left = mx + "px";
+				dot.style.top = my + "px";
+			});
+
+			function lerpCursor() {
+				rx += (mx - rx) * 0.12;
+				ry += (my - ry) * 0.12;
+				ring.style.left = rx + "px";
+				ring.style.top = ry + "px";
+				requestAnimationFrame(lerpCursor);
+			}
+			lerpCursor();
+
+			document
+				.querySelectorAll("a,button,.p-card,.f-card,.step,.benefit,.r-card,.po-item")
+				.forEach((el) => {
+					el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
+					el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
+				});
+
+			/* ════════════════════════════════════
+   SCROLL PROGRESS BAR
+════════════════════════════════════ */
+			const bar = document.getElementById("progress-bar");
+			window.addEventListener(
+				"scroll",
+				() => {
+					const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+					bar.style.width = pct + "%";
+					bar.setAttribute("aria-valuenow", Math.round(pct));
+				},
+				{ passive: true }
+			);
+
+			/* ════════════════════════════════════
+   NAVBAR COMPACT
+════════════════════════════════════ */
+			const nav = document.getElementById("nav");
+			window.addEventListener(
+				"scroll",
+				() => {
+					nav.classList.toggle("compact", window.scrollY > 60);
+				},
+				{ passive: true }
+			);
+
+			/* ════════════════════════════════════
+   MOBILE DRAWER
+════════════════════════════════════ */
+			function openDrawer() {
+				document.getElementById("drawer").classList.add("open");
+				document.getElementById("burgerBtn").setAttribute("aria-expanded", "true");
+				document.body.style.overflow = "hidden";
+			}
+			function closeDrawer() {
+				document.getElementById("drawer").classList.remove("open");
+				document.getElementById("burgerBtn").setAttribute("aria-expanded", "false");
+				document.body.style.overflow = "";
+			}
+
+			/* ════════════════════════════════════
+   DARK / LIGHT TOGGLE
+════════════════════════════════════ */
+			function toggleTheme() {
+				const html = document.documentElement;
+				const isDark = html.getAttribute("data-theme") === "dark";
+				html.setAttribute("data-theme", isDark ? "light" : "dark");
+				document.getElementById("themeBtn").textContent = isDark ? "◑" : "◐";
+			}
+
+			/* ════════════════════════════════════
+   SCROLL REVEAL
+════════════════════════════════════ */
+			const revObs = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((e) => {
+						if (e.isIntersecting) {
+							e.target.classList.add("in-view");
+							revObs.unobserve(e.target);
+						}
+					});
+				},
+				{ threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+			);
+			document.querySelectorAll("[data-reveal]").forEach((el) => revObs.observe(el));
+
+			/* ════════════════════════════════════
+   COUNTER ANIMATION
+════════════════════════════════════ */
+			function animateCounter(el, target, duration) {
+				const start = performance.now();
+				const isFloat = target < 10;
+				const step = (ts) => {
+					const p = Math.min((ts - start) / duration, 1);
+					const ease = 1 - Math.pow(1 - p, 4);
+					const v = isFloat
+						? (target * ease).toFixed(1)
+						: Math.round(target * ease).toLocaleString("vi-VN");
+					el.textContent = v;
+					if (p < 1) requestAnimationFrame(step);
+				};
+				requestAnimationFrame(step);
+			}
+
+			const countObs = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((e) => {
+						if (e.isIntersecting) {
+							const target = +e.target.dataset.target;
+							animateCounter(e.target, target, 1800);
+							countObs.unobserve(e.target);
+						}
+					});
+				},
+				{ threshold: 0.5 }
+			);
+			document.querySelectorAll(".counter").forEach((el) => countObs.observe(el));
+
+			/* ════════════════════════════════════
+   PROCESS STEP INTERACTION
+════════════════════════════════════ */
+			function activateStep(el) {
+				document.querySelectorAll(".step").forEach((s) => s.classList.remove("active"));
+				el.classList.add("active");
+			}
+
+			/* ════════════════════════════════════
+   PORTFOLIO FILTER TABS
+════════════════════════════════════ */
+			document.querySelectorAll(".pf-tab").forEach((tab) => {
+				tab.addEventListener("click", () => {
+					document.querySelectorAll(".pf-tab").forEach((t) => {
+						t.classList.remove("active");
+						t.setAttribute("aria-selected", "false");
+					});
+					tab.classList.add("active");
+					tab.setAttribute("aria-selected", "true");
+				});
+			});
+
+			/* ════════════════════════════════════
+   DRAG-TO-SCROLL PRODUCTS
+════════════════════════════════════ */
+			const drag = document.getElementById("pDrag");
+			if (drag) {
+				let isDown = false,
+					sx,
+					sl;
+				drag.addEventListener("mousedown", (e) => {
+					isDown = true;
+					drag.classList.add("grabbing");
+					sx = e.pageX - drag.offsetLeft;
+					sl = drag.scrollLeft;
+				});
+				["mouseleave", "mouseup"].forEach((ev) =>
+					drag.addEventListener(ev, () => {
+						isDown = false;
+						drag.classList.remove("grabbing");
+					})
+				);
+				drag.addEventListener("mousemove", (e) => {
+					if (!isDown) return;
+					e.preventDefault();
+					drag.scrollLeft = sl - (e.pageX - drag.offsetLeft - sx) * 1.5;
+				});
+			}
+
+			/* ════════════════════════════════════
+   3D CARD TILT
+════════════════════════════════════ */
+			document.querySelectorAll(".tilt-card").forEach((card) => {
+				card.addEventListener("mousemove", (e) => {
+					const r = card.getBoundingClientRect();
+					const x = (e.clientX - r.left) / r.width - 0.5;
+					const y = (e.clientY - r.top) / r.height - 0.5;
+					card.style.transform = `perspective(800px) rotateY(${x * 12}deg) rotateX(${
+						-y * 10
+					}deg) scale(1.02)`;
+					card.style.transition = "transform .1s";
+				});
+				card.addEventListener("mouseleave", () => {
+					card.style.transform = "";
+					card.style.transition = "transform .5s cubic-bezier(0.16,1,0.3,1)";
+				});
+			});
+
+			/* ════════════════════════════════════
+   SMOOTH ANCHOR SCROLL
+════════════════════════════════════ */
+			document.querySelectorAll('a[href^="#"]').forEach((a) => {
+				a.addEventListener("click", (e) => {
+					const t = document.querySelector(a.getAttribute("href"));
+					if (t) {
+						e.preventDefault();
+						t.scrollIntoView({ behavior: "smooth", block: "start" });
+					}
+				});
+			});
+
+			/* ════════════════════════════════════
+   REDUCED MOTION
+════════════════════════════════════ */
+			if (window.matchMedia("(prefers-reduced-motion:reduce)").matches) {
+				document.getElementById("loader").classList.add("hidden");
+			}
+		</script>
+	</body>
+</html>

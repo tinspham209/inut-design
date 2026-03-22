@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Đang Làm — INUT Design</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			*,
+			*::before,
+			*::after {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			:root {
+				--orange: #ff4d00;
+				--orange-hi: #ff6b25;
+				--yellow: #ffe234;
+				--ink: #080706;
+				--ink3: #1c1a16;
+				--ink4: #282420;
+				--ash: #3d3830;
+				--cream: #f5f0e8;
+				--smoke: #a89e94;
+				--dust: #6b6157;
+			}
+
+			html,
+			body {
+				height: 100%;
+				background: var(--ink);
+				color: var(--cream);
+				font-family: "DM Sans", sans-serif;
+				overflow: hidden;
+			}
+
+			/* ─── GRID TEXTURE ─── */
+			body::before {
+				content: "";
+				position: fixed;
+				inset: 0;
+				background-image: linear-gradient(var(--ash) 1px, transparent 1px),
+					linear-gradient(90deg, var(--ash) 1px, transparent 1px);
+				background-size: 60px 60px;
+				opacity: 0.18;
+				pointer-events: none;
+				z-index: 0;
+			}
+
+			/* ─── ORANGE GLOW BLOB ─── */
+			.glow {
+				position: fixed;
+				width: 600px;
+				height: 600px;
+				border-radius: 50%;
+				background: radial-gradient(circle, rgba(255, 77, 0, 0.18) 0%, transparent 70%);
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				pointer-events: none;
+				z-index: 0;
+				animation: breathe 4s ease-in-out infinite;
+			}
+			@keyframes breathe {
+				0%,
+				100% {
+					transform: translate(-50%, -50%) scale(1);
+					opacity: 1;
+				}
+				50% {
+					transform: translate(-50%, -50%) scale(1.15);
+					opacity: 0.7;
+				}
+			}
+
+			/* ─── LAYOUT ─── */
+			.page {
+				position: relative;
+				z-index: 1;
+				min-height: 100vh;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				padding: 40px 24px;
+				text-align: center;
+			}
+
+			/* ─── TOP BADGE ─── */
+			.top-badge {
+				position: fixed;
+				top: 28px;
+				left: 50%;
+				transform: translateX(-50%);
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 11px;
+				letter-spacing: 0.15em;
+				text-transform: uppercase;
+				color: var(--ink);
+				background: var(--orange);
+				padding: 7px 20px;
+				white-space: nowrap;
+				animation: slideDown 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+			}
+			@keyframes slideDown {
+				from {
+					opacity: 0;
+					transform: translateX(-50%) translateY(-20px);
+				}
+				to {
+					opacity: 1;
+					transform: translateX(-50%) translateY(0);
+				}
+			}
+
+			/* ─── WORKER ILLUSTRATION ─── */
+			.worker-wrap {
+				margin-bottom: 36px;
+				animation: float 3s ease-in-out infinite;
+			}
+			@keyframes float {
+				0%,
+				100% {
+					transform: translateY(0);
+				}
+				50% {
+					transform: translateY(-10px);
+				}
+			}
+
+			/* ─── HEADLINE ─── */
+			.headline {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: clamp(38px, 7vw, 80px);
+				line-height: 1;
+				letter-spacing: -0.04em;
+				color: var(--cream);
+				max-width: 800px;
+				animation: fadeUp 0.7s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+			}
+			.headline .accent {
+				font-family: "DM Serif Display", serif;
+				font-style: italic;
+				color: var(--orange);
+			}
+
+			/* ─── SUBTEXT ─── */
+			.subtext {
+				font-size: clamp(15px, 2vw, 18px);
+				line-height: 1.7;
+				color: var(--smoke);
+				margin-top: 20px;
+				max-width: 540px;
+				animation: fadeUp 0.7s 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+			}
+
+			/* ─── PROGRESS ─── */
+			.progress-wrap {
+				margin-top: 44px;
+				width: 100%;
+				max-width: 460px;
+				animation: fadeUp 0.7s 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+			}
+			.progress-label {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 10px;
+			}
+			.progress-text {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 11px;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--dust);
+			}
+			.progress-pct {
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 13px;
+				color: var(--orange);
+			}
+			.progress-track {
+				width: 100%;
+				height: 4px;
+				background: var(--ash);
+				position: relative;
+				overflow: hidden;
+			}
+			.progress-fill {
+				height: 100%;
+				background: var(--orange);
+				width: 0%;
+				transition: width 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+			}
+			.progress-fill::after {
+				content: "";
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 40px;
+				height: 100%;
+				background: linear-gradient(90deg, transparent, var(--orange-hi));
+				animation: shimmer 1.2s ease-in-out infinite;
+			}
+			@keyframes shimmer {
+				0%,
+				100% {
+					opacity: 0.5;
+				}
+				50% {
+					opacity: 1;
+				}
+			}
+
+			/* ─── TAGS ROW ─── */
+			.tags {
+				display: flex;
+				gap: 10px;
+				margin-top: 36px;
+				flex-wrap: wrap;
+				justify-content: center;
+				animation: fadeUp 0.7s 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+			}
+			.tag {
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 11px;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				padding: 6px 16px;
+				border: 1px solid var(--ash);
+				color: var(--smoke);
+				position: relative;
+				overflow: hidden;
+				cursor: default;
+				transition: border-color 0.2s, color 0.2s;
+			}
+			.tag:hover {
+				border-color: var(--orange);
+				color: var(--cream);
+			}
+			.tag.done {
+				border-color: rgba(255, 226, 52, 0.3);
+				color: var(--yellow);
+				background: rgba(255, 226, 52, 0.05);
+			}
+			.tag.done::before {
+				content: "✓ ";
+				font-size: 10px;
+			}
+
+			/* ─── BACK BUTTON ─── */
+			.back-btn {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				margin-top: 48px;
+				font-family: "Syne", sans-serif;
+				font-weight: 700;
+				font-size: 13px;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--smoke);
+				text-decoration: none;
+				border: 1px solid var(--ash);
+				padding: 12px 28px;
+				transition: color 0.2s, border-color 0.2s, background 0.2s;
+				animation: fadeUp 0.7s 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+			}
+			.back-btn:hover {
+				color: var(--ink);
+				background: var(--orange);
+				border-color: var(--orange);
+			}
+			.back-btn svg {
+				transition: transform 0.2s;
+			}
+			.back-btn:hover svg {
+				transform: translateX(-4px);
+			}
+
+			/* ─── FOOTER LOGO ─── */
+			.footer-logo {
+				position: fixed;
+				bottom: 28px;
+				left: 50%;
+				transform: translateX(-50%);
+				font-family: "Syne", sans-serif;
+				font-weight: 800;
+				font-size: 14px;
+				color: var(--dust);
+				letter-spacing: 0.05em;
+				white-space: nowrap;
+				animation: fadeUp 0.7s 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+			}
+			.footer-logo span {
+				color: var(--orange);
+			}
+
+			/* ─── CORNER DECORATION ─── */
+			.corner {
+				position: fixed;
+				width: 80px;
+				height: 80px;
+				opacity: 0.2;
+			}
+			.corner-tl {
+				top: 20px;
+				left: 20px;
+				border-top: 1px solid var(--orange);
+				border-left: 1px solid var(--orange);
+			}
+			.corner-br {
+				bottom: 20px;
+				right: 20px;
+				border-bottom: 1px solid var(--orange);
+				border-right: 1px solid var(--orange);
+			}
+
+			/* ─── BOUNCE DOTS ─── */
+			.dots {
+				display: inline-flex;
+				gap: 5px;
+				margin-left: 4px;
+				vertical-align: middle;
+			}
+			.dots span {
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				background: var(--orange);
+				display: inline-block;
+				animation: bounce 1.2s ease-in-out infinite;
+			}
+			.dots span:nth-child(2) {
+				animation-delay: 0.2s;
+			}
+			.dots span:nth-child(3) {
+				animation-delay: 0.4s;
+			}
+			@keyframes bounce {
+				0%,
+				80%,
+				100% {
+					transform: translateY(0);
+					opacity: 0.4;
+				}
+				40% {
+					transform: translateY(-6px);
+					opacity: 1;
+				}
+			}
+
+			@keyframes fadeUp {
+				from {
+					opacity: 0;
+					transform: translateY(24px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			/* ─── RESPONSIVE ─── */
+			@media (max-width: 480px) {
+				.corner {
+					width: 48px;
+					height: 48px;
+				}
+				body {
+					overflow: auto;
+				}
+				html,
+				body {
+					height: auto;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="glow"></div>
+		<div class="corner corner-tl"></div>
+		<div class="corner corner-br"></div>
+
+		<!-- TOP BADGE — edit page name here -->
+		<div class="top-badge" id="page-badge">🔧 Đang thi công</div>
+
+		<main class="page">
+			<!-- ILLUSTRATION -->
+			<div class="worker-wrap">
+				<svg
+					width="120"
+					height="120"
+					viewBox="0 0 120 120"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<!-- Hard hat -->
+					<ellipse cx="60" cy="38" rx="26" ry="8" fill="#FF4D00" />
+					<rect x="34" y="31" width="52" height="10" rx="5" fill="#FF4D00" />
+					<!-- Brim -->
+					<rect x="28" y="39" width="64" height="5" rx="2.5" fill="#FF6B25" />
+					<!-- Head -->
+					<circle cx="60" cy="54" r="18" fill="#F5F0E8" />
+					<!-- Eyes -->
+					<circle cx="53" cy="52" r="2.5" fill="#080706" />
+					<circle cx="67" cy="52" r="2.5" fill="#080706" />
+					<!-- Sweat drop -->
+					<ellipse cx="82" cy="48" rx="3" ry="4.5" fill="#3D3830" opacity="0.5" />
+					<!-- Smile (determined face) -->
+					<path
+						d="M53 60 Q60 66 67 60"
+						stroke="#080706"
+						stroke-width="2"
+						stroke-linecap="round"
+						fill="none"
+					/>
+					<!-- Body -->
+					<rect x="44" y="72" width="32" height="28" rx="4" fill="#1C1A16" />
+					<!-- INUT text on shirt -->
+					<text
+						x="60"
+						y="90"
+						font-family="'Syne', sans-serif"
+						font-weight="800"
+						font-size="8"
+						fill="#FF4D00"
+						text-anchor="middle"
+					>
+						INUT
+					</text>
+					<!-- Arms -->
+					<rect
+						x="20"
+						y="72"
+						width="24"
+						height="8"
+						rx="4"
+						fill="#1C1A16"
+						transform="rotate(-20 20 72)"
+					/>
+					<rect
+						x="76"
+						y="72"
+						width="24"
+						height="8"
+						rx="4"
+						fill="#1C1A16"
+						transform="rotate(20 76 72)"
+					/>
+					<!-- Wrench (right hand) -->
+					<rect
+						x="90"
+						y="82"
+						width="20"
+						height="5"
+						rx="2.5"
+						fill="#3D3830"
+						transform="rotate(45 90 82)"
+					/>
+					<circle cx="93" cy="78" r="5" fill="none" stroke="#3D3830" stroke-width="3" />
+					<!-- Stars / sparkles around -->
+					<text x="15" y="55" font-size="14">✦</text>
+					<text x="96" y="35" font-size="10">✦</text>
+					<text x="8" y="80" font-size="8">✦</text>
+				</svg>
+			</div>
+
+			<!-- HEADLINE -->
+			<h1 class="headline">
+				Từ từ <span class="accent">fen</span> ơi<span class="dots"
+					><span></span><span></span><span></span
+				></span>
+			</h1>
+
+			<!-- SUBTEXT — edit message here -->
+			<p class="subtext" id="page-message">
+				Tụi tui đang vắt óc làm tính năng này. Coffee thứ 4, bug chưa fix xong, nhưng sắp rồi — hứa
+				luôn 🔥<br />
+				Quay lại sau nhé, không lâu đâu!
+			</p>
+
+			<!-- PROGRESS BAR -->
+			<div class="progress-wrap">
+				<div class="progress-label">
+					<span class="progress-text">Tiến độ</span>
+					<span class="progress-pct" id="pct-label">0%</span>
+				</div>
+				<div class="progress-track">
+					<div class="progress-fill" id="progress-fill"></div>
+				</div>
+			</div>
+
+			<!-- STATUS TAGS — edit these to match what's done / pending -->
+			<div class="tags">
+				<span class="tag done">Ý tưởng</span>
+				<span class="tag done">Thiết kế</span>
+				<span class="tag">Code</span>
+				<span class="tag">Test</span>
+				<span class="tag">Launch 🚀</span>
+			</div>
+
+			<!-- BACK BUTTON -->
+			<a href="/" class="back-btn" id="back-btn">
+				<svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+					<path
+						d="M9 2L4 7L9 12"
+						stroke="currentColor"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					/>
+				</svg>
+				Về Trang Chủ
+			</a>
+		</main>
+
+		<!-- FOOTER LOGO -->
+		<div class="footer-logo">INUT<span>.</span>design</div>
+
+		<script>
+			// ─── CONFIGURABLE OPTIONS ───────────────────────────────────────────────
+			// Call initComingSoon() with options to customize per-page. All optional.
+			//
+			// Example usage on another page:
+			//   <script src="coming-soon.js"><\/script>
+			//   <script>initComingSoon({ page: 'Blog', progress: 30, message: 'Đang viết bài...' })<\/script>
+			// ─────────────────────────────────────────────────────────────────────────
+
+			const MESSAGES = [
+				"Tụi tui đang vắt óc làm tính năng này. Coffee thứ 4, bug chưa fix xong, nhưng sắp rồi — hứa luôn 🔥<br>Quay lại sau nhé, không lâu đâu!",
+				"Chưa xong đâu fen ơi. Nhưng khi xong thì xịn lắm, tụi tui không làm đại đâu 😤",
+				"Đang build nè, đang test nè, đang cà phê nè. Nhiều thứ đang diễn ra lắm — kết quả sắp ra rồi!",
+				"Tính năng này đang trong lò nướng fen ơi 🫠 Thơm lắm, đợi chín rồi lấy nhé!",
+				"Bên tui đang làm quần quật, bạn cứ inbox hỏi thông tin trong lúc chờ nhé — phản hồi trong 15 phút 💪",
+			];
+
+			function initComingSoon(opts = {}) {
+				const {
+					page = null,
+					progress = null,
+					message = null,
+					backUrl = "/",
+					backText = "Về Trang Chủ",
+				} = opts;
+
+				if (page) {
+					document.getElementById("page-badge").textContent = "🔧 " + page + " — Đang Làm";
+					document.title = page + " — Sắp Ra Mắt · INUT Design";
+				}
+
+				if (message) {
+					document.getElementById("page-message").innerHTML = message;
+				} else {
+					// Pick a random fun message if none provided
+					const idx = Math.floor(Math.random() * MESSAGES.length);
+					document.getElementById("page-message").innerHTML = MESSAGES[idx];
+				}
+
+				const pct =
+					progress !== null
+						? Math.min(100, Math.max(0, progress))
+						: Math.floor(Math.random() * 35) + 30; // 30–65% if not specified
+
+				document.getElementById("back-btn").href = backUrl;
+				document.getElementById("back-btn").childNodes[2].textContent = " " + backText;
+
+				setTimeout(() => {
+					document.getElementById("progress-fill").style.width = pct + "%";
+					animateCount(0, pct, 1800);
+				}, 600);
+			}
+
+			function animateCount(from, to, duration) {
+				const start = performance.now();
+				const el = document.getElementById("pct-label");
+				function step(now) {
+					const t = Math.min((now - start) / duration, 1);
+					const ease = 1 - Math.pow(1 - t, 4);
+					el.textContent = Math.round(from + (to - from) * ease) + "%";
+					if (t < 1) requestAnimationFrame(step);
+				}
+				requestAnimationFrame(step);
+			}
+
+			// Default init — runs if you just open the page as-is
+			initComingSoon();
+		</script>
+	</body>
+</html>

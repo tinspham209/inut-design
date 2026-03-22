@@ -51,7 +51,7 @@ const LightersFilter: React.FC<LightersFilterProps> = ({ lighterTypes }) => {
 		setCurrentFilter(value);
 		router.push(
 			{
-				pathname: "/lighters",
+				pathname: "/san-pham/lighters",
 				query: { filter: value },
 			},
 			undefined,
@@ -66,7 +66,7 @@ const LightersFilter: React.FC<LightersFilterProps> = ({ lighterTypes }) => {
 		setCurrentFilter("");
 		router.push(
 			{
-				pathname: "/lighters",
+				pathname: "/san-pham/lighters",
 				query: {},
 			},
 			undefined,

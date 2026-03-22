@@ -1,0 +1,328 @@
+<style>
+	@import url("https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Serif+Display:ital@1&family=DM+Sans:wght@400;700&display=swap");
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+	:root {
+		--o: #ff4d00;
+		--y: #ffe234;
+		--ink: #080706;
+		--ink3: #1c1a16;
+		--ink4: #282420;
+		--ash: #3d3830;
+		--cream: #f5f0e8;
+		--smoke: #a89e94;
+		--dust: #6b6157;
+	}
+	.wrap {
+		background: var(--color-background-secondary);
+		border-radius: 12px;
+		padding: 10px;
+	}
+	.browser {
+		background: #111;
+		border-radius: 8px 8px 0 0;
+		padding: 8px 12px;
+		display: flex;
+		align-items: center;
+		gap: 5px;
+	}
+	.dot {
+		width: 9px;
+		height: 9px;
+		border-radius: 50%;
+	}
+	.urlbar {
+		flex: 1;
+		background: #222;
+		border-radius: 3px;
+		padding: 3px 10px;
+		font-size: 10px;
+		color: #555;
+		margin-left: 6px;
+		font-family: "DM Sans", sans-serif;
+	}
+
+	.hero {
+		background: var(--ink);
+		border-radius: 0 0 8px 8px;
+		display: grid;
+		grid-template-rows: 1fr auto;
+	}
+
+	.body {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		min-height: 420px;
+	}
+
+	.left {
+		padding: 48px 44px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		border-right: 1px solid var(--ink4);
+	}
+
+	.eyebrow {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		margin-bottom: 22px;
+	}
+	.bar {
+		width: 20px;
+		height: 2px;
+		background: var(--o);
+	}
+	.etext {
+		font-family: "Syne", sans-serif;
+		font-weight: 700;
+		font-size: 10px;
+		letter-spacing: 0.14em;
+		color: var(--o);
+		text-transform: uppercase;
+	}
+
+	h1 {
+		font-family: "Syne", sans-serif;
+		font-weight: 800;
+		font-size: clamp(30px, 4vw, 48px);
+		color: var(--cream);
+		line-height: 1.05;
+		margin-bottom: 16px;
+	}
+	.acc {
+		font-family: "DM Serif Display", serif;
+		font-style: italic;
+		color: var(--o);
+	}
+
+	.tagline {
+		font-family: "DM Sans", sans-serif;
+		font-weight: 700;
+		font-size: 13px;
+		color: var(--cream);
+		margin-bottom: 6px;
+	}
+	.sub {
+		font-family: "DM Sans", sans-serif;
+		font-size: 13px;
+		color: var(--smoke);
+		line-height: 1.6;
+		margin-bottom: 32px;
+	}
+
+	.ctarow {
+		display: flex;
+		gap: 10px;
+	}
+	.btnp {
+		font-family: "Syne", sans-serif;
+		font-weight: 700;
+		font-size: 11px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		background: var(--o);
+		color: var(--cream);
+		border: none;
+		padding: 13px 24px;
+		border-radius: 3px;
+		cursor: pointer;
+	}
+	.btns {
+		font-family: "Syne", sans-serif;
+		font-weight: 700;
+		font-size: 11px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		background: transparent;
+		color: var(--cream);
+		border: 1px solid var(--ash);
+		padding: 12px 22px;
+		border-radius: 3px;
+		cursor: pointer;
+	}
+
+	.right {
+		background: var(--ink3);
+		padding: 48px 40px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 10px;
+	}
+
+	.pcard {
+		border: 1px solid var(--ink4);
+		border-radius: 4px;
+		padding: 16px 20px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		cursor: pointer;
+		border-left: 3px solid transparent;
+	}
+	.pcard:hover,
+	.pcard.on {
+		border-left-color: var(--o);
+		background: var(--ink4);
+	}
+	.pcard-info {
+		display: flex;
+		flex-direction: column;
+		gap: 3px;
+	}
+	.pname {
+		font-family: "Syne", sans-serif;
+		font-weight: 800;
+		font-size: 13px;
+		color: var(--cream);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+	.psub {
+		font-family: "DM Sans", sans-serif;
+		font-size: 11px;
+		color: var(--dust);
+	}
+	.ptag {
+		font-family: "Syne", sans-serif;
+		font-weight: 700;
+		font-size: 8px;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		padding: 3px 7px;
+		border-radius: 2px;
+		white-space: nowrap;
+	}
+	.tag-o {
+		background: var(--o);
+		color: var(--cream);
+	}
+	.tag-y {
+		background: var(--y);
+		color: var(--ink);
+	}
+	.tag-d {
+		background: var(--ash);
+		color: var(--smoke);
+	}
+
+	.statsbar {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		border-top: 1px solid var(--ink4);
+	}
+	.stat {
+		padding: 14px 8px;
+		text-align: center;
+		border-right: 1px solid var(--ink4);
+	}
+	.stat:last-child {
+		border-right: none;
+	}
+	.snum {
+		font-family: "Syne", sans-serif;
+		font-weight: 800;
+		font-size: 20px;
+		color: var(--o);
+		display: block;
+		line-height: 1;
+	}
+	.snum.y {
+		color: var(--y);
+	}
+	.slabel {
+		font-family: "DM Sans", sans-serif;
+		font-size: 9px;
+		color: var(--dust);
+		margin-top: 3px;
+		display: block;
+	}
+</style>
+
+<div class="wrap">
+	<div class="browser">
+		<div class="dot" style="background: #ff5f57"></div>
+		<div class="dot" style="background: #febc2e"></div>
+		<div class="dot" style="background: #28c840"></div>
+		<div class="urlbar">inutdesign.com</div>
+	</div>
+
+	<div class="hero">
+		<div class="body">
+			<div class="left">
+				<div class="eyebrow">
+					<div class="bar"></div>
+					<span class="etext">INUT Design · Đà Nẵng</span>
+				</div>
+
+				<h1>Một Chỗ.<br /><span class="acc">In Được Hết.</span></h1>
+
+				<p class="tagline">Bật lửa, Sticker — Từ cá nhân đến doanh nghiệp.</p>
+				<p class="sub">Từ 1 cái · Giao 24–48h · Báo giá 15 phút.</p>
+
+				<div class="ctarow">
+					<button class="btnp">XEM SẢN PHẨM</button>
+					<button class="btns">BÁO GIÁ NGAY</button>
+				</div>
+			</div>
+
+			<div class="right">
+				<div class="pcard on">
+					<div class="pcard-info">
+						<span class="pname">Bật Lửa</span>
+						<span class="psub">In logo thương hiệu · quà tặng custom</span>
+					</div>
+					<span class="ptag tag-o">HOT</span>
+				</div>
+
+				<div class="pcard">
+					<div class="pcard-info">
+						<span class="pname">Sticker &amp; Decal</span>
+						<span class="psub">Sheet · Magnet · Woven · Decal xe</span>
+					</div>
+					<span class="ptag tag-d">500+ MẪU</span>
+				</div>
+
+				<div class="pcard">
+					<div class="pcard-info">
+						<span class="pname">Skin Laptop · Nút Phím</span>
+						<span class="psub">Dán lại không dính keo · MACNUT custom</span>
+					</div>
+					<span class="ptag tag-o">HOT</span>
+				</div>
+
+				<div class="pcard">
+					<div class="pcard-info">
+						<span class="pname">In Ấn Sự Kiện</span>
+						<span class="psub">Banner · Backdrop · Standee · Namecard</span>
+					</div>
+					<span class="ptag tag-y">B2B</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="statsbar">
+			<div class="stat">
+				<span class="snum">10K+</span>
+				<span class="slabel">Đơn hoàn thành</span>
+			</div>
+			<div class="stat">
+				<span class="snum">500+</span>
+				<span class="slabel">Mẫu sẵn có</span>
+			</div>
+			<div class="stat">
+				<span class="snum y">5★</span>
+				<span class="slabel">200+ Reviews</span>
+			</div>
+			<div class="stat">
+				<span class="snum">24h</span>
+				<span class="slabel">Giao tại Đà Nẵng</span>
+			</div>
+		</div>
+	</div>
+</div>

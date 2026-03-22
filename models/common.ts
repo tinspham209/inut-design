@@ -7,12 +7,12 @@ export interface LayoutProps {
 	children: ReactNode;
 }
 
-export type NextPageWithLayout = NextPage & {
+export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<P, IP> & {
 	// eslint-disable-next-line no-unused-vars
 	Layout?: (props: LayoutProps) => ReactElement;
 };
 
 export type AppPropsWithLayout = AppProps & {
-	Component: NextPageWithLayout;
+	Component: NextPageWithLayout<any>;
 	emotionCache?: EmotionCache;
 };

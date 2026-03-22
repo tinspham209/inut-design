@@ -49,12 +49,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Map Sanity document types to site paths
     if (body._type === "lighters" && body.slug?.current) {
       paths.push(`/lighters/${body.slug.current}`);
-      paths.push("/lighters"); // Listing potentially affected
+      paths.push("/san-pham/lighters"); // Listing potentially affected
+      paths.push("/san-pham/skin-laptop");
+      paths.push("/san-pham/skin-nut-phim");
     }
 
     if (body._type === "products" && body.slug?.current) {
       paths.push(`/products/${body.slug.current}`);
-      paths.push("/products");
+      paths.push("/san-pham/lighters"); // Listing potentially affected
+      paths.push("/san-pham/skin-laptop");
+      paths.push("/san-pham/skin-nut-phim");
     }
 
     // Manual override: /api/revalidate?secret=...&path=/custom/path

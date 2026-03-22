@@ -9,3 +9,5 @@ export * from "./dialog/container";
 export * from "./input/controller";
 export * from "./calendar/datePicker";
 export * from "./switch";
+export { default as ComingSoon } from "./ComingSoon";
+export * from "./ComingSoon";

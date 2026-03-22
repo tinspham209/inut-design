@@ -48,7 +48,7 @@ const ErrorState: React.FC<ErrorStateProps> = ({ error }) => {
 						variant="outlined"
 						size="large"
 						fullWidth
-						onClick={() => router.push("/lighters")}
+						onClick={() => router.push("/san-pham/lighters")}
 					>
 						Về trang Lighters
 					</Button>

@@ -72,7 +72,11 @@ export function ProductItem({ product, productTypes, isMacnut = false }: Product
 				}}
 			>
 				<Link
-					href={isMacnut ? `/macnut/${product.slug.current}` : `/products/${product.slug.current}`}
+					href={
+						isMacnut
+							? `/san-pham/skin-nut-phim/${product.slug.current}`
+							: `/san-pham/skin-laptop/${product.slug.current}`
+					}
 					passHref
 				>
 					<MuiLink sx={{ textDecoration: "none" }} onClick={() => handleProductClick()}>

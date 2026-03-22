@@ -19,7 +19,7 @@ export function ProductCartWrapper() {
 
 	const currentPathname = router.pathname;
 
-	if (currentPathname.startsWith("/lighters")) {
+	if (currentPathname.startsWith("/san-pham/lighters")) {
 		return (
 			<Box>
 				<LighterCartBadge onClick={() => setIsCartOpen(true)} />
