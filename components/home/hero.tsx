@@ -106,7 +106,7 @@ export function HeroSection({
 			sx={{
 				bgcolor: "background.paper",
 				borderRadius: { xs: 2, sm: 3 },
-				p: { xs: 0.75, sm: 1.25 },
+				p: 0,
 			}}
 		>
 			{/* ── Hero body ── */}
@@ -127,13 +127,7 @@ export function HeroSection({
 						}}
 					>
 						{/* Eyebrow */}
-						<Stack
-							direction="row"
-							alignItems="center"
-							spacing={1}
-							sx={{ mb: 2.75 }}
-							aria-hidden="true"
-						>
+						<Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
 							<Box sx={{ width: 20, height: 2, bgcolor: C.orange, flexShrink: 0 }} />
 							<Typography
 								sx={{
