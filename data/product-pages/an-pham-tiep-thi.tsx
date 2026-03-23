@@ -11,14 +11,10 @@ import PaletteIcon from "@mui/icons-material/Palette";
 import SpaIcon from "@mui/icons-material/Spa";
 import SpeedIcon from "@mui/icons-material/Speed";
 import StorefrontIcon from "@mui/icons-material/Storefront";
-import VerifiedIcon from "@mui/icons-material/Verified";
 import TimerIcon from "@mui/icons-material/Timer";
-import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
-import GroupsIcon from "@mui/icons-material/Groups";
-import BoltIcon from "@mui/icons-material/Bolt";
-import React from "react";
+import VerifiedIcon from "@mui/icons-material/Verified";
 
-const HERO_IMAGE = "/branding/logo.webp";
+const HERO_IMAGE = "/cover-web.webp";
 
 export const IN_CARD_VISIT_DATA: ProductPageData = {
 	id: "in-card-visit",

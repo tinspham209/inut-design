@@ -8,7 +8,7 @@ import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 
-const HERO_IMAGE = "/branding/logo.webp";
+const HERO_IMAGE = "/cover-web.webp";
 
 export const SKIN_LAPTOP_DATA: ProductPageData = {
 	id: "skin-laptop-customize",
@@ -465,60 +465,62 @@ export const SKIN_DIEN_THOAI_DATA: ProductPageData = {
 export const LIGHTERS_CUSTOMIZE_DATA: ProductPageData = {
 	id: "lighters-customize",
 	name: "Bật lửa custom",
-	category: "Sản phẩm lưu niệm",
+	category: "Cá nhân hoá",
 	seo: {
-		title: "Bật lửa custom theo yêu cầu - INUT Design",
+		title: "In Bật Lửa Cricket Custom Theo Yêu Cầu Tại Đà Nẵng | INUT Design",
 		description:
-			"Dịch vụ in bật lửa custom tại Đà Nẵng. Chất lượng cao, thiết kế theo yêu cầu, giao nhanh và giá tốt theo số lượng.",
-		url: "https://inutdesign.com/san-pham/lighters/customize",
+			"In bật lửa Cricket custom tại Đà Nẵng — màu sắc nét, lớp phủ matte/chrome/glitter, giao trong 24h. Nhận đơn lẻ lẫn sỉ. Báo giá trong 15 phút.",
+		url: "https://inutdesign.com/services/ca-nhan-hoa/skin-bat-lua-customize/",
 		thumbnailUrl: HERO_IMAGE,
 	},
 	hero: {
 		title: "Bật lửa custom",
 		description:
-			"Dịch vụ in bật lửa custom tại Đà Nẵng. Chất lượng cao, thiết kế theo yêu cầu, giao nhanh và giá tốt theo số lượng.",
-		image: HERO_IMAGE,
-		chips: ["Thương hiệu Cricket", "In sắc nét", "Giao nhanh"],
+			"Vật dụng cầm tay mỗi ngày — in thành thứ người ta không nỡ bỏ đi. Bật lửa Cricket in theo yêu cầu: màu chuẩn file, lớp phủ đa dạng, giao trong 24h.",
+		image: `/services/ca-nhan-hoa/skin-bat-lua-customize/1.avif`,
+		chips: ["Phôi Cricket chính hãng", "In sắc nét", "Giao trong 24h"],
 		ticker: ["Bật Lửa Cricket", "In Màu Sắc Nét", "Thiết Kế Độc Bản", "Giao Hàng Toàn Quốc"],
 		stats: [
 			{ value: "10.000", unit: "+", label: "Bật lửa đã in" },
 			{ value: "300", unit: "+", label: "Shop tin dùng" },
-			{ value: "5.0", unit: "★", label: "Đánh giá hài lòng" },
-			{ value: "24", unit: "h", label: "Hoàn thiện nhanh" },
+			{ value: "5.0", unit: "★", label: "Đánh giá trung bình" },
+			{ value: "24", unit: "h", label: "Hoàn thiện nhanh nhất" },
 		],
 	},
 	introduction: {
-		eyebrow: "Cá nhân hóa",
-		title: "Bật lửa custom theo phong cách riêng",
+		eyebrow: "Bật lửa Cricket Custom",
+		title: "Món vật dụng nhỏ — *ấn tượng* không nhỏ chút nào",
 		description:
-			"Chúng tôi sử dụng phôi bật lửa Cricket nổi tiếng kết hợp công nghệ in hiện đại để tạo ra những sản phẩm độc đáo, bền bỉ.",
+			"Bật lửa Cricket từ Pháp — nền phôi tốt để in lên một thiết kế tốt. INUT in trực tiếp lên thân bật lửa: màu bền, cạnh sắc, không bong tróc theo thời gian.",
 		bullets: [
-			"Phôi in là thương hiệu bật lửa Cricket nổi tiếng đến từ Pháp",
-			"Custom theo yêu cầu - không giới hạn",
-			"Sỉ bật lửa cho các shop mở rộng doanh thu",
-			"Phù hợp làm quà tặng, đồ decor hoặc dùng cá nhân",
-			"In nhanh - thiết kế theo ý bạn - không giới hạn mẫu mã",
-			"Giá tốt - số lượng lẻ hay sỉ đều nhận",
+			"Phôi bật lửa Cricket chính hãng từ Pháp — chất lượng đốt ổn định, thân máy bền.",
+			"In màu trực tiếp lên thân — sắc nét đến từng chi tiết nhỏ, không cần dán decal.",
+			"3 lớp phủ: matte sang trọng, chrome bóng kim loại, glitter lấp lánh — chọn theo mood.",
+			"Nhận đơn từ lẻ đến sỉ — không ép số lượng tối thiểu lớn.",
+			"Giao trong 24h với đơn tiêu chuẩn — hỗ trợ tiến độ gấp cho sự kiện.",
 		],
 		highlights: [
 			{
-				title: "Chất lượng bền bỉ",
-				description: "Bật lửa in màu sắc rõ nét, bền đẹp và khó phai.",
+				title: "Phôi Cricket chính hãng",
+				description:
+					"Bật lửa Cricket nhập từ Pháp — nền in phẳng đều, màu bám tốt hơn phôi thường.",
 				icon: <WorkspacePremiumIcon color="primary" />,
 			},
 			{
-				title: "In nhanh - giao đúng hẹn",
-				description: "Xử lý đơn nhanh, hỗ trợ tiến độ gấp cho sự kiện.",
+				title: "Giao trong 24h",
+				description: "Xử lý đơn ngay khi duyệt file — hỗ trợ tiến độ gấp không cần thêm phụ phí.",
 				icon: <BoltIcon color="primary" />,
 			},
 			{
-				title: "Thiết kế theo yêu cầu",
-				description: "Tư vấn layout miễn phí, tùy chỉnh logo và thông điệp.",
+				title: "Tư vấn layout miễn phí",
+				description:
+					"Gửi logo hoặc ý tưởng thô — INUT căn chỉnh layout chuẩn tỉ lệ in trước khi chạy máy.",
 				icon: <DesignServicesIcon color="primary" />,
 			},
 			{
-				title: "Giá tốt theo số lượng",
-				description: "Giá tốt - số lượng lẻ hay sỉ đều nhận.",
+				title: "Sỉ lẻ đều nhận",
+				description:
+					"Đơn lẻ vài chục hay sỉ vài nghìn cái — giá tốt theo số lượng, không phân biệt.",
 				icon: <LocalPrintshopIcon color="primary" />,
 			},
 		],
@@ -531,22 +533,22 @@ export const LIGHTERS_CUSTOMIZE_DATA: ProductPageData = {
 			{
 				name: "Cricket - in màu thường",
 				description: "Bật lửa size tiêu chuẩn, in màu sắc rõ nét, phù hợp mọi thiết kế",
-				image: HERO_IMAGE,
+				image: `/services/ca-nhan-hoa/skin-bat-lua-customize/3.avif`,
 			},
 			{
 				name: "Cricket - in màu chrome bóng",
 				description: "Lớp phủ chrome bóng sang trọng, tạo hiệu ứng kim loại cao cấp",
-				image: HERO_IMAGE,
+				image: `/services/ca-nhan-hoa/skin-bat-lua-customize/2.avif`,
 			},
 			{
 				name: "Cricket mini - in màu thường",
 				description: "Kích thước nhỏ gọn, tiện lợi mang theo, in màu sắc nét",
-				image: HERO_IMAGE,
+				image: `/services/ca-nhan-hoa/skin-bat-lua-customize/9.avif`,
 			},
 			{
 				name: "Cricket mini - in màu chrome bóng",
 				description: "Mini size kết hợp chrome bóng, sang trọng và độc đáo",
-				image: HERO_IMAGE,
+				image: `/services/ca-nhan-hoa/skin-bat-lua-customize/11.avif`,
 			},
 		],
 		specOptions: [
@@ -556,39 +558,41 @@ export const LIGHTERS_CUSTOMIZE_DATA: ProductPageData = {
 		],
 	},
 	whyInut: {
-		eyebrow: "Ứng dụng",
-		title: "Bật lửa custom cho mọi nhu cầu",
-		description: "Món quà nhỏ mang thông điệp lớn.",
+		eyebrow: "Ứng dụng thực tế",
+		title: "Bật lửa custom — *đắt giá* hơn bạn nghĩ",
+		description: "Thứ người ta cầm trên tay mỗi ngày — là thứ họ nhớ thương hiệu của bạn lâu nhất.",
 		applications: {
-			title: "Ứng dụng đa dạng",
-			description: "Sản phẩm phù hợp cho nhiều mục đích sử dụng khác nhau.",
+			title: "Dùng được ở đâu?",
+			description:
+				"Từ bàn trưng bày sự kiện đến quầy thu ngân — bật lửa custom làm việc thầm lặng nhưng hiệu quả.",
 			items: [
 				{
-					title: "Sự kiện, triển lãm",
-					description: "Gia tăng nhận diện thương hiệu.",
+					title: "Sự kiện & Triển lãm",
+					description: "Quà tặng nhỏ — nhận diện thương hiệu lớn.",
 					icon: <EventAvailableIcon color="primary" />,
 				},
 				{
 					title: "Quà tặng quảng cáo",
-					description: "Món quà đơn giản tăng tính trải nghiệm.",
+					description: "Người ta giữ bật lửa lâu hơn giữ tờ rơi.",
 					icon: <CampaignIcon color="primary" />,
 				},
 				{
-					title: "Sản phẩm bán lẻ",
-					description: "Giúp các shop mở rộng doanh thu của hàng.",
+					title: "Bán lẻ tại shop",
+					description: "Thêm SKU độc lạ — thêm doanh thu không tốn chi phí hàng tồn.",
 					icon: <StorefrontIcon color="primary" />,
 				},
 				{
-					title: "Sản phẩm cá nhân",
-					description: "Giúp nổi bật cá tính của bản thân.",
+					title: "Phụ kiện cá nhân",
+					description: "Mang trên người thứ chỉ mình mày có.",
 					icon: <WorkspacePremiumIcon color="primary" />,
 				},
 			],
 		},
 	},
 	contact: {
-		eyebrow: "Liên hệ ngay",
-		description: "Liên hệ ngay để nhận báo giá nhanh và tư vấn mẫu thiết kế phù hợp nhất.",
+		eyebrow: "Đặt hàng ngay",
+		description:
+			"Gửi ý tưởng hoặc logo — INUT báo giá trong 15 phút, tư vấn layout miễn phí, không cần đặt cọc để nhận tư vấn.",
 		type: "lighters-customize",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
@@ -597,9 +601,11 @@ export const LIGHTERS_CUSTOMIZE_DATA: ProductPageData = {
 		],
 	},
 	gallery: {
-		eyebrow: "Dự án đã thực hiện",
-		title: "Hình ảnh thực tế",
-		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
+		eyebrow: "Sản phẩm thực tế",
+		title: "Mẫu bật lửa đã in",
+		images: Array.from({ length: 13 }).map(
+			(_, index) => `/services/ca-nhan-hoa/skin-bat-lua-customize/${index + 1}.avif`
+		),
 		filters: ["Tất cả", "Cricket", "Mini", "Doanh nghiệp"],
 	},
 };

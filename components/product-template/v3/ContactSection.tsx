@@ -67,7 +67,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
 									borderRadius: "8px",
 									px: 4,
 									py: 2,
-									"&:hover": { bgcolor: colors.yellowHi, transform: "translateY(-3px)", boxShadow: "0 16px 40px rgba(255, 226, 52, 0.3)" },
+									"&:hover": {
+										bgcolor: colors.yellowHi,
+										transform: "translateY(-3px)",
+										boxShadow: "0 16px 40px rgba(255, 226, 52, 0.3)",
+									},
 									transition: "all 0.3s",
 								}}
 							>
@@ -129,10 +133,26 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
 									{person.initial}
 								</Avatar>
 								<Box>
-									<Typography sx={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.55)", mb: 0.1 }}>
+									<Typography
+										sx={{
+											fontSize: "0.62rem",
+											fontWeight: 700,
+											letterSpacing: "0.1em",
+											textTransform: "uppercase",
+											color: "rgba(255, 255, 255, 0.55)",
+											mb: 0.1,
+										}}
+									>
 										{person.role}
 									</Typography>
-									<Typography sx={{ fontFamily: typography.syne, fontSize: "0.9rem", fontWeight: 700, color: "white" }}>
+									<Typography
+										sx={{
+											fontFamily: typography.syne,
+											fontSize: "0.9rem",
+											fontWeight: 700,
+											color: "white",
+										}}
+									>
 										{person.name}
 									</Typography>
 									<Typography sx={{ fontSize: "0.85rem", color: "rgba(255, 255, 255, 0.8)" }}>
@@ -182,10 +202,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
 							>
 								Địa chỉ xưởng in
 							</Typography>
-							<Typography sx={{ fontSize: "0.85rem", color: "rgba(255, 255, 255, 0.85)", lineHeight: 1.6 }}>
+							<Typography
+								sx={{ fontSize: "0.85rem", color: "rgba(255, 255, 255, 0.85)", lineHeight: 1.6 }}
+							>
 								{data.address || (
 									<>
-										45/15 Ông Ích Khiêm, P. 12<br />Q. Thanh Khê, Đà Nẵng
+										45/15 Ông Ích Khiêm, P. 12
+										<br />
+										Q. Thanh Khê, Đà Nẵng
 									</>
 								)}
 							</Typography>

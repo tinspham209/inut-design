@@ -117,7 +117,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 								boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
 							}}
 						>
-							<Image src={image} alt={title} layout="fill" objectFit="cover" unoptimized />
+							<Image
+								src={image}
+								alt={title}
+								layout="fill"
+								objectFit="cover"
+								unoptimized
+								priority={true}
+							/>
 						</Box>
 					</Grid>
 				</Grid>

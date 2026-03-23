@@ -5,7 +5,7 @@ import { MainLayout } from "@/components/layout";
 import React from "react";
 
 const StickerKisscutPage: NextPageWithLayout = () => {
-	return <ProductPageTemplate data={STICKER_KISSCUT_DATA} />;
+	return <ProductPageTemplate data={STICKER_KISSCUT_DATA} version="v3" />;
 };
 
 StickerKisscutPage.Layout = MainLayout;

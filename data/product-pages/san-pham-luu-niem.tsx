@@ -17,7 +17,8 @@ import StorefrontIcon from "@mui/icons-material/Storefront";
 import TimerIcon from "@mui/icons-material/Timer";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
-const HERO_IMAGE = "/branding/logo.webp";
+
+const HERO_IMAGE = "/cover-web.webp";
 
 export const THANK_CARD_DATA: ProductPageData = {
 	id: "thank-card-gift-card",
@@ -27,14 +28,14 @@ export const THANK_CARD_DATA: ProductPageData = {
 		title: "In Thank Card, Gift Card Tại Đà Nẵng — Nâng Tầm Thương Hiệu | INUT Design",
 		description:
 			"Dịch vụ in thank card, gift card tại Đà Nẵng: thiết kế đẹp, đa dạng chất liệu, giá cạnh tranh, sản xuất nhanh từ 10 cái tại INUT Design.",
-		url: "https://inutdesign.com/services/an-pham-luu-niem/thank-card-gift-card",
+		url: "/services/an-pham-luu-niem/thank-card-gift-card",
 		thumbnailUrl: HERO_IMAGE,
 	},
 	hero: {
 		title: "Thank Card & Gift Card",
 		description:
 			"Tạo điểm nhấn tinh tế và gắn kết khách hàng với dịch vụ in thank card, gift card chuyên nghiệp: thiết kế chỉn chu và in ấn sắc nét.",
-		image: HERO_IMAGE,
+		image: "/services/an-pham-luu-niem/thank-card-gift-card/2.avif",
 		chips: ["In từ 10 cái", "Thiết kế chỉn chu"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem portfolio",
@@ -97,22 +98,22 @@ export const THANK_CARD_DATA: ProductPageData = {
 			{
 				name: "Thank card",
 				description: "Kẹp đơn hàng online.",
-				image: "/branding/services/sticker.avif",
+				image: "/services/an-pham-luu-niem/thank-card-gift-card/4.avif",
 			},
 			{
 				name: "Gift card",
 				description: "Thẻ quà tặng, voucher.",
-				image: "/branding/services/nhan-chai-san-pham.avif",
+				image: "/services/an-pham-luu-niem/thank-card-gift-card/2.avif",
 			},
 			{
 				name: "Thẻ dịp lễ",
 				description: "Sinh nhật, khai trương.",
-				image: "/branding/services/thiet-ke-in-an.avif",
+				image: "/services/an-pham-luu-niem/thank-card-gift-card/7.avif",
 			},
 			{
 				name: "Thẻ thương hiệu",
 				description: "Dành cho Spa, Café, Studio.",
-				image: "/branding/services/skin-laptop.avif",
+				image: "/services/an-pham-luu-niem/thank-card-gift-card/8.avif",
 			},
 		],
 	},
@@ -207,7 +208,9 @@ export const THANK_CARD_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Mẫu thẻ thực tế",
 		title: "Thư viện dự án",
-		images: Array.from({ length: 8 }).map(() => HERO_IMAGE),
+		images: Array.from({ length: 8 }).map(
+			(_, index) => `/services/an-pham-luu-niem/thank-card-gift-card/${index + 1}.avif`
+		),
 		filters: ["Tất cả", "Thank card", "Gift card", "Voucher"],
 	},
 };
@@ -227,7 +230,7 @@ export const IN_POSTCARD_DATA: ProductPageData = {
 		title: "In Postcard Theo Yêu Cầu",
 		description:
 			"Gói ghém kỷ niệm và thông điệp qua những tấm postcard in ấn tinh tế: từ ảnh du lịch đến quà tặng thương hiệu đầy cảm xúc.",
-		image: HERO_IMAGE,
+		image: `/services/an-pham-luu-niem/in-postcard/1.avif`,
 		chips: ["In sắc nét", "Chất liệu cao cấp"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem portfolio",
@@ -291,17 +294,17 @@ export const IN_POSTCARD_DATA: ProductPageData = {
 			{
 				name: "Giấy mỹ thuật",
 				description: "Sang trọng, có vân đặc biệt.",
-				image: "/branding/services/thiet-ke-in-an.avif",
+				image: "/services/an-pham-luu-niem/in-postcard/giay-mi-thuat.avif",
 			},
 			{
 				name: "Giấy Couche",
 				description: "Bề mặt phẳng mịn, in ảnh nét.",
-				image: "/branding/services/sticker.avif",
+				image: "/services/an-pham-luu-niem/in-postcard/couche.avif",
 			},
 			{
 				name: "Giấy Kraft",
 				description: "Phong cách vintage, mộc mạc.",
-				image: "/branding/services/skin-laptop.avif",
+				image: "/services/an-pham-luu-niem/in-postcard/kraft.avif",
 			},
 		],
 	},
@@ -396,7 +399,9 @@ export const IN_POSTCARD_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Dự án nghệ thuật",
 		title: "Hình ảnh thực tế",
-		images: Array.from({ length: 9 }).map(() => HERO_IMAGE),
+		images: Array.from({ length: 5 }).map(
+			(_, index) => `/services/an-pham-luu-niem/in-postcard/${index + 1}.avif`
+		),
 		filters: ["Tất cả", "Nghệ thuật", "Du lịch", "Quà tặng"],
 	},
 };
@@ -406,186 +411,182 @@ export const MOC_KHOA_MICA_DATA: ProductPageData = {
 	name: "Móc Khóa Mica",
 	category: "Sản phẩm lưu niệm",
 	seo: {
-		title: "Làm Móc Khóa Mica Theo Yêu Cầu Tại Đà Nẵng | INUT Design",
+		title: "Làm Móc Khóa Mica In Hình Theo Yêu Cầu | INUT Design Đà Nẵng",
 		description:
-			"Dịch vụ làm móc khóa mica in hình theo yêu cầu. Chất liệu mica trong suốt, in 2 mặt sắc nét, cắt laser hình dáng linh hoạt. Quà tặng doanh nghiệp, quà tặng cá nhân ý nghĩa.",
+			"Móc khóa mica in 2 mặt sắc nét, cắt laser theo hình dáng bất kỳ. Mica trong suốt, bền đẹp. Giao 3-5 ngày, đặt từ số lượng ít. Quà tặng xinh xắn cho idol, team, brand.",
 		url: "https://inutdesign.com/services/an-pham-luu-niem/moc-khoa-mica",
 		thumbnailUrl: HERO_IMAGE,
 	},
 	hero: {
-		title: "Móc Khóa Mica Custom",
+		title: "Móc Khóa Mica In Hình",
 		description:
-			"Biến ý tưởng thành vật phẩm cầm tay xinh xắn với dịch vụ làm móc khóa mica theo yêu cầu: in hình sắc nét, cắt laser chuẩn xác.",
-		image: HERO_IMAGE,
-		chips: ["In 2 mặt sắc nét", "Cắt laser linh hoạt"],
-		ctaLabel: "Nhận báo giá nhanh",
-		secondaryCtaLabel: "Xem portfolio",
-		ticker: [
-			"Móc Khóa Mica In Hình",
-			"Cắt Laser Die-cut",
-			"Mica Đài Loan Trong Suốt",
-			"In UV Sắc Nét",
-		],
+			"In 2 mặt sắc nét, cắt laser theo ý bạn. Mica trong suốt — bền đẹp từ móc khóa idol đến quà tặng brand.",
+		image: `/services/an-pham-luu-niem/moc-khoa-mica/1.avif`,
+		chips: ["Mica trong suốt", "Cắt laser die-cut"],
+		ctaLabel: "Báo giá ngay",
+		secondaryCtaLabel: "Xem mẫu thực tế",
+		ticker: ["In UV Sắc Nét 2 Mặt", "Cắt Laser Mọi Hình Dáng", "Mica Chống Nước", "Giao 3-5 Ngày"],
 		stats: [
-			{ value: "15.000", unit: "+", label: "Móc khóa đã làm" },
-			{ value: "200", unit: "+", label: "Fandom & Group" },
-			{ value: "100", unit: "%", label: "Mica Đài Loan" },
-			{ value: "3-5", unit: "ngày", label: "Sản xuất tiêu chuẩn" },
+			{ value: "15.000", unit: "+", label: "Móc khóa đã giao" },
+			{ value: "200", unit: "+", label: "Fandom & team" },
+			{ value: "100", unit: "%", label: "Mica" },
+			{ value: "3-5", unit: "ngày", label: "Giao hàng" },
 		],
 	},
 	introduction: {
-		eyebrow: "Quà tặng cầm tay",
-		title: "Xinh xắn and bền bỉ",
+		eyebrow: "In hình theo yêu cầu",
+		title: "Xinh xắn, bền, *cầm tay* mỗi ngày",
 		description:
-			"Móc khóa mica là vật lưu niệm tuyệt vời để mang theo những hình ảnh yêu thích hoặc thông điệp thương hiệu mọi lúc mọi nơi.",
+			"Móc khóa mica — món quà nhỏ xinh mang theo hình ảnh yêu thích hoặc logo brand đi khắp nơi. Bền, đẹp, giá hợp lý.",
 		bullets: [
-			"Móc khóa mica là vật phẩm quà tặng phổ biến, bền bỉ and dễ dàng cá nhân hóa hình ảnh, logo.",
-			"Sử dụng chất liệu mica Đài Loan trong suốt, cứng cáp, không bị ố vàng theo thời gian.",
-			"Công nghệ in kỹ thuật số trực tiếp hoặc ép ảnh giữa 2 lớp mica, đảm bảo hình ảnh không bị phai màu.",
-			"Cắt laser theo mọi hình dáng yêu cầu: tròn, vuông, hình nhân vật, logo thương hiệu.",
-			"Phụ kiện khoen khóa chắc chắn, đa dạng mẫu mã từ inox đến nhựa màu.",
+			"Mica trong suốt cao cấp — cứng cáp, không ố vàng, chống nước hoàn toàn.",
+			"In UV 2 mặt siêu sắc nét — màu sắc bền đẹp, không phai theo thời gian.",
+			"Cắt laser die-cut theo mọi hình dáng — tròn, vuông, hình nhân vật, logo phức tạp đều ok.",
+			"Khoen khóa inox chắc chắn — đa dạng kiểu móc, xích, dây da tùy chọn.",
+			"Đặt từ số lượng ít — phù hợp cả cá nhân lẫn doanh nghiệp, fandom, team.",
 		],
 		highlights: [
 			{
-				title: "Độ bền vượt trội",
+				title: "Bền vượt mọi test",
 				description:
-					"Mica chống nước hoàn toàn, chịu được va đập nhẹ and giữ hình ảnh bền đẹp trong quá trình sử dụng.",
+					"Chống nước 100%, chịu va đập, hình ảnh giữ nguyên độ sắc nét dù dùng hằng ngày.",
 				icon: <WorkspacePremiumIcon fontSize="small" />,
 			},
 			{
-				title: "Hình dáng không giới hạn",
+				title: "Cắt hình gì cũng được",
 				description:
-					"Nhờ công nghệ cắt laser chuẩn xác, chúng tôi có thể tạo ra mọi hình dáng từ đơn giản đến phức tạp.",
+					"Laser cắt chuẩn xác đến từng chi tiết nhỏ — chibi, logo, chữ viết đều mượt mà.",
 				icon: <DesignServicesIcon fontSize="small" />,
 			},
 			{
-				title: "In ấn 2 mặt",
+				title: "In 2 mặt không lo phai",
 				description:
-					"Hình ảnh hiển thị rõ nét từ cả hai phía, tăng hiệu quả thẩm mỹ and nhận diện thương hiệu.",
+					"Công nghệ in UV trực tiếp lên mica — màu đậm, sắc nét, nhìn từ mặt nào cũng đẹp.",
 				icon: <LocalPrintshopIcon fontSize="small" />,
 			},
 			{
-				title: "Quà tặng ý nghĩa",
-				description:
-					"Chi phí thấp nhưng giá trị kỷ niệm cao, phù hợp làm quà tặng cá nhân hoặc quà tặng quảng bá thương hiệu.",
+				title: "Quà tặng vừa xinh vừa ý nghĩa",
+				description: "Giá mềm, giá trị cao — món quà nhỏ mà để lại ấn tượng lớn.",
 				icon: <FavoriteIcon fontSize="small" />,
 			},
 		],
 	},
 	types: {
-		eyebrow: "Quy cách sản xuất",
-		title: "Dòng móc khóa",
-		description: "Chúng tôi cung cấp đa dạng quy cách làm móc khóa mica.",
+		eyebrow: "Kiểu móc khóa",
+		title: "Chọn style phù hợp",
+		description: "3 dạng phổ biến nhất — tùy mục đích sử dụng mà chọn.",
 		items: [
 			{
 				name: "Móc khóa in 2 mặt",
-				description: "Bảo vệ giữa 2 lớp mica.",
-				image: "/branding/services/sticker.avif",
+				description: "Hình ảnh được bảo vệ giữa 2 lớp mica trong suốt.",
+				image: "/services/an-pham-luu-niem/moc-khoa-mica/22.avif",
 			},
 			{
 				name: "Móc khóa cắt hình",
-				description: "Cắt theo viền nhân vật, logo.",
-				image: "/branding/services/nhan-chai-san-pham.avif",
+				description: "Cắt theo viền nhân vật, logo — không có nền thừa.",
+				image: "/services/an-pham-luu-niem/moc-khoa-mica/16.avif",
 			},
 			{
-				name: "Móc khóa quà tặng",
-				description: "Giải pháp quảng bá hiệu quả.",
-				image: "/branding/services/thiet-ke-in-an.avif",
+				name: "Móc khóa quà tặng brand",
+				description: "In logo công ty — tặng kèm đơn hàng, sự kiện.",
+				image: "/services/an-pham-luu-niem/moc-khoa-mica/14.avif",
 			},
 		],
 	},
 	whyInut: {
-		eyebrow: "Ưu điểm nổi bật",
-		title: "Vì sao chọn dịch vụ tại INUT Design?",
-		description: "Móc khóa mica bền đẹp, phụ kiện khoen khóa chắc chắn.",
+		eyebrow: "Vì sao chọn INUT",
+		title: "In đẹp, cắt chuẩn, *giao nhanh*",
+		description: "Mica xịn, in sắc nét, khoen khóa chắc chắn — đơn giản vậy thôi.",
 		productionProcess: {
-			title: "Quy trình chuyên nghiệp",
+			title: "Quy trình rõ ràng",
 			items: [
 				{
-					title: "Thời gian linh hoạt",
-					description: "Sản xuất từ 3-5 ngày.",
+					title: "Giao 3-5 ngày",
+					description: "Kể từ khi file duyệt xong.",
 					icon: <TimerIcon fontSize="small" />,
 				},
 				{
-					title: "Đa dạng số lượng",
-					description: "Đặt làm từ số lượng ít.",
+					title: "Đặt từ số lượng ít",
+					description: "10 cái cũng làm, 1000 cái cũng ok.",
 					icon: <DoneAllIcon fontSize="small" />,
 				},
 				{
-					title: "Tư vấn thiết kế",
-					description: "Hỗ trợ vẽ cutline chuẩn xác.",
+					title: "Hỗ trợ thiết kế free",
+					description: "Vẽ cutline, chỉnh màu, tư vấn kích thước.",
 					icon: <DesignServicesIcon fontSize="small" />,
 				},
 			],
 		},
 		applications: {
-			title: "Ứng dụng đa dạng",
-			description: "Móc khóa là vật phẩm quà tặng phổ biến nhất.",
+			title: "Ai cũng xài được",
+			description: "Từ fan hâm mộ đến doanh nghiệp — móc khóa mica fit mọi mục đích.",
 			items: [
 				{
 					title: "Quà tặng cá nhân",
-					description: "In hình idol, gia đình, bạn bè.",
+					description: "In hình idol, ảnh gia đình, thú cưng.",
 					icon: <FavoriteIcon fontSize="small" />,
 				},
 				{
-					title: "Branding",
-					description: "Quà tặng kèm đơn hàng hiệu quả.",
+					title: "Quà tặng brand",
+					description: "Tặng kèm đơn hàng, quà tri ân khách.",
 					icon: <RocketLaunchIcon fontSize="small" />,
 				},
 				{
-					title: "Lưu niệm",
-					description: "In địa danh, đặc sản du lịch.",
+					title: "Lưu niệm sự kiện",
+					description: "Hội nghị, workshop, du lịch, lễ hội.",
 					icon: <PhotoAlbumIcon fontSize="small" />,
 				},
 				{
-					title: "Đội nhóm",
-					description: "Nhận diện CLB, lớp học, công ty.",
+					title: "Team & fandom",
+					description: "CLB, lớp học, công ty, nhóm bạn.",
 					icon: <BoltIcon fontSize="small" />,
 				},
 			],
 		},
 		commitment: {
-			title: "Cam kết chất lượng",
-			description: "Mica trong suốt cao cấp, in sắc nét, cắt gọn.",
+			title: "Cam kết rõ ràng",
+			description: "Mica trong suốt 100%. In sắc nét. Cắt laser mượt. Giao đúng hẹn.",
 			icon: <VerifiedIcon />,
 		},
 	},
 	testimonials: {
-		eyebrow: "Đánh giá từ khách",
-		title: "Món quà <em>nhỏ xinh</em>",
+		eyebrow: "Khách nói gì",
+		title: "Móc khóa *xinh xắn*, bền bỉ",
 		items: [
 			{
-				name: "Bạn Hoàng Yến",
-				role: "Fanclub Manager",
-				text: "Đặt móc khóa in hình idol cho nhóm, các bạn đều khen mica trong and hình in rất rõ. Đường cắt laser mượt, không bị sắc cạnh.",
+				name: "Hoàng Yến",
+				role: "Fanclub manager",
+				text: "Đặt móc khóa in hình idol cho nhóm, các bạn đều khen mica trong and hình in rất rõ. Đường cắt laser mượt, không bị sắc cạnh. Sẽ đặt thêm lần sau!",
 				initials: "HY",
 				color: "#ffc107",
 			},
 			{
-				name: "Anh Quốc Bảo",
+				name: "Quốc Bảo",
 				role: "Chủ cửa hàng xe máy",
-				text: "Móc khóa tặng khách hàng mua xe in logo rất chuyên nghiệp. Mica dày dặn, dùng lâu không thấy bị trầy xước nhiều.",
+				text: "Làm móc khóa logo tặng khách mua xe. Mica dày dặn, dùng lâu không thấy bị trầy nhiều. Khách nhận được đều thích, giá lại mềm.",
 				initials: "QB",
 				color: "#212121",
 			},
 		],
 		score: "5.0★",
-		countText: "Dựa trên 200+ nhóm khách hàng",
+		countText: "200+ team & fandom đã tin dùng",
 	},
 	contact: {
-		eyebrow: "Liên hệ ngay",
-		description: "Liên hệ ngay để được tư vấn thiết kế and nhận báo giá tốt nhất.",
+		eyebrow: "Inbox ngay",
+		description: "Gửi file thiết kế — báo giá trong 15 phút. Không cần đặt cọc.",
 		type: "moc-khoa-mica",
-		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
+		address: "K574/5 Ông Ích Khiêm, Hải Châu, Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Sales", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Design", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
-		eyebrow: "Dự án đã thực hiện",
-		title: "Mẫu móc khóa thực tế",
-		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
+		eyebrow: "Mẫu thực tế",
+		title: "Móc khóa đã *giao tận tay* khách",
+		images: Array.from({ length: 26 }).map(
+			(_, index) => `/services/an-pham-luu-niem/moc-khoa-mica/${index + 1}.avif`
+		),
 		filters: ["Tất cả", "Cá nhân", "Doanh nghiệp", "Fandom"],
 	},
 };
@@ -595,175 +596,177 @@ export const PIN_CAI_AO_MICA_DATA: ProductPageData = {
 	name: "Pin Cài Áo Mica",
 	category: "Sản phẩm lưu niệm",
 	seo: {
-		title: "Làm Pin Cài Áo Mica Theo Yêu Cầu Tại Đà Nẵng | INUT Design",
+		title: "In Pin Cài Áo Mica Theo Yêu Cầu Tại Đà Nẵng | INUT Design",
 		description:
-			"Dịch vụ làm pin cài áo mica (acrylic badge) in hình theo yêu cầu. In UV sắc nét, cắt laser hình dáng linh hoạt, gắn kim cài an toàn. Phụ kiện thời trang, fan merch độc đáo.",
+			"In pin cài áo mica (acrylic badge) UV sắc nét, cắt laser chuẩn từng đường — giao 3–4 ngày. Phụ kiện fan merch, sự kiện, local brand. Đặt từ 10 cái, báo giá trong 15 phút.",
 		url: "https://inutdesign.com/services/an-pham-luu-niem/pin-cai-ao-mica",
 		thumbnailUrl: HERO_IMAGE,
 	},
 	hero: {
 		title: "Pin Cài Áo Mica",
 		description:
-			"Tạo điểm nhấn cá tính trên trang phục và túi xách với pin cài áo mica in hình theo yêu cầu: màu sắc rực rỡ và cắt laser chuẩn xác.",
-		image: HERO_IMAGE,
-		chips: ["In UV rực rỡ", "Kim cài an toàn"],
-		ctaLabel: "Nhận báo giá nhanh",
+			"Nhỏ gọn. Bắt mắt. Nói lên cá tính — không cần một câu chú thích nào. Pin cài áo mica in UV theo yêu cầu, cắt laser sắc cạnh, gắn kim cài chắc tay.",
+		image: `/services/an-pham-luu-niem/pin-cai-ao-mica/1.avif`,
+		chips: ["In UV bền màu", "Cắt laser chuẩn xác"],
+		ctaLabel: "Báo giá trong 15 phút",
 		secondaryCtaLabel: "Xem portfolio",
-		ticker: ["Acrylic Badge", "Pin Cài Áo Custom", "In UV Rực Rỡ", "Phụ Kiện Thời Trang"],
+		ticker: ["Acrylic Badge", "Fan Merch Chuẩn Chỉnh", "In UV Rực Rỡ", "Đặt Từ 10 Cái"],
 		stats: [
 			{ value: "8.000", unit: "+", label: "Pin đã sản xuất" },
-			{ value: "50", unit: "+", label: "Local Brand hợp tác" },
-			{ value: "100", unit: "%", label: "Chất lượng UV" },
-			{ value: "3-4", unit: "ngày", label: "Sản xuất nhanh" },
+			{ value: "50", unit: "+", label: "Local brand hợp tác" },
+			{ value: "100", unit: "%", label: "QC từng sản phẩm" },
+			{ value: "3–4", unit: "ngày", label: "Giao nhanh tại Đà Nẵng" },
 		],
 	},
 	introduction: {
-		eyebrow: "Phụ kiện cá tính",
-		title: "Nhỏ gọn and độc đáo",
+		eyebrow: "Acrylic Badge",
+		title: "Nhỏ bằng lòng bàn tay — *ấn tượng* không kém gì poster",
 		description:
-			"Pin cài áo mica (Acrylic Badge) là món phụ kiện không thể thiếu để tạo điểm nhấn riêng trên balo, túi xách hay trang phục của bạn.",
+			"Pin cài áo mica là phụ kiện cá nhân hóa đang được chọn bởi fan club, local brand và doanh nghiệp trẻ. In UV trực tiếp lên mica trong — màu ra đúng file, không ố, không bong.",
 		bullets: [
-			"Pin cài áo acrylic nhỏ gọn, bắt mắt, phù hợp cá nhân hóa theo từng ý tưởng.",
-			"Công nghệ in UV giúp màu bền, sắc nét and chống phai trong quá trình sử dụng.",
-			"Có thể sản xuất số lượng nhỏ từ 10 cái, phù hợp cho cá nhân and doanh nghiệp nhỏ.",
-			"Hỗ trợ tư vấn cutline, white ink layer and chuẩn file trước khi in.",
-			"Sản xuất nhanh trong 3-4 ngày làm việc tại Đà Nẵng and giao hàng toàn quốc.",
+			"In UV trực tiếp lên mặt mica — màu sắc trung thực, sắc nét đến từng chi tiết nhỏ.",
+			"Cắt laser theo đúng cutline — tròn, vuông, bo góc hay die-cut tự do đều làm được.",
+			"Kim cài inox chắc tay, không rỉ sét, cố định tốt trên vải dày.",
+			"Đặt từ 10 cái — phù hợp cá nhân lẫn doanh nghiệp nhỏ.",
+			"Hỗ trợ kiểm tra file, white ink layer và chuẩn hóa cutline miễn phí trước khi in.",
 		],
 		highlights: [
 			{
-				title: "Pin acrylic là gì?",
+				title: "Pin mica là gì?",
 				description:
-					"Sản phẩm lưu niệm từ mica trong suốt, in UV trực tiếp cho màu sắc rực and độ bền cao.",
+					"Tấm acrylic trong suốt in UV trực tiếp — cho màu rực, độ bền cao hơn in decal dán thông thường.",
 				icon: <DesignServicesIcon fontSize="small" />,
 			},
 			{
-				title: "Thiết kế linh hoạt",
+				title: "Hình dáng không giới hạn",
 				description:
-					"Hỗ trợ tròn, vuông, bo góc hoặc die cut theo hình bất kỳ đúng cutline thiết kế.",
+					"Cắt laser theo đúng cutline thiết kế — tròn, bo góc, die-cut bất kỳ form nào.",
 				icon: <LocalPrintshopIcon fontSize="small" />,
 			},
 			{
-				title: "Quy trình sản xuất",
+				title: "Quy trình 4 bước",
 				description:
-					"Kiểm tra file, in UV, cắt laser, gắn kim cài and QC từng sản phẩm trước khi giao.",
+					"Kiểm tra file → In UV → Cắt laser → Gắn kim cài & QC — mỗi cái đều qua tay trước khi đóng gói.",
 				icon: <WorkspacePremiumIcon fontSize="small" />,
 			},
 			{
-				title: "Công năng",
+				title: "Dùng để làm gì?",
 				description:
-					"Phù hợp fan merch, quà sự kiện, nhận diện thương hiệu and chiến dịch truyền thông.",
+					"Fan merch, quà tặng sự kiện, phụ kiện thời trang, nhận diện thương hiệu — một sản phẩm, nhiều mục đích.",
 				icon: <BoltIcon fontSize="small" />,
 			},
 		],
 	},
 	types: {
-		eyebrow: "Ứng dụng sản phẩm",
-		title: "Dòng sản phẩm Pin",
-		description: "Phụ kiện nhỏ gọn giúp lan tỏa thông điệp thương hiệu.",
+		eyebrow: "Ứng dụng thực tế",
+		title: "Pin mica — dùng được ở *đâu cũng đẹp*",
+		description: "Từ fan club đến local brand — pin mica chạy tốt trong mọi chiến dịch.",
 		items: [
 			{
-				name: "Fanclub merch",
-				description: "Sản xuất goods theo artwork.",
+				name: "Fan Club & Merch",
+				description: "Goods theo artwork, sản xuất theo set.",
 				image: HERO_IMAGE,
 			},
 			{
-				name: "Doanh nghiệp",
-				description: "Pin nhận diện nhân sự, sự kiện.",
+				name: "Doanh nghiệp & Sự kiện",
+				description: "Pin nhận diện nhân sự, check-in event.",
 				image: HERO_IMAGE,
 			},
 			{
-				name: "Shop thời trang",
-				description: "Phụ kiện tăng giá trị đơn hàng.",
+				name: "Shop Thời Trang",
+				description: "Phụ kiện cài túi, tăng giá trị đơn hàng.",
 				image: HERO_IMAGE,
 			},
 			{
-				name: "Artist",
-				description: "Bán pin theo bộ sưu tập riêng.",
+				name: "Artist & Creator",
+				description: "Bán pin theo bộ sưu tập cá nhân.",
 				image: HERO_IMAGE,
 			},
 		],
 	},
 	whyInut: {
-		eyebrow: "Cam kết từ xưởng",
-		title: "Vì sao chọn dịch vụ tại INUT Design?",
-		description: "Pin cài áo mica in UV bền màu, cắt laser chuẩn xác.",
+		eyebrow: "Cam kết từ xưởng in",
+		title: "Vì sao chọn INUT để in pin mica?",
+		description:
+			"In UV chuẩn màu, cắt laser sắc cạnh, gắn kim chắc — kiểm tra từng cái trước khi giao.",
 		productionProcess: {
-			title: "Quy trình chuyên nghiệp",
+			title: "Sản xuất nhanh — không cần chờ lâu",
 			items: [
 				{
-					title: "Thời gian linh hoạt",
-					description: "Sản xuất từ 3-5 ngày.",
+					title: "Giao trong 3–5 ngày",
+					description: "Tính từ lúc duyệt file in.",
 					icon: <TimerIcon fontSize="small" />,
 				},
 				{
-					title: "Đa dạng số lượng",
-					description: "Đặt làm từ 10 cái.",
+					title: "Đặt từ 10 cái",
+					description: "Không ép số lượng lớn.",
 					icon: <DoneAllIcon fontSize="small" />,
 				},
 				{
-					title: "Tư vấn kỹ thuật",
-					description: "Hỗ trợ file in chuẩn UV.",
+					title: "Hỗ trợ kỹ thuật file",
+					description: "Check cutline, white ink, bleed miễn phí.",
 					icon: <DesignServicesIcon fontSize="small" />,
 				},
 			],
 		},
 		applications: {
-			title: "Ứng dụng đa dạng",
-			description: "Pin cài áo là điểm nhấn cá tính cho trang phục.",
+			title: "Một sản phẩm — nhiều chiến dịch",
+			description: "Pin mica nhỏ nhưng làm được việc lớn trong truyền thông và branding.",
 			items: [
 				{
 					title: "Sự kiện",
-					description: "Vật phẩm check-in độc đáo.",
+					description: "Vật phẩm check-in, tặng kèm ticket.",
 					icon: <EventAvailableIcon fontSize="small" />,
 				},
 				{
 					title: "Fan Merch",
-					description: "Sản phẩm sưu tầm cho fandom.",
+					description: "Goods sưu tầm cho fandom, bán theo set.",
 					icon: <AutoAwesomeIcon fontSize="small" />,
 				},
 				{
 					title: "Thời trang",
-					description: "Điểm nhấn cho balo, túi xách.",
+					description: "Điểm nhấn cá tính trên balo, túi canvas.",
 					icon: <FavoriteIcon fontSize="small" />,
 				},
 				{
 					title: "Branding",
-					description: "Tiếp cận khách hàng trẻ trung.",
+					description: "Tiếp cận khách hàng trẻ theo cách không ai ngờ.",
 					icon: <RocketLaunchIcon fontSize="small" />,
 				},
 			],
 		},
 		commitment: {
 			title: "Cam kết chất lượng",
-			description: "In UV sắc nét, mica bền đẹp, kim cài chắc chắn.",
+			description: "Màu UV đúng file, mica không trầy, kim cài không rơi — hoặc INUT làm lại.",
 			icon: <VerifiedIcon />,
 		},
 	},
 	testimonials: {
-		eyebrow: "Phản hồi đối tác",
-		title: "Nhỏ gọn nhưng <em>ấn tượng</em>",
+		eyebrow: "Khách hàng nói gì",
+		title: "Nhỏ thôi — nhưng *không ai bỏ qua*",
 		items: [
 			{
 				name: "Thùy Linh",
-				role: "Owner Local Brand",
-				text: "Pin cài in UV của shop màu sắc rất tươi. Khách hàng rất thích khi được tặng kèm hoặc mua thêm để cài túi canvas.",
+				role: "Owner · Local Brand thời trang",
+				text: "Màu UV ra rực, cắt cạnh sắc — tặng kèm đơn hàng là khách lập tức đăng story. Đặt đợt hai ngay sau khi nhận hàng đợt một.",
 				initials: "TL",
 				color: "#6200ea",
 			},
 			{
 				name: "Duy Mạnh",
-				role: "Sự kiện Manager",
-				text: "Badge gắn kim cài rất chắc, không bị rơi hay hỏng khi sử dụng trong sự kiện ngoài trời. Rất hài lòng.",
+				role: "Event Manager",
+				text: "Kim cài chắc, cả ngày ngoài trời không rơi một cái. Quan trọng hơn là giao đúng hạn — sự kiện không chờ được.",
 				initials: "DM",
 				color: "#c62828",
 			},
 		],
 		score: "5.0★",
-		countText: "Dựa trên 50+ brand hợp tác",
+		countText: "Dựa trên 50+ brand đã hợp tác",
 	},
 	contact: {
-		eyebrow: "Liên hệ ngay",
-		description: "Liên hệ ngay để được tư vấn mẫu pin cài áo mica and nhận báo giá nhanh nhất.",
+		eyebrow: "Đặt hàng ngay",
+		description:
+			"Inbox mô tả ý tưởng — INUT báo giá trong 15 phút, không cần đặt cọc để nhận tư vấn.",
 		type: "pin-cai-ao-mica",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
@@ -773,8 +776,10 @@ export const PIN_CAI_AO_MICA_DATA: ProductPageData = {
 	},
 	gallery: {
 		eyebrow: "Sản phẩm thực tế",
-		title: "Mẫu pin tiêu biểu",
-		images: Array.from({ length: 10 }).map(() => HERO_IMAGE),
+		title: "Mẫu pin đã sản xuất",
+		images: Array.from({ length: 5 }).map(
+			(_, index) => `/services/an-pham-luu-niem/pin-cai-ao-mica/${index + 1}.avif`
+		),
 		filters: ["Tất cả", "Fan Merch", "Sự kiện", "Brand"],
 	},
 };
@@ -975,14 +980,14 @@ export const IN_ANH_DATA: ProductPageData = {
 		title: "In ảnh kỹ thuật số theo yêu cầu tại Đà Nẵng - INUT Design",
 		description:
 			"Dịch vụ in ảnh kỹ thuật số theo yêu cầu tại Đà Nẵng, INUT Design: in nhanh, màu sắc trung thực, đa dạng kích thước và số lượng linh hoạt cho cá nhân, sự kiện and kinh doanh.",
-		url: "https://inutdesign.com/in-anh",
+		url: "https://inutdesign.com/services/an-pham-luu-niem/in-anh-da-nang",
 		thumbnailUrl: HERO_IMAGE,
 	},
 	hero: {
 		title: "In Ảnh Kỹ Thuật Số",
 		description:
 			"Lưu giữ trọn vẹn từng khoảnh khắc với dịch vụ in ảnh kỹ thuật số chất lượng cao: màu sắc trung thực, độ phân giải sắc nét và thời gian hoàn thiện nhanh chóng.",
-		image: HERO_IMAGE,
+		image: `/services/an-pham-luu-niem/in-anh-da-nang/2.avif`,
 		chips: ["In nhanh lấy ngay", "Màu sắc trung thực"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem portfolio",
@@ -1041,22 +1046,22 @@ export const IN_ANH_DATA: ProductPageData = {
 			{
 				name: "Ảnh kỷ niệm",
 				description: "Lưu giữ khoảnh khắc gia đình.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-luu-niem/in-anh-da-nang/8.avif`,
 			},
 			{
 				name: "Ảnh sự kiện",
 				description: "In nhanh cho workshop, triển lãm.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-luu-niem/in-anh-da-nang/9.avif`,
 			},
 			{
 				name: "Ảnh trưng bày",
 				description: "Phù hợp cửa hàng, studio.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-luu-niem/in-anh-da-nang/10.avif`,
 			},
 			{
 				name: "Ảnh bán lẻ",
 				description: "Bộ ảnh sản phẩm, decor.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-luu-niem/in-anh-da-nang/11.avif`,
 			},
 		],
 		specOptions: [
@@ -1156,7 +1161,18 @@ export const IN_ANH_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Dự án tiêu biểu",
 		title: "Hình ảnh thực tế",
-		images: Array.from({ length: 17 }).map(() => HERO_IMAGE),
+		images: [
+			`/services/an-pham-luu-niem/in-anh-da-nang/2.avif`,
+			`/services/an-pham-luu-niem/in-anh-da-nang/1.avif`,
+			`/services/an-pham-luu-niem/in-anh-da-nang/3.avif`,
+			`/services/an-pham-luu-niem/in-anh-da-nang/4.avif`,
+			`/services/an-pham-luu-niem/in-anh-da-nang/5.avif`,
+			`/services/an-pham-luu-niem/in-anh-da-nang/6.avif`,
+			`/services/an-pham-luu-niem/in-anh-da-nang/7.avif`,
+			`/services/an-pham-luu-niem/in-anh-da-nang/8.avif`,
+			`/services/an-pham-luu-niem/in-anh-da-nang/9.avif`,
+			`/services/an-pham-luu-niem/in-anh-da-nang/11.avif`,
+		],
 		filters: ["Tất cả", "Ảnh kỷ niệm", "Ảnh sự kiện", "Ảnh trưng bày"],
 	},
 };

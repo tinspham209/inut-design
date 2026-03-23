@@ -1,109 +1,106 @@
 import { ProductPageData } from "@/models/product-page";
 import BoltIcon from "@mui/icons-material/Bolt";
+import CampaignIcon from "@mui/icons-material/Campaign";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import StorefrontIcon from "@mui/icons-material/Storefront";
-import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import TimerIcon from "@mui/icons-material/Timer";
-import DoneAllIcon from "@mui/icons-material/DoneAll";
-import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
-import GroupsIcon from "@mui/icons-material/Groups";
-import CampaignIcon from "@mui/icons-material/Campaign";
 import VerifiedIcon from "@mui/icons-material/Verified";
-import React from "react";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 
-const HERO_IMAGE = "/branding/logo.webp";
+const HERO_IMAGE = "/cover-web.webp";
 
 export const STICKER_DIECUT_DATA: ProductPageData = {
 	id: "sticker-diecut",
 	name: "Sticker Diecut",
 	category: "Sticker",
 	seo: {
-		title: "Sticker Diecut theo yêu cầu - INUT Design",
+		title: "In Sticker Diecut theo yêu cầu tại Đà Nẵng - Cắt Rời Sắc Nét, Chống Nước | INUT Design",
 		description:
-			"In Sticker Diecut theo yêu cầu tại INUT Design: cắt rời theo thiết kế, chống nước bền màu, từ 10 sản phẩm, sản xuất 3-4 ngày. Liên hệ ngay để nhận báo giá nhanh.",
+			"Sticker Diecut cắt rời theo thiết kế — chống nước bền màu, đặt từ 10 cái, giao trong 24h. In UV sắc nét, hỗ trợ vẽ cutline miễn phí. Báo giá nhanh tại INUT Design Đà Nẵng.",
 		url: "https://inutdesign.com/services/sticker/sticker-diecut",
 		thumbnailUrl: HERO_IMAGE,
 	},
 	hero: {
 		title: "Sticker Diecut",
 		description:
-			"Tạo dấu ấn riêng biệt với sticker cắt rời hoàn toàn theo đường viền thiết kế: nổi bật, dễ sử dụng and bền bỉ với khả năng chống nước vượt trội.",
-		image: HERO_IMAGE,
-		chips: ["Cắt rời hoàn toàn", "Chống nước", "Dễ bóc dán"],
+			"Mỗi miếng dán là một tuyên ngôn. Sticker Diecut cắt rời hoàn toàn theo đường viền thiết kế — sắc nét từng chi tiết, chống nước tuyệt đối, bóc ra là dán được ngay.",
+		image: `/services/sticker/sticker-diecut/1.avif`,
+		chips: ["Cắt rời hoàn toàn", "Chống nước 100%", "In UV sắc nét"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem portfolio",
-		ticker: ["Sticker Diecut Cắt Rời", "Chống Nước Tuyệt Đối", "In UV Sắc Nét", "Cắt Theo Yêu Cầu"],
+		ticker: ["Cắt Rời Theo Thiết Kế", "Chống Nước Tuyệt Đối", "In UV Sắc Nét", "Đặt Từ 10 Cái"],
 		stats: [
-			{ value: "100.000", unit: "+", label: "Sticker đã in" },
+			{ value: "100.000", unit: "+", label: "Sticker đã xuất xưởng" },
 			{ value: "500", unit: "+", label: "Shop tin dùng" },
 			{ value: "100", unit: "%", label: "Chống nước" },
-			{ value: "24", unit: "h", label: "Sản xuất nhanh" },
+			{ value: "24", unit: "h", label: "Sản xuất nhanh nhất" },
 		],
 	},
 	introduction: {
 		eyebrow: "Sticker cắt rời",
-		title: "Độc đáo and Nổi bật",
+		title: "Nhỏ mà chất — Dán đâu cũng đẹp",
 		description:
-			"Sticker Diecut là dòng sản phẩm cao cấp được cắt rời hoàn toàn theo hình dáng thiết kế, giúp mỗi miếng dán trở thành một tác phẩm nghệ thuật độc lập.",
+			"Sticker Diecut không chỉ là miếng dán — đó là cách thương hiệu và cá tính của bạn xuất hiện trên mọi thứ bạn chạm vào.",
 		bullets: [
-			"Sticker Diecut là lựa chọn lý tưởng khi bạn cần hình dán cắt rời nổi bật, độc đáo and dễ sử dụng.",
-			"Chống nước, bền màu and phù hợp với nhiều điều kiện thời tiết khi dùng cho quảng bá hoặc trang trí.",
-			"Có thể cắt theo bất kỳ hình dạng nào: logo, icon, nhân vật hoặc thiết kế minh họa riêng.",
-			"Hỗ trợ tốt cho chiến dịch thương hiệu, quà tặng sự kiện and các sản phẩm cá nhân hóa.",
-			"Đặt hàng nhanh: gửi thiết kế, số lượng and kích thước để INUT tư vấn and triển khai ngay.",
+			"Cắt rời hoàn toàn theo đường viền thiết kế — logo, nhân vật, icon hay artwork phức tạp đều xử lý được.",
+			"In UV kết hợp cán màng bảo vệ: màu sắc rực rỡ, chống nước, chống trầy và không bị phai dưới nắng.",
+			"Cutline chính xác đến từng milimet nhờ máy cắt kỹ thuật số — không răng cưa, không lệch đường viền.",
+			"Đặt hàng linh hoạt từ 10 cái — phù hợp cả shop nhỏ lẫn chiến dịch thương hiệu lớn.",
+			"Hỗ trợ vẽ cutline miễn phí và tư vấn chất liệu phù hợp nhất với mục đích sử dụng của bạn.",
 		],
 		highlights: [
 			{
-				title: "Sticker Diecut là gì?",
+				title: "Cắt rời theo thiết kế",
 				description:
-					"Là sticker được cắt rời hoàn toàn theo đường viền thiết kế, giúp thành phẩm nổi bật and dễ bóc dán ngay.",
+					"Đường cắt bám sát 100% theo hình dạng artwork — từ hình đơn giản đến nhân vật chi tiết.",
 				icon: <DesignServicesIcon fontSize="small" />,
 			},
 			{
-				title: "Thiết kế cutline chuẩn",
+				title: "In UV + cán màng",
 				description:
-					"Tạo đường cắt chính xác theo từng chi tiết, đảm bảo hình dáng sắc nét từ logo đến các artwork phức tạp.",
+					"Lớp mực UV bão hòa màu kết hợp màng bảo vệ mờ hoặc bóng — bền bỉ dù dán ngoài trời.",
 				icon: <LocalPrintshopIcon fontSize="small" />,
 			},
 			{
-				title: "Quy trình sản xuất",
+				title: "Cắt kỹ thuật số",
 				description:
-					"In and cán màng trước khi cắt kỹ thuật số, tạo thành sticker cắt rời hoàn chỉnh and sẵn sàng sử dụng.",
+					"Máy cắt CNC chính xác đến 0.1mm — thành phẩm gọn sắc, bóc ra là dán được ngay.",
 				icon: <WorkspacePremiumIcon fontSize="small" />,
 			},
 			{
-				title: "Công năng nổi bật",
+				title: "Đặt ít, nhận nhiều",
 				description:
-					"Giúp thương hiệu dễ gây ấn tượng qua quà tặng quảng cáo, đồng thời đáp ứng tốt nhu cầu trang trí cá nhân.",
+					"Tối thiểu 10 cái, không cần đặt số lượng lớn — lý tưởng để test mẫu trước khi tăng đơn.",
 				icon: <BoltIcon fontSize="small" />,
 			},
 		],
 	},
 	types: {
-		eyebrow: "Ứng dụng phổ biến",
+		eyebrow: "Chủng loại phổ biến",
 		title: "Dòng sticker Diecut",
-		description: "Đa dạng các ứng dụng cho cá nhân and doanh nghiệp.",
+		description: "Đa dạng chất liệu và hoàn thiện, phù hợp mọi mục đích sử dụng.",
 		items: [
 			{
-				name: "Sự kiện",
-				description: "Nhận diện thương hiệu tại booth.",
+				name: "Decal sữa",
+				description: "Màu đục mịn, in sắc nét, dán phẳng đẹp.",
 				image: HERO_IMAGE,
 			},
 			{
-				name: "Quà tặng",
-				description: "Món quà đơn giản, hiệu quả.",
+				name: "Decal trong",
+				description: "Nền trong suốt, lý tưởng dán kính và chai lọ.",
 				image: HERO_IMAGE,
 			},
 			{
-				name: "Bán lẻ",
-				description: "Mở rộng danh mục sản phẩm.",
+				name: "Holographic",
+				description: "Hiệu ứng cầu vồng bắt sáng, nổi bật độc đáo.",
 				image: HERO_IMAGE,
 			},
 			{
-				name: "Cá nhân",
-				description: "Trang trí laptop, điện thoại.",
+				name: "Kraft / Giấy",
+				description: "Tone vintage tự nhiên, phù hợp thương hiệu handmade.",
 				image: HERO_IMAGE,
 			},
 		],
@@ -111,74 +108,75 @@ export const STICKER_DIECUT_DATA: ProductPageData = {
 	whyInut: {
 		eyebrow: "Chất lượng từ xưởng",
 		title: "Vì sao chọn dịch vụ tại INUT Design?",
-		description: "Sticker bền bỉ, màu sắc rực rỡ, cắt chuẩn kỹ thuật số.",
+		description:
+			"Không phải ai cũng in sticker đẹp — nhưng INUT làm điều đó mỗi ngày, với từng đơn hàng 10 cái hay 10.000 cái.",
 		productionProcess: {
 			title: "Quy trình chuyên nghiệp",
 			items: [
 				{
-					title: "Thời gian linh hoạt",
-					description: "Sản xuất từ 2-4 ngày.",
+					title: "Giao nhanh, đúng hẹn",
+					description: "Sản xuất từ 2–4 ngày, có thể rút ngắn khi cần gấp.",
 					icon: <TimerIcon fontSize="small" />,
 				},
 				{
-					title: "Đa dạng số lượng",
-					description: "Đặt làm từ 10 cái.",
+					title: "Đặt ít vẫn được",
+					description: "Tối thiểu chỉ 10 cái — không ép số lượng lớn.",
 					icon: <DoneAllIcon fontSize="small" />,
 				},
 				{
-					title: "Tư vấn kỹ thuật",
-					description: "Hỗ trợ vẽ cutline miễn phí.",
+					title: "Hỗ trợ cutline miễn phí",
+					description: "INUT vẽ đường cắt chuẩn kỹ thuật cho mọi file thiết kế.",
 					icon: <DesignServicesIcon fontSize="small" />,
 				},
 			],
 		},
 		applications: {
-			title: "Ứng dụng đa dạng",
-			description: "Sticker là công cụ truyền thông sáng tạo.",
+			title: "Dán ở đâu cũng hợp",
+			description: "Từ tay khách hàng đến mặt bàn văn phòng — sticker INUT xuất hiện ở khắp nơi.",
 			items: [
 				{
-					title: "Branding",
-					description: "Quà tặng sự kiện, marketing.",
+					title: "Branding & sự kiện",
+					description: "Quà tặng đi kèm đơn hàng, booth hội chợ, chiến dịch ra mắt.",
 					icon: <CampaignIcon fontSize="small" />,
 				},
 				{
-					title: "Trang trí",
-					description: "Dán laptop, điện thoại, xe.",
+					title: "Trang trí cá nhân",
+					description: "Laptop, điện thoại, bình nước, mũ bảo hiểm.",
 					icon: <StorefrontIcon fontSize="small" />,
 				},
 				{
-					title: "Không gian",
-					description: "Tạo điểm nhấn văn phòng.",
+					title: "Không gian & nội thất",
+					description: "Dán tường, tủ, cửa kính — tạo điểm nhấn mà không cần khoan đục.",
 					icon: <EventAvailableIcon fontSize="small" />,
 				},
 				{
-					title: "Cá nhân hóa",
-					description: "Mang đậm dấu ấn cá nhân.",
+					title: "Packaging & nhãn hàng",
+					description: "Tem dán hộp quà, nhãn sản phẩm handmade, seal phong bì.",
 					icon: <WorkspacePremiumIcon fontSize="small" />,
 				},
 			],
 		},
 		commitment: {
 			title: "Cam kết chất lượng",
-			description: "Chống nước tuyệt đối, bền màu, cắt gọn.",
+			description: "Chống nước tuyệt đối, màu bền lâu, đường cắt gọn sắc — hoặc INUT làm lại.",
 			icon: <VerifiedIcon />,
 		},
 	},
 	testimonials: {
 		eyebrow: "Khách hàng hài lòng",
-		title: "Đánh giá từ <em>người dùng</em>",
+		title: "Họ đã dán — và <em>không hối hận</em>",
 		items: [
 			{
 				name: "Anh Khoa",
-				role: "Tech Reviewer",
-				text: "Sticker in ở đây cực bền, mình dán laptop mang đi khắp nơi, va chạm nhiều nhưng màu vẫn rất tươi and không bị bong tróc.",
+				role: "Tech Reviewer · Đà Nẵng",
+				text: "Dán laptop đi khắp nơi, va đập đủ kiểu mà màu vẫn tươi, không bong tróc. Sticker INUT thuộc hàng bền nhất mình từng dùng.",
 				initials: "AK",
 				color: "#1976d2",
 			},
 			{
 				name: "Chị Mai",
-				role: "Chủ shop handmade",
-				text: "Mấy bé sticker diecut này làm quà tặng kèm khách thích lắm luôn. Đường cắt mượt, bóc ra dán rất dễ dàng.",
+				role: "Chủ shop handmade · Hội An",
+				text: "Mấy bé diecut này tặng kèm đơn hàng, khách thích lắm — đường cắt mượt, bóc dễ, nhìn rất chuyên nghiệp. Tháng nào mình cũng đặt lại.",
 				initials: "CM",
 				color: "#d81b60",
 			},
@@ -187,8 +185,8 @@ export const STICKER_DIECUT_DATA: ProductPageData = {
 		countText: "Dựa trên 500+ shop tin dùng",
 	},
 	contact: {
-		eyebrow: "Liên hệ ngay",
-		description: "Liên hệ ngay để nhận báo giá in Sticker Diecut nhanh nhất.",
+		eyebrow: "Báo giá trong 15 phút",
+		description: "Gửi file thiết kế + số lượng — INUT báo giá ngay, không cần đặt cọc.",
 		type: "sticker-diecut",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
@@ -198,8 +196,10 @@ export const STICKER_DIECUT_DATA: ProductPageData = {
 	},
 	gallery: {
 		eyebrow: "Sản phẩm thực tế",
-		title: "Hình ảnh dự án",
-		images: Array.from({ length: 17 }).map(() => HERO_IMAGE),
+		title: "Rời khỏi xưởng INUT — đi khắp nơi",
+		images: Array.from({ length: 13 }).map(
+			(_, index) => `/services/sticker/sticker-diecut/${index + 1}.avif`
+		),
 		filters: ["Tất cả", "Sự kiện", "Cá nhân", "Brand"],
 	},
 };
@@ -209,175 +209,182 @@ export const STICKER_KISSCUT_DATA: ProductPageData = {
 	name: "Sticker Kisscut",
 	category: "Sticker",
 	seo: {
-		title: "Sticker Kisscut theo yêu cầu - INUT Design",
+		title: "In Sticker Kisscut theo yêu cầu tại Đà Nẵng - Cắt Chuẩn, Bóc Dễ, Bền Màu | INUT Design",
 		description:
-			"In Sticker Kisscut theo yêu cầu tại INUT Design: chỉ cắt lớp decal, giữ nguyên lớp đế, chống nước bền màu, từ 10 sản phẩm. Liên hệ ngay để nhận báo giá nhanh.",
+			"Sticker Kisscut in theo yêu cầu tại Đà Nẵng — chỉ cắt lớp decal, giữ nguyên lớp đế, bóc từng hình lẻ không rách, chống nước bền màu, đặt từ 10 cái. Báo giá nhanh tại INUT Design.",
 		url: "https://inutdesign.com/services/sticker/sticker-kisscut",
 		thumbnailUrl: HERO_IMAGE,
 	},
 	hero: {
 		title: "Sticker Kisscut",
 		description:
-			"Giải pháp hoàn hảo cho các bộ sưu tập sticker: chỉ cắt lớp decal bề mặt and giữ nguyên lớp đế giấy.",
+			"Cắt đúng lớp decal — giữ nguyên lớp đế. Kisscut giúp sticker dễ bóc, dễ bảo quản và trông chuyên nghiệp hơn hẳn — dù là goods artist, dán bao bì hay tặng kèm đơn hàng.",
 		image: HERO_IMAGE,
-		chips: ["Cắt lớp bề mặt", "Dễ bảo quản"],
+		chips: ["Cắt chuẩn từng milimet", "Bóc không rách", "Chống nước bền màu"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem mẫu",
 		ticker: [
-			"Sticker Kisscut Tiện Lợi",
-			"Cắt Lớp Decal Bề Mặt",
-			"Dễ Dàng Bóc Dán",
+			"Kisscut Cắt Chuẩn Kỹ Thuật Số",
+			"Bóc Từng Hình Lẻ",
+			"Lớp Đế Giữ Nguyên",
 			"Chống Nước Bền Màu",
 		],
 		stats: [
-			{ value: "50.000", unit: "+", label: "Tấm sticker kisscut" },
-			{ value: "300", unit: "+", label: "Đối tác Artist" },
+			{ value: "50.000", unit: "+", label: "Tấm Kisscut đã xuất xưởng" },
+			{ value: "300", unit: "+", label: "Artist & Brand tin dùng" },
 			{ value: "100", unit: "%", label: "Độ chính xác cắt" },
-			{ value: "2-3", unit: "ngày", label: "Sản xuất nhanh" },
+			{ value: "2-3", unit: "ngày", label: "Sản xuất nhanh nhất" },
 		],
 	},
 	introduction: {
-		eyebrow: "Sticker tiện lợi",
-		title: "Dễ bóc - Dễ bảo quản",
+		eyebrow: "Kỹ thuật Kisscut",
+		title: "Bóc một hình — Còn lại nguyên vẹn",
 		description:
-			"Sticker Kisscut là lựa chọn thông minh khi bạn muốn giữ nhiều mẫu hình trên một tấm đế duy nhất, giúp việc lưu trữ and sử dụng trở nên cực kỳ thuận tiện.",
+			"Kisscut là kỹ thuật cắt chỉ đứt lớp decal bề mặt, giữ nguyên tờ đế phía dưới — mỗi hình dán độc lập nhau, bóc cái nào ra cái đó, không ảnh hưởng gì đến phần còn lại.",
 		bullets: [
-			"Sticker Kisscut giúp bảo quản các mẫu sticker nhỏ gọn and tinh tế hơn nhờ lớp đế giấy được giữ nguyên.",
-			"Phù hợp cho các bộ sưu tập sticker, quà tặng đính kèm hoặc sản phẩm trang trí có nhiều chi tiết.",
-			"Sử dụng decal chất lượng cao, chống nước and bền màu dưới tác động của môi trường.",
-			"Dễ dàng bóc từng hình dán mà không làm ảnh hưởng đến các hình xung quanh trên cùng một tấm.",
-			"Hỗ trợ in ấn sắc nét and cắt kỹ thuật số chuẩn xác theo mọi đường viền thiết kế.",
+			"Máy cắt kỹ thuật số cắt chính xác đến lớp decal bề mặt — lớp đế giấy giữ nguyên, sticker không bị cong vênh hay biến dạng khi lưu trữ.",
+			"Bóc từng hình lẻ dễ dàng mà không làm rách hay bong các hình xung quanh — đặc biệt tiện lợi cho bộ sưu tập nhiều mẫu.",
+			"In UV sắc nét kết hợp cán màng mờ hoặc bóng — màu chuẩn, chống nước, bền bỉ dù dán trong nhà hay ngoài trời.",
+			"Phù hợp cả thiết kế đơn giản lẫn artwork phức tạp nhiều chi tiết — kisscut xử lý được mọi đường viền.",
+			"Đặt từ 10 cái, hỗ trợ kiểm tra file kisscut miễn phí trước khi sản xuất.",
 		],
 		highlights: [
 			{
-				title: "Sticker Kisscut là gì?",
+				title: "Kisscut là gì?",
 				description:
-					"Là kỹ thuật chỉ cắt đứt lớp decal bề mặt theo hình dạng yêu cầu, lớp đế giấy bên dưới vẫn được giữ nguyên.",
+					"Kỹ thuật cắt chỉ xuyên qua lớp decal bề mặt — lớp đế giấy bên dưới vẫn nguyên, giữ từng hình dán đứng yên đúng chỗ.",
 				icon: <DesignServicesIcon fontSize="small" />,
 			},
 			{
-				title: "Bảo quản tối ưu",
+				title: "Bóc sạch, không rách",
 				description:
-					"Lớp đế giấy giúp sticker không bị cong vênh, dễ dàng sắp xếp and lưu trữ trong thời gian dài.",
+					"Đường kisscut sắc bén giúp tách hình ra khỏi đế dễ dàng — không bị rách góc, không dính ngón tay.",
+				icon: <BoltIcon fontSize="small" />,
+			},
+			{
+				title: "Lưu trữ phẳng đẹp",
+				description:
+					"Lớp đế giữ cho sticker phẳng, không cong vênh — đóng gói vào túi OPP là sẵn sàng bán hoặc tặng ngay.",
 				icon: <WorkspacePremiumIcon fontSize="small" />,
 			},
 			{
-				title: "In ấn đa dạng",
+				title: "In đa chất liệu",
 				description:
-					"Hỗ trợ in trên decal sữa, decal trong hoặc các loại decal đặc biệt khác với độ sắc nét cao.",
+					"Decal sữa, decal trong, holographic — kisscut áp dụng được trên tất cả, sắc nét như nhau.",
 				icon: <LocalPrintshopIcon fontSize="small" />,
-			},
-			{
-				title: "Tiện lợi khi sử dụng",
-				description:
-					"Khách hàng có thể dễ dàng bóc từng sticker ra để dán lên các bề mặt khác nhau một cách nhanh chóng.",
-				icon: <BoltIcon fontSize="small" />,
 			},
 		],
 	},
 	types: {
-		eyebrow: "Dòng sản phẩm",
-		title: "Dòng sticker Kisscut",
-		description: "Tiện lợi cho việc sử dụng nhiều hình ảnh trên một bề mặt.",
+		eyebrow: "Ứng dụng phổ biến",
+		title: "Dòng Sticker Kisscut tại INUT",
+		description: "Từ goods artist đến dán bao bì thương hiệu — kisscut phù hợp với tất cả.",
 		items: [
 			{
-				name: "Bộ sticker trang trí",
-				description: "Nhiều mẫu nhỏ cùng chủ đề.",
+				name: "Goods Artist",
+				description: "Nhân vật, artwork cắt rời — bán kèm album, sách, triển lãm.",
 				image: HERO_IMAGE,
 			},
 			{
-				name: "Logo sản phẩm",
-				description: "Dán bao bì, chai lọ quà tặng.",
+				name: "Logo & Nhãn bao bì",
+				description: "Dán hộp ship, ly, chai lọ — đồng nhất nhận diện thương hiệu.",
 				image: HERO_IMAGE,
 			},
 			{
-				name: "Nhân vật & Artwork",
-				description: "Goods dành cho artist.",
+				name: "Planner & Sổ tay",
+				description: "Bộ icon trang trí lịch, bullet journal theo concept.",
+				image: HERO_IMAGE,
+			},
+			{
+				name: "Quà tặng kèm",
+				description: "Tặng kèm đơn hàng — nhỏ mà tạo ấn tượng lớn với khách.",
 				image: HERO_IMAGE,
 			},
 		],
 	},
 	whyInut: {
-		eyebrow: "Độ chính xác cao",
+		eyebrow: "Cam kết từ INUT",
 		title: "Vì sao chọn dịch vụ tại INUT Design?",
-		description: "Sticker Kisscut in ấn sắc nét, cắt chuẩn xác từng milimet.",
+		description:
+			"Kisscut đòi hỏi máy chuẩn, file chuẩn và người hiểu kỹ thuật. INUT có cả ba — và làm điều đó mỗi ngày.",
 		productionProcess: {
 			title: "Quy trình chuyên nghiệp",
 			items: [
 				{
-					title: "Thời gian linh hoạt",
-					description: "Sản xuất từ 2-4 ngày.",
+					title: "Giao nhanh, đúng hẹn",
+					description: "Sản xuất tiêu chuẩn 2–3 ngày, ưu tiên rút ngắn khi gấp.",
 					icon: <TimerIcon fontSize="small" />,
 				},
 				{
-					title: "Đa dạng số lượng",
-					description: "Hỗ trợ in từ số lượng ít.",
+					title: "Đặt ít vẫn được",
+					description: "Tối thiểu 10 cái — test mẫu trước khi tăng số lượng lớn.",
 					icon: <DoneAllIcon fontSize="small" />,
 				},
 				{
-					title: "Tư vấn kỹ thuật",
-					description: "Kiểm tra file chuẩn kisscut.",
+					title: "Kiểm tra file miễn phí",
+					description: "INUT check đường kisscut trước khi in — tránh lãng phí ngay từ đầu.",
 					icon: <DesignServicesIcon fontSize="small" />,
 				},
 			],
 		},
 		applications: {
-			title: "Ứng dụng đa dạng",
-			description: "Sự lựa chọn hàng đầu cho các bộ sưu tập sticker.",
+			title: "Ai cũng cần Kisscut",
+			description: "Tiện bóc, dễ bảo quản, trông chuyên nghiệp — một lý do là đủ để chọn kisscut.",
 			items: [
 				{
-					title: "Planner & Sổ tay",
-					description: "Làm đẹp lịch, sổ làm việc.",
+					title: "Artist & Illustrator",
+					description: "Goods dễ đóng gói, dễ bán, khách cầm lên là thích ngay.",
 					icon: <DesignServicesIcon fontSize="small" />,
 				},
 				{
-					title: "Dán bao bì",
-					description: "Dán logo shop lên hộp ship.",
+					title: "Shop & Thương hiệu",
+					description: "Dán logo bao bì hoặc tặng kèm đơn — chi phí thấp, hiệu quả cao.",
 					icon: <StorefrontIcon fontSize="small" />,
 				},
 				{
-					title: "Merchandise",
-					description: "Quà tặng xinh xắn cho fan.",
-					icon: <EventAvailableIcon fontSize="small" />,
+					title: "Sự kiện & Triển lãm",
+					description: "Phát sticker cho khách — thương hiệu rời theo họ về nhà.",
+					icon: <CampaignIcon fontSize="small" />,
 				},
 				{
-					title: "Branding",
-					description: "Tiếp cận khách hàng nhẹ nhàng.",
-					icon: <BoltIcon fontSize="small" />,
+					title: "Cá nhân hóa",
+					description: "Planner, sổ tay, đồ dùng cá nhân — dán đâu cũng nổi.",
+					icon: <EventAvailableIcon fontSize="small" />,
 				},
 			],
 		},
 		commitment: {
 			title: "Cam kết chất lượng",
-			description: "In sắc nét, màu sắc rực rỡ, cắt chuẩn.",
+			description: "Kisscut sắc bén, màu chuẩn, bóc không rách — hoặc INUT làm lại.",
 			icon: <VerifiedIcon />,
 		},
 	},
 	testimonials: {
-		eyebrow: "Phản hồi Artist",
-		title: "Chất lượng <em>vượt mong đợi</em>",
+		eyebrow: "Phản hồi Artist & Khách hàng",
+		title: "Bóc ra là <em>mê ngay</em>",
 		items: [
 			{
 				name: "Lê Na",
-				role: "Illustrator",
-				text: "Mấy tấm kisscut in ra màu rất trong and sắc nét. Đường cắt kisscut chuẩn, bóc ra nhẹ nhàng không bị rách hay dính đế.",
+				role: "Illustrator · Đà Nẵng",
+				text: "Đường kisscut chuẩn từng milimet, bóc nhẹ tay là ra ngay — không rách, không dính đế. In màu cũng rất trung thực với file gốc của mình.",
 				initials: "LN",
 				color: "#673ab7",
 			},
 			{
 				name: "Anh Minh",
-				role: "Shop Chủ",
-				text: "Dùng để dán logo lên ly trà sữa rất tiện. Tấm kisscut giúp mình kiểm soát số lượng decal đã dùng dễ dàng hơn.",
+				role: "Chủ shop F&B · Đà Nẵng",
+				text: "Dán logo lên ly trà sữa tiện lắm, bóc từng cái ra dán vào vừa khớp, không bị lệch. Khách hàng hay hỏi in ở đâu đẹp vậy.",
 				initials: "AM",
 				color: "#2e7d32",
 			},
 		],
 		score: "5.0★",
-		countText: "Dựa trên 300+ Artist đối tác",
+		countText: "Dựa trên 300+ Artist & Brand đối tác",
 	},
 	contact: {
-		eyebrow: "Liên hệ ngay",
-		description: "Liên hệ ngay để nhận báo giá in Sticker Kisscut nhanh nhất.",
+		eyebrow: "Báo giá trong 15 phút",
+		description:
+			"Gửi file thiết kế + số lượng — INUT check kisscut và báo giá ngay, không cần đặt cọc.",
 		type: "sticker-kisscut",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
@@ -386,10 +393,10 @@ export const STICKER_KISSCUT_DATA: ProductPageData = {
 		],
 	},
 	gallery: {
-		eyebrow: "Mẫu Sticker Kisscut",
-		title: "Hình ảnh dự án",
+		eyebrow: "Sản phẩm thực tế",
+		title: "Cắt chuẩn — Bóc đẹp — Dán ngay",
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
-		filters: ["Tất cả", "Trang trí", "Logo", "Artist Goods"],
+		filters: ["Tất cả", "Artist Goods", "Logo & Bao bì", "Planner", "Quà tặng"],
 	},
 };
 
@@ -398,170 +405,184 @@ export const STICKER_MAGNET_DATA: ProductPageData = {
 	name: "Sticker Magnet",
 	category: "Sticker",
 	seo: {
-		title: "Sticker Magnet (Nam châm dẻo) theo yêu cầu - INUT Design",
+		title:
+			"In Sticker Magnet Nam Châm Dẻo theo yêu cầu tại Đà Nẵng - Hít Chắc, Không Keo | INUT Design",
 		description:
-			"In Sticker Magnet (nam châm dẻo) theo yêu cầu tại INUT Design: hít lên bề mặt kim loại, chống nước bền màu, linh hoạt hình dáng. Liên hệ ngay để nhận báo giá nhanh.",
+			"Sticker Magnet nam châm dẻo in theo yêu cầu tại Đà Nẵng — hít lên mọi bề mặt kim loại, không keo không vết bẩn, cắt theo hình dáng bất kỳ. Báo giá nhanh tại INUT Design.",
 		url: "https://inutdesign.com/services/sticker/sticker-magnet",
 		thumbnailUrl: HERO_IMAGE,
 	},
 	hero: {
 		title: "Sticker Magnet",
 		description:
-			"Giải pháp trang trí thông minh and linh hoạt: sticker nam châm dẻo hít lên mọi bề mặt kim loại, không để lại keo.",
-		image: HERO_IMAGE,
-		chips: ["Nam châm dẻo", "Không để lại keo"],
+			"Dán không cần keo — gỡ không để lại vết. Sticker Magnet nam châm dẻo hít chắc lên mọi bề mặt kim loại, in sắc nét, thay đổi vị trí bao nhiêu lần tùy thích.",
+		image: `/services/sticker/sticker-magnet/1.avif`,
+		chips: ["Hít không cần keo", "Tháo lắp tự do", "Cắt theo yêu cầu"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem mẫu",
-		ticker: ["Nam Châm Dẻo", "Hít Kim Loại", "Không Để Lại Keo", "Trang Trí Linh Hoạt"],
+		ticker: [
+			"Hít Kim Loại Không Cần Keo",
+			"Cắt Theo Hình Bất Kỳ",
+			"In Sắc Nét Bền Màu",
+			"Tháo Lắp Tự Do",
+		],
 		stats: [
-			{ value: "5.000", unit: "+", label: "Magnet dẻo đã in" },
+			{ value: "5.000", unit: "+", label: "Magnet đã xuất xưởng" },
 			{ value: "100", unit: "+", label: "Doanh nghiệp tin dùng" },
-			{ value: "100", unit: "%", label: "Lực hút ổn định" },
+			{ value: "100", unit: "%", label: "Không để lại vết keo" },
 			{ value: "3-4", unit: "ngày", label: "Sản xuất tiêu chuẩn" },
 		],
 	},
 	introduction: {
-		eyebrow: "Trang trí linh hoạt",
-		title: "Tiện lợi and Sạch sẽ",
+		eyebrow: "Nam châm dẻo in theo yêu cầu",
+		title: "Dán — Gỡ — Dán lại. Không vấn đề gì",
 		description:
-			"Sticker Magnet là sự kết hợp độc đáo giữa decal in sắc nét and lớp nam châm dẻo, giúp bạn dễ dàng trang trí hoặc thông báo trên các bề mặt kim loại mà không lo vết keo.",
+			"Sticker Magnet là lớp decal in sắc nét gắn liền với tấm nam châm dẻo mỏng — hít chắc lên kim loại, không keo, không vết, đổi chỗ bất cứ lúc nào.",
 		bullets: [
-			"Sticker Magnet (nam châm dẻo) là sự kết hợp hoàn hảo giữa decal in sắc nét and lớp nam châm mỏng linh hoạt.",
-			"Dễ dàng hít lên các bề mặt kim loại như tủ lạnh, cửa sắt, máy móc, bảng từ mà không cần keo dán.",
-			"Có thể tháo rời and thay đổi vị trí liên tục mà không làm hỏng bề mặt vật dụng hoặc để lại vết keo.",
-			"Sử dụng decal chống nước, giúp sticker bền bỉ trong môi trường bếp hoặc không gian công nghiệp.",
-			"Hỗ trợ cắt laser theo mọi hình dáng: tròn, vuông, hình nhân vật hoặc logo doanh nghiệp.",
+			"Lớp nam châm dẻo mỏng linh hoạt hít lên mọi bề mặt kim loại — tủ lạnh, cửa sắt, bảng từ, thân máy móc.",
+			"Không dùng keo dán: gỡ ra sạch bong, không để lại vết bẩn hay làm trầy sơn bề mặt.",
+			"In UV kết hợp cán màng bảo vệ — màu sắc rực rỡ, chống nước, bền bỉ kể cả trong môi trường bếp hay xưởng sản xuất.",
+			"Cắt laser theo bất kỳ hình dáng nào: tròn, vuông, logo doanh nghiệp hay nhân vật minh họa phức tạp.",
+			"Tái sử dụng được nhiều lần — lực hút giữ ổn định dù tháo ra dán lại liên tục.",
 		],
 		highlights: [
 			{
-				title: "Nam châm dẻo là gì?",
+				title: "Hít không cần keo",
 				description:
-					"Là loại vật liệu có khả năng hít lên kim loại, mỏng and dẻo dai, dễ dàng uốn cong and cắt theo hình dạng yêu cầu.",
+					"Lực từ tính giữ chặt lên kim loại — không cần keo hai mặt, không lo bong tróc hay vết dính.",
+				icon: <BoltIcon fontSize="small" />,
+			},
+			{
+				title: "Tháo lắp tự do",
+				description:
+					"Thay thông điệp, đổi vị trí, cập nhật thông tin — gỡ ra và dán lại trong vài giây.",
 				icon: <DesignServicesIcon fontSize="small" />,
 			},
 			{
-				title: "Tính linh hoạt cao",
+				title: "In bền, màu chuẩn",
 				description:
-					"Thay đổi vị trí trang trí bất cứ lúc nào bạn muốn. Rất tiện lợi cho các thông báo tạm thời hoặc trang trí thay đổi theo mùa.",
-				icon: <WorkspacePremiumIcon fontSize="small" />,
-			},
-			{
-				title: "Độ bền màu sắc",
-				description:
-					"In ấn trên decal chất lượng cao kết hợp cán màng bảo vệ, giúp màu sắc luôn tươi mới and chống trầy xước.",
+					"Mực UV bám sâu, cán màng chống trầy — màu sắc giữ tươi lâu dù trong bếp hay ngoài nắng.",
 				icon: <LocalPrintshopIcon fontSize="small" />,
 			},
 			{
-				title: "Không gây hại bề mặt",
+				title: "Cắt theo bất kỳ hình nào",
 				description:
-					"Vì sử dụng lực hít từ tính nên hoàn toàn không làm trầy xước sơn hay để lại vết bẩn trên thiết bị.",
-				icon: <BoltIcon fontSize="small" />,
+					"Máy cắt laser xử lý mọi đường viền phức tạp — logo, icon hay nhân vật đều sắc bén như nhau.",
+				icon: <WorkspacePremiumIcon fontSize="small" />,
 			},
 		],
 	},
 	types: {
-		eyebrow: "Ứng dụng Magnet",
-		title: "Dòng Magnet dẻo",
-		description: "Ứng dụng thông minh cho không gian sống and làm việc.",
+		eyebrow: "Ứng dụng phổ biến",
+		title: "Dòng Sticker Magnet tại INUT",
+		description: "Một sản phẩm — ứng dụng trong không gian sống, văn phòng và doanh nghiệp.",
 		items: [
 			{
 				name: "Magnet tủ lạnh",
-				description: "Trang trí bếp, ghi chú tiện lợi.",
+				description: "Trang trí bếp, ghi chú, in ảnh gia đình.",
 				image: HERO_IMAGE,
 			},
 			{
 				name: "Magnet quảng cáo",
-				description: "In logo dán lên thiết bị khách.",
+				description: "In logo dán lên phương tiện hoặc thiết bị.",
 				image: HERO_IMAGE,
 			},
 			{
-				name: "Magnet thông báo",
-				description: "Dán hướng dẫn lên máy móc.",
+				name: "Magnet vận hành",
+				description: "Dán hướng dẫn, quy trình lên máy móc kim loại.",
+				image: HERO_IMAGE,
+			},
+			{
+				name: "Magnet quà tặng",
+				description: "Lưu niệm độc đáo, in theo sự kiện hoặc thương hiệu.",
 				image: HERO_IMAGE,
 			},
 		],
 	},
 	whyInut: {
-		eyebrow: "Ưu điểm Magnet",
+		eyebrow: "Cam kết từ INUT",
 		title: "Vì sao chọn dịch vụ tại INUT Design?",
-		description: "Sticker magnet hít mạnh, in ấn sắc nét, cắt gọn gàng.",
+		description:
+			"Magnet dẻo nghe đơn giản — nhưng làm đẹp, hút chắc và cắt gọn thì không phải ai cũng làm được. INUT thì được.",
 		productionProcess: {
 			title: "Quy trình chuyên nghiệp",
 			items: [
 				{
-					title: "Thời gian linh hoạt",
-					description: "Sản xuất từ 2-4 ngày.",
+					title: "Giao đúng hẹn",
+					description: "Sản xuất tiêu chuẩn 3–4 ngày, ưu tiên rút ngắn khi gấp.",
 					icon: <TimerIcon fontSize="small" />,
 				},
 				{
-					title: "Đa dạng số lượng",
-					description: "Hỗ trợ in từ số lượng ít.",
+					title: "Số lượng linh hoạt",
+					description: "Đặt ít hay nhiều đều được — không ép MOQ lớn.",
 					icon: <DoneAllIcon fontSize="small" />,
 				},
 				{
-					title: "Tư vấn kỹ thuật",
-					description: "Hỗ trợ thiết kế hình dáng.",
+					title: "Tư vấn hình dáng",
+					description: "Hỗ trợ thiết kế đường cắt và tư vấn kích thước phù hợp.",
 					icon: <DesignServicesIcon fontSize="small" />,
 				},
 			],
 		},
 		applications: {
-			title: "Ứng dụng đa dạng",
-			description: "Giải pháp trang trí không để lại vết bẩn.",
+			title: "Dán ở đâu cũng hợp",
+			description: "Từ bếp nhà bạn đến xưởng sản xuất — magnet dẻo INUT ở đâu cũng làm việc tốt.",
 			items: [
 				{
 					title: "Không gian sống",
-					description: "Làm mới tủ lạnh, bảng từ.",
+					description: "Tủ lạnh, bảng từ, cửa sắt — trang trí linh hoạt không lo hỏng đồ.",
 					icon: <DesignServicesIcon fontSize="small" />,
 				},
 				{
-					title: "Marketing",
-					description: "Quà tặng độc đáo cho khách.",
-					icon: <StorefrontIcon fontSize="small" />,
+					title: "Marketing & Branding",
+					description:
+						"Quà tặng khách hàng, dán lên xe hoặc thiết bị — thương hiệu xuất hiện liên tục.",
+					icon: <CampaignIcon fontSize="small" />,
 				},
 				{
-					title: "Quản lý",
-					description: "Đánh dấu trạng thái trên bảng.",
+					title: "Vận hành & Quản lý",
+					description:
+						"Gắn hướng dẫn, trạng thái quy trình lên máy móc — thay được bất cứ lúc nào.",
 					icon: <EventAvailableIcon fontSize="small" />,
 				},
 				{
 					title: "Quà lưu niệm",
-					description: "Món quà nhỏ xinh cho bạn bè.",
-					icon: <BoltIcon fontSize="small" />,
+					description: "Nhỏ gọn, in đẹp, ý nghĩa — quà tặng sự kiện không ai vứt đi.",
+					icon: <StorefrontIcon fontSize="small" />,
 				},
 			],
 		},
 		commitment: {
 			title: "Cam kết chất lượng",
-			description: "Lực hút ổn định, màu sắc bền đẹp.",
+			description: "Lực hút ổn định, màu bền, cắt gọn — không keo, không vết, không phàn nàn.",
 			icon: <VerifiedIcon />,
 		},
 	},
 	testimonials: {
 		eyebrow: "Phản hồi người dùng",
-		title: "Tiện lợi <em>tối đa</em>",
+		title: "Hít một cái — <em>ghiền luôn</em>",
 		items: [
 			{
 				name: "Anh Hải",
-				role: "Quản lý xưởng sản xuất",
-				text: "Dùng magnet dẻo để dán quy trình lên máy móc rất tiện. Khi thay đổi chỉ cần bóc ra dán lại, không sợ bẩn máy.",
+				role: "Quản lý xưởng sản xuất · Đà Nẵng",
+				text: "Dán quy trình vận hành lên máy, khi cần cập nhật chỉ gỡ ra thay tờ mới. Không cần keo, không bẩn máy — tiện hơn mình nghĩ nhiều.",
 				initials: "AH",
 				color: "#ef6c00",
 			},
 			{
 				name: "Chị Thảo",
-				role: "Nội trợ",
-				text: "Mấy cái nam châm dẻo in hình gia đình dán tủ lạnh rất xinh. Hình ảnh rõ nét, hút rất chắc chắn.",
+				role: "Chủ hộ kinh doanh · Hội An",
+				text: "Đặt magnet in logo dán lên tủ mát quầy bán hàng. Khách hay hỏi mua luôn — vừa trang trí vừa quảng cáo, một công đôi việc.",
 				initials: "CT",
 				color: "#00838f",
 			},
 		],
 		score: "5.0★",
-		countText: "Dựa trên 100+ doanh nghiệp",
+		countText: "Dựa trên 100+ doanh nghiệp tin dùng",
 	},
 	contact: {
-		eyebrow: "Liên hệ ngay",
-		description: "Liên hệ ngay để nhận báo giá in Sticker Magnet nhanh nhất.",
+		eyebrow: "Báo giá trong 15 phút",
+		description: "Gửi file + hình dáng mong muốn — INUT báo giá ngay, tư vấn đường cắt miễn phí.",
 		type: "sticker-magnet",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
@@ -570,10 +591,12 @@ export const STICKER_MAGNET_DATA: ProductPageData = {
 		],
 	},
 	gallery: {
-		eyebrow: "Mẫu Magnet dẻo",
-		title: "Hình ảnh thực tế",
-		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
-		filters: ["Tất cả", "Tủ lạnh", "Thông báo", "Quà tặng"],
+		eyebrow: "Sản phẩm thực tế",
+		title: "Hít lên — Đẹp ngay",
+		images: Array.from({ length: 4 }).map(
+			(_, index) => `/services/sticker/sticker-magnet/${index + 1}.avif`
+		),
+		filters: ["Tất cả", "Tủ lạnh", "Doanh nghiệp", "Quà tặng"],
 	},
 };
 
@@ -582,90 +605,90 @@ export const STICKER_SHEET_DATA: ProductPageData = {
 	name: "Sticker Sheet",
 	category: "Sticker",
 	seo: {
-		title: "Sticker Sheet theo yêu cầu - INUT Design",
+		title: "In Sticker Sheet A5 & A6 theo yêu cầu tại Đà Nẵng - Kisscut Sắc Nét | INUT Design",
 		description:
-			"In Sticker Sheet theo yêu cầu tại INUT Design: nhiều mẫu trên cùng một tờ, chống nước bền màu, từ 10 tờ, sản xuất nhanh. Liên hệ ngay để nhận báo giá nhanh.",
+			"Sticker Sheet kisscut khổ A5 và A6 — nhiều hình dán trên một tờ, chống nước bền màu, đặt từ 10 tờ, giao trong 3–4 ngày. Giải pháp merchandise lý tưởng cho artist và thương hiệu tại INUT Design Đà Nẵng.",
 		url: "https://inutdesign.com/services/sticker/sticker-sheet",
 		thumbnailUrl: HERO_IMAGE,
 	},
 	hero: {
 		title: "Sticker Sheet",
 		description:
-			"Sưu tầm trọn vẹn ý tưởng trên cùng một tấm sticker: nhiều hình dán kisscut được sắp xếp khoa học.",
-		image: HERO_IMAGE,
-		chips: ["Nhiều hình một tờ", "Chống nước"],
+			"Cả một bộ sưu tập trên một tờ giấy. Sticker Sheet kisscut khổ A5 và A6 — in sắc nét, bóc từng hình lẻ dễ dàng, đủ chỗ cho mọi ý tưởng bạn muốn kể.",
+		image: `/services/sticker/sticker-sheet/1.avif`,
+		chips: ["Khổ A5 & A6", "Kisscut từng hình", "Chống nước bền màu"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem mẫu",
-		ticker: [
-			"Sticker Sheet Sáng Tạo",
-			"Nhiều Mẫu Một Tờ",
-			"Chống Nước Bền Màu",
-			"Giải Pháp Merchandise",
-		],
+		ticker: ["Khổ A5 & A6", "Kisscut Sắc Bén", "Nhiều Hình Một Tờ", "Giải Pháp Merchandise"],
 		stats: [
-			{ value: "30.000", unit: "+", label: "Tờ sticker đã in" },
-			{ value: "150", unit: "+", label: "Artist & Brand" },
-			{ value: "100", unit: "%", label: "Chất lượng cán màng" },
+			{ value: "30.000", unit: "+", label: "Tờ sticker đã xuất xưởng" },
+			{ value: "150", unit: "+", label: "Artist & Brand tin dùng" },
+			{ value: "100", unit: "%", label: "Chống nước" },
 			{ value: "3-4", unit: "ngày", label: "Sản xuất tiêu chuẩn" },
 		],
 	},
 	introduction: {
 		eyebrow: "Bộ sưu tập Sticker",
-		title: "Thế giới Sticker thu nhỏ",
+		title: "Một tờ — Vô vàn câu chuyện",
 		description:
-			"Sticker Sheet là cách tuyệt vời để bạn sở hữu hàng chục hình dán theo chủ đề trên một tấm decal duy nhất, tối ưu chi phí and tối đa sự sáng tạo.",
+			"Sticker Sheet là cách thông minh nhất để in cùng lúc nhiều hình dán khác nhau — tối ưu chi phí, giữ trọn concept, và trông rất chuyên nghiệp khi cầm trên tay.",
 		bullets: [
-			"Sticker Sheet là giải pháp tuyệt vời để thể hiện một bộ sưu tập hình dán đa dạng trên cùng một tấm decal.",
-			"Sử dụng kỹ thuật cắt kisscut cho từng hình nhỏ, giúp người dùng dễ dàng bóc dán theo nhu cầu.",
-			"Kích thước phổ biến thường là A5 hoặc A4, cho phép sắp xếp hàng chục sticker khác nhau một cách sáng tạo.",
-			"Decal chất lượng cao, kháng nước and bền màu, phù hợp trang trí lâu dài trên nhiều bề mặt.",
-			"Hỗ trợ in ấn sắc nét, thể hiện tốt cả những chi tiết nhỏ and mảnh trong thiết kế.",
+			"Hai khổ phổ biến nhất: A5 (148×210mm) và A6 (105×148mm) — đủ không gian để dàn trải cả một bộ sưu tập sticker theo chủ đề.",
+			"Kỹ thuật cắt kisscut chính xác: cắt đến lớp decal, giữ nguyên tờ nền — bóc từng hình lẻ dễ dàng mà không làm hỏng các hình còn lại.",
+			"In UV sắc nét kết hợp cán màng mờ hoặc bóng — màu rực rỡ, chống nước, chống trầy và bền lâu.",
+			"Hỗ trợ dàn trang (layout) sticker miễn phí — INUT sắp xếp khoa học để tối đa số lượng hình trên một tờ.",
+			"Đặt từ 10 tờ, không ép số lượng lớn — phù hợp cả artist bán lẻ lẫn thương hiệu cần merchandise số lượng nhiều.",
 		],
 		highlights: [
 			{
-				title: "Sticker Sheet là gì?",
+				title: "Khổ A5 & A6",
 				description:
-					"Là một tấm decal lớn chứa nhiều hình sticker nhỏ đã được cắt kisscut, giúp bóc dán từng hình lẻ dễ dàng.",
+					"A5 lý tưởng cho bộ sưu tập đầy đủ, A6 gọn nhẹ dễ tặng kèm — cả hai đều vừa tay, vừa túi.",
 				icon: <DesignServicesIcon fontSize="small" />,
 			},
 			{
-				title: "Tiết kiệm & Hiệu quả",
+				title: "Kỹ thuật Kisscut",
 				description:
-					"In được nhiều mẫu hình khác nhau chỉ trong một lượt in, tối ưu hóa chi phí sản xuất cho các bộ sưu tập.",
-				icon: <WorkspacePremiumIcon fontSize="small" />,
-			},
-			{
-				title: "Sắp xếp theo chủ đề",
-				description:
-					"Dễ dàng tạo ra các bộ sticker theo concept như: du lịch, động vật, icon học tập, nhận diện thương hiệu.",
+					"Cắt đúng lớp decal, giữ nguyên tờ nền — bóc từng hình lẻ không bị rách, không dính tay.",
 				icon: <LocalPrintshopIcon fontSize="small" />,
 			},
 			{
-				title: "Ứng dụng đa năng",
+				title: "In nhiều mẫu, một lần",
 				description:
-					"Rất được ưa chuộng để trang trí sổ tay, laptop, làm quà tặng kèm hoặc merchandise cho artist.",
+					"Dồn toàn bộ bộ sưu tập vào một tờ — tiết kiệm chi phí mà vẫn ra đủ số lượng từng mẫu.",
+				icon: <WorkspacePremiumIcon fontSize="small" />,
+			},
+			{
+				title: "Merchandise sẵn sàng bán",
+				description:
+					"Đóng gói đẹp là bán được ngay — Sticker Sheet là merchandise entry-level hoàn hảo cho mọi artist.",
 				icon: <BoltIcon fontSize="small" />,
 			},
 		],
 	},
 	types: {
-		eyebrow: "Concept phổ biến",
-		title: "Dòng sticker Sheet",
-		description: "Tiết kiệm chi phí in ấn cho các bộ sưu tập hình dán.",
+		eyebrow: "Khổ & Chất liệu",
+		title: "Dòng Sticker Sheet tại INUT",
+		description: "Hai khổ giấy, nhiều lựa chọn chất liệu — linh hoạt cho mọi concept.",
 		items: [
 			{
-				name: "Sheet trang trí sổ",
-				description: "Icon nhỏ cho Planner.",
+				name: "Sheet A5",
+				description: "148×210mm — bộ sưu tập đầy đủ, trình bày sang trọng.",
 				image: HERO_IMAGE,
 			},
 			{
-				name: "Sheet thương hiệu",
-				description: "Logo và icon bổ trợ.",
+				name: "Sheet A6",
+				description: "105×148mm — gọn nhẹ, dễ tặng kèm, chi phí tối ưu.",
 				image: HERO_IMAGE,
 			},
 			{
-				name: "Sheet fan merch",
-				description: "Hình ảnh idol, hoạt hình.",
+				name: "Cán màng mờ",
+				description: "Tone nhẹ tinh tế, chống trầy, cầm tay không bám mờ.",
+				image: HERO_IMAGE,
+			},
+			{
+				name: "Cán màng bóng",
+				description: "Màu sắc rực rỡ, sáng bắt mắt, phù hợp thiết kế pop art.",
 				image: HERO_IMAGE,
 			},
 		],
@@ -673,84 +696,85 @@ export const STICKER_SHEET_DATA: ProductPageData = {
 	whyInut: {
 		eyebrow: "Chuyên nghiệp & Tận tâm",
 		title: "Vì sao chọn dịch vụ tại INUT Design?",
-		description: "Sticker sheet in ấn sắc nét, sắp xếp khoa học, dễ bóc dán.",
+		description:
+			"Từ artist bán merch đến shop online cần quà tặng — INUT hiểu bạn cần gì và làm đúng ngay từ đầu.",
 		productionProcess: {
 			title: "Quy trình chuyên nghiệp",
 			items: [
 				{
-					title: "Thời gian linh hoạt",
-					description: "Sản xuất từ 2-4 ngày.",
+					title: "Giao đúng hẹn",
+					description: "Sản xuất tiêu chuẩn 3–4 ngày, có thể rút ngắn khi gấp.",
 					icon: <TimerIcon fontSize="small" />,
 				},
 				{
-					title: "Đa dạng số lượng",
-					description: "Đặt làm từ 10 tờ.",
+					title: "Đặt ít vẫn được",
+					description: "Tối thiểu 10 tờ — thử nghiệm trước khi tăng đơn lớn.",
 					icon: <DoneAllIcon fontSize="small" />,
 				},
 				{
-					title: "Tư vấn kỹ thuật",
-					description: "Hỗ trợ dàn trang sticker.",
+					title: "Hỗ trợ dàn trang",
+					description: "INUT layout sticker miễn phí, tối ưu số hình trên mỗi tờ.",
 					icon: <DesignServicesIcon fontSize="small" />,
 				},
 			],
 		},
 		applications: {
-			title: "Ứng dụng đa dạng",
-			description: "Giải pháp merchandise hàng đầu cho artist.",
+			title: "Ai cũng cần Sticker Sheet",
+			description: "Nhỏ gọn, dễ bán, dễ tặng — sticker sheet phù hợp với hầu hết mọi người.",
 			items: [
 				{
 					title: "Artist & Creator",
-					description: "In merchandise chi phí hợp lý.",
+					description: "Merchandise dễ làm, dễ bán, chi phí thấp để bắt đầu.",
 					icon: <DesignServicesIcon fontSize="small" />,
 				},
 				{
-					title: "Giáo dục",
-					description: "Sticker khen thưởng học sinh.",
-					icon: <WorkspacePremiumIcon fontSize="small" />,
-				},
-				{
-					title: "Kinh doanh",
-					description: "Quà tặng đính kèm đơn hàng.",
+					title: "Shop & Thương hiệu",
+					description: "Quà tặng kèm đơn hàng — nhỏ mà tạo ấn tượng lớn.",
 					icon: <StorefrontIcon fontSize="small" />,
 				},
 				{
-					title: "Planner",
-					description: "Cá nhân hóa thời gian biểu.",
+					title: "Giáo dục",
+					description: "Sticker khen thưởng học sinh, trẻ em yêu thích.",
+					icon: <WorkspacePremiumIcon fontSize="small" />,
+				},
+				{
+					title: "Planner & Journaling",
+					description: "Trang trí sổ tay, bullet journal theo concept riêng.",
 					icon: <EventAvailableIcon fontSize="small" />,
 				},
 			],
 		},
 		commitment: {
 			title: "Cam kết chất lượng",
-			description: "In sắc nét, decal bền bỉ, cắt chuẩn kisscut.",
+			description: "Kisscut sắc bén, màu in trung thực, tờ nền phẳng đẹp — hoặc INUT làm lại.",
 			icon: <VerifiedIcon />,
 		},
 	},
 	testimonials: {
-		eyebrow: "Ý kiến Artist",
-		title: "Merchandise <em>hợp thời</em>",
+		eyebrow: "Ý kiến Artist & Khách hàng",
+		title: "Một tờ sticker — <em>ngàn lời khen</em>",
 		items: [
 			{
 				name: "Bạn Linh",
-				role: "Bullet Journal Enthusiast",
-				text: "Sticker sheet ở đây dàn trang rất đẹp, màu sắc in rực rỡ. Mình dùng để trang trí sổ tay khách hàng khen quá trời.",
+				role: "Bullet Journal Enthusiast · Đà Nẵng",
+				text: "Sheet A6 của INUT nhỏ gọn mà in sắc đẹp lắm. Mình dùng trang trí sổ, khách đặt hàng cứ hỏi mua sticker thêm hoài.",
 				initials: "BL",
 				color: "#6a1b9a",
 			},
 			{
 				name: "Anh Hoàng",
-				role: "Graphic Designer",
-				text: "In sheet giúp tiết kiệm chi phí cho bộ sưu tập sticker mới của mình. Chất lượng cán màng mờ nhìn rất sang trọng.",
+				role: "Graphic Designer · Hội An",
+				text: "In sheet A5 cho bộ merch mới — layout INUT dàn rất khéo, cán màng mờ nhìn sang. Chi phí hợp lý hơn mình tưởng nhiều.",
 				initials: "AH",
 				color: "#283593",
 			},
 		],
 		score: "5.0★",
-		countText: "Dựa trên 150+ Artist đối tác",
+		countText: "Dựa trên 150+ Artist & Brand đối tác",
 	},
 	contact: {
-		eyebrow: "Liên hệ ngay",
-		description: "Liên hệ ngay để nhận báo giá in Sticker Sheet nhanh nhất.",
+		eyebrow: "Báo giá trong 15 phút",
+		description: "Gửi file + chọn khổ A5 hoặc A6 — INUT báo giá ngay, hỗ trợ dàn trang miễn phí.",
 		type: "sticker-sheet",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
@@ -759,9 +783,11 @@ export const STICKER_SHEET_DATA: ProductPageData = {
 		],
 	},
 	gallery: {
-		eyebrow: "Mẫu Sticker Sheet",
-		title: "Hình ảnh thực tế",
-		images: Array.from({ length: 15 }).map(() => HERO_IMAGE),
-		filters: ["Tất cả", "Planner", "Artist Merch", "Brand"],
+		eyebrow: "Mẫu Sticker Sheet thực tế",
+		title: "Từ xưởng INUT — ra tay bạn",
+		images: Array.from({ length: 15 }).map(
+			(_, index) => `/services/sticker/sticker-sheet/${index + 1}.avif`
+		),
+		filters: ["Tất cả", "Khổ A5", "Khổ A6", "Artist Merch", "Brand"],
 	},
 };

@@ -1,22 +1,20 @@
 import { ProductPageData } from "@/models/product-page";
+import BoltIcon from "@mui/icons-material/Bolt";
+import BusinessIcon from "@mui/icons-material/Business";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
+import EmailIcon from "@mui/icons-material/Email";
 import GroupsIcon from "@mui/icons-material/Groups";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 import SchoolIcon from "@mui/icons-material/School";
 import StorefrontIcon from "@mui/icons-material/Storefront";
-import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
-import BusinessIcon from "@mui/icons-material/Business";
-import EmailIcon from "@mui/icons-material/Email";
-import BoltIcon from "@mui/icons-material/Bolt";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
 import TimerIcon from "@mui/icons-material/Timer";
-import DoneAllIcon from "@mui/icons-material/DoneAll";
-import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import VerifiedIcon from "@mui/icons-material/Verified";
-import React from "react";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 
-const HERO_IMAGE = "/branding/logo.webp";
+const HERO_IMAGE = "/cover-web.webp";
 
 export const GIAY_KHEN_DATA: ProductPageData = {
 	id: "giay-khen-giay-chung-nhan",
@@ -30,7 +28,7 @@ export const GIAY_KHEN_DATA: ProductPageData = {
 		thumbnailUrl: HERO_IMAGE,
 	},
 	hero: {
-		title: "Giấy Khen & Chứng Nhận",
+		title: "Giấy Khen & Giấy Chứng Nhận",
 		description:
 			"Thể hiện sự trân trọng và vinh danh xứng đáng với dịch vụ in giấy khen, giấy chứng nhận chuyên nghiệp: thiết kế trang trọng, chất liệu cao cấp và gia công tinh tế.",
 		image: HERO_IMAGE,

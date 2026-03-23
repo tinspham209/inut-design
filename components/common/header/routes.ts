@@ -78,17 +78,17 @@ export const ROUTE_LIST: RouteItem[] = [
 				children: [
 					{
 						label: "Sticker Sheet",
-						path: "/services/sticker-sheet",
+						path: "/services/sticker/sticker-sheet",
 						meta: { description: "Nhiều sticker nhỏ trên cùng một tấm decal.", icon: "layers" },
 					},
 					{
 						label: "Sticker Magnet",
-						path: "/services/sticker-magnet",
+						path: "/services/sticker/sticker-magnet",
 						meta: { description: "Sticker nam châm dán tủ lạnh, xe hơi.", icon: "magnet" },
 					},
 					{
 						label: "Sticker Diecut",
-						path: "/services/sticker-diecut",
+						path: "/services/sticker/sticker-diecut",
 						meta: {
 							description: "Cắt rời từng hình theo đường viền.",
 							icon: "content_cut",
@@ -97,7 +97,7 @@ export const ROUTE_LIST: RouteItem[] = [
 					},
 					{
 						label: "Sticker Kisscut",
-						path: "/services/sticker-kisscut",
+						path: "/services/sticker/sticker-kisscut",
 						meta: { description: "Cắt màng decal nhưng giữ nguyên lớp đế.", icon: "border_style" },
 					},
 				],
@@ -238,10 +238,18 @@ export const ROUTE_LIST: RouteItem[] = [
 						},
 					},
 					{
-						label: "Poster / Decal",
+						label: "Poster Decal",
 						path: "/services/an-pham-su-kien/poster-decal",
 						meta: {
 							description: "In poster quảng cáo, decal trang trí khổ lớn.",
+							icon: "ad_units",
+						},
+					},
+					{
+						label: "Banner, Standee",
+						path: "/services/an-pham-su-kien/banner-standee",
+						meta: {
+							description: "In banner, standee đa dạng chất liệu.",
 							icon: "ad_units",
 						},
 					},

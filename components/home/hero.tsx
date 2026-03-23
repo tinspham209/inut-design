@@ -262,6 +262,7 @@ export function HeroSection({
 									<Box
 										component="a"
 										onClick={() => setActiveCard(idx)}
+										onMouseEnter={() => setActiveCard(idx)}
 										aria-current={isActive ? "true" : undefined}
 										sx={{
 											display: "flex",

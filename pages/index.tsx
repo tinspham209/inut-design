@@ -29,9 +29,9 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs }: Props)
 		<Box>
 			<Seo
 				data={{
-					title: "INUT Design | Skin laptop da nang",
+					title: "INUT Design — In Skin Laptop, Sticker & Decal Theo Yêu Cầu Tại Đà Nẵng",
 					description:
-						"Thiết kế & In ấn - Skin Laptop - Sticker - Decal - Thiệp - Card - Tem Nhãn, skin laptop da nang, skin laptop đà nẵng",
+						"Xưởng in Đà Nẵng chuyên skin laptop, skin bàn phím MACNUT, bật lửa Cricket custom, sticker & decal, namecard, banner, backdrop. Giao nhanh — báo giá trong 15 phút. Liên hệ: 0327 124 321.",
 					url: "https://inutdesign.com",
 					thumbnailUrl: "/branding/ogImage.jpg",
 				}}
