@@ -26,6 +26,31 @@ export const IN_CARD_VISIT_DATA: ProductPageData = {
 			"Dịch vụ in card visit (danh thiếp) tại Đà Nẵng: thiết kế chuyên nghiệp, in sắc nét, tùy chọn đa dạng chất liệu giấy/nhựa. Gia công mờ, bóng, ép kim sang trọng.",
 		url: "https://inutdesign.com/services/an-pham-tiep-thi/in-card-visit",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Ấn phẩm tiếp thị", item: "/services/an-pham-tiep-thi" },
+			{ name: "In Card Visit", item: "/services/an-pham-tiep-thi/in-card-visit" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Card Visit",
+			serviceType: "In ấn tiếp thị",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "100000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "In card visit chuyên nghiệp",
@@ -223,6 +248,31 @@ export const CATALOGUE_BROCHURE_DATA: ProductPageData = {
 			"Dịch vụ in Catalogue, Brochure chuyên nghiệp tại Đà Nẵng: thiết kế đẹp, gia công chỉn chu, hình ảnh sắc nét. Nâng tầm thương hiệu, hỗ trợ bán hàng hiệu quả.",
 		url: "https://inutdesign.com/services/an-pham-tiep-thi/catalogue-brochure",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Ấn phẩm tiếp thị", item: "/services/an-pham-tiep-thi" },
+			{ name: "In Catalogue, Brochure", item: "/services/an-pham-tiep-thi/catalogue-brochure" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Catalogue, Brochure",
+			serviceType: "In ấn tiếp thị",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "500000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "In Catalogue & Brochure",

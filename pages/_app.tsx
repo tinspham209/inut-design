@@ -30,6 +30,7 @@ import { FacebookChatPlugin, GoogleTagSchema } from "@/components/scripts";
 import useEngagementTracking from "@/hooks/useEngagementTracking";
 import "../styles/globals.css";
 import "../styles/prism.css";
+import Head from "next/head";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -68,6 +69,9 @@ function MyApp({
 
 	return (
 		<>
+			<Head>
+				<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+			</Head>
 			<CacheProvider value={emotionCache}>
 				<ThemeProvider theme={theme}>
 					<CssBaseline />

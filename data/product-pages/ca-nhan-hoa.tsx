@@ -20,6 +20,31 @@ export const SKIN_LAPTOP_DATA: ProductPageData = {
 			"Dịch vụ in Skin Laptop theo yêu cầu. Decal 3M cao cấp, in UV sắc nét, cắt CNC chuẩn xác 99% cho mọi dòng máy như Macbook, Dell, HP, Asus...",
 		url: "https://inutdesign.com/services/ca-nhan-hoa/skin-laptop-customize",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Cá nhân hóa", item: "/services/ca-nhan-hoa" },
+			{ name: "Skin Laptop", item: "/services/ca-nhan-hoa/skin-laptop-customize" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Skin Laptop Custom",
+			serviceType: "Cá nhân hóa laptop",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "150000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Skin Laptop Custom",
@@ -172,6 +197,31 @@ export const SKIN_NUT_PHIM_DATA: ProductPageData = {
 			"Dịch vụ in Skin nút phím cho laptop chuẩn xác mọi dòng máy. Cắt CNC rời từng phím, mỏng mịn, chống phai màu và bảo vệ phím bấm vượt trội.",
 		url: "https://inutdesign.com/services/ca-nhan-hoa/skin-nut-phim-customize",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Cá nhân hóa", item: "/services/ca-nhan-hoa" },
+			{ name: "Skin Nút Phím", item: "/services/ca-nhan-hoa/skin-nut-phim-customize" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Skin Nút Phím Custom",
+			serviceType: "Cá nhân hóa bàn phím",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "60000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Skin Nút Phím Custom",
@@ -325,6 +375,31 @@ export const SKIN_DIEN_THOAI_DATA: ProductPageData = {
 			"Dịch vụ in skin điện thoại customize theo yêu cầu tại Đà Nẵng. Cá nhân hóa thiết bị, bảo vệ bề mặt và tạo dấu ấn riêng với chất lượng in sắc nét, cắt chuẩn form máy.",
 		url: "https://inutdesign.com/services/ca-nhan-hoa/skin-dien-thoai-customize",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Cá nhân hóa", item: "/services/ca-nhan-hoa" },
+			{ name: "Skin Điện Thoại", item: "/services/ca-nhan-hoa/skin-dien-thoai-customize" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Skin Điện Thoại Customize",
+			serviceType: "Cá nhân hóa điện thoại",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "100000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Skin Điện Thoại Customize",
@@ -472,6 +547,31 @@ export const LIGHTERS_CUSTOMIZE_DATA: ProductPageData = {
 			"In bật lửa Cricket custom tại Đà Nẵng — màu sắc nét, lớp phủ matte/chrome/glitter, giao trong 24h. Nhận đơn lẻ lẫn sỉ. Báo giá trong 15 phút.",
 		url: "https://inutdesign.com/services/ca-nhan-hoa/skin-bat-lua-customize/",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Cá nhân hóa", item: "/services/ca-nhan-hoa" },
+			{ name: "Bật lửa custom", item: "/services/ca-nhan-hoa/skin-bat-lua-customize" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Bật lửa custom",
+			serviceType: "Cá nhân hóa bật lửa",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "15000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Bật lửa custom",

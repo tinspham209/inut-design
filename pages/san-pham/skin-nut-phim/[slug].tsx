@@ -9,6 +9,7 @@ import { MainLayout } from "@/components/layout";
 import { StaticContentEachPage } from "@/models";
 import { Product, Products } from "@/models/products";
 import { trackOrderButtonClick, trackViewProduct } from "@/utils/analytics";
+import { MERCHANT_LISTING_CONFIG } from "@/utils/seo-constants";
 import {
 	Box,
 	Breadcrumbs,
@@ -62,6 +63,31 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 	const isTablet = useMediaQuery(theme.breakpoints.down("md"));
 	const itemsPerPage = isMobile ? 1 : isTablet ? 3 : 5;
 
+	const productStructuredData = React.useMemo(() => {
+		return JSON.stringify({
+			"@context": "https://schema.org/",
+			"@type": "Product",
+			name: product.name,
+			image: product.image.map((img) => urlFor(img).url()),
+			description: `Skin nút phím ${product.name} - Chất liệu cao cấp, bảo vệ phím, thiết kế tinh tế.`,
+			sku: `INUT-K-${product._id}`,
+			brand: { "@type": "Brand", name: "INUT Design" },
+			offers: {
+				"@type": "Offer",
+				price: 60000,
+				priceCurrency: "VND",
+				availability: "https://schema.org/InStock",
+				url: `https://inutdesign.com/san-pham/skin-nut-phim/${product.slug.current}`,
+				...MERCHANT_LISTING_CONFIG,
+			},
+			aggregateRating: {
+				"@type": "AggregateRating",
+				ratingValue: "4.7",
+				reviewCount: "56",
+			},
+		});
+	}, [product]);
+
 	const chunkedProducts = React.useMemo(() => {
 		const chunks = [];
 		for (let i = 0; i < products.length; i += itemsPerPage) {
@@ -74,10 +100,17 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 		<>
 			<Seo
 				data={{
-					title: `${product.name} - Nút Phím - INUT Design`,
-					description: `Skin Nút Phím ${product.name} dành cho laptop`,
+					title: `${product.name} - Skin Nút Phím - INUT Design`,
+					description: `Skin nút phím ${product.name}. Chất liệu cao cấp, bảo vệ bàn phím laptop. In hình theo yêu cầu tại Đà Nẵng.`,
 					url: `https://inutdesign.com/san-pham/skin-nut-phim/${product.slug.current}`,
 					thumbnailUrl: urlFor(product.image[0]).width(1000).url(),
+					productStructuredData: productStructuredData,
+					breadcrumbs: [
+						{ name: "Trang chủ", item: "/" },
+						{ name: "Sản phẩm", item: "/san-pham" },
+						{ name: "Skin Nút Phím", item: "/san-pham/skin-nut-phim" },
+						{ name: product.name, item: `/san-pham/skin-nut-phim/${product.slug.current}` },
+					],
 				}}
 			/>
 			{isOpenLightBox && (

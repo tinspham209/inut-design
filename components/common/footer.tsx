@@ -203,6 +203,12 @@ export function Footer() {
 									{emailAddress}
 								</MuiLink>
 							</Typography>
+							<Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.75)" }}>
+								<Box component="span" sx={{ color: COLOR_CODE.PRIMARY, fontWeight: 700, mr: 0.5 }}>
+									Làm việc:
+								</Box>
+								08:00 - 17:30 (T2 - T7)
+							</Typography>
 						</Stack>
 					</Grid>
 

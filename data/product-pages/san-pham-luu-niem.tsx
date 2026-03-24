@@ -30,6 +30,34 @@ export const THANK_CARD_DATA: ProductPageData = {
 			"Dịch vụ in thank card, gift card tại Đà Nẵng: thiết kế đẹp, đa dạng chất liệu, giá cạnh tranh, sản xuất nhanh từ 10 cái tại INUT Design.",
 		url: "/services/an-pham-luu-niem/thank-card-gift-card",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Sản phẩm lưu niệm", item: "/services/an-pham-luu-niem" },
+			{
+				name: "Thank Card & Gift Card",
+				item: "/services/an-pham-luu-niem/thank-card-gift-card",
+			},
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Thank Card & Gift Card",
+			serviceType: "In ấn phẩm lưu niệm",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "10000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Thank Card & Gift Card",
@@ -223,8 +251,36 @@ export const IN_POSTCARD_DATA: ProductPageData = {
 		title: "In Postcard Theo Yêu Cầu Tại Đà Nẵng | INUT Design",
 		description:
 			"Dịch vụ in postcard (bưu thiếp) chất lượng cao tại Đà Nẵng. In ảnh kỷ niệm, postcard nghệ thuật, postcard quảng bá du lịch. Thiết kế đẹp, in sắc nét, đa dạng chất liệu.",
-		url: "https://inutdesign.com/services/an-pham-luu-niem/in-postcard",
+		url: "/services/an-pham-luu-niem/in-postcard",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Sản phẩm lưu niệm", item: "/services/an-pham-luu-niem" },
+			{
+				name: "In Postcard",
+				item: "/services/an-pham-luu-niem/in-postcard",
+			},
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Postcard",
+			serviceType: "In ấn phẩm lưu niệm",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "5000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "In Postcard Theo Yêu Cầu",
@@ -416,6 +472,31 @@ export const MOC_KHOA_MICA_DATA: ProductPageData = {
 			"Móc khóa mica in 2 mặt sắc nét, cắt laser theo hình dáng bất kỳ. Mica trong suốt, bền đẹp. Giao 3-5 ngày, đặt từ số lượng ít. Quà tặng xinh xắn cho idol, team, brand.",
 		url: "https://inutdesign.com/services/an-pham-luu-niem/moc-khoa-mica",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Sản phẩm lưu niệm", item: "/services/an-pham-luu-niem" },
+			{ name: "Móc Khóa Mica", item: "/services/an-pham-luu-niem/moc-khoa-mica" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "Làm Móc Khóa Mica",
+			serviceType: "In ấn phẩm lưu niệm",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "15000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Móc Khóa Mica In Hình",
@@ -601,6 +682,31 @@ export const PIN_CAI_AO_MICA_DATA: ProductPageData = {
 			"In pin cài áo mica (acrylic badge) UV sắc nét, cắt laser chuẩn từng đường — giao 3–4 ngày. Phụ kiện fan merch, sự kiện, local brand. Đặt từ 10 cái, báo giá trong 15 phút.",
 		url: "https://inutdesign.com/services/an-pham-luu-niem/pin-cai-ao-mica",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Sản phẩm lưu niệm", item: "/services/an-pham-luu-niem" },
+			{ name: "Pin Cài Áo Mica", item: "/services/an-pham-luu-niem/pin-cai-ao-mica" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Pin Cài Áo Mica",
+			serviceType: "In ấn phẩm lưu niệm",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "10000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Pin Cài Áo Mica",
@@ -794,6 +900,31 @@ export const ACRYLIC_MAGNET_DATA: ProductPageData = {
 			"Dịch vụ làm nam châm mica (acrylic magnet) in hình theo yêu cầu. In UV sắc nét, cắt laser die cut linh hoạt, nam châm lực hút mạnh. Quà tặng merchandise cao cấp.",
 		url: "https://inutdesign.com/services/an-pham-luu-niem/acrylic-magnet",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Sản phẩm lưu niệm", item: "/services/an-pham-luu-niem" },
+			{ name: "Acrylic Magnet", item: "/services/an-pham-luu-niem/acrylic-magnet" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "Làm Acrylic Magnet",
+			serviceType: "In ấn phẩm lưu niệm",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "20000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Acrylic Magnet",

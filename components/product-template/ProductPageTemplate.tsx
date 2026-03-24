@@ -43,6 +43,10 @@ export const ProductPageTemplate: React.FC<ProductPageTemplateProps> = ({
 				description: data.seo.description,
 				url: data.seo.url,
 				thumbnailUrl: data.seo.thumbnailUrl,
+				productStructuredData: data.seo.productStructuredData,
+				breadcrumbs: data.seo.breadcrumbs,
+				canonical: data.seo.canonical,
+				noindex: data.seo.noindex,
 			}}
 		/>
 	);

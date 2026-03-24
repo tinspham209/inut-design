@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { jsonSearchSchema } from "@/components/scripts";
+import { GlobalSchema } from "@/components/scripts";
 import { createEmotionCache, theme } from "@/utils";
 import createEmotionServer from "@emotion/server/create-instance";
 import Document, { Head, Html, Main, NextScript } from "next/document";
@@ -8,7 +8,7 @@ import Script from "next/script";
 export default class MyDocument extends Document {
 	render() {
 		return (
-			<Html lang="en">
+			<Html lang="vi">
 				<Head>
 					{/* PWA primary color */}
 					<meta name="theme-color" content={theme.palette.primary.main} />
@@ -49,10 +49,7 @@ export default class MyDocument extends Document {
 					</noscript>
 
 					<meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-					{/* <SearchSchema /> */}
-					<Script strategy="afterInteractive" id="schema" type="application/ld+json">
-						{`${jsonSearchSchema}`}
-					</Script>
+					<GlobalSchema />
 
 					{/* Facebook Chat SDK now loaded dynamically via component (see facebook-plugin.tsx) */}
 

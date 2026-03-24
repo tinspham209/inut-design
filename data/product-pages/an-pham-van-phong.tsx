@@ -26,6 +26,34 @@ export const GIAY_KHEN_DATA: ProductPageData = {
 			"In ấn giấy khen, giấy chứng nhận cao cấp tại Đà Nẵng với giấy Couche, Mỹ thuật chuyên nghiệp. Thiết kế chuẩn nhận diện, tùy chọn ép kim sang trọng, nâng tầm uy tín doanh nghiệp.",
 		url: "https://inutdesign.com/services/an-pham-van-phong/giay-khen-giay-chung-nhan",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Ấn phẩm văn phòng", item: "/services/an-pham-van-phong" },
+			{
+				name: "Giấy Khen & Giấy Chứng Nhận",
+				item: "/services/an-pham-van-phong/giay-khen-giay-chung-nhan",
+			},
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Giấy Khen & Giấy Chứng Nhận",
+			serviceType: "In ấn văn phòng",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "20000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Giấy Khen & Giấy Chứng Nhận",
@@ -209,6 +237,31 @@ export const IN_BI_THU_DATA: ProductPageData = {
 			"Dịch vụ in bì thư (bao thư) chất lượng cao cho doanh nghiệp. Đầy đủ các kích thước A4, A5, A6. Thiết kế chuyên nghiệp, in sắc nét, giá cả cạnh tranh.",
 		url: "https://inutdesign.com/services/an-pham-van-phong/in-bi-thu",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Ấn phẩm văn phòng", item: "/services/an-pham-van-phong" },
+			{ name: "In Bì Thư", item: "/services/an-pham-van-phong/in-bi-thu" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Bì Thư",
+			serviceType: "In ấn văn phòng",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "5000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "In Bì Thư Doanh Nghiệp",
@@ -395,6 +448,34 @@ export const SO_TAY_DATA: ProductPageData = {
 			"Dịch vụ in sổ tay, kỷ yếu, sổ bấm ghim tại Đà Nẵng: thiết kế đẹp, gia công chỉn chu, đa dạng chất liệu. Lưu giữ kỷ niệm, nâng tầm thương hiệu.",
 		url: "https://inutdesign.com/services/an-pham-van-phong/so-tay-ky-yeu-so-bam-ghim",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Ấn phẩm văn phòng", item: "/services/an-pham-van-phong" },
+			{
+				name: "Sổ Tay, Kỷ Yếu & Sổ Bấm Ghim",
+				item: "/services/an-pham-van-phong/so-tay-ky-yeu-so-bam-ghim",
+			},
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Sổ Tay, Kỷ Yếu & Sổ Bấm Ghim",
+			serviceType: "In ấn văn phòng",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "50000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Sổ Tay & Kỷ Yếu",
@@ -578,6 +659,34 @@ export const BANG_CUNG_IN_THONG_TIN_DATA: ProductPageData = {
 			"Dịch vụ in bảng cứng in thông tin chuyên nghiệp tại Đà Nẵng: thiết kế đẹp, in sắc nét, chất liệu bền bỉ. Trình bày nội dung rõ ràng, nâng tầm không gian.",
 		url: "https://inutdesign.com/services/an-pham-van-phong/bang-cung-in-thong-tin",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Ấn phẩm văn phòng", item: "/services/an-pham-van-phong" },
+			{
+				name: "Bảng Cứng In Thông Tin",
+				item: "/services/an-pham-van-phong/bang-cung-in-thong-tin",
+			},
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Bảng Cứng In Thông Tin",
+			serviceType: "In ấn văn phòng",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "30000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Bảng Cứng In Thông Tin",

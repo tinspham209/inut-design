@@ -24,6 +24,31 @@ export const HASHTAG_CAM_TAY_DATA: ProductPageData = {
 			"Dịch vụ in hashtag cầm tay chuyên nghiệp tại Đà Nẵng. Thiết kế đẹp, chất liệu formex bền chắc, lấy nhanh. Tăng nhận diện thương hiệu cho sự kiện của bạn!",
 		url: "https://inutdesign.com/services/an-pham-su-kien/hashtag-cam-tay",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Ấn phẩm sự kiện", item: "/services/an-pham-su-kien" },
+			{ name: "Hashtag Cầm Tay", item: "/services/an-pham-su-kien/hashtag-cam-tay" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Hashtag Cầm Tay",
+			serviceType: "In ấn sự kiện",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "50000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Hashtag Cầm Tay",
@@ -224,6 +249,31 @@ export const POSTER_DECAL_DATA: ProductPageData = {
 			"Dịch vụ in poster, decal quảng cáo chất lượng cao tại Đà Nẵng. In kỹ thuật số khổ lớn, màu sắc trung thực, đa dạng chất liệu. Giải pháp quảng bá hiệu quả!",
 		url: "https://inutdesign.com/services/an-pham-su-kien/poster-decal",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Ấn phẩm sự kiện", item: "/services/an-pham-su-kien" },
+			{ name: "Poster & Decal", item: "/services/an-pham-su-kien/poster-decal" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Poster & Decal",
+			serviceType: "In ấn sự kiện",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "30000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Poster & Decal",
@@ -420,6 +470,31 @@ export const BANNER_STANDEE_DATA: ProductPageData = {
 			"Dịch vụ in banner hiflex, standee quảng cáo chất lượng cao tại Đà Nẵng. Màu sắc sống động, khung cơ cấu chắc chắn, giao hàng nhanh. Lý tưởng cho sự kiện, triển lãm, khai trương!",
 		url: "https://inutdesign.com/services/an-pham-su-kien/banner-standee",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Ấn phẩm sự kiện", item: "/services/an-pham-su-kien" },
+			{ name: "Banner & Standee", item: "/services/an-pham-su-kien/banner-standee" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Banner & Standee",
+			serviceType: "In ấn sự kiện",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "150000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Banner & Standee",

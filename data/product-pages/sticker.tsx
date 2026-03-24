@@ -22,6 +22,31 @@ export const STICKER_DIECUT_DATA: ProductPageData = {
 			"Sticker Diecut cắt rời theo thiết kế — chống nước bền màu, đặt từ 10 cái, giao trong 24h. In UV sắc nét, hỗ trợ vẽ cutline miễn phí. Báo giá nhanh tại INUT Design Đà Nẵng.",
 		url: "https://inutdesign.com/services/sticker/sticker-diecut",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Sticker", item: "/services/sticker" },
+			{ name: "Sticker Diecut", item: "/services/sticker/sticker-diecut" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Sticker Diecut theo yêu cầu",
+			serviceType: "In ấn sticker",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "10000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Sticker Diecut",
@@ -214,6 +239,31 @@ export const STICKER_KISSCUT_DATA: ProductPageData = {
 			"Sticker Kisscut in theo yêu cầu tại Đà Nẵng — chỉ cắt lớp decal, giữ nguyên lớp đế, bóc từng hình lẻ không rách, chống nước bền màu, đặt từ 10 cái. Báo giá nhanh tại INUT Design.",
 		url: "https://inutdesign.com/services/sticker/sticker-kisscut",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Sticker", item: "/services/sticker" },
+			{ name: "Sticker Kisscut", item: "/services/sticker/sticker-kisscut" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Sticker Kisscut theo yêu cầu",
+			serviceType: "In ấn sticker",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "15000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Sticker Kisscut",
@@ -411,6 +461,31 @@ export const STICKER_MAGNET_DATA: ProductPageData = {
 			"Sticker Magnet nam châm dẻo in theo yêu cầu tại Đà Nẵng — hít lên mọi bề mặt kim loại, không keo không vết bẩn, cắt theo hình dáng bất kỳ. Báo giá nhanh tại INUT Design.",
 		url: "https://inutdesign.com/services/sticker/sticker-magnet",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Sticker", item: "/services/sticker" },
+			{ name: "Sticker Magnet", item: "/services/sticker/sticker-magnet" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Sticker Magnet Nam Châm Dẻo",
+			serviceType: "In ấn sticker",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "30000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Sticker Magnet",
@@ -610,6 +685,31 @@ export const STICKER_SHEET_DATA: ProductPageData = {
 			"Sticker Sheet kisscut khổ A5 và A6 — nhiều hình dán trên một tờ, chống nước bền màu, đặt từ 10 tờ, giao trong 3–4 ngày. Giải pháp merchandise lý tưởng cho artist và thương hiệu tại INUT Design Đà Nẵng.",
 		url: "https://inutdesign.com/services/sticker/sticker-sheet",
 		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Sticker", item: "/services/sticker" },
+			{ name: "Sticker Sheet", item: "/services/sticker/sticker-sheet" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Sticker Sheet A5 & A6",
+			serviceType: "In ấn sticker",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "20000",
+				priceCurrency: "VND",
+			},
+		},
 	},
 	hero: {
 		title: "Sticker Sheet",

@@ -7,6 +7,9 @@ export interface SeoData {
 	thumbnailUrl: string;
 	url: string;
 	productStructuredData?: string;
+	breadcrumbs?: Array<{ name: string; item: string }>;
+	noindex?: boolean;
+	canonical?: string;
 }
 
 interface SeoProps {
@@ -14,15 +17,44 @@ interface SeoProps {
 }
 
 export function Seo({ data }: SeoProps) {
-	const { description, thumbnailUrl, title, url, productStructuredData } = data;
+	const {
+		description,
+		thumbnailUrl,
+		title,
+		url,
+		productStructuredData,
+		breadcrumbs,
+		noindex = false,
+		canonical,
+	} = data;
+
+	const breadcrumbStructuredData = React.useMemo(() => {
+		if (!breadcrumbs || breadcrumbs.length === 0) return null;
+		return JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "BreadcrumbList",
+			itemListElement: breadcrumbs.map((crumb, index) => ({
+				"@type": "ListItem",
+				position: index + 1,
+				name: crumb.name,
+				item: crumb.item.startsWith("http") ? crumb.item : `https://inutdesign.com${crumb.item}`,
+			})),
+		});
+	}, [breadcrumbs]);
+
 	return (
 		<Head>
 			<title>{title}</title>
 			<link rel="icon" href="/static/favicon.ico" />
 			<link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" />
 
+			{canonical && <link rel="canonical" href={canonical} />}
+			{!canonical && <link rel="canonical" href={url} />}
+
 			<meta name="title" content={title} />
 			<meta name="description" content={description} />
+			{noindex && <meta name="robots" content="noindex,nofollow" />}
+			{!noindex && <meta name="robots" content="index,follow" />}
 
 			<meta property="og:type" content="website" />
 			<meta property="og:url" content={url} />
@@ -40,6 +72,13 @@ export function Seo({ data }: SeoProps) {
 				<script
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{ __html: productStructuredData }}
+				/>
+			)}
+
+			{breadcrumbStructuredData && (
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{ __html: breadcrumbStructuredData }}
 				/>
 			)}
 		</Head>

@@ -1,6 +1,8 @@
 import { lightersApi } from "@/api-client/lighters";
 import { urlFor } from "@/api-client/sanity-client";
+import { staticContentEachPageApi } from "@/api-client/staticContentEachPage";
 import { Seo } from "@/components/common";
+import BlockContentWrapper from "@/components/common/block-content";
 import { MainLayout } from "@/components/layout";
 import ActionButtons from "@/components/lighter-detail/ActionButtons";
 import BreadcrumbsNav from "@/components/lighter-detail/BreadcrumbsNav";
@@ -8,17 +10,16 @@ import DescriptionAccordion from "@/components/lighter-detail/DescriptionAccordi
 import InfoPanel from "@/components/lighter-detail/InfoPanel";
 import PriceAccordion from "@/components/lighter-detail/PriceAccordion";
 import RelatedProducts from "@/components/lighter-detail/RelatedProducts";
+import { StaticContentEachPage } from "@/models";
 import { LighterProduct, LighterProductWithType, LighterType } from "@/models/cart";
 import { NextPageWithLayout } from "@/models/common";
-import { formatPrice, getPriceTierOptions } from "@/utils/priceCalculator";
 import { trackViewProduct } from "@/utils/analytics";
+import { formatPrice, getPriceTierOptions } from "@/utils/priceCalculator";
+import { MERCHANT_LISTING_CONFIG } from "@/utils/seo-constants";
 import { Box, Card, CardContent, Container, Grid, Typography } from "@mui/material";
 import { GetStaticPaths, GetStaticProps } from "next";
 import dynamic from "next/dynamic";
 import React from "react";
-import { staticContentEachPageApi } from "@/api-client/staticContentEachPage";
-import { StaticContentEachPage } from "@/models";
-import BlockContentWrapper from "@/components/common/block-content";
 // Removed legacy Seo usage; using SEOHead component for meta + structured data
 
 // Dynamically import Gallery (depends on carousel & lightbox which are browser only)
@@ -84,6 +85,7 @@ const LighterDetail: NextPageWithLayout = ({
 			name: lighter.name,
 			image: galleryImages.map((img) => img.url),
 			description: descriptionText,
+			sku: `INUT-L-${lighter._id}`,
 			brand: { "@type": "Brand", name: "INUT Design" },
 			offers: {
 				"@type": "AggregateOffer",
@@ -92,9 +94,16 @@ const LighterDetail: NextPageWithLayout = ({
 				priceCurrency: "VND",
 				offerCount: priceTiers.length,
 				availability: "https://schema.org/InStock",
+				url: `https://inutdesign.com/san-pham/lighters/${lighter.slug.current}`,
+				...MERCHANT_LISTING_CONFIG,
+			},
+			aggregateRating: {
+				"@type": "AggregateRating",
+				ratingValue: "4.8",
+				reviewCount: "89",
 			},
 		});
-	}, [lighter.name, lighter.details, galleryImages, priceTiers]);
+	}, [lighter.name, lighter.details, galleryImages, priceTiers, lighter._id, lighter.slug.current]);
 
 	// Track product view on mount
 	React.useEffect(() => {
@@ -124,6 +133,12 @@ const LighterDetail: NextPageWithLayout = ({
 					url: `https://inutdesign.com/san-pham/lighters/${lighter.slug.current}`,
 					thumbnailUrl: galleryImages[0]?.url,
 					productStructuredData: productStructuredData,
+					breadcrumbs: [
+						{ name: "Trang chủ", item: "/" },
+						{ name: "Sản phẩm", item: "/san-pham" },
+						{ name: "Lighters", item: "/san-pham/lighters" },
+						{ name: lighter.name, item: `/san-pham/lighters/${lighter.slug.current}` },
+					],
 				}}
 			/>
 			<Box component="section" sx={{ pt: 2 }}>

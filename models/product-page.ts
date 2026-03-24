@@ -47,11 +47,16 @@ export interface ProductPageData {
 	id: string;
 	name: string;
 	category: string;
+	external?: boolean;
 	seo: {
 		title: string;
 		description: string;
 		url: string;
 		thumbnailUrl: string;
+		productStructuredData?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+		breadcrumbs?: Array<{ name: string; item: string }>;
+		canonical?: string;
+		noindex?: boolean;
 	};
 	hero: {
 		title: string;
