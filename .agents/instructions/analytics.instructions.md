@@ -26,5 +26,6 @@ Ensure dual event tracking (GA4 + UmamiJS) remains accurate, non-duplicated, and
 ## Validation expectations
 
 - Verify no runtime errors when `window`, `gtag`, or `dataLayer` are unavailable.
-- Confirm key conversion events remain intact (`order_button_click`, `contact_click`, `form_submit`, `purchase`).
+- Confirm key conversion events remain intact (`order_button_click`, `contact_click`, `zalo_click`, `form_submit`, `purchase`, `cta_click`).
+- Confirm engagement and content tracking works as expected (`service_click`, `blog_post_click`, `blog_post_view`, `cart_view`).
 - Keep docs synchronized if adding/removing event types.

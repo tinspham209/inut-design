@@ -1,5 +1,6 @@
 import { ROUTE_LIST, RouteItem } from "@/components/common/header/routes";
 import { COLOR_CODE } from "@/utils";
+import { trackEvent } from "@/utils/analytics";
 import {
 	Box,
 	Button,
@@ -23,9 +24,17 @@ const SERVICE_CATEGORIES = [
 ];
 
 function ServiceItemCard({ item }: { item: RouteItem }) {
+	const handleItemClick = () => {
+		trackEvent("service_click", {
+			service_title: item.label,
+			service_path: item.path,
+			section: "Homepage Services",
+		});
+	};
+
 	return (
 		<Link href={item.path} passHref>
-			<MuiLink underline="none">
+			<MuiLink underline="none" onClick={handleItemClick}>
 				<Box
 					sx={{
 						backgroundColor: "#fff",
@@ -89,6 +98,14 @@ function ServiceSubSection({ route, maxItems }: { route: RouteItem; maxItems: nu
 	const items = (route.children || []).slice(0, maxItems);
 	const cols = items.length <= 2 ? 6 : items.length === 3 ? 4 : 3;
 
+	const handleHeaderClick = () => {
+		trackEvent("service_click", {
+			service_title: route.label,
+			service_path: route.path,
+			section: "Homepage Services Section Header",
+		});
+	};
+
 	return (
 		<Box>
 			<Stack direction="row" alignItems="center" justifyContent="space-between" mb={1.5} mt={0.5}>
@@ -97,7 +114,7 @@ function ServiceSubSection({ route, maxItems }: { route: RouteItem; maxItems: nu
 						{route.meta?.icon || "folder"}
 					</Icon>
 					<Link href={route.path} passHref>
-						<MuiLink underline="hover" color="inherit">
+						<MuiLink underline="hover" color="inherit" onClick={handleHeaderClick}>
 							<Typography
 								variant="h6"
 								fontWeight="bold"
@@ -118,7 +135,7 @@ function ServiceSubSection({ route, maxItems }: { route: RouteItem; maxItems: nu
 					)}
 				</Stack>
 				<Link href={route.path} passHref>
-					<MuiLink>
+					<MuiLink onClick={handleHeaderClick}>
 						<Typography
 							variant="caption"
 							color={COLOR_CODE.PRIMARY}

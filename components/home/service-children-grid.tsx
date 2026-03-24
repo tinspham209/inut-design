@@ -1,5 +1,6 @@
 import { RouteItem } from "@/components/common/header/routes";
 import { COLOR_CODE } from "@/utils";
+import { trackEvent } from "@/utils/analytics";
 import {
 	Box,
 	Button,
@@ -32,6 +33,13 @@ export function ServiceChildrenGrid({
 	showSeeMore = true,
 	id,
 }: Props) {
+	const handleItemClick = (item: RouteItem) => {
+		trackEvent("service_click", {
+			service_title: item.label,
+			service_path: item.path,
+			section: title,
+		});
+	};
 	const displayItems = maxItems ? items.slice(0, maxItems) : items;
 	const textColor = darkMode ? COLOR_CODE.WHITE : COLOR_CODE.TEXT_DARK;
 	const cardBg = darkMode ? "rgba(255,255,255,0.06)" : "#fff";
@@ -60,7 +68,7 @@ export function ServiceChildrenGrid({
 					{displayItems.map((item) => (
 						<Grid item xs={6} sm={3} key={item.path}>
 							<Link href={item.path} passHref>
-								<MuiLink underline="none">
+								<MuiLink underline="none" onClick={() => handleItemClick(item)}>
 									<Box
 										sx={{
 											backgroundColor: cardBg,

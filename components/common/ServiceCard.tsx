@@ -1,4 +1,5 @@
 import { COLOR_CODE } from "@/utils";
+import { trackEvent } from "@/utils/analytics";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import NewReleasesIcon from "@mui/icons-material/NewReleases";
@@ -30,6 +31,13 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 }) => {
 	const theme = useTheme();
 
+	const handleCardClick = () => {
+		trackEvent("service_click", {
+			service_title: title,
+			service_path: href,
+		});
+	};
+
 	const renderIcon = () => {
 		if (!icon) return null;
 		if (typeof icon === "string") {
@@ -58,6 +66,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 		<Link href={href} passHref legacyBehavior>
 			<Card
 				component="a"
+				onClick={handleCardClick}
 				tabIndex={0}
 				aria-label={title}
 				sx={{

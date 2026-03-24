@@ -1,7 +1,8 @@
 import { ProductPageData } from "@/models/product-page";
+import { trackEvent } from "@/utils/analytics";
 import { Box, Button, Chip, Container, Grid, Stack, Typography, keyframes } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { colors, typography, FloatingGlow, WatermarkText } from "./shared";
+import { FloatingGlow, WatermarkText, colors, typography } from "./shared";
 
 interface HeroSectionProps {
 	data: ProductPageData["hero"];
@@ -14,6 +15,13 @@ const tickerMove = keyframes`
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 	const [isUnderlined, setIsUnderlined] = useState(false);
+
+	const handleCtaClick = () => {
+		trackEvent("cta_click", {
+			cta_label: data.ctaLabel || "Đặt In Ngay",
+			section: "Hero",
+		});
+	};
 
 	useEffect(() => {
 		const timer = setTimeout(() => setIsUnderlined(true), 400);
@@ -53,9 +61,24 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 			}}
 		>
 			<FloatingGlow top="-20%" right="-15%" />
-			<FloatingGlow bottom="-10%" left="-10%" color="rgba(255, 226, 52, 0.06)" animationDuration="16s" reverse />
+			<FloatingGlow
+				bottom="-10%"
+				left="-10%"
+				color="rgba(255, 226, 52, 0.06)"
+				animationDuration="16s"
+				reverse
+			/>
 
-			<Container maxWidth="lg" sx={{ position: "relative", zIndex: 2, width: "100%", px: { xs: 2, md: 4 }, py: { xs: 10, md: 0 } }}>
+			<Container
+				maxWidth="lg"
+				sx={{
+					position: "relative",
+					zIndex: 2,
+					width: "100%",
+					px: { xs: 2, md: 4 },
+					py: { xs: 10, md: 0 },
+				}}
+			>
 				<Grid container alignItems="center">
 					<Grid item xs={12} md={6}>
 						<Stack spacing={4}>
@@ -95,7 +118,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 								{data.title.split("<br />").map((line, i) => (
 									<React.Fragment key={i}>
 										{line.split(" ").map((word, j) => {
-											const isAccent = word.toLowerCase().includes("inut") || word.toLowerCase().includes("postcard");
+											const isAccent =
+												word.toLowerCase().includes("inut") ||
+												word.toLowerCase().includes("postcard");
 											return (
 												<React.Fragment key={j}>
 													{isAccent ? (
@@ -125,8 +150,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 														>
 															{word}
 														</Box>
-													) : word}
-													{" "}
+													) : (
+														word
+													)}{" "}
 												</React.Fragment>
 											);
 										})}
@@ -151,6 +177,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 								<Button
 									variant="contained"
 									href="#contact"
+									onClick={handleCtaClick}
 									sx={{
 										bgcolor: colors.orange,
 										color: "white",
@@ -190,7 +217,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 									}}
 								>
 									{data.secondaryCtaLabel || "Xem portfolio"}
-									<Box component="span" className="ico" sx={{ ml: 1, transition: "transform 0.3s" }}>
+									<Box
+										component="span"
+										className="ico"
+										sx={{ ml: 1, transition: "transform 0.3s" }}
+									>
 										↗
 									</Box>
 								</Button>
@@ -445,11 +476,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 			</Box>
 
 			{/* Stats Strip */}
-			<Box sx={{ bgcolor: "#111009", borderTop: `1px solid ${colors.ink3}`, borderBottom: `1px solid ${colors.ink3}`, py: 5 }}>
+			<Box
+				sx={{
+					bgcolor: "#111009",
+					borderTop: `1px solid ${colors.ink3}`,
+					borderBottom: `1px solid ${colors.ink3}`,
+					py: 5,
+				}}
+			>
 				<Container maxWidth="lg">
 					<Grid container spacing={4} justifyContent="center">
 						{statsItems.map((stat, idx) => (
-							<Grid item xs={6} md={3} key={idx} sx={{ textAlign: "center", borderRight: { md: idx < 3 ? `1px solid ${colors.ink3}` : "none" } }}>
+							<Grid
+								item
+								xs={6}
+								md={3}
+								key={idx}
+								sx={{
+									textAlign: "center",
+									borderRight: { md: idx < 3 ? `1px solid ${colors.ink3}` : "none" },
+								}}
+							>
 								<Typography
 									sx={{
 										fontFamily: typography.syne,
@@ -465,9 +512,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 									}}
 								>
 									{stat.value}
-									<Box component="span" sx={{ fontSize: "0.55em", color: colors.orange }}>{stat.unit}</Box>
+									<Box component="span" sx={{ fontSize: "0.55em", color: colors.orange }}>
+										{stat.unit}
+									</Box>
 								</Typography>
-								<Typography sx={{ fontSize: "0.75rem", color: colors.dust, mt: 1, fontWeight: 500, letterSpacing: "0.04em" }}>
+								<Typography
+									sx={{
+										fontSize: "0.75rem",
+										color: colors.dust,
+										mt: 1,
+										fontWeight: 500,
+										letterSpacing: "0.04em",
+									}}
+								>
 									{stat.label}
 								</Typography>
 							</Grid>

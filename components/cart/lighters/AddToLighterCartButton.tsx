@@ -1,11 +1,12 @@
 import { LighterProductWithType, LighterType } from "@/models/cart";
+import { useLightersCart } from "@/store";
+import { trackAddToCart } from "@/utils/analytics";
+import { calculateUnitPrice } from "@/utils/priceCalculator";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Button, CircularProgress } from "@mui/material";
 import { useState } from "react";
-import { useLightersCart } from "@/store";
 import toast from "react-hot-toast";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { calculateUnitPrice } from "@/utils/priceCalculator";
 
 export interface AddToLighterCartButtonProps {
 	lighter: LighterProductWithType;
@@ -49,6 +50,16 @@ export function AddToLighterCartButton({
 				priceTiers: priceTiers,
 				quantity: quantity,
 				unitPrice: unitPrice,
+			});
+
+			// Track analytics
+			trackAddToCart({
+				id: lighter._id,
+				name: lighter.name,
+				category: "Lighters",
+				variant: lighterType.name,
+				price: unitPrice,
+				quantity: quantity,
 			});
 
 			// Show success state

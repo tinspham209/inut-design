@@ -1,13 +1,21 @@
 import { ProductPageData } from "@/models/product-page";
-import { Box, Button, Grid, Stack, Typography, Avatar } from "@mui/material";
+import { trackContactClick, trackZaloClick } from "@/utils/analytics";
+import { Avatar, Box, Button, Grid, Stack, Typography } from "@mui/material";
 import React from "react";
-import { SectionWrapper, SectionHeader, WatermarkText, colors, typography } from "./shared";
+import { SectionHeader, SectionWrapper, WatermarkText, colors, typography } from "./shared";
 
 interface ContactSectionProps {
 	data: ProductPageData["contact"];
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
+	const handleZaloClick = () => {
+		trackZaloClick();
+	};
+
+	const handleEmailClick = () => {
+		trackContactClick("email");
+	};
 	const defaultPersons = [
 		{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
 		{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
@@ -59,6 +67,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
 								href="https://zalo.me/0792359996"
 								target="_blank"
 								rel="noopener noreferrer"
+								onClick={handleZaloClick}
 								sx={{
 									bgcolor: colors.yellow,
 									color: colors.ink,
@@ -80,6 +89,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
 							<Button
 								variant="outlined"
 								href="mailto:inutdesign@gmail.com"
+								onClick={handleEmailClick}
 								sx={{
 									borderColor: "rgba(255, 255, 255, 0.3)",
 									color: "white",

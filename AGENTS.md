@@ -57,6 +57,7 @@ Canonical order item shape:
 - Use `utils/analytics.ts` and `utils/umamiAnalytics.ts` as the unified tracking gateway.
 - Fire at user action source (click/submit/view).
 - Avoid duplicate events from rerenders/effects.
+- **Tracked Categories**: E-commerce, Conversions, Engagement, and Content (Services, Blog).
 
 ### Blog
 

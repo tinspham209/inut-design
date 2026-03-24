@@ -8,6 +8,7 @@ import { Post } from "@/models";
 import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { getPostListSummary } from "@/utils";
+import { trackEvent } from "@/utils/analytics";
 import { Box, Breadcrumbs, Container, Divider, Link as MuiLink, Typography } from "@mui/material";
 import Link from "next/link";
 import { GetStaticProps } from "next/types";
@@ -15,6 +16,12 @@ import dynamic from "next/dynamic";
 const CountUp = dynamic(() => import("react-countup"), { ssr: false });
 
 const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
+	const handlePostClick = (post: Post) => {
+		trackEvent("blog_post_click", {
+			post_title: post.title,
+			post_slug: post.slug,
+		});
+	};
 	return (
 		<Box component={"section"} bgcolor="secondary.dark" pt={4} pb={4}>
 			<Seo
@@ -48,7 +55,7 @@ const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
 						{posts.map((post) => (
 							<li key={post.id}>
 								<Link passHref href={`/blog/${post.slug}`}>
-									<MuiLink>
+									<MuiLink onClick={() => handlePostClick(post)}>
 										<PostItem post={post} />
 									</MuiLink>
 								</Link>

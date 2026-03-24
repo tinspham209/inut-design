@@ -1,3 +1,13 @@
+import { urlFor } from "@/api-client/sanity-client";
+import { useLightersCart } from "@/store";
+import { trackBeginCheckout, trackRemoveFromCart } from "@/utils/analytics";
+import { formatPrice } from "@/utils/priceCalculator";
+import AddIcon from "@mui/icons-material/Add";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import CloseIcon from "@mui/icons-material/Close";
+import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveIcon from "@mui/icons-material/Remove";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
 	Box,
 	Button,
@@ -9,17 +19,8 @@ import {
 	Typography,
 	alpha,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import { useLightersCart } from "@/store";
-import { urlFor } from "@/api-client/sanity-client";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { formatPrice } from "@/utils/priceCalculator";
 
 export interface LighterCartDrawerProps {
 	isOpen: boolean;
@@ -32,8 +33,36 @@ export function LighterCartDrawer({ isOpen, onClose }: LighterCartDrawerProps) {
 		useLightersCart();
 
 	const handleCheckout = () => {
+		// Track analytics
+		trackBeginCheckout(
+			items.map((item) => ({
+				id: item.productId,
+				name: item.productName,
+				category: "Lighters",
+				variant: item.lighterTypeName,
+				price: item.unitPrice,
+				quantity: item.quantity,
+			})),
+			totalAmount
+		);
+
 		onClose();
 		router.push("/checkout/lighters");
+	};
+
+	const handleRemoveItem = (productId: string, lighterTypeId: string) => {
+		const item = items.find((i) => i.productId === productId && i.lighterTypeId === lighterTypeId);
+		if (item) {
+			trackRemoveFromCart({
+				id: item.productId,
+				name: item.productName,
+				category: "Lighters",
+				variant: item.lighterTypeName,
+				price: item.unitPrice,
+				quantity: item.quantity,
+			});
+		}
+		removeItem(productId, lighterTypeId);
 	};
 
 	const handleQuantityChange = (productId: string, lighterTypeId: string, newQuantity: number) => {
@@ -217,7 +246,7 @@ export function LighterCartDrawer({ isOpen, onClose }: LighterCartDrawerProps) {
 
 												<IconButton
 													size="small"
-													onClick={() => removeItem(item.productId, item.lighterTypeId)}
+													onClick={() => handleRemoveItem(item.productId, item.lighterTypeId)}
 													color="error"
 													sx={{ ml: "auto !important" }}
 												>
@@ -304,10 +333,11 @@ export function LighterCartDrawer({ isOpen, onClose }: LighterCartDrawerProps) {
 								sx={{
 									py: 1.5,
 									fontWeight: "bold",
-									fontSize: "1rem",
+									borderRadius: 2,
+									boxShadow: 3,
 								}}
 							>
-								Đặt hàng
+								Thanh toán ngay
 							</Button>
 						</Stack>
 					</Box>

@@ -1,6 +1,6 @@
 # 📊 Inut Design Analytics Guide
 
-A single, comprehensive reference for Google Analytics 4 (GA4) and Google Tag Manager (GTM) setup, architecture, implementation, and troubleshooting for the Inut Design e-commerce platform.
+A single, comprehensive reference for Google Analytics 4 (GA4), Google Tag Manager (GTM), and Umami.js setup, architecture, implementation, and troubleshooting for the Inut Design e-commerce platform.
 
 ---
 
@@ -9,67 +9,63 @@ A single, comprehensive reference for Google Analytics 4 (GA4) and Google Tag Ma
 1. **Update Environment Variables**
    - Copy `.env.local.example` to `.env.local`
    - Set your GA4 Measurement ID (`NEXT_PUBLIC_GA_MEASUREMENT_ID`)
-   - Set your GTM Container ID (`NEXT_PUBLIC_GTM_ID`, must start with `GTM-`)
-   - Example:
-     ```bash
-     NEXT_PUBLIC_GA_MEASUREMENT_ID=G-0FFVD3N1QG
-     NEXT_PUBLIC_GTM_ID=GTM-KDTMJQL
-     ```
-   - Get your GTM ID from https://tagmanager.google.com/
+   - Set your GTM Container ID (`NEXT_PUBLIC_GTM_ID`)
+   - Set your Umami Website ID (`NEXT_PUBLIC_UMAMI_WEBSITE_ID`)
+   - Enable/Disable Umami (`NEXT_PUBLIC_ENABLE_UMAMI=true`)
 
 2. **Build & Deploy**
    ```bash
    pnpm build
    git add .
-   git commit -m "fix: improve Google Analytics tracking setup"
+   git commit -m "feat: enhance analytics tracking"
    git push origin main
    ```
-   - Vercel will auto-deploy.
 
 3. **Verify Tracking**
-   - Visit your site, open Chrome DevTools → Network tab → filter by `collect`
-   - Click around, verify requests to `google-analytics.com`
-   - Check GA4 Realtime for events
+   - **GA4/GTM**: Visit your site, open Chrome DevTools → Network tab → filter by `collect`.
+   - **Umami**: Open DevTools → Network tab → filter by `send`.
+   - **Console**: In development, look for `[GA Debug]` and `[Umami Debug]` logs.
 
-4. **Mark Conversions in GA4**
-   - Go to Admin → Events
-   - Mark `order_button_click`, `contact_click`, `form_submit`, `purchase` as conversions
+4. **Mark Conversions**
+   - In GA4: Mark `order_button_click`, `contact_click`, `form_submit`, `purchase` as conversions.
+   - In Umami: Events are automatically available for filtering and reporting.
 
 ---
 
 ## 🏗️ Analytics Architecture
 
-- **Single source of truth:** All tracking is handled via `utils/analytics.ts` utilities and Next.js third-party integration.
+- **Single source of truth:** All tracking is handled via `utils/analytics.ts` which wraps both GA4 (via `gtag`) and Umami (via `umamiAnalytics.ts`).
 - **Event flow:**
   - User action (click, view, submit)
   - React handler calls tracking function (e.g., `trackAddToCart`)
-  - Tracking function sends event to GA4/GTM via `window.gtag`/`window.dataLayer`
-  - GTM can forward events to other marketing pixels (Facebook, TikTok, etc.)
+  - Tracking function sends event to:
+    - **GA4/GTM** via `window.gtag`/`window.dataLayer`
+    - **Umami** via `window.umami.track`
 - **Tracked events:**
-  - E-commerce: `view_item`, `select_item`, `add_to_cart`, `remove_from_cart`, `begin_checkout`, `purchase`
-  - Conversion: `order_button_click`, `contact_click`, `phone_click`, `form_submit`, `social_click`
-  - Engagement: `page_view`, `search`, `outbound_click`, `download`, `video_engagement`, `time_on_page`, custom events
-- **Debug mode:** In development, events log to console as `[GA Debug]`
+  - **E-commerce**: `view_item`, `select_item`, `add_to_cart`, `remove_from_cart`, `begin_checkout`, `purchase`
+  - **Conversion**: `order_button_click`, `contact_click`, `phone_click`, `zalo_click`, `form_submit`, `social_click`, `cta_click`
+  - **Engagement**: `page_view`, `search`, `outbound_click`, `download`, `video_engagement`, `time_on_page`, `scroll_depth`, `cart_view`
+  - **Content**: `service_click`, `blog_post_click`, `blog_post_view`
 
 ---
 
 ## 💻 How to Implement Analytics for New Functions
 
-- **Import the relevant function from `@/utils/analytics`**
-- **Call the function at the source of user action (onClick, onSubmit, useEffect, etc.)**
-- **Include meaningful context (product name, category, value, etc.)**
+- **Import the relevant function from `@/utils/analytics`** (which exports from `utils/index.ts`)
+- **Call the function at the source of user action** (onClick, onSubmit, useEffect, etc.)
+- **Include meaningful context** (product name, category, value, etc.)
 
 ### Examples
 
 #### Product Card Click
 ```tsx
-import { trackSelectProduct } from "@/utils/analytics";
+import { trackSelectProduct } from "@/utils";
 <ProductCard onClick={() => trackSelectProduct({ id: product._id, name: product.name, category: "Laptop Skin" }, "Homepage List")} />
 ```
 
 #### Product Detail View
 ```tsx
-import { trackViewProduct } from "@/utils/analytics";
+import { trackViewProduct } from "@/utils";
 useEffect(() => {
   trackViewProduct({ id: product._id, name: product.name, category: "Laptop Skin", brand: "INUT Design", price: product.price });
 }, [product]);
@@ -77,14 +73,32 @@ useEffect(() => {
 
 #### Add to Cart
 ```tsx
-import { trackAddToCart } from "@/utils/analytics";
-<Button onClick={() => { trackAddToCart({ id: product._id, name: product.name, category: "Laptop Skin", price: unitPrice, quantity: qty }); /* ...add to cart logic... */ }}>Thêm vào giỏ</Button>
+import { trackAddToCart } from "@/utils";
+<Button onClick={() => { 
+  trackAddToCart({ id: product._id, name: product.name, category: "Laptop Skin", price: unitPrice, quantity: qty }); 
+  /* ...add to cart logic... */ 
+}}>Thêm vào giỏ</Button>
+```
+
+#### Service Navigation
+```tsx
+import { trackEvent } from "@/utils";
+<ServiceCard onClick={() => trackEvent("service_click", { service_title: title, service_path: href })} />
+```
+
+#### Blog Interaction
+```tsx
+import { trackEvent } from "@/utils";
+// View post
+trackEvent("blog_post_view", { post_title: post.title, post_slug: post.slug });
+// Click post in list
+trackEvent("blog_post_click", { post_title: post.title, post_slug: post.slug });
 ```
 
 #### Custom Event
 ```tsx
-import { trackEvent } from "@/utils/analytics";
-trackEvent("custom_event_name", { category: "engagement", label: "button_label", value: 1, custom_param: "any_value" });
+import { trackEvent } from "@/utils";
+trackEvent("custom_event_name", { category: "engagement", label: "button_label", value: 1 });
 ```
 
 #### See `/docs/ANALYTICS_QUICK_REFERENCE.md` for more code patterns (now merged here).

@@ -4,18 +4,29 @@ import MarkdownWrapper from "@/components/common/markdown/MarkdownWrapper";
 import { MainLayout } from "@/components/layout";
 import { Post } from "@/models";
 import { getAllPostSlugs, getPostBySlug } from "@/utils";
+import { trackEvent } from "@/utils/analytics";
 import { getVFile } from "@/utils/unified";
 import { Box, Breadcrumbs, Container, Divider, Link as MuiLink, Typography } from "@mui/material";
+import DOMPurify from "isomorphic-dompurify";
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 import Link from "next/link";
 import Script from "next/script";
-import DOMPurify from "isomorphic-dompurify";
+import React from "react";
 
 export interface BlogPageProps {
 	post: Post;
 }
 
 export default function BlogDetailPage({ post }: BlogPageProps) {
+	React.useEffect(() => {
+		if (post) {
+			trackEvent("blog_post_view", {
+				post_title: post.title,
+				post_slug: post.slug,
+			});
+		}
+	}, [post]);
+
 	if (!post) return null;
 
 	return (

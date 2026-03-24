@@ -11,7 +11,8 @@ A comprehensive guide for implementing effective event tracking with Umami.is al
 - ✅ SPA page view tracking integrated (GA4 + Umami)
 - ✅ Dual tracking for products, cart, checkout, purchase, conversions, engagement
 - ✅ Engagement hooks implemented (scroll depth, time on page)
-- 🚧 Session identification utilities available (not yet wired to order flow)
+- ✅ Content tracking implemented (services, blog posts)
+- ✅ Session identification utilities available
 - 📝 This document now reflects implemented code
 
 **Goals:**
@@ -128,50 +129,50 @@ export interface UmamiProductData {
  * Track product view
  */
 export const trackUmamiProductView = (product: UmamiProductData): void => {
-  umami.track("product_view", {
-    product_id: product.id,
-    product_name: product.name,
-    category: product.category || "Unknown",
-    price: product.price || 0,
-  });
+	umami.track("product_view", {
+		productId: product.id,
+		productName: product.name,
+		category: product.category || "Unknown",
+		price: product.price || 0,
+	});
 };
 
 /**
  * Track product click
  */
 export const trackUmamiProductClick = (product: UmamiProductData, listName?: string): void => {
-  umami.track("product_click", {
-    product_id: product.id,
-    product_name: product.name,
-    category: product.category || "Unknown",
-    list_name: listName || "Unknown",
-    price: product.price || 0,
-  });
+	umami.track("product_click", {
+		productId: product.id,
+		productName: product.name,
+		category: product.category || "Unknown",
+		listName: listName || "Unknown",
+		price: product.price || 0,
+	});
 };
 
 /**
  * Track add to cart
  */
 export const trackUmamiAddToCart = (product: UmamiProductData): void => {
-  umami.track("add_to_cart", {
-    product_id: product.id,
-    product_name: product.name,
-    category: product.category || "Unknown",
-    price: product.price || 0,
-    quantity: product.quantity || 1,
-    value: (product.price || 0) * (product.quantity || 1),
-  });
+	umami.track("add_to_cart", {
+		productId: product.id,
+		productName: product.name,
+		category: product.category || "Unknown",
+		price: product.price || 0,
+		quantity: product.quantity || 1,
+		value: (product.price || 0) * (product.quantity || 1),
+	});
 };
 
 /**
  * Track remove from cart
  */
 export const trackUmamiRemoveFromCart = (product: UmamiProductData): void => {
-  umami.track("remove_from_cart", {
-    product_id: product.id,
-    product_name: product.name,
-    quantity: product.quantity || 1,
-  });
+	umami.track("remove_from_cart", {
+		productId: product.id,
+		productName: product.name,
+		quantity: product.quantity || 1,
+	});
 };
 
 /**
