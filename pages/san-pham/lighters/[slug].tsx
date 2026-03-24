@@ -184,8 +184,11 @@ interface LighterSlugDoc {
 }
 export const getStaticPaths: GetStaticPaths = async () => {
 	const lighters: LighterSlugDoc[] = await lightersApi.getAllLighterSlugs();
+	// Only pre-render the first 10 products to speed up the build.
+	// The rest will be generated on-demand via fallback: "blocking".
 	const paths = lighters
 		.filter((lighter): lighter is { slug: { current: string } } => lighter.slug !== null)
+		.slice(0, 10)
 		.map((lighter) => ({ params: { slug: lighter.slug.current } }));
 	return { paths, fallback: "blocking" };
 };

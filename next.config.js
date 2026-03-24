@@ -1,10 +1,13 @@
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
+import BundleAnalyzer from "@next/bundle-analyzer";
+
+const withBundleAnalyzer = BundleAnalyzer({
 	enabled: process.env.ANALYZE === "true",
 });
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
+	swcMinify: true,
 	images: {
 		domains: ["res.cloudinary.com", "cdn.sanity.io"],
 		unoptimized: true,
@@ -45,4 +48,4 @@ const nextConfig = {
 	},
 };
 
-module.exports = withBundleAnalyzer(nextConfig);
+export default withBundleAnalyzer(nextConfig);

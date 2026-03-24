@@ -176,7 +176,7 @@ export function HeaderDesktop() {
 				>
 					<Link href={"/"} passHref>
 						<MuiLink sx={{ display: "flex" }}>
-							<Image src={"/branding/logo.webp"} alt="logo" width={103} height={32} />
+							<Image src={"/branding/logo.webp"} alt="logo" width={103} height={32} priority />
 						</MuiLink>
 					</Link>
 

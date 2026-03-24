@@ -2,7 +2,8 @@ import { client } from "./sanity-client";
 
 export const productsApi = {
 	async getAllProducts(limit?: number) {
-		let query = '*[_type == "products"]';
+		let query =
+			'*[_type == "products"]{_id, name, slug, image, productType, type, special, _createdAt}';
 		if (limit) {
 			query += ` | order(_createdAt desc)[0...${limit}]`;
 		}
@@ -10,7 +11,8 @@ export const productsApi = {
 	},
 
 	async getSpecialProducts(limit?: number) {
-		let query = '*[_type == "products" && special == true] | order(_createdAt desc)';
+		let query =
+			'*[_type == "products" && special == true]{_id, name, slug, image, productType, type, special, _createdAt} | order(_createdAt desc)';
 		if (limit) {
 			query += ` | order(_createdAt desc)[0...${limit}]`;
 		}
@@ -31,14 +33,16 @@ export const productsApi = {
 	},
 
 	async getAllProductsMacnut(limit?: number) {
-		let query = '*[_type == "macnut"]';
+		let query =
+			'*[_type == "macnut"]{_id, name, slug, image, productType, macnutType, type, special, _createdAt}';
 		if (limit) {
 			query += ` | order(_createdAt desc)[0...${limit}]`;
 		}
 		return await client.fetch(query);
 	},
 	async getSpecialProductsMacnut(limit?: number) {
-		let query = '*[_type == "macnut" && special == true] | order(_createdAt desc)';
+		let query =
+			'*[_type == "macnut" && special == true]{_id, name, slug, image, productType, macnutType, type, special, _createdAt} | order(_createdAt desc)';
 		if (limit) {
 			query += ` | order(_createdAt desc)[0...${limit}]`;
 		}

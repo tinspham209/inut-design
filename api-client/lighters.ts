@@ -8,7 +8,7 @@ export const lightersApi = {
 	 * Get all lighter products
 	 */
 	async getAllLighters(limit?: number): Promise<LighterProduct[]> {
-		let query = '*[_type == "lighterProducts"] | order(_createdAt desc)';
+		let query = '*[_type == "lighterProducts"]{_id, name, slug, image, lighterType, special, _createdAt} | order(_createdAt desc)';
 		if (limit) {
 			query += ` | order(_createdAt desc)[0...${limit}]`;
 		}
@@ -78,7 +78,7 @@ export const lightersApi = {
 	 * Get special/featured lighter products for homepage
 	 */
 	async getSpecialLighters(limit?: number): Promise<LighterProduct[]> {
-		let query = '*[_type == "lighterProducts" && special == true] | order(_createdAt desc)';
+		let query = '*[_type == "lighterProducts" && special == true]{_id, name, slug, image, lighterType, special, _createdAt} | order(_createdAt desc)';
 		if (limit) {
 			query += ` | order(_createdAt desc)[0...${limit}]`;
 		}

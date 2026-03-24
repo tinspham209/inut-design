@@ -18,8 +18,8 @@ export function ProductCard({ imageUrl, href, alt, onSelect, priority = false }:
 			<MuiLink sx={{ position: "relative", display: "block" }} onClick={onSelect}>
 				<Image
 					src={imageUrl}
-					width="100%"
-					height="100%"
+					width={600}
+					height={600}
 					layout="responsive"
 					alt={alt}
 					priority={priority}

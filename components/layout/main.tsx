@@ -11,7 +11,7 @@ export function MainLayout({ children }: LayoutProps) {
 		<>
 			<FooterSeo />
 			<Header />
-			<article className="page-transition">
+			<article>
 				<Stack minHeight="100vh">
 					<Box component="main" flexGrow={1} mt={8}>
 						{children}

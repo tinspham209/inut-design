@@ -131,12 +131,14 @@ export function HeaderMobile() {
 								color: COLOR_CODE.TEXT_DARK,
 								p: 0,
 							}}
+							type="button"
+							aria-label="Menu"
 						>
 							<MenuIcon />
 						</IconButton>
 						<Link href={"/"} passHref>
 							<Box sx={{ display: "flex", cursor: "pointer" }}>
-								<Image src={"/branding/logo.webp"} alt="logo" width={103} height={32} />
+								<Image src={"/branding/logo.webp"} alt="logo" width={103} height={32} priority />
 							</Box>
 						</Link>
 					</Stack>

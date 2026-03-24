@@ -38,6 +38,37 @@ export async function getPostList(): Promise<Post[]> {
 	return postList;
 }
 
+export async function getPostListSummary(): Promise<Post[]> {
+	const fileNameList = fs.readdirSync(BLOG_FOLDER);
+	const postList: Post[] = [];
+
+	for (const fileName of fileNameList) {
+		const filePath = path.join(BLOG_FOLDER, fileName);
+		const fileContents = fs.readFileSync(filePath, "utf8");
+
+		const { data, excerpt } = matter(fileContents, {
+			excerpt_separator: "<!-- truncate-->",
+		});
+		postList.push({
+			id: fileName,
+			slug: data.slug,
+			title: data.title,
+			author: {
+				name: data.author,
+				title: data.author_title,
+				profileUrl: data.author_url,
+				avatarUrl: data.author_image_url,
+			},
+			tagList: data.tags,
+			publishedDate: data.date,
+			description: excerpt || "",
+			// Omitting mdContent for performance
+		});
+	}
+
+	return postList;
+}
+
 export async function getPostListLimit(limit: number): Promise<Post[]> {
 	try {
 		if (!fs.existsSync(BLOG_FOLDER)) {
@@ -57,7 +88,7 @@ export async function getPostListLimit(limit: number): Promise<Post[]> {
 			const filePath = path.join(BLOG_FOLDER, fileName);
 			const fileContents = fs.readFileSync(filePath, "utf8");
 
-			const { data, excerpt, content } = matter(fileContents, {
+			const { data, excerpt } = matter(fileContents, {
 				excerpt_separator: "<!-- truncate-->",
 			});
 
@@ -74,7 +105,7 @@ export async function getPostListLimit(limit: number): Promise<Post[]> {
 				tagList: data.tags,
 				publishedDate: data.date,
 				description: excerpt || "",
-				mdContent: content,
+				// Omitting mdContent for performance
 			});
 		}
 
@@ -86,9 +117,33 @@ export async function getPostListLimit(limit: number): Promise<Post[]> {
 }
 
 export async function getPostBySlug(slug: string | string[]): Promise<Post | null> {
-	const postList = await getPostList();
-	const post = postList.find((x) => x.slug === slug) || null;
-	return post;
+	// Instead of loading all posts, let's find the specific file
+	const fileNameList = fs.readdirSync(BLOG_FOLDER);
+
+	for (const fileName of fileNameList) {
+		const filePath = path.join(BLOG_FOLDER, fileName);
+		const fileContents = fs.readFileSync(filePath, "utf8");
+		const { data, content } = matter(fileContents);
+
+		if (data.slug === slug) {
+			return {
+				id: fileName,
+				slug: data.slug,
+				title: data.title,
+				author: {
+					name: data.author,
+					title: data.author_title,
+					profileUrl: data.author_url,
+					avatarUrl: data.author_image_url,
+				},
+				tagList: data.tags,
+				publishedDate: data.date,
+				description: data.description || "",
+				mdContent: content,
+			};
+		}
+	}
+	return null;
 }
 
 export async function getAllPostSlugs(): Promise<string[]> {

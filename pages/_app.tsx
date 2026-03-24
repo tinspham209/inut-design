@@ -26,6 +26,7 @@ const Toaster = dynamic(() => import("react-hot-toast").then((mod) => mod.Toaste
 	ssr: false,
 });
 
+import { FacebookChatPlugin, GoogleTagSchema } from "@/components/scripts";
 import useEngagementTracking from "@/hooks/useEngagementTracking";
 import "../styles/globals.css";
 import "../styles/prism.css";
@@ -88,6 +89,8 @@ function MyApp({
 				</ThemeProvider>
 			</CacheProvider>
 			<Analytics mode="production" />
+			<FacebookChatPlugin />
+			<GoogleTagSchema />
 		</>
 	);
 }

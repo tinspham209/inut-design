@@ -7,7 +7,7 @@ import { MainLayout } from "@/components/layout";
 import { Post } from "@/models";
 import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
-import { getPostList } from "@/utils";
+import { getPostListSummary } from "@/utils";
 import { Box, Breadcrumbs, Container, Divider, Link as MuiLink, Typography } from "@mui/material";
 import Link from "next/link";
 import { GetStaticProps } from "next/types";
@@ -71,7 +71,7 @@ type Props = {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-	const posts = await getPostList();
+	const posts = await getPostListSummary();
 	const banner: Banner = await bannerApi.getBannerPage("blogs-page");
 
 	return {

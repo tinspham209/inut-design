@@ -1,7 +1,7 @@
 {
 	"name": "inut_design_sanity",
 	"private": true,
-	"version": "1.0.0",
+	"version": "3.0.0",
 	"description": "Sanity CMS - Inut Design",
 	"main": "package.json",
 	"author": "Tín Phạm <tindeptrai1@gmail.com>",

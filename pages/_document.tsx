@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FacebookChatPlugin, GoogleTagSchema, jsonSearchSchema } from "@/components/scripts";
+import { jsonSearchSchema } from "@/components/scripts";
 import { createEmotionCache, theme } from "@/utils";
 import createEmotionServer from "@emotion/server/create-instance";
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import Script from "next/script";
-import * as React from "react";
 
 export default class MyDocument extends Document {
 	render() {
@@ -23,17 +22,31 @@ export default class MyDocument extends Document {
 					<link rel="preconnect" href="https://fonts.googleapis.com" />
 					<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
 					<link
-						href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-						rel="stylesheet"
+						rel="preload"
+						as="style"
+						href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap"
 					/>
 					<link
+						rel="preload"
+						as="style"
 						href="https://fonts.googleapis.com/icon?family=Material+Icons"
-						rel="stylesheet"
 					/>
 					<link
-						href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap"
+						href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap"
 						rel="stylesheet"
+						media="print"
+						onLoad={(e: any) => {
+							e.target.media = "all";
+						}}
 					/>
+					<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+					<noscript>
+						<link
+							href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap"
+							rel="stylesheet"
+						/>
+						<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+					</noscript>
 
 					<meta httpEquiv="X-UA-Compatible" content="ie=edge" />
 					{/* <SearchSchema /> */}
@@ -46,8 +59,7 @@ export default class MyDocument extends Document {
 					{/* Google Analytics & GTM are now loaded via GoogleTagSchema component in body */}
 
 					<Script
-						strategy="afterInteractive"
-						defer
+						strategy="lazyOnload"
 						src="https://cloud.umami.is/script.js"
 						data-website-id="2d970e4e-411e-4b9e-b6ee-c48c2b040f56"
 					/>
@@ -58,8 +70,6 @@ export default class MyDocument extends Document {
 				<body>
 					<Main />
 					<NextScript />
-					<FacebookChatPlugin />
-					<GoogleTagSchema />
 				</body>
 			</Html>
 		);

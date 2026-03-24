@@ -1,5 +1,5 @@
 /** @type {import('next-sitemap').IConfig} */
-module.exports = {
+const nextSitemapConfig = {
 	siteUrl: "https://inutdesign.com",
 	generateIndexSitemap: false,
 
@@ -17,3 +17,5 @@ module.exports = {
 		],
 	},
 };
+
+export default nextSitemapConfig;

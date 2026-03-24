@@ -7,7 +7,6 @@ import {
 	CauChuyen,
 	ChotDon,
 	FeaturedProductsSection,
-	HeroImage,
 	HeroSection,
 	ServiceChildrenGrid,
 	ServicesSection,
@@ -16,7 +15,7 @@ import { MainLayout } from "@/components/layout";
 import { LighterProduct, Post } from "@/models";
 import { NextPageWithLayout } from "@/models/common";
 import { Products } from "@/models/products";
-import { COLOR_CODE, getPostListLimit } from "@/utils";
+import { getPostListLimit } from "@/utils";
 import { Box } from "@mui/material";
 import { GetStaticProps } from "next";
 
@@ -29,9 +28,9 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs }: Props)
 		<Box>
 			<Seo
 				data={{
-					title: "INUT Design — In Skin Laptop, Sticker & Decal Theo Yêu Cầu Tại Đà Nẵng",
+					title: "INUT Design — In Skin Laptop, Sticker, Bật lửa Tại Đà Nẵng",
 					description:
-						"Xưởng in Đà Nẵng chuyên skin laptop, skin bàn phím MACNUT, bật lửa Cricket custom, sticker & decal, namecard, banner, backdrop. Giao nhanh — báo giá trong 15 phút. Liên hệ: 0327 124 321.",
+						"Xưởng in Đà Nẵng: skin laptop, MACNUT, sticker, decal, namecard, banner, backdrop. Giao nhanh — báo giá trong 15 phút. Zalo: 0327 124 321.",
 					url: "https://inutdesign.com",
 					thumbnailUrl: "/branding/ogImage.jpg",
 				}}
@@ -51,7 +50,7 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs }: Props)
 				viewAllHref="/san-pham/lighters"
 				itemHref={(slug) => `/san-pham/lighters/${slug}`}
 				analyticsCategory="Bật lửa"
-				priorityCount={4}
+				priorityCount={2}
 			/>
 
 			{/* Sticker — 4 sub-types from ROUTE_LIST, dark bg */}
