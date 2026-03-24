@@ -19,11 +19,13 @@ export default {
 				source: "name",
 				maxLength: 90,
 			},
+			validation: (Rule) => Rule.required(),
 		},
 		{
 			name: "buttonText",
 			title: "ButtonText",
 			type: "string",
+			validation: (Rule) => Rule.required(),
 		},
 	],
 	preview: {

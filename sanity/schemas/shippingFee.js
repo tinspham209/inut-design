@@ -20,6 +20,7 @@ export default {
 				source: "name",
 				maxLength: 90,
 			},
+			validation: (Rule) => Rule.required(),
 		},
 		{
 			name: "fee",

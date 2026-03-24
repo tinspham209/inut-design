@@ -51,7 +51,7 @@ export const SkinLaptopCustomizeCard: React.FC = () => {
 								}}
 							>
 								<Image
-									src="/branding/ogImage.jpg"
+									src="/assets/skin-laptop-customize.avif"
 									alt="Skin Laptop Custom"
 									layout="fill"
 									objectFit="cover"
@@ -81,17 +81,6 @@ export const SkinLaptopCustomizeCard: React.FC = () => {
 								Skin Laptop Custom
 							</Typography>
 						</Box>
-						<Stack direction="row" alignItems="center" justifyContent="space-between" p={1}>
-							<Typography
-								variant="caption"
-								sx={{
-									fontSize: { xs: "0.75rem", md: "0.85rem" },
-								}}
-							>
-								Xem ngay
-							</Typography>
-							<ArrowForwardIcon fontSize="small" />
-						</Stack>
 					</CardContent>
 				</Card>
 			</MuiLink>

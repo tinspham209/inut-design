@@ -16,6 +16,7 @@ export default {
 			name: "name",
 			title: "Name",
 			type: "string",
+			validation: (Rule) => Rule.required(),
 		},
 		{
 			name: "slug",
@@ -25,6 +26,7 @@ export default {
 				source: "name",
 				maxLength: 90,
 			},
+			validation: (Rule) => Rule.required(),
 		},
 		{
 			name: "details",
@@ -46,9 +48,10 @@ export default {
 		},
 		{
 			name: "macnutType",
-			title: "MacNut Type",
+			title: "MacNut Type *",
 			type: "reference",
 			to: { type: "macnutType" },
+			validation: (Rule) => Rule.required(),
 		},
 	],
 	preview: {

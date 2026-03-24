@@ -51,7 +51,7 @@ export const MacnutCustomizeCard: React.FC = () => {
 								}}
 							>
 								<Image
-									src="/branding/ogImage.jpg"
+									src="/assets/skin-nut-phim-customize.avif"
 									alt="Custom skin nút phím"
 									layout="fill"
 									objectFit="cover"

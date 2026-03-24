@@ -16,6 +16,7 @@ export default {
 			name: "name",
 			title: "Name",
 			type: "string",
+			validation: (Rule) => Rule.required(),
 		},
 		{
 			name: "slug",
@@ -25,6 +26,7 @@ export default {
 				source: "name",
 				maxLength: 90,
 			},
+			validation: (Rule) => Rule.required(),
 		},
 		{
 			name: "details",
@@ -43,6 +45,7 @@ export default {
 			title: "Product Type",
 			type: "reference",
 			to: { type: "productType" },
+			validation: (Rule) => Rule.required(),
 		},
 	],
 	preview: {

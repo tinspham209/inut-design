@@ -109,7 +109,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 							md: "row",
 						}}
 					>
-						<Grid container item xs={12} md={9} spacing={3} id="productTitle">
+						<Grid container item xs={12} md={9} spacing={1} id="productTitle">
 							{(!currentFilter ||
 								currentFilter.includes("skin") ||
 								currentFilter.includes("decal")) && (

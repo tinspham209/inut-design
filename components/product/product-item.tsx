@@ -110,6 +110,16 @@ export function ProductItem({ product, productTypes, isMacnut = false }: Product
 							{/* Product Info Section */}
 							<Box sx={{ px: 1 }}>
 								<Typography
+									variant="caption"
+									sx={{
+										fontSize: { xs: "0.7rem", md: "0.75rem" },
+										color: "#8c8c8c",
+										fontWeight: 600,
+									}}
+								>
+									{productType?.name || (isMacnut ? "Macnut" : "Products")}
+								</Typography>
+								<Typography
 									variant="h6"
 									sx={{
 										fontWeight: "bold",

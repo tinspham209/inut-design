@@ -49,7 +49,7 @@ const LighterCardCustomize: React.FC = () => {
 								}}
 							>
 								<Image
-									src="/branding/ogImage.jpg"
+									src="/assets/skin-bat-lua-customize.avif"
 									alt="Bật lửa theo yêu cầu"
 									layout="fill"
 									objectFit="cover"
