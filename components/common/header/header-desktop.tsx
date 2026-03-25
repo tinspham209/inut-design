@@ -1,4 +1,4 @@
-import { COLOR_CODE } from "@/utils";
+import { COLOR_CODE, trackHeaderNavigation } from "@/utils";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -74,6 +74,9 @@ export function HeaderDesktop() {
 											{column.children?.map((subItem) => (
 												<Link key={subItem.path} href={subItem.path} passHref>
 													<MuiLink
+														onClick={() =>
+															trackHeaderNavigation(subItem.label, column.label, "desktop")
+														}
 														sx={{
 															fontSize: "0.95rem",
 															color: "text.primary",
@@ -85,10 +88,6 @@ export function HeaderDesktop() {
 															display: "inline-block",
 														}}
 														underline="none"
-														data-umami-event={
-															"header_navigation_click_desktop_mega_" +
-															subItem.label.toLowerCase().replace(/\s+/g, "_")
-														}
 														className={clsx({ active: isActive(subItem.path) })}
 													>
 														{subItem.label}
@@ -123,6 +122,7 @@ export function HeaderDesktop() {
 						{item.children.map((child) => (
 							<Link key={child.path} href={child.path} passHref>
 								<MuiLink
+									onClick={() => trackHeaderNavigation(child.label, item.label, "desktop")}
 									sx={{
 										px: 3,
 										py: 1.5,
@@ -134,10 +134,6 @@ export function HeaderDesktop() {
 										},
 									}}
 									underline="none"
-									data-umami-event={
-										"header_navigation_click_desktop_dropdown_" +
-										child.label.toLowerCase().replace(/\s+/g, "_")
-									}
 									className={clsx({ active: isActive(child.path) })}
 								>
 									{child.label}
@@ -198,6 +194,7 @@ export function HeaderDesktop() {
 								>
 									<Link href={route.path} passHref>
 										<MuiLink
+											onClick={() => trackHeaderNavigation(route.label, "Main Nav", "desktop")}
 											sx={{
 												fontWeight: "bold",
 												fontSize: 15,
@@ -222,9 +219,6 @@ export function HeaderDesktop() {
 												},
 											}}
 											underline="none"
-											data-umami-event={
-												"header_navigation_click_desktop_" + route.label.toLowerCase()
-											}
 											className={clsx({ active: isActive(route.path) })}
 										>
 											{route.label}
@@ -254,12 +248,12 @@ export function HeaderDesktop() {
 								<Button
 									variant="contained"
 									size="small"
+									onClick={() => trackHeaderNavigation(route.label, "Main Nav", "desktop")}
 									sx={{
 										borderRadius: "4px",
 										fontWeight: "bold",
 										textTransform: "uppercase",
 									}}
-									data-umami-event={"header_navigation_click_desktop_" + route.label.toLowerCase()}
 								>
 									{route.label}
 								</Button>

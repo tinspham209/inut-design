@@ -1,4 +1,4 @@
-import { COLOR_CODE } from "@/utils";
+import { COLOR_CODE, trackHeaderNavigation } from "@/utils";
 import CloseIcon from "@mui/icons-material/Close";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -64,15 +64,15 @@ export function HeaderMobile() {
 					<Stack direction="row" alignItems="center" sx={{ width: "100%" }}>
 						<Link href={item.path} passHref>
 							<ListItemButton
-								onClick={toggleDrawer(false)}
+								onClick={() => {
+									trackHeaderNavigation(item.label, "Main Nav", "mobile");
+									toggleDrawer(false);
+								}}
 								sx={{
 									pl: level * 2 + 2,
 									flexGrow: 1,
 								}}
 								selected={isActive(item.path)}
-								data-umami-event={
-									"header_navigation_click_mobile_" + item.label.toLowerCase().replace(/\s+/g, "_")
-								}
 							>
 								<ListItemText
 									primary={item.label}

@@ -391,6 +391,24 @@ export const trackOrderButtonClick = (productName: string, category: string): vo
 };
 
 /**
+ * Track header navigation clicks
+ * @param navItem - The label of the clicked item
+ * @param navSection - The parent menu or section (e.g., 'Services', 'About Us')
+ * @param device - 'desktop' or 'mobile'
+ */
+export const trackHeaderNavigation = (
+	navItem: string,
+	navSection: string,
+	device: "desktop" | "mobile"
+): void => {
+	trackEvent("header_navigation_click", {
+		nav_item: navItem,
+		nav_section: navSection,
+		device: device,
+	});
+};
+
+/**
  * Track social media clicks
  * @param platform - Social platform (facebook, instagram, etc.)
  */
