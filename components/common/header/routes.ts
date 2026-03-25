@@ -261,6 +261,15 @@ export const ROUTE_LIST: RouteItem[] = [
 							icon: "emoji_events",
 						},
 					},
+					{
+						label: "Sự kiện trọn gói",
+						path: "/services/an-pham-su-kien/su-kien-tron-goi-da-nang",
+						meta: {
+							description:
+								"Từ concept đến thi công. Thiết kế đồng bộ, in ấn sắc nét, set up chỉn chu",
+							icon: "event",
+						},
+					},
 				],
 			},
 			{

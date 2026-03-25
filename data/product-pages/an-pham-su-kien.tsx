@@ -904,3 +904,223 @@ export const HUY_CHUONG_DATA: ProductPageData = {
 		filters: ["Tất cả", "Giải chạy", "Doanh nghiệp", "Trường học"],
 	},
 };
+
+export const SU_KIEN_TRON_GOI_DATA: ProductPageData = {
+	id: "su-kien-tron-goi",
+	name: "Sự Kiện Trọn Gói",
+	category: "Ấn phẩm sự kiện",
+	seo: {
+		title: "Dịch Vụ Sự Kiện Trọn Gói tại Đà Nẵng – Chuyên Nghiệp, Đồng Bộ | INUT Design",
+		description:
+			"Dịch vụ sự kiện trọn gói tại Đà Nẵng: thiết kế, in ấn, thi công và set up đồng bộ. Phù hợp khai trương, hội nghị, workshop, activation. Báo giá nhanh trong 15 phút.",
+		url: "https://inutdesign.com/services/an-pham-su-kien/su-kien-tron-goi",
+		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Ấn phẩm sự kiện", item: "/services/an-pham-su-kien" },
+			{ name: "Sự Kiện Trọn Gói", item: "/services/an-pham-su-kien/su-kien-tron-goi" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "Dịch Vụ Sự Kiện Trọn Gói",
+			serviceType: "Tổ chức sự kiện & In ấn",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				priceCurrency: "VND",
+			},
+		},
+	},
+	hero: {
+		title: "Sự Kiện Trọn Gói",
+		description:
+			"Từ concept đến thi công — INUT lo toàn bộ. Thiết kế đồng bộ, in ấn sắc nét, set up chỉn chu. Bạn chỉ cần xuất hiện và tận hưởng sự kiện.",
+		image: HERO_IMAGE,
+		chips: ["Đồng bộ 100%", "Triển khai nhanh", "Tư vấn miễn phí"],
+		secondaryCtaLabel: "Xem portfolio",
+		ticker: ["Thiết Kế Đồng Bộ", "In Ấn Sắc Nét", "Thi Công Chuyên Nghiệp", "Giao Hàng Đúng Hẹn"],
+		stats: [
+			{ value: "300", unit: "+", label: "Sự kiện đã triển khai" },
+			{ value: "3–4", unit: " ngày", label: "Sản xuất tiêu chuẩn" },
+			{ value: "5.0", unit: "★", label: "Đánh giá từ khách hàng" },
+			{ value: "15", unit: " phút", label: "Phản hồi báo giá" },
+		],
+	},
+	introduction: {
+		eyebrow: "Giải pháp tổ chức sự kiện",
+		title: "Sự kiện trọn gói theo yêu cầu",
+		description:
+			"Một dịch vụ trọn gói chuyên nghiệp giúp tiết kiệm thời gian, kiểm soát tốt chất lượng và nâng cao hình ảnh thương hiệu trong suốt quá trình tổ chức.",
+		bullets: [
+			"Lên concept và định hướng hình ảnh sự kiện từ giai đoạn đầu, đảm bảo nhất quán đến thành phẩm cuối.",
+			"Thiết kế toàn bộ bộ nhận diện sự kiện — backdrop, standee, hashtag, thẻ đeo, giấy chứng nhận và nhiều hơn nữa.",
+			"In ấn sắc nét, gia công chỉn chu với chất liệu phù hợp từng hạng mục và không gian thực tế.",
+			"Thi công và set up tại địa điểm sự kiện — bố trí đúng bố cục, đúng thẩm mỹ, sẵn sàng vận hành.",
+			"Triển khai theo timeline: thông thường 3–4 ngày làm việc cho các hạng mục cơ bản.",
+		],
+		highlights: [
+			{
+				title: "Sự kiện trọn gói là gì?",
+				description:
+					"Giải pháp cung cấp đầy đủ hạng mục tổ chức sự kiện từ concept, thiết kế, in ấn đến thi công — chỉ một đầu mối, đồng bộ toàn bộ.",
+				icon: <DesignServicesIcon fontSize="small" />,
+			},
+			{
+				title: "Thiết kế đồng bộ",
+				description:
+					"Toàn bộ ấn phẩm được thiết kế theo một concept thống nhất — màu sắc, font chữ, thông điệp đồng nhất từ đầu đến cuối.",
+				icon: <LocalPrintshopIcon fontSize="small" />,
+			},
+			{
+				title: "In ấn & gia công chuẩn",
+				description:
+					"300 DPI, CMYK, bleed 3mm — đảm bảo chất lượng in sắc nét. Hỗ trợ cắt theo form, bồi cứng và cán màng bảo vệ.",
+				icon: <WorkspacePremiumIcon fontSize="small" />,
+			},
+			{
+				title: "Thi công & set up",
+				description:
+					"Lắp đặt backdrop, standee, bàn check-in và toàn bộ không gian sự kiện — kiểm tra tổng thể trước giờ khai mạc.",
+				icon: <BoltIcon fontSize="small" />,
+			},
+		],
+	},
+	types: {
+		eyebrow: "Phân loại sự kiện",
+		title: "Các dạng sự kiện INUT đã triển khai",
+		description:
+			"Phù hợp với nhiều quy mô và loại hình chương trình — từ nội bộ đến sự kiện thương hiệu lớn.",
+		items: [
+			{
+				name: "Khai trương & Ra mắt",
+				description: "Khai trương cửa hàng, showroom, ra mắt sản phẩm.",
+				image: HERO_IMAGE,
+			},
+			{
+				name: "Hội nghị & Workshop",
+				description: "Hội thảo, đào tạo, sự kiện doanh nghiệp nội bộ.",
+				image: HERO_IMAGE,
+			},
+			{
+				name: "Activation & Roadshow",
+				description: "Booth activation, event thương hiệu, truyền thông ngoài trời.",
+				image: HERO_IMAGE,
+			},
+			{
+				name: "Trường học & Cộng đồng",
+				description: "Lễ tốt nghiệp, ngày hội CLB, chương trình cộng đồng.",
+				image: HERO_IMAGE,
+			},
+		],
+	},
+	whyInut: {
+		eyebrow: "Tại sao chọn chúng tôi",
+		title: "Vì sao chọn sự kiện trọn gói tại INUT Design?",
+		description:
+			"Một đầu mối — toàn bộ hạng mục. INUT đảm nhận từ thiết kế đến thi công, giúp bạn kiểm soát chất lượng và tiến độ dễ dàng hơn bao giờ hết.",
+		productionProcess: {
+			title: "Quy trình triển khai chuyên nghiệp",
+			items: [
+				{
+					title: "Tiếp nhận & Tư vấn",
+					description:
+						"Xác định loại sự kiện, quy mô, hạng mục và ngân sách — phản hồi trong 15 phút.",
+					icon: <TimerIcon fontSize="small" />,
+				},
+				{
+					title: "Thiết kế & Kiểm duyệt",
+					description: "Thiết kế đồng bộ theo concept, chỉnh sửa theo yêu cầu trước khi sản xuất.",
+					icon: <DesignServicesIcon fontSize="small" />,
+				},
+				{
+					title: "In ấn & Thi công",
+					description: "Sản xuất đúng tiến độ, lắp đặt và bàn giao hoàn chỉnh trước giờ khai mạc.",
+					icon: <DoneAllIcon fontSize="small" />,
+				},
+			],
+		},
+		applications: {
+			title: "Các hạng mục thường có trong gói sự kiện",
+			description:
+				"Tùy quy mô và mục tiêu chương trình, INUT có thể tư vấn hạng mục phù hợp và tối ưu chi phí.",
+			items: [
+				{
+					title: "Backdrop & Photobooth",
+					description: "Khu vực check-in chuyên nghiệp, đẹp khi chụp ảnh.",
+					icon: <CampaignIcon fontSize="small" />,
+				},
+				{
+					title: "Standee, Banner, Poster",
+					description: "Thông tin sự kiện rõ ràng, bố cục thẩm mỹ.",
+					icon: <StorefrontIcon fontSize="small" />,
+				},
+				{
+					title: "Hashtag, Props & Thẻ đeo",
+					description: "Tăng tương tác check-in và lan tỏa thương hiệu tự nhiên.",
+					icon: <CardGiftcardIcon fontSize="small" />,
+				},
+				{
+					title: "Huy chương & Giấy chứng nhận",
+					description: "Kỷ niệm chương chính thức, in sắc nét và hoàn thiện tốt.",
+					icon: <GroupsIcon fontSize="small" />,
+				},
+			],
+		},
+		commitment: {
+			title: "Cam kết đồng bộ, đúng hẹn và giá cạnh tranh",
+			description:
+				"Sự chuyên nghiệp của một chương trình thể hiện rõ qua cách các hạng mục nhỏ liên kết thành tổng thể nhất quán. INUT cam kết điều đó.",
+			icon: <VerifiedIcon />,
+		},
+	},
+	testimonials: {
+		eyebrow: "Đánh giá khách hàng",
+		title: "Khách hàng nói gì về <em>INUT?</em>",
+		items: [
+			{
+				name: "Công ty TNHH Minh Phát",
+				role: "Sự kiện khai trương · Đà Nẵng",
+				text: "INUT lo từ A đến Z — backdrop, standee, hashtag, thẻ đeo đều đồng bộ và đẹp hơn mình mong đợi. Giao đúng giờ, set up nhanh.",
+				initials: "MP",
+				color: "#ff4d00",
+			},
+			{
+				name: "CLB Khởi Nghiệp Đà Nẵng",
+				role: "Workshop thường niên · Đà Nẵng",
+				text: "Làm việc rất chuyên nghiệp. Tư vấn rõ ràng từ đầu, thiết kế chỉnh sửa nhanh và bàn giao đúng timeline. Năm sau vẫn chọn INUT.",
+				initials: "KN",
+				color: "#1a5c3a",
+			},
+		],
+		score: "5.0★",
+		countText: "Dựa trên 300+ đánh giá",
+	},
+	contact: {
+		eyebrow: "Liên hệ ngay",
+		description:
+			"Liên hệ ngay để được tư vấn hạng mục phù hợp và nhận báo giá nhanh cho sự kiện của bạn.",
+		type: "su-kien-tron-goi",
+		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
+		persons: [
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
+		],
+	},
+	gallery: {
+		eyebrow: "Dự án đã thực hiện",
+		title: "Hình ảnh thực tế",
+		images: Array.from({ length: 8 }).map(
+			(_, index) => `/services/an-pham-su-kien/su-kien-tron-goi-da-nang/${index + 1}.avif`
+		),
+		filters: ["Tất cả", "Khai trương", "Hội nghị", "Activation", "Trường học"],
+	},
+};
