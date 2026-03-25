@@ -446,6 +446,7 @@ const LighterCheckout: NextPageWithLayout = () => {
 														multiline
 														rows={2}
 														placeholder="Số nhà, tên đường, phường, quận, thành phố..."
+														helperText={errors.deliveryAddress?.message || ""}
 													/>
 												)}
 											/>
@@ -476,6 +477,11 @@ const LighterCheckout: NextPageWithLayout = () => {
 															</Typography>
 														</Alert>
 													)}
+													<Alert severity="info" sx={{ mt: 2 }}>
+														<Typography variant="caption">
+															Nhập địa chỉ cũ trước sáp nhập để chúng tôi vận chuyển chính xác hơn
+														</Typography>
+													</Alert>
 												</>
 											)}
 										</Stack>
