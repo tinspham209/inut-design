@@ -283,6 +283,22 @@ export const trackUmamiTimeOnPage = (pageName: string, seconds: number): void =>
 	});
 };
 
+/**
+ * Track abandoned checkout (user filled phone + address but didn't submit)
+ */
+export const trackUmamiAbandonedCheckout = (
+	customerPhone: string,
+	items: UmamiProductData[],
+	deliveryAddress?: string
+): void => {
+	umami.track("abandoned_checkout", {
+		customerPhone,
+		itemCount: items.length,
+		items: items.map((i) => `${i.name} (${i.quantity})`).join(", "),
+		deliveryAddress: deliveryAddress || "N/A",
+	});
+};
+
 // ============================================
 // SESSION IDENTIFICATION
 // ============================================

@@ -28,6 +28,7 @@ import {
 	trackUmamiPageView,
 	type UmamiProductData,
 	trackUmamiZaloClick,
+	trackUmamiAbandonedCheckout,
 } from "./umamiAnalytics";
 
 declare global {
@@ -287,6 +288,35 @@ export const trackPurchase = (
 		quantity: p.quantity,
 	}));
 	trackUmamiPurchase(transactionId, umamiProducts, value);
+};
+
+/**
+ * Track abandoned checkout (user filled phone + address but didn't submit)
+ * @param customerPhone - Customer's phone number for follow-up
+ * @param products - Array of products in cart
+ * @param deliveryAddress - Optional delivery address
+ */
+export const trackAbandonedCheckout = (
+	customerPhone: string,
+	products: ProductData[],
+	deliveryAddress?: string
+): void => {
+	gtag("event", "abandoned_checkout", {
+		customer_phone: customerPhone,
+		item_count: products.length,
+		items: products.map((p) => `${p.name} (${p.quantity})`).join(", "),
+		delivery_address: deliveryAddress || "N/A",
+	});
+
+	// Track to Umami
+	const umamiProducts: UmamiProductData[] = products.map((p) => ({
+		id: p.id,
+		name: p.name,
+		category: p.category,
+		price: p.price,
+		quantity: p.quantity,
+	}));
+	trackUmamiAbandonedCheckout(customerPhone, umamiProducts, deliveryAddress);
 };
 
 // ============================================

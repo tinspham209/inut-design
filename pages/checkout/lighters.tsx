@@ -6,7 +6,7 @@ import { useCreateLighterOrder } from "@/hooks";
 import { CreateOrderLighterInput } from "@/models/cart";
 import { NextPageWithLayout } from "@/models/common";
 import { useLightersCart } from "@/store";
-import { trackBeginCheckout, trackPurchase } from "@/utils/analytics";
+import { trackAbandonedCheckout, trackBeginCheckout, trackPurchase } from "@/utils/analytics";
 import { formatPrice } from "@/utils/priceCalculator";
 import {
 	Alert,
@@ -28,7 +28,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { useTelegramNotification } from "@/hooks/useTelegramNotification";
 import { useShippingFees } from "@/hooks/useShippingFees";
@@ -134,6 +134,10 @@ const LighterCheckout: NextPageWithLayout = () => {
 		};
 	}, [mounted, deliveryAddress, fees, selectedFeeId, setValue, detectAndSetFee]);
 
+	// Refs for abandoned checkout tracking
+	const hasSubmittedRef = useRef(false);
+	const hasFiredAbandonedRef = useRef(false);
+
 	// Track begin checkout on mount
 	useEffect(() => {
 		if (items.length > 0) {
@@ -150,6 +154,54 @@ const LighterCheckout: NextPageWithLayout = () => {
 			);
 		}
 	}, [items, totalAmount]);
+
+	// Track abandoned checkout when user leaves without submitting
+	useEffect(() => {
+		const shouldTrack = () => {
+			const customerPhone = watch("customerPhone");
+			const isPhoneValid = /^[0-9]{10}$/.test(customerPhone || "");
+
+			return (
+				isPhoneValid &&
+				!hasSubmittedRef.current &&
+				!hasFiredAbandonedRef.current &&
+				items.length > 0 &&
+				!isOrderComplete
+			);
+		};
+
+		const fireAbandoned = () => {
+			if (!shouldTrack()) return;
+			hasFiredAbandonedRef.current = true;
+
+			const customerPhone = watch("customerPhone");
+			const deliveryAddress = watch("deliveryAddress");
+
+			trackAbandonedCheckout(
+				customerPhone,
+				items.map((item) => ({
+					id: item.productId,
+					name: item.productName,
+					category: "Lighters",
+					variant: item.lighterTypeName,
+					price: item.unitPrice,
+					quantity: item.quantity,
+				})),
+				deliveryAddress
+			);
+		};
+
+		const handleBeforeUnload = () => fireAbandoned();
+		const handleRouteChange = () => fireAbandoned();
+
+		window.addEventListener("beforeunload", handleBeforeUnload);
+		router.events.on("routeChangeStart", handleRouteChange);
+
+		return () => {
+			window.removeEventListener("beforeunload", handleBeforeUnload);
+			router.events.off("routeChangeStart", handleRouteChange);
+		};
+	}, [watch, items, isOrderComplete, router.events]);
 
 	// Calculate shipping fee and totals for display (memoized)
 	const shippingFeeValue = useMemo(() => selectedFee?.fee || 0, [selectedFee]);
