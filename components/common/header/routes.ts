@@ -253,6 +253,14 @@ export const ROUTE_LIST: RouteItem[] = [
 							icon: "ad_units",
 						},
 					},
+					{
+						label: "Huy Chương",
+						path: "/services/an-pham-su-kien/huy-chuong",
+						meta: {
+							description: "In huy chương cho sự kiện, giải thưởng.",
+							icon: "emoji_events",
+						},
+					},
 				],
 			},
 			{

@@ -10,6 +10,7 @@ import CampaignIcon from "@mui/icons-material/Campaign";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import GroupsIcon from "@mui/icons-material/Groups";
+import EventAvailable from "@mui/icons-material/EventAvailable";
 import React from "react";
 
 const HERO_IMAGE = "/cover-web.webp";
@@ -662,8 +663,8 @@ export const BANNER_STANDEE_DATA: ProductPageData = {
 		type: "banner-standee",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
@@ -677,5 +678,229 @@ export const BANNER_STANDEE_DATA: ProductPageData = {
 			`/services/an-pham-su-kien/banner-standee/1.avif`,
 		],
 		filters: ["Tất cả", "Roll-up", "X-Banner", "Banner Hiflex", "Standee Sự Kiện"],
+	},
+};
+
+export const HUY_CHUONG_DATA: ProductPageData = {
+	id: "huy-chuong",
+	name: "Huy chương",
+	category: "Sự kiện",
+	seo: {
+		title: "In Huy Chương Sự Kiện Chuyên Nghiệp tại Đà Nẵng – Tôn Vinh Thành Tích | INUT Design",
+		description:
+			"Huy chương sự kiện thiết kế riêng — acrylic, gỗ, kim loại, khắc laser tinh xảo. Đặt từ 10 cái, sản xuất 3–4 ngày. Báo giá nhanh tại INUT Design Đà Nẵng.",
+		url: "https://inutdesign.com/services/huy-chuong",
+		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Sự kiện", item: "/services/su-kien" },
+			{ name: "Huy chương", item: "/services/huy-chuong" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Huy chương sự kiện theo yêu cầu",
+			serviceType: "Sản xuất huy chương",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "25000",
+				priceCurrency: "VND",
+			},
+		},
+	},
+	hero: {
+		title: "Huy chương",
+		description:
+			"Huy chương là vật phẩm trao tặng mang tính biểu trưng cao — ghi nhận thành tích, tôn vinh người tham gia và tạo dấu ấn khó quên cho mọi chương trình, sự kiện.",
+		image: `/services/huy-chuong/1.avif`,
+		chips: ["Thiết kế theo yêu cầu", "Nhiều chất liệu", "Giao nhanh 3–4 ngày"],
+		ctaLabel: "Nhận báo giá nhanh",
+		secondaryCtaLabel: "Xem portfolio",
+		ticker: [
+			"Acrylic · Gỗ · Kim Loại",
+			"Khắc Laser Tinh Xảo",
+			"Từ 10 Cái",
+			"Thiết Kế Theo Concept",
+		],
+		stats: [
+			{ value: "50.000", unit: "+", label: "Huy chương đã sản xuất" },
+			{ value: "300", unit: "+", label: "Sự kiện tin dùng" },
+			{ value: "100", unit: "%", label: "Thiết kế theo yêu cầu" },
+			{ value: "3", unit: "ngày", label: "Sản xuất nhanh nhất" },
+		],
+	},
+	introduction: {
+		eyebrow: "Huy chương sự kiện",
+		title: "Tôn vinh thành tích — nâng tầm chương trình",
+		description:
+			"Huy chương không chỉ là phần thưởng — đó là dấu ấn ghi nhận thành tích, cảm xúc và hình ảnh của cả một sự kiện được đầu tư chỉn chu.",
+		bullets: [
+			"Mang tính biểu tượng và giá trị tinh thần cao — tạo cảm giác được ghi nhận và trân trọng.",
+			"Tăng hình ảnh chuyên nghiệp cho sự kiện, dễ đồng bộ với bộ nhận diện thương hiệu.",
+			"Có thể thiết kế riêng theo từng concept chương trình — logo, màu sắc, thông điệp.",
+			"Đa dạng chất liệu: acrylic, gỗ, kim loại, mica — phù hợp mọi ngân sách và mục đích.",
+			"Giá trị lưu niệm lâu dài — giúp sự kiện được nhớ đến nhiều hơn sau khi kết thúc.",
+		],
+		highlights: [
+			{
+				title: "Thiết kế theo concept",
+				description:
+					"Mỗi huy chương được thiết kế riêng theo tinh thần sự kiện — logo, màu sắc, thông điệp đều được cá nhân hóa.",
+				icon: <DesignServicesIcon fontSize="small" />,
+			},
+			{
+				title: "Gia công tinh xảo",
+				description:
+					"In UV, khắc laser, cắt CNC hoặc ép nổi — thành phẩm sắc nét, chắc chắn, xứng đáng để trao tặng.",
+				icon: <WorkspacePremiumIcon fontSize="small" />,
+			},
+			{
+				title: "Nhiều chất liệu",
+				description:
+					"Acrylic hiện đại, gỗ mộc mạc, kim loại trang trọng — chọn chất liệu phù hợp nhất với ngân sách và concept.",
+				icon: <LocalPrintshopIcon fontSize="small" />,
+			},
+			{
+				title: "Đặt ít vẫn được",
+				description:
+					"Tối thiểu 10 cái — phù hợp cả sự kiện nhỏ lẫn chương trình lớn hàng trăm người tham dự.",
+				icon: <BoltIcon fontSize="small" />,
+			},
+		],
+	},
+	types: {
+		eyebrow: "Chất liệu phổ biến",
+		title: "Dòng huy chương",
+		description: "Đa dạng chất liệu và hoàn thiện, phù hợp mọi concept sự kiện và ngân sách.",
+		items: [
+			{
+				name: "Acrylic",
+				description: "Hiện đại, trong suốt hoặc đục mịn, dễ tạo hình — phù hợp sự kiện trẻ trung.",
+				image: HERO_IMAGE,
+			},
+			{
+				name: "Gỗ",
+				description: "Cảm giác mộc mạc, gần gũi — phù hợp concept tự nhiên và handmade.",
+				image: HERO_IMAGE,
+			},
+			{
+				name: "Kim loại",
+				description: "Trang trọng, bền chắc, giá trị cao — lý tưởng cho lễ vinh danh.",
+				image: HERO_IMAGE,
+			},
+			{
+				name: "Mica / In UV",
+				description: "Màu sắc nổi bật, hình ảnh sắc nét — tối ưu chi phí cho số lượng lớn.",
+				image: HERO_IMAGE,
+			},
+		],
+	},
+	whyInut: {
+		eyebrow: "Chất lượng từ xưởng",
+		title: "Vì sao chọn dịch vụ tại INUT Design?",
+		description:
+			"Không phải ai cũng làm huy chương đẹp — nhưng INUT làm điều đó mỗi ngày, với từng đơn hàng 10 cái hay 1.000 cái.",
+		productionProcess: {
+			title: "Quy trình chuyên nghiệp",
+			items: [
+				{
+					title: "Giao nhanh, đúng hẹn",
+					description: "Sản xuất từ 3–4 ngày, có thể rút ngắn khi cần gấp cho sự kiện.",
+					icon: <TimerIcon fontSize="small" />,
+				},
+				{
+					title: "Đặt ít vẫn được",
+					description: "Tối thiểu chỉ 10 cái — không ép số lượng lớn, phù hợp mọi quy mô.",
+					icon: <DoneAllIcon fontSize="small" />,
+				},
+				{
+					title: "Hỗ trợ thiết kế miễn phí",
+					description: "INUT hỗ trợ thiết kế theo concept sự kiện, tư vấn chất liệu phù hợp nhất.",
+					icon: <DesignServicesIcon fontSize="small" />,
+				},
+			],
+		},
+		applications: {
+			title: "Dùng cho mọi sự kiện",
+			description:
+				"Từ giải chạy cuối tuần đến gala doanh nghiệp — huy chương INUT có mặt ở khắp nơi.",
+			items: [
+				{
+					title: "Giải chạy & hội thao",
+					description:
+						"Giải chạy marathon, đi bộ, hội thao trường học và phong trào thể dục thể thao.",
+					icon: <CampaignIcon fontSize="small" />,
+				},
+				{
+					title: "Cuộc thi & đấu trường",
+					description: "Thi học thuật, văn nghệ, phong trào, cuộc thi tay nghề và sáng tạo.",
+					icon: <StorefrontIcon fontSize="small" />,
+				},
+				{
+					title: "Sự kiện doanh nghiệp",
+					description: "Gala dinner, lễ vinh danh, team building, year-end party và kick-off.",
+					icon: <EventAvailable fontSize="small" />,
+				},
+				{
+					title: "Chương trình cộng đồng",
+					description: "Workshop, sự kiện trường học, hoạt động từ thiện và event thương hiệu.",
+					icon: <WorkspacePremiumIcon fontSize="small" />,
+				},
+			],
+		},
+		commitment: {
+			title: "Cam kết chất lượng",
+			description:
+				"Thiết kế đúng tinh thần, thành phẩm đẹp chắc chắn, gia công chỉn chu — hoặc INUT làm lại.",
+			icon: <VerifiedIcon />,
+		},
+	},
+	testimonials: {
+		eyebrow: "Khách hàng tin tưởng",
+		title: "Họ đã trao — và <em>ai cũng nhớ</em>",
+		items: [
+			{
+				name: "Anh Hùng",
+				role: "BTC Giải chạy Marathon · Đà Nẵng",
+				text: "Huy chương acrylic INUT đẹp xuất sắc — đường cắt laser tinh xảo, màu sắc nổi bật. Runner nào nhận cũng chụp ảnh đăng Facebook, lan tỏa thương hiệu sự kiện miễn phí.",
+				initials: "HH",
+				color: "#2e7d32",
+			},
+			{
+				name: "Chị Lan",
+				role: "Phòng Nhân sự · Tập đoàn ABC",
+				text: "Đặt huy chương gỗ cho lễ vinh danh nhân viên, chất lượng vượt mong đợi. Mộc mạc mà sang trọng, ai nhận cũng xúc động. INUT tư vấn rất nhiệt tình.",
+				initials: "CL",
+				color: "#e65100",
+			},
+		],
+		score: "5.0★",
+		countText: "Dựa trên 300+ sự kiện tin dùng",
+	},
+	contact: {
+		eyebrow: "Báo giá trong 15 phút",
+		description:
+			"Gửi concept sự kiện + số lượng — INUT tư vấn chất liệu và báo giá ngay, không cần đặt cọc.",
+		type: "huy-chuong",
+		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
+		persons: [
+			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+		],
+	},
+	gallery: {
+		eyebrow: "Sản phẩm thực tế",
+		title: "Trao tay thành tích — ghi dấu sự kiện",
+		images: Array.from({ length: 13 }).map((_, index) => `/services/huy-chuong/${index + 1}.avif`),
+		filters: ["Tất cả", "Giải chạy", "Doanh nghiệp", "Trường học"],
 	},
 };
