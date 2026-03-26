@@ -40,7 +40,7 @@ export const ROUTE_LIST: RouteItem[] = [
 				label: "Skin Laptop",
 				path: "/san-pham/skin-laptop",
 				meta: {
-					description: "Trang trí and bảo vệ laptop với hàng ngàn mẫu skin độc đáo.",
+					description: "Trang trí và bảo vệ laptop với hàng ngàn mẫu skin độc đáo.",
 					icon: "laptop",
 				},
 			},
@@ -58,6 +58,7 @@ export const ROUTE_LIST: RouteItem[] = [
 				meta: {
 					description: "Bộ sưu tập bật lửa Cricket độc bản, in theo yêu cầu.",
 					icon: "local_fire_department",
+					badge: "Bestseller",
 				},
 			},
 		],
@@ -125,7 +126,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						label: "Skin điện thoại",
 						path: "/services/ca-nhan-hoa/skin-dien-thoai-customize",
 						meta: {
-							description: "Cá nhân hóa ốp lưng or dán skin điện thoại.",
+							description: "Cá nhân hóa ốp lưng hoặc dán skin điện thoại.",
 							icon: "smartphone",
 							badge: "New",
 						},
@@ -144,7 +145,7 @@ export const ROUTE_LIST: RouteItem[] = [
 				label: "Ấn phẩm lưu niệm",
 				path: "/services/an-pham-luu-niem",
 				meta: {
-					description: "Quà tặng lưu niệm, merchandise cho artist and doanh nghiệp.",
+					description: "Quà tặng lưu niệm, merchandise cho artist và doanh nghiệp.",
 					icon: "card_giftcard",
 					badge: "Pro",
 				},
@@ -189,7 +190,7 @@ export const ROUTE_LIST: RouteItem[] = [
 				label: "Ấn phẩm văn phòng",
 				path: "/services/an-pham-van-phong",
 				meta: {
-					description: "Giải pháp in ấn chuyên nghiệp cho văn phòng and doanh nghiệp.",
+					description: "Giải pháp in ấn chuyên nghiệp cho văn phòng và doanh nghiệp.",
 					icon: "business_center",
 					badge: "Office",
 				},
@@ -210,7 +211,7 @@ export const ROUTE_LIST: RouteItem[] = [
 					{
 						label: "In bì thư",
 						path: "/services/an-pham-van-phong/in-bi-thu",
-						meta: { description: "In bì thư doanh nghiệp nhiều kích thước.", icon: "envelope" },
+						meta: { description: "In bì thư doanh nghiệp nhiều kích thước.", icon: "mail" },
 					},
 					{
 						label: "Sổ tay / Sổ bấm ghim",
@@ -223,7 +224,7 @@ export const ROUTE_LIST: RouteItem[] = [
 				label: "Ấn phẩm sự kiện",
 				path: "/services/an-pham-su-kien",
 				meta: {
-					description: "Vật phẩm trang trí and tiếp thị cho sự kiện, triển lãm.",
+					description: "Vật phẩm trang trí và tiếp thị cho sự kiện, triển lãm.",
 					icon: "event",
 					badge: "Event",
 				},
@@ -250,7 +251,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-su-kien/banner-standee",
 						meta: {
 							description: "In banner, standee đa dạng chất liệu.",
-							icon: "ad_units",
+							icon: "branding_watermark",
 						},
 					},
 					{
@@ -266,7 +267,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-su-kien/su-kien-tron-goi-da-nang",
 						meta: {
 							description:
-								"Từ concept đến thi công. Thiết kế đồng bộ, in ấn sắc nét, set up chỉn chu",
+								"Từ concept đến thi công. Thiết kế đồng bộ, in ấn sắc nét, set up chỉn chu.",
 							icon: "event",
 						},
 					},
@@ -303,7 +304,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-tiep-thi/voucher-ve-moi-su-kien-the-tich-diem-to-roi",
 						meta: {
 							description: "In voucher, vé mời sự kiện, thẻ tích điểm, tờ rơi.",
-							icon: "contact_page",
+							icon: "confirmation_number",
 							badge: "Hot",
 						},
 					},
@@ -314,8 +315,8 @@ export const ROUTE_LIST: RouteItem[] = [
 				path: "/services/an-pham-fb",
 				meta: {
 					description: "Tăng nhận diện thương hiệu với ấn phẩm F&B chuyên nghiệp.",
-					icon: "campaign",
-					badge: "Marketing",
+					icon: "restaurant",
+					badge: "F&B",
 				},
 				children: [
 					{
@@ -323,7 +324,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-fb/thiet-ke-in-menu",
 						meta: {
 							description: "Thiết kế và in menu cho nhà hàng, quán ăn.",
-							icon: "decor",
+							icon: "menu_book",
 						},
 					},
 					{
@@ -331,7 +332,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-fb/san-pham-decor",
 						meta: {
 							description: "In decor sản phẩm F&B.",
-							icon: "decor",
+							icon: "design_services",
 						},
 					},
 					{
@@ -339,7 +340,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-fb/phieu-ve-hoa-don-gtgt",
 						meta: {
 							description: "Thiết kế và in phiếu, vé, hóa đơn GTGT.",
-							icon: "decor",
+							icon: "receipt_long",
 						},
 					},
 					{
@@ -347,7 +348,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-fb/tam-lot-ban-an",
 						meta: {
 							description: "Thiết kế và in tấm lót bàn ăn.",
-							icon: "decor",
+							icon: "table_restaurant",
 						},
 					},
 				],
@@ -357,8 +358,8 @@ export const ROUTE_LIST: RouteItem[] = [
 				path: "/services/an-pham-bao-bi",
 				meta: {
 					description: "Tăng nhận diện thương hiệu với ấn phẩm Bao bì chuyên nghiệp.",
-					icon: "campaign",
-					badge: "Marketing",
+					icon: "package_2",
+					badge: "Packaging",
 				},
 				children: [
 					{
@@ -366,7 +367,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-bao-bi/decal-nhan-mac",
 						meta: {
 							description: "Thiết kế và in decal nhãn mác.",
-							icon: "decor",
+							icon: "label",
 						},
 					},
 					{
@@ -374,7 +375,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-bao-bi/hop-san-pham",
 						meta: {
 							description: "Thiết kế và in hộp sản phẩm.",
-							icon: "decor",
+							icon: "inventory_2",
 						},
 					},
 					{
@@ -382,7 +383,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-bao-bi/tem-bao-hanh",
 						meta: {
 							description: "Thiết kế và in tem bảo hành.",
-							icon: "decor",
+							icon: "verified",
 						},
 					},
 				],

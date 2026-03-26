@@ -1,5 +1,7 @@
+import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
 import { MainLayout } from "@/components/layout";
+import { usePrimaryBankInfo } from "@/hooks/usePrimaryBankInfo";
 import { NextPageWithLayout } from "@/models/common";
 import {
 	COLOR_CODE,
@@ -17,6 +19,7 @@ import {
 import {
 	Box,
 	Breadcrumbs,
+	CircularProgress,
 	Container,
 	Grid,
 	Icon,
@@ -27,65 +30,13 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import toast from "react-hot-toast";
 
 const PAGE_PATH = "/policies-terms/thong-tin-thanh-toan";
 const PAGE_TITLE = "Hướng dẫn thanh toán";
 
-const paymentMethods = [
-	{
-		title: "Thanh toán khi nhận hàng (COD)",
-		description: "Áp dụng tùy theo khu vực giao hàng và từng đơn hàng cụ thể.",
-		icon: LocalShippingOutlined,
-	},
-	{
-		title: "Chuyển khoản qua tài khoản ngân hàng",
-		description: (
-			<>
-				Khách hàng có thể thanh toán qua chuyển khoản theo thông tin bên dưới hoặc quét mã QR thanh
-				toán của INUT để chuyển khoản nhanh và thuận tiện hơn.
-				<Box
-					sx={{
-						mt: 2,
-						p: 2,
-						bgcolor: "rgba(0,0,0,0.02)",
-						borderRadius: 2,
-						border: `1px solid ${COLOR_CODE.BORDER}`,
-					}}
-				>
-					<Typography
-						variant="body2"
-						sx={{ mb: 1.5, display: "flex", flexWrap: "wrap", columnGap: 1 }}
-					>
-						<strong>Ngân hàng:</strong> <span>Techcombank</span>
-					</Typography>
-					<Typography
-						variant="body2"
-						sx={{ mb: 1.5, display: "flex", flexWrap: "wrap", columnGap: 1 }}
-					>
-						<strong>Chủ tài khoản:</strong> <span>La Thị Thanh Trúc</span>
-					</Typography>
-					<Typography
-						variant="body2"
-						sx={{ mb: 1.5, display: "flex", flexWrap: "wrap", columnGap: 1 }}
-					>
-						<strong>Số tài khoản:</strong>{" "}
-						<Box component="span" sx={{ color: COLOR_CODE.PRIMARY, fontWeight: 700 }}>
-							MS00T05289385471109
-						</Box>
-					</Typography>
-					<Typography variant="body2" sx={{ display: "flex", flexWrap: "wrap", columnGap: 1 }}>
-						<strong>Nội dung thanh toán:</strong> <span>Số điện thoại / Mã đơn hàng</span>
-					</Typography>
-				</Box>
-			</>
-		),
-		icon: AccountBalanceOutlined,
-	},
-];
-
 const PaymentInfoPage: NextPageWithLayout = () => {
 	const hasTrackedRef = useRef(false);
+	const { data: bankInfo, isLoading: loadingBankInfo } = usePrimaryBankInfo(true);
 
 	useEffect(() => {
 		if (hasTrackedRef.current) return;
@@ -99,6 +50,81 @@ const PaymentInfoPage: NextPageWithLayout = () => {
 		});
 		trackUmamiEvent("payment_info_view", { pagePath: PAGE_PATH });
 	}, []);
+
+	const paymentMethods = [
+		{
+			title: "Thanh toán khi nhận hàng (COD)",
+			description: "Áp dụng tùy theo khu vực giao hàng và từng đơn hàng cụ thể.",
+			icon: LocalShippingOutlined,
+		},
+		{
+			title: "Chuyển khoản qua tài khoản ngân hàng",
+			description: (
+				<>
+					Khách hàng có thể thanh toán qua chuyển khoản theo thông tin bên dưới hoặc quét mã QR
+					thanh toán của INUT để chuyển khoản nhanh và thuận tiện hơn.
+					<Box
+						sx={{
+							mt: 2,
+							p: 2,
+							bgcolor: "rgba(0,0,0,0.02)",
+							borderRadius: 2,
+							border: `1px solid ${COLOR_CODE.BORDER}`,
+							position: "relative",
+							minHeight: 120,
+							display: "flex",
+							flexDirection: "column",
+							justifyContent: "center",
+						}}
+					>
+						{loadingBankInfo ? (
+							<Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
+								<CircularProgress size={24} />
+							</Box>
+						) : bankInfo ? (
+							<>
+								<Typography
+									variant="body2"
+									sx={{ mb: 1.5, display: "flex", flexWrap: "wrap", columnGap: 1 }}
+								>
+									<strong>Ngân hàng:</strong>{" "}
+									<span>
+										{bankInfo.bankName} ({bankInfo.bankShortName})
+									</span>
+								</Typography>
+								<Typography
+									variant="body2"
+									sx={{ mb: 1.5, display: "flex", flexWrap: "wrap", columnGap: 1 }}
+								>
+									<strong>Chủ tài khoản:</strong> <span>{bankInfo.accountHolderName}</span>
+								</Typography>
+								<Typography
+									variant="body2"
+									sx={{ mb: 1.5, display: "flex", flexWrap: "wrap", columnGap: 1 }}
+								>
+									<strong>Số tài khoản:</strong>{" "}
+									<Box component="span" sx={{ color: COLOR_CODE.PRIMARY, fontWeight: 700 }}>
+										{bankInfo.accountNumber}
+									</Box>
+								</Typography>
+								<Typography
+									variant="body2"
+									sx={{ display: "flex", flexWrap: "wrap", columnGap: 1 }}
+								>
+									<strong>Nội dung thanh toán:</strong> <span>Số điện thoại / Mã đơn hàng</span>
+								</Typography>
+							</>
+						) : (
+							<Typography variant="body2" color="text.secondary" fontStyle="italic">
+								Vui lòng liên hệ hotline để nhận thông tin chuyển khoản.
+							</Typography>
+						)}
+					</Box>
+				</>
+			),
+			icon: AccountBalanceOutlined,
+		},
+	];
 
 	return (
 		<Box component="section" bgcolor="secondary.dark" pt={4} pb={10}>
@@ -255,16 +281,42 @@ const PaymentInfoPage: NextPageWithLayout = () => {
 								<Typography variant="subtitle1" fontWeight="700" mb={3} color="text.primary">
 									Quét mã QR để thanh toán nhanh
 								</Typography>
-								<Box
-									component="img"
-									src="/policies-terms/thong-tin-thanh-toan/qr-payment.png"
-									alt="QR Payment INUT Design"
-									sx={{
-										width: "100%",
-										height: "100%",
-										objectFit: "contain",
-									}}
-								/>
+								{loadingBankInfo ? (
+									<Box
+										sx={{
+											display: "flex",
+											alignItems: "center",
+											justifyContent: "center",
+											minHeight: 200,
+											width: "100%",
+										}}
+									>
+										<CircularProgress />
+									</Box>
+								) : bankInfo?.image ? (
+									<Box
+										component="img"
+										src={urlFor(bankInfo.image).width(400).url()}
+										alt="QR Payment INUT Design"
+										sx={{
+											width: "100%",
+											height: "auto",
+											maxWidth: 300,
+											objectFit: "contain",
+										}}
+									/>
+								) : (
+									<Box
+										component="img"
+										src="/policies-terms/thong-tin-thanh-toan/qr-payment.png"
+										alt="QR Payment INUT Design"
+										sx={{
+											width: "100%",
+											height: "100%",
+											objectFit: "contain",
+										}}
+									/>
+								)}
 								<Typography
 									variant="caption"
 									color="text.secondary"
