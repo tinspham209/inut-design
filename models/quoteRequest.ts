@@ -14,9 +14,9 @@ export enum UsagePurposeValue {
 	STICKER_MAGNET = "sticker-magnet",
 	STICKER_DIECUT = "sticker-diecut",
 	STICKER_KISSCUT = "sticker-kisscut",
-	LAPTOP_CUSTOMIZE = "laptop-customize",
-	PHONE_CUSTOMIZE = "phone-customize",
-	LIGHTER_CUSTOMIZE = "lighter-customize",
+	LAPTOP_CUSTOMIZE = "skin-laptop-customize",
+	PHONE_CUSTOMIZE = "skin-phone-customize",
+	LIGHTER_CUSTOMIZE = "lighters-customize",
 	MACNUT_CUSTOMIZE = "macnut-customize",
 	THANK_CARD_GIFT_CARD = "thank-card-gift-card",
 	IN_POSTCARD = "in-postcard",
@@ -24,6 +24,19 @@ export enum UsagePurposeValue {
 	SO_TAY_KY_YEU_SO_BAM_GHIM = "so-tay-ky-yeu-so-bam-ghim",
 	CATALOGUE_BROCHURE = "catalogue-brochure",
 	IN_CARD_VISIT = "in-card-visit",
+	TEM_BAO_HANH = "tem-bao-hanh",
+	HOP_SAN_PHAM = "hop-san-pham",
+	DECAL_NHAN_MAC = "decal-nhan-mac",
+	TAM_LOT_BAN_AN = "tam-lot-ban-an",
+	PHIEU_VE_HOA_DON_GTGT = "phieu-ve-hoa-don-gtgt",
+	THIET_KE_IN_MENU = "design-in-menu",
+	SAN_PHAM_DECOR = "san-pham-decor",
+	IN_VOUCHER_VE_MOI_SU_KIEN_THE_TICH_DIEM = "in-voucher-ve-moi-su-kien-the-tich-diem",
+	SU_KIEN_TRON_GOI = "su-kien-tron-goi",
+	HUY_CHUONG = "huy-chuong",
+	POSTER_DECAL = "poster-decal",
+	HASHTAG_CAM_TAY = "hashtag-cam-tay",
+	BANNER_STANDEE = "banner-standee",
 }
 
 export enum DesignStatusValue {
@@ -36,7 +49,7 @@ export enum PriorityLevelValue {
 	GAP = "gap",
 }
 
-export type ReceiveQuoteChannelValue = "email" | "zalo" | "other";
+export type ReceiveQuoteChannelValue = "email" | "zalo" | "phone" | "other";
 
 export type CreateQuoteRequestInput = {
 	customerName: string;
@@ -45,6 +58,8 @@ export type CreateQuoteRequestInput = {
 	email: string;
 	usagePurpose: UsagePurposeValue;
 	usagePurposeOtherDetail?: string;
+	quantity: number;
+	deviceModel?: string;
 	receiveQuoteChannel: ReceiveQuoteChannelValue;
 	receiveQuoteChannelOtherDetail?: string;
 	designStatus?: DesignStatusValue;
@@ -56,4 +71,3 @@ export type CreateQuoteRequestInput = {
 export type QuoteRequestForm = CreateQuoteRequestInput & {
 	_id?: string;
 };
-

@@ -12,9 +12,9 @@ const ContactForm: NextPageWithLayout = () => {
 		<Box>
 			<Seo
 				data={{
-					title: "Đăng ký nhận tư vấn - INUT Design",
+					title: "Đăng ký nhận tư vấn, báo giá - INUT Design",
 					description:
-						"Điền thông tin để nhận tư vấn về thiết kế, in ấn tại Đà Nẵng. INUT Design sẽ liên hệ bạn sớm nhất.",
+						"Điền thông tin để nhận tư vấn, báo giá về thiết kế, in ấn tại Đà Nẵng. INUT Design sẽ liên hệ bạn sớm nhất.",
 					url: "https://inutdesign.com/contact/form",
 					thumbnailUrl: "/branding/ogImage.jpg",
 				}}
@@ -31,7 +31,7 @@ const ContactForm: NextPageWithLayout = () => {
 					<Link href={"/"} passHref>
 						<MuiLink>Trang chủ</MuiLink>
 					</Link>
-					<Link href={"/"} passHref>
+					<Link href={"/contact"} passHref>
 						<MuiLink>Liên hệ</MuiLink>
 					</Link>
 

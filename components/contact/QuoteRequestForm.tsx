@@ -10,6 +10,7 @@ import { COLOR_CODE } from "@/utils";
 import { trackFormSubmit } from "@/utils/analytics";
 import {
 	Alert,
+	Autocomplete,
 	Button,
 	Card,
 	CardContent,
@@ -18,7 +19,6 @@ import {
 	FormControlLabel,
 	FormLabel,
 	Grid,
-	MenuItem,
 	Radio,
 	RadioGroup,
 	TextareaAutosize,
@@ -33,10 +33,36 @@ import toast from "react-hot-toast";
 const USAGE_PURPOSE_OPTIONS = [
 	{ title: "Kinh doanh", value: UsagePurposeValue.KINH_DOANH },
 	{ title: "Cá nhân", value: UsagePurposeValue.CA_NHAN },
+	{ title: "Decal Nhãn Mác", value: UsagePurposeValue.DECAL_NHAN_MAC },
+	{ title: "Hộp Sản Phẩm", value: UsagePurposeValue.HOP_SAN_PHAM },
+	{ title: "Tem Bảo Hành", value: UsagePurposeValue.TEM_BAO_HANH },
 	{ title: "Nhãn dán bao bì", value: UsagePurposeValue.NHAN_DAN_BAO_BI },
-	{ title: "Sticker", value: UsagePurposeValue.STICKER },
-	{ title: "In ảnh", value: UsagePurposeValue.IN_ANH },
+	{ title: "Sản Phẩm Decor", value: UsagePurposeValue.SAN_PHAM_DECOR },
+	{ title: "Thiết Kế & In Menu", value: UsagePurposeValue.THIET_KE_IN_MENU },
+	{ title: "Phiếu, Vé & Hóa Đơn GTGT", value: UsagePurposeValue.PHIEU_VE_HOA_DON_GTGT },
+	{ title: "Tấm Lót Bàn Ăn", value: UsagePurposeValue.TAM_LOT_BAN_AN },
+	{ title: "Hashtag Cầm Tay", value: UsagePurposeValue.HASHTAG_CAM_TAY },
+	{ title: "Poster & Decal", value: UsagePurposeValue.POSTER_DECAL },
+	{ title: "Banner & Standee", value: UsagePurposeValue.BANNER_STANDEE },
+	{ title: "Huy chương", value: UsagePurposeValue.HUY_CHUONG },
+	{ title: "Sự Kiện Trọn Gói", value: UsagePurposeValue.SU_KIEN_TRON_GOI },
+	{ title: "In Card Visit", value: UsagePurposeValue.IN_CARD_VISIT },
+	{ title: "In Catalogue, Brochure", value: UsagePurposeValue.CATALOGUE_BROCHURE },
+	{
+		title: "In Voucher, Vé Mời, Thẻ Tích Điểm, Tờ Rơi",
+		value: UsagePurposeValue.IN_VOUCHER_VE_MOI_SU_KIEN_THE_TICH_DIEM,
+	},
+	{ title: "Giấy Khen & Giấy Chứng Nhận", value: UsagePurposeValue.GIAY_KHEN_GIAY_CHUNG_NHAN },
+	{ title: "In Bì Thư", value: UsagePurposeValue.IN_BI_THU },
+	{ title: "Sổ Tay, Kỷ Yếu & Sổ Bấm Ghim", value: UsagePurposeValue.SO_TAY_KY_YEU_SO_BAM_GHIM },
 	{ title: "Bảng cứng in thông tin", value: UsagePurposeValue.BANG_CUNG_IN_THONG_TIN },
+	{ title: "Skin laptop custom theo yêu cầu", value: UsagePurposeValue.LAPTOP_CUSTOMIZE },
+	{ title: "Skin phone custom theo yêu cầu", value: UsagePurposeValue.PHONE_CUSTOMIZE },
+	{ title: "Bật lửa custom theo yêu cầu", value: UsagePurposeValue.LIGHTER_CUSTOMIZE },
+	{ title: "Nút phím custom theo yêu cầu", value: UsagePurposeValue.MACNUT_CUSTOMIZE },
+	{ title: "Thank Card & Gift Card", value: UsagePurposeValue.THANK_CARD_GIFT_CARD },
+	{ title: "In Postcard", value: UsagePurposeValue.IN_POSTCARD },
+	{ title: "In ảnh", value: UsagePurposeValue.IN_ANH },
 	{ title: "Móc khóa mica", value: UsagePurposeValue.MOC_KHOA_MICA },
 	{ title: "Pin cài áo mica", value: UsagePurposeValue.PIN_CAI_AO_MICA },
 	{ title: "Acrylic magnet", value: UsagePurposeValue.ACRYLIC_MAGNET },
@@ -44,11 +70,14 @@ const USAGE_PURPOSE_OPTIONS = [
 	{ title: "Sticker magnet", value: UsagePurposeValue.STICKER_MAGNET },
 	{ title: "Sticker diecut", value: UsagePurposeValue.STICKER_DIECUT },
 	{ title: "Sticker kisscut", value: UsagePurposeValue.STICKER_KISSCUT },
-	{ title: "Skin laptop custom theo yêu cầu", value: UsagePurposeValue.LAPTOP_CUSTOMIZE },
-	{ title: "Skin phone custom theo yêu cầu", value: UsagePurposeValue.PHONE_CUSTOMIZE },
-	{ title: "Bật lửa custom theo yêu cầu", value: UsagePurposeValue.LIGHTER_CUSTOMIZE },
-	{ title: "Nút phím custom theo yêu cầu", value: UsagePurposeValue.MACNUT_CUSTOMIZE },
+	{ title: "Sticker", value: UsagePurposeValue.STICKER },
 	{ title: "Khác", value: UsagePurposeValue.OTHER },
+];
+
+const DEVICE_MODEL_PURPOSE = [
+	UsagePurposeValue.MACNUT_CUSTOMIZE,
+	UsagePurposeValue.LAPTOP_CUSTOMIZE,
+	UsagePurposeValue.PHONE_CUSTOMIZE,
 ];
 
 export default function QuoteRequestFormComponent() {
@@ -74,6 +103,8 @@ export default function QuoteRequestFormComponent() {
 			email: "",
 			usagePurpose: undefined,
 			usagePurposeOtherDetail: "",
+			quantity: 1,
+			deviceModel: "",
 			receiveQuoteChannel: undefined,
 			receiveQuoteChannelOtherDetail: "",
 			designStatus: undefined,
@@ -95,6 +126,7 @@ export default function QuoteRequestFormComponent() {
 
 	const onSubmit = async (data: CreateQuoteRequestInput) => {
 		try {
+			console.log("data: ", data);
 			const result = await submit(data);
 
 			// Track successful quote request submission
@@ -111,6 +143,7 @@ export default function QuoteRequestFormComponent() {
 			}
 
 			setSubmitSuccess(true);
+			window.scrollTo(0, 0);
 			reset();
 		} catch (error) {
 			console.error("Error submitting quote request:", error);
@@ -209,29 +242,31 @@ export default function QuoteRequestFormComponent() {
 						</Grid>
 
 						{/* Email */}
-						<Grid item xs={12} md={6}>
-							<Controller
-								name="email"
-								control={control}
-								rules={{
-									required: "Vui lòng nhập email",
-									pattern: {
-										value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-										message: "Email không hợp lệ",
-									},
-								}}
-								render={({ field }) => (
-									<TextField
-										{...field}
-										fullWidth
-										label="Email *"
-										type="email"
-										error={!!errors.email}
-										helperText={errors.email?.message}
-									/>
-								)}
-							/>
-						</Grid>
+						{receiveQuoteChannel === "email" && (
+							<Grid item xs={12} md={6}>
+								<Controller
+									name="email"
+									control={control}
+									rules={{
+										required: "Vui lòng nhập email",
+										pattern: {
+											value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+											message: "Email không hợp lệ",
+										},
+									}}
+									render={({ field }) => (
+										<TextField
+											{...field}
+											fullWidth
+											label="Email *"
+											type="email"
+											error={!!errors.email}
+											helperText={errors.email?.message}
+										/>
+									)}
+								/>
+							</Grid>
+						)}
 
 						{/* Usage Purpose */}
 						<Grid item xs={12}>
@@ -239,25 +274,75 @@ export default function QuoteRequestFormComponent() {
 								name="usagePurpose"
 								control={control}
 								rules={{ required: "Vui lòng chọn mục đích sử dụng" }}
-								render={({ field }) => (
-									<TextField
+								render={({ field: { onChange, value, ...field } }) => (
+									<Autocomplete
 										{...field}
-										select
+										options={USAGE_PURPOSE_OPTIONS}
+										getOptionLabel={(option) => option.title}
+										value={USAGE_PURPOSE_OPTIONS.find((option) => option.value === value) || null}
+										onChange={(_, newValue) => {
+											onChange(newValue ? newValue.value : null);
+											setValue("deviceModel", "");
+										}}
+										isOptionEqualToValue={(option, value) => option.value === value.value}
+										renderInput={(params) => (
+											<TextField
+												{...params}
+												label="Mục đích sử dụng *"
+												error={!!errors.usagePurpose}
+												helperText={errors.usagePurpose?.message}
+												placeholder="Tìm kiếm hoặc chọn mục đích sử dụng"
+											/>
+										)}
 										fullWidth
-										label="Mục đích sử dụng *"
-										error={!!errors.usagePurpose}
-										helperText={errors.usagePurpose?.message}
-										value={field.value || ""}
-									>
-										{USAGE_PURPOSE_OPTIONS.map((option) => (
-											<MenuItem key={option.value} value={option.value}>
-												{option.title}
-											</MenuItem>
-										))}
-									</TextField>
+									/>
 								)}
 							/>
 						</Grid>
+
+						{/* Quantity */}
+						<Grid item xs={12} md={6}>
+							<Controller
+								name="quantity"
+								control={control}
+								rules={{
+									required: "Vui lòng nhập số lượng",
+									min: { value: 1, message: "Số lượng phải lớn hơn hoặc bằng 1" },
+									validate: (value) =>
+										Number.isInteger(Number(value)) || "Số lượng phải là số nguyên",
+								}}
+								render={({ field }) => (
+									<TextField
+										{...field}
+										fullWidth
+										type="number"
+										label="Số lượng *"
+										error={!!errors.quantity}
+										helperText={errors.quantity?.message}
+										inputProps={{ min: 1, step: 1 }}
+									/>
+								)}
+							/>
+						</Grid>
+
+						{/* Device Model (Conditional) */}
+						{usagePurpose && DEVICE_MODEL_PURPOSE.includes(usagePurpose) && (
+							<Grid item xs={12} md={6}>
+								<Controller
+									name="deviceModel"
+									control={control}
+									render={({ field }) => (
+										<TextField
+											{...field}
+											fullWidth
+											label="Model thiết bị"
+											placeholder={"Ví dụ: MacBook Air 13, iPhone 15..."}
+											helperText="Giúp chúng tôi báo giá chính xác hơn"
+										/>
+									)}
+								/>
+							</Grid>
+						)}
 
 						{/* Other Purpose Detail */}
 						{usagePurpose === UsagePurposeValue.OTHER && (
@@ -293,6 +378,7 @@ export default function QuoteRequestFormComponent() {
 										<RadioGroup {...field} row>
 											<FormControlLabel value="email" control={<Radio />} label="Email" />
 											<FormControlLabel value="zalo" control={<Radio />} label="Zalo" />
+											<FormControlLabel value="phone" control={<Radio />} label="Số điện thoại" />
 											<FormControlLabel value="other" control={<Radio />} label="Khác" />
 										</RadioGroup>
 									)}
@@ -327,11 +413,12 @@ export default function QuoteRequestFormComponent() {
 
 						{/* Design Status */}
 						<Grid item xs={12}>
-							<FormControl component="fieldset">
-								<FormLabel component="legend">Bạn đã có thiết kế chưa?</FormLabel>
+							<FormControl component="fieldset" error={!!errors.designStatus}>
+								<FormLabel component="legend">Bạn đã có thiết kế chưa? *</FormLabel>
 								<Controller
 									name="designStatus"
 									control={control}
+									rules={{ required: "Vui lòng chọn trạng thái thiết kế" }}
 									render={({ field }) => (
 										<RadioGroup {...field}>
 											<FormControlLabel
@@ -347,6 +434,11 @@ export default function QuoteRequestFormComponent() {
 										</RadioGroup>
 									)}
 								/>
+								{errors.designStatus && (
+									<Typography variant="caption" color="error">
+										{errors.designStatus.message}
+									</Typography>
+								)}
 							</FormControl>
 						</Grid>
 
@@ -381,6 +473,17 @@ export default function QuoteRequestFormComponent() {
 								<Controller
 									name="urgentDate"
 									control={control}
+									rules={{
+										required: "Vui lòng chọn ngày bạn cần",
+										validate: (value) => {
+											if (!value) return true;
+											const selectedDate = new Date(value);
+											selectedDate.setHours(0, 0, 0, 0);
+											const today = new Date();
+											today.setHours(0, 0, 0, 0);
+											return selectedDate >= today || "Ngày cần không hợp lệ";
+										},
+									}}
 									render={({ field }) => (
 										<TextField
 											{...field}
@@ -388,6 +491,9 @@ export default function QuoteRequestFormComponent() {
 											type="date"
 											label="Ngày cần"
 											InputLabelProps={{ shrink: true }}
+											inputProps={{ min: new Date().toISOString().split("T")[0] }}
+											error={!!errors.urgentDate}
+											helperText={errors.urgentDate?.message}
 										/>
 									)}
 								/>

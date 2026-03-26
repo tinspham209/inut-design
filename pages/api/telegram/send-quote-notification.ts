@@ -69,7 +69,7 @@ export default async function handler(
 			});
 		}
 
-		const requiredFields = ["customerName", "phone", "email", "usagePurpose"];
+		const requiredFields = ["customerName", "phone", "usagePurpose"];
 		for (const field of requiredFields) {
 			if (!quoteData[field as keyof typeof quoteData]) {
 				return res.status(400).json({

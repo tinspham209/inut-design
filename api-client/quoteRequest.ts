@@ -11,6 +11,8 @@ export const quoteRequestApi = {
 			email: input.email,
 			usagePurpose: input.usagePurpose,
 			usagePurposeOtherDetail: input.usagePurposeOtherDetail,
+			quantity: input.quantity,
+			deviceModel: input.deviceModel,
 			receiveQuoteChannel: input.receiveQuoteChannel,
 			receiveQuoteChannelOtherDetail: input.receiveQuoteChannelOtherDetail,
 			designStatus: input.designStatus,
