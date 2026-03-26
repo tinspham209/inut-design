@@ -3,6 +3,9 @@ import { IconButton, InputAdornment, InputBaseComponentProps, TextField } from "
 import React, { HTMLProps, MouseEventHandler, RefObject } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
+const EyeInvisibleIcon = AiFillEyeInvisible as any;
+const EyeIcon = AiFillEye as any;
+
 export const Input: React.FC<InputProps> = ({
 	errorMessage,
 	label,
@@ -81,7 +84,7 @@ export const Input: React.FC<InputProps> = ({
 											onClick={() => setShowPassword((prevState) => !prevState)}
 											edge="end"
 										>
-											{showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+											{showPassword ? <EyeInvisibleIcon /> : <EyeIcon />}
 										</IconButton>
 									)}
 									{!isPassword && icon && iconType === "button" ? (

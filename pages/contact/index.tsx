@@ -121,7 +121,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 							{LIST_CONTACTS.map((item) => (
 								<MuiLink
 									href={item.link}
-									{...(!item.isInternalUrl && {
+									{...(!(item as any).isInternalUrl && {
 										target: "_blank",
 										rel: "noopener noreferrer",
 									})}

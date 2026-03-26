@@ -2,6 +2,8 @@ import { Icon, Link as MuiLink, Tooltip } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { HiDuplicate } from "react-icons/hi";
+
+const DuplicateIcon = HiDuplicate as any;
 import styles from "../product/product-item.module.css";
 
 type Props = {
@@ -33,7 +35,7 @@ export function ProductCard({ imageUrl, href, alt, onSelect, priority = false }:
 							right: "8px",
 						}}
 					>
-						<HiDuplicate color="#fff" />
+						<DuplicateIcon color="#fff" />
 					</Icon>
 				</Tooltip>
 			</MuiLink>
