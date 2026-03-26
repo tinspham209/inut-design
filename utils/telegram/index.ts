@@ -36,7 +36,7 @@ export class TelegramClient {
 	}> {
 		try {
 			const response = await axios.post(`${this.baseUrl}/sendMessage`, {
-				chat_id: Number(chatId),
+				chat_id: chatId,
 				text,
 				parse_mode: options?.parseMode || "HTML",
 				disable_web_page_preview: options?.disableWebPagePreview ?? false,
@@ -57,12 +57,17 @@ export class TelegramClient {
 			};
 		} catch (error) {
 			const axiosError = error as AxiosError;
-			const errorMessage =
-				(axiosError.response?.data as any)?.description ||
-				axiosError.message ||
-				"Failed to send Telegram message";
+			const responseData = axiosError.response?.data as any;
+			const errorMessage = responseData?.description || axiosError.message || "Failed to send Telegram message";
 
-			console.error("[Telegram] Send message error:", errorMessage);
+			// Log detailed error for debugging migration issues
+			if (responseData?.parameters?.migrate_to_chat_id) {
+				console.error(
+					`[Telegram] Chat migration detected! New Chat ID: ${responseData.parameters.migrate_to_chat_id}. Please update your environment variables.`
+				);
+			}
+
+			console.error("[Telegram] Send message error:", errorMessage, responseData || "");
 
 			return {
 				success: false,
