@@ -9,12 +9,22 @@ import { AiFillTikTok } from "react-icons/ai";
 
 const TikTokIcon = AiFillTikTok as any;
 
-export const LIST_CONTACTS = [
+type ContactItem = {
+	link: string;
+	title: string;
+	icon: React.ReactNode;
+	isInternalUrl?: boolean;
+	trackingType?: "zalo" | "messenger" | "phone" | "social";
+	isShowInHomepage?: boolean;
+};
+
+export const LIST_CONTACTS: ContactItem[] = [
 	{
 		link: "https://zalo.me/0327124321",
 		trackingType: "zalo" as const,
 		icon: <ZaloIcon />,
 		title: "Nhắn tin tư vấn Zalo",
+		isShowInHomepage: true,
 	},
 	{
 		link: "/contact/form",
@@ -27,6 +37,7 @@ export const LIST_CONTACTS = [
 			/>
 		),
 		title: "Nhận báo giá",
+		isShowInHomepage: false,
 	},
 	{
 		link: "https://maps.app.goo.gl/dAdKSbnBEvarx6LK8",
@@ -38,6 +49,7 @@ export const LIST_CONTACTS = [
 			/>
 		),
 		title: "Địa chỉ (Bản đồ)",
+		isShowInHomepage: true,
 	},
 	{
 		link: "tel:+84327124321",
@@ -50,18 +62,21 @@ export const LIST_CONTACTS = [
 			/>
 		),
 		title: "Số điện thoại",
+		isShowInHomepage: true,
 	},
 	{
 		link: "https://m.me/INUTdesign1003",
 		trackingType: "messenger" as const,
 		icon: <MessengerIcon />,
 		title: "Nhắn tin tư vấn Messenger",
+		isShowInHomepage: true,
 	},
 	{
 		link: "https://m.me/inutdesign",
 		trackingType: "messenger" as const,
 		icon: <MessengerIcon />,
 		title: "Nhắn tin tư vấn Messenger",
+		isShowInHomepage: false,
 	},
 
 	...[
@@ -72,11 +87,12 @@ export const LIST_CONTACTS = [
 		trackingType: "social" as const,
 		icon: <ZaloIcon />,
 		title: `Zalo ${item.label}`,
+		isShowInHomepage: false,
 	})),
 
 	...[
-		{ label: "INUT Design", value: "INUTdesign1003" },
-		{ label: "INUT", value: "inutdesign" },
+		{ label: "INUT Design", value: "INUTdesign1003", isShowInHomepage: true },
+		{ label: "INUT", value: "inutdesign", isShowInHomepage: false },
 	].map((item) => ({
 		link: `https://www.facebook.com/${item.value}/`,
 		trackingType: "social" as const,
@@ -88,16 +104,30 @@ export const LIST_CONTACTS = [
 			/>
 		),
 		title: `Facebook ${item.label}`,
+		isShowInHomepage: item.isShowInHomepage,
 	})),
-	...["@inut.design", "@inut176b"].map((item) => ({
-		link: `https://www.tiktok.com/${item}/`,
+	...[
+		{ label: "@inut.design", value: "@inut.design", isShowInHomepage: false },
+		{
+			label: "@inut176b",
+			value: "@inut176b",
+			isShowInHomepage: false,
+		},
+	].map((item) => ({
+		link: `https://www.tiktok.com/${item.value}/`,
 		trackingType: "social" as const,
 		icon: <TikTokIcon size={40} />,
-		title: `Tiktok ${item}`,
+		title: `TikTok ${item.label}`,
+		isShowInHomepage: item.isShowInHomepage,
 	})),
 
-	...["inut_design", "inut.studiodn", "inut_skin", "inut.gift"].map((item) => ({
-		link: `https://www.instagram.com/${item}/`,
+	...[
+		{ label: "inut_design", value: "inut_design", isShowInHomepage: true },
+		{ label: "inut.studiodn", value: "inut.studiodn", isShowInHomepage: false },
+		{ label: "inut_skin", value: "inut_skin", isShowInHomepage: false },
+		{ label: "inut.gift", value: "inut.gift", isShowInHomepage: false },
+	].map((item) => ({
+		link: `https://www.instagram.com/${item.value}/`,
 		trackingType: "social" as const,
 		icon: (
 			<Instagram
@@ -106,6 +136,7 @@ export const LIST_CONTACTS = [
 				}}
 			/>
 		),
-		title: `Instagram @${item}`,
+		title: `Instagram @${item.label}`,
+		isShowInHomepage: item.isShowInHomepage,
 	})),
 ];

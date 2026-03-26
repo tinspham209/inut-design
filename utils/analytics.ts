@@ -493,6 +493,79 @@ export const trackTimeOnPage = (pageType: string, timeSpent: number): void => {
 	trackUmamiTimeOnPage(pageType, timeSpent);
 };
 
+// ============================================
+// PERFORMANCE TRACKING (bfcache + Speculation)
+// ============================================
+
+/**
+ * Track bfcache status
+ * @param wasRestored - Whether page was restored from bfcache
+ * @param navigationType - Type of navigation
+ * @param restorationTime - Time taken to restore in ms
+ */
+export const trackBFCacheStatus = (
+	wasRestored: boolean,
+	navigationType: string,
+	restorationTime: number
+): void => {
+	trackEvent("bfcache_status", {
+		bfcache_restored: wasRestored,
+		navigation_type: navigationType,
+		restoration_time_ms: Math.round(restorationTime),
+	});
+};
+
+/**
+ * Track bfcache not restored reasons
+ * @param reasons - Array of reasons
+ */
+export const trackBFCacheNotRestored = (reasons: string[]): void => {
+	trackEvent("bfcache_not_restored", {
+		reasons: reasons.join("; "),
+		reason_count: reasons.length,
+	});
+};
+
+/**
+ * Track speculation rules support
+ * @param supported - Whether browser supports speculation rules
+ * @param browser - Browser name
+ */
+export const trackSpeculationSupport = (supported: boolean, browser: string): void => {
+	trackEvent("speculation_support", {
+		speculation_supported: supported,
+		browser: browser,
+	});
+};
+
+/**
+ * Track prerender activation
+ * @param activationTime - Time taken to activate prerendered page
+ */
+export const trackPrerenderActivated = (activationTime: number): void => {
+	trackEvent("prerender_activated", {
+		activation_time_ms: Math.round(activationTime),
+	});
+};
+
+/**
+ * Track prefetch effectiveness
+ * @param url - URL that was prefetched
+ * @param wasUsed - Whether the prefetch was used
+ * @param timeSaved - Time saved in ms
+ */
+export const trackPrefetchEffectiveness = (
+	url: string,
+	wasUsed: boolean,
+	timeSaved: number
+): void => {
+	trackEvent("prefetch_effectiveness", {
+		prefetch_url: url,
+		prefetch_used: wasUsed,
+		time_saved_ms: Math.round(timeSaved),
+	});
+};
+
 const analytics = {
 	trackPageView,
 	trackEvent,
@@ -512,6 +585,11 @@ const analytics = {
 	trackOutboundClick,
 	trackVideoEngagement,
 	trackTimeOnPage,
+	trackBFCacheStatus,
+	trackBFCacheNotRestored,
+	trackSpeculationSupport,
+	trackPrerenderActivated,
+	trackPrefetchEffectiveness,
 };
 
 export default analytics;

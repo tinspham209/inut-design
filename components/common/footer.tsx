@@ -64,8 +64,7 @@ export function Footer() {
 			component={"footer"}
 			bgcolor={"#000000"}
 			color={"#ffffff"}
-			borderTop={`1px solid ${COLOR_CODE.BORDER}`}
-			zIndex={100}
+			borderTop={`1px solid ${COLOR_CODE.TEXT_DARK}`}
 			sx={{
 				pt: { xs: 6, md: 8 },
 				pb: { xs: 4, md: 5 },

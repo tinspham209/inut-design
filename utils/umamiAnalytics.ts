@@ -300,6 +300,69 @@ export const trackUmamiAbandonedCheckout = (
 };
 
 // ============================================
+// PERFORMANCE TRACKING (bfcache + Speculation)
+// ============================================
+
+/**
+ * Track bfcache status
+ */
+export const trackUmamiBFCacheStatus = (
+	wasRestored: boolean,
+	navigationType: string,
+	restorationTime: number
+): void => {
+	umami.track("bfcache_status", {
+		wasRestored,
+		navigationType,
+		restorationTimeMs: Math.round(restorationTime),
+	});
+};
+
+/**
+ * Track bfcache not restored reasons
+ */
+export const trackUmamiBFCacheNotRestored = (reasons: string[]): void => {
+	umami.track("bfcache_not_restored", {
+		reasons: reasons.join("; "),
+		reasonCount: reasons.length,
+	});
+};
+
+/**
+ * Track speculation rules support
+ */
+export const trackUmamiSpeculationSupport = (supported: boolean, browser: string): void => {
+	umami.track("speculation_support", {
+		supported,
+		browser,
+	});
+};
+
+/**
+ * Track prerender activation
+ */
+export const trackUmamiPrerenderActivated = (activationTime: number): void => {
+	umami.track("prerender_activated", {
+		activationTimeMs: Math.round(activationTime),
+	});
+};
+
+/**
+ * Track prefetch effectiveness
+ */
+export const trackUmamiPrefetchEffectiveness = (
+	url: string,
+	wasUsed: boolean,
+	timeSaved: number
+): void => {
+	umami.track("prefetch_effectiveness", {
+		url,
+		wasUsed,
+		timeSavedMs: Math.round(timeSaved),
+	});
+};
+
+// ============================================
 // SESSION IDENTIFICATION
 // ============================================
 

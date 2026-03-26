@@ -12,6 +12,48 @@ const nextConfig = {
 		domains: ["res.cloudinary.com", "cdn.sanity.io"],
 		unoptimized: true,
 	},
+	// Headers for bfcache optimization
+	async headers() {
+		return [
+			{
+				source: '/:path*',
+				headers: [
+					{
+						key: 'X-Content-Type-Options',
+						value: 'nosniff',
+					},
+					{
+						key: 'X-Frame-Options',
+						value: 'SAMEORIGIN',
+					},
+					{
+						key: 'Referrer-Policy',
+						value: 'strict-origin-when-cross-origin',
+					},
+				],
+			},
+			{
+				// Static assets with long cache
+				source: '/_next/static/:path*',
+				headers: [
+					{
+						key: 'Cache-Control',
+						value: 'public, max-age=31536000, immutable',
+					},
+				],
+			},
+			{
+				// Images with cache
+				source: '/:path*.(jpg|jpeg|png|gif|ico|svg|webp)',
+				headers: [
+					{
+						key: 'Cache-Control',
+						value: 'public, max-age=86400, must-revalidate',
+					},
+				],
+			},
+		];
+	},
 	async redirects() {
 		return [
 			{

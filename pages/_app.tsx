@@ -1,13 +1,19 @@
 import axiosClient from "@/api/axios-client";
 import { EmptyLayout } from "@/components/layout";
-import dynamic from "next/dynamic";
-
+import { FacebookChatPlugin, GoogleTagSchema } from "@/components/scripts";
+import { SpeculationRulesScript } from "@/components/scripts/speculation-rules";
+import useEngagementTracking from "@/hooks/useEngagementTracking";
 import { AppPropsWithLayout } from "@/models";
-import { createEmotionCache, theme, trackPageView } from "@/utils";
+import { createEmotionCache, reportWebVitals, theme, trackPageView } from "@/utils";
+import { initBFCacheMonitoring } from "@/utils/bfcache-monitor";
+import { initPrefetchFallback } from "@/utils/prefetch-fallback";
+import { initSpeculationMonitoring } from "@/utils/speculation-monitor";
 import { CacheProvider } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import { Analytics } from "@vercel/analytics/react";
+import dynamic from "next/dynamic";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { SWRConfig } from "swr";
@@ -26,11 +32,8 @@ const Toaster = dynamic(() => import("react-hot-toast").then((mod) => mod.Toaste
 	ssr: false,
 });
 
-import { FacebookChatPlugin, GoogleTagSchema } from "@/components/scripts";
-import useEngagementTracking from "@/hooks/useEngagementTracking";
 import "../styles/globals.css";
 import "../styles/prism.css";
-import Head from "next/head";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -49,6 +52,11 @@ function MyApp({
 	useEngagementTracking(router.pathname);
 	// useUmamiEngagement(router.pathname);
 
+	// Report web vitals to Umami
+	useEffect(() => {
+		reportWebVitals();
+	}, []);
+
 	// Track page views on route changes
 	useEffect(() => {
 		const handleRouteChange = (url: string) => {
@@ -66,6 +74,19 @@ function MyApp({
 			router.events.off("routeChangeComplete", handleRouteChange);
 		};
 	}, [router.events, router.pathname]);
+
+	// Initialize bfcache and speculation monitoring
+	useEffect(() => {
+		const cleanupBFCache = initBFCacheMonitoring();
+		const cleanupSpeculation = initSpeculationMonitoring();
+		const cleanupPrefetch = initPrefetchFallback();
+
+		return () => {
+			if (typeof cleanupBFCache === "function") cleanupBFCache();
+			if (typeof cleanupSpeculation === "function") cleanupSpeculation();
+			if (typeof cleanupPrefetch === "function") cleanupPrefetch();
+		};
+	}, []);
 
 	return (
 		<>
@@ -95,6 +116,7 @@ function MyApp({
 			<Analytics mode="production" />
 			<FacebookChatPlugin />
 			<GoogleTagSchema />
+			<SpeculationRulesScript />
 		</>
 	);
 }

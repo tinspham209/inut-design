@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { GlobalSchema } from "@/components/scripts";
+import { GlobalSchema, StaticSpeculationRules } from "@/components/scripts";
 import { createEmotionCache, theme } from "@/utils";
 import createEmotionServer from "@emotion/server/create-instance";
 import Document, { Head, Html, Main, NextScript } from "next/document";
@@ -63,6 +62,9 @@ export default class MyDocument extends Document {
 
 					<meta name="emotion-insertion-point" content="" />
 					{(this.props as any).emotionStyleTags}
+
+					{/* Speculation Rules for bfcache and prefetch/prerender */}
+					<StaticSpeculationRules />
 				</Head>
 				<body>
 					<Main />

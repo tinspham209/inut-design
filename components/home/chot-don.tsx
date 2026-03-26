@@ -10,6 +10,7 @@ import {
 	Stack,
 	Typography,
 } from "@mui/material";
+import Link from "next/link";
 
 function formatLinkDisplay(link: string): string {
 	if (link.startsWith("tel:")) return link.replace("tel:+84", "0").replace("tel:", "");
@@ -113,7 +114,7 @@ export function ChotDon() {
 							Không cần đặt cọc. Không cần có file sẵn.
 						</Typography>
 
-						<Stack direction="row" spacing={2} flexWrap="wrap" gap={1}>
+						<Stack direction="row" spacing={1} flexWrap="wrap">
 							<MuiLink
 								href="https://zalo.me/0327124321"
 								target="_blank"
@@ -125,13 +126,24 @@ export function ChotDon() {
 									size="large"
 									sx={{
 										fontWeight: "bold",
-										letterSpacing: 1.5,
-										px: 3,
 									}}
 								>
 									Inbox Zalo ngay
 								</Button>
 							</MuiLink>
+							<Link href="/contact/form" passHref legacyBehavior>
+								<MuiLink rel="noopener noreferrer" underline="none">
+									<Button
+										variant="outlined"
+										size="large"
+										sx={{
+											fontWeight: "bold",
+										}}
+									>
+										Nhận báo giá
+									</Button>
+								</MuiLink>
+							</Link>
 						</Stack>
 					</Grid>
 
@@ -145,75 +157,78 @@ export function ChotDon() {
 							borderTop: { xs: "1px solid rgba(255,255,255,0.08)", md: "none" },
 						}}
 					>
-						{LIST_CONTACTS.map((item, index) => (
-							<Box key={`${item.title}-${index}`}>
-								<MuiLink
-									href={item.link}
-									target={item.link.startsWith("/") ? undefined : "_blank"}
-									rel="noopener noreferrer"
-									underline="none"
-									sx={{
-										display: "flex",
-										alignItems: "center",
-										gap: 2.5,
-										px: { xs: 4, sm: 5, md: 6 },
-										py: 2.5,
-										transition: "background 0.18s ease",
-										"&:hover": {
-											bgcolor: "rgba(255,255,255,0.04)",
-										},
-									}}
-								>
-									{/* Icon box */}
-									<Box
+						{LIST_CONTACTS.map((item, index) => {
+							if (!item.isShowInHomepage) return null;
+							return (
+								<Box key={`${item.title}-${index}`}>
+									<MuiLink
+										href={item.link}
+										target={item.link.startsWith("/") ? undefined : "_blank"}
+										rel="noopener noreferrer"
+										underline="none"
 										sx={{
-											width: 48,
-											height: 48,
-											minWidth: 48,
-											borderRadius: 1.5,
-											bgcolor: "rgba(225,97,46,0.15)",
 											display: "flex",
 											alignItems: "center",
-											justifyContent: "center",
-											color: COLOR_CODE.PRIMARY,
-											"& svg": { fontSize: "1.5rem !important" },
+											gap: 2.5,
+											px: { xs: 4, sm: 5, md: 6 },
+											py: 2.5,
+											transition: "background 0.18s ease",
+											"&:hover": {
+												bgcolor: "rgba(255,255,255,0.04)",
+											},
 										}}
 									>
-										{item.icon}
-									</Box>
-
-									{/* Label + value */}
-									<Stack spacing={0.25}>
-										<Typography
-											variant="caption"
+										{/* Icon box */}
+										<Box
 											sx={{
-												color: "rgba(255,255,255,0.4)",
-												textTransform: "uppercase",
-												letterSpacing: 1.5,
-												fontWeight: 600,
-												fontSize: "0.65rem",
+												width: 48,
+												height: 48,
+												minWidth: 48,
+												borderRadius: 1.5,
+												bgcolor: "rgba(225,97,46,0.15)",
+												display: "flex",
+												alignItems: "center",
+												justifyContent: "center",
+												color: COLOR_CODE.PRIMARY,
+												"& svg": { fontSize: "1.5rem !important" },
 											}}
 										>
-											{item.title}
-										</Typography>
-										<Typography
-											variant="body2"
-											sx={{
-												color: "rgba(255,255,255,0.9)",
-												fontWeight: 600,
-												fontSize: { xs: "0.85rem", sm: "0.95rem" },
-											}}
-										>
-											{formatLinkDisplay(item.link)}
-										</Typography>
-									</Stack>
-								</MuiLink>
+											{item.icon}
+										</Box>
 
-								{index < LIST_CONTACTS.length - 1 && (
-									<Divider sx={{ borderColor: "rgba(255,255,255,0.06)" }} />
-								)}
-							</Box>
-						))}
+										{/* Label + value */}
+										<Stack spacing={0.25}>
+											<Typography
+												variant="caption"
+												sx={{
+													color: "rgba(255,255,255,0.4)",
+													textTransform: "uppercase",
+													letterSpacing: 1.5,
+													fontWeight: 600,
+													fontSize: "0.65rem",
+												}}
+											>
+												{item.title}
+											</Typography>
+											<Typography
+												variant="body2"
+												sx={{
+													color: "rgba(255,255,255,0.9)",
+													fontWeight: 600,
+													fontSize: { xs: "0.85rem", sm: "0.95rem" },
+												}}
+											>
+												{formatLinkDisplay(item.link)}
+											</Typography>
+										</Stack>
+									</MuiLink>
+
+									{index < LIST_CONTACTS.length - 1 && (
+										<Divider sx={{ borderColor: "rgba(255,255,255,0.06)" }} />
+									)}
+								</Box>
+							);
+						})}
 					</Grid>
 				</Grid>
 			</Container>
