@@ -138,15 +138,6 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 						<Typography color="text.primary">{product.name}</Typography>
 					</Breadcrumbs>
 
-					<Button
-						variant="outlined"
-						color="primary"
-						onClick={() => {
-							router.back();
-						}}
-					>
-						Trở về
-					</Button>
 					<Grid
 						container
 						spacing={{ xs: 2, md: 4 }}
@@ -170,7 +161,8 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 										sx={{
 											cursor: "pointer",
 											position: "relative",
-											height: { xs: 300, md: 500 },
+											width: "100%",
+											paddingTop: "100%",
 										}}
 									>
 										<Image
@@ -256,7 +248,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 										Đặt hàng
 									</Button>
 								</MuiLink>
-								<Link href="/contact" passHref>
+								<Link href="/contact/form" passHref>
 									<MuiLink>
 										<Button variant="outlined" color="primary">
 											Liên hệ tư vấn

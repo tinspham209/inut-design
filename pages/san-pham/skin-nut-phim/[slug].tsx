@@ -141,16 +141,6 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 						</Link>
 						<Typography color="text.primary">{product.name}</Typography>
 					</Breadcrumbs>
-
-					<Button
-						variant="outlined"
-						color="primary"
-						onClick={() => {
-							router.back();
-						}}
-					>
-						Trở về
-					</Button>
 					<Grid
 						container
 						spacing={{ xs: 2, md: 4 }}
@@ -174,7 +164,8 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 										sx={{
 											cursor: "pointer",
 											position: "relative",
-											height: { xs: 300, md: 500 },
+											width: "100%",
+											paddingTop: "100%",
 										}}
 									>
 										<Image

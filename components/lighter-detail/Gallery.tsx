@@ -42,7 +42,12 @@ const Gallery: React.FC<GalleryProps> = ({ images, productName }) => {
 				{images.map((img, idx) => (
 					<Box
 						key={img._key}
-						sx={{ cursor: "pointer", position: "relative", height: 400 }}
+						sx={{
+							cursor: "pointer",
+							position: "relative",
+							width: "100%",
+							paddingTop: "100%",
+						}}
 						onClick={() => setIsOpenLightBox(true)}
 					>
 						<Image
@@ -52,7 +57,7 @@ const Gallery: React.FC<GalleryProps> = ({ images, productName }) => {
 							unoptimized
 							alt={img.alt}
 							style={{
-								objectFit: "contain",
+								objectFit: "cover",
 								border: "1px solid",
 								borderColor: "divider",
 								borderRadius: "16px",
