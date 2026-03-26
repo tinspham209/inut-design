@@ -16,11 +16,13 @@ import {
 import Link from "next/link";
 
 const SERVICE_CATEGORIES = [
+	{ path: "/services/ca-nhan-hoa", maxItems: 6 },
 	{ path: "/services/an-pham-luu-niem", maxItems: 6 },
-	{ path: "/services/an-pham-van-phong", maxItems: 4 },
-	{ path: "/services/an-pham-su-kien", maxItems: 4 },
-	{ path: "/services/an-pham-tiep-thi", maxItems: 4 },
-	{ path: "/services/ca-nhan-hoa", maxItems: 4 },
+	{ path: "/services/an-pham-su-kien", maxItems: 6 },
+	{ path: "/services/an-pham-fb", maxItems: 6 },
+	{ path: "/services/an-pham-tiep-thi", maxItems: 6 },
+	{ path: "/services/an-pham-van-phong", maxItems: 6 },
+	{ path: "/services/an-pham-bao-bi", maxItems: 6 },
 ];
 
 function ServiceItemCard({ item }: { item: RouteItem }) {
@@ -134,18 +136,6 @@ function ServiceSubSection({ route, maxItems }: { route: RouteItem; maxItems: nu
 						/>
 					)}
 				</Stack>
-				<Link href={route.path} passHref>
-					<MuiLink onClick={handleHeaderClick}>
-						<Typography
-							variant="caption"
-							color={COLOR_CODE.PRIMARY}
-							fontWeight="bold"
-							sx={{ display: { xs: "none", sm: "block" } }}
-						>
-							Xem tất cả →
-						</Typography>
-					</MuiLink>
-				</Link>
 			</Stack>
 
 			<Grid container spacing={1.5}>

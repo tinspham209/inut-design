@@ -358,7 +358,7 @@ export const ROUTE_LIST: RouteItem[] = [
 				path: "/services/an-pham-bao-bi",
 				meta: {
 					description: "Tăng nhận diện thương hiệu với ấn phẩm Bao bì chuyên nghiệp.",
-					icon: "package_2",
+					icon: "luggage",
 					badge: "Packaging",
 				},
 				children: [
