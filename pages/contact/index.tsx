@@ -129,6 +129,8 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 									onClick={() => {
 										if (item.trackingType === "messenger") {
 											trackContactClick("messenger");
+										} else if (item.trackingType === "zalo") {
+											trackContactClick("zalo");
 										} else if (item.trackingType === "phone") {
 											trackPhoneClick();
 										} else if (item.trackingType === "social") {
@@ -153,7 +155,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 										}}
 									>
 										{item.icon}
-										<Typography variant="h5">{item.title}</Typography>
+										<Typography variant="h6">{item.title}</Typography>
 										<ArrowForwardIos />
 									</Stack>
 								</MuiLink>
