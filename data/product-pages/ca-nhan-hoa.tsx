@@ -175,15 +175,15 @@ export const SKIN_LAPTOP_DATA: ProductPageData = {
 		type: "laptop-customize",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
 		eyebrow: "Bộ sưu tập",
 		title: "Hình ảnh thực tế",
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
-		filters: ["Tất cả", "Skin Laptop", "Texture", "Doanh nghiệp"],
+		filters: [],
 	},
 };
 
@@ -353,15 +353,15 @@ export const SKIN_NUT_PHIM_DATA: ProductPageData = {
 		type: "macnut-customize",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
 		eyebrow: "Dự án",
 		title: "Hình ảnh thực tế",
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
-		filters: ["Tất cả", "Macbook", "Custom Layout", "Phím Lẻ"],
+		filters: [],
 	},
 };
 
@@ -525,15 +525,15 @@ export const SKIN_DIEN_THOAI_DATA: ProductPageData = {
 		type: "skin-phone-customize",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
 		eyebrow: "Dự án đã làm",
 		title: "Hình ảnh thực tế",
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
-		filters: ["Tất cả", "iPhone", "Samsung", "Custom Design"],
+		filters: [],
 	},
 };
 
@@ -696,8 +696,8 @@ export const LIGHTERS_CUSTOMIZE_DATA: ProductPageData = {
 		type: "lighters-customize",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
@@ -706,6 +706,6 @@ export const LIGHTERS_CUSTOMIZE_DATA: ProductPageData = {
 		images: Array.from({ length: 13 }).map(
 			(_, index) => `/services/ca-nhan-hoa/skin-bat-lua-customize/${index + 1}.avif`
 		),
-		filters: ["Tất cả", "Cricket", "Mini", "Doanh nghiệp"],
+		filters: [],
 	},
 };

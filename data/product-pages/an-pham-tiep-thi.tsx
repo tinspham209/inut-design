@@ -1,10 +1,13 @@
 import { ProductPageData } from "@/models/product-page";
 import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
+import BoltIcon from "@mui/icons-material/Bolt";
 import BusinessIcon from "@mui/icons-material/Business";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import CampaignIcon from "@mui/icons-material/Campaign";
+import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
+import GroupsIcon from "@mui/icons-material/Groups";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import PaletteIcon from "@mui/icons-material/Palette";
@@ -13,6 +16,7 @@ import SpeedIcon from "@mui/icons-material/Speed";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import TimerIcon from "@mui/icons-material/Timer";
 import VerifiedIcon from "@mui/icons-material/Verified";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 
 const HERO_IMAGE = "/cover-web.webp";
 
@@ -219,8 +223,8 @@ export const IN_CARD_VISIT_DATA: ProductPageData = {
 		type: "in-card-visit",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
@@ -234,7 +238,7 @@ export const IN_CARD_VISIT_DATA: ProductPageData = {
 			"/branding/services/nhan-chai-san-pham.avif",
 			"/branding/hero-bg.webp",
 		],
-		filters: ["Tất cả", "Giấy Couche", "Giấy Mỹ thuật", "Thẻ nhựa"],
+		filters: [],
 	},
 };
 
@@ -434,14 +438,236 @@ export const CATALOGUE_BROCHURE_DATA: ProductPageData = {
 		type: "catalogue-brochure",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
 		eyebrow: "Sản phẩm thực tế",
 		title: "Thư viện dự án",
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
-		filters: ["Tất cả", "Catalogue", "Brochure", "Profile"],
+		filters: [],
+	},
+};
+
+export const IN_VOUCHER_VE_MOI_SU_KIEN_THE_TICH_DIEM_DATA: ProductPageData = {
+	id: "in-voucher-ve-moi-su-kien-the-tich-diem",
+	name: "In Voucher, Vé Mời, Thẻ Tích Điểm, Tờ Rơi",
+	category: "Ấn phẩm sự kiện",
+	seo: {
+		title:
+			"In Voucher, Vé Mời Sự Kiện, Thẻ Tích Điểm tại Đà Nẵng – Thiết Kế Đẹp, In Sắc Nét | INUT Design",
+		description:
+			"Dịch vụ in voucher, vé mời sự kiện, thẻ tích điểm, tờ rơi tại Đà Nẵng. Thiết kế đẹp, in sắc nét, gia công chỉn chu, giá hợp lý. Phù hợp cửa hàng, café, spa, salon, doanh nghiệp.",
+		url: "https://inutdesign.com/services/an-pham-su-kien/in-voucher-ve-moi-su-kien-the-tich-diem-to-roi",
+		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Ấn phẩm sự kiện", item: "/services/an-pham-su-kien" },
+			{
+				name: "In Voucher, Vé Mời, Thẻ Tích Điểm, Tờ Rơi",
+				item: "/services/an-pham-su-kien/in-voucher-ve-moi-su-kien-the-tich-diem",
+			},
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Voucher, Vé Mời Sự Kiện, Thẻ Tích Điểm, Tờ Rơi",
+			serviceType: "In ấn ấn phẩm thương hiệu",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				priceCurrency: "VND",
+			},
+		},
+	},
+	hero: {
+		title: "In Voucher, Vé Mời, Thẻ Tích Điểm & Tờ Rơi",
+		description:
+			"Nhỏ gọn nhưng không nhỏ vai trò. Voucher, vé mời, thẻ tích điểm và tờ rơi được thiết kế đẹp, in sắc nét và gia công chỉn chu — giúp thương hiệu của bạn ghi điểm ngay từ điểm chạm đầu tiên.",
+		image: HERO_IMAGE,
+		chips: ["Thiết kế theo yêu cầu", "In lấy nhanh", "Gia công chỉn chu"],
+		secondaryCtaLabel: "Xem portfolio",
+		ticker: ["In Voucher Sắc Nét", "Vé Mời Chuyên Nghiệp", "Thẻ Tích Điểm Đẹp", "Tờ Rơi Ấn Tượng"],
+		stats: [
+			{ value: "10.000", unit: "+", label: "Ấn phẩm đã xuất xưởng" },
+			{ value: "300", unit: "+", label: "Thương hiệu tin dùng" },
+			{ value: "5.0", unit: "★", label: "Đánh giá từ khách hàng" },
+			{ value: "3–4", unit: " ngày", label: "Sản xuất tiêu chuẩn" },
+		],
+	},
+	introduction: {
+		eyebrow: "Ấn phẩm thương hiệu nhỏ gọn",
+		title: "Voucher, vé mời, thẻ tích điểm & tờ rơi theo yêu cầu",
+		description:
+			"Những ấn phẩm nhỏ nhưng ảnh hưởng trực tiếp đến trải nghiệm khách hàng và hình ảnh thương hiệu — khi đầu tư đúng cách, chúng mang lại hiệu quả rõ rệt.",
+		bullets: [
+			"Voucher, vé mời và thẻ tích điểm là điểm chạm trực tiếp với khách hàng — thiết kế đẹp, in rõ giúp thương hiệu trông chuyên nghiệp hơn ngay lập tức.",
+			"Hỗ trợ tích hợp QR code, mã seri, số nhảy hoặc dữ liệu cá nhân hóa theo từng chương trình.",
+			"Kích thước linh hoạt: từ cỡ name card đến A6, hoặc tùy chỉnh theo concept thương hiệu và mục đích sử dụng.",
+			"Đa dạng chất liệu: Couche, Bristol, Ivory, giấy mỹ thuật — tư vấn theo ngân sách và phong cách.",
+			"Gia công sau in: cán mờ, cán bóng, bo góc, bế form, ép kim, dập nổi — tùy chọn theo nhu cầu thực tế.",
+		],
+		highlights: [
+			{
+				title: "Voucher là gì?",
+				description:
+					"Phiếu ưu đãi hoặc quà tặng dùng cho giảm giá, khuyến mãi, tri ân khách hàng — tăng chuyển đổi và thúc đẩy mua hàng.",
+				icon: <DesignServicesIcon fontSize="small" />,
+			},
+			{
+				title: "Vé mời sự kiện",
+				description:
+					"Mời khách tham dự workshop, khai trương, hội thảo, event — thể hiện phong cách tổ chức và mức độ đầu tư của thương hiệu.",
+				icon: <LocalPrintshopIcon fontSize="small" />,
+			},
+			{
+				title: "Thẻ tích điểm",
+				description:
+					"Ghi nhận lần mua hàng hoặc sử dụng dịch vụ — giải pháp đơn giản nhưng hiệu quả để giữ chân khách hàng thân thiết.",
+				icon: <WorkspacePremiumIcon fontSize="small" />,
+			},
+			{
+				title: "Tờ rơi",
+				description:
+					"Truyền tải thông tin sản phẩm, dịch vụ hoặc chương trình khuyến mãi — nhanh, trực tiếp và dễ phân phối.",
+				icon: <BoltIcon fontSize="small" />,
+			},
+		],
+	},
+	types: {
+		eyebrow: "Phân loại ấn phẩm",
+		title: "Các dòng ấn phẩm INUT thực hiện",
+		description: "Mỗi loại ấn phẩm phục vụ một mục tiêu riêng — tư vấn đúng để chọn đúng.",
+		items: [
+			{
+				name: "Voucher & Phiếu ưu đãi",
+				description: "Giảm giá, quà tặng, khuyến mãi theo mùa, tri ân khách hàng.",
+				image: HERO_IMAGE,
+			},
+			{
+				name: "Vé mời sự kiện",
+				description: "Workshop, khai trương, hội thảo, event, vé VIP có QR code.",
+				image: HERO_IMAGE,
+			},
+			{
+				name: "Thẻ tích điểm",
+				description: "Café, trà sữa, spa, salon, nail, cửa hàng thời trang.",
+				image: HERO_IMAGE,
+			},
+			{
+				name: "Tờ rơi",
+				description: "Giới thiệu sản phẩm, dịch vụ, chương trình khuyến mãi.",
+				image: HERO_IMAGE,
+			},
+		],
+	},
+	whyInut: {
+		eyebrow: "Tại sao chọn chúng tôi",
+		title: "Vì sao chọn dịch vụ in tại INUT Design?",
+		description:
+			"Mỗi ấn phẩm không chỉ in đúng nội dung — mà còn cần đẹp, gọn, đồng bộ và phù hợp với mục đích sử dụng thực tế.",
+		productionProcess: {
+			title: "Quy trình sản xuất chuyên nghiệp",
+			items: [
+				{
+					title: "Tư vấn & Thiết kế",
+					description: "Chọn chất liệu, kích thước, gia công phù hợp — kiểm tra file trước khi in.",
+					icon: <DesignServicesIcon fontSize="small" />,
+				},
+				{
+					title: "In ấn chuẩn kỹ thuật",
+					description:
+						"300 DPI, CMYK, bleed 3mm — màu sắc ổn định, sắc nét đồng đều giữa các thành phẩm.",
+					icon: <TimerIcon fontSize="small" />,
+				},
+				{
+					title: "Gia công & Bàn giao",
+					description:
+						"Cán mờ / bóng, bo góc, bế form, ép kim — kiểm tra trước giao để đảm bảo đúng quy cách.",
+					icon: <DoneAllIcon fontSize="small" />,
+				},
+			],
+		},
+		applications: {
+			title: "Ứng dụng đa dạng cho mọi mô hình",
+			description:
+				"Phù hợp với cửa hàng, café, spa, salon, doanh nghiệp và nhiều mô hình kinh doanh cần ấn phẩm nhỏ nhưng hiệu quả lớn.",
+			items: [
+				{
+					title: "Bán hàng & Khuyến mãi",
+					description: "Voucher giảm giá, phiếu quà tặng, ưu đãi khai trương.",
+					icon: <CampaignIcon fontSize="small" />,
+				},
+				{
+					title: "Tổ chức sự kiện",
+					description: "Vé mời workshop, hội thảo, event doanh nghiệp, vé VIP.",
+					icon: <CardGiftcardIcon fontSize="small" />,
+				},
+				{
+					title: "Chăm sóc khách hàng",
+					description: "Thẻ tích điểm tăng loyalty, giữ chân khách hàng quay lại.",
+					icon: <GroupsIcon fontSize="small" />,
+				},
+				{
+					title: "Truyền thông thương hiệu",
+					description: "Tờ rơi phân phối tại sự kiện, quầy kệ, khu vực đông người.",
+					icon: <StorefrontIcon fontSize="small" />,
+				},
+			],
+		},
+		commitment: {
+			title: "Cam kết in đẹp, đúng hẹn và giá cạnh tranh",
+			description:
+				"Từ tư vấn chất liệu đến gia công hoàn thiện — INUT đảm bảo thành phẩm sạch đẹp, đồng đều và sẵn sàng sử dụng ngay khi bàn giao.",
+			icon: <VerifiedIcon />,
+		},
+	},
+	testimonials: {
+		eyebrow: "Đánh giá khách hàng",
+		title: "Khách hàng nói gì về <em>INUT?</em>",
+		items: [
+			{
+				name: "Chủ tiệm Café Rang Đà Nẵng",
+				role: "F&B · Đà Nẵng",
+				text: "In thẻ tích điểm cho quán, INUT tư vấn chất liệu phù hợp và thiết kế đồng bộ với branding. Khách cầm lên ai cũng khen đẹp.",
+				initials: "CR",
+				color: "#ff4d00",
+			},
+			{
+				name: "Trung tâm Đào Tạo Kỹ Năng Sống",
+				role: "Giáo dục · Đà Nẵng",
+				text: "Vé mời workshop in rất đẹp, màu sắc sắc nét, giấy dày dặn. Khách mời nhận được đều hỏi in ở đâu. Sẽ tiếp tục hợp tác.",
+				initials: "TT",
+				color: "#1a5c3a",
+			},
+		],
+		score: "5.0★",
+		countText: "Dựa trên 300+ đánh giá",
+	},
+	contact: {
+		eyebrow: "Liên hệ ngay",
+		description:
+			"Liên hệ ngay để được tư vấn mẫu phù hợp, chọn chất liệu tối ưu và nhận báo giá nhanh cho thương hiệu hoặc chương trình của bạn.",
+		type: "in-voucher-ve-moi-su-kien-the-tich-diem",
+		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
+		persons: [
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
+		],
+	},
+	gallery: {
+		eyebrow: "Dự án đã thực hiện",
+		title: "Hình ảnh thực tế",
+		images: Array.from({ length: 8 }).map((_, index) => HERO_IMAGE),
+		filters: [],
 	},
 };

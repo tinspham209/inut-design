@@ -229,8 +229,8 @@ export const THANK_CARD_DATA: ProductPageData = {
 		type: "thank-card-gift-card",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
@@ -239,7 +239,7 @@ export const THANK_CARD_DATA: ProductPageData = {
 		images: Array.from({ length: 8 }).map(
 			(_, index) => `/services/an-pham-luu-niem/thank-card-gift-card/${index + 1}.avif`
 		),
-		filters: ["Tất cả", "Thank card", "Gift card", "Voucher"],
+		filters: [],
 	},
 };
 
@@ -448,8 +448,8 @@ export const IN_POSTCARD_DATA: ProductPageData = {
 		type: "in-postcard",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
@@ -458,7 +458,7 @@ export const IN_POSTCARD_DATA: ProductPageData = {
 		images: Array.from({ length: 5 }).map(
 			(_, index) => `/services/an-pham-luu-niem/in-postcard/${index + 1}.avif`
 		),
-		filters: ["Tất cả", "Nghệ thuật", "Du lịch", "Quà tặng"],
+		filters: [],
 	},
 };
 
@@ -668,7 +668,7 @@ export const MOC_KHOA_MICA_DATA: ProductPageData = {
 		images: Array.from({ length: 26 }).map(
 			(_, index) => `/services/an-pham-luu-niem/moc-khoa-mica/${index + 1}.avif`
 		),
-		filters: ["Tất cả", "Cá nhân", "Doanh nghiệp", "Fandom"],
+		filters: [],
 	},
 };
 
@@ -876,8 +876,8 @@ export const PIN_CAI_AO_MICA_DATA: ProductPageData = {
 		type: "pin-cai-ao-mica",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
@@ -886,7 +886,7 @@ export const PIN_CAI_AO_MICA_DATA: ProductPageData = {
 		images: Array.from({ length: 5 }).map(
 			(_, index) => `/services/an-pham-luu-niem/pin-cai-ao-mica/${index + 1}.avif`
 		),
-		filters: ["Tất cả", "Fan Merch", "Sự kiện", "Brand"],
+		filters: [],
 	},
 };
 
@@ -1091,15 +1091,15 @@ export const ACRYLIC_MAGNET_DATA: ProductPageData = {
 		type: "acrylic-magnet",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
 		eyebrow: "Mẫu Magnet thực tế",
 		title: "Thư viện dự án",
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
-		filters: ["Tất cả", "Die-cut", "Artist Merch", "Brand"],
+		filters: [],
 	},
 };
 
@@ -1285,8 +1285,8 @@ export const IN_ANH_DATA: ProductPageData = {
 		type: "in-anh",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
@@ -1304,6 +1304,6 @@ export const IN_ANH_DATA: ProductPageData = {
 			`/services/an-pham-luu-niem/in-anh-da-nang/9.avif`,
 			`/services/an-pham-luu-niem/in-anh-da-nang/11.avif`,
 		],
-		filters: ["Tất cả", "Ảnh kỷ niệm", "Ảnh sự kiện", "Ảnh trưng bày"],
+		filters: [],
 	},
 };

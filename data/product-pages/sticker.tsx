@@ -215,8 +215,8 @@ export const STICKER_DIECUT_DATA: ProductPageData = {
 		type: "sticker-diecut",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
@@ -225,7 +225,7 @@ export const STICKER_DIECUT_DATA: ProductPageData = {
 		images: Array.from({ length: 13 }).map(
 			(_, index) => `/services/sticker/sticker-diecut/${index + 1}.avif`
 		),
-		filters: ["Tất cả", "Sự kiện", "Cá nhân", "Brand"],
+		filters: [],
 	},
 };
 
@@ -438,15 +438,15 @@ export const STICKER_KISSCUT_DATA: ProductPageData = {
 		type: "sticker-kisscut",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
 		eyebrow: "Sản phẩm thực tế",
 		title: "Cắt chuẩn — Bóc đẹp — Dán ngay",
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
-		filters: ["Tất cả", "Artist Goods", "Logo & Bao bì", "Planner", "Quà tặng"],
+		filters: [],
 	},
 };
 
@@ -661,8 +661,8 @@ export const STICKER_MAGNET_DATA: ProductPageData = {
 		type: "sticker-magnet",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
@@ -671,7 +671,7 @@ export const STICKER_MAGNET_DATA: ProductPageData = {
 		images: Array.from({ length: 4 }).map(
 			(_, index) => `/services/sticker/sticker-magnet/${index + 1}.avif`
 		),
-		filters: ["Tất cả", "Tủ lạnh", "Doanh nghiệp", "Quà tặng"],
+		filters: [],
 	},
 };
 
@@ -878,8 +878,8 @@ export const STICKER_SHEET_DATA: ProductPageData = {
 		type: "sticker-sheet",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
@@ -888,6 +888,6 @@ export const STICKER_SHEET_DATA: ProductPageData = {
 		images: Array.from({ length: 15 }).map(
 			(_, index) => `/services/sticker/sticker-sheet/${index + 1}.avif`
 		),
-		filters: ["Tất cả", "Khổ A5", "Khổ A6", "Artist Merch", "Brand"],
+		filters: [],
 	},
 };

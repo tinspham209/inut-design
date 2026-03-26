@@ -17,8 +17,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
 		trackContactClick("email");
 	};
 	const defaultPersons = [
-		{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-		{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+		{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+		{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 	];
 
 	const persons = data.persons || defaultPersons;

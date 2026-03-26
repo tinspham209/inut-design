@@ -298,6 +298,93 @@ export const ROUTE_LIST: RouteItem[] = [
 							badge: "Hot",
 						},
 					},
+					{
+						label: "Voucher, Vé mời sự kiện, Thẻ tích điểm, Tờ rơi",
+						path: "/services/an-pham-tiep-thi/voucher-ve-moi-su-kien-the-tich-diem-to-roi",
+						meta: {
+							description: "In voucher, vé mời sự kiện, thẻ tích điểm, tờ rơi.",
+							icon: "contact_page",
+							badge: "Hot",
+						},
+					},
+				],
+			},
+			{
+				label: "Ấn phẩm F&B",
+				path: "/services/an-pham-fb",
+				meta: {
+					description: "Tăng nhận diện thương hiệu với ấn phẩm F&B chuyên nghiệp.",
+					icon: "campaign",
+					badge: "Marketing",
+				},
+				children: [
+					{
+						label: "Thiết kế & In Menu",
+						path: "/services/an-pham-fb/thiet-ke-in-menu",
+						meta: {
+							description: "Thiết kế và in menu cho nhà hàng, quán ăn.",
+							icon: "decor",
+						},
+					},
+					{
+						label: "Sản phẩm Decor",
+						path: "/services/an-pham-fb/san-pham-decor",
+						meta: {
+							description: "In decor sản phẩm F&B.",
+							icon: "decor",
+						},
+					},
+					{
+						label: "Phiếu, vé, hóa đơn GTGT",
+						path: "/services/an-pham-fb/phieu-ve-hoa-don-gtgt",
+						meta: {
+							description: "Thiết kế và in phiếu, vé, hóa đơn GTGT.",
+							icon: "decor",
+						},
+					},
+					{
+						label: "Tấm lót bàn ăn",
+						path: "/services/an-pham-fb/tam-lot-ban-an",
+						meta: {
+							description: "Thiết kế và in tấm lót bàn ăn.",
+							icon: "decor",
+						},
+					},
+				],
+			},
+			{
+				label: "Ấn phẩm Bao bì",
+				path: "/services/an-pham-bao-bi",
+				meta: {
+					description: "Tăng nhận diện thương hiệu với ấn phẩm Bao bì chuyên nghiệp.",
+					icon: "campaign",
+					badge: "Marketing",
+				},
+				children: [
+					{
+						label: "Decal nhãn mác",
+						path: "/services/an-pham-bao-bi/decal-nhan-mac",
+						meta: {
+							description: "Thiết kế và in decal nhãn mác.",
+							icon: "decor",
+						},
+					},
+					{
+						label: "Hộp sản phẩm",
+						path: "/services/an-pham-bao-bi/hop-san-pham",
+						meta: {
+							description: "Thiết kế và in hộp sản phẩm.",
+							icon: "decor",
+						},
+					},
+					{
+						label: "Tem bảo hành",
+						path: "/services/an-pham-bao-bi/tem-bao-hanh",
+						meta: {
+							description: "Thiết kế và in tem bảo hành.",
+							icon: "decor",
+						},
+					},
 				],
 			},
 		],

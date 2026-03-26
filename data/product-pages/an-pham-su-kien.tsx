@@ -223,8 +223,8 @@ export const HASHTAG_CAM_TAY_DATA: ProductPageData = {
 		type: "hashtag-cam-tay",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
@@ -236,7 +236,7 @@ export const HASHTAG_CAM_TAY_DATA: ProductPageData = {
 			`/services/an-pham-su-kien/hashtag-cam-tay/4.avif`,
 			`/services/an-pham-su-kien/hashtag-cam-tay/3.avif`,
 		],
-		filters: ["Tất cả", "Sự kiện", "Khai trương", "Cưới hỏi"],
+		filters: [],
 	},
 };
 
@@ -442,8 +442,8 @@ export const POSTER_DECAL_DATA: ProductPageData = {
 		type: "poster-decal",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
@@ -456,7 +456,7 @@ export const POSTER_DECAL_DATA: ProductPageData = {
 			`/services/an-pham-su-kien/poster-decal/4.avif`,
 			`/services/an-pham-su-kien/poster-decal/5.avif`,
 		],
-		filters: ["Tất cả", "Poster", "Decal dán", "Bảng hiệu"],
+		filters: [],
 	},
 };
 
@@ -677,7 +677,7 @@ export const BANNER_STANDEE_DATA: ProductPageData = {
 			`/services/an-pham-su-kien/banner-standee/5.avif`,
 			`/services/an-pham-su-kien/banner-standee/1.avif`,
 		],
-		filters: ["Tất cả", "Roll-up", "X-Banner", "Banner Hiflex", "Standee Sự Kiện"],
+		filters: [],
 	},
 };
 
@@ -893,15 +893,15 @@ export const HUY_CHUONG_DATA: ProductPageData = {
 		type: "huy-chuong",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
 		eyebrow: "Sản phẩm thực tế",
 		title: "Trao tay thành tích — ghi dấu sự kiện",
 		images: Array.from({ length: 13 }).map((_, index) => `/services/huy-chuong/${index + 1}.avif`),
-		filters: ["Tất cả", "Giải chạy", "Doanh nghiệp", "Trường học"],
+		filters: [],
 	},
 };
 
@@ -1121,6 +1121,6 @@ export const SU_KIEN_TRON_GOI_DATA: ProductPageData = {
 		images: Array.from({ length: 8 }).map(
 			(_, index) => `/services/an-pham-su-kien/su-kien-tron-goi-da-nang/${index + 1}.avif`
 		),
-		filters: ["Tất cả", "Khai trương", "Hội nghị", "Activation", "Trường học"],
+		filters: [],
 	},
 };

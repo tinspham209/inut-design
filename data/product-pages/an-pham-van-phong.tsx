@@ -215,15 +215,15 @@ export const GIAY_KHEN_DATA: ProductPageData = {
 		type: "giay-khen-giay-chung-nhan",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
 		eyebrow: "Dự án đã thực hiện",
 		title: "Mẫu sản phẩm thực tế",
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
-		filters: ["Tất cả", "Giấy khen", "Chứng nhận", "Ép kim"],
+		filters: [],
 	},
 };
 
@@ -426,15 +426,15 @@ export const IN_BI_THU_DATA: ProductPageData = {
 		type: "in-bi-thu",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
 		eyebrow: "Mẫu bì thư thực tế",
 		title: "Thư viện dự án",
 		images: Array.from({ length: 8 }).map(() => HERO_IMAGE),
-		filters: ["Tất cả", "Bì thư A4", "Bì thư A5", "Bì thư A6"],
+		filters: [],
 	},
 };
 
@@ -637,15 +637,15 @@ export const SO_TAY_DATA: ProductPageData = {
 		type: "so-tay-ky-yeu-so-bam-ghim",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
 		eyebrow: "Dự án tiêu biểu",
 		title: "Hình ảnh thực tế",
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
-		filters: ["Tất cả", "Sổ tay lò xo", "Kỷ yếu", "Sổ bấm ghim"],
+		filters: [],
 	},
 };
 
@@ -853,14 +853,14 @@ export const BANG_CUNG_IN_THONG_TIN_DATA: ProductPageData = {
 		type: "bang-cung-in-thong-tin",
 		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
 		persons: [
-			{ name: "MR. TOM", role: "Sales Manager", phone: "0792 359 996", initial: "TOM" },
-			{ name: "MS. BOO", role: "Design Manager", phone: "0777 208 215", initial: "BOO" },
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
 		],
 	},
 	gallery: {
 		eyebrow: "Sản phẩm thực tế",
 		title: "Hình ảnh thi công",
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
-		filters: ["Tất cả", "Bảng giá", "Menu", "Hướng dẫn"],
+		filters: [],
 	},
 };

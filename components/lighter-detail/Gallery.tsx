@@ -52,7 +52,7 @@ const Gallery: React.FC<GalleryProps> = ({ images, productName }) => {
 							unoptimized
 							alt={img.alt}
 							style={{
-								objectFit: "cover",
+								objectFit: "contain",
 								border: "1px solid",
 								borderColor: "divider",
 								borderRadius: "16px",
