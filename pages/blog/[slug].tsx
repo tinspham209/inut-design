@@ -87,10 +87,8 @@ BlogDetailPage.Layout = MainLayout;
 export const getStaticPaths: GetStaticPaths = async () => {
 	const slugs = await getAllPostSlugs();
 
-	// Pre-render the first 5 blog posts.
-	// The rest will be generated on-demand via fallback: "blocking".
 	return {
-		paths: slugs.slice(0, 5).map((slug) => ({ params: { slug } })),
+		paths: slugs.map((slug) => ({ params: { slug } })),
 		fallback: "blocking",
 	};
 };
