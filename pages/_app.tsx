@@ -4,7 +4,7 @@ import { FacebookChatPlugin, GoogleTagSchema } from "@/components/scripts";
 import { SpeculationRulesScript } from "@/components/scripts/speculation-rules";
 import useEngagementTracking from "@/hooks/useEngagementTracking";
 import { AppPropsWithLayout } from "@/models";
-import { createEmotionCache, reportWebVitals, theme, trackPageView } from "@/utils";
+import { createEmotionCache, theme, trackPageView } from "@/utils";
 import { initBFCacheMonitoring } from "@/utils/bfcache-monitor";
 import { initPrefetchFallback } from "@/utils/prefetch-fallback";
 import { initSpeculationMonitoring } from "@/utils/speculation-monitor";
@@ -51,11 +51,6 @@ function MyApp({
 	// Engagement tracking (scroll depth + time on page per route)
 	useEngagementTracking(router.pathname);
 	// useUmamiEngagement(router.pathname);
-
-	// Report web vitals to Umami
-	useEffect(() => {
-		reportWebVitals();
-	}, []);
 
 	// Track page views on route changes
 	useEffect(() => {

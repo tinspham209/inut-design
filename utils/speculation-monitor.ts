@@ -49,7 +49,9 @@ export const wasPagePrerendered = (): boolean => {
 	// Check performance entries
 	const navEntries = performance.getEntriesByType("navigation") as PerformanceNavigationTiming[];
 	if (navEntries.length > 0) {
-		return navEntries[0].activationStart > 0;
+		// activationStart is part of Navigation Timing API Level 2
+		const nav = navEntries[0] as any;
+		return nav.activationStart > 0;
 	}
 
 	return false;
@@ -60,8 +62,12 @@ export const wasPagePrerendered = (): boolean => {
  */
 export const getPrerenderActivationTime = (): number => {
 	const navEntries = performance.getEntriesByType("navigation") as PerformanceNavigationTiming[];
-	if (navEntries.length > 0 && navEntries[0].activationStart > 0) {
-		return navEntries[0].activationStart;
+	if (navEntries.length > 0) {
+		// activationStart is part of Navigation Timing API Level 2
+		const nav = navEntries[0] as any;
+		if (nav.activationStart > 0) {
+			return nav.activationStart;
+		}
 	}
 	return 0;
 };

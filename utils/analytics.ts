@@ -490,7 +490,7 @@ export const trackTimeOnPage = (pageType: string, timeSpent: number): void => {
 	});
 
 	// Track to Umami
-	trackUmamiTimeOnPage(pageType, timeSpent);
+	// trackUmamiTimeOnPage(pageType, timeSpent);
 };
 
 // ============================================

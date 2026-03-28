@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { trackTimeOnPage } from "@/utils/analytics";
-import { trackUmamiTimeOnPage } from "@/utils/umamiAnalytics";
 import { useEffect } from "react";
 
 /**
@@ -48,7 +46,6 @@ export const useEngagementTracking = (pageName: string) => {
 		return () => {
 			window.removeEventListener("scroll", handleScroll);
 			const durationSeconds = Math.floor((Date.now() - startTime) / 1000);
-			trackUmamiTimeOnPage(pageName, durationSeconds);
 			trackTimeOnPage(pageName, durationSeconds);
 		};
 	}, [pageName]);
