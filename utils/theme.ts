@@ -88,7 +88,7 @@ export let theme: Theme = createTheme({
 		},
 	},
 	palette: {
-		mode: "dark",
+		mode: "light",
 		primary: {
 			main: COLOR_CODE.PRIMARY,
 			dark: COLOR_CODE.PRIMARY_HOVER,

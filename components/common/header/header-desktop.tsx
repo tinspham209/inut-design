@@ -187,7 +187,6 @@ export function HeaderDesktop() {
 										fontSize: "0.95rem",
 										color: COLOR_CODE.WHITE,
 										"&:hover": {
-											backgroundColor: COLOR_CODE.ORANGE_GLOW,
 											color: COLOR_CODE.PRIMARY,
 										},
 									}}

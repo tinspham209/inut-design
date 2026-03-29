@@ -216,7 +216,11 @@ const LighterCheckout: NextPageWithLayout = () => {
 			// Prepare order items for Sanity (convert to reference format)
 			const orderItems = await Promise.all(
 				items.map(async (item, index) => {
+					const appOrigin = window.location.origin;
 					let designImage = undefined;
+					let designSourceUrl = item.designImage || undefined;
+					let builderPreviewUrl = item.builderPreviewUrl || undefined;
+					let designPreview = item.designPreview || undefined;
 
 					// Upload design image to Sanity if available
 					if (item.designImage) {
@@ -226,6 +230,24 @@ const LighterCheckout: NextPageWithLayout = () => {
 							const blob = await response.blob();
 							// Upload to Sanity
 							designImage = await uploadImageToSanity(blob);
+							designSourceUrl = urlFor(designImage).url();
+
+							if (item.designPreview) {
+								designPreview = {
+									...item.designPreview,
+									previewUrl: designSourceUrl,
+								};
+
+								const previewParams = new URLSearchParams({
+									previewUrl: designSourceUrl,
+									rot: item.designPreview.rot.toString(),
+									scale: item.designPreview.scale.toString(),
+									x: item.designPreview.x.toString(),
+									y: item.designPreview.y.toString(),
+								});
+
+								builderPreviewUrl = `${appOrigin}/builder/lighters?${previewParams.toString()}`;
+							}
 						} catch (error) {
 							console.error("Error uploading design image:", error);
 							// Continue without design image if upload fails
@@ -248,6 +270,9 @@ const LighterCheckout: NextPageWithLayout = () => {
 						unitPrice: item.unitPrice,
 						subtotal: item.subtotal,
 						designImage,
+						designSourceUrl,
+						designPreview,
+						builderPreviewUrl,
 					};
 				})
 			);

@@ -54,6 +54,14 @@ export type CartItemLighter = {
 	subtotal: number; // unitPrice × quantity
 	priceTiers: PriceTier[]; // For recalculation
 	designImage?: string; // Base64 or URL for custom design preview
+	designPreview?: {
+		previewUrl: string;
+		rot: number;
+		scale: number;
+		x: number;
+		y: number;
+	};
+	builderPreviewUrl?: string;
 };
 
 export type Cart = {
@@ -81,6 +89,15 @@ export type OrderItemLighter = {
 	unitPrice: number;
 	subtotal: number;
 	designImage?: SanityImage; // Customer's custom design image
+	designPreview?: {
+		previewUrl: string;
+		rot: number;
+		scale: number;
+		x: number;
+		y: number;
+	};
+	builderPreviewUrl?: string;
+	designSourceUrl?: string;
 };
 
 export type CustomerInfo = {

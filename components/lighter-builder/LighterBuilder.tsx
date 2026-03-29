@@ -3,7 +3,7 @@ import { useLightersCart } from "@/store";
 import { trackAddToCart, trackPageView } from "@/utils/analytics";
 import { Box } from "@mui/material";
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { ControlPanel } from "./ControlPanel";
 import { LighterCanvas } from "./LighterCanvas";
@@ -21,6 +21,7 @@ import { useImageUploader } from "./hooks/useImageUploader";
 export function LighterBuilder() {
 	const router = useRouter();
 	const { addItem } = useLightersCart();
+	const hasAppliedQueryPreview = useRef(false);
 
 	const { transform, updateTransform, resetTransform, setPosition } = useLighterTransform();
 
@@ -38,7 +39,55 @@ export function LighterBuilder() {
 		[updateTransform]
 	);
 
-	const { uploadedImage, clearImage, validateAndProcessFile } = useImageUploader(handleAutoScale);
+	const { uploadedImage, setUploadedImage, clearImage, validateAndProcessFile } =
+		useImageUploader(handleAutoScale);
+
+	// Restore builder preview from query params for admin/designer deep-link
+	useEffect(() => {
+		if (!router.isReady || hasAppliedQueryPreview.current) {
+			return;
+		}
+
+		hasAppliedQueryPreview.current = true;
+
+		const rawPreviewUrl = router.query.previewUrl;
+		if (!rawPreviewUrl || Array.isArray(rawPreviewUrl)) {
+			return;
+		}
+
+		const parseNumber = (value: string | string[] | undefined, fallback: number) => {
+			if (!value || Array.isArray(value)) {
+				return fallback;
+			}
+
+			const parsed = Number(value);
+			return Number.isFinite(parsed) ? parsed : fallback;
+		};
+
+		let normalizedPreviewUrl = rawPreviewUrl;
+		try {
+			normalizedPreviewUrl = decodeURIComponent(rawPreviewUrl);
+		} catch {
+			// Keep raw value if it is already decoded or malformed
+		}
+
+		normalizedPreviewUrl = normalizedPreviewUrl.replace(/^"|"$/g, "");
+
+		setUploadedImage({
+			file: new File([""], "preview-url.png", { type: "image/png" }),
+			url: normalizedPreviewUrl,
+			width: FRAME_WIDTH,
+			height: FRAME_HEIGHT,
+			size: 0,
+		});
+
+		updateTransform({
+			rotation: parseNumber(router.query.rot, DEFAULT_TRANSFORM.rotation),
+			scale: parseNumber(router.query.scale, DEFAULT_TRANSFORM.scale),
+			scrollX: parseNumber(router.query.x, DEFAULT_TRANSFORM.scrollX),
+			scrollY: parseNumber(router.query.y, DEFAULT_TRANSFORM.scrollY),
+		});
+	}, [router.isReady, router.query, setUploadedImage, updateTransform]);
 
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -86,18 +135,31 @@ export function LighterBuilder() {
 			// Convert blob URL → base64 data URL so it survives page reloads and
 			// persists correctly in localStorage. Blob URLs are session-only.
 			let designImageUrl: string = uploadedImage.url;
-			try {
-				designImageUrl = await new Promise<string>((resolve, reject) => {
-					const reader = new FileReader();
-					reader.onload = () => resolve(reader.result as string);
-					reader.onerror = () => reject(new Error("FileReader error"));
-					reader.readAsDataURL(uploadedImage.file);
-				});
-			} catch {
-				// Blob URL fallback — still works within the same browser session
+			if (uploadedImage.size > 0) {
+				try {
+					designImageUrl = await new Promise<string>((resolve, reject) => {
+						const reader = new FileReader();
+						reader.onload = () => resolve(reader.result as string);
+						reader.onerror = () => reject(new Error("FileReader error"));
+						reader.readAsDataURL(uploadedImage.file);
+					});
+				} catch {
+					// Blob URL fallback — still works within the same browser session
+				}
 			}
 
 			// Add to cart with design image
+			const previewQuery = new URLSearchParams({
+				previewUrl: designImageUrl,
+				rot: transform.rotation.toString(),
+				scale: transform.scale.toString(),
+				x: transform.scrollX.toString(),
+				y: transform.scrollY.toString(),
+			});
+			const builderPreviewUrl = `${
+				window.location.origin
+			}/builder/lighters?${previewQuery.toString()}`;
+
 			addItem({
 				productId: customLighterProduct._id,
 				productName: customLighterProduct.name,
@@ -109,6 +171,14 @@ export function LighterBuilder() {
 				unitPrice: initialPrice,
 				priceTiers: priceTiers,
 				designImage: designImageUrl,
+				designPreview: {
+					previewUrl: designImageUrl,
+					rot: transform.rotation,
+					scale: transform.scale,
+					x: transform.scrollX,
+					y: transform.scrollY,
+				},
+				builderPreviewUrl,
 			});
 
 			toast.success("Đã thêm vào giỏ hàng!");
@@ -121,7 +191,7 @@ export function LighterBuilder() {
 		} finally {
 			setIsLoading(false);
 		}
-	}, [uploadedImage, addItem, router]);
+	}, [uploadedImage, addItem, router, transform]);
 
 	// ── RENDER ──────────────────────────────────────────────────────────────
 	// Layout:

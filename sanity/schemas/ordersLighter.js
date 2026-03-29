@@ -103,6 +103,52 @@ export default {
 							description: "Customer's custom design image",
 							options: { hotspot: false },
 						},
+						{
+							name: "builderPreviewUrl",
+							title: "Builder Preview URL",
+							type: "string",
+							description:
+								"Open this URL to reproduce exactly how the customer design appears in 3D builder",
+						},
+						{
+							name: "designSourceUrl",
+							title: "Design Source URL",
+							type: "string",
+							description: "Source image URL used for 3D preview reconstruction",
+						},
+						{
+							name: "designPreview",
+							title: "Design Preview Transform",
+							type: "object",
+							description: "Saved transform values for 3D builder preview",
+							fields: [
+								{
+									name: "previewUrl",
+									title: "Preview URL",
+									type: "string",
+								},
+								{
+									name: "rot",
+									title: "Rotation (rot)",
+									type: "number",
+								},
+								{
+									name: "scale",
+									title: "Scale",
+									type: "number",
+								},
+								{
+									name: "x",
+									title: "Position X",
+									type: "number",
+								},
+								{
+									name: "y",
+									title: "Position Y",
+									type: "number",
+								},
+							],
+						},
 					],
 					preview: {
 						select: {
@@ -110,12 +156,13 @@ export default {
 							typeName: "lighterType.name",
 							quantity: "quantity",
 							subtotal: "subtotal",
+							hasPreviewUrl: "builderPreviewUrl",
 						},
 						prepare(selection) {
-							const { productName, typeName, quantity, subtotal } = selection;
+							const { productName, typeName, quantity, subtotal, hasPreviewUrl } = selection;
 							return {
 								title: `${productName || "Unknown Product"} - ${typeName || "Unknown Type"}`,
-								subtitle: `Qty: ${quantity} × ${
+								subtitle: `${hasPreviewUrl ? "🔗 " : ""}Qty: ${quantity} × ${
 									subtotal ? (subtotal / quantity).toLocaleString() : 0
 								}₫ = ${subtotal ? subtotal.toLocaleString() : 0}₫`,
 							};
