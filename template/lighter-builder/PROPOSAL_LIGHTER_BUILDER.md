@@ -1,578 +1,765 @@
 # PROPOSAL: Lighter Skin Builder — INUT Design
 
 **Feature name:** Custom Lighter Skin Designer  
-**Route:** `/bat-lua/builder`  
-**Stack:** Next.js 12 (Page Router) · React 18 · TypeScript · MUI v5 · Sanity CMS v2  
+**Route:** `/builder/lighters`  
+**Stack:** Next.js 12.3.1 (Page Router) · React 18.2.0 · TypeScript 5.0.4 · MUI v5.9.3 · Sanity CMS v3.4.1 · Zustand 4.3.8  
 **Priority:** High  
-**Version:** 3.0 (Final) · March 2026  
+**Version:** 4.0 (Final) · March 2026  
 **Status:** Ready for development planning  
 
 ---
 
 ## 1. Executive Summary
 
-INUT Design hiện nhận đơn skin bật lửa theo quy trình thủ công: khách gửi form → designer liên hệ thu thập ảnh → designer dựng demo → khách góp ý → sản xuất. Mỗi đơn mất 3–5 lượt trao đổi chỉ để thu thập asset và duyệt layout.
+INUT Design currently handles custom lighter skin orders through a manual process: customer submits form → designer contacts to collect images → designer creates demo → customer provides feedback → production. Each order takes 3–5 exchanges just to collect assets and approve the layout.
 
-**Giải pháp:** Xây dựng trang tự thiết kế tại `/bat-lua/builder`, cho phép khách tải lên ảnh thiết kế của họ và xem ngay bản xem trước 3D full-wrap trên bật lửa — trước khi nhấn gửi đơn. Designer chỉ cần tải file ảnh 2K từ Sanity Studio và đưa thẳng vào sản xuất.
+**Solution:** Build a self-service design page at `/builder/lighters`, allowing customers to upload their design image and immediately preview a 3D full-wrap on the lighter — before adding to cart and checkout.
 
-**Kết quả kỳ vọng:** Giảm từ 3–5 lượt liên hệ xuống còn 0–1 lượt. Designer không còn phải dựng demo layout.
+**Expected Result:** Reduce from 3–5 contacts to 0–1 contacts. Designers no longer need to create demo layouts.
 
-**Benchmark:** [Cricket Lighters Design Tool](https://design.cricketlighters.com) — công cụ tương tự của thương hiệu bật lửa quốc tế, dùng làm tham chiếu UX.
+**Benchmark:** [Cricket Lighters Design Tool](https://design.cricketlighters.com) — similar tool from an international lighter brand, used as UX reference.
 
 ---
 
 ## 2. Current vs. Proposed Flow
 
-### Hiện tại — nhiều bước thủ công
+### Current — Multiple manual steps
 
 ```
-Khách gửi form liên hệ
+Customer submits contact form
         ↓
-Designer liên hệ qua Zalo/email để thu thập ảnh
+Designer contacts via Zalo/email to collect images
         ↓
-Khách gom & gửi ảnh (thường bị nén, thiếu file)
+Customer gathers & sends images (often compressed, missing files)
         ↓
-Designer dựng demo layout → gửi lại khách duyệt
+Designer creates demo layout → sends to customer for review
         ↓
-Khách yêu cầu chỉnh sửa (1–3 lượt)
+Customer requests edits (1–3 rounds)
         ↓
-File cuối gửi sản xuất
+Final file sent to production
 ```
 
-**Vấn đề cốt lõi:**
-- Designer mất thời gian dựng demo thay vì làm sản xuất
-- Không có format asset chuẩn → mất công xử lý file
-- Khách không có hình dung trực quan trước khi duyệt
+**Core Issues:**
+- Designers spend time creating demos instead of production
+- No standard asset format → extra file processing
+- Customer has no visual preview before approval
 
-### Đề xuất — tự phục vụ, ít ma sát
+### Proposed — Self-service, low friction
 
 ```
-Khách mở trang /bat-lua/builder
+Customer opens /builder/lighters
         ↓
-Chọn loại bật lửa (Normal / Mini)
+Uploads 1 design image
         ↓
-Tải lên 1 ảnh thiết kế duy nhất
+Immediately sees 3D full-wrap preview on lighter (drag to rotate, zoom)
         ↓
-Xem ngay bản xem trước 3D full-wrap trên bật lửa
+Clicks "Next" → Adds to cart with preview image
         ↓
-Điền thông tin & nhấn "Gửi thiết kế"
+Adjusts quantity → Price calculated automatically
         ↓
-Sanity nhận: { loại bật lửa, ảnh gốc, ảnh 2K full-wrap, thông tin đơn }
+Cart at /cart/lighters (existing flow)
         ↓
-Designer tải ảnh 2K từ Sanity Studio → đưa thẳng vào sản xuất
+Sanity receives order with attached design image
+        ↓
+Designer downloads image from Sanity Studio → sends directly to production
 ```
 
 ---
 
-## 3. Đặc điểm sản phẩm đã xác nhận
+## 3. Confirmed Product Specifications
 
-Các quyết định dưới đây đã được INUT xác nhận, không còn là câu hỏi mở:
+The following decisions have been confirmed by INUT, no longer open questions:
 
-| Thuộc tính               | Giá trị xác nhận                                          |
-| ------------------------ | --------------------------------------------------------- |
-| Loại skin                | **Decal dán** (không phải màu vật liệu)                   |
-| Kiểu bao phủ             | **Full wrap 360°** quanh thân bật lửa                     |
-| Hình dạng skin           | **Chữ nhật đầy đủ** — không cắt xén, không lỗ             |
-| Số ảnh thiết kế          | **1 ảnh duy nhất** per đơn (full-wrap, không ghép canvas) |
-| Độ phân giải khuyến nghị | **1640 × 2048 px trở lên**, giữ tỉ lệ gốc                 |
-| Định dạng xuất           | **PNG 300 DPI flat**                                      |
-| Chọn màu bật lửa         | **Không cần** — skin decal phủ toàn bộ thân               |
-| In 2 mặt                 | **Không áp dụng** — full wrap đã bao gồm tất cả mặt       |
-
----
-
-## 4. Loại bật lửa & Kích thước
-
-> ⚠️ **Cần xác nhận với nhà cung cấp** trước Phase 1: kích thước mm chính xác của vùng in.  
-> Giá trị dưới đây là tham chiếu ngành — có thể khác tùy nhà sản xuất.
-
-| Loại                    | Kích thước bật lửa | Vùng in (ước tính)             | @ 300 DPI     | Tỉ lệ hiển thị UI |
-| ----------------------- | ------------------ | ------------------------------ | ------------- | ----------------- |
-| **Normal** (tiêu chuẩn) | ~80 × 26 mm        | ~74 × 82 mm (full wrap chu vi) | ~874 × 968 px | 4:5               |
-| **Mini** (nhỏ)          | ~60 × 20 mm        | ~56 × 63 mm                    | ~661 × 744 px | 4:5               |
-
-> **Lưu ý full wrap:** Ảnh thiết kế bao quanh 360° chu vi, nên chiều ngang của file in = chu vi thân bật lửa (π × đường kính), không phải chiều ngang mặt trước.
+| Attribute               | Confirmed Value                                          |
+| ----------------------- | -------------------------------------------------------- |
+| Skin type               | **Decal sticker** (not material color)                   |
+| Coverage style          | **Full wrap 360°** around lighter body                   |
+| Skin shape              | **Full rectangle** — no cropping, no holes               |
+| Number of design images | **1 image per order** (full-wrap, no canvas composition) |
+| Recommended resolution  | **1640 × 2048 px or higher**, maintain original ratio    |
+| Export format           | **PNG 300 DPI flat**                                     |
+| Lighter color selection | **Not needed** — decal skin covers entire body           |
+| Double-sided printing   | **Not applicable** — full wrap covers all sides          |
 
 ---
 
-## 5. Phạm vi tính năng (v1)
+## 4. Design Image Specifications
 
-### Trong phạm vi
+| Attribute                  | Specification                                           |
+| -------------------------- | ------------------------------------------------------- |
+| **Recommended resolution** | **1640 × 2048 px** (or higher, maintain original ratio) |
+| **Accepted formats**       | PNG, JPG, WEBP                                          |
+| **Max file size**          | 10 MB                                                   |
+| **Coverage**               | Full wrap 360° around lighter body                      |
 
-| #   | Tính năng                                                                                                                   |
-| --- | --------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Chọn loại bật lửa: **Normal** hoặc **Mini** (card trực quan kèm kích thước mm + px)                                         |
-| 2   | **Upload 1 ảnh duy nhất** — drag-and-drop hoặc click chọn file (PNG/JPG/WEBP, tối đa 30 MB)                                 |
-| 3   | **Cảnh báo độ phân giải** — toast cảnh báo nếu ảnh dưới 1640 × 2048 px (không chặn, chỉ thông báo)                          |
-| 4   | **Xem trước 3D full-wrap** — Three.js render bật lửa 3D với ảnh thiết kế map UV lên thân cylinder, cập nhật ngay khi upload |
-| 5   | **Kéo để xoay** — kéo chuột/chạm màn hình trên khung 3D để xoay bật lửa tự do                                               |
-| 6   | **Thanh xoay (Rotation slider)** — MUI Slider −180° đến +180°, đồng bộ với thao tác kéo                                     |
-| 7   | **Thanh thu phóng (Scale slider)** — 60% đến 150%, điều chỉnh kích thước bật lửa trong khung xem                            |
-| 8   | Nút **Reset** — đưa góc nhìn và tỉ lệ về mặc định                                                                           |
-| 9   | **Thay ảnh / Xóa ảnh** — thay thế hoặc xóa ảnh đang xem trước                                                               |
-| 10  | **Form gửi đơn**: Tên, SĐT/Zalo, Số lượng, Loại bật lửa, Ghi chú                                                            |
-| 11  | **Sanity CMS** — lưu tài liệu `lighterOrder` đầy đủ thông tin                                                               |
-| 12  | **reCAPTCHA v3** (ẩn) trên submit                                                                                           |
-| 13  | **Route độc lập** `/bat-lua/builder` — không ảnh hưởng form liên hệ cũ tại `/lien-he`                                       |
-| 14  | **Màn hình xác nhận** — "MR. TOM hoặc MS. BOO sẽ liên hệ bạn trong vòng 24h"                                                |
-
-### Ngoài phạm vi (v1)
-
-- Canvas editor đa lớp (drag-and-drop nhiều ảnh, text overlay, shape masking) — đây là upload trực tiếp 1 ảnh
-- Chọn màu vỏ bật lửa (không cần thiết với skin decal)
-- In 2 mặt / dual-face (không áp dụng với full wrap)
-- Thanh toán / đặt cọc online
-- Cộng tác thời gian thực
+> **Full wrap note:** Design image wraps 360° around circumference, so file width = lighter body circumference (π × diameter), not just front width.
 
 ---
 
-## 6. User Flow chi tiết
+## 5. Feature Scope (v1)
+
+### In Scope
+
+| #   | Feature                                                                                                                    |
+| --- | -------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Upload 1 image** — click to select file (PNG/JPG/WEBP, max 10 MB)                                                        |
+| 2   | **Helper text** — displays "Please upload image with size 1640×2048 px or higher"                                          |
+| 3   | **Resolution warning** — toast warning if image is below 1640 × 2048 px (non-blocking, info only)                          |
+| 4   | **3D full-wrap preview** — @react-three/fiber + @react-three/drei renders 3D lighter with design image UV-mapped to body   |
+| 5   | **Drag to rotate** — OrbitControls (from drei) allows free rotation via mouse/touch                                        |
+| 6   | **Zoom** — OrbitControls supports zoom in/out via scroll/pinch                                                             |
+| 7   | **Image position adjustment** — scroll X/Y to adjust image position on lighter body                                        |
+| 8   | **Right panel** — shows upload zone + controls when no image, shows preview after upload                                   |
+| 9   | **Replace / Clear image** — replace or remove current preview image                                                        |
+| 10  | **"Next" button** — when image is uploaded, fetches product data from existing lighters list and adds to cart              |
+| 11  | **Existing cart integration** — uses useLightersCart (Zustand) to add item using real product ID from Sanity               |
+| 12  | **Cart item** — displays product name from Sanity ("Bật lửa Thường - In Thường - Thiết kế theo yêu cầu"), shows 2D preview |
+| 13  | **Existing checkout flow** — uses /checkout/lighters already built                                                         |
+| 14  | **Standalone route** `/builder/lighters` — does not affect existing contact form at `/lien-he`                             |
+
+### Out of Scope (v1)
+
+- Multi-layer canvas editor (drag-and-drop multiple images, text overlay, shape masking) — this is direct single image upload
+- Lighter color selection (not needed with decal skin)
+- Double-sided / dual-face printing (not applicable with full wrap)
+- Online payment / deposit
+- Real-time collaboration
+
+---
+
+## 6. User Flow Details
 
 ```
-[/san-pham/bat-lua]
+[/san-pham/lighters]
     │
-    ├── Hero section (thông tin + giá sản phẩm hiện có)
+    ├── Hero section (product info + current pricing)
     │
-    └── CTA: "Tự thiết kế skin bật lửa của bạn →"
+    └── CTA: "Design your own lighter skin →"
               │
               ▼
-    [/bat-lua/builder]  ← route mới, độc lập
+    [/builder/lighters]  ← New standalone route
               │
     ┌─────────────────────────────────────────────────────────┐
-    │  HEADER: INUT Design logo · Step 1 → 2 → 3 · PROTOTYPE  │
-    ├────────────────────────────────┬────────────────────────┤
-    │                                │  TAB: Thiết kế         │
-    │                                │  ─────────────────     │
-    │   [  Three.js 3D Lighter  ]    │  Loại bật lửa:         │
-    │                                │  [ Normal ] [ Mini ]   │
-    │   Ảnh wrap 360° quanh thân     │                        │
-    │   bật lửa, render real-time    │  Ảnh thiết kế:         │
-    │                                │  [  Drag & Drop Zone ] │
-    │   ← Kéo để xoay →             │  (sau khi upload:      │
-    │                                │   thumb + metadata     │
-    │                                │   + cảnh báo res)      │
-    │                                │                        │
-    │                                │  Điều chỉnh xem trước: │
-    │                                │  Xoay  ────●────  0°  │
-    │                                │  Scale ────●──── 100% │
-    │                                │  [ Reset ]             │
-    │                                ├────────────────────────┤
-    │                                │  TAB: Gửi đơn          │
-    │                                │  ─────────────────     │
-    │                                │  Tên · SĐT · Số lượng  │
-    │                                │  Loại · Ghi chú        │
-    │                                ├────────────────────────┤
-    │                                │  [ GỬI THIẾT KẾ → ]   │
-    └────────────────────────────────┴────────────────────────┘
+    │  HEADER: INUT Design logo · Lighter Builder              │
+    ├──────────────────────────────┬──────────────────────────┤
+    │                              │  Right Panel             │
+    │   [  Three.js 3D Lighter  ]  │  ─────────────────      │
+    │                              │                          │
+    │   Image wraps 360° around    │  Helper text:            │
+    │   lighter body, real-time    │  "Please upload image    │
+    │                              │   1640×2048 px or higher"│
+    │   ← Drag to rotate →        │                          │
+    │   ↑ Scroll to zoom ↑        │  [  Drag & Drop Zone ]   │
+    │                              │  (or click to select)    │
+    │                              │                          │
+    │                              │  After upload:           │
+    │                              │  - Thumbnail + metadata  │
+    │                              │  - Resolution warning    │
+    │                              │  - Scroll X/Y to adjust  │
+    │                              │  - [ Replace ] [ Clear ] │
+    │                              │                          │
+    │                              │  ─────────────────      │
+    │                              │  [ Next → ]              │
+    └──────────────────────────────┴──────────────────────────┘
               │
-    Màn hình xác nhận:
-    "Chúng tôi đã nhận thiết kế của bạn!
-     MR. TOM hoặc MS. BOO sẽ liên hệ bạn trong vòng 24h."
+              ▼ (When clicking "Next")
+    [/checkout/lighters]  ← Existing route
+              │
+    ┌─────────────────────────────────────────────────────────┐
+    │  Current cart:                                           │
+    │  ┌─────────────────────────────────────────────────────┐ │
+    │  │ 2D preview image (not 3D)                           │ │
+    │  │ Name: "Bật lửa Thường - In Thường - Thiết kế theo   │ │
+    │  │        yêu cầu" (from Sanity)                        │ │
+    │  │ Quantity: [ 1 ] ▲▼                                   │ │
+    │  │ Unit price: [calculated from price tiers]           │ │
+    │  │ Subtotal: [auto-calculated]                         │ │
+    │  └─────────────────────────────────────────────────────┘ │
+    │                                                          │
+    │  [Customer info form - unchanged]                        │
+    │  [Payment method - unchanged]                            │
+    │  [Place order]                                           │
+    └─────────────────────────────────────────────────────────┘
+              │
+              ▼ (After successful order)
+    [/order-tracking/lighters/{orderNumber}]  ← Existing route
 ```
 
 ---
 
-## 7. Kiến trúc kỹ thuật
+## 7. Technical Architecture
 
-### 7.1 Thư viện render 3D
+### 7.1 3D Rendering Library
 
-**Three.js r128** (CDN, không cần cài thêm npm package)
+**@react-three/fiber + @react-three/drei** (npm packages)
 
-| Tiêu chí          | Three.js                    | CSS perspective     | Fabric.js |
-| ----------------- | --------------------------- | ------------------- | --------- |
-| Full wrap 360° UV | ✅ CylinderGeometry UV map   | ❌ Chỉ CSS transform | ❌         |
-| Kéo xoay tự do    | ✅ mousemove handler         | ⚠️ Giới hạn          | ❌         |
-| Lighting / depth  | ✅ StandardMaterial + lights | ❌                   | ❌         |
-| Bundle size       | ~580 KB CDN                 | 0                   | ~280 KB   |
-| Next.js 12 SSR    | ✅ `dynamic({ ssr: false })` | ✅                   | ✅         |
+| Criteria          | @react-three/fiber + drei      | Three.js CDN       | CSS perspective      |
+| ----------------- | ------------------------------ | ------------------ | -------------------- |
+| Full wrap 360° UV | ✅ CylinderGeometry UV map      | ✅ CylinderGeometry | ❌ CSS transform only |
+| React integration | ✅ Native React components      | ❌ Imperative API   | ✅                    |
+| OrbitControls     | ✅ Built-in (drei)              | ❌ Manual impl      | ❌                    |
+| Lighting / depth  | ✅ StandardMaterial + lights    | ✅                  | ❌                    |
+| Bundle size       | ~350 KB (three + fiber + drei) | ~580 KB CDN        | 0                    |
+| Next.js 12 SSR    | ✅ `dynamic({ ssr: false })`    | ✅                  | ✅                    |
+| Maintenance       | ✅ Actively maintained          | ⚠️ CDN version      | ✅                    |
 
-**Quyết định: Three.js.** CSS perspective không thể render full wrap 360° đúng nghĩa — ảnh sẽ bị kéo méo ở cạnh thay vì uốn tự nhiên theo hình trụ. Three.js `CylinderGeometry` với UV map là giải pháp duy nhất render chính xác.
+**Decision: @react-three/fiber + @react-three/drei.** 
+- React-native integration for cleaner, more maintainable code
+- `OrbitControls` from drei provides rotation + zoom without custom implementation
+- Better than Three.js CDN due to typed components and declarative API
 
 ```ts
-// pages/bat-lua/builder.tsx
+// pages/builder/lighters.tsx
 const LighterBuilder = dynamic(
   () => import('@/components/lighter/LighterBuilder'),
   { ssr: false }
 );
 ```
 
-### 7.2 Cấu trúc 3D Model
+### 7.2 3D Model Structure (.glb)
 
-```
-THREE.Group (lighterGroup)
-├── CylinderGeometry (thân bật lửa)        ← UV map = ảnh thiết kế
-│   MeshStandardMaterial { map: texture }
-│
-├── CylinderGeometry (nắp trên — đen)       ← MeshStandardMaterial đen
-├── CylinderGeometry (gờ nắp)
-├── CylinderGeometry (bánh xe lửa kim loại)
-├── CylinderGeometry (miệng phun)
-└── CircleGeometry (đáy bật lửa)
+**Use .glb file** for lighter model — .glb file contains geometry, UV mapping, and materials.
+
+```tsx
+// components/lighter/LighterCanvas.tsx
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls, useGLTF, useTexture } from '@react-three/drei'
+import { Suspense } from 'react'
+import * as THREE from 'three'
+
+function LighterModel({ textureUrl, scrollX, scrollY, modelPath }) {
+  // Load .glb model
+  const { scene } = useGLTF(modelPath)
+  
+  // Load texture (uploaded image)
+  const texture = textureUrl ? useTexture(textureUrl) : null
+  
+  // Apply texture to model and adjust offset
+  React.useEffect(() => {
+    if (texture && scene) {
+      // Find the body mesh in the model and apply texture
+      scene.traverse((child) => {
+        if (child.isMesh && child.name === 'body') {
+          texture.offset = new THREE.Vector2(scrollX, scrollY)
+          texture.wrapS = THREE.RepeatWrapping
+          texture.wrapT = THREE.RepeatWrapping
+          child.material.map = texture
+          child.material.needsUpdate = true
+        }
+      })
+    }
+  }, [texture, scene, scrollX, scrollY])
+  
+  return <primitive object={scene} scale={1} />
+}
+
+export function LighterCanvas({ textureUrl, scrollX, scrollY, modelPath = '/models/lighter.glb' }) {
+  return (
+    <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[5, 5, 5]} intensity={1} castShadow />
+      <directionalLight position={[-5, 3, -5]} intensity={0.3} color="#aaccff" />
+      
+      <Suspense fallback={null}>
+        <LighterModel 
+          textureUrl={textureUrl} 
+          scrollX={scrollX} 
+          scrollY={scrollY}
+          modelPath={modelPath}
+        />
+      </Suspense>
+      
+      <OrbitControls 
+        enableZoom={true}
+        enablePan={false}
+        minDistance={3}
+        maxDistance={8}
+        autoRotate={false}
+      />
+    </Canvas>
+  )
+}
 ```
 
 **Lighting setup:**
-- `AmbientLight` — nền đều
-- `DirectionalLight` (key) — từ trên-phải, castShadow
-- `DirectionalLight` (rim) — từ sau-trái, tông xanh lạnh tạo độ sâu
-- `DirectionalLight` (fill) — làm mềm bóng tối
+- `ambientLight` — even base light
+- `directionalLight` (key) — from top-right, castShadow
+- `directionalLight` (rim) — from back-left, cool blue tone for depth
 
-**Tone mapping:** `ACESFilmicToneMapping` — cho skin texture trông tự nhiên như ảnh thực tế.
+**Tone mapping:** `ACESFilmicToneMapping` — makes skin texture look natural like real photo.
+
+**Notes on .glb file:**
+- Single file: `/public/models/lighter.glb`
+- Model needs correct UV mapping for body mesh (mesh name: 'body')
 
 ### 7.3 Upload & Texture Pipeline
 
 ```
-Client chọn file (1 ảnh)
+Client selects file (1 image)
         │
         ▼
-Validate: type (PNG/JPG/WEBP) + size ≤ 30 MB
+Validate: type (PNG/JPG/WEBP) + size ≤ 10 MB
         │
         ▼
-FileReader → dataURL → new Image()
+FileReader → createObjectURL → texture URL
         │
-        ├── Đọc naturalWidth × naturalHeight
-        │   → nếu < 1640 × 2048: hiện cảnh báo vàng (không chặn)
+        ├── Read naturalWidth × naturalHeight
+        │   → if < 1640 × 2048: show yellow warning (non-blocking)
         │
-        ├── THREE.Texture(img) → bodyMaterial.map = texture
+        ├── useTexture(url) → bodyMaterial.map = texture
         │   → texture.needsUpdate = true
-        │   → render ngay trên 3D canvas
+        │   → render immediately on 3D canvas
         │
-        └── Hiển thị thumbnail + metadata trong panel phải
+        └── Show thumbnail + metadata in right panel
 ```
 
-**Upload lên server:** Chỉ khi nhấn submit — không upload trong quá trình preview. Giữ nguyên Object URL trong bộ nhớ cho đến khi submit thành công.
+**Scroll X/Y to adjust image position:**
+```tsx
+// Adjust texture offset based on scroll position
+const [scrollX, setScrollX] = useState(0)
+const [scrollY, setScrollY] = useState(0)
 
-### 7.4 Export 2K PNG
+// In texture:
+texture.offset = new THREE.Vector2(scrollX, scrollY)
+texture.wrapS = THREE.RepeatWrapping
+texture.wrapT = THREE.RepeatWrapping
+```
 
+### 7.4 Add to Cart (Fetch Product by Name)
+
+When user clicks "Next", the system will:
+1. **Fetch product by exact name** using new `lightersApi.getLighterByName(name)` function
+2. **Extract product ID, lighter type ID, price tiers** from the fetched data
+3. **Create cart item** using existing product data structure
+4. **Add to cart** using `addItem()` from `useLightersCart`
+5. **Redirect** to `/checkout/lighters`
+
+**New API function to add in `api-client/lighters.ts`:**
 ```ts
-// Trên client, trước khi POST:
-renderer.setSize(2048, 2048);   // tạm thời resize off-screen
-renderer.render(scene, camera);
-const dataUrl = renderer.domElement.toDataURL('image/png');
-
-// Restore kích thước hiển thị
-renderer.setSize(canvasArea.clientWidth, canvasArea.clientHeight);
+/**
+ * Get a lighter product by exact name
+ */
+async getLighterByName(name: string): Promise<LighterProductWithType> {
+  const query = `*[_type == "lighterProducts" && name == $name][0]{
+    ...,
+    "lighterTypeDetails": lighterType->
+  }`;
+  return await client.fetch(query, { name });
+}
 ```
 
-> **Lưu ý:** Export PNG từ Three.js canvas là ảnh render 3D (có lighting, reflection). Nếu printer cần flat skin tuyệt đối phẳng (không lighting), export thay bằng `canvas.drawImage(uploadedImg)` trực tiếp — giữ nguyên pixel ảnh gốc. **Cần xác nhận với printer.**
+**Usage in builder component:**
+```tsx
+// components/lighter/LighterBuilder.tsx
+import { lightersApi } from '@/api-client/lighters'
+import { useLightersCart } from '@/store'
+import { useRouter } from 'next/router'
 
-### 7.5 Sanity CMS Schema
-
-```ts
-// schemas/lighterOrder.ts
-export default {
-  name: 'lighterOrder',
-  title: 'Lighter Skin Order',
-  type: 'document',
-  fields: [
-    { name: 'customerName',  title: 'Tên khách hàng', type: 'string' },
-    { name: 'phone',         title: 'SĐT / Zalo',     type: 'string' },
-    { name: 'quantity',      title: 'Số lượng',        type: 'number' },
-    { name: 'notes',         title: 'Ghi chú',         type: 'text'   },
-    {
-      name: 'lighterType',
-      title: 'Loại bật lửa',
-      type: 'string',
-      options: { list: ['Normal', 'Mini'] },
-    },
-    {
-      name: 'designAsset',
-      title: 'File thiết kế gốc (ảnh upload)',
-      type: 'image',
-      options: { hotspot: false },
-    },
-    {
-      name: 'skinExport',
-      title: 'Ảnh skin 2K (xuất từ builder)',
-      type: 'image',
-      options: { hotspot: false },
-      // Đây là file designer tải về để sản xuất
-    },
-    {
-      name: 'assetResolution',
-      title: 'Độ phân giải ảnh gốc',
-      type: 'string',
-      // Ví dụ: "2048 × 2560 px"
-    },
-    {
-      name: 'status',
-      title: 'Trạng thái',
-      type: 'string',
-      options: { list: ['Mới', 'Đang xử lý', 'Hoàn tất'] },
-      initialValue: 'Mới',
-    },
-    {
-      name: 'submittedAt',
-      title: 'Thời gian gửi',
-      type: 'datetime',
-    },
-  ],
-  preview: {
-    select: {
-      title: 'customerName',
-      subtitle: 'phone',
-      media: 'skinExport',
-    },
-  },
-};
+const handleNext = async () => {
+  // Fetch specific product by exact name (reduces data transfer)
+  const customLighterProduct = await lightersApi.getLighterByName(
+    'Bật lửa Thường - In Thường - Thiết kế theo yêu cầu'
+  )
+  
+  if (!customLighterProduct) {
+    toast.error('Không tìm thấy sản phẩm bật lửa custom')
+    return
+  }
+  
+  // Convert canvas to image for cart preview
+  const previewImage = canvasRef.current.toDataURL('image/png')
+  
+  // Add to cart using existing product data
+  addItem({
+    productId: customLighterProduct._id,                    // Real ID from Sanity
+    productName: customLighterProduct.name,                  // Product name
+    productImage: { asset: { url: previewImage } },         // Preview image from canvas
+    productSlug: customLighterProduct.slug.current,          // Product slug
+    lighterTypeId: customLighterProduct.lighterTypeDetails._id,
+    lighterTypeName: customLighterProduct.lighterTypeDetails.name,
+    quantity: 1,
+    priceTiers: customLighterProduct.lighterTypeDetails.priceTiers,
+  })
+  
+  router.push('/checkout/lighters')
+}
 ```
 
-### 7.6 API Route
+**Benefits of this approach:**
+- ✅ Single GROQ query — fetches only the exact product needed
+- ✅ Reduces data transfer (no need to fetch all products)
+- ✅ Uses existing price tiers from lighter types
+- ✅ Compatible with existing checkout flow (no new logic needed)
 
-**`/pages/api/lighter-submit.ts`**
+### 7.5 Cart Display
 
+In `/checkout/lighters` page, the custom lighter item will display:
+- **2D preview image** (not 3D) — snapshot from canvas or original uploaded image
+- **Product name**: From Sanity ("Bật lửa Thường - In Thường - Thiết kế theo yêu cầu")
+- **Quantity**: Adjustable (price auto-calculated based on tiers)
+- **Price**: Auto-calculated based on quantity and price tiers
+
+Existing checkout flow (`/checkout/lighters`) handles:
+- Customer information form
+- Payment method
+- Shipping fee calculation
+- Order creation in Sanity
+- Redirect to confirmation page
+
+### 7.6 Sanity Schema Update for Orders
+
+Add `designImage` field to order item to store design image:
+
+```js
+// Update in sanity/schemas/ordersLighter.js
+// Add field to orderItem object:
+{
+  name: "designImage",
+  title: "Design Image",
+  type: "image",
+  description: "Customer's custom design image",
+  options: { hotspot: false },
+}
 ```
-POST /api/lighter-submit
-Content-Type: multipart/form-data
 
-Fields:
-  lighterType       : 'Normal' | 'Mini'
-  customerName      : string
-  phone             : string
-  quantity          : number
-  notes             : string
-  assetResolution   : string          (e.g. "2048 × 2560")
-  designAsset       : File            (ảnh gốc từ khách)
-  skinExport        : Blob (PNG)      (ảnh 2K render từ Three.js)
+### 7.7 Checkout Flow Integration
 
-Response:
-  201 { success: true, orderId: string }
-  400 { error: string }
-  500 { error: string }
-```
+**No new API route needed.** Uses existing checkout flow:
 
-Dùng `formidable` để parse multipart, `@sanity/client` với write token (`SANITY_WRITE_TOKEN` trong `.env.local`) để upload.
+1. Builder page adds item to Zustand cart (`useLightersCart`)
+2. Redirects to `/checkout/lighters`
+3. Checkout page handles form and creates order
+4. Order tracking page shows status
+
+**Needs update:**
+- `CartItemLighter` model: Add field `designImage?: SanityImage` (optional)
+- `OrderItemLighter` model: Add field `designImage?: SanityImage` (optional)
+- Checkout page: Display preview image for custom lighter items
+- Order schema: Add `designImage` field to order item
 
 ---
 
-## 8. Cây component
+## 8. Component Tree
 
 ```
-pages/bat-lua/builder.tsx
+pages/builder/lighters.tsx
 └── LighterBuilderPage  (dynamic, ssr: false)
     │
     ├── BuilderHeader
     │   ├── Logo + subtitle "Lighter Builder"
-    │   ├── StepIndicator (3 bước: Tải ảnh → Xem trước → Gửi đơn)
-    │   └── Badge "PROTOTYPE"
+    │   └── Back button
     │
-    ├── ThreeCanvas                     ← Three.js WebGLRenderer mount
-    │   ├── LighterModel (group)
-    │   │   ├── BodyMesh (CylinderGeometry + MeshStandardMaterial)
-    │   │   ├── CapMesh
-    │   │   ├── WheelMesh
-    │   │   └── GuardMesh
-    │   ├── SceneLights (Ambient + Key + Rim + Fill)
-    │   ├── DragRotateHandler           ← mouse/touch events
-    │   └── UploadPromptOverlay         ← hiện khi chưa có ảnh
+    ├── LighterCanvas                     ← @react-three/fiber Canvas mount
+    │   ├── LighterModel (.glb loaded via useGLTF)
+    │   │   └── Body mesh with UV texture
+    │   ├── SceneLights (Ambient + Key + Rim)
+    │   └── OrbitControls                 ← from @react-three/drei
     │
-    └── ControlPanel
-        ├── TabBar [Thiết kế | Gửi đơn]
+    └── ControlPanel (right side)
+        ├── HelperText                    ← "Please upload image 1640×2048 px or higher"
+        ├── ImageUploadZone               ← click to select file (PNG/JPG/WEBP)
+        │   ├── DropzoneIdle              ← click-to-upload UI
+        │   └── UploadedPreview           ← thumbnail + metadata + res warning
+        │       ├── ImageInfo             ← dimensions, file size
+        │       ├── ScrollControls        ← Slider X/Y to adjust image position
+        │       ├── [ Replace ]
+        │       └── [ Clear ]
         │
-        ├── DesignTab
-        │   ├── LighterTypePicker       ← Normal / Mini cards
-        │   ├── ImageUploadZone         ← react-dropzone, 1 file, max 30MB
-        │   │   ├── DropzoneIdle        ← drag-and-drop UI
-        │   │   └── UploadedPreview     ← thumbnail + metadata + res warning
-        │   └── ViewerControls
-        │       ├── RotationSlider      ← MUI Slider −180°..+180°
-        │       ├── ScaleSlider         ← MUI Slider 60..150%
-        │       └── ResetButton
-        │
-        ├── OrderTab
-        │   ├── Field: Tên khách hàng
-        │   ├── Field: SĐT / Zalo
-        │   ├── Field: Số lượng
-        │   ├── Field: Loại bật lửa (select, sync với TypePicker)
-        │   └── Field: Ghi chú (textarea)
-        │
-        └── SubmitArea (sticky bottom)
-            ├── SubmitButton            ← disabled khi chưa upload ảnh
-            ├── SubmitHintText
-            └── ConfirmationModal       ← hiện sau submit thành công
+        └── NextButton                    ← "Next →" (disabled when no image)
 ```
 
-### Tái sử dụng từ Sticker Builder
+### Reused from Existing Codebase
 
-| Component                            | Trạng thái                         |
-| ------------------------------------ | ---------------------------------- |
-| `StepIndicator`                      | ✅ Tái sử dụng hoàn toàn            |
-| `OrderForm` fields                   | ✅ Tái sử dụng hoàn toàn            |
-| `SubmitButton` + `ConfirmationModal` | ✅ Tái sử dụng hoàn toàn            |
-| `BuilderHeader`                      | ✅ Tái sử dụng (thay subtitle)      |
-| `ImageUploadZone`                    | ♻️ Đơn giản hóa — 1 file thay vì 20 |
-| `ThreeCanvas` + `LighterModel`       | 🆕 Mới hoàn toàn                    |
-| `LighterTypePicker`                  | 🆕 Mới (tương tự `SizePicker`)      |
-| `ViewerControls`                     | 🆕 Mới                              |
+| Component                         | Status                    | Source                                 |
+| --------------------------------- | ------------------------- | -------------------------------------- |
+| `useLightersCart` (Zustand store) | ✅ Fully reused            | `store/cart/lightersCart.ts`           |
+| `useCreateLighterOrder`           | ✅ Fully reused            | `hooks/useCreateLighterOrder.ts`       |
+| `useTelegramNotification`         | ✅ Fully reused            | `hooks/useTelegramNotification.ts`     |
+| `useShippingFees`                 | ✅ Fully reused            | `hooks/useShippingFees.ts`             |
+| `lightersApi.getLighterByName()`  | 🆕 New (add to api-client) | `api-client/lighters.ts`               |
+| Checkout page                     | ✅ Fully reused            | `pages/checkout/lighters.tsx`          |
+| Order tracking page               | ✅ Fully reused            | `pages/order-tracking/lighters/[slug]` |
+| `formatPrice`                     | ✅ Fully reused            | `utils/priceCalculator.ts`             |
+| Analytics tracking                | ✅ Fully reused            | `utils/analytics.ts`                   |
+| `ThreeCanvas` + `LighterModel`    | 🆕 New                     | —                                      |
+| `ImageUploadZone`                 | 🆕 New (simple — 1 file)   | —                                      |
+| `ControlPanel`                    | 🆕 New                     | —                                      |
 
-> ~40% component tái sử dụng từ Sticker Builder.
+> ~70% code reused from existing codebase (cart, checkout, order flow, API client).
 
 ---
 
 ## 9. UX & Design (Chromatic Offset system)
 
-Toàn bộ visual language nhất quán với Sticker Builder đã được duyệt:
+All visual language consistent with current design system:
 
-| Element         | Giá trị                                                                |
-| --------------- | ---------------------------------------------------------------------- |
-| Background      | `#080706` — nền tối làm bật lửa 3D nổi bật                             |
-| Surface         | `#100f0d` / `#1a1916` / `#242220`                                      |
-| Orange accent   | `#FF4D00` — CTA, step active, slider thumb, selected card border       |
-| Yellow          | `#FFE234` — cảnh báo độ phân giải thấp                                 |
-| Heading font    | **Syne** (700–800) — step labels, section headers, button text         |
-| Body font       | **DM Sans** — metadata, labels, input fields                           |
-| Canvas lighting | ACES filmic tone mapping — cho skin texture trông như ảnh chụp thực tế |
-| Auto-rotate     | Khi chưa có ảnh: bật lửa tự xoay chậm, dừng khi upload ảnh             |
-| Mobile          | Panel trượt lên từ dưới (bottom sheet); canvas chiếm toàn màn hình     |
-| Touch target    | Tối thiểu 44 × 44 px                                                   |
-| Animation       | ≤ 300ms; không parallax                                                |
-| Copy chính      | Tiếng Việt; tiếng Anh chỉ cho code ("Normal", "Mini", "PNG")           |
+| Element         | Value                                                              |
+| --------------- | ------------------------------------------------------------------ |
+| Background      | `#080706` — dark background makes 3D lighter pop                   |
+| Surface         | `#100f0d` / `#1a1916` / `#242220`                                  |
+| Orange accent   | `#FF4D00` — CTA, button, selected state                            |
+| Yellow          | `#FFE234` — low resolution warning                                 |
+| Heading font    | **Roboto** (700) — section headers, button text                    |
+| Body font       | **Roboto** (400) — metadata, labels, input fields                  |
+| Canvas lighting | ACES filmic tone mapping — makes skin texture look like real photo |
+| Auto-rotate     | **Always** — lighter auto-rotates slowly (never stops)             |
+| Mobile          | Canvas takes top half; panel takes bottom half                     |
+| Touch target    | Minimum 44 × 44 px                                                 |
+| Animation       | ≤ 300ms; no parallax                                               |
+| Main copy       | Vietnamese; English only for code ("Normal", "Mini", "PNG")        |
 
-**Điểm khác biệt so với Sticker Builder:** Không có flat canvas editor. Toàn bộ trải nghiệm là xem trước 3D — khách hiểu ngay "đây là cái bật lửa của mình trông như thế nào" mà không cần giải thích.
-
----
-
-## 10. Edge Cases & Xử lý lỗi
-
-| Tình huống                      | Xử lý                                                           |
-| ------------------------------- | --------------------------------------------------------------- |
-| File không phải ảnh             | Từ chối với toast: "Chỉ chấp nhận PNG, JPG, WEBP"               |
-| File > 30 MB                    | Từ chối với toast: "File quá lớn (tối đa 30 MB)"                |
-| Độ phân giải < 1640 × 2048 px   | **Cảnh báo vàng** trong panel (không chặn) — khách vẫn gửi được |
-| Submit khi chưa có ảnh          | Chặn submit; toast + chuyển về tab Thiết kế                     |
-| Submit khi thiếu thông tin đơn  | Chặn submit; toast + chuyển sang tab Gửi đơn                    |
-| Lỗi mạng khi submit             | Nút retry; ảnh vẫn còn trong Object URL (chưa revoke)           |
-| Safari iOS — canvas export      | Giới hạn pixelRatio ≤ 2 để tránh crash bộ nhớ                   |
-| Đổi loại bật lửa sau khi upload | **Không xóa ảnh** — chỉ thay đổi tỉ lệ hiển thị model           |
+**Key difference:** No flat canvas editor. Entire experience is 3D preview — customer immediately understands "this is what my lighter will look like" without explanation.
 
 ---
 
-## 11. Các giai đoạn triển khai
+## 9.1 Guardrails & Standards
 
-### Phase 1 — 3D Viewer MVP (2 tuần)
+### Mobile-First Requirements
 
-- [ ] Route `/bat-lua/builder` scaffold (dynamic, SSR disabled)
-- [ ] `LighterTypePicker` — Normal / Mini cards
-- [ ] `ImageUploadZone` — react-dropzone, 1 file, validate type + size + resolution
-- [ ] `ThreeCanvas` — WebGLRenderer + CylinderGeometry body + lighting setup
-- [ ] `LighterModel` — full model (body, cap, wheel, guard, bottom cap)
-- [ ] UV texture map từ ảnh upload lên thân cylinder (full wrap 360°)
-- [ ] Drag-to-rotate (mouse + touch)
-- [ ] `RotationSlider` + `ScaleSlider` + Reset
+| Requirement               | Specification                                               |
+| ------------------------- | ----------------------------------------------------------- |
+| **Touch target size**     | Minimum **44 × 44 px** for all interactive elements         |
+| **Button padding**        | Minimum 12px vertical, 16px horizontal                      |
+| **Slider thumb size**     | Minimum 44px hit area (visual thumb can be smaller)         |
+| **Upload zone tap area**  | Minimum 44px height for mobile touch                        |
+| **Spacing between items** | Minimum 8px gap between tappable elements                   |
+| **Viewport handling**     | Support viewport units (dvh) for mobile browser address bar |
+
+### Performance Guardrails
+
+| Requirement           | Specification                                                          |
+| --------------------- | ---------------------------------------------------------------------- |
+| **Canvas pixelRatio** | Cap at `Math.min(window.devicePixelRatio, 2)` for iOS Safari stability |
+| **Texture max size**  | Limit to 2048 × 2048 px for mobile GPU memory                          |
+| **Frame rate**        | Target 60fps; throttle to 30fps on low-end devices                     |
+| **Memory management** | Dispose Three.js textures/geometries on unmount                        |
+| **Lazy loading**      | Load .glb model only when canvas is in viewport                        |
+
+### Implementation Example
+
+```tsx
+// components/lighter/LighterCanvas.tsx
+
+// Cap pixelRatio for iOS Safari stability
+const pixelRatio = Math.min(window.devicePixelRatio, 2)
+
+<Canvas 
+  camera={{ position: [0, 0, 5], fov: 45 }}
+  gl={{ 
+    pixelRatio: pixelRatio,
+    powerPreference: 'high-performance',
+  }}
+  dpr={[1, 2]} // Limit DPR range
+>
+```
+
+```tsx
+// Touch target enforcement
+<Button
+  sx={{
+    minWidth: 44,
+    minHeight: 44,
+    padding: '12px 16px',
+  }}
+>
+  Next →
+</Button>
+
+<Slider
+  sx={{
+    '& .MuiSlider-thumb': {
+      width: 24,
+      height: 24,
+      // Hit area expanded via pseudo-element
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: -10,
+        left: -10,
+        right: -10,
+        bottom: -10,
+      },
+    },
+  }}
+/>
+```
+
+### Memory Cleanup Pattern
+
+```tsx
+// Cleanup Three.js resources on unmount
+useEffect(() => {
+  return () => {
+    // Dispose texture
+    if (texture) {
+      texture.dispose()
+    }
+    // Dispose geometry and materials from model
+    if (scene) {
+      scene.traverse((child) => {
+        if (child.isMesh) {
+          child.geometry.dispose()
+          if (child.material.map) child.material.map.dispose()
+          child.material.dispose()
+        }
+      })
+    }
+  }
+}, [texture, scene])
+```
+
+---
+
+## 10. Edge Cases & Error Handling
+
+| Situation                          | Handling                                                               |
+| ---------------------------------- | ---------------------------------------------------------------------- |
+| File is not an image               | Reject with toast: "Only PNG, JPG, WEBP accepted"                      |
+| File > 10 MB                       | Reject with toast: "File too large (max 10 MB)"                        |
+| Resolution < 1640 × 2048 px        | **Yellow warning** in panel (non-blocking) — customer can still submit |
+| Click Next without uploading image | Block; toast "Please upload design image"                              |
+| Error adding to cart               | Toast error; keep builder state                                        |
+| Product not found in Sanity        | Toast error: "Custom lighter product not found"                        |
+| Safari iOS — canvas                | Limit pixelRatio ≤ 2 to avoid memory crash                             |
+| WebGL not supported                | Show fallback: 2D image with CSS rotation effect                       |
+
+---
+
+## 11. Implementation Phases
+
+### Phase 1 — 3D Viewer + Upload (1.5 weeks)
+
+- [ ] Route `/builder/lighters` scaffold (dynamic, SSR disabled)
+- [ ] `LighterCanvas` — @react-three/fiber Canvas + OrbitControls
+- [ ] `LighterModel` — Load .glb model + UV texture map + lighting
+- [ ] `ImageUploadZone` — file input, validate type + size + resolution
+- [ ] Scroll X/Y controls to adjust image position on lighter body
 - [ ] `UploadedPreview` — thumbnail, metadata, resolution warning
-- [ ] Auto-rotate khi chưa có ảnh
+- [ ] Auto-rotate when no image
 
-### Phase 2 — Submission & CMS (1 tuần)
+### Phase 2 — Cart Integration (0.5 weeks)
 
-- [ ] `lighterOrder` Sanity schema
-- [ ] Export 2K PNG từ Three.js renderer (hoặc flat canvas — xác nhận với printer)
-- [ ] `/api/lighter-submit` API route (multipart: designAsset + skinExport → Sanity)
-- [ ] Google reCAPTCHA v3 (tái sử dụng config từ Sticker Builder)
-- [ ] `ConfirmationModal` — MR. TOM / MS. BOO copy
+- [ ] Update `CartItemLighter` model: add `designImage` field (optional)
+- [ ] Update `OrderItemLighter` model: add `designImage` field (optional)
+- [ ] "Next" button → fetch product from `lightersApi.getAllLighters()` → add to cart → redirect to `/checkout/lighters`
+- [ ] Update checkout page: display preview image for custom lighter items
+- [ ] Update Sanity schema `ordersLighter`: add `designImage` field to orderItem
 
-### Phase 3 — Designer UX & Polish (0.5 tuần)
+### Phase 3 — Polish & Mobile (0.5 weeks)
 
-- [ ] Sanity Studio view cho `lighterOrder` — cột status, thumbnail skinExport, thông tin khách
-- [ ] Designer cập nhật trạng thái đơn (Mới → Đang xử lý → Hoàn tất)
-- [ ] Mobile responsive (bottom sheet panel, full-screen canvas)
-- [ ] CTA trên trang `/san-pham/bat-lua` dẫn tới builder
+- [ ] Mobile responsive (canvas half-top, panel half-bottom)
+- [ ] Touch gestures for OrbitControls
+- [ ] WebGL fallback (if browser doesn't support)
+- [ ] CTA on `/san-pham/lighters` page linking to builder
+- [ ] Analytics tracking (page view, upload, add to cart, checkout)
 
 ### Phase 4 — Stretch Goals (backlog)
 
-- [ ] Lookup lịch sử đơn theo số điện thoại
-- [ ] Fullscreen preview modal (nhấn phóng to model 3D)
-- [ ] Download ảnh xem trước từ phía khách (PNG snapshot)
+- [ ] Order history lookup by phone number
+- [ ] Fullscreen preview modal (click to enlarge 3D model)
+- [ ] Customer download preview image (PNG snapshot)
 
 ---
 
 ## 12. Dependencies
 
-**Không thêm npm package mới.** Chỉ cần:
+**New npm packages to install:**
 
 ```json
 {
-  "react-dropzone": "^14.x",          // đã có trong Sticker Builder
-  "react-google-recaptcha-v3": "^1.x", // đã có trong Sticker Builder
-  "formidable": "^3.x"                 // đã có trong Sticker Builder
+  "@react-three/fiber": "^8.15.0",
+  "@react-three/drei": "^9.92.0",
+  "three": "^0.160.0"
 }
 ```
 
-**Three.js:** Load qua CDN trong component (`next/script` hoặc dynamic import) — không thêm vào `node_modules` để tránh ảnh hưởng bundle chính.
+**Already in project (reused):**
+- `zustand` 4.3.8 — cart state management
+- `react-hook-form` ^7.44.2 — form handling in checkout
+- `@mui/material` ^5.9.3 — UI components
+- `react-hot-toast` ^2.4.1 — notifications
+- `@sanity/client` ^3.4.1 — CMS integration
+- `next` 12.3.1 — framework
 
-```ts
-// Option A — CDN script tag (đơn giản nhất cho Next.js 12)
-<Script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" strategy="beforeInteractive" />
-
-// Option B — npm (nếu muốn typed import)
-// npm install three @types/three
-// tree-shaking sẽ giữ bundle hợp lý (~200KB gzipped)
+**Install:**
+```bash
+pnpm add @react-three/fiber @react-three/drei three
+pnpm add -D @types/three
 ```
 
 ---
 
-## 13. Bảng quyết định (Decision Log)
+## 13. Decision Log
 
-| #   | Câu hỏi                          | Quyết định                      | Lý do                                                                                        |
-| --- | -------------------------------- | ------------------------------- | -------------------------------------------------------------------------------------------- |
-| 1   | Render 3D: CSS hay Three.js?     | **Three.js**                    | CSS perspective không render full wrap 360° đúng — ảnh bị méo cạnh                           |
-| 2   | Số ảnh upload                    | **1 ảnh duy nhất**              | Full wrap = 1 file bao toàn bộ, không cần ghép canvas                                        |
-| 3   | Canvas editor đa lớp?            | **Không**                       | Khách chuẩn bị ảnh sẵn trước khi upload — builder chỉ preview                                |
-| 4   | Chọn màu vỏ bật lửa?             | **Không**                       | Skin decal phủ toàn bộ thân — màu vỏ không nhìn thấy                                         |
-| 5   | In 2 mặt?                        | **Không áp dụng**               | Full wrap 360° đã bao gồm tất cả mặt                                                         |
-| 6   | Export: render 3D hay flat file? | **Cần xác nhận với printer**    | Nếu printer chấp nhận PNG gốc (flat) → dùng ảnh gốc; nếu cần render → Three.js canvas export |
-| 7   | Độ phân giải tối thiểu?          | **1640 × 2048 px khuyến nghị**  | Theo spec Cricket Lighters; không chặn, chỉ cảnh báo                                         |
-| 8   | Auth wall?                       | **Fully public** + reCAPTCHA v3 | Không yêu cầu đăng nhập — tăng tỉ lệ hoàn thành                                              |
-| 9   | Form liên hệ cũ?                 | **Giữ nguyên** tại `/lien-he`   | Builder là route mới, độc lập                                                                |
-| 10  | Auto-rotate model?               | **Có** khi chưa có ảnh          | Tăng visual appeal; dừng khi upload để khách kiểm tra kỹ                                     |
-
----
-
-## 14. Câu hỏi còn mở (cần INUT xác nhận trước Phase 1)
-
-| #   | Câu hỏi                                                                           | Ai trả lời          | Mức độ ưu tiên |
-| --- | --------------------------------------------------------------------------------- | ------------------- | -------------- |
-| 1   | **Kích thước vùng in chính xác (mm)** của Normal và Mini theo nhà cung cấp?       | INUT / nhà cung cấp | 🔴 Bắt buộc     |
-| 2   | **Định dạng file gửi printer:** PNG gốc (flat, không lighting) hay PNG render 3D? | Printer / INUT      | 🔴 Bắt buộc     |
-| 3   | Skin có **kích thước full chu vi** (wrap 360°) hay chỉ mặt trước + sau?           | INUT / nhà cung cấp | 🟠 Quan trọng   |
-| 4   | **Tỉ lệ file khuyến nghị** (W:H) để in full wrap đúng không bị kéo méo?           | Nhà cung cấp        | 🟠 Quan trọng   |
+| #   | Question                       | Decision                       | Reason                                                                            |
+| --- | ------------------------------ | ------------------------------ | --------------------------------------------------------------------------------- |
+| 1   | 3D rendering: CSS or Three.js? | **@react-three/fiber + drei**  | CSS perspective can't render true full wrap 360°; drei has OrbitControls built-in |
+| 2   | Number of images to upload     | **1 image only**               | Full wrap = 1 file covering entire surface, no canvas composition needed          |
+| 3   | Multi-layer canvas editor?     | **No**                         | Customer prepares image before upload — builder only previews                     |
+| 4   | Checkout flow: new or reuse?   | **Reuse /checkout/lighters**   | Already built, full-featured (cart, shipping, payment, order tracking)            |
+| 5   | Separate API route?            | **No**                         | Current flow handles via useCreateLighterOrder hook                               |
+| 6   | Lighter color selection?       | **No**                         | Decal skin covers entire body — color not visible                                 |
+| 7   | Double-sided printing?         | **Not applicable**             | Full wrap 360° covers all sides                                                   |
+| 8   | Minimum resolution?            | **1640 × 2048 px recommended** | Per Cricket Lighters spec; non-blocking, warning only                             |
+| 9   | Auto-rotate model?             | **Always Yes**                 | Increases visual appeal; continuous rotation helps see full wrap                  |
+| 10  | Image display in cart?         | **2D preview** (not 3D)        | Checkout page needs fast load; 3D only needed on builder page                     |
+| 11  | Product ID for cart?           | **Fetch from Sanity via API**  | Reuses existing product data, no hardcoded IDs, compatible with checkout flow     |
 
 ---
 
-## 15. So sánh với Sticker Sheet Builder
+## 14. Confirmed Answers
 
-|                        | Sticker Builder                      | Lighter Builder                 |
-| ---------------------- | ------------------------------------ | ------------------------------- |
-| Canvas                 | Konva.js flat canvas (2D editor)     | Three.js WebGL (3D viewer)      |
-| Số ảnh                 | Tối đa 20 ảnh, drag onto canvas      | 1 ảnh full-wrap                 |
-| Interaction            | Drag, scale, rotate từng asset       | Drag để xoay bật lửa 3D         |
-| Export                 | Flat canvas PNG 300 DPI              | Flat skin PNG 300 DPI (ảnh gốc) |
-| Độ phức tạp frontend   | Cao (editor state, layer management) | Trung bình (upload + 3D viewer) |
-| Thời gian dev ước tính | 7–9 tuần                             | **3–4 tuần**                    |
-| Reuse component        | —                                    | ~40% từ Sticker Builder         |
+| #   | Question                              | Answer                                               |
+| --- | ------------------------------------- | ---------------------------------------------------- |
+| 1   | **Exact print area dimensions (mm)?** | No exact dimensions — will use estimated values      |
+| 2   | **Confirm product name?**             | "Bật lửa Thường - In Thường - Thiết kế theo yêu cầu" |
+| 3   | **Custom lighter pricing?**           | No — reuse current pricing of the product            |
+| 4   | **Design image storage?**             | Store in Sanity image field                          |
 
 ---
 
-## 16. Prototype tham khảo
+## 15. Comparison with Sticker Sheet Builder
 
-File prototype HTML (`lighter-builder.html`) đã được xây dựng với Three.js r128, bao gồm:
-
-- ✅ 3D lighter model với full-wrap UV texture
-- ✅ Drag-to-rotate (mouse + touch)
-- ✅ Rotation + Scale slider
-- ✅ Upload ảnh + resolution warning
-- ✅ Replace / Clear ảnh
-- ✅ Normal / Mini type picker
-- ✅ Order form (tab 2)
-- ✅ Submit flow + confirmation modal
-- ✅ Chromatic Offset design system (màu, font, layout)
-
-Dùng prototype để demo cho khách hàng và align với developer trước khi bắt đầu Phase 1.
+|                     | Sticker Builder                   | Lighter Builder (v4)           |
+| ------------------- | --------------------------------- | ------------------------------ |
+| Canvas              | Konva.js flat canvas (2D editor)  | @react-three/fiber (3D viewer) |
+| Number of images    | Up to 20 images, drag onto canvas | 1 full-wrap image              |
+| Interaction         | Drag, scale, rotate per asset     | OrbitControls (rotate + zoom)  |
+| 3D Model            | None (2D only)                    | .glb file with UV texture      |
+| Checkout            | Custom flow                       | Reuse /checkout/lighters       |
+| Product ID          | N/A                               | Fetched from Sanity via API    |
+| Frontend complexity | High (editor state, layer mgmt)   | Medium (upload + 3D viewer)    |
+| Dev time estimate   | 7–9 weeks                         | **2.5–3 weeks**                |
+| Code reuse          | —                                 | ~70% from existing codebase    |
 
 ---
 
-*Prepared for INUT Design — Đà Nẵng*  
-*Version 3.0 (Final) · March 2026*  
+## 16. Tech Stack Summary
+
+| Technology         | Version  | Purpose                              |
+| ------------------ | -------- | ------------------------------------ |
+| Next.js            | 12.3.1   | Framework (Page Router)              |
+| React              | 18.2.0   | UI library                           |
+| TypeScript         | 5.0.4    | Type safety (strict: false)          |
+| MUI                | v5.9.3   | UI components                        |
+| @react-three/fiber | ^8.15.0  | React renderer for Three.js          |
+| @react-three/drei  | ^9.92.0  | Useful helpers (OrbitControls, etc.) |
+| three              | ^0.160.0 | 3D graphics engine                   |
+| Sanity CMS         | v3.4.1   | Content & order management           |
+| Zustand            | 4.3.8    | State management (cart)              |
+| react-hook-form    | ^7.44.2  | Form handling                        |
+| react-hot-toast    | ^2.4.1   | Notifications                        |
+| pnpm               | 10.32.1  | Package manager                      |
+| Node.js            | >=20.0.0 | Runtime                              |
+
+---
+
+*Prepared for INUT Design — Da Nang*  
+*Version 4.0 (Final) · March 2026*  
 *Author: Product team*  
 *References:*  
 *— PROPOSAL_STICKER_BUILDER.md (approved architecture)*  
 *— design.cricketlighters.com (UX benchmark)*  
-*— lighter-builder.html (working prototype)*
+*— pages/checkout/lighters.tsx (existing checkout flow)*  
+*— store/cart/lightersCart.ts (cart state management)*  
+*— api-client/lighters.ts (product data API)*

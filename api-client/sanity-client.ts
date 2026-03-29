@@ -106,3 +106,24 @@ export async function updateOrderStatus(
 		throw new Error("Failed to update order status.");
 	}
 }
+
+/**
+ * Upload an image to Sanity
+ * @param file - File or Blob to upload
+ * @returns Uploaded asset reference
+ */
+export async function uploadImageToSanity(file: File | Blob): Promise<{ _type: string; asset: { _ref: string; _type: string } }> {
+	try {
+		const asset = await client.assets.upload("image", file);
+		return {
+			_type: "image",
+			asset: {
+				_ref: asset._id,
+				_type: "reference",
+			},
+		};
+	} catch (error) {
+		console.error("Error uploading image to Sanity:", error);
+		throw new Error("Failed to upload image. Please try again.");
+	}
+}

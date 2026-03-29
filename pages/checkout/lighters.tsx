@@ -1,6 +1,6 @@
 "use client";
 
-import { urlFor } from "@/api-client/sanity-client";
+import { urlFor, uploadImageToSanity } from "@/api-client/sanity-client";
 import { MainLayout } from "@/components/layout";
 import { useCreateLighterOrder } from "@/hooks";
 import { CreateOrderLighterInput } from "@/models/cart";
@@ -214,22 +214,43 @@ const LighterCheckout: NextPageWithLayout = () => {
 	const onSubmit = async (data: CheckoutFormData) => {
 		try {
 			// Prepare order items for Sanity (convert to reference format)
-			const orderItems = items.map((item, index) => ({
-				_key: `${item.productId}-${item.lighterTypeId}-${Date.now()}-${index}`, // Unique key for each item
-				product: {
-					_ref: item.productId,
-					_type: "reference" as const,
-				},
-				productName: item.productName,
-				lighterType: {
-					_ref: item.lighterTypeId,
-					_type: "reference" as const,
-				},
-				lighterTypeName: item.lighterTypeName,
-				quantity: item.quantity,
-				unitPrice: item.unitPrice,
-				subtotal: item.subtotal,
-			}));
+			const orderItems = await Promise.all(
+				items.map(async (item, index) => {
+					let designImage = undefined;
+
+					// Upload design image to Sanity if available
+					if (item.designImage) {
+						try {
+							// Fetch the image from the URL and convert to Blob
+							const response = await fetch(item.designImage);
+							const blob = await response.blob();
+							// Upload to Sanity
+							designImage = await uploadImageToSanity(blob);
+						} catch (error) {
+							console.error("Error uploading design image:", error);
+							// Continue without design image if upload fails
+						}
+					}
+
+					return {
+						_key: `${item.productId}-${item.lighterTypeId}-${Date.now()}-${index}`, // Unique key for each item
+						product: {
+							_ref: item.productId,
+							_type: "reference" as const,
+						},
+						productName: item.productName,
+						lighterType: {
+							_ref: item.lighterTypeId,
+							_type: "reference" as const,
+						},
+						lighterTypeName: item.lighterTypeName,
+						quantity: item.quantity,
+						unitPrice: item.unitPrice,
+						subtotal: item.subtotal,
+						designImage,
+					};
+				})
+			);
 
 			// Calculate final amount with shipping fee & discount
 			const shippingFee = selectedFee?.fee || 0;
@@ -555,7 +576,8 @@ const LighterCheckout: NextPageWithLayout = () => {
 										{items.map((item) => (
 											<Box key={`${item.productId}-${item.lighterTypeId}`}>
 												<Stack direction="row" spacing={2}>
-													{item.productImage && (
+													{/* Show design image if available, otherwise show product image */}
+													{item.designImage ? (
 														<Box
 															sx={{
 																width: 60,
@@ -568,13 +590,35 @@ const LighterCheckout: NextPageWithLayout = () => {
 															}}
 														>
 															<Image
-																src={urlFor(item.productImage).width(120).url()}
+																src={item.designImage}
 																alt={item.productName}
 																width={60}
 																height={60}
 																style={{ objectFit: "cover" }}
 															/>
 														</Box>
+													) : (
+														item.productImage && (
+															<Box
+																sx={{
+																	width: 60,
+																	height: 60,
+																	flexShrink: 0,
+																	borderRadius: 1,
+																	overflow: "hidden",
+																	border: 1,
+																	borderColor: "divider",
+																}}
+															>
+																<Image
+																	src={urlFor(item.productImage).width(120).url()}
+																	alt={item.productName}
+																	width={60}
+																	height={60}
+																	style={{ objectFit: "cover" }}
+																/>
+															</Box>
+														)
 													)}
 													<Box flex={1}>
 														<Typography variant="body2" fontWeight="bold" noWrap>
@@ -583,6 +627,11 @@ const LighterCheckout: NextPageWithLayout = () => {
 														<Typography variant="caption" color="text.secondary" noWrap>
 															{item.lighterTypeName}
 														</Typography>
+														{item.designImage && (
+															<Typography variant="caption" color="#FF4D00" display="block">
+																🎨 Thiết kế theo yêu cầu
+															</Typography>
+														)}
 														<Typography variant="caption" color="text.secondary" display="block">
 															{item.quantity} × {formatPrice(item.unitPrice)}
 														</Typography>

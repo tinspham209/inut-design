@@ -84,4 +84,15 @@ export const lightersApi = {
 		}
 		return await client.fetch(query);
 	},
+
+	/**
+	 * Get a lighter product by exact name (for custom builder)
+	 */
+	async getLighterByName(name: string): Promise<LighterProductWithType> {
+		const query = `*[_type == "lighterProducts" && name == $name][0]{
+			...,
+			"lighterTypeDetails": lighterType->
+		}`;
+		return await client.fetch(query, { name });
+	},
 };

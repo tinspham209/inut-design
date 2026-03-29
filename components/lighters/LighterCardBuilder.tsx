@@ -1,20 +1,20 @@
 import { trackEvent } from "@/utils/analytics";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Box, Card, CardContent, Link as MuiLink, Stack, Typography } from "@mui/material";
+import { Box, Card, CardContent, Link as MuiLink, Stack, Typography, Chip } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const LighterCardCustomize: React.FC = () => {
+const LighterCardBuilder: React.FC = () => {
 	const handleTrackClick = () => {
-		trackEvent("click_lighter_customize", {
+		trackEvent("click_lighter_builder", {
 			category: "engagement",
-			label: "Lighter Customize Card",
+			label: "Lighter Builder Card",
 		});
 	};
 
 	return (
-		<Link href="/services/ca-nhan-hoa/skin-bat-lua-customize" passHref>
+		<Link href="/builder/lighters" passHref>
 			<MuiLink sx={{ textDecoration: "none" }} onClick={handleTrackClick}>
 				<Card
 					variant="outlined"
@@ -23,11 +23,15 @@ const LighterCardCustomize: React.FC = () => {
 						transform: "scale(1)",
 						"&:hover": {
 							transform: "scale(1.01)",
+							borderColor: "primary.main",
+							boxShadow: (theme) => `0 0 0 1px ${theme.palette.primary.main}`,
 						},
 						borderRadius: { xs: "12px", md: "16px" },
 						display: "flex",
 						flexDirection: "column",
 						height: "100%",
+						position: "relative",
+						overflow: "hidden",
 					}}
 				>
 					<CardContent
@@ -50,18 +54,32 @@ const LighterCardCustomize: React.FC = () => {
 						>
 							<Box
 								sx={{
-									background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
+									background: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)",
 									borderRadius: 8,
 									width: "100%",
 									paddingTop: "100%",
+									position: "relative",
 								}}
 							>
 								<Image
-									src="/assets/skin-bat-lua-customize.avif"
-									alt="Bật lửa theo yêu cầu"
+									src="/assets/skin-bat-lua-builder.avif"
+									alt="Tự thiết kế bật lửa"
 									layout="fill"
 									objectFit="cover"
 									priority
+								/>
+								<Chip
+									label="Mới ra mắt"
+									color="primary"
+									size="small"
+									sx={{
+										position: "absolute",
+										top: 10,
+										right: 10,
+										fontWeight: "bold",
+										fontSize: "0.7rem",
+										boxShadow: 2,
+									}}
 								/>
 							</Box>
 						</Box>
@@ -74,7 +92,7 @@ const LighterCardCustomize: React.FC = () => {
 									fontWeight: 600,
 								}}
 							>
-								Bật lửa thiết kế
+								Bật lửa tự thiết kế
 							</Typography>
 							<Typography
 								variant="h6"
@@ -84,7 +102,7 @@ const LighterCardCustomize: React.FC = () => {
 									lineHeight: 1.3,
 								}}
 							>
-								Bật lửa thiết kế theo yêu cầu của bạn
+								Skin bật lửa của bạn. Upload ảnh, xoay 3D, gửi đơn.
 							</Typography>
 						</Box>
 						<Stack direction="row" alignItems="center" justifyContent="space-between" p={1}>
@@ -94,7 +112,7 @@ const LighterCardCustomize: React.FC = () => {
 									fontSize: { xs: "0.75rem", md: "0.85rem" },
 								}}
 							>
-								Xem ngay
+								Thiết kế ngay, miễn phí
 							</Typography>
 							<ArrowForwardIcon fontSize="small" />
 						</Stack>
@@ -105,4 +123,4 @@ const LighterCardCustomize: React.FC = () => {
 	);
 };
 
-export default LighterCardCustomize;
+export default LighterCardBuilder;

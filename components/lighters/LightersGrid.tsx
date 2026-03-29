@@ -4,6 +4,7 @@ import { Box, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import React from "react";
 import LighterCard from "./LighterCard";
+import LighterCardBuilder from "./LighterCardBuilder";
 import LighterCardCustomize from "./LighterCardCustomize";
 
 interface LightersGridProps {
@@ -32,8 +33,13 @@ const LightersGrid: React.FC<LightersGridProps> = ({ lighters, lighterTypes, onC
 	return (
 		<>
 			<Grid item {...gridItemProps}>
+				<LighterCardBuilder />
+			</Grid>
+
+			<Grid item {...gridItemProps}>
 				<LighterCardCustomize />
 			</Grid>
+
 			{filteredLighters.length === 0 ? (
 				<Grid item xs={12}>
 					<Box textAlign="center" py={4}>

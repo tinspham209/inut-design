@@ -96,6 +96,13 @@ export default {
 							description: "Total for this item (unitPrice × quantity)",
 							validation: (Rule) => Rule.required().min(0),
 						},
+						{
+							name: "designImage",
+							title: "Design Image",
+							type: "image",
+							description: "Customer's custom design image",
+							options: { hotspot: false },
+						},
 					],
 					preview: {
 						select: {
