@@ -5,36 +5,52 @@
  * Google Analytics & GTM Event Tracking Utilities
  * For GA4 Enhanced Measurement and E-commerce
  * Now includes Umami dual tracking for privacy-focused analytics
+ * Enhanced with DataLayer integration and engagement scoring
  */
 
+import {
+	getDeviceType,
+	getPriceRange,
+	getSessionId,
+	getTrafficSource,
+	getUserType,
+	pushCustomEvent,
+	pushEcommerceEvent,
+	type DataLayerEvent,
+} from "./dataLayer";
+import {
+	trackCartEngagement,
+	trackContactEngagement,
+	trackPurchaseEngagement,
+	trackSearchEngagement,
+} from "./engagementScore";
 import envConst from "./env-const";
 import {
-	trackUmamiProductView,
-	trackUmamiProductClick,
-	trackUmamiAddToCart,
-	trackUmamiRemoveFromCart,
-	trackUmamiBeginCheckout,
-	trackUmamiPurchase,
-	trackUmamiOrderButton,
-	trackUmamiContact,
-	trackUmamiPhoneClick,
-	trackUmamiFormSubmit,
-	trackUmamiSocialClick,
-	trackUmamiSearch,
-	trackUmamiDownload,
-	trackUmamiOutboundClick,
-	trackUmamiVideoEngagement,
-	trackUmamiTimeOnPage,
-	trackUmamiPageView,
-	type UmamiProductData,
-	trackUmamiZaloClick,
 	trackUmamiAbandonedCheckout,
+	trackUmamiAddToCart,
+	trackUmamiBeginCheckout,
+	trackUmamiContact,
+	trackUmamiDownload,
+	trackUmamiFormSubmit,
+	trackUmamiOrderButton,
+	trackUmamiOutboundClick,
+	trackUmamiPageView,
+	trackUmamiPhoneClick,
+	trackUmamiProductClick,
+	trackUmamiProductView,
+	trackUmamiPurchase,
+	trackUmamiRemoveFromCart,
+	trackUmamiSearch,
+	trackUmamiSocialClick,
+	trackUmamiVideoEngagement,
+	trackUmamiZaloClick,
+	type UmamiProductData,
 } from "./umamiAnalytics";
 
 declare global {
 	interface Window {
 		gtag?: (...args: any[]) => void;
-		dataLayer?: any[];
+		dataLayer?: DataLayerEvent[];
 	}
 }
 
@@ -84,6 +100,16 @@ export const trackPageView = (url: string, title?: string): void => {
 
 	// Track to Umami
 	trackUmamiPageView(url, title);
+
+	// Track to DataLayer with enhanced data
+	pushCustomEvent("page_view", {
+		page_path: url,
+		page_title: title || document.title,
+		user_type: getUserType(),
+		device_type: getDeviceType(),
+		traffic_source: getTrafficSource(),
+		session_id: getSessionId(),
+	});
 };
 
 /**
@@ -127,6 +153,32 @@ export const trackViewProduct = (product: ProductData): void => {
 		category: product.category,
 		price: product.price,
 	});
+
+	// Track to DataLayer with custom dimensions
+	pushEcommerceEvent(
+		"view_item",
+		{
+			currency: "VND",
+			value: product.price || 0,
+			items: [
+				{
+					item_id: product.id,
+					item_name: product.name,
+					item_brand: product.brand || "INUT Design",
+					item_category: product.category,
+					item_variant: product.variant,
+					price: product.price,
+					quantity: 1,
+				},
+			],
+		},
+		{
+			user_type: getUserType(),
+			device_type: getDeviceType(),
+			product_category: product.category,
+			price_range: getPriceRange(product.price || 0),
+		}
+	);
 };
 
 /**
@@ -195,6 +247,35 @@ export const trackAddToCart = (product: ProductData): void => {
 		price: product.price,
 		quantity: product.quantity,
 	});
+
+	// Track to DataLayer with custom dimensions
+	pushEcommerceEvent(
+		"add_to_cart",
+		{
+			currency: "VND",
+			value: (product.price || 0) * (product.quantity || 1),
+			items: [
+				{
+					item_id: product.id,
+					item_name: product.name,
+					item_brand: product.brand || "INUT Design",
+					item_category: product.category,
+					item_variant: product.variant,
+					price: product.price,
+					quantity: product.quantity || 1,
+				},
+			],
+		},
+		{
+			user_type: getUserType(),
+			device_type: getDeviceType(),
+			product_category: product.category,
+			price_range: getPriceRange(product.price || 0),
+		}
+	);
+
+	// Track engagement
+	trackCartEngagement(product.name, (product.price || 0) * (product.quantity || 1));
 };
 
 /**
@@ -288,6 +369,33 @@ export const trackPurchase = (
 		quantity: p.quantity,
 	}));
 	trackUmamiPurchase(transactionId, umamiProducts, value);
+
+	// Track to DataLayer with custom dimensions
+	pushEcommerceEvent(
+		"purchase",
+		{
+			transaction_id: transactionId,
+			currency: "VND",
+			value: value,
+			items: products.map((product) => ({
+				item_id: product.id,
+				item_name: product.name,
+				item_brand: product.brand || "INUT Design",
+				item_category: product.category,
+				item_variant: product.variant,
+				price: product.price,
+				quantity: product.quantity || 1,
+			})),
+		},
+		{
+			user_type: getUserType(),
+			device_type: getDeviceType(),
+			customer_segment: "purchaser",
+		}
+	);
+
+	// Track engagement
+	trackPurchaseEngagement(transactionId, value);
 };
 
 /**
@@ -349,6 +457,9 @@ export const trackContactClick = (platform: string, productName?: string): void 
 
 	// Track to Umami
 	trackUmamiContact(platform, productName);
+
+	// Track engagement
+	trackContactEngagement(platform);
 };
 
 /**
@@ -432,6 +543,9 @@ export const trackSearch = (searchTerm: string): void => {
 
 	// Track to Umami
 	trackUmamiSearch(searchTerm);
+
+	// Track engagement
+	trackSearchEngagement(searchTerm, 0);
 };
 
 /**

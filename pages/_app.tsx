@@ -8,6 +8,7 @@ import { createEmotionCache, theme, trackPageView } from "@/utils";
 import { initBFCacheMonitoring } from "@/utils/bfcache-monitor";
 import { initPrefetchFallback } from "@/utils/prefetch-fallback";
 import { initSpeculationMonitoring } from "@/utils/speculation-monitor";
+import { initializeConsentMode } from "@/utils/consent";
 import { CacheProvider } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
@@ -69,6 +70,11 @@ function MyApp({
 			router.events.off("routeChangeComplete", handleRouteChange);
 		};
 	}, [router.events, router.pathname]);
+
+	// Initialize consent mode before analytics load
+	useEffect(() => {
+		initializeConsentMode();
+	}, []);
 
 	// Initialize bfcache and speculation monitoring
 	useEffect(() => {
