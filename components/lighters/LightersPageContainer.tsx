@@ -64,7 +64,7 @@ const LightersPageContainer: React.FC<LightersPageContainerProps> = ({
 
 			<Seo
 				data={{
-					title: "Lighters - INUT Design",
+					title: "Bật lửa - Sản Phẩm - INUT Design",
 					description:
 						"Custom printed lighters with high quality materials. Various designs and bulk order options available.",
 					url: "https://inutdesign.com/san-pham/lighters",

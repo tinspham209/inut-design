@@ -25,7 +25,7 @@ const ServiceDynamicPage: NextPageWithLayout<Props> = ({ currentPath, currentRou
 		<Box component="section" sx={{ bgcolor: COLOR_CODE.INK }} pt={4} pb={10} minHeight="60vh">
 			<Seo
 				data={{
-					title: `${currentRoute.label} - Dịch vụ INUT Design`,
+					title: `${currentRoute.label} - Dịch vụ -  INUT Design`,
 					description:
 						currentRoute.meta?.description ||
 						`Khám phá các dịch vụ ${currentRoute.label} chuyên nghiệp tại INUT Design Đà Nẵng.`,

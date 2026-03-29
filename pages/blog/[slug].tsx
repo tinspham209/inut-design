@@ -33,7 +33,7 @@ export default function BlogDetailPage({ post }: BlogPageProps) {
 		<Box my={6}>
 			<Seo
 				data={{
-					title: post.title,
+					title: post.title + " - Blog - INUT Design",
 					description: post.description,
 					url: `https://inutdesign.com/blog/${post.slug}`,
 					thumbnailUrl:

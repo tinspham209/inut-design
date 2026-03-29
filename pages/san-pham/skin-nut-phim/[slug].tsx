@@ -101,7 +101,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 		<>
 			<Seo
 				data={{
-					title: `${product.name} - Skin Nút Phím - INUT Design`,
+					title: `${product.name} - Skin Nút Phím - Sản phẩm - INUT Design`,
 					description: `Skin nút phím ${product.name}. Chất liệu cao cấp, bảo vệ bàn phím laptop. In hình theo yêu cầu tại Đà Nẵng.`,
 					url: `https://inutdesign.com/san-pham/skin-nut-phim/${product.slug.current}`,
 					thumbnailUrl: urlFor(product.image[0]).width(1000).url(),

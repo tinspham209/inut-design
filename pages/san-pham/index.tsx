@@ -41,7 +41,7 @@ const ProductsIndexPage: NextPageWithLayout<Props> = ({ currentPath, currentRout
 		>
 			<Seo
 				data={{
-					title: "Sản phẩm độc bản - INUT Design Đà Nẵng",
+					title: "Sản phẩm độc bản - INUT Design",
 					description:
 						currentRoute.meta?.description ||
 						"Khám phá các sản phẩm cá nhân hóa, sticker and quà tặng độc bản tại INUT Design Đà Nẵng.",

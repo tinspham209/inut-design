@@ -127,7 +127,7 @@ const LighterDetail: NextPageWithLayout = ({
 		<>
 			<Seo
 				data={{
-					title: `${lighter.name} - Lighters - INUT Design`,
+					title: `${lighter.name} - Bật lửa - Sản phẩm - INUT Design`,
 					description: `${lighter.name} - ${lighterType?.name || "Bật lửa Custom"}. Giá từ ${
 						priceRange.min
 					} - ${priceRange.max}`,

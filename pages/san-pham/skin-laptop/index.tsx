@@ -83,7 +83,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 		>
 			<Seo
 				data={{
-					title: "Sản phẩm - INUT Design",
+					title: "Skin Laptop - Sản phẩm - INUT Design",
 					description:
 						"Thiết kế & In ấn - Skin Laptop - Sticker - Decal - Thiệp - Card - Tem Nhãn, skin laptop da nang, skin laptop đà nẵng",
 					url: "https://inutdesign.com/san-pham/skin-laptop",
