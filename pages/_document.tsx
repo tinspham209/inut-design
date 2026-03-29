@@ -69,6 +69,19 @@ export default class MyDocument extends Document {
 				<body>
 					<Main />
 					<NextScript />
+
+					<Script id="tin-console-signature" strategy="afterInteractive">
+						{`console.log(
+					' _____ _        ______ _                     \\r\\n|_   _(_)       | ___ \\\\ |                    \\r\\n  | |  _ _ __   | |_\\/ \\/ |__   __ _ _ __ ___  \\r\\n  | | | | \\'_ \\\\  |  __\\/| \\'_ \\\\ \\/ _\` | \\'_ \` _ \\\\ \\r\\n  | | | | | | | | |   | | | | (_| | | | | | |\\r\\n  \\\\_\\/ |_|_| |_| \\\\_|   |_| |_|\\\\__,_|_| |_| |_|\\r\\n                                             \\r\\n                                             '
+					);
+					console.log(
+						'Hello! I am Tin, a software engineer based in Danang, Vietnam.'
+					);
+					console.log('Visit my portfolio: https://tinspham.dev');
+					console.log('Interesting in working with me? Contact me via my email: tinphamvan123@gmail.com');
+
+						`}
+					</Script>
 				</body>
 			</Html>
 		);

@@ -334,6 +334,13 @@ export function Footer() {
 			>
 				INUT<span>.</span>DESIGN
 			</Box>
+			<p hidden>
+				Thiết kế Website:
+				<a href="https://www.tinspham.dev" target="__blank">
+					tinspham.dev
+				</a>{" "}
+				| Tin Pham | Tins Pham | @tinspham209
+			</p>
 		</Box>
 	);
 }
