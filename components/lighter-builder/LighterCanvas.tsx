@@ -7,9 +7,11 @@ import {
 	Float,
 	useProgress,
 } from "@react-three/drei";
-import { Suspense, useEffect, useMemo } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import * as THREE from "three";
-import { Box } from "@mui/material";
+import { Box, IconButton, Tooltip } from "@mui/material";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import PauseIcon from "@mui/icons-material/Pause";
 import { LighterTransform } from "./types";
 import { FRAME_WIDTH, FRAME_HEIGHT, PRIMARY_COLOR, BACKGROUND_COLOR } from "./constants";
 
@@ -240,6 +242,8 @@ export function LighterCanvas({
 	modelPath = "/models/lighter.glb",
 	hasImage = false,
 }: LighterCanvasProps) {
+	const [autoRotate, setAutoRotate] = useState(true);
+
 	return (
 		<Box
 			sx={{
@@ -252,6 +256,38 @@ export function LighterCanvas({
 				position: "relative",
 			}}
 		>
+			<Box
+				sx={{
+					position: "absolute",
+					top: 12,
+					right: 12,
+					zIndex: 5,
+				}}
+			>
+				<Tooltip title={autoRotate ? "Dừng tự động xoay" : "Bật tự động xoay"} placement="left">
+					<IconButton
+						onClick={() => setAutoRotate(!autoRotate)}
+						sx={{
+							bgcolor: "rgba(0,0,0,0.35)",
+							backdropFilter: "blur(4px)",
+							border: "1px solid rgba(255,255,255,0.08)",
+							color: "white",
+							"&:hover": {
+								bgcolor: "rgba(0,0,0,0.5)",
+								borderColor: "rgba(255,255,255,0.15)",
+							},
+						}}
+						size="medium"
+					>
+						{autoRotate ? (
+							<PauseIcon sx={{ fontSize: 20 }} />
+						) : (
+							<PlayArrowIcon sx={{ fontSize: 20 }} />
+						)}
+					</IconButton>
+				</Tooltip>
+			</Box>
+
 			<Box
 				sx={{
 					position: "absolute",
@@ -306,7 +342,12 @@ export function LighterCanvas({
 				{/* 4. Soft contact shadows for depth */}
 				<ContactShadows position={[0, -2.5, 0]} opacity={0.4} scale={10} blur={2} far={4.5} />
 
-				<OrbitControls enableZoom={true} enablePan={false} autoRotate={true} autoRotateSpeed={1} />
+				<OrbitControls
+					enableZoom={true}
+					enablePan={false}
+					autoRotate={autoRotate}
+					autoRotateSpeed={1}
+				/>
 			</Canvas>
 		</Box>
 	);

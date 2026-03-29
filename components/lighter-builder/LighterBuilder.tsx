@@ -21,7 +21,7 @@ import { useImageUploader } from "./hooks/useImageUploader";
 export function LighterBuilder() {
 	const router = useRouter();
 	const { addItem } = useLightersCart();
-	const hasAppliedQueryPreview = useRef(false);
+	const lastAppliedPreviewKeyRef = useRef<string | null>(null);
 
 	const { transform, updateTransform, resetTransform, setPosition } = useLighterTransform();
 
@@ -44,11 +44,9 @@ export function LighterBuilder() {
 
 	// Restore builder preview from query params for admin/designer deep-link
 	useEffect(() => {
-		if (!router.isReady || hasAppliedQueryPreview.current) {
+		if (!router.isReady) {
 			return;
 		}
-
-		hasAppliedQueryPreview.current = true;
 
 		const rawPreviewUrl = router.query.previewUrl;
 		if (!rawPreviewUrl || Array.isArray(rawPreviewUrl)) {
@@ -73,6 +71,21 @@ export function LighterBuilder() {
 
 		normalizedPreviewUrl = normalizedPreviewUrl.replace(/^"|"$/g, "");
 
+		const previewKey = JSON.stringify({
+			previewUrl: normalizedPreviewUrl,
+			rot: router.query.rot,
+			scale: router.query.scale,
+			x: router.query.x,
+			y: router.query.y,
+		});
+
+		if (lastAppliedPreviewKeyRef.current === previewKey) {
+			return;
+		}
+
+		lastAppliedPreviewKeyRef.current = previewKey;
+
+		// Apply immediately so UI is not blocked by async image metadata loading.
 		setUploadedImage({
 			file: new File([""], "preview-url.png", { type: "image/png" }),
 			url: normalizedPreviewUrl,
@@ -81,12 +94,45 @@ export function LighterBuilder() {
 			size: 0,
 		});
 
+		let isCancelled = false;
+		const image = new Image();
+
+		image.onload = () => {
+			if (isCancelled) return;
+
+			setUploadedImage({
+				file: new File([""], "preview-url.png", { type: "image/png" }),
+				url: normalizedPreviewUrl,
+				width: image.naturalWidth,
+				height: image.naturalHeight,
+				size: 0,
+			});
+		};
+
+		image.onerror = () => {
+			if (isCancelled) return;
+
+			setUploadedImage({
+				file: new File([""], "preview-url.png", { type: "image/png" }),
+				url: normalizedPreviewUrl,
+				width: FRAME_WIDTH,
+				height: FRAME_HEIGHT,
+				size: 0,
+			});
+		};
+
+		image.src = normalizedPreviewUrl;
+
 		updateTransform({
 			rotation: parseNumber(router.query.rot, DEFAULT_TRANSFORM.rotation),
 			scale: parseNumber(router.query.scale, DEFAULT_TRANSFORM.scale),
 			scrollX: parseNumber(router.query.x, DEFAULT_TRANSFORM.scrollX),
 			scrollY: parseNumber(router.query.y, DEFAULT_TRANSFORM.scrollY),
 		});
+
+		return () => {
+			isCancelled = true;
+		};
 	}, [router.isReady, router.query, setUploadedImage, updateTransform]);
 
 	const [isLoading, setIsLoading] = useState(false);

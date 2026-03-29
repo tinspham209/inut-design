@@ -25,6 +25,10 @@ export function ImagePositionPreview({
 	const previewWidth = FRAME_WIDTH * VIEWPORT_SCALE;
 	const previewHeight = FRAME_HEIGHT * VIEWPORT_SCALE;
 	const [viewportSize, setViewportSize] = useState({ width: previewWidth, height: previewHeight });
+	const [naturalDimensions, setNaturalDimensions] = useState<{
+		width: number;
+		height: number;
+	} | null>(null);
 
 	useEffect(() => {
 		const updateViewportSize = () => {
@@ -40,6 +44,40 @@ export function ImagePositionPreview({
 			window.removeEventListener("resize", updateViewportSize);
 		};
 	}, [previewWidth, previewHeight]);
+
+	useEffect(() => {
+		if (!uploadedImage?.url) {
+			setNaturalDimensions(null);
+			return;
+		}
+
+		let isCancelled = false;
+		const image = new Image();
+
+		image.onload = () => {
+			if (!isCancelled) {
+				setNaturalDimensions({
+					width: image.naturalWidth,
+					height: image.naturalHeight,
+				});
+			}
+		};
+
+		image.onerror = () => {
+			if (!isCancelled) {
+				setNaturalDimensions({
+					width: uploadedImage.width,
+					height: uploadedImage.height,
+				});
+			}
+		};
+
+		image.src = uploadedImage.url;
+
+		return () => {
+			isCancelled = true;
+		};
+	}, [uploadedImage?.url, uploadedImage?.width, uploadedImage?.height]);
 
 	const handleStart = (clientX: number, clientY: number) => {
 		if (!uploadedImage) return;
@@ -117,8 +155,10 @@ export function ImagePositionPreview({
 	// VIEWPORT_SCALE is only a fallback during SSR / before the first resize fires.
 	const viewportActualScale =
 		viewportSize.width > 0 ? viewportSize.width / FRAME_WIDTH : VIEWPORT_SCALE;
-	const imageNaturalPreviewWidth = (uploadedImage?.width || 0) * viewportActualScale;
-	const imageNaturalPreviewHeight = (uploadedImage?.height || 0) * viewportActualScale;
+	const imageNaturalPreviewWidth =
+		(naturalDimensions?.width || uploadedImage?.width || 0) * viewportActualScale;
+	const imageNaturalPreviewHeight =
+		(naturalDimensions?.height || uploadedImage?.height || 0) * viewportActualScale;
 
 	return (
 		<Box>
