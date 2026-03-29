@@ -13,7 +13,7 @@ const defaultReviews = [
 		role: "Travel Blogger · Hà Nội",
 		text: "Mình order lần đầu mà rất hài lòng. Màu sắc in ra đúng như file thiết kế, giấy dày dặn, đóng gói kỹ.",
 		initials: "NA",
-		color: "#ff4d00",
+		color: colors.orange,
 	},
 	{
 		name: "Minh Hoàng Studio",
@@ -66,7 +66,7 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ data }) => {
 										fontFamily: typography.syne,
 										fontSize: "3.5rem",
 										fontWeight: 800,
-										color: "white",
+										color: colors.cream,
 										letterSpacing: "-0.04em",
 										lineHeight: 1,
 										"& span": { color: colors.yellow },
@@ -171,7 +171,7 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ data }) => {
 													fontFamily: typography.syne,
 													fontSize: "0.85rem",
 													fontWeight: 700,
-													color: "white",
+													color: colors.cream,
 												}}
 											>
 												{r.name}

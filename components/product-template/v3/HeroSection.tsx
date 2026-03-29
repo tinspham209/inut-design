@@ -112,7 +112,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 									fontWeight: 800,
 									letterSpacing: "-0.04em",
 									lineHeight: 1,
-									color: "white",
+									color: colors.cream,
 								}}
 							>
 								{data.title.split("<br />").map((line, i) => (
@@ -180,7 +180,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 									onClick={handleCtaClick}
 									sx={{
 										bgcolor: colors.orange,
-										color: "white",
+										color: colors.cream,
 										fontFamily: typography.syne,
 										fontWeight: 700,
 										fontSize: "0.88rem",
@@ -243,7 +243,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 							<Box
 								sx={{
 									gridRow: "span 2",
-									bgcolor: "#0f0d0b",
+									bgcolor: colors.ink2,
 									p: 2,
 									display: "flex",
 									alignItems: "flex-end",
@@ -274,7 +274,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 									sx={{
 										bgcolor: "rgba(0,0,0,0.35)",
 										backdropFilter: "blur(8px)",
-										color: "white",
+										color: colors.cream,
 										border: "1px solid rgba(255,255,255,0.12)",
 										borderRadius: "99px",
 										fontSize: "0.65rem",
@@ -318,7 +318,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 									label="Expertise"
 									sx={{
 										bgcolor: "rgba(0,0,0,0.3)",
-										color: "white",
+										color: colors.cream,
 										borderRadius: "99px",
 										fontSize: "0.65rem",
 										fontWeight: 700,
@@ -328,7 +328,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 							</Box>
 							<Box
 								sx={{
-									bgcolor: "#141210",
+									bgcolor: colors.ink2,
 									p: 2,
 									display: "flex",
 									alignItems: "flex-end",
@@ -358,7 +358,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 									label="Creative"
 									sx={{
 										bgcolor: "rgba(0,0,0,0.35)",
-										color: "white",
+										color: colors.cream,
 										borderRadius: "99px",
 										fontSize: "0.65rem",
 										fontWeight: 700,
@@ -400,7 +400,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 									label="✦ Custom Solutions"
 									sx={{
 										bgcolor: "rgba(0,0,0,0.12)",
-										color: "#1a1714",
+										color: colors.ink3,
 										border: "1px solid rgba(0,0,0,0.05)",
 										borderRadius: "99px",
 										fontSize: "0.65rem",
@@ -458,7 +458,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 											fontWeight: 700,
 											letterSpacing: "0.14em",
 											textTransform: "uppercase",
-											color: "white",
+											color: colors.cream,
 											display: "flex",
 											alignItems: "center",
 											gap: 1,
@@ -478,7 +478,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 			{/* Stats Strip */}
 			<Box
 				sx={{
-					bgcolor: "#111009",
+					bgcolor: colors.ink2,
 					borderTop: `1px solid ${colors.ink3}`,
 					borderBottom: `1px solid ${colors.ink3}`,
 					py: 5,
@@ -504,7 +504,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 										fontWeight: 800,
 										letterSpacing: "-0.04em",
 										lineHeight: 1,
-										color: "white",
+										color: colors.cream,
 										display: "flex",
 										alignItems: "baseline",
 										justifyContent: "center",

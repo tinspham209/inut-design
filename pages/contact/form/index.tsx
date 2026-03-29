@@ -19,28 +19,34 @@ const ContactForm: NextPageWithLayout = () => {
 					thumbnailUrl: "/branding/ogImage.jpg",
 				}}
 			/>
-			<Box mt={2} bgcolor={COLOR_CODE.BACKGROUND}>
+			<Box pt={2} bgcolor={COLOR_CODE.INK}>
 				<HeroImage imgUrl="/cover-web.webp" />
 			</Box>
-			<Container>
-				<Breadcrumbs
-					sx={{
-						mt: 2,
-					}}
-				>
-					<Link href={"/"} passHref>
-						<MuiLink>Trang chủ</MuiLink>
-					</Link>
-					<Link href={"/contact"} passHref>
-						<MuiLink>Liên hệ</MuiLink>
-					</Link>
+			<Box sx={{ bgcolor: COLOR_CODE.INK }} pb={6}>
+				<Container>
+					<Breadcrumbs
+						sx={{
+							pt: 2,
+						}}
+					>
+						<Link href={"/"} passHref>
+							<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover">
+								Trang chủ
+							</MuiLink>
+						</Link>
+						<Link href={"/contact"} passHref>
+							<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover">
+								Liên hệ
+							</MuiLink>
+						</Link>
 
-					<Typography color="text.primary">Nhận báo giá</Typography>
-				</Breadcrumbs>
-			</Container>
-			<Container sx={{ py: 2 }}>
-				<QuoteRequestFormComponent />
-			</Container>
+						<Typography sx={{ color: COLOR_CODE.WHITE }}>Nhận báo giá</Typography>
+					</Breadcrumbs>
+				</Container>
+				<Container sx={{ py: 2 }}>
+					<QuoteRequestFormComponent />
+				</Container>
+			</Box>
 		</Box>
 	);
 };

@@ -1,4 +1,5 @@
 import { trackContactClick } from "@/utils/analytics";
+import { COLOR_CODE } from "@/utils/theme";
 import { Box, Button, Grid, Link, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
@@ -46,10 +47,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 }) => {
 	return (
 		<Box id="order" sx={{ scrollMarginTop: "100px" }}>
-			<Typography variant="h5" fontWeight={800} gutterBottom sx={{ fontSize: "1.5rem" }}>
+			<Typography variant="h5" fontWeight={800} gutterBottom sx={{ fontSize: "1.5rem", color: COLOR_CODE.WHITE }}>
 				{title}
 			</Typography>
-			<Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
+			<Typography variant="body2" sx={{ mb: 4, color: COLOR_CODE.TEXT_MUTED }}>
 				{description}
 			</Typography>
 

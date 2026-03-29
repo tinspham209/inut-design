@@ -3,6 +3,7 @@ import { LighterCartBadge, LighterCartDrawer } from "@/components/cart";
 import { Seo } from "@/components/common";
 import { Banner } from "@/models/banner";
 import { LighterProduct, LighterType } from "@/models/cart";
+import { COLOR_CODE } from "@/utils";
 import { Box, Container, Grid, Stack } from "@mui/material";
 import isEmpty from "lodash/isEmpty";
 import React, { useEffect, useState } from "react";
@@ -33,7 +34,15 @@ const LightersPageContainer: React.FC<LightersPageContainerProps> = ({
 	}, []);
 
 	return (
-		<Box component={"section"} bgcolor="secondary.dark" pt={4} pb={4}>
+		<Box
+			component={"section"}
+			sx={{
+				bgcolor: COLOR_CODE.INK,
+				pt: { xs: "60px", sm: "80px" },
+				pb: { xs: "60px", sm: "80px" },
+				px: { xs: 2, sm: "32px" },
+			}}
+		>
 			{/* Floating Cart Badge - Only render after mount to avoid hydration mismatch */}
 			{mounted && (
 				<>

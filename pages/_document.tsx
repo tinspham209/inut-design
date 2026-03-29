@@ -1,5 +1,5 @@
 import { GlobalSchema, StaticSpeculationRules } from "@/components/scripts";
-import { createEmotionCache, theme } from "@/utils";
+import { COLOR_CODE, createEmotionCache } from "@/utils";
 import createEmotionServer from "@emotion/server/create-instance";
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import Script from "next/script";
@@ -10,7 +10,7 @@ export default class MyDocument extends Document {
 			<Html lang="vi">
 				<Head>
 					{/* PWA primary color */}
-					<meta name="theme-color" content={theme.palette.primary.main} />
+					<meta name="theme-color" content={COLOR_CODE.INK} />
 					<link rel="icon" href="/static/favicon.ico" />
 					<link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" />
 					<meta
@@ -23,7 +23,7 @@ export default class MyDocument extends Document {
 					<link
 						rel="preload"
 						as="style"
-						href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap"
+						href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,800;0,900;1,300;1,400;1,500;1,700&family=Roboto+Serif:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
 					/>
 					<link
 						rel="preload"
@@ -31,7 +31,7 @@ export default class MyDocument extends Document {
 						href="https://fonts.googleapis.com/icon?family=Material+Icons"
 					/>
 					<link
-						href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap"
+						href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,800;0,900;1,300;1,400;1,500;1,700&family=Roboto+Serif:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
 						rel="stylesheet"
 						media="print"
 						onLoad={(e: any) => {
@@ -41,7 +41,7 @@ export default class MyDocument extends Document {
 					<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 					<noscript>
 						<link
-							href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap"
+							href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,800;0,900;1,300;1,400;1,500;1,700&family=Roboto+Serif:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
 							rel="stylesheet"
 						/>
 						<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />

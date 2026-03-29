@@ -1,5 +1,6 @@
 import { LighterProduct, LighterType } from "@/models/cart";
 import { useLightersLayout } from "@/store";
+import { COLOR_CODE } from "@/utils";
 import { Box, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import React from "react";
@@ -43,7 +44,7 @@ const LightersGrid: React.FC<LightersGridProps> = ({ lighters, lighterTypes, onC
 			{filteredLighters.length === 0 ? (
 				<Grid item xs={12}>
 					<Box textAlign="center" py={4}>
-						<Typography variant="h4" fontWeight="bold" color="text.secondary">
+						<Typography variant="h4" fontWeight="bold" sx={{ color: COLOR_CODE.TEXT_MUTED }}>
 							Không có sản phẩm nào
 						</Typography>
 					</Box>

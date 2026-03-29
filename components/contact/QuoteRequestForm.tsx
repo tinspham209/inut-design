@@ -153,7 +153,7 @@ export default function QuoteRequestFormComponent() {
 
 	if (submitSuccess) {
 		return (
-			<Card>
+			<Card sx={{ bgcolor: COLOR_CODE.INK_3, border: `1px solid ${COLOR_CODE.INK_4}` }}>
 				<CardContent>
 					<Alert severity="success" sx={{ mb: 2 }}>
 						<Typography variant="h6" gutterBottom>
@@ -182,7 +182,7 @@ export default function QuoteRequestFormComponent() {
 				<Typography variant="h5" fontWeight="bold" gutterBottom>
 					Đăng ký nhận báo giá
 				</Typography>
-				<Typography variant="body2" color="text.secondary" mb={3}>
+				<Typography variant="body2" sx={{ color: "text.secondary", mb: 3 }}>
 					Vui lòng điền đầy đủ thông tin bên dưới, chúng tôi sẽ liên hệ tư vấn báo giá cho bạn.
 				</Typography>
 
@@ -502,7 +502,7 @@ export default function QuoteRequestFormComponent() {
 
 						{/* Notes */}
 						<Grid item xs={12}>
-							<Typography variant="body2" color="text.secondary" mb={1}>
+							<Typography variant="body2" sx={{ color: COLOR_CODE.TEXT_MUTED, mb: 1 }}>
 								Ghi chú thêm
 							</Typography>
 							<Controller
@@ -519,8 +519,7 @@ export default function QuoteRequestFormComponent() {
 											fontSize: "1rem",
 											fontFamily: "inherit",
 											borderRadius: "4px",
-											border: "1px solid",
-											borderColor: "rgba(0, 0, 0, 0.23)",
+											border: `1px solid rgba(0,0,0,0.23)`,
 											resize: "vertical",
 											backgroundColor: "transparent",
 											color: "inherit",
@@ -529,7 +528,7 @@ export default function QuoteRequestFormComponent() {
 											e.target.style.outlineColor = COLOR_CODE.PRIMARY;
 										}}
 										onBlur={(e) => {
-											e.target.style.outlineColor = "rgba(0, 0, 0, 0.23)";
+											e.target.style.outlineColor = "rgba(0,0,0,0.23";
 										}}
 									/>
 								)}
@@ -547,7 +546,7 @@ export default function QuoteRequestFormComponent() {
 								disabled={isSubmitting}
 								startIcon={isSubmitting ? <CircularProgress size={20} /> : null}
 							>
-								{isSubmitting ? "Đang gửi..." : "Gửi yêu cầu báo giá"}
+								{isSubmitting ? "Đang gửi..." : "Gửi yêu cầu báo giá - Phản hồi trong 15 phút"}
 							</Button>
 						</Grid>
 					</Grid>

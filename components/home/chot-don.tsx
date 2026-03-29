@@ -1,5 +1,6 @@
 import { LIST_CONTACTS } from "@/data/contacts/list-contacts";
 import { COLOR_CODE } from "@/utils";
+import { BRAND_COLORS } from "@/utils/design-tokens";
 import {
 	Box,
 	Button,
@@ -42,12 +43,7 @@ function formatLinkDisplay(link: string): string {
 
 export function ChotDon() {
 	return (
-		<Box
-			component="section"
-			sx={{
-				bgcolor: "#18191c",
-			}}
-		>
+		<Box component="section" bgcolor={COLOR_CODE.INK_2}>
 			<Container maxWidth="lg" disableGutters>
 				<Grid container>
 					{/* Left — CTA */}
@@ -103,7 +99,7 @@ export function ChotDon() {
 						<Typography
 							variant="body2"
 							sx={{
-								color: "rgba(255,255,255,0.5)",
+								color: COLOR_CODE.TEXT_SOFT,
 								mt: 3,
 								mb: 4,
 								lineHeight: 1.7,
@@ -153,8 +149,8 @@ export function ChotDon() {
 						xs={12}
 						md={6}
 						sx={{
-							borderLeft: { md: "1px solid rgba(255,255,255,0.08)" },
-							borderTop: { xs: "1px solid rgba(255,255,255,0.08)", md: "none" },
+							borderLeft: { md: `1px solid ${COLOR_CODE.INK_4}` },
+							borderTop: { xs: `1px solid ${COLOR_CODE.INK_4}`, md: "none" },
 						}}
 					>
 						{LIST_CONTACTS.map((item, index) => {
@@ -185,7 +181,7 @@ export function ChotDon() {
 												height: 48,
 												minWidth: 48,
 												borderRadius: 1.5,
-												bgcolor: "rgba(225,97,46,0.15)",
+												bgcolor: BRAND_COLORS.orangeLo,
 												display: "flex",
 												alignItems: "center",
 												justifyContent: "center",
@@ -201,7 +197,7 @@ export function ChotDon() {
 											<Typography
 												variant="caption"
 												sx={{
-													color: "rgba(255,255,255,0.4)",
+													color: COLOR_CODE.TEXT_SOFT,
 													textTransform: "uppercase",
 													letterSpacing: 1.5,
 													fontWeight: 600,
@@ -213,7 +209,7 @@ export function ChotDon() {
 											<Typography
 												variant="body2"
 												sx={{
-													color: "rgba(255,255,255,0.9)",
+													color: COLOR_CODE.WHITE,
 													fontWeight: 600,
 													fontSize: { xs: "0.85rem", sm: "0.95rem" },
 												}}
@@ -224,7 +220,7 @@ export function ChotDon() {
 									</MuiLink>
 
 									{index < LIST_CONTACTS.length - 1 && (
-										<Divider sx={{ borderColor: "rgba(255,255,255,0.06)" }} />
+										<Divider sx={{ borderColor: COLOR_CODE.INK_4 }} />
 									)}
 								</Box>
 							);

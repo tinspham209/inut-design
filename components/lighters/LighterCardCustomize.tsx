@@ -4,6 +4,7 @@ import { Box, Card, CardContent, Link as MuiLink, Stack, Typography } from "@mui
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { COLOR_CODE } from "@/utils/theme";
 
 const LighterCardCustomize: React.FC = () => {
 	const handleTrackClick = () => {
@@ -17,17 +18,19 @@ const LighterCardCustomize: React.FC = () => {
 		<Link href="/services/ca-nhan-hoa/skin-bat-lua-customize" passHref>
 			<MuiLink sx={{ textDecoration: "none" }} onClick={handleTrackClick}>
 				<Card
-					variant="outlined"
 					sx={{
-						transition: "all 0.2s ease",
+						transition: "border-color 200ms, transform 200ms cubic-bezier(0.16,1,0.3,1)",
 						transform: "scale(1)",
 						"&:hover": {
-							transform: "scale(1.01)",
+							transform: "translateY(-3px)",
+							borderColor: "rgba(255,77,0,0.25)",
 						},
 						borderRadius: { xs: "12px", md: "16px" },
 						display: "flex",
 						flexDirection: "column",
 						height: "100%",
+						backgroundColor: COLOR_CODE.INK_3,
+						border: `1px solid ${COLOR_CODE.INK_4}`,
 					}}
 				>
 					<CardContent
@@ -70,7 +73,7 @@ const LighterCardCustomize: React.FC = () => {
 								variant="caption"
 								sx={{
 									fontSize: { xs: "0.7rem", md: "0.75rem" },
-									color: "#8c8c8c",
+									color: COLOR_CODE.TEXT_MUTED,
 									fontWeight: 600,
 								}}
 							>
@@ -82,6 +85,7 @@ const LighterCardCustomize: React.FC = () => {
 									fontWeight: "bold",
 									fontSize: { xs: "0.95rem", md: "1rem" },
 									lineHeight: 1.3,
+									color: COLOR_CODE.WHITE,
 								}}
 							>
 								Bật lửa thiết kế theo yêu cầu của bạn
@@ -92,11 +96,12 @@ const LighterCardCustomize: React.FC = () => {
 								variant="caption"
 								sx={{
 									fontSize: { xs: "0.75rem", md: "0.85rem" },
+									color: COLOR_CODE.TEXT_MUTED,
 								}}
 							>
 								Xem ngay
 							</Typography>
-							<ArrowForwardIcon fontSize="small" />
+							<ArrowForwardIcon fontSize="small" sx={{ color: COLOR_CODE.PRIMARY }} />
 						</Stack>
 					</CardContent>
 				</Card>

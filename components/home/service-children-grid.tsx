@@ -1,5 +1,6 @@
 import { RouteItem } from "@/components/common/header/routes";
 import { COLOR_CODE } from "@/utils";
+import { BRAND_COLORS } from "@/utils/design-tokens";
 import { trackEvent } from "@/utils/analytics";
 import {
 	Box,
@@ -16,9 +17,12 @@ import Link from "next/link";
 
 type Props = {
 	title: string;
+	/** Short uppercase eyebrow label above the section title */
+	eyebrow?: string;
 	titleHref: string;
 	items: RouteItem[];
 	maxItems?: number;
+	/** slightly elevated bg variant (ink-2 vs ink) */
 	darkMode?: boolean;
 	showSeeMore?: boolean;
 	id?: string;
@@ -26,6 +30,7 @@ type Props = {
 
 export function ServiceChildrenGrid({
 	title,
+	eyebrow,
 	titleHref,
 	items,
 	maxItems,
@@ -41,61 +46,95 @@ export function ServiceChildrenGrid({
 		});
 	};
 	const displayItems = maxItems ? items.slice(0, maxItems) : items;
-	const textColor = darkMode ? COLOR_CODE.WHITE : COLOR_CODE.TEXT_DARK;
-	const cardBg = darkMode ? "rgba(255,255,255,0.06)" : "#fff";
-	const cardBorder = darkMode ? "1px solid rgba(255,255,255,0.1)" : "1px solid rgba(0,0,0,0.08)";
+	const bgColor = darkMode ? COLOR_CODE.INK_2 : COLOR_CODE.INK;
 
 	return (
 		<Box
 			component="section"
-			bgcolor={darkMode ? COLOR_CODE.BACKGROUND_CARD : COLOR_CODE.BACKGROUND}
-			pt={2}
-			pb={4}
+			bgcolor={bgColor}
+			sx={{ py: { xs: "60px", sm: "80px" }, px: { xs: 2, sm: "32px" } }}
 			id={id}
 		>
-			<Container>
-				<Stack direction="row" py={3} justifyContent="center" alignItems="center">
+			<Container maxWidth="lg" disableGutters>
+				{/* Section header */}
+				<Box mb={4.5}>
+					<Stack direction="row" alignItems="center" gap={1.25} mb={1.5}>
+						<Box sx={{ width: 20, height: 2, bgcolor: COLOR_CODE.PRIMARY, flexShrink: 0 }} />
+						<Typography
+							sx={{
+								fontWeight: 700,
+								fontSize: "0.68rem",
+								letterSpacing: "0.18em",
+								textTransform: "uppercase",
+								color: COLOR_CODE.PRIMARY,
+							}}
+						>
+							{eyebrow || title}
+						</Typography>
+					</Stack>
 					<Link href={titleHref} passHref>
-						<MuiLink underline="hover" color="inherit">
-							<Typography variant="h3" fontWeight="bold" textAlign="center" color={textColor}>
+						<MuiLink underline="none">
+							<Typography
+								component="h2"
+								sx={{
+									fontWeight: 800,
+									fontSize: { xs: "1.6rem", sm: "2rem", md: "2.4rem" },
+									lineHeight: 1.05,
+									letterSpacing: "-0.04em",
+									color: COLOR_CODE.WHITE,
+									mt: 1.5,
+									"&:hover": { color: COLOR_CODE.PRIMARY },
+									transition: "color 150ms",
+								}}
+							>
 								{title}
 							</Typography>
 						</MuiLink>
 					</Link>
-				</Stack>
+				</Box>
 
-				<Grid container spacing={2}>
+				<Grid container spacing={1.5}>
 					{displayItems.map((item) => (
 						<Grid item xs={6} sm={3} key={item.path}>
 							<Link href={item.path} passHref>
 								<MuiLink underline="none" onClick={() => handleItemClick(item)}>
 									<Box
 										sx={{
-											backgroundColor: cardBg,
-											borderRadius: 2,
+											bgcolor: COLOR_CODE.INK_3,
+											border: `1px solid ${COLOR_CODE.INK_4}`,
+											borderRadius: "12px",
 											p: { xs: 1.5, sm: 2 },
 											height: "100%",
-											minHeight: 100,
-											transition: "transform 0.2s ease, box-shadow 0.2s ease",
-											border: cardBorder,
+											minHeight: 90,
+											transition: "border-color 200ms, transform 200ms cubic-bezier(0.16,1,0.3,1)",
 											"&:hover": {
-												transform: "translateY(-4px)",
-												boxShadow: darkMode
-													? "0 8px 24px rgba(0,0,0,0.4)"
-													: "0 8px 24px rgba(0,0,0,0.1)",
+												borderColor: "rgba(255,77,0,0.25)",
+												transform: "translateY(-3px)",
 											},
 										}}
 									>
-										<Stack spacing={1} alignItems="flex-start">
+										<Stack spacing={0.75} alignItems="flex-start">
 											<Stack
 												direction="row"
 												alignItems="center"
 												justifyContent="space-between"
 												width="100%"
 											>
-												<Icon sx={{ color: COLOR_CODE.PRIMARY, fontSize: "1.75rem" }}>
-													{item.meta?.icon || "star"}
-												</Icon>
+												<Box
+													sx={{
+														width: 40,
+														height: 40,
+														bgcolor: BRAND_COLORS.orangeLo,
+														borderRadius: "8px",
+														display: "flex",
+														alignItems: "center",
+														justifyContent: "center",
+													}}
+												>
+													<Icon sx={{ color: COLOR_CODE.PRIMARY, fontSize: "1.25rem" }}>
+														{item.meta?.icon || "star"}
+													</Icon>
+												</Box>
 												{item.meta?.badge && (
 													<Chip
 														label={item.meta.badge}
@@ -106,23 +145,26 @@ export function ServiceChildrenGrid({
 												)}
 											</Stack>
 											<Typography
-												variant="body1"
-												fontWeight="bold"
-												color={textColor}
-												lineHeight={1.4}
-												sx={{ fontSize: { xs: "0.9rem", sm: "1.1rem" } }}
+												sx={{
+													fontWeight: 700,
+													fontSize: { xs: "0.85rem", sm: "0.9rem" },
+													color: COLOR_CODE.WHITE,
+													lineHeight: 1.4,
+													letterSpacing: "0.02em",
+												}}
 											>
 												{item.label}
 											</Typography>
 											{item.meta?.description && (
 												<Typography
-													variant="body2"
-													color={darkMode ? "rgba(255,255,255,0.55)" : "text.secondary"}
 													sx={{
 														display: { xs: "none", sm: "-webkit-box" },
 														WebkitLineClamp: 2,
 														WebkitBoxOrient: "vertical",
 														overflow: "hidden",
+														fontSize: "0.78rem",
+														color: COLOR_CODE.TEXT_SOFT,
+														lineHeight: 1.5,
 													}}
 												>
 													{item.meta.description}
@@ -139,7 +181,7 @@ export function ServiceChildrenGrid({
 				{showSeeMore && (
 					<Stack flexDirection="row" justifyContent="center" mt={3}>
 						<Link href={titleHref} passHref>
-							<MuiLink>
+							<MuiLink underline="none">
 								<Button variant="contained">Xem thêm</Button>
 							</MuiLink>
 						</Link>

@@ -18,7 +18,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ data }) => {
 		<SectionWrapper
 			id="process"
 			aria-labelledby="process-h2"
-			bgcolor={colors.cream}
+			bgcolor={colors.ink2}
 			color={colors.ink}
 		>
 			<Grid container spacing={{ xs: 6, md: 10 }}>
@@ -37,7 +37,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ data }) => {
 								href="#contact"
 								sx={{
 									bgcolor: colors.orange,
-									color: "white",
+									color: colors.cream,
 									borderRadius: "8px",
 									fontFamily: typography.syne,
 									fontWeight: 700,
@@ -68,7 +68,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ data }) => {
 									p: 2.5,
 									borderRadius: "12px",
 									border: `1.5px solid ${activeStep === idx ? colors.orange : "#e8e2d8"}`,
-									bgcolor: "white",
+									bgcolor: colors.cream,
 									transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
 									position: "relative",
 									overflow: "hidden",
@@ -98,7 +98,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ data }) => {
 										borderRadius: "10px",
 										bgcolor:
 											activeStep === idx ? "rgba(255, 255, 255, 0.2)" : "rgba(255, 77, 0, 0.1)",
-										color: activeStep === idx ? "white" : colors.orange,
+										color: activeStep === idx ? colors.cream : colors.orange,
 										fontFamily: typography.syne,
 										fontSize: "0.8rem",
 										fontWeight: 800,
@@ -118,7 +118,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ data }) => {
 											fontFamily: typography.syne,
 											fontSize: "0.95rem",
 											fontWeight: 700,
-											color: activeStep === idx ? "white" : colors.ink,
+											color: activeStep === idx ? colors.cream : colors.ink,
 											mb: 0.5,
 											transition: "color 0.3s",
 										}}
@@ -129,7 +129,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ data }) => {
 										variant="body2"
 										sx={{
 											fontSize: "0.8rem",
-											color: activeStep === idx ? "rgba(255, 255, 255, 0.75)" : "#8a7e72",
+											color: activeStep === idx ? "rgba(255, 255, 255, 0.75)" : colors.dust,
 											lineHeight: 1.55,
 											transition: "color 0.3s",
 										}}
@@ -149,8 +149,8 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ data }) => {
 									borderRadius: "12px",
 									border: `1.5px solid ${idx === 2 ? colors.ink : "#e8e2d8"}`,
 									p: 3.5,
-									bgcolor: idx === 2 ? colors.ink : "white",
-									color: idx === 2 ? "white" : "inherit",
+									bgcolor: idx === 2 ? colors.ink : colors.cream,
+									color: idx === 2 ? colors.cream : "inherit",
 									display: "flex",
 									gap: 2.5,
 									alignItems: "center",
@@ -186,7 +186,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ data }) => {
 											fontFamily: typography.syne,
 											fontSize: "1rem",
 											fontWeight: 700,
-											color: idx === 2 ? "white" : colors.ink,
+											color: idx === 2 ? colors.cream : colors.ink,
 											mb: 0.5,
 										}}
 									>
@@ -196,7 +196,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ data }) => {
 										variant="body2"
 										sx={{
 											fontSize: "0.82rem",
-											color: idx === 2 ? colors.smoke : "#8a7e72",
+											color: idx === 2 ? colors.smoke : colors.dust,
 											lineHeight: 1.55,
 										}}
 									>

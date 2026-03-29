@@ -1,10 +1,10 @@
 import { urlFor } from "@/api-client/sanity-client";
 import { Product, ProductType } from "@/models/products";
 import { trackSelectProduct } from "@/utils/analytics";
-import { Box, Button, Card, CardContent, Link as MuiLink, Stack, Typography } from "@mui/material";
+import { COLOR_CODE } from "@/utils/theme";
+import { Box, Card, CardContent, Link as MuiLink, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "./product-item.module.css";
 import { useMemo, useState } from "react";
 
 export interface ProductItemProps {
@@ -49,17 +49,18 @@ export function ProductItem({ product, productTypes, isMacnut = false }: Product
 	return (
 		<Card
 			sx={{
-				transition: "all 0.2s ease",
-				transform: "scale(1)",
+				transition: "border-color 200ms, transform 200ms cubic-bezier(0.16,1,0.3,1)",
 				"&:hover": {
-					transform: "scale(1.01)",
+					transform: "translateY(-3px)",
+					borderColor: "rgba(255,77,0,0.25)",
 				},
 				borderRadius: { xs: "12px", md: "16px" },
 				display: "flex",
 				flexDirection: "column",
 				height: "100%",
+				backgroundColor: COLOR_CODE.INK_3,
+				border: `1px solid ${COLOR_CODE.INK_4}`,
 			}}
-			variant="outlined"
 			id={product.slug.current}
 		>
 			<CardContent
@@ -113,7 +114,7 @@ export function ProductItem({ product, productTypes, isMacnut = false }: Product
 									variant="caption"
 									sx={{
 										fontSize: { xs: "0.7rem", md: "0.75rem" },
-										color: "#8c8c8c",
+										color: COLOR_CODE.TEXT_MUTED,
 										fontWeight: 600,
 									}}
 								>
@@ -125,6 +126,7 @@ export function ProductItem({ product, productTypes, isMacnut = false }: Product
 										fontWeight: "bold",
 										fontSize: { xs: "0.95rem", md: "1rem" },
 										lineHeight: 1.3,
+										color: COLOR_CODE.WHITE,
 									}}
 								>
 									{product.name}

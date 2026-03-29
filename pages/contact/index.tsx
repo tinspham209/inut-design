@@ -7,6 +7,7 @@ import { LIST_CONTACTS } from "@/data/contacts/list-contacts";
 import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { trackContactClick, trackPhoneClick, trackSocialClick } from "@/utils/analytics";
+import { COLOR_CODE } from "@/utils";
 import { ArrowForwardIos } from "@mui/icons-material";
 import { Box, Breadcrumbs, Container, Link as MuiLink, Stack, Typography } from "@mui/material";
 import Image from "next/image";
@@ -27,14 +28,16 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 				}}
 			/>
 
-			<Box component={"section"} pt={2} pb={4}>
+			<Box component={"section"} sx={{ bgcolor: COLOR_CODE.INK }} pt={2} pb={4} minHeight="60vh">
 				<Container>
 					<Breadcrumbs>
 						<Link href={"/"} passHref>
-							<MuiLink>Trang chủ</MuiLink>
+							<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover">
+								Trang chủ
+							</MuiLink>
 						</Link>
 
-						<Typography color="text.primary">Liên hệ</Typography>
+						<Typography sx={{ color: COLOR_CODE.WHITE }}>Liên hệ</Typography>
 					</Breadcrumbs>
 					<Stack justifyContent={"center"} flexDirection="row" m={"24px auto"}>
 						<Box maxWidth={440}>
@@ -49,7 +52,12 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 								/>
 							</Stack>
 
-							<Typography variant="body1" sx={{ mt: 1 }} fontWeight="bold" textAlign="center">
+							<Typography
+								variant="body1"
+								sx={{ mt: 1, color: COLOR_CODE.WHITE }}
+								fontWeight="bold"
+								textAlign="center"
+							>
 								Thiết kế & In ấn
 								<br />
 								Skin Laptop - Sticker - Decal - Thiệp - Card - Tem Nhãn
@@ -64,8 +72,9 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 									variant="body1"
 									sx={{
 										mt: 1,
+										color: COLOR_CODE.TEXT_MUTED,
 										"&:hover": {
-											color: "primary.main",
+											color: COLOR_CODE.PRIMARY,
 										},
 									}}
 								>
@@ -78,8 +87,9 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 									variant="body1"
 									sx={{
 										mt: 1,
+										color: COLOR_CODE.TEXT_MUTED,
 										"&:hover": {
-											color: "primary.main",
+											color: COLOR_CODE.PRIMARY,
 										},
 									}}
 								>
@@ -91,8 +101,9 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 									variant="body1"
 									sx={{
 										mt: 1,
+										color: COLOR_CODE.TEXT_MUTED,
 										"&:hover": {
-											color: "primary.main",
+											color: COLOR_CODE.PRIMARY,
 										},
 									}}
 								>
@@ -103,6 +114,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 								variant="body1"
 								sx={{
 									mt: 1,
+									color: COLOR_CODE.TEXT_MUTED,
 								}}
 							>
 								Giờ làm việc: 08:00 - 17:30 (từ T2 đến T7)
@@ -143,20 +155,33 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 										justifyContent="space-between"
 										alignItems={"center"}
 										sx={{
-											border: "1px solid #c1c1c1",
+											bgcolor: COLOR_CODE.INK_3,
+											border: `1px solid ${COLOR_CODE.INK_4}`,
+
 											borderRadius: 16,
 											p: "8px 24px",
 											mb: 3,
-											boxShadow: "-1px 3px 3px -1px rgb(0 0 0 / 25%)",
 											transition: "all 0.2s ease-in-out",
 											"&:hover": {
 												transform: "scale(1.05)",
+												borderColor: COLOR_CODE.PRIMARY,
 											},
 										}}
 									>
-										{item.icon}
-										<Typography variant="h6">{item.title}</Typography>
-										<ArrowForwardIos />
+										<Box
+											sx={{
+												color: COLOR_CODE.WHITE,
+												"&:hover": {
+													color: COLOR_CODE.PRIMARY,
+												},
+											}}
+										>
+											{item.icon}
+										</Box>
+										<Typography variant="h6" sx={{ color: COLOR_CODE.WHITE }}>
+											{item.title}
+										</Typography>
+										<ArrowForwardIos sx={{ color: COLOR_CODE.TEXT_MUTED }} />
 									</Stack>
 								</MuiLink>
 							))}

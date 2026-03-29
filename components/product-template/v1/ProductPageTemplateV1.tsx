@@ -1,4 +1,5 @@
 import { ProductPageData } from "@/models/product-page";
+import { COLOR_CODE } from "@/utils/theme";
 import { Box, Container, Divider } from "@mui/material";
 import React from "react";
 import { ContactSection } from "./ContactSection";
@@ -14,7 +15,7 @@ export interface ProductPageTemplateV1Props {
 
 export const ProductPageTemplateV1: React.FC<ProductPageTemplateV1Props> = ({ data }) => {
 	return (
-		<Box sx={{ bgcolor: "white" }}>
+		<Box sx={{ bgcolor: COLOR_CODE.INK }}>
 			<HeroSection
 				title={data.hero.title}
 				description={data.hero.description}
@@ -30,7 +31,7 @@ export const ProductPageTemplateV1: React.FC<ProductPageTemplateV1Props> = ({ da
 					highlights={data.introduction.highlights}
 				/>
 
-				<Divider sx={{ my: { xs: 4, md: 6 } }} />
+				<Divider sx={{ my: { xs: 4, md: 6 }, borderColor: COLOR_CODE.INK_4 }} />
 
 				<TypesSection
 					items={data.types.items}
@@ -42,7 +43,7 @@ export const ProductPageTemplateV1: React.FC<ProductPageTemplateV1Props> = ({ da
 					comparisonRecommendation={data.types.comparisonRecommendation}
 				/>
 
-				<Divider sx={{ my: { xs: 4, md: 6 } }} />
+				<Divider sx={{ my: { xs: 4, md: 6 }, borderColor: COLOR_CODE.INK_4 }} />
 
 				<WhyInutSection
 					title={data.whyInut.title}
@@ -52,7 +53,7 @@ export const ProductPageTemplateV1: React.FC<ProductPageTemplateV1Props> = ({ da
 					commitment={data.whyInut.commitment}
 				/>
 
-				<Divider sx={{ my: { xs: 4, md: 6 } }} />
+				<Divider sx={{ my: { xs: 4, md: 6 }, borderColor: COLOR_CODE.INK_4 }} />
 
 				<ContactSection
 					title={data.contact.title}
@@ -60,7 +61,7 @@ export const ProductPageTemplateV1: React.FC<ProductPageTemplateV1Props> = ({ da
 					type={data.contact.type}
 				/>
 
-				<Divider sx={{ my: { xs: 4, md: 6 } }} />
+				<Divider sx={{ my: { xs: 4, md: 6 }, borderColor: COLOR_CODE.INK_4 }} />
 
 				<ProductGallery title={data.gallery.title} images={data.gallery.images} />
 			</Container>

@@ -71,7 +71,15 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 	}, [isMobileScreen]);
 
 	return (
-		<Box component={"section"} bgcolor="secondary.dark" pt={4} pb={4}>
+		<Box
+			component={"section"}
+			sx={{
+				bgcolor: COLOR_CODE.INK,
+				pt: { xs: "60px", sm: "80px" },
+				pb: { xs: "60px", sm: "80px" },
+				px: { xs: 2, sm: "32px" },
+			}}
+		>
 			<Seo
 				data={{
 					title: "Macnut - INUT Design",
@@ -85,17 +93,43 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 			/>
 
 			{/* <HeroImage imgUrl={banner && urlFor(banner[0].image).url()} /> */}
-			<Container>
+			<Container disableGutters>
 				<Box>
-					<Breadcrumbs>
+					<Breadcrumbs
+						sx={{
+							mb: 2,
+							"& .MuiBreadcrumbs-separator": { color: COLOR_CODE.TEXT_SOFT },
+							"& li": { color: COLOR_CODE.TEXT_SOFT },
+						}}
+					>
 						<Link href={"/"} passHref>
-							<MuiLink>Trang chủ</MuiLink>
+							<MuiLink sx={{ color: COLOR_CODE.TEXT_SOFT, "&:hover": { color: COLOR_CODE.WHITE } }}>
+								Trang chủ
+							</MuiLink>
 						</Link>
-
-						<Typography>Nút Phím</Typography>
+						<Typography sx={{ color: COLOR_CODE.TEXT_MUTED }}>Nút Phím</Typography>
 					</Breadcrumbs>
-					<Box mt={3}>
-						<Typography variant="h2" fontWeight="bold" textAlign="center" letterSpacing="10px">
+					<Stack direction="row" alignItems="center" gap={1.25} mb={1.5}>
+						<Box sx={{ width: 20, height: 2, bgcolor: COLOR_CODE.PRIMARY }} />
+						<Typography
+							sx={{
+								fontWeight: 700,
+								fontSize: "0.68rem",
+								letterSpacing: "0.18em",
+								textTransform: "uppercase",
+								color: COLOR_CODE.PRIMARY,
+							}}
+						>
+							NÚT PHÍM MACNUT
+						</Typography>
+					</Stack>
+					<Box mt={1}>
+						<Typography
+							variant="h2"
+							fontWeight="800"
+							letterSpacing="-0.04em"
+							sx={{ color: COLOR_CODE.WHITE }}
+						>
 							Sản phẩm (<CountUp end={products.length} duration={2} />)
 						</Typography>
 					</Box>
@@ -164,7 +198,8 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 											xs: "none",
 											md: "auto",
 										},
-										border: `1px solid ${COLOR_CODE.BORDER}`,
+										bgcolor: COLOR_CODE.INK_3,
+										border: `1px solid ${COLOR_CODE.INK_4}`,
 										borderRadius: "8px 4px 4px 8px !important",
 									}}
 								>
@@ -173,7 +208,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 										aria-controls="panel1a-content"
 										id="panel1a-header"
 									>
-										<Typography variant="h4" fontWeight="bold">
+										<Typography variant="h4" fontWeight="bold" sx={{ color: COLOR_CODE.WHITE }}>
 											Bộ lọc
 										</Typography>
 									</AccordionSummary>
@@ -185,7 +220,14 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 													value={currentFilter}
 													onChange={handleOnChangeCheckbox}
 												>
-													<FormControlLabel value={""} control={<Radio />} label={"Tất cả"} />
+													<FormControlLabel
+														value={""}
+														control={<Radio />}
+														label={"Tất cả"}
+														sx={{
+															"& .MuiFormControlLabel-label": { color: COLOR_CODE.TEXT_MUTED },
+														}}
+													/>
 													{productTypes.map((productType) => {
 														return (
 															<FormControlLabel
@@ -193,6 +235,9 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 																value={productType.slug.current}
 																control={<Radio />}
 																label={productType.name}
+																sx={{
+																	"& .MuiFormControlLabel-label": { color: COLOR_CODE.TEXT_MUTED },
+																}}
 															/>
 														);
 													})}

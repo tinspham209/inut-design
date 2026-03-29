@@ -13,7 +13,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { ROUTE_LIST, RouteItem } from "./routes";
-import { MegaMenuContactBox } from "./MegaMenuContactBox";
 import { Divider, Grid } from "@mui/material";
 
 export function HeaderDesktop() {
@@ -46,12 +45,13 @@ export function HeaderDesktop() {
 							top: "100%",
 							left: 0,
 							width: "100%",
-							backgroundColor: "white",
+							backgroundColor: COLOR_CODE.SURFACE_ELEVATED,
 							zIndex: 100,
 							py: 4,
 							px: 2,
-							borderTop: `1px solid ${COLOR_CODE.BORDER}`,
-							boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+							borderTop: `1px solid ${COLOR_CODE.BORDER_DARK}`,
+							borderBottom: `1px solid ${COLOR_CODE.BORDER_DARK}`,
+							boxShadow: "0 20px 40px rgba(8, 7, 6, 0.28)",
 						}}
 					>
 						<Container maxWidth="lg">
@@ -168,10 +168,12 @@ export function HeaderDesktop() {
 						position: "absolute",
 						top: "100%",
 						minWidth: 200,
-						backgroundColor: "white",
+						backgroundColor: COLOR_CODE.SURFACE_ELEVATED,
 						zIndex: 100,
 						py: 1,
-						boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+						border: `1px solid ${COLOR_CODE.BORDER_DARK}`,
+						borderRadius: 2,
+						boxShadow: "0 20px 40px rgba(8, 7, 6, 0.28)",
 					}}
 				>
 					<Stack>
@@ -183,9 +185,9 @@ export function HeaderDesktop() {
 										px: 3,
 										py: 1.5,
 										fontSize: "0.95rem",
-										color: "text.primary",
+										color: COLOR_CODE.WHITE,
 										"&:hover": {
-											backgroundColor: "rgba(0, 0, 0, 0.04)",
+											backgroundColor: COLOR_CODE.ORANGE_GLOW,
 											color: COLOR_CODE.PRIMARY,
 										},
 									}}
@@ -216,7 +218,7 @@ export function HeaderDesktop() {
 				underline="hover"
 				sx={{
 					fontWeight: isTitle ? "bold" : "normal",
-					color: isTitle ? COLOR_CODE.PRIMARY : "text.secondary",
+					color: isTitle ? COLOR_CODE.PRIMARY : COLOR_CODE.TEXT_MUTED,
 					textTransform: isTitle ? "uppercase" : "none",
 					fontSize: isTitle ? "0.875rem" : "0.95rem",
 					display: "inline-block",
@@ -254,10 +256,11 @@ export function HeaderDesktop() {
 				position: "fixed",
 				top: 0,
 				width: "100%",
-				backgroundColor: "white",
+				backgroundColor: "rgba(8, 7, 6, 0.88)",
+				backdropFilter: "blur(18px)",
 				zIndex: 99,
-				borderBottom: `1px solid ${COLOR_CODE.BORDER}`,
-				boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+				borderBottom: `1px solid ${COLOR_CODE.BORDER_DARK}`,
+				boxShadow: "0 10px 30px rgba(8, 7, 6, 0.18)",
 			}}
 		>
 			<Container maxWidth="xl">
@@ -265,7 +268,7 @@ export function HeaderDesktop() {
 					direction="row"
 					justifyContent={"space-between"}
 					alignItems={"center"}
-					sx={{ height: 64 }}
+					sx={{ height: 72 }}
 				>
 					<Link href={"/"} passHref>
 						<MuiLink sx={{ display: "flex", flexShrink: 0 }}>
@@ -304,11 +307,13 @@ export function HeaderDesktop() {
 												fontWeight: "bold",
 												fontSize: 15,
 												textTransform: "uppercase",
-												color: "text.primary",
+												color: isActive(route.path) ? COLOR_CODE.WHITE : COLOR_CODE.TEXT_MUTED,
 												position: "relative",
 												display: "flex",
 												alignItems: "center",
 												gap: 0.5,
+												letterSpacing: "0.04em",
+												transition: "color 150ms ease",
 												"&::after": {
 													content: '""',
 													position: "absolute",
@@ -321,6 +326,9 @@ export function HeaderDesktop() {
 												},
 												"&:hover::after": {
 													width: "100%",
+												},
+												"&:hover": {
+													color: COLOR_CODE.WHITE,
 												},
 											}}
 											underline="none"
@@ -358,6 +366,7 @@ export function HeaderDesktop() {
 										borderRadius: "4px",
 										fontWeight: "bold",
 										textTransform: "uppercase",
+										letterSpacing: "0.06em",
 										flexShrink: 0,
 									}}
 								>

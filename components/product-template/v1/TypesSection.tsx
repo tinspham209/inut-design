@@ -1,5 +1,6 @@
 import { ComparisonRow, ProductType } from "@/models/product-page";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { COLOR_CODE } from "@/utils/theme";
 import {
 	Box,
 	Card,
@@ -38,11 +39,16 @@ export const TypesSection: React.FC<TypesSectionProps> = ({
 }) => {
 	return (
 		<Box>
-			<Typography variant="h5" fontWeight={800} gutterBottom sx={{ fontSize: "1.5rem" }}>
+			<Typography
+				variant="h5"
+				fontWeight={800}
+				gutterBottom
+				sx={{ fontSize: "1.5rem", color: COLOR_CODE.WHITE }}
+			>
 				{title}
 			</Typography>
 			{description && (
-				<Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+				<Typography variant="body2" sx={{ mb: 3, color: COLOR_CODE.TEXT_MUTED }}>
 					{description}
 				</Typography>
 			)}
@@ -54,23 +60,29 @@ export const TypesSection: React.FC<TypesSectionProps> = ({
 							sx={{
 								height: "100%",
 								boxShadow: "none",
-								border: "1px solid",
-								borderColor: "divider",
+								border: `1px solid ${COLOR_CODE.INK_4}`,
 								borderRadius: 1,
-								"&:hover": { borderColor: "primary.main" },
+								backgroundColor: COLOR_CODE.INK_3,
+								"&:hover": { borderColor: COLOR_CODE.PRIMARY },
 							}}
 						>
-							<Box sx={{ position: "relative", pt: "75%", bgcolor: "grey.100" }}>
+							<Box sx={{ position: "relative", pt: "75%", bgcolor: COLOR_CODE.INK_3 }}>
 								<Image src={type.image} alt={type.name} layout="fill" objectFit="cover" />
 							</Box>
 							<CardContent sx={{ p: 1.5 }}>
-								<Typography variant="subtitle2" fontWeight={700} gutterBottom noWrap>
+								<Typography
+									variant="subtitle2"
+									fontWeight={700}
+									gutterBottom
+									noWrap
+									sx={{ color: COLOR_CODE.WHITE }}
+								>
 									{type.name}
 								</Typography>
 								<Typography
 									variant="caption"
-									color="text.secondary"
 									sx={{
+										color: COLOR_CODE.TEXT_MUTED,
 										display: "-webkit-box",
 										WebkitLineClamp: 2,
 										WebkitBoxOrient: "vertical",
@@ -87,15 +99,22 @@ export const TypesSection: React.FC<TypesSectionProps> = ({
 			</Grid>
 
 			{specOptions && (
-				<Box sx={{ mt: 4, p: 3, border: "1px solid", borderColor: "divider", borderRadius: 1 }}>
-					<Typography variant="subtitle1" fontWeight={800} gutterBottom>
+				<Box sx={{ mt: 4, p: 3, border: `1px solid ${COLOR_CODE.INK_4}`, borderRadius: 1 }}>
+					<Typography
+						variant="subtitle1"
+						fontWeight={800}
+						gutterBottom
+						sx={{ color: COLOR_CODE.WHITE }}
+					>
 						Tùy chọn bổ sung
 					</Typography>
 					<Stack spacing={1} sx={{ mt: 2 }}>
 						{specOptions.map((spec, index) => (
 							<Stack key={index} direction="row" spacing={1.5} alignItems="center">
-								<CheckCircleIcon sx={{ color: "#f57c00", fontSize: 18 }} />
-								<Typography variant="body2">{spec}</Typography>
+								<CheckCircleIcon sx={{ color: COLOR_CODE.PRIMARY, fontSize: 18 }} />
+								<Typography variant="body2" color={COLOR_CODE.TEXT_MUTED}>
+									{spec}
+								</Typography>
 							</Stack>
 						))}
 					</Stack>
@@ -104,7 +123,12 @@ export const TypesSection: React.FC<TypesSectionProps> = ({
 
 			{comparisonItems && (
 				<Box sx={{ mt: 4 }}>
-					<Typography variant="subtitle1" fontWeight={800} gutterBottom>
+					<Typography
+						variant="subtitle1"
+						fontWeight={800}
+						gutterBottom
+						sx={{ color: COLOR_CODE.WHITE }}
+					>
 						So sánh và lựa chọn
 					</Typography>
 					<Stack spacing={1.5} sx={{ mt: 2 }}>
@@ -132,9 +156,9 @@ export const TypesSection: React.FC<TypesSectionProps> = ({
 					<Typography variant="subtitle1" fontWeight={800} gutterBottom sx={{ mb: 2 }}>
 						Bảng so sánh chất liệu
 					</Typography>
-					<TableContainer sx={{ border: "1px solid", borderColor: "divider", borderRadius: 1 }}>
+					<TableContainer sx={{ border: `1px solid ${COLOR_CODE.INK_4}`, borderRadius: 1 }}>
 						<Table size="small">
-							<TableHead sx={{ bgcolor: "grey.50" }}>
+							<TableHead sx={{ bgcolor: COLOR_CODE.INK_4 }}>
 								<TableRow>
 									<TableCell sx={{ fontWeight: 700, fontSize: "0.85rem" }}>Đặc điểm</TableCell>
 									{Object.keys(comparisonRows[0])
@@ -173,13 +197,16 @@ export const TypesSection: React.FC<TypesSectionProps> = ({
 							sx={{
 								mt: 2,
 								p: 2,
-								bgcolor: "rgba(245, 124, 0, 0.05)",
+								bgcolor: "rgba(255,77,0,0.07)",
 								borderLeft: "4px solid",
-								borderColor: "#f57c00",
+								borderColor: COLOR_CODE.PRIMARY,
 								borderRadius: "0 4px 4px 0",
 							}}
 						>
-							<Typography variant="caption" sx={{ fontStyle: "italic", color: "text.primary" }}>
+							<Typography
+								variant="caption"
+								sx={{ fontStyle: "italic", color: COLOR_CODE.TEXT_MUTED }}
+							>
 								<strong>Khuyên dùng:</strong> {comparisonRecommendation}
 							</Typography>
 						</Box>

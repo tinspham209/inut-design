@@ -10,6 +10,7 @@ export const isEmpty = (value): boolean =>
 export type Callback = (...args: any[]) => void;
 
 export * from "./create-emotion-cache";
+export * from "./design-tokens";
 export * from "./theme";
 export * from "./posts";
 export * from "./date";

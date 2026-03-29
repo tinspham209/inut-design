@@ -10,6 +10,7 @@ import { StaticContentEachPage } from "@/models";
 import { Product, Products } from "@/models/products";
 import { trackOrderButtonClick, trackViewProduct } from "@/utils/analytics";
 import { MERCHANT_LISTING_CONFIG } from "@/utils/seo-constants";
+import { COLOR_CODE } from "@/utils";
 import {
 	Box,
 	Breadcrumbs,
@@ -125,21 +126,27 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 					/>
 				</Portal>
 			)}
-			<Box component={"section"}>
+			<Box component={"section"} sx={{ bgcolor: COLOR_CODE.INK }}>
 				<Container>
 					<Breadcrumbs
 						sx={{
 							mt: 2,
 							mb: 2,
+							"& .MuiBreadcrumbs-separator": { color: COLOR_CODE.TEXT_SOFT },
+							"& li": { color: COLOR_CODE.TEXT_SOFT },
 						}}
 					>
 						<Link href={"/"} passHref>
-							<MuiLink>Trang chủ</MuiLink>
+							<MuiLink sx={{ color: COLOR_CODE.TEXT_SOFT, "&:hover": { color: COLOR_CODE.WHITE } }}>
+								Trang chủ
+							</MuiLink>
 						</Link>
 						<Link href={`/san-pham/skin-nut-phim#${product.slug.current}`} passHref>
-							<MuiLink>Nút Phím</MuiLink>
+							<MuiLink sx={{ color: COLOR_CODE.TEXT_SOFT, "&:hover": { color: COLOR_CODE.WHITE } }}>
+								Nút Phím
+							</MuiLink>
 						</Link>
-						<Typography color="text.primary">{product.name}</Typography>
+						<Typography sx={{ color: COLOR_CODE.TEXT_MUTED }}>{product.name}</Typography>
 					</Breadcrumbs>
 					<Grid
 						container
@@ -276,7 +283,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 				</Container>
 			</Box>
 
-			<Box component={"section"} bgcolor="secondary.dark">
+			<Box component={"section"} sx={{ bgcolor: COLOR_CODE.INK_2 }}>
 				<Box mt={2}>
 					<Divider />
 				</Box>
@@ -295,8 +302,14 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 				</Box>
 			</Box>
 
-			<Box component={"section"} pt={2} mt={2}>
-				<Typography variant="h3" mt={2} fontWeight="bold" textAlign="center">
+			<Box component={"section"} sx={{ pt: 2, mt: 2, bgcolor: COLOR_CODE.INK_2 }}>
+				<Typography
+					variant="h3"
+					mt={2}
+					fontWeight="800"
+					textAlign="center"
+					sx={{ color: COLOR_CODE.WHITE, letterSpacing: "-0.04em" }}
+				>
 					Có thể bạn sẽ thích
 				</Typography>
 				<Box sx={{ maxWidth: "100%", overflow: "hidden", px: { xs: 2, md: 4 }, py: 4 }}>
@@ -311,10 +324,10 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 						sx={{
 							minHeight: 350,
 							"& .MuiButtonBase-root": {
-								backgroundColor: "rgba(0,0,0,0.1)",
-								color: "black",
+								backgroundColor: COLOR_CODE.INK_3,
+								color: COLOR_CODE.WHITE,
 								"&:hover": {
-									backgroundColor: "rgba(0,0,0,0.2)",
+									backgroundColor: COLOR_CODE.INK_4,
 								},
 							},
 						}}
@@ -357,7 +370,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 													fontWeight="bold"
 													textAlign="center"
 													sx={{
-														color: "text.primary",
+														color: COLOR_CODE.WHITE,
 														whiteSpace: "nowrap",
 														textOverflow: "ellipsis",
 														overflow: "hidden",

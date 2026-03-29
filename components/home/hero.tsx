@@ -1,6 +1,8 @@
-import { Box, Button, Chip, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Chip, Grid, keyframes, Stack, Typography } from "@mui/material";
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
+import { colors } from "../product-template/v3/shared";
+import { COLOR_CODE } from "@/utils";
 
 // ─── Design tokens (mirrored from inut_hero_final.html) ────────────────────
 const C = {
@@ -85,6 +87,23 @@ const STATS: StatItem[] = [
 	{ num: "24h", label: "Giao tại Đà Nẵng" },
 ];
 
+const tickerMove = keyframes`
+	from { transform: translateX(0); }
+	to { transform: translateX(-50%); }
+`;
+
+const TICKER_ITEMS = [
+	"In Ấn Chất Lượng Cao",
+	"Thiết Kế Miễn Phí",
+	"Báo Giá 15 Phút",
+	"Không Cần Đặt Cọc",
+	"Giao Hàng Toàn Quốc",
+	"Giao 24h Tại Đà Nẵng",
+	"Cắt CNC Chuẩn Xác 99%",
+	"Dán Lại Không Dính Keo",
+	"Skin · Sticker · Bật Lửa · In Ấn",
+];
+
 // ─── Tag chip style helper ───────────────────────────────────────────────────
 function tagSx(variant: TagVariant) {
 	if (variant === "orange") return { bgcolor: C.orange, color: C.cream };
@@ -95,7 +114,7 @@ function tagSx(variant: TagVariant) {
 // ─── Component ──────────────────────────────────────────────────────────────
 export function HeroSection({
 	ctaPrimaryHref = "#lighters",
-	ctaSecondaryHref = "/contact",
+	ctaSecondaryHref = "/contact/form",
 }: HeroSectionProps) {
 	const [activeCard, setActiveCard] = useState(0);
 
@@ -248,7 +267,7 @@ export function HeroSection({
 						md={6}
 						sx={{
 							bgcolor: C.ink3,
-							p: { xs: 3, sm: 4, md: "48px 40px" },
+							p: { xs: 3, sm: 4, md: "24px 40px" },
 							display: "flex",
 							flexDirection: "column",
 							justifyContent: "center",
@@ -387,6 +406,50 @@ export function HeroSection({
 							</Typography>
 						</Box>
 					))}
+				</Box>
+				{/* Ticker Strip */}
+				<Box
+					sx={{
+						bgcolor: colors.orange,
+						py: 1,
+						overflow: "hidden",
+						zIndex: 3,
+					}}
+				>
+					<Box
+						sx={{
+							display: "flex",
+							gap: 6,
+							width: "max-content",
+							animation: `${tickerMove} 22s linear infinite`,
+							"&:hover": { animationPlayState: "paused" },
+						}}
+					>
+						{[...Array(2)].map((_, i) => (
+							<React.Fragment key={i}>
+								{TICKER_ITEMS.map((item, idx) => (
+									<React.Fragment key={idx}>
+										<Typography
+											sx={{
+												fontSize: "0.7rem",
+												fontWeight: 700,
+												letterSpacing: "0.14em",
+												textTransform: "uppercase",
+												color: COLOR_CODE.TEXT_CREAM,
+												display: "flex",
+												alignItems: "center",
+												gap: 1,
+												whiteSpace: "nowrap",
+											}}
+										>
+											✦ {item}
+										</Typography>
+										<Typography sx={{ color: "rgba(255,255,255,0.45)" }}>◆</Typography>
+									</React.Fragment>
+								))}
+							</React.Fragment>
+						))}
+					</Box>
 				</Box>
 			</Box>
 		</Box>

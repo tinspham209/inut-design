@@ -3,6 +3,7 @@ import { LighterProduct, LighterType } from "@/models/cart";
 import { useLightersCart } from "@/store";
 import { formatPrice, getPriceTierOptions } from "@/utils/priceCalculator";
 import { trackSelectProduct, trackAddToCart } from "@/utils/analytics";
+import { COLOR_CODE } from "@/utils";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
 	Box,
@@ -105,17 +106,19 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, href }
 	return (
 		<Card
 			sx={{
-				transition: "all 0.2s ease",
+				transition: "border-color 200ms, transform 200ms cubic-bezier(0.16,1,0.3,1)",
 				transform: "scale(1)",
 				"&:hover": {
-					transform: "scale(1.01)",
+					transform: "translateY(-3px)",
+					borderColor: "rgba(255,77,0,0.25)",
 				},
 				borderRadius: { xs: "12px", md: "16px" },
 				display: "flex",
 				flexDirection: "column",
 				height: "100%",
+				bgcolor: COLOR_CODE.INK_3,
+				border: `1px solid ${COLOR_CODE.INK_4}`,
 			}}
-			variant="outlined"
 			id={lighter.slug.current}
 		>
 			<CardContent
@@ -176,7 +179,7 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, href }
 									variant="caption"
 									sx={{
 										fontSize: { xs: "0.7rem", md: "0.75rem" },
-										color: "#8c8c8c",
+										color: COLOR_CODE.TEXT_MUTED,
 										fontWeight: 600,
 									}}
 								>
@@ -189,6 +192,7 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, href }
 										fontWeight: "bold",
 										fontSize: { xs: "0.95rem", md: "1rem" },
 										lineHeight: 1.3,
+										color: COLOR_CODE.WHITE,
 									}}
 								>
 									{lighter.name}
@@ -213,6 +217,7 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, href }
 							variant="caption"
 							sx={{
 								fontSize: { xs: "0.75rem", md: "0.85rem" },
+								color: COLOR_CODE.TEXT_MUTED,
 							}}
 						>
 							Giá chỉ từ: {formatPrice(minimumPrice)}

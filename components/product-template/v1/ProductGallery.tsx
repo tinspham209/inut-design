@@ -1,4 +1,5 @@
 import { Box, ImageList, ImageListItem, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { COLOR_CODE } from "@/utils/theme";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import React from "react";
@@ -43,7 +44,7 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
 
 	return (
 		<Box id="gallery" sx={{ scrollMarginTop: "100px" }}>
-			<Typography variant="h5" fontWeight={800} gutterBottom sx={{ fontSize: "1.5rem", mb: 3 }}>
+			<Typography variant="h5" fontWeight={800} gutterBottom sx={{ fontSize: "1.5rem", mb: 3, color: COLOR_CODE.WHITE }}>
 				{title}
 			</Typography>
 
@@ -82,7 +83,7 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
 									width: "100%",
 									height: "100%",
 									overflow: "hidden",
-									bgcolor: "grey.100",
+									bgcolor: COLOR_CODE.INK_3,
 									"&:hover img": {
 										transform: "scale(1.05)",
 									},

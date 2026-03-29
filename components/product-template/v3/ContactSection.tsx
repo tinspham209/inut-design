@@ -92,13 +92,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
 								onClick={handleEmailClick}
 								sx={{
 									borderColor: "rgba(255, 255, 255, 0.3)",
-									color: "white",
+									color: colors.cream,
 									fontFamily: typography.syne,
 									fontWeight: 700,
 									borderRadius: "8px",
 									px: 4,
 									py: 1.75,
-									"&:hover": { borderColor: "white", bgcolor: "rgba(255,255,255,0.05)" },
+									"&:hover": { borderColor: colors.cream, bgcolor: "rgba(255,255,255,0.05)" },
 								}}
 							>
 								✉ Gửi Email
@@ -124,7 +124,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
 									alignItems: "center",
 									gap: 2,
 									transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-									color: "white",
+									color: colors.cream,
 									textDecoration: "none",
 									"&:hover": { bgcolor: "rgba(0, 0, 0, 0.35)", transform: "translateX(6px)" },
 								}}
@@ -160,7 +160,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
 											fontFamily: typography.syne,
 											fontSize: "0.9rem",
 											fontWeight: 700,
-											color: "white",
+											color: colors.cream,
 										}}
 									>
 										{person.name}
@@ -174,7 +174,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ data }) => {
 									sx={{
 										ml: "auto",
 										bgcolor: "#0068ff",
-										color: "white",
+										color: colors.cream,
 										fontFamily: typography.syne,
 										fontSize: "0.62rem",
 										fontWeight: 700,

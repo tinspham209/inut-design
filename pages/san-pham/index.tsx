@@ -5,7 +5,15 @@ import { MainLayout } from "@/components/layout";
 import { findRouteByPath, mapChildRoutesToCards } from "@/lib/routeMapToCards";
 import { NextPageWithLayout } from "@/models/common";
 import { COLOR_CODE } from "@/utils";
-import { Box, Breadcrumbs, Container, Grid, Link as MuiLink, Typography } from "@mui/material";
+import {
+	Box,
+	Breadcrumbs,
+	Container,
+	Grid,
+	Link as MuiLink,
+	Stack,
+	Typography,
+} from "@mui/material";
 import { GetStaticProps } from "next";
 import Link from "next/link";
 
@@ -21,7 +29,16 @@ const ProductsIndexPage: NextPageWithLayout<Props> = ({ currentPath, currentRout
 	}
 
 	return (
-		<Box component="section" bgcolor="secondary.dark" pt={4} pb={10} minHeight="60vh">
+		<Box
+			component="section"
+			sx={{
+				bgcolor: COLOR_CODE.INK,
+				pt: { xs: "60px", sm: "80px" },
+				pb: { xs: "60px", sm: "80px" },
+				minHeight: "60vh",
+				px: { xs: 2, sm: "32px" },
+			}}
+		>
 			<Seo
 				data={{
 					title: "Sản phẩm độc bản - INUT Design Đà Nẵng",
@@ -33,27 +50,53 @@ const ProductsIndexPage: NextPageWithLayout<Props> = ({ currentPath, currentRout
 				}}
 			/>
 
-			<Container maxWidth="lg">
-				<Breadcrumbs sx={{ mb: 4 }}>
+			<Container maxWidth="lg" disableGutters>
+				<Breadcrumbs
+					sx={{
+						mb: 4,
+						"& .MuiBreadcrumbs-separator": { color: COLOR_CODE.TEXT_SOFT },
+						"& li": { color: COLOR_CODE.TEXT_SOFT },
+					}}
+				>
 					<Link href="/" passHref legacyBehavior>
-						<MuiLink color="inherit" underline="hover">
+						<MuiLink
+							sx={{ color: COLOR_CODE.TEXT_SOFT, "&:hover": { color: COLOR_CODE.WHITE } }}
+							underline="hover"
+						>
 							Trang chủ
 						</MuiLink>
 					</Link>
-					<Typography color="text.primary">Sản phẩm</Typography>
+					<Typography sx={{ color: COLOR_CODE.TEXT_MUTED }}>Sản phẩm</Typography>
 				</Breadcrumbs>
 
 				<Box mb={6}>
+					<Stack direction="row" alignItems="center" gap={1.25} mb={1.5}>
+						<Box sx={{ width: 20, height: 2, bgcolor: COLOR_CODE.PRIMARY }} />
+						<Typography
+							sx={{
+								fontWeight: 700,
+								fontSize: "0.68rem",
+								letterSpacing: "0.18em",
+								textTransform: "uppercase",
+								color: COLOR_CODE.PRIMARY,
+							}}
+						>
+							SẢN PHẨM
+						</Typography>
+					</Stack>
 					<Typography
 						variant="h3"
 						component="h1"
 						fontWeight="800"
 						gutterBottom
-						sx={{ color: COLOR_CODE.TEXT_DARK }}
+						sx={{ color: COLOR_CODE.WHITE, letterSpacing: "-0.04em" }}
 					>
 						{currentRoute.label}
 					</Typography>
-					<Typography variant="h6" color="text.secondary" sx={{ maxWidth: 800, fontWeight: 400 }}>
+					<Typography
+						variant="h6"
+						sx={{ maxWidth: 800, fontWeight: 400, color: COLOR_CODE.TEXT_MUTED }}
+					>
 						{currentRoute.meta?.description ||
 							"Chúng tôi mang đến những sản phẩm độc đáo, từ skin laptop, skin nút phím đến các dòng bật lửa cá nhân hóa chất lượng cao."}
 					</Typography>
@@ -72,12 +115,12 @@ const ProductsIndexPage: NextPageWithLayout<Props> = ({ currentPath, currentRout
 						sx={{
 							p: 8,
 							textAlign: "center",
-							bgcolor: "rgba(0,0,0,0.02)",
+							bgcolor: COLOR_CODE.INK_3,
 							borderRadius: 4,
-							border: "2px dashed rgba(0,0,0,0.1)",
+							border: `2px dashed ${COLOR_CODE.INK_4}`,
 						}}
 					>
-						<Typography variant="body1" color="text.secondary">
+						<Typography variant="body1" sx={{ color: COLOR_CODE.TEXT_MUTED }}>
 							Đang cập nhật thêm các sản phẩm mới...
 						</Typography>
 					</Box>

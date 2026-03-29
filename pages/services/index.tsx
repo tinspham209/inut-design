@@ -21,7 +21,7 @@ const ServicesIndexPage: NextPageWithLayout<Props> = ({ currentPath, currentRout
 	}
 
 	return (
-		<Box component="section" bgcolor="secondary.dark" pt={4} pb={10} minHeight="60vh">
+		<Box component="section" sx={{ bgcolor: COLOR_CODE.INK }} pt={4} pb={10} minHeight="60vh">
 			<Seo
 				data={{
 					title: "Dịch vụ in ấn chuyên nghiệp - INUT Design Đà Nẵng",
@@ -36,11 +36,11 @@ const ServicesIndexPage: NextPageWithLayout<Props> = ({ currentPath, currentRout
 			<Container maxWidth="lg">
 				<Breadcrumbs sx={{ mb: 4 }}>
 					<Link href="/" passHref legacyBehavior>
-						<MuiLink color="inherit" underline="hover">
+						<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover">
 							Trang chủ
 						</MuiLink>
 					</Link>
-					<Typography color="text.primary">Dịch vụ</Typography>
+					<Typography sx={{ color: COLOR_CODE.WHITE }}>Dịch vụ</Typography>
 				</Breadcrumbs>
 
 				<Box mb={6}>
@@ -49,11 +49,14 @@ const ServicesIndexPage: NextPageWithLayout<Props> = ({ currentPath, currentRout
 						component="h1"
 						fontWeight="800"
 						gutterBottom
-						sx={{ color: COLOR_CODE.TEXT_DARK }}
+						sx={{ color: COLOR_CODE.WHITE }}
 					>
 						{currentRoute.label}
 					</Typography>
-					<Typography variant="h6" color="text.secondary" sx={{ maxWidth: 800, fontWeight: 400 }}>
+					<Typography
+						variant="h6"
+						sx={{ color: COLOR_CODE.TEXT_MUTED, maxWidth: 800, fontWeight: 400 }}
+					>
 						{currentRoute.meta?.description ||
 							"Chúng tôi cung cấp các giải pháp in ấn sáng tạo, từ sticker, quà tặng lưu niệm đến ấn phẩm doanh nghiệp chất lượng cao."}
 					</Typography>
@@ -72,12 +75,12 @@ const ServicesIndexPage: NextPageWithLayout<Props> = ({ currentPath, currentRout
 						sx={{
 							p: 8,
 							textAlign: "center",
-							bgcolor: "rgba(0,0,0,0.02)",
+							bgcolor: COLOR_CODE.INK_3,
 							borderRadius: 4,
-							border: "2px dashed rgba(0,0,0,0.1)",
+							border: `2px dashed ${COLOR_CODE.INK_4}`,
 						}}
 					>
-						<Typography variant="body1" color="text.secondary">
+						<Typography variant="body1" sx={{ color: COLOR_CODE.TEXT_MUTED }}>
 							Đang cập nhật thêm các nội dung cho dịch vụ này...
 						</Typography>
 					</Box>

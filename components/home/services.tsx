@@ -1,12 +1,12 @@
 import { ROUTE_LIST, RouteItem } from "@/components/common/header/routes";
 import { COLOR_CODE } from "@/utils";
+import { BRAND_COLORS } from "@/utils/design-tokens";
 import { trackEvent } from "@/utils/analytics";
 import {
 	Box,
 	Button,
 	Chip,
 	Container,
-	Divider,
 	Grid,
 	Icon,
 	Link as MuiLink,
@@ -39,24 +39,36 @@ function ServiceItemCard({ item }: { item: RouteItem }) {
 			<MuiLink underline="none" onClick={handleItemClick}>
 				<Box
 					sx={{
-						backgroundColor: "#fff",
-						borderRadius: 2,
+						bgcolor: COLOR_CODE.INK_3,
+						border: `1px solid ${COLOR_CODE.INK_4}`,
+						borderRadius: "12px",
 						p: { xs: 1.5, sm: 2 },
 						height: "100%",
 						minHeight: 90,
-						border: "1px solid rgba(0,0,0,0.08)",
-						transition: "transform 0.2s ease, box-shadow 0.2s ease",
+						transition: "border-color 200ms, transform 200ms cubic-bezier(0.16,1,0.3,1)",
 						"&:hover": {
-							transform: "translateY(-4px)",
-							boxShadow: "0 8px 24px rgba(0,0,0,0.1)",
+							borderColor: "rgba(255,77,0,0.25)",
+							transform: "translateY(-3px)",
 						},
 					}}
 				>
 					<Stack spacing={0.75} alignItems="flex-start">
 						<Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
-							<Icon sx={{ color: COLOR_CODE.PRIMARY, fontSize: "1.6rem" }}>
-								{item.meta?.icon || "star"}
-							</Icon>
+							<Box
+								sx={{
+									width: 40,
+									height: 40,
+									bgcolor: BRAND_COLORS.orangeLo,
+									borderRadius: "8px",
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
+								}}
+							>
+								<Icon sx={{ color: COLOR_CODE.PRIMARY, fontSize: "1.25rem" }}>
+									{item.meta?.icon || "star"}
+								</Icon>
+							</Box>
 							{item.meta?.badge && (
 								<Chip
 									label={item.meta.badge}
@@ -67,23 +79,26 @@ function ServiceItemCard({ item }: { item: RouteItem }) {
 							)}
 						</Stack>
 						<Typography
-							variant="body1"
-							fontWeight="bold"
-							color={COLOR_CODE.TEXT_DARK}
-							lineHeight={1.4}
-							sx={{ fontSize: { xs: "0.9rem", sm: "1.05rem" } }}
+							sx={{
+								fontWeight: 700,
+								fontSize: { xs: "0.85rem", sm: "0.9rem" },
+								color: COLOR_CODE.WHITE,
+								lineHeight: 1.4,
+								letterSpacing: "0.02em",
+							}}
 						>
 							{item.label}
 						</Typography>
 						{item.meta?.description && (
 							<Typography
-								variant="body2"
-								color="text.secondary"
 								sx={{
 									display: { xs: "none", sm: "-webkit-box" },
 									WebkitLineClamp: 2,
 									WebkitBoxOrient: "vertical",
 									overflow: "hidden",
+									fontSize: "0.78rem",
+									color: COLOR_CODE.TEXT_SOFT,
+									lineHeight: 1.5,
 								}}
 							>
 								{item.meta.description}
@@ -116,12 +131,18 @@ function ServiceSubSection({ route, maxItems }: { route: RouteItem; maxItems: nu
 						{route.meta?.icon || "folder"}
 					</Icon>
 					<Link href={route.path} passHref>
-						<MuiLink underline="hover" color="inherit" onClick={handleHeaderClick}>
+						<MuiLink
+							underline="hover"
+							onClick={handleHeaderClick}
+							sx={{ color: COLOR_CODE.TEXT_MUTED, "&:hover": { color: COLOR_CODE.WHITE } }}
+						>
 							<Typography
-								variant="h6"
-								fontWeight="bold"
-								color={COLOR_CODE.TEXT_DARK}
-								sx={{ fontSize: { xs: "1.1rem", sm: "1.3rem" } }}
+								sx={{
+									fontWeight: 700,
+									fontSize: { xs: "1.1rem", sm: "1.3rem" },
+									color: "inherit",
+									letterSpacing: "-0.01em",
+								}}
 							>
 								{route.label}
 							</Typography>
@@ -158,31 +179,68 @@ export function ServicesSection({ id }: { id?: string }) {
 	})).filter((c) => c.route != null) as { maxItems: number; route: RouteItem }[];
 
 	return (
-		<Box component="section" id={id} bgcolor={COLOR_CODE.BACKGROUND} pt={2} pb={6}>
-			<Container>
-				<Stack direction="row" py={3} justifyContent="center" alignItems="center">
+		<Box
+			component="section"
+			id={id}
+			bgcolor={COLOR_CODE.INK}
+			sx={{ py: { xs: "60px", sm: "80px" }, px: { xs: 2, sm: "32px" } }}
+		>
+			<Container maxWidth="lg" disableGutters>
+				{/* Section header */}
+				<Box mb={4.5}>
+					<Stack direction="row" alignItems="center" gap={1.25} mb={1.5}>
+						<Box sx={{ width: 20, height: 2, bgcolor: COLOR_CODE.PRIMARY, flexShrink: 0 }} />
+						<Typography
+							sx={{
+								fontWeight: 700,
+								fontSize: "0.68rem",
+								letterSpacing: "0.18em",
+								textTransform: "uppercase",
+								color: COLOR_CODE.PRIMARY,
+							}}
+						>
+							Dịch Vụ
+						</Typography>
+					</Stack>
 					<Typography
-						variant="h3"
-						fontWeight="bold"
-						textAlign="center"
-						color={COLOR_CODE.TEXT_DARK}
+						component="h2"
+						sx={{
+							fontWeight: 800,
+							fontSize: { xs: "1.6rem", sm: "2rem", md: "2.4rem" },
+							lineHeight: 1.05,
+							letterSpacing: "-0.04em",
+							color: COLOR_CODE.WHITE,
+							mt: 1.5,
+						}}
 					>
-						Dịch vụ
+						Chúng Tôi{" "}
+						<Box component="em" sx={{ fontStyle: "italic", color: COLOR_CODE.PRIMARY }}>
+							Làm Gì
+						</Box>
 					</Typography>
-				</Stack>
+				</Box>
 
 				<Stack spacing={4}>
 					{categories.map(({ route, maxItems }, index) => (
-						<Box key={route.path}>
+						<Box
+							key={route.path}
+							sx={
+								index < categories.length - 1
+									? {
+											pb: 4,
+											borderBottom: `1px solid ${COLOR_CODE.INK_4}`,
+									  }
+									: undefined
+							}
+						>
 							<ServiceSubSection route={route} maxItems={maxItems} />
-							{index < categories.length - 1 && <Divider sx={{ mt: 4 }} />}
 						</Box>
 					))}
 				</Stack>
 
 				<Stack direction="row" justifyContent="center" mt={5}>
 					<Link href="/contact" passHref>
-						<MuiLink>
+						<MuiLink underline="none">
 							<Button variant="contained" size="large">
 								Liên hệ tư vấn
 							</Button>

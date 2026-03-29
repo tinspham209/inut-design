@@ -5,7 +5,7 @@ import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import NewReleasesIcon from "@mui/icons-material/NewReleases";
 import StarIcon from "@mui/icons-material/Star";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import { Box, Card, Chip, Icon, Stack, Typography, useTheme } from "@mui/material";
+import { Box, Card, Chip, Icon, Stack, Typography } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 
@@ -29,8 +29,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 	href,
 	badge,
 }) => {
-	const theme = useTheme();
-
 	const handleCardClick = () => {
 		trackEvent("service_click", {
 			service_title: title,
@@ -78,9 +76,9 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 					cursor: "pointer",
 					borderRadius: "16px",
 					overflow: "hidden",
-					backgroundColor: "#fff",
-					border: `1px solid ${theme.palette.divider}`,
-					boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+					backgroundColor: COLOR_CODE.INK_3,
+					border: `1px solid ${COLOR_CODE.INK_4}`,
+					boxShadow: "none",
 					transition:
 						"transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease, border-color 0.3s ease",
 
@@ -189,7 +187,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 						lineHeight={1.3}
 						gutterBottom
 						sx={{
-							color: COLOR_CODE.TEXT_DARK,
+							color: COLOR_CODE.WHITE,
 							fontSize: { xs: "1rem", sm: "1.05rem" },
 						}}
 					>
@@ -199,8 +197,8 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 					{/* Description */}
 					<Typography
 						variant="body2"
-						color="text.secondary"
 						sx={{
+							color: COLOR_CODE.TEXT_MUTED,
 							lineHeight: 1.65,
 							flexGrow: 1,
 							mb: 3,
@@ -221,7 +219,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 						sx={{
 							mt: "auto",
 							pt: 2,
-							borderTop: `1px solid ${theme.palette.divider}`,
+							borderTop: `1px solid ${COLOR_CODE.INK_4}`,
 						}}
 					>
 						<Typography
@@ -229,7 +227,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 							variant="caption"
 							sx={{
 								fontWeight: 700,
-								color: "text.secondary",
+								color: COLOR_CODE.TEXT_MUTED,
 								fontSize: "0.75rem",
 								letterSpacing: "0.08em",
 								textTransform: "uppercase",
@@ -242,7 +240,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 							className="card-arrow"
 							sx={{
 								fontSize: 15,
-								color: "text.secondary",
+								color: COLOR_CODE.TEXT_MUTED,
 								transition: "transform 0.3s ease, color 0.3s ease",
 							}}
 						/>

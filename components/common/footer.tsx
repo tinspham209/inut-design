@@ -62,9 +62,9 @@ export function Footer() {
 	return (
 		<Box
 			component={"footer"}
-			bgcolor={"#000000"}
-			color={"#ffffff"}
-			borderTop={`1px solid ${COLOR_CODE.TEXT_DARK}`}
+			bgcolor={COLOR_CODE.INK}
+			color={COLOR_CODE.WHITE}
+			borderTop={`1px solid ${COLOR_CODE.BORDER_DARK}`}
 			sx={{
 				pt: { xs: 6, md: 8 },
 				pb: { xs: 4, md: 5 },
@@ -82,7 +82,7 @@ export function Footer() {
 								fontWeight: 700,
 								mb: 2.5,
 								textTransform: "uppercase",
-								letterSpacing: "0.5px",
+								letterSpacing: "0.12em",
 							}}
 						>
 							GIỚI THIỆU
@@ -93,7 +93,7 @@ export function Footer() {
 									<MuiLink
 										variant="body2"
 										sx={{
-											color: "rgba(255, 255, 255, 0.75)",
+											color: COLOR_CODE.TEXT_MUTED,
 											textDecoration: "none",
 											"&:hover": { color: COLOR_CODE.PRIMARY },
 											transition: "color 0.2s",
@@ -115,7 +115,7 @@ export function Footer() {
 								fontWeight: 700,
 								mb: 2.5,
 								textTransform: "uppercase",
-								letterSpacing: "0.5px",
+								letterSpacing: "0.12em",
 							}}
 						>
 							CHÍNH SÁCH & ĐIỀU KHOẢN
@@ -126,7 +126,7 @@ export function Footer() {
 									<MuiLink
 										variant="body2"
 										sx={{
-											color: "rgba(255, 255, 255, 0.75)",
+											color: COLOR_CODE.TEXT_MUTED,
 											textDecoration: "none",
 											"&:hover": { color: COLOR_CODE.PRIMARY },
 											transition: "color 0.2s",
@@ -150,15 +150,13 @@ export function Footer() {
 									display: "flex",
 									alignItems: "center",
 									textTransform: "uppercase",
+									letterSpacing: "0.1em",
 									mb: 0.5,
 								}}
 							>
 								© {new Date().getFullYear()} - INUT DESIGN
 							</Typography>
-							<Typography
-								variant="body2"
-								sx={{ color: "rgba(255, 255, 255, 0.75)", lineHeight: 1.6 }}
-							>
+							<Typography variant="body2" sx={{ color: COLOR_CODE.TEXT_MUTED, lineHeight: 1.6 }}>
 								<Box component="span" sx={{ color: COLOR_CODE.PRIMARY, fontWeight: 700, mr: 0.5 }}>
 									VPĐD:
 								</Box>
@@ -170,7 +168,7 @@ export function Footer() {
 									K574/5 Ông Ích Khiêm, Tổ 22, Phường Hải Châu, Thành phố Đà Nẵng
 								</MuiLink>
 							</Typography>
-							<Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.75)" }}>
+							<Typography variant="body2" sx={{ color: COLOR_CODE.TEXT_MUTED }}>
 								<Box component="span" sx={{ color: COLOR_CODE.PRIMARY, fontWeight: 700, mr: 0.5 }}>
 									Hotline:
 								</Box>
@@ -178,7 +176,7 @@ export function Footer() {
 									href={`tel:${phoneNumber}`}
 									onClick={trackPhoneClick}
 									sx={{
-										color: "rgba(255, 255, 255, 0.75)",
+										color: COLOR_CODE.TEXT_MUTED,
 										textDecoration: "none",
 										"&:hover": { color: COLOR_CODE.PRIMARY },
 									}}
@@ -186,7 +184,7 @@ export function Footer() {
 									{phoneNumber}
 								</MuiLink>
 							</Typography>
-							<Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.75)" }}>
+							<Typography variant="body2" sx={{ color: COLOR_CODE.TEXT_MUTED }}>
 								<Box component="span" sx={{ color: COLOR_CODE.PRIMARY, fontWeight: 700, mr: 0.5 }}>
 									Email:
 								</Box>
@@ -194,7 +192,7 @@ export function Footer() {
 									href={`mailto:${emailAddress}`}
 									onClick={() => trackContactClick("email")}
 									sx={{
-										color: "rgba(255, 255, 255, 0.75)",
+										color: COLOR_CODE.TEXT_MUTED,
 										textDecoration: "none",
 										"&:hover": { color: COLOR_CODE.PRIMARY },
 									}}
@@ -202,7 +200,7 @@ export function Footer() {
 									{emailAddress}
 								</MuiLink>
 							</Typography>
-							<Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.75)" }}>
+							<Typography variant="body2" sx={{ color: COLOR_CODE.TEXT_MUTED }}>
 								<Box component="span" sx={{ color: COLOR_CODE.PRIMARY, fontWeight: 700, mr: 0.5 }}>
 									Làm việc:
 								</Box>
@@ -216,7 +214,7 @@ export function Footer() {
 						<Stack spacing={2}>
 							<Typography
 								variant="h5"
-								sx={{ fontWeight: 800, letterSpacing: 1, color: COLOR_CODE.WHITE, mb: 0.5 }}
+								sx={{ fontWeight: 800, letterSpacing: "-0.04em", color: COLOR_CODE.WHITE, mb: 0.5 }}
 							>
 								INUT{" "}
 								<Box component="span" sx={{ color: COLOR_CODE.PRIMARY }}>
@@ -230,6 +228,7 @@ export function Footer() {
 									color: COLOR_CODE.PRIMARY,
 									fontWeight: 700,
 									textTransform: "uppercase",
+									letterSpacing: "0.1em",
 								}}
 							>
 								KẾT NỐI VỚI CHÚNG TÔI
@@ -245,19 +244,20 @@ export function Footer() {
 										aria-label={`INUT Design ${link.platform}`}
 										onClick={() => trackSocialClick(link.platform)}
 										sx={{
-											color: "rgba(255, 255, 255, 0.9)",
+											color: COLOR_CODE.WHITE,
 											display: "flex",
 											alignItems: "center",
 											justifyContent: "center",
 											width: 40,
 											height: 40,
-											borderRadius: 1,
-											border: "1px solid rgba(255, 255, 255, 0.2)",
+											borderRadius: 1.5,
+											border: `1px solid ${COLOR_CODE.BORDER_DARK}`,
+											backgroundColor: COLOR_CODE.SURFACE_ELEVATED,
 											transition: "all 0.2s ease",
 											"&:hover": {
 												color: COLOR_CODE.PRIMARY,
 												borderColor: COLOR_CODE.PRIMARY,
-												backgroundColor: "rgba(225, 97, 46, 0.08)",
+												backgroundColor: "rgba(255, 77, 0, 0.08)",
 											},
 										}}
 									>
@@ -270,21 +270,15 @@ export function Footer() {
 				</Grid>
 
 				{/* Divider */}
-				<Divider sx={{ borderColor: "rgba(255, 255, 255, 0.2)", my: { xs: 4, md: 5 } }} />
+				<Divider sx={{ borderColor: COLOR_CODE.BORDER_DARK, my: { xs: 4, md: 5 } }} />
 
 				{/* Bottom Section - Registration Info */}
 				<Box>
 					<Stack spacing={0.75}>
-						<Typography
-							variant="caption"
-							sx={{ color: "rgba(255, 255, 255, 0.55)", display: "block" }}
-						>
+						<Typography variant="caption" sx={{ color: COLOR_CODE.TEXT_SOFT, display: "block" }}>
 							Công ty TNHH INUT DESIGN
 						</Typography>
-						<Typography
-							variant="caption"
-							sx={{ color: "rgba(255, 255, 255, 0.55)", display: "block" }}
-						>
+						<Typography variant="caption" sx={{ color: COLOR_CODE.TEXT_SOFT, display: "block" }}>
 							Mã số DN:{" "}
 							<MuiLink
 								href={taxInfoUrl}
@@ -302,21 +296,15 @@ export function Footer() {
 							bởi Sở Tài Chính Thành phố Đà Nẵng, Phòng Doanh Nghiệp và Đăng Ký Kinh Doanh cấp ngày
 							09/03/2026. Người đại diện: HỒ HỮU NGỌC TÂM
 						</Typography>
-						<Typography
-							variant="caption"
-							sx={{ color: "rgba(255, 255, 255, 0.55)", display: "block" }}
-						>
+						<Typography variant="caption" sx={{ color: COLOR_CODE.TEXT_SOFT, display: "block" }}>
 							Địa chỉ: K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng
 						</Typography>
-						<Typography
-							variant="caption"
-							sx={{ color: "rgba(255, 255, 255, 0.55)", display: "block" }}
-						>
+						<Typography variant="caption" sx={{ color: COLOR_CODE.TEXT_SOFT, display: "block" }}>
 							Điện thoại: {phoneNumber} - Email: {emailAddress}
 						</Typography>
 						<Typography
 							variant="caption"
-							sx={{ color: "rgba(255, 255, 255, 0.55)", display: "block", mt: 1 }}
+							sx={{ color: COLOR_CODE.TEXT_SOFT, display: "block", mt: 1 }}
 						>
 							© 2018–{new Date().getFullYear()} Công ty TNHH INUT DESIGN - mọi quyền bảo lưu
 						</Typography>
@@ -331,16 +319,16 @@ export function Footer() {
 					fontSize: "clamp(3.5rem, 8vw, 8rem)",
 					fontWeight: 800,
 					letterSpacing: "-0.05em",
-					color: "rgba(255, 255, 255, 0.1)",
+					color: "rgba(245, 240, 232, 0.08)",
 					textAlign: "center",
 					padding: "1.5rem 0 0",
-					borderTop: "1px solid var(--ink-3)",
+					borderTop: `1px solid ${COLOR_CODE.BORDER_DARK}`,
 					marginTop: "2rem",
 					lineHeight: 1,
 					userSelect: "none",
 
 					"& span": {
-						color: "rgba(255, 77, 0, 0.12)",
+						color: "rgba(255, 77, 0, 0.18)",
 					},
 				}}
 			>

@@ -108,7 +108,7 @@ const ProductCard: React.FC<{ item: ProductType }> = ({ item }) => {
 						fontFamily: typography.syne,
 						fontSize: "1rem",
 						fontWeight: 700,
-						color: "white",
+						color: colors.cream,
 						mb: 1,
 						letterSpacing: "-0.015em",
 					}}
@@ -142,7 +142,7 @@ const ProductCard: React.FC<{ item: ProductType }> = ({ item }) => {
 				>
 					<Typography sx={{ fontSize: "0.82rem", color: colors.smoke }}>
 						Giá từ{" "}
-						<Box component="strong" sx={{ color: "white", fontSize: "0.95rem" }}>
+						<Box component="strong" sx={{ color: colors.cream, fontSize: "0.95rem" }}>
 							Liên hệ
 						</Box>
 					</Typography>
@@ -153,7 +153,7 @@ const ProductCard: React.FC<{ item: ProductType }> = ({ item }) => {
 							width: 36,
 							height: 36,
 							bgcolor: colors.orange,
-							color: "white",
+							color: colors.cream,
 							transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
 							"&:hover": {
 								bgcolor: colors.orangeHi,

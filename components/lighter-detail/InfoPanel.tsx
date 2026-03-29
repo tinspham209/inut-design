@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Typography, Stack, Chip } from "@mui/material";
 import { LighterType, LighterProductWithType } from "@/models/cart";
+import { COLOR_CODE } from "@/utils";
 
 interface InfoPanelProps {
 	lighter: LighterProductWithType;
@@ -11,7 +12,7 @@ interface InfoPanelProps {
 const InfoPanel: React.FC<InfoPanelProps> = ({ lighter, lighterType, priceRange }) => {
 	return (
 		<Box>
-			<Typography variant="h5" fontWeight={700}>
+			<Typography variant="h5" fontWeight={700} sx={{ color: COLOR_CODE.WHITE }}>
 				{lighter.name}
 			</Typography>
 			{lighterType && (
@@ -27,10 +28,11 @@ const InfoPanel: React.FC<InfoPanelProps> = ({ lighter, lighterType, priceRange 
 						color="default"
 						size="small"
 						variant="outlined"
+						sx={{ color: COLOR_CODE.TEXT_MUTED, borderColor: COLOR_CODE.INK_4 }}
 					/>
 				)}
 			</Stack>
-			<Typography variant="body2" color="text.secondary" mb={2}>
+			<Typography variant="body2" sx={{ color: COLOR_CODE.TEXT_MUTED, mb: 2 }}>
 				Giá thay đổi theo số lượng. Thêm số lượng để xem đơn giá tốt hơn.
 			</Typography>
 		</Box>

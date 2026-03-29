@@ -32,12 +32,12 @@ export const Eyebrow: React.FC<{ children: React.ReactNode; color?: string; inve
 	</Typography>
 );
 
-export const SectionTitle: React.FC<{ children: React.ReactNode; color?: string; invert?: boolean; sx?: SxProps<Theme> }> = ({
-	children,
-	color = colors.white,
-	invert = false,
-	sx = {},
-}) => (
+export const SectionTitle: React.FC<{
+	children: React.ReactNode;
+	color?: string;
+	invert?: boolean;
+	sx?: SxProps<Theme>;
+}> = ({ children, color = colors.white, invert = false, sx = {} }) => (
 	<Typography
 		variant="h2"
 		sx={{
@@ -50,23 +50,19 @@ export const SectionTitle: React.FC<{ children: React.ReactNode; color?: string;
 			"& em": {
 				fontFamily: typography.dmSerif,
 				fontStyle: "italic",
-				color: colors.orange,
+				color: colors.ink,
 			},
 			...sx,
 		}}
 	>
-		{typeof children === "string" ? (
-			children.split("<br />").map((line, i) => (
-				<React.Fragment key={i}>
-					{line.includes("<em>") ? (
-						<span dangerouslySetInnerHTML={{ __html: line }} />
-					) : line}
-					{i < children.split("<br />").length - 1 && <br />}
-				</React.Fragment>
-			))
-		) : (
-			children
-		)}
+		{typeof children === "string"
+			? children.split("<br />").map((line, i) => (
+					<React.Fragment key={i}>
+						{line.includes("<em>") ? <span dangerouslySetInnerHTML={{ __html: line }} /> : line}
+						{i < children.split("<br />").length - 1 && <br />}
+					</React.Fragment>
+			  ))
+			: children}
 	</Typography>
 );
 

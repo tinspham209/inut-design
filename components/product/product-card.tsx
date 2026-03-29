@@ -1,6 +1,4 @@
 import { Product, ProductType } from "@/models/products";
-import { COLOR_CODE } from "@/utils";
-import { Card, CardContent, Box } from "@mui/material";
 import { ProductItem } from ".";
 
 export interface ProductCardProps {

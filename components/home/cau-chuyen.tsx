@@ -40,99 +40,141 @@ export function CauChuyen() {
 	return (
 		<Box
 			component="section"
-			bgcolor={COLOR_CODE.BACKGROUND}
-			pt={{ xs: 4, md: 6 }}
-			pb={{ xs: 4, md: 6 }}
+			bgcolor={COLOR_CODE.INK}
+			sx={{
+				py: { xs: "60px", sm: "80px", md: "100px" },
+				px: { xs: 2, sm: "32px" },
+				position: "relative",
+				overflow: "hidden",
+				"&::before": {
+					content: '""',
+					position: "absolute",
+					bottom: "-20%",
+					left: "-5%",
+					width: "50%",
+					height: "140%",
+					background: "radial-gradient(ellipse at center, rgba(255,77,0,0.07) 0%, transparent 70%)",
+					pointerEvents: "none",
+				},
+			}}
 		>
-			<Container maxWidth="lg">
-				<Grid container spacing={{ xs: 4, md: 6 }}>
+			<Container maxWidth="lg" disableGutters>
+				<Grid container spacing={{ xs: 4, md: 6 }} sx={{ position: "relative" }}>
 					{/* Left — story copy */}
 					<Grid item xs={12} md={6}>
-						<Typography
-							variant="overline"
-							sx={{
-								color: COLOR_CODE.PRIMARY,
-								letterSpacing: 3,
-								fontWeight: "bold",
-								mb: 2,
-								display: "block",
-							}}
-						>
-							— Câu chuyện
-						</Typography>
+						{/* Eyebrow */}
+						<Stack direction="row" alignItems="center" gap={1.25} mb={2}>
+							<Box sx={{ width: 20, height: 2, bgcolor: COLOR_CODE.PRIMARY, flexShrink: 0 }} />
+							<Typography
+								sx={{
+									fontWeight: 700,
+									fontSize: "0.68rem",
+									letterSpacing: "0.18em",
+									textTransform: "uppercase",
+									color: COLOR_CODE.PRIMARY,
+								}}
+							>
+								Về Chúng Tôi
+							</Typography>
+						</Stack>
 
 						<Typography
 							component="h2"
 							sx={{
-								fontSize: { xs: "2.4rem", sm: "3.2rem", md: "3.8rem" },
-								fontWeight: 900,
+								fontWeight: 800,
+								fontSize: { xs: "1.6rem", sm: "2rem", md: "2.4rem" },
 								lineHeight: 1.05,
-								color: COLOR_CODE.TEXT_DARK,
+								letterSpacing: "-0.04em",
+								color: COLOR_CODE.WHITE,
 								mb: 3,
 							}}
 						>
-							Bắt đầu từ
-							<br />
-							một{" "}
-							<Box component="span" sx={{ color: COLOR_CODE.PRIMARY, fontStyle: "italic" }}>
-								đam mê
+							Câu Chuyện{" "}
+							<Box
+								component="em"
+								sx={{ fontStyle: "italic", color: COLOR_CODE.PRIMARY, fontWeight: 400 }}
+							>
+								INUT Design
 							</Box>
 						</Typography>
 
-						<Stack spacing={2}>
-							<Typography variant="body1" color="text.secondary" lineHeight={1.8}>
-								INUT ra đời năm 2018 từ một xưởng nhỏ ở Đà Nẵng — không vốn lớn, không tên tuổi. Chỉ
-								có một thứ: tin rằng in ấn có thể làm tốt hơn những gì đang có trên thị trường.
+						<Typography
+							sx={{
+								fontSize: "1rem",
+								color: COLOR_CODE.TEXT_MUTED,
+								lineHeight: 1.75,
+								mb: 2.5,
+								fontStyle: "italic",
+							}}
+						>
+							Xin chào! INUT Design là xưởng in ấn sáng tạo tại Đà Nẵng, chuyên cung cấp sản phẩm cá
+							nhân hoá và giải pháp in ấn toàn diện.
+						</Typography>
+
+						<Stack spacing={2} mb={3.5}>
+							<Typography
+								sx={{ fontSize: "0.88rem", color: COLOR_CODE.TEXT_SOFT, lineHeight: 1.75 }}
+							>
+								Chúng tôi xây dựng INUT dựa trên{" "}
+								<Box component="strong" sx={{ color: COLOR_CODE.WHITE, fontWeight: 600 }}>
+									giá trị thật và trải nghiệm thật
+								</Box>{" "}
+								của từng khách hàng. Từ một góc nhỏ ở Đà Nẵng, qua từng năm chúng tôi không chỉ mở
+								rộng sản phẩm — mà xây dựng một cách làm riêng.
 							</Typography>
-							<Typography variant="body1" color="text.secondary" lineHeight={1.8}>
-								Từ một góc nhỏ ở Đà Nẵng, qua từng năm chúng tôi không chỉ mở rộng sản phẩm — mà xây
-								dựng một cách làm riêng. Không phải để phô trương, mà để mỗi sản phẩm đều nhất quán,
-								có hồn, và thực sự bền.
-							</Typography>
-							<Typography variant="body1" color="text.secondary" lineHeight={1.8}>
-								Bây giờ, INUT phục vụ cá nhân, doanh nghiệp, sản phẩm rộng hơn — nhưng cách làm thì
-								không thay đổi.
+							<Typography
+								sx={{ fontSize: "0.88rem", color: COLOR_CODE.TEXT_SOFT, lineHeight: 1.75 }}
+							>
+								Với triết lý{" "}
+								<Box component="strong" sx={{ color: COLOR_CODE.WHITE, fontWeight: 600 }}>
+									&ldquo;Chỉ sự khác biệt mới tồn tại được&rdquo;
+								</Box>
+								, INUT không ngừng cải tiến và mang đến sản phẩm{" "}
+								<Box component="strong" sx={{ color: COLOR_CODE.WHITE, fontWeight: 600 }}>
+									Chất lượng – Độc đáo – Khác biệt
+								</Box>
+								.
 							</Typography>
 						</Stack>
 
 						{/* Pull quote */}
 						<Box
 							sx={{
-								mt: 3,
-								pl: 3,
-								borderLeft: `4px solid ${COLOR_CODE.PRIMARY}`,
+								pl: 2.5,
+								py: 1.75,
+								borderLeft: `3px solid ${COLOR_CODE.PRIMARY}`,
+								bgcolor: COLOR_CODE.INK_3,
+								borderRadius: "0 8px 8px 0",
+								mb: 3.5,
 							}}
 						>
 							<Typography
-								variant="h5"
-								fontWeight="bold"
-								color={COLOR_CODE.TEXT_DARK}
-								lineHeight={1.4}
-								sx={{ fontSize: { xs: "1.2rem", sm: "1.4rem" } }}
+								sx={{
+									fontSize: "1.05rem",
+									fontStyle: "italic",
+									color: COLOR_CODE.WHITE,
+									lineHeight: 1.55,
+								}}
 							>
-								&ldquo;Nhỏ không có nghĩa là ẩu.
-								<br />
-								Chúng tôi chứng minh điều đó mỗi ngày.&rdquo;
+								&ldquo;70% cơ thể bạn là nước — 70% công việc của INUT là thiết kế.&rdquo;
 							</Typography>
 						</Box>
 					</Grid>
 
 					{/* Right — timeline */}
 					<Grid item xs={12} md={6}>
-						<Stack spacing={2}>
+						<Stack spacing={0}>
 							{TIMELINE.map((item, index) => (
 								<Box key={item.year}>
-									<Stack direction="row" spacing={3} alignItems="flex-start" py={2}>
+									<Stack direction="row" spacing={3} alignItems="flex-start" py={2.5}>
 										{/* Year badge */}
 										<Box
 											sx={{
 												minWidth: 52,
 												height: 52,
-												bgcolor: item.current ? COLOR_CODE.PRIMARY : "transparent",
-												border: `2px solid ${
-													item.current ? COLOR_CODE.PRIMARY : "rgba(38,38,38,0.25)"
-												}`,
-												borderRadius: 1,
+												bgcolor: item.current ? COLOR_CODE.PRIMARY : COLOR_CODE.INK_3,
+												border: `2px solid ${item.current ? COLOR_CODE.PRIMARY : COLOR_CODE.INK_4}`,
+												borderRadius: "4px",
 												display: "flex",
 												alignItems: "center",
 												justifyContent: "center",
@@ -140,11 +182,11 @@ export function CauChuyen() {
 											}}
 										>
 											<Typography
-												fontWeight={900}
 												sx={{
+													fontWeight: 900,
 													fontSize: "1.2rem",
 													fontStyle: "italic",
-													color: item.current ? "#fff" : COLOR_CODE.TEXT_DARK,
+													color: item.current ? "#fff" : COLOR_CODE.TEXT_MUTED,
 												}}
 											>
 												{item.year}
@@ -154,33 +196,42 @@ export function CauChuyen() {
 										{/* Content */}
 										<Box>
 											<Typography
-												variant="overline"
 												sx={{
 													color: COLOR_CODE.PRIMARY,
-													letterSpacing: 2,
+													letterSpacing: "0.1em",
 													fontWeight: 700,
 													fontSize: "0.65rem",
+													textTransform: "uppercase",
+													mb: 0.5,
 												}}
 											>
 												{item.label}
 											</Typography>
 											<Typography
-												variant="h6"
-												fontWeight="bold"
-												color={COLOR_CODE.TEXT_DARK}
-												lineHeight={1.3}
-												sx={{ mt: 0.25, mb: 0.5, fontSize: { xs: "1rem", sm: "1.1rem" } }}
+												sx={{
+													fontWeight: 700,
+													color: COLOR_CODE.WHITE,
+													lineHeight: 1.3,
+													fontSize: { xs: "1rem", sm: "1.1rem" },
+													mb: 0.5,
+												}}
 											>
 												{item.title}
 											</Typography>
-											<Typography variant="body2" color="text.secondary" lineHeight={1.7}>
+											<Typography
+												sx={{
+													fontSize: "0.85rem",
+													color: COLOR_CODE.TEXT_SOFT,
+													lineHeight: 1.7,
+												}}
+											>
 												{item.description}
 											</Typography>
 										</Box>
 									</Stack>
 
 									{index < TIMELINE.length - 1 && (
-										<Divider sx={{ borderColor: "rgba(38,38,38,0.1)" }} />
+										<Divider sx={{ borderColor: COLOR_CODE.INK_4 }} />
 									)}
 								</Box>
 							))}

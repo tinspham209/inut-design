@@ -73,7 +73,7 @@ const PortfolioItem: React.FC<{ image: string; index: number }> = ({ image, inde
 							fontFamily: typography.syne,
 							fontSize: "0.88rem",
 							fontWeight: 700,
-							color: "white",
+							color: colors.cream,
 							display: "block",
 						}}
 					>
@@ -126,7 +126,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ data }) => {
 								borderRadius: "99px",
 								border: `1.5px solid ${activeFilter === filter ? colors.orange : colors.ash}`,
 								bgcolor: activeFilter === filter ? colors.orange : "transparent",
-								color: activeFilter === filter ? "white" : colors.dust,
+								color: activeFilter === filter ? colors.cream : colors.dust,
 								fontFamily: typography.syne,
 								fontSize: "0.72rem",
 								fontWeight: 700,
@@ -138,7 +138,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ data }) => {
 								"&:hover": {
 									bgcolor: colors.orange,
 									borderColor: colors.orange,
-									color: "white",
+									color: colors.cream,
 								},
 							}}
 						>

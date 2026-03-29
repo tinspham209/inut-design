@@ -93,7 +93,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ data }) => {
 								"& .MuiChip-label": { px: 1.5, py: 0.5 },
 							}}
 						/>
-						<Typography variant="h6" sx={{ fontFamily: typography.syne, fontWeight: 700, color: "white", mb: 0.5 }}>
+						<Typography variant="h6" sx={{ fontFamily: typography.syne, fontWeight: 700, color: colors.cream, mb: 0.5 }}>
 							{displayHighlights[0]?.title}
 						</Typography>
 						<Typography variant="body2" sx={{ color: colors.smoke, lineHeight: 1.6 }}>
@@ -130,7 +130,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ data }) => {
 						{displayHighlights[1]?.icon || "⚡"}
 					</Box>
 					<Box>
-						<Typography variant="h6" sx={{ fontFamily: typography.syne, fontWeight: 700, color: "white", mb: 0.5 }}>
+						<Typography variant="h6" sx={{ fontFamily: typography.syne, fontWeight: 700, color: colors.cream, mb: 0.5 }}>
 							{displayHighlights[1]?.title}
 						</Typography>
 						<Typography variant="body2" sx={{ color: colors.smoke, lineHeight: 1.6 }}>
@@ -152,10 +152,10 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ data }) => {
 						justifyContent: "flex-end",
 					}}
 				>
-					<Typography sx={{ fontFamily: typography.syne, fontSize: "3.5rem", fontWeight: 800, color: "white", lineHeight: 1 }}>
+					<Typography sx={{ fontFamily: typography.syne, fontSize: "3.5rem", fontWeight: 800, color: colors.cream, lineHeight: 1 }}>
 						350+
 					</Typography>
-					<Typography variant="h6" sx={{ fontFamily: typography.syne, fontWeight: 700, color: "white", mb: 0.5 }}>
+					<Typography variant="h6" sx={{ fontFamily: typography.syne, fontWeight: 700, color: colors.cream, mb: 0.5 }}>
 						Mẫu thiết kế
 					</Typography>
 					<Typography variant="body2" sx={{ color: "rgba(255, 255, 255, 0.75)", lineHeight: 1.6 }}>
@@ -176,7 +176,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ data }) => {
 						{displayHighlights[2]?.icon || "📦"}
 					</Box>
 					<Box>
-						<Typography variant="h6" sx={{ fontFamily: typography.syne, fontWeight: 700, color: "white", mb: 0.5 }}>
+						<Typography variant="h6" sx={{ fontFamily: typography.syne, fontWeight: 700, color: colors.cream, mb: 0.5 }}>
 							{displayHighlights[2]?.title}
 						</Typography>
 						<Typography variant="body2" sx={{ color: colors.smoke, lineHeight: 1.6 }}>
@@ -227,7 +227,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ data }) => {
 						💎
 					</Box>
 					<Box>
-						<Typography variant="h6" sx={{ fontFamily: typography.syne, fontWeight: 700, color: "white", mb: 0.5 }}>
+						<Typography variant="h6" sx={{ fontFamily: typography.syne, fontWeight: 700, color: colors.cream, mb: 0.5 }}>
 							Chất Lượng Cao
 						</Typography>
 						<Typography variant="body2" sx={{ color: colors.smoke, lineHeight: 1.6 }}>
@@ -254,7 +254,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ data }) => {
 					</Box>
 					<Grid container spacing={4} alignItems="flex-end">
 						<Grid item xs={12} sm={6}>
-							<Typography variant="h6" sx={{ fontFamily: typography.syne, fontWeight: 700, color: "white", mb: 0.5 }}>
+							<Typography variant="h6" sx={{ fontFamily: typography.syne, fontWeight: 700, color: colors.cream, mb: 0.5 }}>
 								Hỗ Trợ Toàn Diện
 							</Typography>
 							<Typography variant="body2" sx={{ color: colors.smoke, lineHeight: 1.6 }}>
@@ -282,7 +282,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ data }) => {
 												placeItems: "center",
 												fontSize: "0.6rem",
 												fontWeight: 900,
-												color: "white",
+												color: colors.cream,
 												flexShrink: 0,
 											},
 										}}

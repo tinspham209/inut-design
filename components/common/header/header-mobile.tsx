@@ -66,11 +66,12 @@ export function HeaderMobile() {
 							<ListItemButton
 								onClick={() => {
 									trackHeaderNavigation(item.label, "Main Nav", "mobile");
-									toggleDrawer(false);
+									setOpen(false);
 								}}
 								sx={{
 									pl: level * 2 + 2,
 									flexGrow: 1,
+									borderRadius: 1,
 								}}
 								selected={isActive(item.path)}
 							>
@@ -80,7 +81,7 @@ export function HeaderMobile() {
 										fontWeight: level === 0 ? "bold" : "medium",
 										fontSize: level === 0 ? 16 : 14,
 										textTransform: level === 0 ? "uppercase" : "none",
-										color: isActive(item.path) ? COLOR_CODE.PRIMARY : "text.primary",
+										color: isActive(item.path) ? COLOR_CODE.PRIMARY : COLOR_CODE.WHITE,
 									}}
 								/>
 							</ListItemButton>
@@ -98,7 +99,11 @@ export function HeaderMobile() {
 				</ListItem>
 				{hasChildren && (
 					<Collapse in={isExpanded} timeout="auto" unmountOnExit>
-						<List component="div" disablePadding sx={{ backgroundColor: "rgba(0,0,0,0.02)" }}>
+						<List
+							component="div"
+							disablePadding
+							sx={{ backgroundColor: COLOR_CODE.SURFACE_ELEVATED }}
+						>
 							{item.children?.map((child) => renderNavItem(child, level + 1))}
 						</List>
 					</Collapse>
@@ -116,10 +121,11 @@ export function HeaderMobile() {
 				position: "fixed",
 				top: 0,
 				width: "100%",
-				backgroundColor: "white",
+				backgroundColor: "rgba(8, 7, 6, 0.92)",
+				backdropFilter: "blur(16px)",
 				zIndex: 99,
-				borderBottom: `1px solid ${COLOR_CODE.BORDER}`,
-				boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+				borderBottom: `1px solid ${COLOR_CODE.BORDER_DARK}`,
+				boxShadow: "0 10px 24px rgba(8, 7, 6, 0.16)",
 			}}
 		>
 			<Container maxWidth="lg">
@@ -128,7 +134,7 @@ export function HeaderMobile() {
 						<IconButton
 							onClick={toggleDrawer(true)}
 							sx={{
-								color: COLOR_CODE.TEXT_DARK,
+								color: COLOR_CODE.WHITE,
 								p: 0,
 							}}
 							type="button"
@@ -151,6 +157,7 @@ export function HeaderMobile() {
 								fontSize: "0.75rem",
 								fontWeight: "bold",
 								textTransform: "uppercase",
+								letterSpacing: "0.06em",
 							}}
 						>
 							Báo giá
@@ -168,6 +175,8 @@ export function HeaderMobile() {
 							maxWidth: 320,
 							display: "flex",
 							flexDirection: "column",
+							backgroundColor: COLOR_CODE.INK,
+							color: COLOR_CODE.WHITE,
 						},
 					}}
 				>
@@ -175,13 +184,13 @@ export function HeaderMobile() {
 						sx={{ p: 2, display: "flex", justifyContent: "space-between", alignItems: "center" }}
 					>
 						<Image src={"/branding/logo.webp"} alt="logo" width={103} height={32} />
-						<IconButton onClick={toggleDrawer(false)}>
+						<IconButton onClick={toggleDrawer(false)} sx={{ color: COLOR_CODE.WHITE }}>
 							<CloseIcon />
 						</IconButton>
 					</Box>
-					<Divider />
+					<Divider sx={{ borderColor: COLOR_CODE.BORDER_DARK }} />
 					<List sx={{ flexGrow: 1, py: 0 }}>{ROUTE_LIST.map((route) => renderNavItem(route))}</List>
-					<Divider />
+					<Divider sx={{ borderColor: COLOR_CODE.BORDER_DARK }} />
 					<Box sx={{ p: 2 }}>
 						{ROUTE_LIST.filter((r) => r.isButton).map((route) => (
 							<Link key={route.path} href={route.path} passHref>
@@ -193,6 +202,7 @@ export function HeaderMobile() {
 										py: 1.5,
 										fontWeight: "bold",
 										textTransform: "uppercase",
+										letterSpacing: "0.06em",
 									}}
 								>
 									{route.label}

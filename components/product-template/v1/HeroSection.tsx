@@ -1,4 +1,5 @@
 import { Box, Button, Chip, Container, Grid, Stack, Typography } from "@mui/material";
+import { COLOR_CODE } from "@/utils/theme";
 import Image from "next/image";
 import React from "react";
 
@@ -20,7 +21,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 	return (
 		<Box
 			sx={{
-				bgcolor: "#1a1f2b", // Dark navy background matching screenshot
+				bgcolor: COLOR_CODE.INK,
 				color: "white",
 				overflow: "hidden",
 			}}

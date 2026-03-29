@@ -16,6 +16,7 @@ import { NextPageWithLayout } from "@/models/common";
 import { trackViewProduct } from "@/utils/analytics";
 import { formatPrice, getPriceTierOptions } from "@/utils/priceCalculator";
 import { MERCHANT_LISTING_CONFIG } from "@/utils/seo-constants";
+import { COLOR_CODE } from "@/utils";
 import { Box, Card, CardContent, Container, Grid, Typography } from "@mui/material";
 import { GetStaticPaths, GetStaticProps } from "next";
 import dynamic from "next/dynamic";
@@ -141,15 +142,27 @@ const LighterDetail: NextPageWithLayout = ({
 					],
 				}}
 			/>
-			<Box component="section" sx={{ pt: 2 }}>
+			<Box component="section" sx={{ pt: 2, bgcolor: COLOR_CODE.INK }}>
 				<Container maxWidth="lg">
 					<BreadcrumbsNav lighterName={lighter.name} lighterSlug={lighter.slug.current} />
 					<Grid container spacing={3}>
 						<Grid item xs={12} md={6}>
 							<Gallery images={galleryImages} productName={lighter.name} />
-							<Card variant="outlined" sx={{ mt: 3, borderRadius: 2 }}>
+							<Card
+								sx={{
+									mt: 3,
+									borderRadius: 2,
+									bgcolor: COLOR_CODE.INK_3,
+									border: `1px solid ${COLOR_CODE.INK_4}`,
+								}}
+							>
 								<CardContent>
-									<Typography variant="subtitle1" fontWeight={600} gutterBottom>
+									<Typography
+										variant="subtitle1"
+										fontWeight={600}
+										gutterBottom
+										sx={{ color: COLOR_CODE.WHITE }}
+									>
 										Cam Kết Mua Sản Phẩm tại INUT
 									</Typography>
 									<Box mt={1}>
@@ -163,11 +176,10 @@ const LighterDetail: NextPageWithLayout = ({
 								sx={{
 									position: { md: "sticky" },
 									top: { md: 90 },
-									border: "1px solid",
-									borderColor: "divider",
+									border: `1px solid ${COLOR_CODE.INK_4}`,
 									borderRadius: 2,
 									p: 2.5,
-									backgroundColor: "background.paper",
+									backgroundColor: COLOR_CODE.INK_3,
 								}}
 							>
 								<InfoPanel lighter={lighter} lighterType={lighterType} priceRange={priceRange} />

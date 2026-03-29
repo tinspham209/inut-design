@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { COLOR_CODE } from "@/utils";
 
 const Carousel = dynamic(() => import("react-material-ui-carousel"), { ssr: false });
 
@@ -41,8 +42,14 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ products }) => {
 	}, [products, itemsPerPage]);
 
 	return (
-		<Box component="section" pt={2} mt={2}>
-			<Typography variant="h3" mt={2} fontWeight="bold" textAlign="center">
+		<Box component="section" sx={{ pt: 2, mt: 2, bgcolor: COLOR_CODE.INK_2 }}>
+			<Typography
+				variant="h3"
+				mt={2}
+				fontWeight="800"
+				textAlign="center"
+				sx={{ color: COLOR_CODE.WHITE, letterSpacing: "-0.04em" }}
+			>
 				Có thể bạn sẽ thích
 			</Typography>
 			<Box sx={{ maxWidth: "100%", overflow: "hidden", px: { xs: 2, md: 4 }, py: 4 }}>
@@ -57,10 +64,10 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ products }) => {
 					sx={{
 						minHeight: 350,
 						"& .MuiButtonBase-root": {
-							backgroundColor: "rgba(0,0,0,0.1)",
-							color: "black",
+							backgroundColor: COLOR_CODE.INK_3,
+							color: COLOR_CODE.WHITE,
 							"&:hover": {
-								backgroundColor: "rgba(0,0,0,0.2)",
+								backgroundColor: COLOR_CODE.INK_4,
 							},
 						},
 					}}
@@ -102,7 +109,7 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ products }) => {
 												fontWeight="bold"
 												textAlign="center"
 												sx={{
-													color: "text.primary",
+													color: COLOR_CODE.WHITE,
 													whiteSpace: "nowrap",
 													textOverflow: "ellipsis",
 													overflow: "hidden",

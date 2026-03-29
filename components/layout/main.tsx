@@ -8,7 +8,7 @@ export function MainLayout({ children }: LayoutProps) {
 			<Header />
 			<article>
 				<Stack minHeight="100vh">
-					<Box component="main" flexGrow={1} mt={8}>
+					<Box component="main" flexGrow={1} mt="72px">
 						{children}
 					</Box>
 
