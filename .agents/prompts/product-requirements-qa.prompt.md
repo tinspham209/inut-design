@@ -1,3 +1,8 @@
+---
+description: "Gather structured requirements before generating a product page from content.md — confirms category, images, CTA, highlights, and SEO metadata"
+agent: inut-maintainer
+---
+
 # Product Page Requirements Q&A
 
 Use this prompt template to gather requirements before generating a new product page.

@@ -1,6 +1,6 @@
 ---
 description: "Generate or update blog markdown content in Inut Design format with valid frontmatter and SEO-aware structure"
-agent: inut-maintainer
+agent: inut-content-writer
 ---
 
 Create or update blog posts for this repository.

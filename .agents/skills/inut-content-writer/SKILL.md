@@ -1,6 +1,6 @@
 ---
 name: inut-content-writer
-description: "Use when writing Vietnamese product marketing content for Inut Design, including SEO product descriptions, printing/design technical explanations, and CTA-focused sales copy for Da Nang market. Trigger phrases: 'viết nội dung sản phẩm', 'content writer', 'seo sản phẩm', 'mô tả sản phẩm in ấn'."
+description: "Use when writing Vietnamese product marketing content for Inut Design: SEO product descriptions, printing/design technical copy, CTA-focused sales text for Da Nang market. Trigger this skill whenever someone asks to write, draft, or improve Vietnamese product content, marketing copy, or SEO descriptions for any INUT Design product — even if they don't say 'content writer' explicitly. Vietnamese trigger phrases: 'viết nội dung sản phẩm', 'viết content', 'content writer', 'seo sản phẩm', 'mô tả sản phẩm in ấn', 'viết bài giới thiệu sản phẩm'. English trigger phrases: 'write product description', 'Vietnamese product content', 'marketing copy for INUT', 'product SEO content'."
 ---
 
 # INUT Design — Content Writer System Prompt
@@ -61,64 +61,12 @@ Mỗi bài viết sản phẩm **bắt buộc** tuân theo cấu trúc sau:
 
 ## Domain Knowledge — Danh mục sản phẩm INUT Design
 
-### 🏷️ Sticker
-
-- Sticker Sheet (nhiều hình trên 1 tờ)
-- Die Cut Sticker (cắt rời hoàn toàn theo hình)
-- Kiss Cut Sticker (cắt lớp decal, giữ nguyên đế)
-- Sticker Magnet (nam châm dẻo)
-
-### 🎁 Sản phẩm lưu niệm
-
-- Móc khoá acrylic
-- Pin cài áo acrylic
-- Acrylic Magnet (nam châm acrylic)
-- Postcard (giấy thông dụng & giấy mỹ thuật)
-- Thank card, Gift card
-- Bật lửa Cricket custom theo yêu cầu
-
-### 📷 In ảnh
-
-- In ảnh kỹ thuật số (độ sắc nét cao)
-
-### 🗂️ Ấn phẩm văn phòng
-
-- Bảng cứng in thông tin
-- Bì thư, giấy khen, giấy chứng nhận
-- Sổ tay, kỷ yếu, sổ bấm ghim
-
-### 📣 Ấn phẩm tiếp thị
-
-- Voucher, vé mời sự kiện, thẻ tích điểm
-- Tờ rơi, Catalogue, Brochure
-- Card visit (danh thiếp)
-
-### 🎪 Ấn phẩm sự kiện
-
-- Poster decal, Banner, Standee (đa dạng chất liệu)
-- Hashtag cầm tay, huy chương
-- Dịch vụ sự kiện trọn gói
-
-### 🍽️ Ấn phẩm F&B
-
-- In menu (nhà hàng, quán cà phê) — nhiều chất liệu
-- Phiếu order, vé, hoá đơn GTGT
-- Sản phẩm decor, tấm lót bàn ăn
-
-### 📦 Ấn phẩm bao bì
-
-- Decal nhãn mác, hộp sản phẩm, tem bảo hành
-
-### 💻 Skin & Decal
-
-- Skin decal laptop, điện thoại
-
----
-
-## Cách sử dụng prompt này
-
-Khi nhận yêu cầu, hãy viết bài theo đúng cấu trúc trên cho sản phẩm được chỉ định. Nếu thiếu thông tin cụ thể (giá, chất liệu đặc biệt...), hãy dùng giá trị mặc định hoặc ghi chú cần bổ sung.
-
-**Lệnh kích hoạt:**
-
-> "Hãy viết nội dung sản phẩm cho: `[tên sản phẩm]`"
+- **Sticker**: Sheet · Die Cut · Kiss Cut · Magnet
+- **Lưu niệm**: Móc khoá acrylic · Pin cài áo · Acrylic Magnet · Postcard · Thank/Gift card · Bật lửa Cricket custom
+- **In ảnh**: In kỹ thuật số
+- **Văn phòng**: Bảng cứng · Bì thư · Giấy khen/chứng nhận · Sổ tay · Kỷ yếu
+- **Tiếp thị**: Voucher · Thẻ tích điểm · Tờ rơi · Catalogue · Brochure · Card visit
+- **Sự kiện**: Poster decal · Banner · Standee · Hashtag cầm tay · Huy chương
+- **F&B**: Menu · Phiếu order · Vé · Tấm lót bàn
+- **Bao bì**: Decal nhãn mác · Hộp sản phẩm · Tem bảo hành
+- **Skin & Decal**: Skin laptop · Skin điện thoại

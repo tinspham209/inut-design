@@ -1,6 +1,11 @@
 ---
 description: "Use when implementing or changing analytics events, GTM/GA tracking, or conversion instrumentation"
-applyTo: "utils/analytics.ts,pages/**/*.{ts,tsx,js,jsx},components/**/*.{ts,tsx,js,jsx},docs/ANALYTICS_GUIDE.md"
+applyTo:
+  - "utils/analytics.ts"
+  - "utils/umamiAnalytics.ts"
+  - "pages/**/*.{ts,tsx,js,jsx}"
+  - "components/**/*.{ts,tsx,js,jsx}"
+  - "docs/ANALYTICS_GUIDE.md"
 ---
 
 # Analytics Instructions (Inut Design)

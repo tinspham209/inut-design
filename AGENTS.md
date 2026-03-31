@@ -1,104 +1,90 @@
-# Inut Design — AI Agent Playbook (Editor-Agnostic)
+# Inut Design — AI Agent Playbook
 
-This file defines the **shared working contract** for AI assistants used in this repository, including:
+> Editor-agnostic baseline for GitHub Copilot, Trae, Antigravity, and Codex. Treat this as the primary behavior contract if your editor supports `AGENTS.md`.
 
-- GitHub Copilot in VS Code
-- Trae IDE (AI-native)
-- Antigravity Editor assistants
-- Codex IDE assistants
+**Stack:** Next.js 12 · React 18 · TypeScript (`strict: false`) · MUI v5 · Sanity v2 · Zustand · **pnpm** · Node 22+
 
-If an editor supports `AGENTS.md`, treat this file as the primary repo behavior baseline.
+---
 
 ## Mission
 
 Ship safe, minimal, production-friendly changes for Inut Design.
 
-## Core priorities
+## Core Priorities
 
 1. Protect business-critical flows: cart, checkout, order confirmation, contact.
 2. Preserve Sanity data contracts and reference integrity.
-3. Keep dual analytics (GA4 + UmamiJS) consistent and ensure tracking is added for new behaviors/pages/elements. Avoid duplicate event firing.
-4. Reuse existing project patterns before introducing new abstractions.
+3. Keep dual analytics (GA4 + UmamiJS) consistent — add tracking for every new behavior, page, or element. Never duplicate events.
+4. Reuse existing project patterns before introducing abstractions.
 5. Keep TypeScript compatible with `strict: false`.
 
-## Required implementation behavior
+## Implementation Rules
 
-- Investigate before editing: locate dependent files and shared contracts.
-- Make small, incremental edits.
-- Prefer existing helpers (`api-client/*`, `utils/analytics.ts`, `utils/priceCalculator.ts`).
-- Keep `@/` import alias style.
-- Avoid broad formatting churn or unrelated refactors.
+- Investigate before editing — read dependents and contracts first.
+- Make small, incremental edits. No broad rewrites.
+- Use existing helpers: `api-client/*`, `utils/analytics.ts`, `utils/umamiAnalytics.ts`, `utils/priceCalculator.ts`.
+- Import alias: `@/`. Never hardcode secrets.
 
-## Domain guardrails
+---
 
-### Cart/Checkout
+## Domain Guardrails
 
-- Do not change localStorage key: `inut-lighters-cart`.
-- Preserve pricing recalculation behavior on quantity updates.
-- Keep order payload shape compatible with Sanity.
-- Every Sanity array item written must include `_key`.
-
-Canonical order item shape:
-
-```ts
-{
-  _key: `${productId}-${lighterTypeId}-${timestamp}-${index}`,
-  product: { _ref: productId, _type: "reference" },
-  lighterType: { _ref: lighterTypeId, _type: "reference" },
-  quantity: number,
-  unitPrice: number,
-  subtotal: number,
-}
-```
+### Cart / Checkout
+- localStorage key is `inut-lighters-cart` — do not change.
+- Every Sanity array item must include `_key`.
+- Canonical order item: `{ _key, product: { _ref, _type }, lighterType: { _ref, _type }, quantity, unitPrice, subtotal }`.
 
 ### Analytics
-
-- **MANDATORY**: Always create tracking events when adding new behaviors, new pages, or new interactive elements.
-- Use `utils/analytics.ts` and `utils/umamiAnalytics.ts` as the unified tracking gateway.
-- Fire at user action source (click/submit/view).
-- Avoid duplicate events from rerenders/effects.
-- **Tracked Categories**: E-commerce, Conversions, Engagement, and Content (Services, Blog).
+- **Always** add tracking events for new behaviors, pages, and interactive elements.
+- Gateway: `utils/analytics.ts` (GA4) and `utils/umamiAnalytics.ts` (UmamiJS).
+- Fire at action source (click/submit/view). Never from effects/rerenders.
+- Critical events that must never regress: `order_button_click`, `contact_click`, `zalo_click`, `form_submit`, `purchase`, `cta_click`.
 
 ### Blog
-
-- Keep frontmatter required fields: `slug`, `title`, `tags`, `date`.
-- Use filename format: `YYYY-MM-DD-slug.md`.
+- Required frontmatter: `slug`, `title`, `tags`, `date`. Filename: `YYYY-MM-DD-slug.md`.
+- Do not rename existing files without redirect handling.
 
 ### Sanity
+- Never hardcode project id, dataset, or tokens.
+- Keep GROQ projections explicit and minimal. Maintain `_ref` / `->` integrity.
 
-- Preserve env-driven Sanity config.
-- Keep GROQ projections explicit and minimal.
-- Maintain reference integrity (`_ref`, `->` shape compatibility).
+---
 
-### Browser Automation
+## Verification
 
-- **MANDATORY**: Use `agent-browser` for UI verification of critical flows (cart/checkout/blog).
-- Always prefer `agent-browser snapshot -i` for token efficiency.
-- Follow the workflow in `.agents/skills/agent-browser-automation/SKILL.md`.
+```
+pnpm lint → pnpm build (if routing/runtime changed) → manual flow check
+```
 
-## Verification order
+---
 
-1. `pnpm lint`
-2. `pnpm build` (when routing/runtime/shared logic changed)
-3. Manual flow checks for touched areas (cart/checkout/blog/contact)
+## Skills & Workflows
 
-## Where to find task workflows
+Skills: `.agents/skills/<name>/SKILL.md` · Workflows: `.agents/workflows/<name>.md`
 
-- Shared docs for all editors: `docs/ai/DUAL_EDITOR_WORKFLOW.md`
-- Portable prompt pack: `docs/ai/PORTABLE_PROMPTS.md`
-- Trae/Cursor rules: `.cursorrules`, `.traerules` (symlinked to `.agents/instructions/global-rules.md`)
-- Antigravity-native assets: `.agents/workflows/*` (use `/` inside Antigravity to run them)
-- Copilot-native assets: `.github/copilot-instructions.md`, `.github/prompts/*`, `.github/skills/*`, `.github/agents/*`
+| Name                           | Type     | Use when                                             |
+| ------------------------------ | -------- | ---------------------------------------------------- |
+| `inut-design-workflow`         | skill    | Any cart, Sanity, analytics, or blog change          |
+| `inut-content-writer`          | skill    | Writing Vietnamese SEO product content               |
+| `inut-product-page-automation` | skill    | New product page from scratch (no content.md yet)    |
+| `product-page-generator`       | skill    | Convert existing `content.md` → route                |
+| `agent-browser-automation`     | skill    | Browser verification, screenshots, regression checks |
+| `autoresearch`                 | skill    | Autonomous metric-driven optimization loop           |
+| `skill-creator`                | skill    | Create or improve skills                             |
+| `add-feature`                  | workflow | Safe feature implementation plan                     |
+| `fix-bug`                      | workflow | Root-cause-first bug fix                             |
+| `checkout-regression-check`    | workflow | Audit cart/checkout risk before merge                |
 
-## Multi-editor compatibility policy
+---
 
-- Keep all trees available for native IDE ingestion:
-  - Trae reads `.cursorrules` and `.traerules`.
-  - Copilot reads `.github/*`.
-  - Antigravity reads `.agents/{agents,prompts,skills,workflows,instructions}/*`.
-  - `.codex/{agents,prompts,skills,workflows,instructions}` are symlinked to `.agents/` equivalents.
-- **CRITICAL GOVERNANCE**:
-  - Do NOT create new files in `.trae/`. 
-  - All AI instructions, skills, agents, and prompts MUST be created exclusively in the `.agents/` directory structure.
-  - Symbolic links are used to bridge `.agents/` to specific IDE environments (`.trae/`, `.github/`, `.codex/`).
-  - For every new skill or prompt file created in `.agents/`, ensure the corresponding symlink exists in all target IDE folders.
+## Governance
+
+All AI files are **authored in `.agents/`** and symlinked to IDEs. Never create files directly in `.github/`, `.trae/`, or `.codex/`.
+
+| IDE            | Reads from                                                            |
+| -------------- | --------------------------------------------------------------------- |
+| GitHub Copilot | `.github/` → symlink → `.agents/`                                     |
+| Trae / Cursor  | `.cursorrules`, `.traerules` → `.agents/instructions/global-rules.md` |
+| Antigravity    | `.agents/{agents,prompts,skills,workflows,instructions}/`             |
+| Codex          | `.codex/` → symlink → `.agents/`                                      |
+
