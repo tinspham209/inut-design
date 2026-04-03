@@ -555,22 +555,22 @@ export const STICKER_MAGNET_DATA: ProductPageData = {
 			{
 				name: "Magnet tủ lạnh",
 				description: "Trang trí bếp, ghi chú, in ảnh gia đình.",
-				image: HERO_IMAGE,
+				image: `/services/sticker/sticker-magnet/8.avif`,
 			},
 			{
 				name: "Magnet quảng cáo",
 				description: "In logo dán lên phương tiện hoặc thiết bị.",
-				image: HERO_IMAGE,
+				image: `/services/sticker/sticker-magnet/13.avif`,
 			},
 			{
 				name: "Magnet vận hành",
 				description: "Dán hướng dẫn, quy trình lên máy móc kim loại.",
-				image: HERO_IMAGE,
+				image: `/services/sticker/sticker-magnet/5.avif`,
 			},
 			{
 				name: "Magnet quà tặng",
 				description: "Lưu niệm độc đáo, in theo sự kiện hoặc thương hiệu.",
-				image: HERO_IMAGE,
+				image: `/services/sticker/sticker-magnet/15.avif`,
 			},
 		],
 	},
@@ -668,7 +668,7 @@ export const STICKER_MAGNET_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Sản phẩm thực tế",
 		title: "Hít lên — Đẹp ngay",
-		images: Array.from({ length: 4 }).map(
+		images: Array.from({ length: 16 }).map(
 			(_, index) => `/services/sticker/sticker-magnet/${index + 1}.avif`
 		),
 		filters: [],
