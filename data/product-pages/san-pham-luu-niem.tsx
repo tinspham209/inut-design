@@ -681,7 +681,7 @@ export const PIN_CAI_AO_MICA_DATA: ProductPageData = {
 		description:
 			"In pin cài áo mica (acrylic badge) UV sắc nét, cắt laser chuẩn từng đường — giao 3–4 ngày. Phụ kiện fan merch, sự kiện, local brand. Đặt từ 10 cái, báo giá trong 15 phút.",
 		url: "https://inutdesign.com/services/an-pham-luu-niem/pin-cai-ao-mica",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/an-pham-luu-niem/pin-cai-ao-mica/1.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -771,22 +771,22 @@ export const PIN_CAI_AO_MICA_DATA: ProductPageData = {
 			{
 				name: "Fan Club & Merch",
 				description: "Goods theo artwork, sản xuất theo set.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-luu-niem/pin-cai-ao-mica/2.avif`,
 			},
 			{
 				name: "Doanh nghiệp & Sự kiện",
 				description: "Pin nhận diện nhân sự, check-in event.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-luu-niem/pin-cai-ao-mica/20.avif`,
 			},
 			{
 				name: "Shop Thời Trang",
-				description: "Phụ kiện cài túi, tăng giá trị đơn hàng.",
-				image: HERO_IMAGE,
+				description: "Phụ kiện cài mũ, túi, áo, tăng giá trị đơn hàng.",
+				image: `/services/an-pham-luu-niem/pin-cai-ao-mica/3.avif`,
 			},
 			{
 				name: "Artist & Creator",
 				description: "Bán pin theo bộ sưu tập cá nhân.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-luu-niem/pin-cai-ao-mica/18.avif`,
 			},
 		],
 	},
@@ -883,7 +883,7 @@ export const PIN_CAI_AO_MICA_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Sản phẩm thực tế",
 		title: "Mẫu pin đã sản xuất",
-		images: Array.from({ length: 5 }).map(
+		images: Array.from({ length: 24 }).map(
 			(_, index) => `/services/an-pham-luu-niem/pin-cai-ao-mica/${index + 1}.avif`
 		),
 		filters: [],
