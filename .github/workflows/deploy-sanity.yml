@@ -1,0 +1,63 @@
+name: Deploy Sanity Studio
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy Sanity
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: deploy-sanity-${{ github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install Sanity CLI
+        run: |
+          echo "Installing Sanity CLI v2..."
+          npm install -g @sanity/cli@^2
+          sanity --version
+
+      - name: Install dependencies in Sanity directory
+        working-directory: ./sanity
+        run: |
+          echo "Installing Sanity dependencies..."
+          sanity install
+          pnpm install
+
+      - name: Deploy to Sanity
+        working-directory: ./sanity
+        env:
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+        run: |
+          if [ -z "$SANITY_AUTH_TOKEN" ]; then
+            echo "Error: SANITY_AUTH_TOKEN is not set in GitHub Secrets."
+            exit 1
+          fi
+          echo "Starting deployment to Sanity..."
+          sanity deploy --yes
+
+      - name: Success Notification
+        if: success()
+        run: echo "Successfully deployed Sanity Studio to ${{ github.event.inputs.environment }}."
+
+      - name: Failure Notification
+        if: failure()
+        run: |
+          echo "Deployment failed!"
+          exit 1
