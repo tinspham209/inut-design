@@ -24,11 +24,14 @@ import {
 	TextareaAutosize,
 	TextField,
 	Typography,
+	Link as MuiLink,
 } from "@mui/material";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import LinkIcon from "@mui/icons-material/Link";
 
 const USAGE_PURPOSE_OPTIONS = [
 	{ title: "Kinh doanh", value: UsagePurposeValue.KINH_DOANH },
@@ -87,6 +90,7 @@ export default function QuoteRequestFormComponent() {
 
 	const router = useRouter();
 	const fromQuery = router.query.from as string;
+	const noteQuery = router.query.note as string;
 
 	const {
 		control,
@@ -122,15 +126,17 @@ export default function QuoteRequestFormComponent() {
 		if (fromQuery && Object.values(UsagePurposeValue).includes(fromQuery as UsagePurposeValue)) {
 			setValue("usagePurpose", fromQuery as UsagePurposeValue, { shouldValidate: true });
 		}
-	}, [fromQuery, setValue]);
+		if (noteQuery) {
+			setValue("notes", noteQuery, { shouldValidate: true });
+		}
+	}, [fromQuery, noteQuery, setValue]);
 
 	const onSubmit = async (data: CreateQuoteRequestInput) => {
 		try {
-			console.log("data: ", data);
 			const result = await submit(data);
 
 			// Track successful quote request submission
-			trackFormSubmit("quote_request");
+			trackFormSubmit("quote_request", data.usagePurpose);
 
 			toast.success("Gửi yêu cầu báo giá thành công!");
 
@@ -337,7 +343,13 @@ export default function QuoteRequestFormComponent() {
 											fullWidth
 											label="Model thiết bị"
 											placeholder={"Ví dụ: MacBook Air 13, iPhone 15..."}
-											helperText="Giúp chúng tôi báo giá chính xác hơn"
+											helperText={
+												<Link passHref href="/blog/huong-dan-xem-doi-may-ten-model-may-tinh-laptop">
+													<MuiLink target="_blank">
+														Hướng dẫn xem đời máy, tên model máy tính Laptop
+													</MuiLink>
+												</Link>
+											}
 										/>
 									)}
 								/>

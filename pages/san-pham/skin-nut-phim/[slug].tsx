@@ -6,7 +6,7 @@ import { Seo } from "@/components/common";
 import BlockContentWrapper from "@/components/common/block-content";
 import { Portal } from "@/components/common/Portal";
 import { MainLayout } from "@/components/layout";
-import { StaticContentEachPage } from "@/models";
+import { StaticContentEachPage, UsagePurposeValue } from "@/models";
 import { Product, Products } from "@/models/products";
 import { trackOrderButtonClick, trackViewProduct } from "@/utils/analytics";
 import { MERCHANT_LISTING_CONFIG } from "@/utils/seo-constants";
@@ -98,7 +98,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 	}, [products, itemsPerPage]);
 
 	return (
-		<>
+		<Box component={"section"} sx={{ bgcolor: COLOR_CODE.INK, mt: "-16px", pt: "16px" }}>
 			<Seo
 				data={{
 					title: `${product.name} - Skin Nút Phím - Sản phẩm - INUT Design`,
@@ -126,7 +126,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 					/>
 				</Portal>
 			)}
-			<Box component={"section"} sx={{ bgcolor: COLOR_CODE.INK }}>
+			<Box>
 				<Container>
 					<Breadcrumbs
 						sx={{
@@ -227,12 +227,13 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 									xs: 2,
 									md: 2,
 								}}
+								sx={{ color: COLOR_CODE.WHITE }}
 							>
 								{product.name}
 							</Typography>
 
 							<Stack flexDirection={"row"} alignItems={"center"} mt={2}>
-								<Typography variant="body1" fontWeight={"bold"}>
+								<Typography variant="body1" fontWeight={"bold"} sx={{ color: COLOR_CODE.WHITE }}>
 									Tình trạng:
 								</Typography>
 								<Typography variant="body1" fontWeight={"bold"} color={"success.light"} ml={2}>
@@ -240,7 +241,19 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 								</Typography>
 							</Stack>
 
-							<Stack flexDirection="row" alignItems={"center"} mt={2}>
+							<Stack flexDirection="row" alignItems={"center"} mt={2} gap={2}>
+								<Link
+									href={`/contact/form?from=${
+										UsagePurposeValue.MACNUT_CUSTOMIZE
+									}&note=${encodeURIComponent(`Tôi muốn dán skin nút phím mẫu: ${product.name}`)}`}
+									passHref
+								>
+									<MuiLink>
+										<Button variant="contained" color="primary">
+											Đặt hàng
+										</Button>
+									</MuiLink>
+								</Link>
 								<MuiLink
 									href={`https://m.me/642209429738886?text=${encodeURI(
 										`I want to order product macnut ${product.name}. Can you support me?`
@@ -249,33 +262,26 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 									rel="noopener noreferrer"
 								>
 									<Button
-										variant="contained"
+										variant="outlined"
 										color="primary"
-										sx={{ mr: 2 }}
 										onClick={() => {
 											trackOrderButtonClick(product.name, "skin macnut");
 										}}
 									>
-										Đặt hàng
+										Liên hệ tư vấn
 									</Button>
 								</MuiLink>
-								<Link href="/contact" passHref>
-									<MuiLink>
-										<Button variant="outlined" color="primary">
-											Liên hệ tư vấn
-										</Button>
-									</MuiLink>
-								</Link>
 							</Stack>
 							<Box py={3}>
-								<Typography variant="h6" fontWeight={"bold"}>
+								<Typography variant="h6" fontWeight={"bold"} sx={{ color: COLOR_CODE.WHITE }}>
 									Mô tả sản phẩm:
 								</Typography>
-								<Box mt={1}>
+								<Box mt={1} sx={{ color: COLOR_CODE.TEXT_MUTED }}>
 									<BlockContentWrapper blocks={staticContent?.moTaSanPham} />
 								</Box>
-								<Typography variant="body1" mt={1}>
-									<b>Mô tả thêm</b>: {product.details}
+								<Typography variant="body1" mt={1} sx={{ color: COLOR_CODE.WHITE }}>
+									<strong>Mô tả thêm</strong>:{" "}
+									<span style={{ color: COLOR_CODE.TEXT_MUTED }}>{product.details}</span>
 								</Typography>
 							</Box>
 						</Grid>
@@ -289,10 +295,10 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 				</Box>
 				<Container>
 					<Box py={4}>
-						<Typography variant="h6" fontWeight={"bold"}>
+						<Typography variant="h6" fontWeight={"bold"} sx={{ color: COLOR_CODE.WHITE }}>
 							Cam Kết Mua Sản Phẩm tại INUT
 						</Typography>
-						<Box mt={1}>
+						<Box mt={1} sx={{ color: COLOR_CODE.TEXT_MUTED }}>
 							<BlockContentWrapper blocks={staticContent?.camKetMuaHang} />
 						</Box>
 					</Box>
@@ -388,7 +394,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 				</Box>
 				<Divider />
 			</Box>
-		</>
+		</Box>
 	);
 };
 

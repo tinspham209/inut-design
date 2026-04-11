@@ -435,13 +435,14 @@ export const trackAbandonedCheckout = (
  * Track contact form submission
  * @param formType - Type of form (quote, contact, etc.)
  */
-export const trackFormSubmit = (formType: string): void => {
+export const trackFormSubmit = (formType: string, product?: string): void => {
 	trackEvent("form_submit", {
 		form_type: formType,
+		product_name: product,
 	});
 
 	// Track to Umami
-	trackUmamiFormSubmit(formType);
+	trackUmamiFormSubmit(formType, product);
 };
 
 /**
