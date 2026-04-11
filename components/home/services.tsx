@@ -1,6 +1,5 @@
 import { ROUTE_LIST, RouteItem } from "@/components/common/header/routes";
 import { COLOR_CODE } from "@/utils";
-import { BRAND_COLORS } from "@/utils/design-tokens";
 import { trackEvent } from "@/utils/analytics";
 import {
 	Box,
@@ -42,42 +41,69 @@ function ServiceItemCard({ item }: { item: RouteItem }) {
 						bgcolor: COLOR_CODE.INK_3,
 						border: `1px solid ${COLOR_CODE.INK_4}`,
 						borderRadius: "12px",
-						p: { xs: 1.5, sm: 2 },
+						overflow: "hidden",
 						height: "100%",
-						minHeight: 90,
 						transition: "border-color 200ms, transform 200ms cubic-bezier(0.16,1,0.3,1)",
 						"&:hover": {
 							borderColor: "rgba(255,77,0,0.25)",
 							transform: "translateY(-3px)",
+							"& img": { transform: "scale(1.05)" },
 						},
 					}}
 				>
-					<Stack spacing={0.75} alignItems="flex-start">
-						<Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
+					{/* 4:3 Image Container */}
+					<Box sx={{ width: "100%", pt: "75%", position: "relative", overflow: "hidden" }}>
+						{item.meta?.image_url ? (
+							<Box
+								component="img"
+								src={item.meta.image_url}
+								alt={item.label}
+								sx={{
+									position: "absolute",
+									top: 0,
+									left: 0,
+									width: "100%",
+									height: "100%",
+									objectFit: "cover",
+									transition: "transform 0.5s ease",
+								}}
+							/>
+						) : (
 							<Box
 								sx={{
-									width: 40,
-									height: 40,
-									bgcolor: BRAND_COLORS.orangeLo,
-									borderRadius: "8px",
+									position: "absolute",
+									top: 0,
+									left: 0,
+									width: "100%",
+									height: "100%",
+									bgcolor: COLOR_CODE.INK_4,
 									display: "flex",
 									alignItems: "center",
 									justifyContent: "center",
 								}}
 							>
-								<Icon sx={{ color: COLOR_CODE.PRIMARY, fontSize: "1.25rem" }}>
-									{item.meta?.icon || "star"}
-								</Icon>
+								<Icon sx={{ color: COLOR_CODE.PRIMARY }}>star</Icon>
 							</Box>
-							{item.meta?.badge && (
-								<Chip
-									label={item.meta.badge}
-									size="small"
-									color="primary"
-									sx={{ fontSize: "0.6rem", height: 18 }}
-								/>
-							)}
-						</Stack>
+						)}
+
+						{item.meta?.badge && (
+							<Chip
+								label={item.meta.badge}
+								size="small"
+								color="primary"
+								sx={{
+									position: "absolute",
+									top: 8,
+									right: 8,
+									fontSize: "0.6rem",
+									height: 18,
+									zIndex: 1,
+								}}
+							/>
+						)}
+					</Box>
+
+					<Stack spacing={0.5} px="12px" py={1} alignItems="flex-start">
 						<Typography
 							sx={{
 								fontWeight: 700,
@@ -92,7 +118,7 @@ function ServiceItemCard({ item }: { item: RouteItem }) {
 						{item.meta?.description && (
 							<Typography
 								sx={{
-									display: { xs: "none", sm: "-webkit-box" },
+									display: "-webkit-box",
 									WebkitLineClamp: 2,
 									WebkitBoxOrient: "vertical",
 									overflow: "hidden",
@@ -125,16 +151,13 @@ function ServiceSubSection({ route, maxItems }: { route: RouteItem; maxItems: nu
 
 	return (
 		<Box>
-			<Stack direction="row" alignItems="center" justifyContent="space-between" mb={1.5} mt={0.5}>
-				<Stack direction="row" alignItems="center" spacing={1}>
-					<Icon sx={{ color: COLOR_CODE.PRIMARY, fontSize: "1.4rem" }}>
-						{route.meta?.icon || "folder"}
-					</Icon>
+			<Stack direction="row" alignItems="center" justifyContent="space-between" mb={2} mt={0.5}>
+				<Stack direction="row" alignItems="center" spacing={1.5}>
 					<Link href={route.path} passHref>
 						<MuiLink
 							underline="hover"
 							onClick={handleHeaderClick}
-							sx={{ color: COLOR_CODE.TEXT_MUTED, "&:hover": { color: COLOR_CODE.WHITE } }}
+							sx={{ color: COLOR_CODE.TEXT_SOFT, "&:hover": { color: COLOR_CODE.WHITE } }}
 						>
 							<Typography
 								sx={{
@@ -159,9 +182,9 @@ function ServiceSubSection({ route, maxItems }: { route: RouteItem; maxItems: nu
 				</Stack>
 			</Stack>
 
-			<Grid container spacing={1.5}>
+			<Grid container spacing={2}>
 				{items.map((item) => (
-					<Grid item xs={6} sm={cols} key={item.path}>
+					<Grid item xs={6} sm={3} key={item.path}>
 						<ServiceItemCard item={item} />
 					</Grid>
 				))}
@@ -220,14 +243,14 @@ export function ServicesSection({ id }: { id?: string }) {
 					</Typography>
 				</Box>
 
-				<Stack spacing={4}>
+				<Stack spacing={2}>
 					{categories.map(({ route, maxItems }, index) => (
 						<Box
 							key={route.path}
 							sx={
 								index < categories.length - 1
 									? {
-											pb: 4,
+											pb: 2,
 											borderBottom: `1px solid ${COLOR_CODE.INK_4}`,
 									  }
 									: undefined

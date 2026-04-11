@@ -9,14 +9,14 @@ export interface RouteItem {
 	 * @example
 	 * meta: {
 	 *   description: "Dịch vụ in sticker chất lượng cao",
-	 *   icon: "StickerIcon", // Used by resolver to map to a component
+	 *   image_url: "StickerIcon", // Used by resolver to map to a component
 	 *   badge: "Hot",
 	 *   image: "/images/services/sticker.jpg"
 	 * }
 	 */
 	meta?: {
 		description?: string;
-		icon?: string;
+		image_url?: string;
 		badge?: string;
 		image?: string;
 	};
@@ -41,7 +41,7 @@ export const ROUTE_LIST: RouteItem[] = [
 				path: "/san-pham/skin-laptop",
 				meta: {
 					description: "Trang trí và bảo vệ laptop với hàng ngàn mẫu skin độc đáo.",
-					icon: "laptop",
+					image_url: "/branding/services/skin-laptop.avif",
 				},
 			},
 			{
@@ -49,7 +49,7 @@ export const ROUTE_LIST: RouteItem[] = [
 				path: "/san-pham/skin-nut-phim",
 				meta: {
 					description: "Cá nhân hóa bàn phím laptop theo phong cách riêng của bạn.",
-					icon: "keyboard",
+					image_url: "/branding/services/skin-nut-phim.avif",
 				},
 			},
 			{
@@ -57,7 +57,7 @@ export const ROUTE_LIST: RouteItem[] = [
 				path: "/san-pham/lighters",
 				meta: {
 					description: "Bộ sưu tập bật lửa Cricket độc bản, in theo yêu cầu.",
-					icon: "local_fire_department",
+					image_url: "/assets/skin-bat-lua-customize.avif",
 					badge: "Bestseller",
 				},
 			},
@@ -73,34 +73,50 @@ export const ROUTE_LIST: RouteItem[] = [
 				path: "/services/sticker",
 				meta: {
 					description: "In sticker, decal các loại với công nghệ in UV sắc nét.",
-					icon: "sticky_note_2",
-					badge: "Bestseller",
+					image_url: "/services/sticker/thumbnail/root.avif",
+					// badge: "Bestseller",
 				},
 				children: [
 					{
 						label: "Sticker Sheet",
 						path: "/services/sticker/sticker-sheet",
-						meta: { description: "Nhiều sticker nhỏ trên cùng một tấm decal.", icon: "layers" },
+						meta: {
+							description: "Nhiều sticker nhỏ trên cùng một tấm decal.",
+							image_url: "/services/sticker/thumbnail/sticker-sheet.avif",
+						},
 					},
 					{
 						label: "Sticker Magnet",
 						path: "/services/sticker/sticker-magnet",
-						meta: { description: "Sticker nam châm dán tủ lạnh, xe hơi.", icon: "magnet" },
+						meta: {
+							description: "Sticker nam châm dán tủ lạnh, xe hơi.",
+							image_url: "/services/sticker/thumbnail/sticker-magnet.avif",
+						},
 					},
 					{
 						label: "Sticker Diecut",
 						path: "/services/sticker/sticker-diecut",
 						meta: {
 							description: "Cắt rời từng hình theo đường viền.",
-							icon: "content_cut",
-							badge: "Hot",
+							image_url: "/services/sticker/thumbnail/sticker-diecut.avif",
 						},
 					},
 					{
-						label: "Sticker Kisscut",
-						path: "/services/sticker/sticker-kisscut",
-						meta: { description: "Cắt màng decal nhưng giữ nguyên lớp đế.", icon: "border_style" },
+						label: "Sticker Pack",
+						path: "/services/sticker/sticker-pack",
+						meta: {
+							description: "Bộ sưu tập sticker độc đáo, in theo yêu cầu.",
+							image_url: "/services/sticker/thumbnail/sticker-pack.avif",
+						},
 					},
+					// {
+					// 	label: "Sticker Kisscut",
+					// 	path: "/services/sticker/sticker-kisscut",
+					// 	meta: {
+					// 		description: "Cắt màng decal nhưng giữ nguyên lớp đế.",
+					// 		image_url: "/services/sticker/thumbnail/sticker-kisscut.avif",
+					// 	},
+					// },
 				],
 			},
 			{
@@ -108,35 +124,40 @@ export const ROUTE_LIST: RouteItem[] = [
 				path: "/services/ca-nhan-hoa",
 				meta: {
 					description: "Biến những vật dụng hằng ngày thành quà tặng độc bản.",
-					icon: "auto_awesome",
-					badge: "Unique",
+					image_url: "/services/ca-nhan-hoa/thumbnail/root.avif",
 				},
 				children: [
 					{
 						label: "Skin Laptop",
 						path: "/services/ca-nhan-hoa/skin-laptop-customize",
-						meta: { description: "Tự thiết kế skin cho laptop của bạn.", icon: "laptop" },
+						meta: {
+							description: "Tự thiết kế skin cho laptop của bạn.",
+							image_url: "/services/ca-nhan-hoa/thumbnail/skin-laptop.avif",
+						},
 					},
 					{
 						label: "Skin Nút Phím",
 						path: "/services/ca-nhan-hoa/skin-nut-phim-customize",
-						meta: { description: "Tự thiết kế skin cho phím laptop.", icon: "keyboard" },
-					},
-					{
-						label: "Skin điện thoại",
-						path: "/services/ca-nhan-hoa/skin-dien-thoai-customize",
 						meta: {
-							description: "Cá nhân hóa ốp lưng hoặc dán skin điện thoại.",
-							icon: "smartphone",
-							badge: "New",
+							description: "Tự thiết kế skin cho phím laptop.",
+							image_url: "/services/ca-nhan-hoa/thumbnail/skin-nut-phim.avif",
 						},
 					},
+					// {
+					// 	label: "Skin điện thoại",
+					// 	path: "/services/ca-nhan-hoa/skin-dien-thoai-customize",
+					// 	meta: {
+					// 		description: "Cá nhân hóa ốp lưng hoặc dán skin điện thoại.",
+					// 		image_url: "",
+					// 		badge: "New",
+					// 	},
+					// },
 					{
 						label: "Bật lửa",
 						path: "/services/ca-nhan-hoa/skin-bat-lua-customize",
 						meta: {
 							description: "In hình cá nhân lên bật lửa Cricket.",
-							icon: "local_fire_department",
+							image_url: "/services/ca-nhan-hoa/thumbnail/lighter.avif",
 						},
 					},
 				],
@@ -146,8 +167,8 @@ export const ROUTE_LIST: RouteItem[] = [
 				path: "/services/an-pham-luu-niem",
 				meta: {
 					description: "Quà tặng lưu niệm, merchandise cho artist và doanh nghiệp.",
-					icon: "card_giftcard",
-					badge: "Pro",
+					image_url: "/services/an-pham-luu-niem/thumbnail/root.avif",
+					// badge: "Pro",
 				},
 				children: [
 					{
@@ -155,34 +176,48 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-luu-niem/acrylic-magnet",
 						meta: {
 							description: "Nam châm mica in UV cao cấp.",
-							icon: "vibration",
-							badge: "Trend",
+							image_url: "/services/an-pham-luu-niem/thumbnail/acrylic-magnet.avif",
 						},
 					},
 					{
 						label: "Móc khóa Mica",
 						path: "/services/an-pham-luu-niem/moc-khoa-mica",
-						meta: { description: "Móc khóa mica cắt theo hình yêu cầu.", icon: "vpn_key" },
+						meta: {
+							description: "Móc khóa mica cắt theo hình yêu cầu.",
+							image_url: "/services/an-pham-luu-niem/thumbnail/moc-khoa-mica.avif",
+						},
 					},
 					{
 						label: "Pin cài áo Mica",
 						path: "/services/an-pham-luu-niem/pin-cai-ao-mica",
-						meta: { description: "Pin cài áo (badge) mica in UV.", icon: "stars" },
+						meta: {
+							description: "Pin cài áo (badge) mica in UV.",
+							image_url: "/services/an-pham-luu-niem/thumbnail/pin-cai-ao-mica.avif",
+						},
 					},
 					{
 						label: "In Postcard",
 						path: "/services/an-pham-luu-niem/in-postcard",
-						meta: { description: "In bưu thiếp, thiệp chúc mừng.", icon: "mail" },
+						meta: {
+							description: "In bưu thiếp, thiệp chúc mừng.",
+							image_url: "/services/an-pham-luu-niem/thumbnail/in-postcard.avif",
+						},
 					},
 					{
 						label: "Thank card / Gift card",
 						path: "/services/an-pham-luu-niem/thank-card-gift-card",
-						meta: { description: "Thẻ cảm ơn, thẻ quà tặng khách hàng.", icon: "card_membership" },
+						meta: {
+							description: "Thẻ cảm ơn, thẻ quà tặng khách hàng.",
+							image_url: "/services/an-pham-luu-niem/thumbnail/thank-card-gift-card.avif",
+						},
 					},
 					{
 						label: "In ảnh ",
 						path: "/services/an-pham-luu-niem/in-anh-da-nang",
-						meta: { description: "In ảnh tại Đà Nẵng.", icon: "photo" },
+						meta: {
+							description: "In ảnh tại Đà Nẵng.",
+							image_url: "/services/an-pham-luu-niem/thumbnail/in-anh.avif",
+						},
 					},
 				],
 			},
@@ -191,32 +226,41 @@ export const ROUTE_LIST: RouteItem[] = [
 				path: "/services/an-pham-van-phong",
 				meta: {
 					description: "Giải pháp in ấn chuyên nghiệp cho văn phòng và doanh nghiệp.",
-					icon: "business_center",
-					badge: "Office",
+					image_url: "/services/an-pham-van-phong/thumbnail/root.avif",
+					// badge: "Office",
 				},
 				children: [
 					{
 						label: "Bảng cứng in thông tin",
 						path: "/services/an-pham-van-phong/bang-cung-in-thong-tin",
-						meta: { description: "Bảng tên, bảng hướng dẫn, nội quy.", icon: "info" },
+						meta: {
+							description: "Bảng tên, bảng hướng dẫn, nội quy.",
+							image_url: "/services/an-pham-van-phong/thumbnail/bang-cung-in-thong-tin.avif",
+						},
 					},
 					{
 						label: "Giấy khen / Chứng nhận",
 						path: "/services/an-pham-van-phong/giay-khen-giay-chung-nhan",
 						meta: {
 							description: "In bằng khen, giấy chứng nhận chất lượng cao.",
-							icon: "workspace_premium",
+							image_url: "/services/an-pham-van-phong/thumbnail/bang-khen-giay-khen.avif",
 						},
 					},
 					{
 						label: "In bì thư",
 						path: "/services/an-pham-van-phong/in-bi-thu",
-						meta: { description: "In bì thư doanh nghiệp nhiều kích thước.", icon: "mail" },
+						meta: {
+							description: "In bì thư doanh nghiệp nhiều kích thước.",
+							image_url: "/services/an-pham-van-phong/thumbnail/bi-thu.avif",
+						},
 					},
 					{
 						label: "Sổ tay / Sổ bấm ghim",
 						path: "/services/an-pham-van-phong/so-tay-ky-yeu-so-bam-ghim",
-						meta: { description: "Sổ tay cá nhân hóa, sổ quà tặng.", icon: "menu_book" },
+						meta: {
+							description: "Sổ tay cá nhân hóa, sổ quà tặng.",
+							image_url: "/services/an-pham-van-phong/thumbnail/so-tay-so-bam-ghim.avif",
+						},
 					},
 				],
 			},
@@ -225,8 +269,8 @@ export const ROUTE_LIST: RouteItem[] = [
 				path: "/services/an-pham-su-kien",
 				meta: {
 					description: "Vật phẩm trang trí và tiếp thị cho sự kiện, triển lãm.",
-					icon: "event",
-					badge: "Event",
+					image_url: "/services/an-pham-su-kien/thumbnail/root.avif",
+					// badge: "Event",
 				},
 				children: [
 					{
@@ -234,7 +278,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-su-kien/hashtag-cam-tay",
 						meta: {
 							description: "Hashtag chụp ảnh sự kiện, đám cưới.",
-							icon: "tag",
+							image_url: "/services/an-pham-su-kien/thumbnail/hashtag-cam-tay.avif",
 							badge: "Hot",
 						},
 					},
@@ -243,7 +287,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-su-kien/poster-decal",
 						meta: {
 							description: "In poster quảng cáo, decal trang trí khổ lớn.",
-							icon: "ad_units",
+							image_url: "/services/an-pham-su-kien/thumbnail/poster-decal.avif",
 						},
 					},
 					{
@@ -251,7 +295,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-su-kien/banner-standee",
 						meta: {
 							description: "In banner, standee đa dạng chất liệu.",
-							icon: "branding_watermark",
+							image_url: "/services/an-pham-su-kien/thumbnail/banner-standee.avif",
 						},
 					},
 					{
@@ -259,7 +303,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-su-kien/huy-chuong",
 						meta: {
 							description: "In huy chương cho sự kiện, giải thưởng.",
-							icon: "emoji_events",
+							image_url: "/services/an-pham-su-kien/thumbnail/huy-chuong.avif",
 						},
 					},
 					{
@@ -268,7 +312,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						meta: {
 							description:
 								"Từ concept đến thi công. Thiết kế đồng bộ, in ấn sắc nét, set up chỉn chu.",
-							icon: "event",
+							image_url: "/services/an-pham-su-kien/thumbnail/su-kien-tron-goi.avif",
 						},
 					},
 				],
@@ -278,8 +322,8 @@ export const ROUTE_LIST: RouteItem[] = [
 				path: "/services/an-pham-tiep-thi",
 				meta: {
 					description: "Tăng nhận diện thương hiệu với ấn phẩm tiếp thị chuyên nghiệp.",
-					icon: "campaign",
-					badge: "Marketing",
+					image_url: "/services/an-pham-tiep-thi/thumbnail/root.avif",
+					// badge: "Marketing",
 				},
 				children: [
 					{
@@ -287,7 +331,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-tiep-thi/catalogue-brochure",
 						meta: {
 							description: "In catalogue giới thiệu sản phẩm, dịch vụ.",
-							icon: "library_books",
+							image_url: "/services/an-pham-tiep-thi/thumbnail/catalogue-brochure.avif",
 						},
 					},
 					{
@@ -295,8 +339,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-tiep-thi/in-card-visit",
 						meta: {
 							description: "In danh thiếp cá nhân, doanh nghiệp.",
-							icon: "contact_page",
-							badge: "Hot",
+							image_url: "/services/an-pham-tiep-thi/thumbnail/in-card-visit.avif",
 						},
 					},
 					{
@@ -304,8 +347,8 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-tiep-thi/voucher-ve-moi-su-kien-the-tich-diem-to-roi",
 						meta: {
 							description: "In voucher, vé mời sự kiện, thẻ tích điểm, tờ rơi.",
-							icon: "confirmation_number",
-							badge: "Hot",
+							image_url:
+								"/services/an-pham-tiep-thi/thumbnail/voucher-ve-moi-su-kien-the-tich-diem-to-roi.avif",
 						},
 					},
 				],
@@ -315,8 +358,8 @@ export const ROUTE_LIST: RouteItem[] = [
 				path: "/services/an-pham-fb",
 				meta: {
 					description: "Tăng nhận diện thương hiệu với ấn phẩm F&B chuyên nghiệp.",
-					icon: "restaurant",
-					badge: "F&B",
+					image_url: "/services/an-pham-fb/thumbnail/root.avif",
+					// badge: "F&B",
 				},
 				children: [
 					{
@@ -324,7 +367,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-fb/thiet-ke-in-menu",
 						meta: {
 							description: "Thiết kế và in menu cho nhà hàng, quán ăn.",
-							icon: "menu_book",
+							image_url: "/services/an-pham-fb/thumbnail/thiet-ke-in-menu.avif",
 						},
 					},
 					{
@@ -332,7 +375,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-fb/san-pham-decor",
 						meta: {
 							description: "In decor sản phẩm F&B.",
-							icon: "design_services",
+							image_url: "/services/an-pham-fb/thumbnail/san-pham-decor.avif",
 						},
 					},
 					{
@@ -340,7 +383,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-fb/phieu-ve-hoa-don-gtgt",
 						meta: {
 							description: "Thiết kế và in phiếu, vé, hóa đơn GTGT.",
-							icon: "receipt_long",
+							image_url: "/services/an-pham-fb/thumbnail/phieu-ve-hoa-don-gtgt.avif",
 						},
 					},
 					{
@@ -348,7 +391,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-fb/tam-lot-ban-an",
 						meta: {
 							description: "Thiết kế và in tấm lót bàn ăn.",
-							icon: "table_restaurant",
+							image_url: "/services/an-pham-fb/thumbnail/tam-lot-ban-an.avif",
 						},
 					},
 				],
@@ -358,8 +401,8 @@ export const ROUTE_LIST: RouteItem[] = [
 				path: "/services/an-pham-bao-bi",
 				meta: {
 					description: "Tăng nhận diện thương hiệu với ấn phẩm Bao bì chuyên nghiệp.",
-					icon: "luggage",
-					badge: "Packaging",
+					image_url: "/services/an-pham-bao-bi/thumbnail/root.avif",
+					// badge: "Packaging",
 				},
 				children: [
 					{
@@ -367,7 +410,7 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-bao-bi/decal-nhan-mac",
 						meta: {
 							description: "Thiết kế và in decal nhãn mác.",
-							icon: "label",
+							image_url: "/services/an-pham-bao-bi/thumbnail/decal-nhan-mac.avif",
 						},
 					},
 					{
@@ -375,15 +418,15 @@ export const ROUTE_LIST: RouteItem[] = [
 						path: "/services/an-pham-bao-bi/hop-san-pham",
 						meta: {
 							description: "Thiết kế và in hộp sản phẩm.",
-							icon: "inventory_2",
+							image_url: "/services/an-pham-bao-bi/thumbnail/hop-san-pham.avif",
 						},
 					},
 					{
-						label: "Tem bảo hành",
+						label: "Tem bảo hành / Sản phẩm",
 						path: "/services/an-pham-bao-bi/tem-bao-hanh",
 						meta: {
-							description: "Thiết kế và in tem bảo hành.",
-							icon: "verified",
+							description: "Thiết kế và in tem bảo hành, tem sản phẩm.",
+							image_url: "/services/an-pham-bao-bi/thumbnail/tem-bao-hanh.avif",
 						},
 					},
 				],

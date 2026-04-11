@@ -63,6 +63,9 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs }: Props)
 				darkMode
 			/>
 
+			{/* Dịch vụ — all service sub-categories with children */}
+			<ServicesSection id="services" />
+
 			{/* Skin Nút Phím — 8 special items, light bg */}
 			<FeaturedProductsSection
 				id="macnuts"
@@ -83,9 +86,6 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs }: Props)
 				analyticsCategory="Skin Laptop"
 				darkMode
 			/>
-
-			{/* Dịch vụ — all service sub-categories with children */}
-			<ServicesSection id="services" />
 
 			{/* Tin tức — 3 latest blog posts */}
 			<BlogsHome posts={blogs} />

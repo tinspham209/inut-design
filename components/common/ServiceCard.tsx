@@ -12,7 +12,7 @@ import React from "react";
 export interface ServiceCardProps {
 	title: string;
 	description?: string;
-	icon?: string | React.ReactNode;
+	image_url?: string;
 	href: string;
 	badge?: string | null;
 	image?: string | null;
@@ -25,7 +25,7 @@ export interface ServiceCardProps {
 export const ServiceCard: React.FC<ServiceCardProps> = ({
 	title,
 	description,
-	icon,
+	image_url,
 	href,
 	badge,
 }) => {
@@ -34,18 +34,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 			service_title: title,
 			service_path: href,
 		});
-	};
-
-	const renderIcon = () => {
-		if (!icon) return null;
-		if (typeof icon === "string") {
-			return (
-				<Icon sx={{ fontSize: 28, color: COLOR_CODE.PRIMARY, lineHeight: 1, display: "block" }}>
-					{icon}
-				</Icon>
-			);
-		}
-		return <>{icon}</>;
 	};
 
 	const getBadgeIcon = (badgeText: string) => {
@@ -82,35 +70,15 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 					transition:
 						"transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease, border-color 0.3s ease",
 
-					// Accent stripe at top — expands on hover
-					"&::before": {
-						content: '""',
-						position: "absolute",
-						top: 0,
-						left: 0,
-						right: 0,
-						height: "3px",
-						background: `linear-gradient(90deg, ${COLOR_CODE.PRIMARY}, #f0944d)`,
-						transform: "scaleX(0)",
-						transformOrigin: "left",
-						transition: "transform 0.35s ease",
-						zIndex: 1,
-					},
-
 					"&:hover, &:focus-visible": {
 						transform: "translateY(-6px)",
 						boxShadow: `0 16px 40px rgba(225, 97, 46, 0.14), 0 4px 12px rgba(0,0,0,0.08)`,
 						borderColor: "rgba(225, 97, 46, 0.35)",
 						outline: "none",
 
-						"&::before": {
-							transform: "scaleX(1)",
-						},
-
-						"& .card-icon-wrap": {
-							background: `linear-gradient(135deg, ${COLOR_CODE.PRIMARY} 0%, #f0944d 100%)`,
-							"& .MuiIcon-root, & svg": {
-								color: "#fff !important",
+						"& .card-image-container": {
+							"& img": {
+								transform: "scale(1.05)",
 							},
 						},
 
@@ -125,70 +93,100 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 					},
 				}}
 			>
+				{/* Image Container with 4:3 Aspect Ratio */}
+				<Box
+					className="card-image-container"
+					sx={{
+						width: "100%",
+						pt: "75%", // 4:3 Aspect Ratio
+						position: "relative",
+						overflow: "hidden",
+						backgroundColor: COLOR_CODE.INK_4,
+					}}
+				>
+					{image_url ? (
+						<Box
+							component="img"
+							src={image_url}
+							alt={title}
+							sx={{
+								position: "absolute",
+								top: 0,
+								left: 0,
+								width: "100%",
+								height: "100%",
+								objectFit: "cover",
+								transition: "transform 0.5s ease",
+							}}
+						/>
+					) : (
+						<Box
+							sx={{
+								position: "absolute",
+								top: 0,
+								left: 0,
+								width: "100%",
+								height: "100%",
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+								color: COLOR_CODE.TEXT_SOFT,
+							}}
+						>
+							<Typography variant="caption">No Image</Typography>
+						</Box>
+					)}
+
+					{/* Badge overlay */}
+					{badge && (
+						<Chip
+							label={badge}
+							icon={getBadgeIcon(badge) || undefined}
+							size="small"
+							sx={{
+								position: "absolute",
+								top: 12,
+								right: 12,
+								zIndex: 2,
+								fontSize: "0.68rem",
+								fontWeight: 800,
+								letterSpacing: "0.06em",
+								textTransform: "uppercase",
+								height: 24,
+								backgroundColor: "rgba(0,0,0,0.6)",
+								backdropFilter: "blur(4px)",
+								color: "#fff",
+								border: `1px solid rgba(255, 255, 255, 0.2)`,
+								"& .MuiChip-label": { px: 1 },
+								"& .MuiChip-icon": {
+									color: COLOR_CODE.PRIMARY,
+									ml: 0.5,
+									mr: -0.2,
+								},
+							}}
+						/>
+					)}
+				</Box>
+
 				{/* Card body */}
 				<Box
 					sx={{
 						display: "flex",
 						flexDirection: "column",
 						height: "100%",
-						p: { xs: 2.5, sm: 3 },
+						p: 1,
 					}}
 				>
-					{/* Top row: icon + badge */}
-					<Stack direction="row" justifyContent="space-between" alignItems="flex-start" mb={2.5}>
-						{/* Icon container */}
-						<Box
-							className="card-icon-wrap"
-							sx={{
-								width: 52,
-								height: 52,
-								borderRadius: "14px",
-								display: "flex",
-								alignItems: "center",
-								justifyContent: "center",
-								backgroundColor: "rgba(225, 97, 46, 0.09)",
-								flexShrink: 0,
-								transition: "background 0.3s ease",
-							}}
-						>
-							{renderIcon()}
-						</Box>
-
-						{badge && (
-							<Chip
-								label={badge}
-								icon={getBadgeIcon(badge) || undefined}
-								size="small"
-								sx={{
-									fontSize: "0.68rem",
-									fontWeight: 800,
-									letterSpacing: "0.06em",
-									textTransform: "uppercase",
-									height: 24,
-									backgroundColor: "rgba(225, 97, 46, 0.1)",
-									color: COLOR_CODE.PRIMARY,
-									border: `1px solid rgba(225, 97, 46, 0.25)`,
-									"& .MuiChip-label": { px: 1 },
-									"& .MuiChip-icon": {
-										color: "inherit",
-										ml: 0.5,
-										mr: -0.2,
-									},
-								}}
-							/>
-						)}
-					</Stack>
-
 					{/* Title */}
 					<Typography
 						variant="h6"
 						component="h3"
 						fontWeight={700}
 						lineHeight={1.3}
-						gutterBottom
 						sx={{
 							color: COLOR_CODE.WHITE,
 							fontSize: { xs: "1rem", sm: "1.05rem" },
+							mb: 1,
 						}}
 					>
 						{title}
@@ -198,14 +196,15 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 					<Typography
 						variant="body2"
 						sx={{
-							color: COLOR_CODE.TEXT_MUTED,
-							lineHeight: 1.65,
+							color: COLOR_CODE.TEXT_SOFT,
+							lineHeight: 1.6,
 							flexGrow: 1,
-							mb: 3,
+							mb: 2.5,
 							display: "-webkit-box",
-							WebkitLineClamp: 3,
+							WebkitLineClamp: 2,
 							WebkitBoxOrient: "vertical",
 							overflow: "hidden",
+							fontSize: "0.85rem",
 						}}
 					>
 						{description}
@@ -218,7 +217,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 						spacing={0.5}
 						sx={{
 							mt: "auto",
-							pt: 2,
+							pt: 1.5,
 							borderTop: `1px solid ${COLOR_CODE.INK_4}`,
 						}}
 					>
@@ -228,7 +227,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 							sx={{
 								fontWeight: 700,
 								color: COLOR_CODE.TEXT_MUTED,
-								fontSize: "0.75rem",
+								fontSize: "0.7rem",
 								letterSpacing: "0.08em",
 								textTransform: "uppercase",
 								transition: "color 0.3s ease",
@@ -239,7 +238,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 						<ArrowForwardIcon
 							className="card-arrow"
 							sx={{
-								fontSize: 15,
+								fontSize: 14,
 								color: COLOR_CODE.TEXT_MUTED,
 								transition: "transform 0.3s ease, color 0.3s ease",
 							}}

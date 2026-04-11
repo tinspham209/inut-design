@@ -1,6 +1,5 @@
 import { RouteItem } from "@/components/common/header/routes";
 import { COLOR_CODE } from "@/utils";
-import { BRAND_COLORS } from "@/utils/design-tokens";
 import { trackEvent } from "@/utils/analytics";
 import {
 	Box,
@@ -93,7 +92,7 @@ export function ServiceChildrenGrid({
 					</Link>
 				</Box>
 
-				<Grid container spacing={1.5}>
+				<Grid container spacing={2}>
 					{displayItems.map((item) => (
 						<Grid item xs={6} sm={3} key={item.path}>
 							<Link href={item.path} passHref>
@@ -103,47 +102,71 @@ export function ServiceChildrenGrid({
 											bgcolor: COLOR_CODE.INK_3,
 											border: `1px solid ${COLOR_CODE.INK_4}`,
 											borderRadius: "12px",
-											p: { xs: 1.5, sm: 2 },
+											overflow: "hidden",
 											height: "100%",
-											minHeight: 90,
 											transition: "border-color 200ms, transform 200ms cubic-bezier(0.16,1,0.3,1)",
 											"&:hover": {
 												borderColor: "rgba(255,77,0,0.25)",
 												transform: "translateY(-3px)",
+												"& img": { transform: "scale(1.05)" },
 											},
 										}}
 									>
-										<Stack spacing={0.75} alignItems="flex-start">
-											<Stack
-												direction="row"
-												alignItems="center"
-												justifyContent="space-between"
-												width="100%"
-											>
+										{/* 4:3 Image Container */}
+										<Box
+											sx={{ width: "100%", pt: "75%", position: "relative", overflow: "hidden" }}
+										>
+											{item.meta?.image_url ? (
+												<Box
+													component="img"
+													src={item.meta.image_url}
+													alt={item.label}
+													sx={{
+														position: "absolute",
+														top: 0,
+														left: 0,
+														width: "100%",
+														height: "100%",
+														objectFit: "cover",
+														transition: "transform 0.5s ease",
+													}}
+												/>
+											) : (
 												<Box
 													sx={{
-														width: 40,
-														height: 40,
-														bgcolor: BRAND_COLORS.orangeLo,
-														borderRadius: "8px",
+														position: "absolute",
+														top: 0,
+														left: 0,
+														width: "100%",
+														height: "100%",
+														bgcolor: COLOR_CODE.INK_4,
 														display: "flex",
 														alignItems: "center",
 														justifyContent: "center",
 													}}
 												>
-													<Icon sx={{ color: COLOR_CODE.PRIMARY, fontSize: "1.25rem" }}>
-														{item.meta?.icon || "star"}
-													</Icon>
+													<Icon sx={{ color: COLOR_CODE.PRIMARY }}>star</Icon>
 												</Box>
-												{item.meta?.badge && (
-													<Chip
-														label={item.meta.badge}
-														size="small"
-														color="primary"
-														sx={{ fontSize: "0.6rem", height: 18 }}
-													/>
-												)}
-											</Stack>
+											)}
+
+											{item.meta?.badge && (
+												<Chip
+													label={item.meta.badge}
+													size="small"
+													color="primary"
+													sx={{
+														position: "absolute",
+														top: 8,
+														right: 8,
+														fontSize: "0.6rem",
+														height: 18,
+														zIndex: 1,
+													}}
+												/>
+											)}
+										</Box>
+
+										<Stack spacing={0.75} p={2} alignItems="flex-start">
 											<Typography
 												sx={{
 													fontWeight: 700,
@@ -158,7 +181,7 @@ export function ServiceChildrenGrid({
 											{item.meta?.description && (
 												<Typography
 													sx={{
-														display: { xs: "none", sm: "-webkit-box" },
+														display: "-webkit-box",
 														WebkitLineClamp: 2,
 														WebkitBoxOrient: "vertical",
 														overflow: "hidden",

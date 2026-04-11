@@ -891,3 +891,228 @@ export const STICKER_SHEET_DATA: ProductPageData = {
 		filters: [],
 	},
 };
+
+export const STICKER_PACK_DATA: ProductPageData = {
+	id: "sticker-pack",
+	name: "Sticker Pack",
+	category: "Sticker",
+	seo: {
+		title:
+			"In Sticker Pack theo yêu cầu tại Đà Nẵng - Bộ Sưu Tập Diecut Đóng Gói Sẵn | INUT Design",
+		description:
+			"Sticker Pack — bộ nhiều sticker diecut đóng gói sẵn theo chủ đề, chống nước bền màu, đặt từ 10 pack, giao trong 3–4 ngày. Giải pháp merchandise hoàn chỉnh cho artist và thương hiệu tại INUT Design Đà Nẵng.",
+		url: "https://inutdesign.com/services/sticker/sticker-pack",
+		thumbnailUrl: HERO_IMAGE,
+		breadcrumbs: [
+			{ name: "Trang chủ", item: "/" },
+			{ name: "Dịch vụ", item: "/services" },
+			{ name: "Sticker", item: "/services/sticker" },
+			{ name: "Sticker Pack", item: "/services/sticker/sticker-pack" },
+		],
+		productStructuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			name: "In Sticker Pack theo yêu cầu",
+			serviceType: "In ấn sticker",
+			provider: {
+				"@type": "Organization",
+				name: "INUT Design",
+			},
+			areaServed: {
+				"@type": "Country",
+				name: "VN",
+			},
+			offer: {
+				"@type": "Offer",
+				price: "25000",
+				priceCurrency: "VND",
+			},
+		},
+	},
+	hero: {
+		title: "Sticker Pack",
+		description:
+			"Không chỉ là sticker — là cả một bộ sưu tập đóng gói sẵn để bán, để tặng, để kể câu chuyện thương hiệu. Nhiều mẫu diecut trong một pack, đồng nhất về concept, sẵn sàng ra tay khách.",
+		image: `/services/sticker/sticker-pack/1.avif`,
+		chips: ["Nhiều mẫu một pack", "Diecut sắc bén", "Đóng gói sẵn"],
+		ctaLabel: "Nhận báo giá nhanh",
+		secondaryCtaLabel: "Xem mẫu",
+		ticker: [
+			"Nhiều Mẫu Một Pack",
+			"Diecut Từng Hình",
+			"Merchandise Hoàn Chỉnh",
+			"Đóng Gói Sẵn Bán",
+		],
+		stats: [
+			{ value: "20.000", unit: "+", label: "Pack sticker đã xuất xưởng" },
+			{ value: "200", unit: "+", label: "Artist & Brand tin dùng" },
+			{ value: "100", unit: "%", label: "Chống nước" },
+			{ value: "3-4", unit: "ngày", label: "Sản xuất tiêu chuẩn" },
+		],
+	},
+	introduction: {
+		eyebrow: "Bộ Sticker Đóng Gói",
+		title: "Nhiều mẫu — Một pack — Bán được ngay",
+		description:
+			"Sticker Pack là cách đơn giản nhất để biến bộ sưu tập sticker thành sản phẩm hoàn chỉnh — đóng gói theo chủ đề, đồng nhất về phong cách, và trông chuyên nghiệp ngay từ lần đầu cầm tay.",
+		bullets: [
+			"Mỗi pack bao gồm nhiều sticker diecut riêng lẻ, đồng nhất theo một chủ đề hoặc concept do bạn chọn — từ 4 đến 12+ mẫu mỗi pack.",
+			"Kỹ thuật diecut chính xác theo viền hình — từng sticker được cắt sắc nét, không còn viền trắng thừa, dán đâu cũng đẹp.",
+			"In UV sắc nét, cán màng mờ hoặc bóng — màu giữ lâu, chống nước, chống trầy, bền qua thời gian dùng thực tế.",
+			"Hỗ trợ tư vấn cơ cấu pack — số lượng mẫu, kích thước từng hình, cách phối để pack trông cân đối và hấp dẫn nhất.",
+			"Đặt từ 10 pack, linh hoạt số lượng — thích hợp cả artist thử nghiệm lẫn thương hiệu cần merchandise số lượng lớn.",
+		],
+		highlights: [
+			{
+				title: "Nhiều mẫu, một bộ",
+				description:
+					"Gộp toàn bộ bộ sưu tập vào một pack đồng nhất — khách mua một lần, có đủ hết.",
+				icon: <DesignServicesIcon fontSize="small" />,
+			},
+			{
+				title: "Diecut từng hình",
+				description:
+					"Cắt sát viền, không còn nền trắng thừa — từng sticker hoàn chỉnh và sắc bén như thiết kế gốc.",
+				icon: <LocalPrintshopIcon fontSize="small" />,
+			},
+			{
+				title: "Merchandise sẵn bán",
+				description:
+					"Đóng gói chỉnh chu, đủ số lượng mẫu — nhận hàng là bày bán hoặc giao kèm đơn ngay.",
+				icon: <WorkspacePremiumIcon fontSize="small" />,
+			},
+			{
+				title: "Tư vấn cơ cấu pack",
+				description:
+					"Không biết nên cho bao nhiêu mẫu? INUT tư vấn miễn phí để pack trông cân và bán chạy nhất.",
+				icon: <BoltIcon fontSize="small" />,
+			},
+		],
+	},
+	types: {
+		eyebrow: "Loại & Chất liệu",
+		title: "Dòng Sticker Pack tại INUT",
+		description: "Nhiều cách đóng gói, nhiều chất liệu — linh hoạt cho mọi concept và ngân sách.",
+		items: [
+			{
+				name: "Mini Pack (4–6 mẫu)",
+				description: "Gọn nhẹ, dễ tặng kèm đơn hàng — chi phí tối ưu cho bộ nhỏ.",
+				image: HERO_IMAGE,
+			},
+			{
+				name: "Standard Pack (7–12 mẫu)",
+				description: "Cân đối về số lượng và giá trị — lựa chọn phổ biến nhất.",
+				image: HERO_IMAGE,
+			},
+			{
+				name: "Cán màng mờ",
+				description: "Tone nhẹ tinh tế, chống trầy, cầm tay không bám mồ hôi.",
+				image: HERO_IMAGE,
+			},
+			{
+				name: "Cán màng bóng",
+				description: "Màu sắc rực rỡ, sáng bắt mắt — nổi bật trên mọi mặt phẳng.",
+				image: HERO_IMAGE,
+			},
+		],
+	},
+	whyInut: {
+		eyebrow: "Chuyên nghiệp & Tận tâm",
+		title: "Vì sao chọn dịch vụ tại INUT Design?",
+		description:
+			"Từ artist ra merch lần đầu đến thương hiệu cần quà tặng đồng bộ — INUT hiểu pack của bạn cần trông như thế nào và làm đúng ngay từ đầu.",
+		productionProcess: {
+			title: "Quy trình chuyên nghiệp",
+			items: [
+				{
+					title: "Giao đúng hẹn",
+					description: "Sản xuất tiêu chuẩn 3–4 ngày, có thể rút ngắn khi đơn gấp.",
+					icon: <TimerIcon fontSize="small" />,
+				},
+				{
+					title: "Đặt ít vẫn được",
+					description: "Tối thiểu 10 pack — thử nghiệm trước khi tăng đơn lớn.",
+					icon: <DoneAllIcon fontSize="small" />,
+				},
+				{
+					title: "Tư vấn cơ cấu pack",
+					description: "INUT tư vấn số lượng mẫu và kích thước từng hình — pack cân đẹp hơn.",
+					icon: <DesignServicesIcon fontSize="small" />,
+				},
+			],
+		},
+		applications: {
+			title: "Pack này dành cho ai?",
+			description: "Dễ bán, dễ tặng, dễ nhận ra — sticker pack phù hợp với hầu hết mọi người.",
+			items: [
+				{
+					title: "Artist & Illustrator",
+					description: "Ra merchandise hoàn chỉnh ngay lần đầu — không cần tối thiểu số lượng lớn.",
+					icon: <DesignServicesIcon fontSize="small" />,
+				},
+				{
+					title: "Shop & Thương hiệu",
+					description: "Quà tặng kèm đơn hàng mang logo — nhỏ mà tạo ấn tượng lâu dài.",
+					icon: <StorefrontIcon fontSize="small" />,
+				},
+				{
+					title: "Sự kiện & Hội nhóm",
+					description: "Pack sticker theo sự kiện, fandom hay cộng đồng — kỷ niệm độc quyền.",
+					icon: <EventAvailableIcon fontSize="small" />,
+				},
+				{
+					title: "Quà tặng doanh nghiệp",
+					description: "Branding nhỏ gọn, chi phí thấp — phù hợp gifting và onboarding.",
+					icon: <WorkspacePremiumIcon fontSize="small" />,
+				},
+			],
+		},
+		commitment: {
+			title: "Cam kết chất lượng",
+			description:
+				"Diecut sắc nét, màu in đồng đều từng hình, pack nào ra cũng đủ — hoặc INUT làm lại.",
+			icon: <VerifiedIcon />,
+		},
+	},
+	testimonials: {
+		eyebrow: "Ý kiến Artist & Khách hàng",
+		title: "Một pack sticker — <em>ngàn lần reorder</em>",
+		items: [
+			{
+				name: "Chị Vân",
+				role: "Illustrator · Hồ Chí Minh",
+				text: "Pack đầu tiên INUT in cho mình bán hội chợ, khách cầm lên là mua liền. Diecut đẹp, màu chuẩn y hệt file — lần sau chắc chắn quay lại.",
+				initials: "CV",
+				color: "#c62828",
+			},
+			{
+				name: "Anh Minh",
+				role: "Brand Owner · Đà Nẵng",
+				text: "Đặt sticker pack làm quà tặng khách hàng — INUT tư vấn cơ cấu pack rất kỹ, xong nhận hàng ai cũng khen đẹp hơn mong đợi.",
+				initials: "AM",
+				color: "#1565c0",
+			},
+		],
+		score: "5.0★",
+		countText: "Dựa trên 200+ Artist & Brand đối tác",
+	},
+	contact: {
+		eyebrow: "Báo giá trong 15 phút",
+		description:
+			"Gửi file + số lượng mẫu muốn trong pack — INUT báo giá ngay, tư vấn cơ cấu miễn phí.",
+		type: "sticker-pack",
+		address: "K574/5 Ông Ích Khiêm, Phường Hải Châu, Thành phố Đà Nẵng",
+		persons: [
+			{ name: "MR. TOM", role: "Design Manager", phone: "0792 359 996", initial: "TOM" },
+			{ name: "MS. BOO", role: "Sales Manager", phone: "0777 208 215", initial: "BOO" },
+		],
+	},
+	gallery: {
+		eyebrow: "Mẫu Sticker Pack thực tế",
+		title: "Từ xưởng INUT — ra tay bạn",
+		images: Array.from({ length: 15 }).map(
+			(_, index) => `/services/sticker/sticker-pack/${index + 1}.avif`
+		),
+		filters: [],
+	},
+};

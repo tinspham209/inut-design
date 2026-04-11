@@ -68,9 +68,9 @@ const ServiceDynamicPage: NextPageWithLayout<Props> = ({ currentPath, currentRou
 				</Box>
 
 				{cards.length > 0 ? (
-					<Grid container spacing={1.5}>
+					<Grid container spacing={1}>
 						{cards.map((card) => (
-							<Grid item key={card.href} xs={12} sm={6} md={4}>
+							<Grid item key={card.href} xs={12} sm={6} md={3}>
 								<ServiceCard {...card} />
 							</Grid>
 						))}
