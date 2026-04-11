@@ -1,6 +1,6 @@
 export default {
 	name: "productType",
-	title: "Product Type",
+	title: "Laptop Type",
 	type: "document",
 	fields: [
 		{

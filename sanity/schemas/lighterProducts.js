@@ -1,6 +1,6 @@
 export default {
 	name: "lighterProducts",
-	title: "Lighters",
+	title: "Lighters(Bật lửa)",
 	type: "document",
 	fields: [
 		{
@@ -57,12 +57,13 @@ export default {
 			title: "name",
 			media: "image",
 			lighterTypeName: "lighterType.name",
+			special: "special",
 		},
 		prepare(selection) {
-			const { title, media, lighterTypeName } = selection;
+			const { title, media, lighterTypeName, special } = selection;
 			return {
 				title: title,
-				subtitle: lighterTypeName || "No lighter type selected",
+				subtitle: `${special ? "⭐️" : ""} ${lighterTypeName || "No lighter type selected"}`,
 				media: media && media[0],
 			};
 		},

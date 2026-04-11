@@ -1,6 +1,6 @@
 export default {
 	name: "macnut",
-	title: "MacNut",
+	title: "Skin MacNut",
 	type: "document",
 	fields: [
 		{
@@ -57,12 +57,15 @@ export default {
 	preview: {
 		select: {
 			title: "name",
+			type: "macnutType.name",
+			special: "special",
 			media: "image",
 		},
 		prepare(selection) {
-			const { title, media } = selection;
+			const { title, media, type, special } = selection;
 			return {
 				title: title,
+				subtitle: `${special ? "⭐️" : ""} ${type || "No macnut type selected"}`,
 				media: media && media[0],
 			};
 		},
