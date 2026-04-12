@@ -24,7 +24,7 @@ export const HASHTAG_CAM_TAY_DATA: ProductPageData = {
 		description:
 			"Dịch vụ in hashtag cầm tay chuyên nghiệp tại Đà Nẵng. Thiết kế đẹp, chất liệu formex bền chắc, lấy nhanh. Tăng nhận diện thương hiệu cho sự kiện của bạn!",
 		url: "https://inutdesign.com/services/an-pham-su-kien/hashtag-cam-tay",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/an-pham-su-kien/thumbnail/hashtag-cam-tay.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -55,7 +55,7 @@ export const HASHTAG_CAM_TAY_DATA: ProductPageData = {
 		title: "Hashtag Cầm Tay",
 		description:
 			"Hashtag cầm tay là lựa chọn lý tưởng để tạo không khí sinh động và tăng hiệu quả truyền thông cho sự kiện: thiết kế nổi bật, dễ cầm nắm, bền chắc và giúp lan tỏa thương hiệu tự nhiên.",
-		image: `/services/an-pham-su-kien/hashtag-cam-tay/1.avif`,
+		image: `/services/an-pham-su-kien/thumbnail/hashtag-cam-tay.avif`,
 		chips: ["In lấy ngay", "Thiết kế nổi bật", "Bền chắc"],
 		secondaryCtaLabel: "Xem portfolio",
 		ticker: [
@@ -118,22 +118,22 @@ export const HASHTAG_CAM_TAY_DATA: ProductPageData = {
 			{
 				name: "Sự kiện doanh nghiệp",
 				description: "Khai trương, workshop, hội thảo.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-su-kien/hashtag-cam-tay/6.avif`,
 			},
 			{
 				name: "Tiệc & Kỷ niệm",
 				description: "Sinh nhật, tiệc cưới, kỷ niệm.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-su-kien/hashtag-cam-tay/1.avif`,
 			},
 			{
 				name: "Activation & Roadshow",
 				description: "Hoạt động quảng bá ngoài trời.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-su-kien/hashtag-cam-tay/8.avif`,
 			},
 			{
 				name: "Sự kiện trường học",
 				description: "Lễ tốt nghiệp, ngày hội CLB.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-su-kien/hashtag-cam-tay/5.avif`,
 			},
 		],
 	},
@@ -230,12 +230,9 @@ export const HASHTAG_CAM_TAY_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Dự án đã thực hiện",
 		title: "Hình ảnh thực tế",
-		images: [
-			`/services/an-pham-su-kien/hashtag-cam-tay/2.avif`,
-			`/services/an-pham-su-kien/hashtag-cam-tay/1.avif`,
-			`/services/an-pham-su-kien/hashtag-cam-tay/4.avif`,
-			`/services/an-pham-su-kien/hashtag-cam-tay/3.avif`,
-		],
+		images: Array.from({ length: 10 }).map(
+			(_, index) => `/services/an-pham-su-kien/hashtag-cam-tay/${index + 1}.avif`
+		),
 		filters: [],
 	},
 };
