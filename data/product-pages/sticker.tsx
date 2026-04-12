@@ -902,7 +902,7 @@ export const STICKER_PACK_DATA: ProductPageData = {
 		description:
 			"Sticker Pack — bộ nhiều sticker diecut đóng gói sẵn theo chủ đề, chống nước bền màu, đặt từ 10 pack, giao trong 3–4 ngày. Giải pháp merchandise hoàn chỉnh cho artist và thương hiệu tại INUT Design Đà Nẵng.",
 		url: "https://inutdesign.com/services/sticker/sticker-pack",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/sticker/thumbnail/sticker-pack.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -933,7 +933,7 @@ export const STICKER_PACK_DATA: ProductPageData = {
 		title: "Sticker Pack",
 		description:
 			"Không chỉ là sticker — là cả một bộ sưu tập đóng gói sẵn để bán, để tặng, để kể câu chuyện thương hiệu. Nhiều mẫu diecut trong một pack, đồng nhất về concept, sẵn sàng ra tay khách.",
-		image: `/services/sticker/sticker-pack/1.avif`,
+		image: `/services/sticker/thumbnail/sticker-pack.avif`,
 		chips: ["Nhiều mẫu một pack", "Diecut sắc bén", "Đóng gói sẵn"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem mẫu",
@@ -997,22 +997,22 @@ export const STICKER_PACK_DATA: ProductPageData = {
 			{
 				name: "Mini Pack (4–6 mẫu)",
 				description: "Gọn nhẹ, dễ tặng kèm đơn hàng — chi phí tối ưu cho bộ nhỏ.",
-				image: HERO_IMAGE,
+				image: `/services/sticker/sticker-pack/3.avif`,
 			},
 			{
 				name: "Standard Pack (7–12 mẫu)",
 				description: "Cân đối về số lượng và giá trị — lựa chọn phổ biến nhất.",
-				image: HERO_IMAGE,
+				image: `/services/sticker/sticker-pack/9.avif`,
 			},
 			{
 				name: "Cán màng mờ",
 				description: "Tone nhẹ tinh tế, chống trầy, cầm tay không bám mồ hôi.",
-				image: HERO_IMAGE,
+				image: `/services/sticker/sticker-pack/1.avif`,
 			},
 			{
 				name: "Cán màng bóng",
 				description: "Màu sắc rực rỡ, sáng bắt mắt — nổi bật trên mọi mặt phẳng.",
-				image: HERO_IMAGE,
+				image: `/services/sticker/sticker-pack/2.avif`,
 			},
 		],
 	},
@@ -1110,7 +1110,7 @@ export const STICKER_PACK_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Mẫu Sticker Pack thực tế",
 		title: "Từ xưởng INUT — ra tay bạn",
-		images: Array.from({ length: 15 }).map(
+		images: Array.from({ length: 9 }).map(
 			(_, index) => `/services/sticker/sticker-pack/${index + 1}.avif`
 		),
 		filters: [],
