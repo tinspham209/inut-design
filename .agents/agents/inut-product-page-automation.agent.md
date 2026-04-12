@@ -24,7 +24,7 @@ Automate the full flow for a **new product page** in this repo with a **draft-fi
 ## Input handling
 
 Required: product name, SEO keyword, target audience.
-Optional: route path (derive from name), hero image (default `/branding/logo.webp`).
+Optional: route path (derive from name), hero image (default `/branding/logo.avif`).
 
 If `content.md` already exists: write to `content.generated.md` instead. Only overwrite on explicit user confirmation.
 

@@ -87,7 +87,7 @@ Inputs:
 - Từ khoá SEO chính: `<ví dụ: móc khoá mica Đà Nẵng>`
 - Đối tượng khách hàng: `<ví dụ: chủ shop online, doanh nghiệp SME, cá nhân trẻ>`
 - Route path (optional): `<ví dụ: san-pham-luu-niem/moc-khoa-mica>`
-- Hero image (optional): `<ví dụ: /branding/logo.webp>`
+- Hero image (optional): `<ví dụ: /branding/logo.avif>`
 
 Yêu cầu bắt buộc:
 

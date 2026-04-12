@@ -11,7 +11,7 @@ Inputs:
 - Từ khoá SEO chính: ${input:primary_keyword:Ví dụ: móc khoá mica Đà Nẵng}
 - Đối tượng khách hàng: ${input:target_audience:Ví dụ: chủ shop online, doanh nghiệp SME, cá nhân trẻ}
 - Route path (optional): ${input:route_path:Ví dụ: san-pham-luu-niem/moc-khoa-mica}
-- Hero image (optional): ${input:hero_image:Ví dụ: /branding/logo.webp}
+- Hero image (optional): ${input:hero_image:Ví dụ: /branding/logo.avif}
 
 Yêu cầu bắt buộc:
 

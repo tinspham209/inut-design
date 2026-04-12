@@ -18,7 +18,7 @@ The user wants to create a new product page at path: `{{route_path}}` using cont
 1. Analyze the `content.md` provided.
 2. If any of the following fields are missing or unclear, ask the user specifically:
    - **Category**: Which existing data file should this belong to? (e.g., `an-pham-su-kien.tsx`, `an-pham-tiep-thi.tsx`, etc.)
-   - **Hero Image**: Do we have a specific image path, or should we use the default `/branding/logo.webp`?
+   - **Hero Image**: Do we have a specific image path, or should we use the default `/branding/logo.avif`?
    - **CTA Label**: Should it be "Đặt in ngay" or something specific?
    - **Comparison Table**: If there's comparison data, which criteria should be used as columns?
    - **SEO Metadata**: Are the provided title and description optimized for the target keywords?

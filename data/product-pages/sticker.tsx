@@ -684,7 +684,7 @@ export const STICKER_SHEET_DATA: ProductPageData = {
 		description:
 			"Sticker Sheet kisscut khổ A5 và A6 — nhiều hình dán trên một tờ, chống nước bền màu, đặt từ 10 tờ, giao trong 3–4 ngày. Giải pháp merchandise lý tưởng cho artist và thương hiệu tại INUT Design Đà Nẵng.",
 		url: "https://inutdesign.com/services/sticker/sticker-sheet",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/sticker/thumbnail/sticker-sheet.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -715,8 +715,8 @@ export const STICKER_SHEET_DATA: ProductPageData = {
 		title: "Sticker Sheet",
 		description:
 			"Cả một bộ sưu tập trên một tờ giấy. Sticker Sheet kisscut khổ A5 và A6 — in sắc nét, bóc từng hình lẻ dễ dàng, đủ chỗ cho mọi ý tưởng bạn muốn kể.",
-		image: `/services/sticker/sticker-sheet/1.avif`,
-		chips: ["Khổ A5 & A6", "Kisscut từng hình", "Chống nước bền màu"],
+		image: `/services/sticker/thumbnail/sticker-sheet.avif`,
+		chips: ["Khổ A5 & A6", "Cán bóng & mờ", "Chống nước bền màu"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem mẫu",
 		ticker: ["Khổ A5 & A6", "Kisscut Sắc Bén", "Nhiều Hình Một Tờ", "Giải Pháp Merchandise"],
@@ -774,22 +774,22 @@ export const STICKER_SHEET_DATA: ProductPageData = {
 			{
 				name: "Sheet A5",
 				description: "148×210mm — bộ sưu tập đầy đủ, trình bày sang trọng.",
-				image: HERO_IMAGE,
+				image: `/services/sticker/sticker-sheet/category/a5.avif`,
 			},
 			{
 				name: "Sheet A6",
 				description: "105×148mm — gọn nhẹ, dễ tặng kèm, chi phí tối ưu.",
-				image: HERO_IMAGE,
+				image: `/services/sticker/sticker-sheet/category/a6.avif`,
 			},
 			{
 				name: "Cán màng mờ",
 				description: "Tone nhẹ tinh tế, chống trầy, cầm tay không bám mờ.",
-				image: HERO_IMAGE,
+				image: `/services/sticker/sticker-sheet/category/can-mo.avif`,
 			},
 			{
 				name: "Cán màng bóng",
 				description: "Màu sắc rực rỡ, sáng bắt mắt, phù hợp thiết kế pop art.",
-				image: HERO_IMAGE,
+				image: `/services/sticker/sticker-sheet/category/can-bong.avif`,
 			},
 		],
 	},

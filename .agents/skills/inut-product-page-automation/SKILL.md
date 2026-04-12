@@ -24,7 +24,7 @@ Biến quy trình thủ công nhiều bước thành workflow gần như 1-click
 ## Optional inputs (fallback nếu không có)
 
 - **Route path**: tự suy ra từ tên sản phẩm theo slug kebab-case
-- **Hero image**: mặc định `/branding/logo.webp`
+- **Hero image**: mặc định `/branding/logo.avif`
 - **Parent folder**: nếu không rõ, tạo route phẳng an toàn dưới `pages/<slug>/`
 
 ## Workflow (must follow)

@@ -15,6 +15,14 @@ interface Contact {
 
 export const CONTACTS: Contact[] = [
 	{
+		name: "INUT DESIGN",
+		role: "Zalo Chat",
+		roleBadge: "Bán hàng",
+		phone: "0327124321",
+		displayPhone: "0327.124.321",
+		photoUrl: "/branding/contacts/contact-00.avif",
+	},
+	{
 		name: "Mr. Tom",
 		role: "Zalo Chat",
 		roleBadge: "Phụ trách Kinh doanh",
@@ -25,7 +33,7 @@ export const CONTACTS: Contact[] = [
 	{
 		name: "Ms. Boo",
 		role: "Zalo Chat",
-		roleBadge: "Hỗ trợ Kỹ thuật",
+		roleBadge: "Hỗ trợ Bán hàng",
 		phone: "0777208215",
 		displayPhone: "0777.208.215",
 		photoUrl: "/branding/contacts/contact-02.avif",
@@ -47,7 +55,12 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 }) => {
 	return (
 		<Box id="order" sx={{ scrollMarginTop: "100px" }}>
-			<Typography variant="h5" fontWeight={800} gutterBottom sx={{ fontSize: "1.5rem", color: COLOR_CODE.WHITE }}>
+			<Typography
+				variant="h5"
+				fontWeight={800}
+				gutterBottom
+				sx={{ fontSize: "1.5rem", color: COLOR_CODE.WHITE }}
+			>
 				{title}
 			</Typography>
 			<Typography variant="body2" sx={{ mb: 4, color: COLOR_CODE.TEXT_MUTED }}>
@@ -79,7 +92,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
 				<Grid container spacing={2}>
 					{contacts.map((contact) => (
-						<Grid item xs={12} sm={6} key={contact.phone}>
+						<Grid item xs={12} sm={4} key={contact.phone}>
 							<Link
 								href={`https://zalo.me/${contact.phone}`}
 								target="_blank"

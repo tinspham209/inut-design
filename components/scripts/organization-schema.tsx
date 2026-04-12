@@ -6,7 +6,7 @@ export function GlobalSchema() {
 		"@type": "Organization",
 		name: "INUT Design",
 		url: "https://inutdesign.com",
-		logo: "https://inutdesign.com/branding/logo.webp",
+		logo: "https://inutdesign.com/branding/logo.avif",
 		contactPoint: {
 			"@type": "ContactPoint",
 			telephone: "+84-327-124-321",

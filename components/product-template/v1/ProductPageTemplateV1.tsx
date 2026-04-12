@@ -24,14 +24,14 @@ export const ProductPageTemplateV1: React.FC<ProductPageTemplateV1Props> = ({ da
 				ctaLabel={data.hero.ctaLabel}
 			/>
 
-			<Container sx={{ py: { xs: 4, md: 6 } }}>
+			<Container sx={{ py: 4 }}>
 				<IntroductionSection
 					title={data.introduction.title}
 					bullets={data.introduction.bullets}
 					highlights={data.introduction.highlights}
 				/>
 
-				<Divider sx={{ my: { xs: 4, md: 6 }, borderColor: COLOR_CODE.INK_4 }} />
+				<Divider sx={{ my: 4, borderColor: COLOR_CODE.INK_4 }} />
 
 				<TypesSection
 					items={data.types.items}
@@ -43,7 +43,7 @@ export const ProductPageTemplateV1: React.FC<ProductPageTemplateV1Props> = ({ da
 					comparisonRecommendation={data.types.comparisonRecommendation}
 				/>
 
-				<Divider sx={{ my: { xs: 4, md: 6 }, borderColor: COLOR_CODE.INK_4 }} />
+				<Divider sx={{ my: 4, borderColor: COLOR_CODE.INK_4 }} />
 
 				<WhyInutSection
 					title={data.whyInut.title}
@@ -53,7 +53,7 @@ export const ProductPageTemplateV1: React.FC<ProductPageTemplateV1Props> = ({ da
 					commitment={data.whyInut.commitment}
 				/>
 
-				<Divider sx={{ my: { xs: 4, md: 6 }, borderColor: COLOR_CODE.INK_4 }} />
+				<Divider sx={{ my: 4, borderColor: COLOR_CODE.INK_4 }} />
 
 				<ContactSection
 					title={data.contact.title}
@@ -61,9 +61,17 @@ export const ProductPageTemplateV1: React.FC<ProductPageTemplateV1Props> = ({ da
 					type={data.contact.type}
 				/>
 
-				<Divider sx={{ my: { xs: 4, md: 6 }, borderColor: COLOR_CODE.INK_4 }} />
+				<Divider sx={{ my: 4, borderColor: COLOR_CODE.INK_4 }} />
 
 				<ProductGallery title={data.gallery.title} images={data.gallery.images} />
+
+				<Divider sx={{ my: 4, borderColor: COLOR_CODE.INK_4 }} />
+
+				<ContactSection
+					title={data.contact.title}
+					description={data.contact.description}
+					type={data.contact.type}
+				/>
 			</Container>
 		</Box>
 	);

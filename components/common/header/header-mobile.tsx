@@ -144,7 +144,7 @@ export function HeaderMobile() {
 						</IconButton>
 						<Link href={"/"} passHref>
 							<Box sx={{ display: "flex", cursor: "pointer" }}>
-								<Image src={"/branding/logo.webp"} alt="logo" width={103} height={32} priority />
+								<Image src={"/branding/logo.avif"} alt="logo" width={103} height={32} priority />
 							</Box>
 						</Link>
 					</Stack>
@@ -183,7 +183,7 @@ export function HeaderMobile() {
 					<Box
 						sx={{ p: 2, display: "flex", justifyContent: "space-between", alignItems: "center" }}
 					>
-						<Image src={"/branding/logo.webp"} alt="logo" width={103} height={32} />
+						<Image src={"/branding/logo.avif"} alt="logo" width={103} height={32} />
 						<IconButton onClick={toggleDrawer(false)} sx={{ color: COLOR_CODE.WHITE }}>
 							<CloseIcon />
 						</IconButton>

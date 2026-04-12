@@ -27,7 +27,7 @@ This skill automates the creation of new product pages using the standard `Produ
 
 3. **Asset Handling**:
 
-   - Use mock images `/branding/logo.webp` for any missing assets.
+   - Use mock images `/branding/logo.avif` for any missing assets.
    - Ensure all images use the `unoptimized` prop and maintain 4:3 aspect ratio.
 
 4. **Code Generation**:

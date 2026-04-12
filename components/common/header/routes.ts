@@ -41,7 +41,7 @@ export const ROUTE_LIST: RouteItem[] = [
 				path: "/san-pham/skin-laptop",
 				meta: {
 					description: "Trang trí và bảo vệ laptop với hàng ngàn mẫu skin độc đáo.",
-					image_url: "/branding/services/skin-laptop.avif",
+					image_url: "/services/ca-nhan-hoa/thumbnail/skin-laptop.avif",
 				},
 			},
 			{
@@ -49,7 +49,7 @@ export const ROUTE_LIST: RouteItem[] = [
 				path: "/san-pham/skin-nut-phim",
 				meta: {
 					description: "Cá nhân hóa bàn phím laptop theo phong cách riêng của bạn.",
-					image_url: "/branding/services/skin-nut-phim.avif",
+					image_url: "/services/ca-nhan-hoa/thumbnail/skin-nut-phim.avif",
 				},
 			},
 			{
@@ -57,7 +57,7 @@ export const ROUTE_LIST: RouteItem[] = [
 				path: "/san-pham/lighters",
 				meta: {
 					description: "Bộ sưu tập bật lửa Cricket độc bản, in theo yêu cầu.",
-					image_url: "/assets/skin-bat-lua-customize.avif",
+					image_url: "/services/ca-nhan-hoa/thumbnail/lighter.avif",
 					badge: "Bestseller",
 				},
 			},

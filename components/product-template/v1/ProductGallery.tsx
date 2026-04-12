@@ -44,7 +44,12 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
 
 	return (
 		<Box id="gallery" sx={{ scrollMarginTop: "100px" }}>
-			<Typography variant="h5" fontWeight={800} gutterBottom sx={{ fontSize: "1.5rem", mb: 3, color: COLOR_CODE.WHITE }}>
+			<Typography
+				variant="h5"
+				fontWeight={800}
+				gutterBottom
+				sx={{ fontSize: "1.5rem", mb: 3, color: COLOR_CODE.WHITE }}
+			>
 				{title}
 			</Typography>
 

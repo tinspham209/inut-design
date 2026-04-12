@@ -43,7 +43,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 						<Box maxWidth={440}>
 							<Stack justifyContent="center" alignItems="center">
 								<Image
-									src={"/branding/logo.webp"}
+									src={"/branding/logo.avif"}
 									width={258}
 									height={80}
 									unoptimized
