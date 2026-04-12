@@ -899,7 +899,7 @@ export const ACRYLIC_MAGNET_DATA: ProductPageData = {
 		description:
 			"Dịch vụ làm nam châm mica (acrylic magnet) in hình theo yêu cầu. In UV sắc nét, cắt laser die cut linh hoạt, nam châm lực hút mạnh. Quà tặng merchandise cao cấp.",
 		url: "https://inutdesign.com/services/an-pham-luu-niem/acrylic-magnet",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/an-pham-luu-niem/thumbnail/acrylic-magnet.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -930,7 +930,7 @@ export const ACRYLIC_MAGNET_DATA: ProductPageData = {
 		title: "Acrylic Magnet",
 		description:
 			"Nâng tầm vật phẩm lưu niệm với nam châm mica cao cấp: bề mặt bóng gương sang trọng and in UV bền màu.",
-		image: HERO_IMAGE,
+		image: `/services/an-pham-luu-niem/thumbnail/acrylic-magnet.avif`,
 		chips: ["Bề mặt bóng gương", "Nam châm mạnh"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem portfolio",
@@ -988,22 +988,22 @@ export const ACRYLIC_MAGNET_DATA: ProductPageData = {
 			{
 				name: "Artist merch",
 				description: "Sản xuất fanart die cut tự do.",
-				image: "/branding/services/sticker.avif",
+				image: `/services/an-pham-luu-niem/acrylic-magnet/12.avif`,
 			},
 			{
 				name: "Quà thương hiệu",
 				description: "Tăng ghi nhớ trong đời sống.",
-				image: "/branding/services/nhan-chai-san-pham.avif",
+				image: `/services/an-pham-luu-niem/acrylic-magnet/1.avif`,
 			},
 			{
 				name: "Sự kiện",
 				description: "Quà lưu niệm cho fanmeeting.",
-				image: "/branding/services/thiet-ke-in-an.avif",
+				image: `/services/an-pham-luu-niem/acrylic-magnet/3.avif`,
 			},
 			{
 				name: "Doanh nghiệp",
 				description: "Branding tủ lạnh văn phòng.",
-				image: "/branding/services/skin-laptop.avif",
+				image: `/services/an-pham-luu-niem/acrylic-magnet/4.avif`,
 			},
 		],
 	},
@@ -1098,7 +1098,9 @@ export const ACRYLIC_MAGNET_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Mẫu Magnet thực tế",
 		title: "Thư viện dự án",
-		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
+		images: Array.from({ length: 12 }).map(
+			(_, index) => `/services/an-pham-luu-niem/acrylic-magnet/${index + 1}.avif`
+		),
 		filters: [],
 	},
 };
