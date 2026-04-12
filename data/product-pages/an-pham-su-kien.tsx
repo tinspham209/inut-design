@@ -686,13 +686,13 @@ export const HUY_CHUONG_DATA: ProductPageData = {
 		title: "In Huy Chương Sự Kiện Chuyên Nghiệp tại Đà Nẵng – Tôn Vinh Thành Tích | INUT Design",
 		description:
 			"Huy chương sự kiện thiết kế riêng — acrylic, gỗ, kim loại, khắc laser tinh xảo. Đặt từ 10 cái, sản xuất 3–4 ngày. Báo giá nhanh tại INUT Design Đà Nẵng.",
-		url: "https://inutdesign.com/services/huy-chuong",
-		thumbnailUrl: HERO_IMAGE,
+		url: "https://inutdesign.com/services/an-pham-su-kien/huy-chuong",
+		thumbnailUrl: `/services/an-pham-su-kien/thumbnail/huy-chuong.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
-			{ name: "Sự kiện", item: "/services/su-kien" },
-			{ name: "Huy chương", item: "/services/huy-chuong" },
+			{ name: "Sự kiện", item: "/services/an-pham-su-kien/su-kien" },
+			{ name: "Huy chương", item: "/services/an-pham-su-kien/huy-chuong" },
 		],
 		productStructuredData: {
 			"@context": "https://schema.org",
@@ -718,7 +718,7 @@ export const HUY_CHUONG_DATA: ProductPageData = {
 		title: "Huy chương",
 		description:
 			"Huy chương là vật phẩm trao tặng mang tính biểu trưng cao — ghi nhận thành tích, tôn vinh người tham gia và tạo dấu ấn khó quên cho mọi chương trình, sự kiện.",
-		image: `/services/huy-chuong/1.avif`,
+		image: `/services/an-pham-su-kien/thumbnail/huy-chuong.avif`,
 		chips: ["Thiết kế theo yêu cầu", "Nhiều chất liệu", "Giao nhanh 3–4 ngày"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem portfolio",
@@ -782,22 +782,22 @@ export const HUY_CHUONG_DATA: ProductPageData = {
 			{
 				name: "Acrylic",
 				description: "Hiện đại, trong suốt hoặc đục mịn, dễ tạo hình — phù hợp sự kiện trẻ trung.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-su-kien/huy-chuong/1.avif`,
 			},
 			{
 				name: "Gỗ",
 				description: "Cảm giác mộc mạc, gần gũi — phù hợp concept tự nhiên và handmade.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-su-kien/huy-chuong/13.avif`,
 			},
 			{
 				name: "Kim loại",
 				description: "Trang trọng, bền chắc, giá trị cao — lý tưởng cho lễ vinh danh.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-su-kien/huy-chuong/2.avif`,
 			},
 			{
-				name: "Mica / In UV",
+				name: "In UV",
 				description: "Màu sắc nổi bật, hình ảnh sắc nét — tối ưu chi phí cho số lượng lớn.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-su-kien/huy-chuong/11.avif`,
 			},
 		],
 	},
@@ -897,7 +897,9 @@ export const HUY_CHUONG_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Sản phẩm thực tế",
 		title: "Trao tay thành tích — ghi dấu sự kiện",
-		images: Array.from({ length: 13 }).map((_, index) => `/services/huy-chuong/${index + 1}.avif`),
+		images: Array.from({ length: 13 }).map(
+			(_, index) => `/services/an-pham-su-kien/huy-chuong/${index + 1}.avif`
+		),
 		filters: [],
 	},
 };
