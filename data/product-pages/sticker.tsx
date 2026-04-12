@@ -21,7 +21,7 @@ export const STICKER_DIECUT_DATA: ProductPageData = {
 		description:
 			"Sticker Diecut cắt rời theo thiết kế — chống nước bền màu, đặt từ 10 cái, giao trong 24h. In UV sắc nét, hỗ trợ vẽ cutline miễn phí. Báo giá nhanh tại INUT Design Đà Nẵng.",
 		url: "https://inutdesign.com/services/sticker/sticker-diecut",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/sticker/thumbnail/sticker-diecut.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -51,12 +51,12 @@ export const STICKER_DIECUT_DATA: ProductPageData = {
 	hero: {
 		title: "Sticker Diecut",
 		description:
-			"Mỗi miếng dán là một tuyên ngôn. Sticker Diecut cắt rời hoàn toàn theo đường viền thiết kế — sắc nét từng chi tiết, chống nước tuyệt đối, bóc ra là dán được ngay.",
-		image: `/services/sticker/sticker-diecut/1.avif`,
-		chips: ["Cắt rời hoàn toàn", "Chống nước 100%", "In UV sắc nét"],
+			"Sticker Diecut không chỉ là miếng dán — đó là cách thương hiệu và cá tính của bạn xuất hiện trên mọi thứ bạn chạm vào. Sticker Diecut cắt rời hoàn toàn theo đường viền thiết kế — sắc nét từng chi tiết, chống nước tuyệt đối, bóc ra là dán được ngay.",
+		image: `/services/sticker/thumbnail/sticker-diecut.avif`,
+		chips: ["Cắt rời hoàn toàn", "Chống nước 100%", "In sắc nét"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem portfolio",
-		ticker: ["Cắt Rời Theo Thiết Kế", "Chống Nước Tuyệt Đối", "In UV Sắc Nét", "Đặt Từ 10 Cái"],
+		ticker: ["Cắt Rời Theo Thiết Kế", "Chống Nước Tuyệt Đối", "In Sắc Nét", "Đặt Từ 10 Cái"],
 		stats: [
 			{ value: "100.000", unit: "+", label: "Sticker đã xuất xưởng" },
 			{ value: "500", unit: "+", label: "Shop tin dùng" },
@@ -111,22 +111,22 @@ export const STICKER_DIECUT_DATA: ProductPageData = {
 			{
 				name: "Decal sữa",
 				description: "Màu đục mịn, in sắc nét, dán phẳng đẹp.",
-				image: HERO_IMAGE,
+				image: `/services/sticker/sticker-diecut/category/image 289.avif`,
 			},
 			{
 				name: "Decal trong",
 				description: "Nền trong suốt, lý tưởng dán kính và chai lọ.",
-				image: HERO_IMAGE,
+				image: `/services/sticker/sticker-diecut/category/image 290.avif`,
 			},
 			{
 				name: "Holographic",
 				description: "Hiệu ứng cầu vồng bắt sáng, nổi bật độc đáo.",
-				image: HERO_IMAGE,
+				image: `/services/sticker/sticker-diecut/category/image 291.avif`,
 			},
 			{
 				name: "Kraft / Giấy",
 				description: "Tone vintage tự nhiên, phù hợp thương hiệu handmade.",
-				image: HERO_IMAGE,
+				image: `/services/sticker/sticker-diecut/category/image 292.avif`,
 			},
 		],
 	},
