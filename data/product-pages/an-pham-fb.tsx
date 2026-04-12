@@ -717,7 +717,7 @@ export const TAM_LOT_BAN_AN_DATA: ProductPageData = {
 		description:
 			"Dịch vụ in tấm lót bàn ăn tại Đà Nẵng. Lót bàn giấy, PP, silicone — thiết kế đồng bộ thương hiệu, in sắc nét, phù hợp nhà hàng, quán cà phê, tiệc sự kiện. Lấy nhanh 3–4 ngày.",
 		url: "https://inutdesign.com/services/an-pham-fb/tam-lot-ban-an",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/an-pham-fb/thumbnail/tam-lot-ban-an.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -747,7 +747,7 @@ export const TAM_LOT_BAN_AN_DATA: ProductPageData = {
 		title: "Tấm Lót Bàn Ăn",
 		description:
 			"Mỗi lần khách ngồi xuống là một lần thương hiệu xuất hiện. Tấm lót bàn thiết kế đẹp, in sắc nét — vừa bảo vệ mặt bàn, vừa nâng tầm trải nghiệm và giữ thương hiệu trong tầm mắt khách suốt bữa ăn.",
-		image: HERO_IMAGE,
+		image: `/services/an-pham-fb/thumbnail/tam-lot-ban-an.avif`,
 		chips: ["Thiết kế theo thương hiệu", "Đa dạng chất liệu", "Lấy nhanh 3–4 ngày"],
 		secondaryCtaLabel: "Xem portfolio",
 		ticker: [
@@ -811,22 +811,22 @@ export const TAM_LOT_BAN_AN_DATA: ProductPageData = {
 			{
 				name: "Lót bàn giấy Couche",
 				description: "In đẹp, dùng một lần, chi phí hợp lý cho quán đông khách.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-fb/tam-lot-ban-an/1.avif`,
 			},
 			{
 				name: "Lót bàn giấy Kraft",
 				description: "Tông nâu mộc, phù hợp concept vintage, handmade, quán organic.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-fb/tam-lot-ban-an/2.avif`,
 			},
 			{
 				name: "Lót bàn nhựa PP / PVC",
 				description: "Tái sử dụng, lau dễ, bền màu — dùng lâu dài cho nhà hàng, café.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-fb/tam-lot-ban-an/12.avif`,
 			},
 			{
 				name: "Lót bàn sự kiện",
 				description: "Thiết kế theo chủ đề tiệc cưới, event, gala dinner, team building.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-fb/tam-lot-ban-an/4.avif`,
 			},
 		],
 	},
@@ -931,7 +931,7 @@ export const TAM_LOT_BAN_AN_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Dự án đã thực hiện",
 		title: "Hình ảnh thực tế",
-		images: Array.from({ length: 8 }).map(
+		images: Array.from({ length: 12 }).map(
 			(_, index) => `/services/an-pham-fb/tam-lot-ban-an/${index + 1}.avif`
 		),
 		filters: [],
