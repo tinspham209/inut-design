@@ -260,7 +260,7 @@ export const THIET_KE_IN_MENU_DATA: ProductPageData = {
 		description:
 			"Dịch vụ thiết kế và in menu nhà hàng, quán cà phê tại Đà Nẵng. Menu giấy, menu nhựa, menu mica, menu gỗ, menu da — thiết kế đẹp, in sắc nét, tư vấn chất liệu phù hợp. Lấy nhanh 3–4 ngày.",
 		url: "https://inutdesign.com/services/an-pham-fb/thiet-ke-in-menu",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/an-pham-fb/thumbnail/thiet-ke-in-menu.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -290,7 +290,7 @@ export const THIET_KE_IN_MENU_DATA: ProductPageData = {
 		title: "Thiết Kế & In Menu Nhà Hàng, Quán Cà Phê",
 		description:
 			"Menu đẹp không chỉ để nhìn — nó giúp khách chọn món nhanh hơn, upsell tự nhiên hơn và cảm nhận rõ hơn phong cách của quán. INUT thiết kế đúng chất, in đúng chất liệu.",
-		image: HERO_IMAGE,
+		image: `/services/an-pham-fb/thumbnail/thiet-ke-in-menu.avif`,
 		chips: ["Thiết kế theo concept", "Đa dạng chất liệu", "Lấy nhanh 3–4 ngày"],
 		secondaryCtaLabel: "Xem portfolio",
 		ticker: [
@@ -354,22 +354,22 @@ export const THIET_KE_IN_MENU_DATA: ProductPageData = {
 			{
 				name: "Menu giấy cán màng",
 				description: "Couche, Ivory, giấy mỹ thuật, Kraft — cán mờ / bóng, bồi cứng.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-fb/thiet-ke-in-menu/1.avif`,
 			},
 			{
 				name: "Menu nhựa & chống nước",
 				description: "PVC, nhựa — bền, dễ lau, phù hợp nhà hàng tần suất cao.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-fb/thiet-ke-in-menu/10.avif`,
 			},
 			{
-				name: "Menu mica & gỗ",
+				name: "Menu gỗ & Giấy Craft",
 				description: "Hiện đại hoặc vintage — để bàn, quầy order, bảng nhỏ.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-fb/thiet-ke-in-menu/9.avif`,
 			},
 			{
 				name: "Menu da & đóng quyển",
 				description: "Da / giả da, đóng lò xo / gáy vít — premium, dễ thay ruột.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-fb/thiet-ke-in-menu/6.avif`,
 			},
 		],
 	},
@@ -471,7 +471,7 @@ export const THIET_KE_IN_MENU_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Dự án đã thực hiện",
 		title: "Hình ảnh thực tế",
-		images: Array.from({ length: 8 }).map(
+		images: Array.from({ length: 11 }).map(
 			(_, index) => `/services/an-pham-fb/thiet-ke-in-menu/${index + 1}.avif`
 		),
 		filters: [],
