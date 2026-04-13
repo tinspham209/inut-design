@@ -114,7 +114,7 @@ type Props = {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
 	const blogs = await getPostListLimit(3);
-	const banner: Banner = await bannerApi.getBannerPage("contact-page");
+	const banner: Banner = await bannerApi.getBannerPage("homepage");
 
 	const [specialProducts, specialMacnuts, specialLighters] = await Promise.all([
 		productsApi.getSpecialProducts(8),
