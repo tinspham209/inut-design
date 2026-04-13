@@ -16,11 +16,13 @@ const ContactForm: NextPageWithLayout = () => {
 					description:
 						"Điền thông tin để nhận tư vấn, báo giá về thiết kế, in ấn tại Đà Nẵng. INUT Design sẽ liên hệ bạn sớm nhất.",
 					url: "https://inutdesign.com/contact/form",
-					thumbnailUrl: "/branding/ogImage.jpg",
+					thumbnailUrl: "/branding/og-image/contact.jpg",
 				}}
 			/>
 			<Box pt={2} bgcolor={COLOR_CODE.INK}>
-				<HeroImage imgUrl="/cover-web.webp" />
+				<Container maxWidth="md">
+					<HeroImage imgUrl="/branding/contacts/thumbnail.jpg" />
+				</Container>
 			</Box>
 			<Box sx={{ bgcolor: COLOR_CODE.INK }} pb={6}>
 				<Container>

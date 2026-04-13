@@ -193,7 +193,7 @@ export default function QuoteRequestFormComponent() {
 				</Typography>
 
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<Grid container spacing={3}>
+					<Grid container spacing={1.5}>
 						{/* Customer Name */}
 						<Grid item xs={12} md={6}>
 							<Controller
