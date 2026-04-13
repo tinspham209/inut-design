@@ -23,8 +23,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 					description:
 						"Thiết kế & In ấn - Skin Laptop - Sticker - Decal - Thiệp - Card - Tem Nhãn, skin laptop da nang, skin laptop đà nẵng",
 					url: "https://inutdesign.com/contact",
-					thumbnailUrl:
-						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
+					thumbnailUrl: urlFor(banner.image).url(),
 				}}
 			/>
 

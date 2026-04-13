@@ -15,12 +15,12 @@ interface Contact {
 
 export const CONTACTS: Contact[] = [
 	{
-		name: "INUT DESIGN",
+		name: "Ms. Boo",
 		role: "Zalo Chat",
-		roleBadge: "Bán hàng",
-		phone: "0327124321",
-		displayPhone: "0327.124.321",
-		photoUrl: "/branding/contacts/contact-00.avif",
+		roleBadge: "Hỗ trợ Bán hàng",
+		phone: "0777208215",
+		displayPhone: "0777.208.215",
+		photoUrl: "/branding/contacts/contact-02.avif",
 	},
 	{
 		name: "Mr. Tom",
@@ -31,12 +31,12 @@ export const CONTACTS: Contact[] = [
 		photoUrl: "/branding/contacts/contact-01.avif",
 	},
 	{
-		name: "Ms. Boo",
+		name: "INUT DESIGN",
 		role: "Zalo Chat",
-		roleBadge: "Hỗ trợ Bán hàng",
-		phone: "0777208215",
-		displayPhone: "0777.208.215",
-		photoUrl: "/branding/contacts/contact-02.avif",
+		roleBadge: "Bán hàng",
+		phone: "0327124321",
+		displayPhone: "0327.124.321",
+		photoUrl: "/branding/contacts/contact-00.avif",
 	},
 ];
 
@@ -107,9 +107,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 								<Image
 									src={contact.photoUrl}
 									alt={`${contact.name} contact`}
-									width={1000}
-									height={250}
-									style={{ width: "100%", height: "auto", borderRadius: "8px" }}
+									layout="responsive"
+									width={711}
+									height={300}
+									style={{
+										width: "100%",
+										height: "auto",
+										objectFit: "contain",
+									}}
 								/>
 							</Link>
 						</Grid>

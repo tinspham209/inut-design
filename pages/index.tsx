@@ -1,5 +1,7 @@
+import { bannerApi } from "@/api-client/banner";
 import { lightersApi } from "@/api-client/lighters";
 import { productsApi } from "@/api-client/products";
+import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
 import { ROUTE_LIST } from "@/components/common/header/routes";
 import {
@@ -13,6 +15,7 @@ import {
 } from "@/components/home";
 import { MainLayout } from "@/components/layout";
 import { LighterProduct, Post } from "@/models";
+import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { Products } from "@/models/products";
 import { getPostListLimit } from "@/utils";
@@ -23,7 +26,7 @@ const servicesRoute = ROUTE_LIST.find((r) => r.path === "/services");
 const stickerChildren =
 	servicesRoute?.children?.find((r) => r.path === "/services/sticker")?.children ?? [];
 
-const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs }: Props) => {
+const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs, banner }: Props) => {
 	return (
 		<Box>
 			<Seo
@@ -32,7 +35,7 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs }: Props)
 					description:
 						"Xưởng in Đà Nẵng: skin laptop, MACNUT, sticker, decal, namecard, banner, backdrop. Giao nhanh — báo giá trong 15 phút. Zalo: 0327 124 321.",
 					url: "https://inutdesign.com",
-					thumbnailUrl: "/branding/ogImage.jpg",
+					thumbnailUrl: urlFor(banner.image).url() || "/branding/ogImage.jpg",
 				}}
 			/>
 			{/* <Box pt={2} bgcolor={COLOR_CODE.BACKGROUND}>
@@ -106,10 +109,12 @@ type Props = {
 	macnuts: Products;
 	lighters: LighterProduct[];
 	blogs: Post[];
+	banner: Banner;
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
 	const blogs = await getPostListLimit(3);
+	const banner: Banner = await bannerApi.getBannerPage("contact-page");
 
 	const [specialProducts, specialMacnuts, specialLighters] = await Promise.all([
 		productsApi.getSpecialProducts(8),
@@ -123,6 +128,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			macnuts: specialMacnuts,
 			lighters: specialLighters,
 			blogs,
+			banner: banner ? banner[0] : [],
 		},
 	};
 };
