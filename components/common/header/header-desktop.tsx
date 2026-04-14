@@ -32,6 +32,50 @@ export function HeaderDesktop() {
 		return router.pathname.startsWith(path);
 	};
 
+	const MegaMenuLink = ({
+		href,
+		children,
+		isTitle = false,
+		onClick,
+	}: {
+		href: string;
+		children: React.ReactNode;
+		isTitle?: boolean;
+		onClick?: () => void;
+	}) => (
+		<Link href={href} passHref>
+			<MuiLink
+				underline="hover"
+				onClick={onClick}
+				sx={{
+					fontWeight: isTitle ? "bold" : "normal",
+					color: isTitle ? COLOR_CODE.PRIMARY : COLOR_CODE.TEXT_MUTED,
+					textTransform: isTitle ? "uppercase" : "none",
+					fontSize: isTitle ? "0.875rem" : "0.95rem",
+					display: "inline-block",
+					position: "relative",
+					"&:hover": {
+						color: COLOR_CODE.PRIMARY,
+					},
+					...(isTitle && {
+						display: "flex",
+						alignItems: "center",
+						gap: 1,
+						"&::before": {
+							content: '""',
+							width: 2,
+							height: 14,
+							backgroundColor: COLOR_CODE.PRIMARY,
+							display: "inline-block",
+						},
+					}),
+				}}
+			>
+				{children}
+			</MuiLink>
+		</Link>
+	);
+
 	const renderDropdown = (item: RouteItem) => {
 		if (!item.children) return null;
 
@@ -52,6 +96,7 @@ export function HeaderDesktop() {
 							borderTop: `1px solid ${COLOR_CODE.BORDER_DARK}`,
 							borderBottom: `1px solid ${COLOR_CODE.BORDER_DARK}`,
 							boxShadow: "0 20px 40px rgba(8, 7, 6, 0.28)",
+							pointerEvents: activeMenu === item.label ? "auto" : "none",
 						}}
 					>
 						<Container maxWidth="lg">
@@ -61,12 +106,26 @@ export function HeaderDesktop() {
 									<Stack spacing={3}>
 										{item.children.slice(0, 2).map((group) => (
 											<Box key={group.label}>
-												<MegaMenuLink isTitle href={group.path}>
+												<MegaMenuLink
+													isTitle
+													href={group.path}
+													onClick={() => {
+														trackHeaderNavigation(group.label, item.label, "desktop");
+														setActiveMenu(null);
+													}}
+												>
 													{group.label}
 												</MegaMenuLink>
 												<Stack mt={1.5} spacing={1.5}>
 													{group.children?.map((subItem) => (
-														<MegaMenuLink key={subItem.path} href={subItem.path}>
+														<MegaMenuLink
+															key={subItem.path}
+															href={subItem.path}
+															onClick={() => {
+																trackHeaderNavigation(subItem.label, item.label, "desktop");
+																setActiveMenu(null);
+															}}
+														>
 															{subItem.label}
 														</MegaMenuLink>
 													))}
@@ -87,12 +146,26 @@ export function HeaderDesktop() {
 									<Stack spacing={3}>
 										{[item.children[2], item.children[5]].map((group) => (
 											<Box key={group.label}>
-												<MegaMenuLink isTitle href={group.path}>
+												<MegaMenuLink
+													isTitle
+													href={group.path}
+													onClick={() => {
+														trackHeaderNavigation(group.label, item.label, "desktop");
+														setActiveMenu(null);
+													}}
+												>
 													{group.label}
 												</MegaMenuLink>
 												<Stack mt={1.5} spacing={1.5}>
 													{group.children?.map((subItem) => (
-														<MegaMenuLink key={subItem.path} href={subItem.path}>
+														<MegaMenuLink
+															key={subItem.path}
+															href={subItem.path}
+															onClick={() => {
+																trackHeaderNavigation(subItem.label, item.label, "desktop");
+																setActiveMenu(null);
+															}}
+														>
 															{subItem.label}
 														</MegaMenuLink>
 													))}
@@ -113,12 +186,26 @@ export function HeaderDesktop() {
 									<Stack spacing={3}>
 										{[item.children[4], item.children[6]].map((group) => (
 											<Box key={group.label}>
-												<MegaMenuLink isTitle href={group.path}>
+												<MegaMenuLink
+													isTitle
+													href={group.path}
+													onClick={() => {
+														trackHeaderNavigation(group.label, item.label, "desktop");
+														setActiveMenu(null);
+													}}
+												>
 													{group.label}
 												</MegaMenuLink>
 												<Stack mt={1.5} spacing={1.5}>
 													{group.children?.map((subItem) => (
-														<MegaMenuLink key={subItem.path} href={subItem.path}>
+														<MegaMenuLink
+															key={subItem.path}
+															href={subItem.path}
+															onClick={() => {
+																trackHeaderNavigation(subItem.label, item.label, "desktop");
+																setActiveMenu(null);
+															}}
+														>
 															{subItem.label}
 														</MegaMenuLink>
 													))}
@@ -139,12 +226,26 @@ export function HeaderDesktop() {
 									<Stack spacing={3}>
 										{[item.children[3], item.children[7]].map((group) => (
 											<Box key={group.label}>
-												<MegaMenuLink isTitle href={group.path}>
+												<MegaMenuLink
+													isTitle
+													href={group.path}
+													onClick={() => {
+														trackHeaderNavigation(group.label, item.label, "desktop");
+														setActiveMenu(null);
+													}}
+												>
 													{group.label}
 												</MegaMenuLink>
 												<Stack mt={1.5} spacing={1.5}>
 													{group.children?.map((subItem) => (
-														<MegaMenuLink key={subItem.path} href={subItem.path}>
+														<MegaMenuLink
+															key={subItem.path}
+															href={subItem.path}
+															onClick={() => {
+																trackHeaderNavigation(subItem.label, item.label, "desktop");
+																setActiveMenu(null);
+															}}
+														>
 															{subItem.label}
 														</MegaMenuLink>
 													))}
@@ -174,13 +275,17 @@ export function HeaderDesktop() {
 						border: `1px solid ${COLOR_CODE.BORDER_DARK}`,
 						borderRadius: 2,
 						boxShadow: "0 20px 40px rgba(8, 7, 6, 0.28)",
+						pointerEvents: activeMenu === item.label ? "auto" : "none",
 					}}
 				>
 					<Stack>
 						{item.children.map((child) => (
 							<Link key={child.path} href={child.path} passHref>
 								<MuiLink
-									onClick={() => trackHeaderNavigation(child.label, item.label, "desktop")}
+									onClick={() => {
+										trackHeaderNavigation(child.label, item.label, "desktop");
+										setActiveMenu(null);
+									}}
 									sx={{
 										px: 3,
 										py: 1.5,
@@ -202,47 +307,6 @@ export function HeaderDesktop() {
 			</Fade>
 		);
 	};
-
-	const MegaMenuLink = ({
-		href,
-		children,
-		isTitle = false,
-	}: {
-		href: string;
-		children: React.ReactNode;
-		isTitle?: boolean;
-	}) => (
-		<Link href={href} passHref>
-			<MuiLink
-				underline="hover"
-				sx={{
-					fontWeight: isTitle ? "bold" : "normal",
-					color: isTitle ? COLOR_CODE.PRIMARY : COLOR_CODE.TEXT_MUTED,
-					textTransform: isTitle ? "uppercase" : "none",
-					fontSize: isTitle ? "0.875rem" : "0.95rem",
-					display: "inline-block",
-					position: "relative",
-					"&:hover": {
-						color: COLOR_CODE.PRIMARY,
-					},
-					...(isTitle && {
-						display: "flex",
-						alignItems: "center",
-						gap: 1,
-						"&::before": {
-							content: '""',
-							width: 2,
-							height: 14,
-							backgroundColor: COLOR_CODE.PRIMARY,
-							display: "inline-block",
-						},
-					}),
-				}}
-			>
-				{children}
-			</MuiLink>
-		</Link>
-	);
 
 	return (
 		<Box
@@ -301,7 +365,10 @@ export function HeaderDesktop() {
 								>
 									<Link href={route.path} passHref>
 										<MuiLink
-											onClick={() => trackHeaderNavigation(route.label, "Main Nav", "desktop")}
+											onClick={() => {
+												trackHeaderNavigation(route.label, "Main Nav", "desktop");
+												setActiveMenu(null);
+											}}
 											sx={{
 												fontWeight: "bold",
 												fontSize: 15,
@@ -360,7 +427,10 @@ export function HeaderDesktop() {
 								<Button
 									variant="contained"
 									size="small"
-									onClick={() => trackHeaderNavigation(route.label, "Main Nav", "desktop")}
+									onClick={() => {
+										trackHeaderNavigation(route.label, "Main Nav", "desktop");
+										setActiveMenu(null);
+									}}
 									sx={{
 										borderRadius: "4px",
 										fontWeight: "bold",
