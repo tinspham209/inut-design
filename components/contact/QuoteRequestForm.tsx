@@ -19,61 +19,71 @@ import {
 	FormControlLabel,
 	FormLabel,
 	Grid,
+	Link as MuiLink,
 	Radio,
 	RadioGroup,
 	TextareaAutosize,
 	TextField,
 	Typography,
-	Link as MuiLink,
 } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import LinkIcon from "@mui/icons-material/Link";
 
 const USAGE_PURPOSE_OPTIONS = [
-	{ title: "Kinh doanh", value: UsagePurposeValue.KINH_DOANH },
-	{ title: "Cá nhân", value: UsagePurposeValue.CA_NHAN },
+	{ title: "Bật lửa custom theo yêu cầu", value: UsagePurposeValue.LIGHTER_CUSTOMIZE },
+	{ title: "Skin laptop custom theo yêu cầu", value: UsagePurposeValue.LAPTOP_CUSTOMIZE },
+	{ title: "Nút phím custom theo yêu cầu", value: UsagePurposeValue.MACNUT_CUSTOMIZE },
+	{ title: "Skin phone custom theo yêu cầu", value: UsagePurposeValue.PHONE_CUSTOMIZE },
+
+	{ title: "Sticker", value: UsagePurposeValue.STICKER },
+	{ title: "Sticker sheet", value: UsagePurposeValue.STICKER_SHEET },
+	{ title: "Sticker magnet", value: UsagePurposeValue.STICKER_MAGNET },
+	{ title: "Sticker diecut", value: UsagePurposeValue.STICKER_DIECUT },
+	{ title: "Sticker kisscut", value: UsagePurposeValue.STICKER_KISSCUT },
+
+	{ title: "Móc khóa mica", value: UsagePurposeValue.MOC_KHOA_MICA },
+	{ title: "Pin cài áo mica", value: UsagePurposeValue.PIN_CAI_AO_MICA },
+	{ title: "Acrylic magnet", value: UsagePurposeValue.ACRYLIC_MAGNET },
+
+	{
+		title: "Thiết kế in ấn cửa hàng trọn gói",
+		value: UsagePurposeValue.THIET_KE_IN_AN_CUA_HANG_TRON_GOI,
+	},
+	{ title: "Sự Kiện Trọn Gói", value: UsagePurposeValue.SU_KIEN_TRON_GOI },
+
+	{ title: "Banner & Standee", value: UsagePurposeValue.BANNER_STANDEE },
+	{ title: "Poster & Decal", value: UsagePurposeValue.POSTER_DECAL },
+	{ title: "Hashtag Cầm Tay", value: UsagePurposeValue.HASHTAG_CAM_TAY },
+
+	{ title: "Thiết Kế & In Menu", value: UsagePurposeValue.THIET_KE_IN_MENU },
 	{ title: "Decal Nhãn Mác", value: UsagePurposeValue.DECAL_NHAN_MAC },
 	{ title: "Hộp Sản Phẩm", value: UsagePurposeValue.HOP_SAN_PHAM },
 	{ title: "Tem Bảo Hành", value: UsagePurposeValue.TEM_BAO_HANH },
 	{ title: "Nhãn dán bao bì", value: UsagePurposeValue.NHAN_DAN_BAO_BI },
-	{ title: "Sản Phẩm Decor", value: UsagePurposeValue.SAN_PHAM_DECOR },
-	{ title: "Thiết Kế & In Menu", value: UsagePurposeValue.THIET_KE_IN_MENU },
-	{ title: "Phiếu, Vé & Hóa Đơn GTGT", value: UsagePurposeValue.PHIEU_VE_HOA_DON_GTGT },
-	{ title: "Tấm Lót Bàn Ăn", value: UsagePurposeValue.TAM_LOT_BAN_AN },
-	{ title: "Hashtag Cầm Tay", value: UsagePurposeValue.HASHTAG_CAM_TAY },
-	{ title: "Poster & Decal", value: UsagePurposeValue.POSTER_DECAL },
-	{ title: "Banner & Standee", value: UsagePurposeValue.BANNER_STANDEE },
-	{ title: "Huy chương", value: UsagePurposeValue.HUY_CHUONG },
-	{ title: "Sự Kiện Trọn Gói", value: UsagePurposeValue.SU_KIEN_TRON_GOI },
+
 	{ title: "In Card Visit", value: UsagePurposeValue.IN_CARD_VISIT },
 	{ title: "In Catalogue, Brochure", value: UsagePurposeValue.CATALOGUE_BROCHURE },
 	{
 		title: "In Voucher, Vé Mời, Thẻ Tích Điểm, Tờ Rơi",
 		value: UsagePurposeValue.IN_VOUCHER_VE_MOI_SU_KIEN_THE_TICH_DIEM,
 	},
-	{ title: "Giấy Khen & Giấy Chứng Nhận", value: UsagePurposeValue.GIAY_KHEN_GIAY_CHUNG_NHAN },
 	{ title: "In Bì Thư", value: UsagePurposeValue.IN_BI_THU },
+	{ title: "Giấy Khen & Giấy Chứng Nhận", value: UsagePurposeValue.GIAY_KHEN_GIAY_CHUNG_NHAN },
+	{ title: "In ảnh", value: UsagePurposeValue.IN_ANH },
+	{ title: "In Postcard", value: UsagePurposeValue.IN_POSTCARD },
+	{ title: "Thank Card & Gift Card", value: UsagePurposeValue.THANK_CARD_GIFT_CARD },
+	{ title: "Huy chương", value: UsagePurposeValue.HUY_CHUONG },
+	{ title: "Sản Phẩm Decor", value: UsagePurposeValue.SAN_PHAM_DECOR },
+	{ title: "Tấm Lót Bàn Ăn", value: UsagePurposeValue.TAM_LOT_BAN_AN },
+	{ title: "Phiếu, Vé & Hóa Đơn GTGT", value: UsagePurposeValue.PHIEU_VE_HOA_DON_GTGT },
 	{ title: "Sổ Tay, Kỷ Yếu & Sổ Bấm Ghim", value: UsagePurposeValue.SO_TAY_KY_YEU_SO_BAM_GHIM },
 	{ title: "Bảng cứng in thông tin", value: UsagePurposeValue.BANG_CUNG_IN_THONG_TIN },
-	{ title: "Skin laptop custom theo yêu cầu", value: UsagePurposeValue.LAPTOP_CUSTOMIZE },
-	{ title: "Skin phone custom theo yêu cầu", value: UsagePurposeValue.PHONE_CUSTOMIZE },
-	{ title: "Bật lửa custom theo yêu cầu", value: UsagePurposeValue.LIGHTER_CUSTOMIZE },
-	{ title: "Nút phím custom theo yêu cầu", value: UsagePurposeValue.MACNUT_CUSTOMIZE },
-	{ title: "Thank Card & Gift Card", value: UsagePurposeValue.THANK_CARD_GIFT_CARD },
-	{ title: "In Postcard", value: UsagePurposeValue.IN_POSTCARD },
-	{ title: "In ảnh", value: UsagePurposeValue.IN_ANH },
-	{ title: "Móc khóa mica", value: UsagePurposeValue.MOC_KHOA_MICA },
-	{ title: "Pin cài áo mica", value: UsagePurposeValue.PIN_CAI_AO_MICA },
-	{ title: "Acrylic magnet", value: UsagePurposeValue.ACRYLIC_MAGNET },
-	{ title: "Sticker sheet", value: UsagePurposeValue.STICKER_SHEET },
-	{ title: "Sticker magnet", value: UsagePurposeValue.STICKER_MAGNET },
-	{ title: "Sticker diecut", value: UsagePurposeValue.STICKER_DIECUT },
-	{ title: "Sticker kisscut", value: UsagePurposeValue.STICKER_KISSCUT },
-	{ title: "Sticker", value: UsagePurposeValue.STICKER },
+
+	{ title: "Kinh doanh", value: UsagePurposeValue.KINH_DOANH },
+	{ title: "Cá nhân", value: UsagePurposeValue.CA_NHAN },
 	{ title: "Khác", value: UsagePurposeValue.OTHER },
 ];
 
@@ -135,7 +145,6 @@ export default function QuoteRequestFormComponent() {
 		try {
 			const result = await submit(data);
 
-			// Track successful quote request submission
 			trackFormSubmit("quote_request", data.usagePurpose);
 
 			toast.success("Gửi yêu cầu báo giá thành công!");

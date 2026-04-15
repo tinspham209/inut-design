@@ -37,6 +37,7 @@ export enum UsagePurposeValue {
 	POSTER_DECAL = "poster-decal",
 	HASHTAG_CAM_TAY = "hashtag-cam-tay",
 	BANNER_STANDEE = "banner-standee",
+	THIET_KE_IN_AN_CUA_HANG_TRON_GOI = "thiet-ke-in-an-cua-hang-tron-goi",
 }
 
 export enum DesignStatusValue {

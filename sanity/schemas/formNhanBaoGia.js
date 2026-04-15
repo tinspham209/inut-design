@@ -51,6 +51,10 @@ export default {
 					{ title: "Banner & Standee", value: "banner-standee" },
 					{ title: "Huy chương", value: "huy-chuong" },
 					{ title: "Sự Kiện Trọn Gói", value: "su-kien-tron-goi" },
+					{
+						title: "Thiết kế in ấn cửa hàng trọn gói",
+						value: "thiet-ke-in-an-cua-hang-tron-goi",
+					},
 					{ title: "In Card Visit", value: "in-card-visit" },
 					{ title: "In Catalogue, Brochure", value: "catalogue-brochure" },
 					{

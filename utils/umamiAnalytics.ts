@@ -209,7 +209,7 @@ export const trackUmamiZaloClick = (): void => {
  */
 export const trackUmamiFormSubmit = (formType: string, product?: string): void => {
 	umami.track("form_submit", {
-		formType: formType, // quote_request, contact_form, etc.
+		formType, // quote_request, contact_form, etc.
 		productName: product || "N/A",
 	});
 };
