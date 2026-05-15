@@ -3,6 +3,8 @@
 import axios, { AxiosError } from "axios";
 import { SendOrderNotificationRequest } from "./telegram.types";
 
+const VIETNAM_TIMEZONE = "Asia/Ho_Chi_Minh";
+
 /**
  * Telegram Bot API client
  */
@@ -58,7 +60,8 @@ export class TelegramClient {
 		} catch (error) {
 			const axiosError = error as AxiosError;
 			const responseData = axiosError.response?.data as any;
-			const errorMessage = responseData?.description || axiosError.message || "Failed to send Telegram message";
+			const errorMessage =
+				responseData?.description || axiosError.message || "Failed to send Telegram message";
 
 			// Log detailed error for debugging migration issues
 			if (responseData?.parameters?.migrate_to_chat_id) {
@@ -179,10 +182,7 @@ export interface OrderNotificationData {
  * Accepts raw OrderLighter (with only references) and optionally maps to resolve names.
  * If names are not provided, falls back to reference IDs.
  */
-export function formatOrderMessage(
-	order: SendOrderNotificationRequest["orderData"],
-	options?
-): string {
+export function formatOrderMessage(order: SendOrderNotificationRequest["orderData"]): string {
 	const emoji = {
 		order: "🔥",
 		customer: "👤",
@@ -207,6 +207,7 @@ export function formatOrderMessage(
 		order.paymentMethod === "cod" ? "COD (Tiền mặt)" : "Chuyển khoản ngân hàng";
 
 	const orderDate = new Date(order.orderDate).toLocaleString("vi-VN", {
+		timeZone: VIETNAM_TIMEZONE,
 		year: "numeric",
 		month: "2-digit",
 		day: "2-digit",
@@ -233,6 +234,9 @@ export function formatOrderMessage(
 	if (orderId) {
 		sanityStudioUrl += `;${orderId}`;
 	}
+	const orderTrackingUrl = `https://inutdesign.com/order-tracking/lighters/${encodeURIComponent(
+		order.orderNumber
+	)}`;
 	const message = `
 ${emoji.order} <b>ĐƠN HÀNG MỚI</b>
 ━━━━━━━━━━━━━━━━━━
@@ -264,7 +268,8 @@ ${emoji.money} <b>TỔNG KẾT</b>
 ${emoji.payment} <b>Thanh toán:</b> ${paymentMethodLabel}
 ${order.notes ? `\n${emoji.notes} <b>Ghi chú:</b> ${sanitize(order.notes)}` : ""}
 
-${emoji.link} <a href="${sanityStudioUrl}">Xem trong Sanity Studio</a>
+${emoji.link} Xem trong Sanity Studio: ${sanitize(sanityStudioUrl)}
+${emoji.link} Xem trong INUT Order Tracking: ${sanitize(orderTrackingUrl)}
 `.trim();
 
 	return message;
@@ -281,7 +286,7 @@ Inut Design Order Bot đã được cấu hình thành công!
 
 Bot sẽ tự động gửi thông báo khi có đơn hàng mới.
 
-Thời gian test: ${new Date().toLocaleString("vi-VN")}
+Thời gian test: ${new Date().toLocaleString("vi-VN", { timeZone: VIETNAM_TIMEZONE })}
 `.trim();
 }
 

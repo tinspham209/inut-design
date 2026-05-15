@@ -1,5 +1,7 @@
 import { QuoteRequestForm } from "@/models/quoteRequest";
 
+const VIETNAM_TIMEZONE = "Asia/Ho_Chi_Minh";
+
 export function formatQuoteRequestMessage(quoteData: QuoteRequestForm): string {
 	const {
 		customerName,
@@ -119,7 +121,9 @@ export function formatQuoteRequestMessage(quoteData: QuoteRequestForm): string {
 		message += `⚡ <b>Ưu tiên:</b> ${priorityLabels[priorityLevel] || priorityLevel}\n`;
 		if (priorityLevel === "gap" && urgentDate) {
 			const dateObj = new Date(urgentDate);
-			const formattedDate = dateObj.toLocaleDateString("vi-VN");
+			const formattedDate = dateObj.toLocaleDateString("vi-VN", {
+				timeZone: VIETNAM_TIMEZONE,
+			});
 			message += `   └ <b>Ngày cần:</b> ${formattedDate}\n`;
 		}
 	}
@@ -128,7 +132,9 @@ export function formatQuoteRequestMessage(quoteData: QuoteRequestForm): string {
 		message += `\n💬 <b>Ghi chú:</b>\n${notes}\n`;
 	}
 
-	message += `\n⏰ <b>Thời gian:</b> ${new Date().toLocaleString("vi-VN")}`;
+	message += `\n⏰ <b>Thời gian:</b> ${new Date().toLocaleString("vi-VN", {
+		timeZone: VIETNAM_TIMEZONE,
+	})}`;
 
 	return message;
 }
