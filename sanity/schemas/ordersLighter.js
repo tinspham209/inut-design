@@ -272,12 +272,12 @@ export default {
 		select: {
 			orderNumber: "orderNumber",
 			customerName: "customerName",
-			totalAmount: "totalAmount",
+			finalAmount: "finalAmount",
 			status: "status",
 			orderDate: "orderDate",
 		},
 		prepare(selection) {
-			const { orderNumber, customerName, totalAmount, status, orderDate } = selection;
+			const { orderNumber, customerName, finalAmount, status, orderDate } = selection;
 
 			// Format date
 			const date = orderDate ? new Date(orderDate).toLocaleDateString("vi-VN") : "N/A";
@@ -294,7 +294,7 @@ export default {
 			return {
 				title: `${statusEmoji[status] || ""} ${orderNumber || "New Order"}`,
 				subtitle: `${customerName || "Unknown"} | ${date} | ${
-					totalAmount ? totalAmount.toLocaleString() : 0
+					finalAmount ? finalAmount.toLocaleString() : 0
 				}₫`,
 			};
 		},

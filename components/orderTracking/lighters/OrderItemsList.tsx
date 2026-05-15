@@ -1,5 +1,4 @@
 import { Card, CardContent, Typography, Divider, Stack, Box } from "@mui/material";
-import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { formatPrice } from "@/utils/priceCalculator";
 import React from "react";
 import type { LighterType, OrderItemLighter, OrderLighter } from "@/models/cart";
@@ -9,11 +8,21 @@ import { urlFor } from "@/api-client/sanity-client";
 interface OrderItemsListProps {
 	items: OrderLighter["orderItems"];
 	totalAmount: number;
+	shippingFee?: number;
+	discount?: number;
+	finalAmount?: number;
 }
 
-const OrderItemsList: React.FC<OrderItemsListProps> = ({ items, totalAmount }) => {
+const OrderItemsList: React.FC<OrderItemsListProps> = ({
+	items,
+	totalAmount,
+	shippingFee = 0,
+	discount = 0,
+	finalAmount,
+}) => {
 	// Calculate total items from order
 	const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+	const payableAmount = finalAmount ?? totalAmount + shippingFee - discount;
 
 	return (
 		<Card>
@@ -37,10 +46,33 @@ const OrderItemsList: React.FC<OrderItemsListProps> = ({ items, totalAmount }) =
 					</Stack>
 					<Stack direction="row" justifyContent="space-between">
 						<Typography variant="subtitle1" fontWeight="bold">
-							Tổng cộng:
+							Tạm tính:
 						</Typography>
 						<Typography variant="subtitle1" fontWeight="bold" color="primary">
 							{formatPrice(totalAmount)}
+						</Typography>
+					</Stack>
+					<Stack direction="row" justifyContent="space-between">
+						<Typography variant="body2">Phí vận chuyển:</Typography>
+						<Typography variant="body2" fontWeight="medium">
+							{formatPrice(shippingFee)}
+						</Typography>
+					</Stack>
+					{discount > 0 && (
+						<Stack direction="row" justifyContent="space-between">
+							<Typography variant="body2">Giảm giá:</Typography>
+							<Typography variant="body2" fontWeight="medium" color="success.main">
+								- {formatPrice(discount)}
+							</Typography>
+						</Stack>
+					)}
+					<Divider />
+					<Stack direction="row" justifyContent="space-between">
+						<Typography variant="subtitle1" fontWeight="bold">
+							Thành tiền:
+						</Typography>
+						<Typography variant="subtitle1" fontWeight="bold" color="primary.main">
+							{formatPrice(payableAmount)}
 						</Typography>
 					</Stack>
 				</Stack>

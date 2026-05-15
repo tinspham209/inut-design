@@ -28,13 +28,13 @@ interface BankInfo {
 
 interface BankTransferInfoProps {
 	bankInfo: BankInfo;
-	totalAmount: number;
+	payableAmount: number;
 	customerPhone: string;
 }
 
 const BankTransferInfo: React.FC<BankTransferInfoProps> = ({
 	bankInfo,
-	totalAmount,
+	payableAmount,
 	customerPhone,
 }) => {
 	const handleCopyToClipboard = (text: string, label: string) => {
@@ -55,8 +55,8 @@ const BankTransferInfo: React.FC<BankTransferInfoProps> = ({
 		>
 			<CardContent>
 				<Stack direction="row" alignItems="center" spacing={1} mb={2}>
-					<AccountBalanceIcon color="primary" />
-					<Typography variant="h6" fontWeight="bold" color="primary.dark">
+					<AccountBalanceIcon sx={{ color: "white" }} />
+					<Typography variant="h6" fontWeight="bold" color="white">
 						Thông tin chuyển khoản
 					</Typography>
 				</Stack>
@@ -65,7 +65,7 @@ const BankTransferInfo: React.FC<BankTransferInfoProps> = ({
 						📝 Hướng dẫn thanh toán:
 					</Typography>
 					<Typography variant="body2" component="div">
-						1. Chuyển khoản đúng số tiền: <strong>{formatPrice(totalAmount)}</strong>
+						1. Chuyển khoản đúng số tiền: <strong>{formatPrice(payableAmount)}</strong>
 						<br />
 						2. Nội dung chuyển khoản: <strong>{customerPhone}</strong> (Số điện thoại của bạn)
 						<br />
@@ -183,12 +183,12 @@ const BankTransferInfo: React.FC<BankTransferInfoProps> = ({
 										spacing={1}
 									>
 										<Typography variant="h6" fontWeight="bold" color="error.main">
-											{formatPrice(totalAmount)}
+											{formatPrice(payableAmount)}
 										</Typography>
 										<Button
 											size="small"
 											startIcon={<ContentCopyIcon />}
-											onClick={() => handleCopyToClipboard(totalAmount.toString(), "số tiền")}
+											onClick={() => handleCopyToClipboard(payableAmount.toString(), "số tiền")}
 											sx={{ minWidth: "auto" }}
 										>
 											Sao chép

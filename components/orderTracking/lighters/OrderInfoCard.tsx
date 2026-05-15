@@ -70,7 +70,9 @@ const OrderInfoCard: React.FC<OrderInfoCardProps> = ({
 	const handleCopyOrderNumber = async (number: string) => {
 		if (!number) return;
 		try {
-			await navigator.clipboard.writeText(number);
+			await navigator.clipboard.writeText(
+				window.location.origin + "/order-tracking/lighters/" + number
+			);
 			toast.success("Đã sao chép mã đơn hàng, Hãy lưu lại để tra cứu sau này!");
 		} catch (err) {
 			toast.error("Không thể sao chép!");

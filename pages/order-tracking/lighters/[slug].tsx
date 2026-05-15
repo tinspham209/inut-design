@@ -23,6 +23,11 @@ const LighterOrderConfirmation: NextPageWithLayout = () => {
 	const { data: orderData, error: orderError, isLoading: loadingOrder } = useOrderByNumber(slug);
 	const shouldFetchBank = orderData?.paymentMethod === "bank_transfer";
 	const { data: bankInfo, isLoading: loadingBankInfo } = usePrimaryBankInfo(!!shouldFetchBank);
+	const payableAmount =
+		orderData?.finalAmount ??
+		(orderData
+			? orderData.totalAmount + (orderData.shippingFee || 0) - (orderData.discount || 0)
+			: 0);
 
 	const showBankInfo =
 		(shouldFetchBank && orderData?.paymentStatus === "pending") ||
@@ -71,7 +76,7 @@ const LighterOrderConfirmation: NextPageWithLayout = () => {
 							showBankInfo && (
 								<BankTransferInfo
 									bankInfo={bankInfo}
-									totalAmount={orderData.totalAmount}
+									payableAmount={payableAmount}
 									customerPhone={orderData.customerPhone}
 								/>
 							)
@@ -79,7 +84,13 @@ const LighterOrderConfirmation: NextPageWithLayout = () => {
 					</Box>
 				)}
 				<Box mb={3}>
-					<OrderItemsList items={orderData.orderItems} totalAmount={orderData.totalAmount} />
+					<OrderItemsList
+						items={orderData.orderItems}
+						totalAmount={orderData.totalAmount}
+						shippingFee={orderData.shippingFee}
+						discount={orderData.discount}
+						finalAmount={payableAmount}
+					/>
 				</Box>
 				<ActionButtons />
 				<ContactInfo />
