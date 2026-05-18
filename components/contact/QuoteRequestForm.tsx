@@ -28,7 +28,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
@@ -97,6 +97,7 @@ export default function QuoteRequestFormComponent() {
 	const { submit, isSubmitting } = useSubmitQuoteRequest();
 	const { sendNotification } = useTelegramQuoteNotification();
 	const [submitSuccess, setSubmitSuccess] = React.useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const router = useRouter();
 	const fromQuery = router.query.from as string;
@@ -143,6 +144,7 @@ export default function QuoteRequestFormComponent() {
 
 	const onSubmit = async (data: CreateQuoteRequestInput) => {
 		try {
+			setIsLoading(true);
 			const result = await submit(data);
 
 			trackFormSubmit("quote_request", data.usagePurpose);
@@ -163,6 +165,8 @@ export default function QuoteRequestFormComponent() {
 		} catch (error) {
 			console.error("Error submitting quote request:", error);
 			toast.error("Có lỗi xảy ra. Vui lòng thử lại!");
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -183,8 +187,9 @@ export default function QuoteRequestFormComponent() {
 						color="primary"
 						onClick={() => setSubmitSuccess(false)}
 						fullWidth
+						disabled={isLoading}
 					>
-						Gửi yêu cầu khác
+						{isLoading ? "Đang xử lý..." : "Gửi yêu cầu khác"}
 					</Button>
 				</CardContent>
 			</Card>
@@ -564,10 +569,12 @@ export default function QuoteRequestFormComponent() {
 								color="primary"
 								size="large"
 								fullWidth
-								disabled={isSubmitting}
-								startIcon={isSubmitting ? <CircularProgress size={20} /> : null}
+								disabled={isSubmitting || isLoading}
+								startIcon={isSubmitting || isLoading ? <CircularProgress size={20} /> : null}
 							>
-								{isSubmitting ? "Đang gửi..." : "Gửi yêu cầu báo giá - Phản hồi trong 15 phút"}
+								{isSubmitting || isLoading
+									? "Đang gửi..."
+									: "Gửi yêu cầu báo giá - Phản hồi trong 15 phút"}
 							</Button>
 						</Grid>
 					</Grid>

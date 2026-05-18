@@ -51,6 +51,7 @@ type CheckoutFormData = {
 
 const LighterCheckout: NextPageWithLayout = () => {
 	const router = useRouter();
+	const [isLoading, setIsLoading] = useState(false);
 	const { items, totalItems, totalAmount, clearCart } = useLightersCart();
 	const { trigger: createOrder, isMutating } = useCreateLighterOrder();
 	const [isOrderComplete, setIsOrderComplete] = useState(false);
@@ -298,6 +299,7 @@ const LighterCheckout: NextPageWithLayout = () => {
 				paymentMethod: data.paymentMethod,
 				paymentStatus: "pending",
 			};
+			setIsLoading(true);
 
 			// Submit order to Sanity using SWR mutation
 			const createdOrder = await createOrder(orderInput);
@@ -335,6 +337,7 @@ const LighterCheckout: NextPageWithLayout = () => {
 		} catch (error) {
 			console.error("Error creating order:", error);
 			toast.error("Có lỗi xảy ra. Vui lòng thử lại!");
+			setIsLoading(false);
 		}
 	};
 
@@ -721,11 +724,13 @@ const LighterCheckout: NextPageWithLayout = () => {
 										color="primary"
 										fullWidth
 										size="large"
-										disabled={isMutating}
-										startIcon={isMutating ? <CircularProgress size={20} /> : <CheckCircleIcon />}
+										disabled={isMutating || isLoading}
+										startIcon={
+											isMutating || isLoading ? <CircularProgress size={20} /> : <CheckCircleIcon />
+										}
 										sx={{ mt: 3, py: 1.5, fontWeight: "bold" }}
 									>
-										{isMutating ? "Đang xử lý..." : "Xác nhận đặt hàng"}
+										{isMutating || isLoading ? "Đang xử lý..." : "Xác nhận đặt hàng"}
 									</Button>
 								</CardContent>
 							</Card>
