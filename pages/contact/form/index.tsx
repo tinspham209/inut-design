@@ -21,7 +21,7 @@ const ContactForm: NextPageWithLayout = () => {
 			/>
 			<Box pt={2} bgcolor={COLOR_CODE.INK}>
 				<Container maxWidth="md">
-					<HeroImage imgUrl="/branding/contacts/thumbnail.jpg" />
+					<HeroImage imgUrl="/branding/og-image/contact.jpg" />
 				</Container>
 			</Box>
 			<Box sx={{ bgcolor: COLOR_CODE.INK }} pb={6}>
