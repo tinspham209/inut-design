@@ -9,46 +9,46 @@ const nextConfig = {
 	reactStrictMode: true,
 	swcMinify: true,
 	images: {
-		domains: ["res.cloudinary.com", "cdn.sanity.io"],
+		domains: ["res.cloudinary.com", "cdn.sanity.io", "*.fna.fbcdn.net"],
 		unoptimized: true,
 	},
 	// Headers for bfcache optimization
 	async headers() {
 		return [
 			{
-				source: '/:path*',
+				source: "/:path*",
 				headers: [
 					{
-						key: 'X-Content-Type-Options',
-						value: 'nosniff',
+						key: "X-Content-Type-Options",
+						value: "nosniff",
 					},
 					{
-						key: 'X-Frame-Options',
-						value: 'SAMEORIGIN',
+						key: "X-Frame-Options",
+						value: "SAMEORIGIN",
 					},
 					{
-						key: 'Referrer-Policy',
-						value: 'strict-origin-when-cross-origin',
+						key: "Referrer-Policy",
+						value: "strict-origin-when-cross-origin",
 					},
 				],
 			},
 			{
 				// Static assets with long cache
-				source: '/_next/static/:path*',
+				source: "/_next/static/:path*",
 				headers: [
 					{
-						key: 'Cache-Control',
-						value: 'public, max-age=31536000, immutable',
+						key: "Cache-Control",
+						value: "public, max-age=31536000, immutable",
 					},
 				],
 			},
 			{
 				// Images with cache
-				source: '/:path*.(jpg|jpeg|png|gif|ico|svg|webp)',
+				source: "/:path*.(jpg|jpeg|png|gif|ico|svg|webp)",
 				headers: [
 					{
-						key: 'Cache-Control',
-						value: 'public, max-age=86400, must-revalidate',
+						key: "Cache-Control",
+						value: "public, max-age=86400, must-revalidate",
 					},
 				],
 			},
