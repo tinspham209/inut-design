@@ -11,13 +11,13 @@ date: '2025-06-11T10:00:00.000Z'
 
 Sticker Sheet không chỉ đơn thuần là những miếng dán trang trí. Đó là một bộ sưu tập nghệ thuật, một món quà tinh tế và là dấu ấn thương hiệu mạnh mẽ trên cùng một tờ giấy. Với khả năng in nhiều hình ảnh khác nhau trên một bề mặt duy nhất, Sticker Sheet đang trở thành xu hướng hàng đầu cho các shop, nghệ sĩ và sự kiện tại Đà Nẵng.
 
-![Sticker Sheet - In tất cả trên 1 tờ - Hero Image](https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/711474747_122195009150790014_6247455993761531999_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFKxDzjPeO9n2JMPfCFf-AB6aPz-jjGHjDpo_P6OMYeMBGCVAIb1Yy8ErFRSdMOcsSjmS1D7-_UNbmxOBqWdqsO&_nc_ohc=2hG-iFx5cRMQ7kNvwEFElS4&_nc_oc=AdrjpzsLh2U_4ulRXdUFX7q6x8O0Mzg2vDKygIOuVOMkB0_iI8GXYPvzehd4wMwYJ7g&_nc_zt=23&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=iiv4azx3jGJfvJ1XXomz2w&_nc_ss=7b2a8&oh=00_Af-Ns_n0qi9f8nOnrZddv3liflbJsLuGqNZy2FuYL3b-ug&oe=6A280A5B)
-
 <!-- truncate-->****
 
 <!-- ## Table of contents -->
 
 ## Sticker Sheet - In Tất Cả Trên 1 Tờ: Sáng Tạo Không Giới Hạn
+
+![Sticker Sheet - In tất cả trên 1 tờ - Hero Image](https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/711474747_122195009150790014_6247455993761531999_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFKxDzjPeO9n2JMPfCFf-AB6aPz-jjGHjDpo_P6OMYeMBGCVAIb1Yy8ErFRSdMOcsSjmS1D7-_UNbmxOBqWdqsO&_nc_ohc=2hG-iFx5cRMQ7kNvwEFElS4&_nc_oc=AdrjpzsLh2U_4ulRXdUFX7q6x8O0Mzg2vDKygIOuVOMkB0_iI8GXYPvzehd4wMwYJ7g&_nc_zt=23&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=iiv4azx3jGJfvJ1XXomz2w&_nc_ss=7b2a8&oh=00_Af-Ns_n0qi9f8nOnrZddv3liflbJsLuGqNZy2FuYL3b-ug&oe=6A280A5B)
 
 Bạn đã bao giờ tự hỏi làm thế nào để gói gọn cả một "vũ trụ" sáng tạo của mình chỉ trong một tờ giấy dán? **Sticker Sheet (Sticker tờ)** chính là câu trả lời. Khác với sticker die-cut (cắt rời từng cái), sticker sheet cho phép bạn sắp xếp nhiều hình ảnh, icon, hoặc thông điệp khác nhau trên cùng một tờ, giúp tiết kiệm không gian và tạo ra một bộ sưu tập chuyên nghiệp.
 
