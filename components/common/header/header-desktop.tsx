@@ -15,7 +15,11 @@ import { useState } from "react";
 import { ROUTE_LIST, RouteItem } from "./routes";
 import { Divider, Grid } from "@mui/material";
 
-export function HeaderDesktop() {
+interface HeaderDesktopProps {
+	routes?: RouteItem[];
+}
+
+export function HeaderDesktop({ routes = ROUTE_LIST }: HeaderDesktopProps) {
 	const router = useRouter();
 	const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
@@ -347,7 +351,7 @@ export function HeaderDesktop() {
 							height: "100%",
 						}}
 					>
-						{ROUTE_LIST.map((route, index) => {
+						{routes.map((route, index) => {
 							if (route.isButton) return null;
 
 							return (
@@ -422,27 +426,29 @@ export function HeaderDesktop() {
 							);
 						})}
 
-						{ROUTE_LIST.filter((r) => r.isButton).map((route) => (
-							<Link key={route.path} href={route.path} passHref>
-								<Button
-									variant="contained"
-									size="small"
-									onClick={() => {
-										trackHeaderNavigation(route.label, "Main Nav", "desktop");
-										setActiveMenu(null);
-									}}
-									sx={{
-										borderRadius: "4px",
-										fontWeight: "bold",
-										textTransform: "uppercase",
-										letterSpacing: "0.06em",
-										flexShrink: 0,
-									}}
-								>
-									{route.label}
-								</Button>
-							</Link>
-						))}
+						{routes
+							.filter((r) => r.isButton)
+							.map((route) => (
+								<Link key={route.path} href={route.path} passHref>
+									<Button
+										variant="contained"
+										size="small"
+										onClick={() => {
+											trackHeaderNavigation(route.label, "Main Nav", "desktop");
+											setActiveMenu(null);
+										}}
+										sx={{
+											borderRadius: "4px",
+											fontWeight: "bold",
+											textTransform: "uppercase",
+											letterSpacing: "0.06em",
+											flexShrink: 0,
+										}}
+									>
+										{route.label}
+									</Button>
+								</Link>
+							))}
 					</Stack>
 				</Stack>
 			</Container>

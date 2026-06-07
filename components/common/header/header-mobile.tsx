@@ -21,7 +21,11 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { ROUTE_LIST, RouteItem } from "./routes";
 
-export function HeaderMobile() {
+interface HeaderMobileProps {
+	routes?: RouteItem[];
+}
+
+export function HeaderMobile({ routes = ROUTE_LIST }: HeaderMobileProps) {
 	const [open, setOpen] = useState(false);
 	const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({
 		"Dịch vụ": true,
@@ -189,26 +193,28 @@ export function HeaderMobile() {
 						</IconButton>
 					</Box>
 					<Divider sx={{ borderColor: COLOR_CODE.BORDER_DARK }} />
-					<List sx={{ flexGrow: 1, py: 0 }}>{ROUTE_LIST.map((route) => renderNavItem(route))}</List>
+					<List sx={{ flexGrow: 1, py: 0 }}>{routes.map((route) => renderNavItem(route))}</List>
 					<Divider sx={{ borderColor: COLOR_CODE.BORDER_DARK }} />
 					<Box sx={{ p: 2 }}>
-						{ROUTE_LIST.filter((r) => r.isButton).map((route) => (
-							<Link key={route.path} href={route.path} passHref>
-								<Button
-									fullWidth
-									variant="contained"
-									onClick={toggleDrawer(false)}
-									sx={{
-										py: 1.5,
-										fontWeight: "bold",
-										textTransform: "uppercase",
-										letterSpacing: "0.06em",
-									}}
-								>
-									{route.label}
-								</Button>
-							</Link>
-						))}
+						{routes
+							.filter((r) => r.isButton)
+							.map((route) => (
+								<Link key={route.path} href={route.path} passHref>
+									<Button
+										fullWidth
+										variant="contained"
+										onClick={toggleDrawer(false)}
+										sx={{
+											py: 1.5,
+											fontWeight: "bold",
+											textTransform: "uppercase",
+											letterSpacing: "0.06em",
+										}}
+									>
+										{route.label}
+									</Button>
+								</Link>
+							))}
 					</Box>
 				</Drawer>
 			</Container>

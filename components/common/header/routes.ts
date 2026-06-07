@@ -451,3 +451,19 @@ export const ROUTE_LIST: RouteItem[] = [
 		isButton: true,
 	},
 ];
+
+export const CREATIVA_ROUTE_LIST: RouteItem[] = [
+	{
+		label: "Creativa",
+		path: "/creativa",
+	},
+	{
+		label: "Liên hệ",
+		path: "/contact",
+	},
+	{
+		label: "Nhận báo giá",
+		path: "/contact/form",
+		isButton: true,
+	},
+];
