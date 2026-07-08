@@ -51,7 +51,7 @@ export function ServiceChildrenGrid({
 		<Box
 			component="section"
 			bgcolor={bgColor}
-			sx={{ py: { xs: "60px", sm: "80px" }, px: { xs: 2, sm: "32px" } }}
+			sx={{ py: "60px", px: { xs: 2, sm: "32px" } }}
 			id={id}
 		>
 			<Container maxWidth="lg" disableGutters>

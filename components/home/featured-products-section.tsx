@@ -53,7 +53,7 @@ export function FeaturedProductsSection({
 			id={id}
 			component="section"
 			bgcolor={bgColor}
-			sx={{ py: { xs: "60px", sm: "80px" }, px: { xs: 2, sm: "32px" } }}
+			sx={{ py: "60px", px: { xs: 2, sm: "32px" } }}
 		>
 			<Container maxWidth="lg" disableGutters>
 				{/* Section header */}

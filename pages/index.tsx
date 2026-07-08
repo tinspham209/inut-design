@@ -26,6 +26,9 @@ const servicesRoute = ROUTE_LIST.find((r) => r.path === "/services");
 const stickerChildren =
 	servicesRoute?.children?.find((r) => r.path === "/services/sticker")?.children ?? [];
 
+const anPhamLuuNiemChildren =
+	servicesRoute?.children?.find((r) => r.path === "/services/an-pham-luu-niem")?.children ?? [];
+
 const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs, banner }: Props) => {
 	return (
 		<Box>
@@ -45,6 +48,28 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs, banner }
 				<HeroSection />
 			</Box>
 
+			{/* Sticker — 4 sub-types from ROUTE_LIST, dark bg */}
+			<ServiceChildrenGrid
+				title="Sticker"
+				id="sticker"
+				titleHref="/services/sticker"
+				items={stickerChildren}
+				maxItems={4}
+				// darkMode
+			/>
+			{/* Ấn phẩm lưu niệm — 4 sub-types from ROUTE_LIST, dark bg */}
+			<ServiceChildrenGrid
+				title="Ấn phẩm lưu niệm"
+				id="an-pham-luu-niem"
+				titleHref="/services/an-pham-luu-niem"
+				items={anPhamLuuNiemChildren}
+				maxItems={6}
+				darkMode
+			/>
+
+			{/* Dịch vụ — all service sub-categories with children */}
+			<ServicesSection id="services" />
+
 			{/* Bật lửa — 8 special items, light bg, above-fold priority */}
 			<FeaturedProductsSection
 				id="lighters"
@@ -55,19 +80,6 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs, banner }
 				analyticsCategory="Bật lửa"
 				priorityCount={2}
 			/>
-
-			{/* Sticker — 4 sub-types from ROUTE_LIST, dark bg */}
-			<ServiceChildrenGrid
-				title="Sticker"
-				id="sticker"
-				titleHref="/services/sticker"
-				items={stickerChildren}
-				maxItems={4}
-				darkMode
-			/>
-
-			{/* Dịch vụ — all service sub-categories with children */}
-			<ServicesSection id="services" />
 
 			{/* Skin Nút Phím — 8 special items, light bg */}
 			<FeaturedProductsSection
@@ -90,11 +102,11 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs, banner }
 				darkMode
 			/>
 
-			{/* Tin tức — 3 latest blog posts */}
-			<BlogsHome posts={blogs} />
-
 			{/* Câu chuyện — brand story + timeline */}
 			<CauChuyen />
+
+			{/* Tin tức — 3 latest blog posts */}
+			<BlogsHome posts={blogs} />
 
 			{/* Chốt đơn — contact CTA */}
 			<ChotDon />

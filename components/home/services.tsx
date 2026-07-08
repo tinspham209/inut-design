@@ -16,7 +16,8 @@ import Link from "next/link";
 
 const SERVICE_CATEGORIES = [
 	{ path: "/services/ca-nhan-hoa", maxItems: 6 },
-	{ path: "/services/an-pham-luu-niem", maxItems: 6 },
+	// { path: "/services/an-pham-luu-niem", maxItems: 6 },
+	// { path: "/services/sticker", maxItems: 6 },
 	{ path: "/services/an-pham-su-kien", maxItems: 6 },
 	{ path: "/services/an-pham-fb", maxItems: 6 },
 	{ path: "/services/an-pham-tiep-thi", maxItems: 6 },

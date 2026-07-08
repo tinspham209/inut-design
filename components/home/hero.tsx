@@ -44,25 +44,18 @@ export interface HeroSectionProps {
 // ─── Static data ────────────────────────────────────────────────────────────
 const PRODUCT_CARDS: ProductCardItem[] = [
 	{
-		name: "Bật Lửa",
-		sub: "In logo thương hiệu · Phôi bật lửa Cricket",
-		tag: "HOT",
-		tagVariant: "orange",
-		href: "#lighters",
-	},
-	{
 		name: "Sticker & Decal",
 		sub: "Sticker Sheet · Sticker Magnet · Sticker Diecut · Sticker Kisscut",
-		tag: "500+ MẪU",
-		tagVariant: "dark",
+		tag: "HOT",
+		tagVariant: "orange",
 		href: "#sticker",
 	},
 	{
-		name: "Skin Laptop · Nút Phím",
-		sub: "Dán lại không dính keo · Cắt CNC chuẩn xác 99% cho mọi dòng máy.",
-		tag: "HOT",
-		tagVariant: "orange",
-		href: "#macnuts",
+		name: "Ấn phẩm lưu niệm",
+		sub: "Acrylic Magnet · Móc khoá / Pin cài áo Mica · In ảnh / Postcard / Thank card / Gift card",
+		tag: "B2B",
+		tagVariant: "yellow",
+		href: "#an-pham-luu-niem",
 	},
 	{
 		name: "Ấn phẩm sự kiện",
@@ -72,11 +65,19 @@ const PRODUCT_CARDS: ProductCardItem[] = [
 		href: "#services",
 	},
 	{
-		name: "Ấn phẩm lưu niệm",
-		sub: "Acrylic Magnet · Móc khoá / Pin cài áo Mica · In ảnh / Postcard / Thank card / Gift card",
-		tag: "B2B",
-		tagVariant: "yellow",
-		href: "#services",
+		name: "Bật Lửa",
+		sub: "In logo thương hiệu · Phôi bật lửa Cricket",
+		tag: "100+ MẪU",
+		tagVariant: "dark",
+		href: "#lighters",
+	},
+
+	{
+		name: "Skin Laptop · Nút Phím",
+		sub: "Dán lại không dính keo · Cắt CNC chuẩn xác 99% cho mọi dòng máy.",
+		tag: "400+ MẪU",
+		tagVariant: "dark",
+		href: "#macnuts",
 	},
 ];
 

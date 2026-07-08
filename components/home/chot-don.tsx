@@ -110,7 +110,7 @@ export function ChotDon() {
 							Không cần đặt cọc. Không cần có file sẵn.
 						</Typography>
 
-						<Stack direction="row" spacing={1} flexWrap="wrap">
+						<Stack direction="row" gap={1} flexWrap="wrap">
 							<MuiLink
 								href="https://zalo.me/0327124321"
 								target="_blank"
@@ -119,7 +119,7 @@ export function ChotDon() {
 							>
 								<Button
 									variant="contained"
-									size="large"
+									size="medium"
 									sx={{
 										fontWeight: "bold",
 									}}
@@ -131,7 +131,7 @@ export function ChotDon() {
 								<MuiLink rel="noopener noreferrer" underline="none">
 									<Button
 										variant="outlined"
-										size="large"
+										size="medium"
 										sx={{
 											fontWeight: "bold",
 										}}
