@@ -31,8 +31,10 @@ import { useRouter } from "next/router";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { useTelegramNotification } from "@/hooks/useTelegramNotification";
+import { useTelegramAbandonedCheckoutNotification } from "@/hooks/useTelegramAbandonedCheckoutNotification";
 import { useShippingFees } from "@/hooks/useShippingFees";
 import { detectShippingFee } from "@/utils/shippingDetection";
+import { SendAbandonedCheckoutNotificationRequest } from "@/utils/telegram/telegram.types";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Controller, useForm } from "react-hook-form";
@@ -57,6 +59,8 @@ const LighterCheckout: NextPageWithLayout = () => {
 	const [isOrderComplete, setIsOrderComplete] = useState(false);
 	const [mounted, setMounted] = useState(false);
 	const { sendNotification } = useTelegramNotification();
+	const { sendNotification: sendAbandonedCheckoutNotification, sendNotificationKeepAlive } =
+		useTelegramAbandonedCheckoutNotification();
 	const {
 		control,
 		handleSubmit,
@@ -158,6 +162,22 @@ const LighterCheckout: NextPageWithLayout = () => {
 
 	// Track abandoned checkout when user leaves without submitting
 	useEffect(() => {
+		const buildAbandonedPayload = (): SendAbandonedCheckoutNotificationRequest => ({
+			customerPhone: watch("customerPhone"),
+			deliveryAddress: watch("deliveryAddress") || undefined,
+			orderItems: items.map((item) => ({
+				productId: item.productId,
+				productName: item.productName,
+				lighterTypeName: item.lighterTypeName,
+				quantity: item.quantity,
+				unitPrice: item.unitPrice,
+				subtotal: item.subtotal,
+			})),
+			totalAmount,
+			abandonedAt: new Date().toISOString(),
+			pagePath: router.asPath,
+		});
+
 		const shouldTrack = () => {
 			const customerPhone = watch("customerPhone");
 			const isPhoneValid = /^[0-9]{10}$/.test(customerPhone || "");
@@ -171,12 +191,13 @@ const LighterCheckout: NextPageWithLayout = () => {
 			);
 		};
 
-		const fireAbandoned = () => {
+		const fireAbandoned = (source: "beforeunload" | "route_change") => {
 			if (!shouldTrack()) return;
 			hasFiredAbandonedRef.current = true;
 
 			const customerPhone = watch("customerPhone");
 			const deliveryAddress = watch("deliveryAddress");
+			const payload = buildAbandonedPayload();
 
 			trackAbandonedCheckout(
 				customerPhone,
@@ -190,10 +211,19 @@ const LighterCheckout: NextPageWithLayout = () => {
 				})),
 				deliveryAddress
 			);
+
+			if (source === "beforeunload") {
+				sendNotificationKeepAlive(payload);
+				return;
+			}
+
+			void sendAbandonedCheckoutNotification(payload).catch((error) => {
+				console.error("Failed to send abandoned checkout Telegram notification:", error);
+			});
 		};
 
-		const handleBeforeUnload = () => fireAbandoned();
-		const handleRouteChange = () => fireAbandoned();
+		const handleBeforeUnload = () => fireAbandoned("beforeunload");
+		const handleRouteChange = () => fireAbandoned("route_change");
 
 		window.addEventListener("beforeunload", handleBeforeUnload);
 		router.events.on("routeChangeStart", handleRouteChange);
@@ -202,7 +232,16 @@ const LighterCheckout: NextPageWithLayout = () => {
 			window.removeEventListener("beforeunload", handleBeforeUnload);
 			router.events.off("routeChangeStart", handleRouteChange);
 		};
-	}, [watch, items, isOrderComplete, router.events]);
+	}, [
+		watch,
+		items,
+		totalAmount,
+		isOrderComplete,
+		router.asPath,
+		router.events,
+		sendAbandonedCheckoutNotification,
+		sendNotificationKeepAlive,
+	]);
 
 	// Calculate shipping fee and totals for display (memoized)
 	const shippingFeeValue = useMemo(() => selectedFee?.fee || 0, [selectedFee]);

@@ -46,3 +46,27 @@ export interface SendOrderNotificationResponse {
 	messageId?: number;
 	error?: string;
 }
+
+export type AbandonedCheckoutItem = {
+	productId: string;
+	productName: string;
+	lighterTypeName?: string;
+	quantity: number;
+	unitPrice: number;
+	subtotal: number;
+};
+
+export type SendAbandonedCheckoutNotificationRequest = {
+	customerPhone: string;
+	deliveryAddress?: string;
+	orderItems: AbandonedCheckoutItem[];
+	totalAmount: number;
+	abandonedAt: string;
+	pagePath?: string;
+};
+
+export interface SendAbandonedCheckoutNotificationResponse {
+	success: boolean;
+	messageId?: number;
+	error?: string;
+}
