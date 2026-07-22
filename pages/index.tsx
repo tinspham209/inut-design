@@ -3,7 +3,7 @@ import { lightersApi } from "@/api-client/lighters";
 import { productsApi } from "@/api-client/products";
 import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
-import { ROUTE_LIST } from "@/components/common/header/routes";
+import { ROUTE_LIST, RouteItem } from "@/components/common/header/routes";
 import {
 	BlogsHome,
 	CauChuyen,
@@ -29,6 +29,42 @@ const stickerChildren =
 const anPhamLuuNiemChildren =
 	servicesRoute?.children?.find((r) => r.path === "/services/an-pham-luu-niem")?.children ?? [];
 
+const caNhanHoaChildren =
+	servicesRoute?.children?.find((r) => r.path === "/services/ca-nhan-hoa")?.children ?? [];
+
+const cloneRouteItem = (item?: RouteItem, label?: string): RouteItem | undefined => {
+	if (!item) return undefined;
+
+	return {
+		...item,
+		label: label || item.label,
+	};
+};
+
+const featuredGiftItems = [
+	cloneRouteItem(stickerChildren.find((item) => item.path === "/services/sticker/sticker-sheet")),
+	cloneRouteItem(stickerChildren.find((item) => item.path === "/services/sticker/sticker-diecut")),
+	cloneRouteItem(stickerChildren.find((item) => item.path === "/services/sticker/sticker-pack")),
+	cloneRouteItem(stickerChildren.find((item) => item.path === "/services/sticker/sticker-magnet")),
+	cloneRouteItem(
+		anPhamLuuNiemChildren.find((item) => item.path === "/services/an-pham-luu-niem/acrylic-magnet")
+	),
+	cloneRouteItem(
+		anPhamLuuNiemChildren.find((item) => item.path === "/services/an-pham-luu-niem/moc-khoa-mica"),
+		"Móc Khoá Mica"
+	),
+	cloneRouteItem(
+		anPhamLuuNiemChildren.find(
+			(item) => item.path === "/services/an-pham-luu-niem/pin-cai-ao-mica"
+		),
+		"Pin Cài Áo Mica"
+	),
+	cloneRouteItem(
+		caNhanHoaChildren.find((item) => item.path === "/services/ca-nhan-hoa/skin-bat-lua-customize"),
+		"Bật lửa custom"
+	),
+].filter((item): item is RouteItem => Boolean(item));
+
 const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs, banner }: Props) => {
 	return (
 		<Box>
@@ -48,23 +84,13 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs, banner }
 				<HeroSection />
 			</Box>
 
-			{/* Sticker — 4 sub-types from ROUTE_LIST, dark bg */}
 			<ServiceChildrenGrid
-				title="Sticker"
-				id="sticker"
-				titleHref="/services/sticker"
-				items={stickerChildren}
-				maxItems={4}
-				// darkMode
-			/>
-			{/* Ấn phẩm lưu niệm — 4 sub-types from ROUTE_LIST, dark bg */}
-			<ServiceChildrenGrid
-				title="Ấn phẩm lưu niệm"
-				id="an-pham-luu-niem"
-				titleHref="/services/an-pham-luu-niem"
-				items={anPhamLuuNiemChildren}
-				maxItems={6}
-				darkMode
+				title="In ấn quà tặng"
+				eyebrow="SẢN PHẨM NỔI BẬT"
+				id="featured-gift-products"
+				titleHref="/services"
+				items={featuredGiftItems}
+				maxItems={8}
 			/>
 
 			{/* Dịch vụ — all service sub-categories with children */}
@@ -74,6 +100,7 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs, banner }
 			<FeaturedProductsSection
 				id="lighters"
 				title="Bật lửa"
+				eyebrow="CÁ NHÂN HOÁ"
 				items={lighters}
 				viewAllHref="/san-pham/lighters"
 				itemHref={(slug) => `/san-pham/lighters/${slug}`}
@@ -85,6 +112,7 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs, banner }
 			<FeaturedProductsSection
 				id="macnuts"
 				title="Skin Nút Phím"
+				eyebrow="CÁ NHÂN HOÁ"
 				items={macnuts}
 				viewAllHref="/san-pham/skin-nut-phim"
 				itemHref={(slug) => `/san-pham/skin-nut-phim/${slug}`}
@@ -94,6 +122,7 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs, banner }
 			{/* Skin Laptop — 8 special items, dark bg */}
 			<FeaturedProductsSection
 				title="Skin Laptop"
+				eyebrow="CÁ NHÂN HOÁ"
 				id="skin-laptop"
 				items={products}
 				viewAllHref="/san-pham/skin-laptop"

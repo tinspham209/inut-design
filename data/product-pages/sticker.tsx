@@ -109,24 +109,24 @@ export const STICKER_DIECUT_DATA: ProductPageData = {
 		description: "Đa dạng chất liệu và hoàn thiện, phù hợp mọi mục đích sử dụng.",
 		items: [
 			{
-				name: "Decal sữa",
+				name: "Decal nhựa sữa",
 				description: "Màu đục mịn, in sắc nét, dán phẳng đẹp.",
 				image: `/services/sticker/sticker-diecut/category/image 289.avif`,
 			},
 			{
-				name: "Decal trong",
+				name: "Decal nhựa trong",
 				description: "Nền trong suốt, lý tưởng dán kính và chai lọ.",
 				image: `/services/sticker/sticker-diecut/category/image 290.avif`,
 			},
 			{
-				name: "Holographic",
-				description: "Hiệu ứng cầu vồng bắt sáng, nổi bật độc đáo.",
-				image: `/services/sticker/sticker-diecut/category/image 291.avif`,
+				name: "Decal Chrome",
+				description: "Bề mặt bóng gương, sang trọng, nổi bật.",
+				image: `/services/sticker/sticker-diecut/category/image 328.avif`,
 			},
 			{
-				name: "Kraft / Giấy",
-				description: "Tone vintage tự nhiên, phù hợp thương hiệu handmade.",
-				image: `/services/sticker/sticker-diecut/category/image 292.avif`,
+				name: "Decal Hologram",
+				description: "Hiệu ứng cầu vồng bắt sáng, nổi bật độc đáo.",
+				image: `/services/sticker/sticker-diecut/category/image 291.avif`,
 			},
 		],
 	},
@@ -1002,17 +1002,18 @@ export const STICKER_PACK_DATA: ProductPageData = {
 			{
 				name: "Standard Pack (7–12 mẫu)",
 				description: "Cân đối về số lượng và giá trị — lựa chọn phổ biến nhất.",
-				image: `/services/sticker/sticker-pack/9.avif`,
+				image: `/services/sticker/sticker-pack/image_333.avif`,
+			},
+
+			{
+				name: "Pack card kẹp đầu",
+				description: "Đóng gói chuyên nghiệp, dễ trưng bày — phù hợp bán lẻ tại shop hoặc hội chợ.",
+				image: `/services/sticker/sticker-pack/IMG_4657.avif`,
 			},
 			{
-				name: "Cán màng mờ",
-				description: "Tone nhẹ tinh tế, chống trầy, cầm tay không bám mồ hôi.",
-				image: `/services/sticker/sticker-pack/1.avif`,
-			},
-			{
-				name: "Cán màng bóng",
-				description: "Màu sắc rực rỡ, sáng bắt mắt — nổi bật trên mọi mặt phẳng.",
-				image: `/services/sticker/sticker-pack/2.avif`,
+				name: "Pack card kẹp đầu đục lỗ",
+				description: "Đóng gói chuyên nghiệp, dễ trưng bày — phù hợp bán lẻ tại shop hoặc hội chợ.",
+				image: `/services/sticker/sticker-pack/image_331.avif`,
 			},
 		],
 	},

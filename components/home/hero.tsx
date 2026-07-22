@@ -45,17 +45,24 @@ export interface HeroSectionProps {
 const PRODUCT_CARDS: ProductCardItem[] = [
 	{
 		name: "Sticker & Decal",
-		sub: "Sticker Sheet · Sticker Magnet · Sticker Diecut · Sticker Kisscut",
+		sub: "Sticker Sheet · Sticker Diecut · Sticker Pack · Sticker Magnet",
 		tag: "HOT",
 		tagVariant: "orange",
-		href: "#sticker",
+		href: "#featured-gift-products",
 	},
 	{
-		name: "Ấn phẩm lưu niệm",
-		sub: "Acrylic Magnet · Móc khoá / Pin cài áo Mica · In ảnh / Postcard / Thank card / Gift card",
+		name: "In ấn quà tặng",
+		sub: "Acrylic Magnet · Móc Khoá Mica · Pin Cài Áo Mica",
 		tag: "B2B",
 		tagVariant: "yellow",
-		href: "#an-pham-luu-niem",
+		href: "#featured-gift-products",
+	},
+	{
+		name: "Bật lửa",
+		sub: "In logo thương hiệu · Phôi bật lửa Cricket",
+		tag: "100+ MẪU",
+		tagVariant: "dark",
+		href: "#lighters",
 	},
 	{
 		name: "Ấn phẩm sự kiện",
@@ -64,16 +71,9 @@ const PRODUCT_CARDS: ProductCardItem[] = [
 		tagVariant: "yellow",
 		href: "#services",
 	},
-	{
-		name: "Bật Lửa",
-		sub: "In logo thương hiệu · Phôi bật lửa Cricket",
-		tag: "100+ MẪU",
-		tagVariant: "dark",
-		href: "#lighters",
-	},
 
 	{
-		name: "Skin Laptop · Nút Phím",
+		name: "Skin laptop - nút phím",
 		sub: "Dán lại không dính keo · Cắt CNC chuẩn xác 99% cho mọi dòng máy.",
 		tag: "400+ MẪU",
 		tagVariant: "dark",
@@ -195,7 +195,7 @@ export function HeroSection({
 								mb: 0.75,
 							}}
 						>
-							Skin decal, Bật lửa, Sticker, In ấn sự kiện, Ấn phẩm lưu niệm.
+							Skin decal, Bật lửa, Sticker, In ấn sự kiện, In ấn quà tặng.
 						</Typography>
 
 						{/* Sub text */}
