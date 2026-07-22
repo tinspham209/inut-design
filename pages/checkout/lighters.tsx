@@ -74,7 +74,7 @@ const LighterCheckout: NextPageWithLayout = () => {
 			customerEmail: "",
 			deliveryAddress: "",
 			notes: "",
-			paymentMethod: "cod",
+			paymentMethod: "bank_transfer",
 			selectedFeeId: "",
 		},
 	});
@@ -533,7 +533,7 @@ const LighterCheckout: NextPageWithLayout = () => {
 														fullWidth
 														multiline
 														rows={2}
-														placeholder="Số nhà, tên đường, phường, quận, thành phố..."
+														placeholder="Số nhà, tên đường, phường, quận, thành phố, thông tin cũ trước sáp nhập"
 														helperText={errors.deliveryAddress?.message || ""}
 													/>
 												)}
@@ -589,8 +589,8 @@ const LighterCheckout: NextPageWithLayout = () => {
 												<FormControl fullWidth sx={{ mt: 2 }}>
 													<InputLabel>Chọn phương thức</InputLabel>
 													<Select {...field} label="Chọn phương thức">
-														<MenuItem value="cod">Thanh toán khi nhận hàng (COD)</MenuItem>
 														<MenuItem value="bank_transfer">Chuyển khoản ngân hàng</MenuItem>
+														<MenuItem value="cod">Thanh toán khi nhận hàng (COD)</MenuItem>
 													</Select>
 												</FormControl>
 											)}
