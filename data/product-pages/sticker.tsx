@@ -111,7 +111,7 @@ export const STICKER_DIECUT_DATA: ProductPageData = {
 			{
 				name: "Decal nhựa sữa",
 				description: "Màu đục mịn, in sắc nét, dán phẳng đẹp.",
-				image: `/services/sticker/sticker-diecut/category/image 289.avif`,
+				image: `/services/sticker/sticker-diecut/category/IMG_6692.avif`,
 			},
 			{
 				name: "Decal nhựa trong",
@@ -126,7 +126,7 @@ export const STICKER_DIECUT_DATA: ProductPageData = {
 			{
 				name: "Decal Hologram",
 				description: "Hiệu ứng cầu vồng bắt sáng, nổi bật độc đáo.",
-				image: `/services/sticker/sticker-diecut/category/image 291.avif`,
+				image: `/services/sticker/sticker-diecut/category/image_329.avif`,
 			},
 		],
 	},
