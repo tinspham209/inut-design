@@ -28,6 +28,7 @@ const STATUS_LABELS: Record<OrderLighter["status"], string> = {
 	pending: "Chờ xử lý",
 	confirmed: "Đã xác nhận",
 	processing: "Đang xử lý",
+	in_transit: "Đang vận chuyển",
 	completed: "Hoàn thành",
 	cancelled: "Đã hủy",
 };
@@ -39,6 +40,7 @@ const STATUS_COLOR: Record<
 	pending: "warning",
 	confirmed: "info",
 	processing: "primary",
+	in_transit: "info",
 	completed: "success",
 	cancelled: "error",
 };

@@ -115,7 +115,7 @@ export type OrderLighter = {
 	_type: "ordersLighter";
 	orderNumber: string;
 	orderDate: string;
-	status: "pending" | "confirmed" | "processing" | "completed" | "cancelled";
+	status: "pending" | "confirmed" | "processing" | "in_transit" | "completed" | "cancelled";
 	orderItems: OrderItemLighter[];
 	customerName: string;
 	customerPhone: string;

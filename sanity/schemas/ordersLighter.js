@@ -1,3 +1,5 @@
+import StatusSelectWithGuide from "../components/StatusSelectWithGuide";
+
 export default {
 	name: "ordersLighter",
 	title: "Orders - Lighters 🔥",
@@ -23,11 +25,13 @@ export default {
 			name: "status",
 			title: "Order Status",
 			type: "string",
+			inputComponent: StatusSelectWithGuide,
 			options: {
 				list: [
 					{ title: "⏳ Pending", value: "pending" },
 					{ title: "✅ Confirmed", value: "confirmed" },
 					{ title: "🔄 Processing", value: "processing" },
+					{ title: "🚚 In transit", value: "in_transit" },
 					{ title: "📦 Completed", value: "completed" },
 					{ title: "❌ Cancelled", value: "cancelled" },
 				],
@@ -40,6 +44,7 @@ export default {
 			name: "paymentStatus",
 			title: "Payment Status",
 			type: "string",
+			hidden: ({ document }) => document?.paymentMethod === "cod",
 			options: {
 				list: [
 					{ title: "⏳ Pending", value: "pending" },
@@ -198,7 +203,19 @@ export default {
 			name: "deliveryAddress",
 			title: "Delivery Address",
 			type: "text",
-			description: "Full delivery address",
+			rows: 2,
+		},
+		{
+			name: "paymentMethod",
+			title: "Payment Method",
+			type: "string",
+			options: {
+				list: [
+					{ title: "💵 Cash on Delivery (COD)", value: "cod" },
+					{ title: "🏦 Bank Transfer", value: "bank_transfer" },
+				],
+			},
+			initialValue: "bank_transfer",
 		},
 
 		// Pricing
@@ -228,7 +245,7 @@ export default {
 			title: "Final Amount",
 			type: "number",
 			description:
-				"Final amount after shipping and discount (totalAmount + shippingFee - discount)",
+				"(total_amount + shipping_fee - discount), If manual change any value of these 3 field above, please recalculate this field manually to avoid missing values.",
 			validation: (Rule) => Rule.required().min(0),
 		},
 
@@ -237,19 +254,8 @@ export default {
 			name: "notes",
 			title: "Order Notes",
 			type: "text",
+			rows: 2,
 			description: "Customer notes or special instructions",
-		},
-		{
-			name: "paymentMethod",
-			title: "Payment Method",
-			type: "string",
-			options: {
-				list: [
-					{ title: "💵 Cash on Delivery (COD)", value: "cod" },
-					{ title: "🏦 Bank Transfer", value: "bank_transfer" },
-				],
-			},
-			initialValue: "cod",
 		},
 
 		// Internal Admin Fields
@@ -257,13 +263,14 @@ export default {
 			name: "adminNotes",
 			title: "Admin Notes",
 			type: "text",
+			rows: 2,
 			description: "Internal notes (not visible to customer)",
 		},
 		{
 			name: "trackingNumber",
 			title: "Tracking Number",
 			type: "string",
-			description: "Shipping tracking number",
+			description: "Link to tracking page or tracking number for shipped orders",
 		},
 	],
 
@@ -287,6 +294,7 @@ export default {
 				pending: "⏳",
 				confirmed: "✅",
 				processing: "🔄",
+				in_transit: "🚚",
 				completed: "📦",
 				cancelled: "❌",
 			};
