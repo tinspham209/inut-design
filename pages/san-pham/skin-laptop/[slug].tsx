@@ -1,11 +1,11 @@
-/* eslint-disable @next/next/no-img-element */
 import { productsApi } from "@/api-client/products";
 import { urlFor } from "@/api-client/sanity-client";
 import { Seo } from "@/components/common";
 import { MainLayout } from "@/components/layout";
+import { FAQSchema } from "@/components/scripts";
 import { Product, Products } from "@/models/products";
 import { trackViewProduct, trackOrderButtonClick } from "@/utils/analytics";
-import { MERCHANT_LISTING_CONFIG } from "@/utils/seo-constants";
+import { MERCHANT_LISTING_CONFIG, SKIN_LAPTOP_FAQ } from "@/utils/seo-constants";
 import { COLOR_CODE } from "@/utils";
 import {
 	Box,
@@ -110,6 +110,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 					],
 				}}
 			/>
+			<FAQSchema items={SKIN_LAPTOP_FAQ} />
 			{isOpenLightBox && (
 				<Portal>
 					<Lightbox

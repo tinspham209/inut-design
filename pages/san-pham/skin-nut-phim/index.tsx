@@ -82,9 +82,9 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 		>
 			<Seo
 				data={{
-					title: "Skin Nút phím - Sản phẩm - INUT Design",
+					title: "MACNUT — Skin Nút Phím MacBook Đà Nẵng | INUT Design",
 					description:
-						"Thiết kế & In ấn - Skin Laptop - Sticker - Decal - Thiệp - Card - Tem Nhãn, skin laptop da nang, skin laptop đà nẵng",
+						"Skin nút phím MacBook (MACNUT) theo yêu cầu tại Đà Nẵng. Tương thích MacBook Air M1/M2, Pro 13/14/16. Mỏng 0.1mm, không ảnh hưởng gõ phím. Giao trong ngày.",
 					url: "https://inutdesign.com/san-pham/skin-nut-phim",
 					thumbnailUrl:
 						(banner && urlFor(banner[0].image).url()) ||

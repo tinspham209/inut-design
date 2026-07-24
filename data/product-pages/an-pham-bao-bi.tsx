@@ -1,4 +1,5 @@
 import { ProductPageData } from "@/models/product-page";
+import { BAO_BI_FAQ } from "@/utils/seo-constants";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import CategoryIcon from "@mui/icons-material/Category";
 import CelebrationIcon from "@mui/icons-material/Celebration";
@@ -255,6 +256,7 @@ export const DECAL_NHAN_MAC_DATA: ProductPageData = {
 		),
 		filters: [],
 	},
+	faq: BAO_BI_FAQ,
 };
 
 export const HOP_SAN_PHAM_DATA: ProductPageData = {
@@ -490,6 +492,7 @@ export const HOP_SAN_PHAM_DATA: ProductPageData = {
 		),
 		filters: ["Tất cả", "Mỹ phẩm", "Thực phẩm", "Quà tặng", "Bán lẻ"],
 	},
+	faq: BAO_BI_FAQ,
 };
 
 export const TEM_BAO_HANH_DATA: ProductPageData = {
@@ -732,4 +735,5 @@ export const TEM_BAO_HANH_DATA: ProductPageData = {
 		),
 		filters: ["Tất cả", "Tem VOID", "Tem Hologram", "Tem QR", "Tem Niêm Phong"],
 	},
+	faq: BAO_BI_FAQ,
 };

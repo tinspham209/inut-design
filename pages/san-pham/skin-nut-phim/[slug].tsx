@@ -6,10 +6,11 @@ import { Seo } from "@/components/common";
 import BlockContentWrapper from "@/components/common/block-content";
 import { Portal } from "@/components/common/Portal";
 import { MainLayout } from "@/components/layout";
+import { FAQSchema } from "@/components/scripts";
 import { StaticContentEachPage, UsagePurposeValue } from "@/models";
 import { Product, Products } from "@/models/products";
 import { trackOrderButtonClick, trackViewProduct } from "@/utils/analytics";
-import { MERCHANT_LISTING_CONFIG } from "@/utils/seo-constants";
+import { MACNUT_FAQ, MERCHANT_LISTING_CONFIG } from "@/utils/seo-constants";
 import { COLOR_CODE } from "@/utils";
 import {
 	Box,
@@ -114,6 +115,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 					],
 				}}
 			/>
+			<FAQSchema items={MACNUT_FAQ} />
 			{isOpenLightBox && (
 				<Portal>
 					<Lightbox

@@ -70,9 +70,9 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs, banner }
 		<Box>
 			<Seo
 				data={{
-					title: "INUT Design — In Skin Laptop, Sticker, Bật lửa Tại Đà Nẵng",
+					title: "INUT Design — In Sticker, Bật lửa, Skin Laptop Tại Đà Nẵng",
 					description:
-						"Xưởng in Đà Nẵng: skin laptop, MACNUT, sticker, decal, namecard, banner, backdrop. Giao nhanh — báo giá trong 15 phút. Zalo: 0327 124 321.",
+						"Xưởng in ấn cá nhân hóa tại Đà Nẵng: Sticker, Bật lửa, skin laptop, skin nút phím. Báo giá 15 phút, giao toàn quốc. Zalo: 0327 124 321.",
 					url: "https://inutdesign.com",
 					thumbnailUrl: urlFor(banner.image).url() || "/branding/ogImage.jpg",
 				}}

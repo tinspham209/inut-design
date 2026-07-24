@@ -14,6 +14,12 @@ const nextSitemapConfig = {
 				siteMap: "https://inutdesign.com/sitemap.xml",
 			},
 			{ userAgent: "Mediapartners-Google", allow: "/search", disallow: "*archive.html" },
+			// AI Search Crawlers — allow full indexing for AI-powered search visibility
+			{ userAgent: "GPTBot", allow: "/" },
+			{ userAgent: "ChatGPT-User", allow: "/" },
+			{ userAgent: "anthropic-ai", allow: "/" },
+			{ userAgent: "ClaudeBot", allow: "/" },
+			{ userAgent: "PerplexityBot", allow: "/" },
 		],
 	},
 };

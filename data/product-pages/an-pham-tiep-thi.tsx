@@ -1,4 +1,5 @@
 import { ProductPageData } from "@/models/product-page";
+import { TIEP_THI_FAQ } from "@/utils/seo-constants";
 import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
 import BoltIcon from "@mui/icons-material/Bolt";
 import BusinessIcon from "@mui/icons-material/Business";
@@ -240,6 +241,7 @@ export const IN_CARD_VISIT_DATA: ProductPageData = {
 		],
 		filters: [],
 	},
+	faq: TIEP_THI_FAQ,
 };
 
 export const CATALOGUE_BROCHURE_DATA: ProductPageData = {
@@ -448,6 +450,7 @@ export const CATALOGUE_BROCHURE_DATA: ProductPageData = {
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
 		filters: [],
 	},
+	faq: TIEP_THI_FAQ,
 };
 
 export const IN_VOUCHER_VE_MOI_SU_KIEN_THE_TICH_DIEM_DATA: ProductPageData = {
@@ -670,4 +673,5 @@ export const IN_VOUCHER_VE_MOI_SU_KIEN_THE_TICH_DIEM_DATA: ProductPageData = {
 		images: Array.from({ length: 8 }).map((_, index) => HERO_IMAGE),
 		filters: [],
 	},
+	faq: TIEP_THI_FAQ,
 };

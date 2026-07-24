@@ -9,6 +9,26 @@ User-agent: Mediapartners-Google
 Allow: /search
 Disallow: *archive.html
 
+# GPTBot
+User-agent: GPTBot
+Allow: /
+
+# ChatGPT-User
+User-agent: ChatGPT-User
+Allow: /
+
+# anthropic-ai
+User-agent: anthropic-ai
+Allow: /
+
+# ClaudeBot
+User-agent: ClaudeBot
+Allow: /
+
+# PerplexityBot
+User-agent: PerplexityBot
+Allow: /
+
 # Host
 Host: https://inutdesign.com
 

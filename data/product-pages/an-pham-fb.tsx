@@ -1,4 +1,5 @@
 import { ProductPageData } from "@/models/product-page";
+import { FB_FAQ } from "@/utils/seo-constants";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import ArticleIcon from "@mui/icons-material/Article";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
@@ -249,6 +250,7 @@ export const SAN_PHAM_DECOR_DATA: ProductPageData = {
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
 		filters: [],
 	},
+	faq: FB_FAQ,
 };
 
 export const THIET_KE_IN_MENU_DATA: ProductPageData = {
@@ -476,6 +478,7 @@ export const THIET_KE_IN_MENU_DATA: ProductPageData = {
 		),
 		filters: [],
 	},
+	faq: FB_FAQ,
 };
 
 export const PHIEU_VE_HOA_DON_GTGT_DATA: ProductPageData = {
@@ -706,6 +709,7 @@ export const PHIEU_VE_HOA_DON_GTGT_DATA: ProductPageData = {
 		),
 		filters: [],
 	},
+	faq: FB_FAQ,
 };
 
 export const TAM_LOT_BAN_AN_DATA: ProductPageData = {
@@ -936,4 +940,5 @@ export const TAM_LOT_BAN_AN_DATA: ProductPageData = {
 		),
 		filters: [],
 	},
+	faq: FB_FAQ,
 };

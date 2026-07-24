@@ -1,4 +1,5 @@
 import { ProductPageData } from "@/models/product-page";
+import { LUU_NIEM_FAQ } from "@/utils/seo-constants";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import BoltIcon from "@mui/icons-material/Bolt";
 import CampaignIcon from "@mui/icons-material/Campaign";
@@ -241,6 +242,7 @@ export const THANK_CARD_DATA: ProductPageData = {
 		),
 		filters: [],
 	},
+	faq: LUU_NIEM_FAQ,
 };
 
 export const IN_POSTCARD_DATA: ProductPageData = {
@@ -460,6 +462,7 @@ export const IN_POSTCARD_DATA: ProductPageData = {
 		),
 		filters: [],
 	},
+	faq: LUU_NIEM_FAQ,
 };
 
 export const MOC_KHOA_MICA_DATA: ProductPageData = {
@@ -670,6 +673,7 @@ export const MOC_KHOA_MICA_DATA: ProductPageData = {
 		),
 		filters: [],
 	},
+	faq: LUU_NIEM_FAQ,
 };
 
 export const PIN_CAI_AO_MICA_DATA: ProductPageData = {
@@ -888,6 +892,7 @@ export const PIN_CAI_AO_MICA_DATA: ProductPageData = {
 		),
 		filters: [],
 	},
+	faq: LUU_NIEM_FAQ,
 };
 
 export const ACRYLIC_MAGNET_DATA: ProductPageData = {
@@ -1103,6 +1108,7 @@ export const ACRYLIC_MAGNET_DATA: ProductPageData = {
 		),
 		filters: [],
 	},
+	faq: LUU_NIEM_FAQ,
 };
 
 export const IN_ANH_DATA: ProductPageData = {
@@ -1308,4 +1314,5 @@ export const IN_ANH_DATA: ProductPageData = {
 		],
 		filters: [],
 	},
+	faq: LUU_NIEM_FAQ,
 };

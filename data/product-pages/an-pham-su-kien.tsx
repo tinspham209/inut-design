@@ -1,4 +1,5 @@
 import { ProductPageData } from "@/models/product-page";
+import { SU_KIEN_FAQ } from "@/utils/seo-constants";
 import BoltIcon from "@mui/icons-material/Bolt";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
@@ -235,6 +236,7 @@ export const HASHTAG_CAM_TAY_DATA: ProductPageData = {
 		),
 		filters: [],
 	},
+	faq: SU_KIEN_FAQ,
 };
 
 export const POSTER_DECAL_DATA: ProductPageData = {
@@ -455,6 +457,7 @@ export const POSTER_DECAL_DATA: ProductPageData = {
 		],
 		filters: [],
 	},
+	faq: SU_KIEN_FAQ,
 };
 
 export const BANNER_STANDEE_DATA: ProductPageData = {
@@ -676,6 +679,7 @@ export const BANNER_STANDEE_DATA: ProductPageData = {
 		],
 		filters: [],
 	},
+	faq: SU_KIEN_FAQ,
 };
 
 export const HUY_CHUONG_DATA: ProductPageData = {
@@ -902,6 +906,7 @@ export const HUY_CHUONG_DATA: ProductPageData = {
 		),
 		filters: [],
 	},
+	faq: SU_KIEN_FAQ,
 };
 
 export const SU_KIEN_TRON_GOI_DATA: ProductPageData = {
@@ -1122,4 +1127,5 @@ export const SU_KIEN_TRON_GOI_DATA: ProductPageData = {
 		),
 		filters: [],
 	},
+	faq: SU_KIEN_FAQ,
 };

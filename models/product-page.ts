@@ -1,3 +1,4 @@
+import { FAQItem } from "@/utils/seo-constants";
 import { ReactNode } from "react";
 
 export interface ProductHighlight {
@@ -130,4 +131,6 @@ export interface ProductPageData {
 		images: string[];
 		filters?: string[];
 	};
+	/** Optional FAQ content for FAQPage structured data (JSON-LD). Rendered automatically by ProductPageTemplate. */
+	faq?: FAQItem[];
 }

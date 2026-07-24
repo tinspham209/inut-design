@@ -64,9 +64,9 @@ const LightersPageContainer: React.FC<LightersPageContainerProps> = ({
 
 			<Seo
 				data={{
-					title: "Bật lửa - Sản Phẩm - INUT Design",
+					title: "Bật Lửa Custom Đà Nẵng — In Theo Yêu Cầu | INUT Design",
 					description:
-						"Custom printed lighters with high quality materials. Various designs and bulk order options available.",
+						"In bật lửa theo yêu cầu tại Đà Nẵng. Nhận từ 1 cái, giao trong 2–3 ngày. Upload hình, INUT thiết kế miễn phí, duyệt rồi mới in. Zalo: 0327 124 321.",
 					url: "https://inutdesign.com/san-pham/lighters",
 					thumbnailUrl:
 						(banner && !isEmpty(banner) && urlFor(banner[0]?.image || "").url()) ||

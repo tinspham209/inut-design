@@ -10,12 +10,13 @@ import DescriptionAccordion from "@/components/lighter-detail/DescriptionAccordi
 import InfoPanel from "@/components/lighter-detail/InfoPanel";
 import PriceAccordion from "@/components/lighter-detail/PriceAccordion";
 import RelatedProducts from "@/components/lighter-detail/RelatedProducts";
+import { FAQSchema } from "@/components/scripts";
 import { StaticContentEachPage } from "@/models";
 import { LighterProduct, LighterProductWithType, LighterType } from "@/models/cart";
 import { NextPageWithLayout } from "@/models/common";
 import { trackViewProduct } from "@/utils/analytics";
 import { formatPrice, getPriceTierOptions } from "@/utils/priceCalculator";
-import { MERCHANT_LISTING_CONFIG } from "@/utils/seo-constants";
+import { LIGHTERS_FAQ, MERCHANT_LISTING_CONFIG } from "@/utils/seo-constants";
 import { COLOR_CODE } from "@/utils";
 import { Box, Card, CardContent, Container, Grid, Typography } from "@mui/material";
 import { GetStaticPaths, GetStaticProps } from "next";
@@ -142,6 +143,7 @@ const LighterDetail: NextPageWithLayout = ({
 					],
 				}}
 			/>
+			<FAQSchema items={LIGHTERS_FAQ} />
 			<Box component="section" sx={{ pt: 2, bgcolor: COLOR_CODE.INK }}>
 				<Container maxWidth="lg">
 					<BreadcrumbsNav lighterName={lighter.name} lighterSlug={lighter.slug.current} />

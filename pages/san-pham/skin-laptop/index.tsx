@@ -83,9 +83,9 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 		>
 			<Seo
 				data={{
-					title: "Skin Laptop - Sản phẩm - INUT Design",
+					title: "Skin Laptop Đà Nẵng — Hàng Nghìn Mẫu, In Theo Yêu Cầu | INUT Design",
 					description:
-						"Thiết kế & In ấn - Skin Laptop - Sticker - Decal - Thiệp - Card - Tem Nhãn, skin laptop da nang, skin laptop đà nẵng",
+						"Dán skin laptop đà nẵng uy tín tại INUT Design. Hàng nghìn mẫu sẵn có hoặc in theo yêu cầu. Tương thích MacBook, Dell, HP, Asus. Báo giá trong 5 phút qua Zalo.",
 					url: "https://inutdesign.com/san-pham/skin-laptop",
 					thumbnailUrl:
 						(banner && !isEmpty(banner) && urlFor(banner[0]?.image || "").url()) ||

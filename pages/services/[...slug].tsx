@@ -1,8 +1,10 @@
 import { ServiceCard, ServiceCardProps } from "@/components/common/ServiceCard";
 import { MainLayout } from "@/components/layout";
+import { FAQSchema } from "@/components/scripts";
 import { findRouteByPath, mapChildRoutesToCards } from "@/lib/routeMapToCards";
 import { NextPageWithLayout } from "@/models/common";
 import { COLOR_CODE } from "@/utils";
+import { SERVICES_FAQ } from "@/utils/seo-constants";
 import { Box, Breadcrumbs, Container, Grid, Link as MuiLink, Typography } from "@mui/material";
 import Link from "next/link";
 import React from "react";
@@ -31,8 +33,14 @@ const ServiceDynamicPage: NextPageWithLayout<Props> = ({ currentPath, currentRou
 						`Khám phá các dịch vụ ${currentRoute.label} chuyên nghiệp tại INUT Design Đà Nẵng.`,
 					url: `https://inutdesign.com${currentPath}`,
 					thumbnailUrl: currentRoute.meta?.image || "/branding/ogImage.jpg",
+					breadcrumbs: [
+						{ name: "Trang chủ", item: "/" },
+						{ name: "Dịch vụ", item: "/services" },
+						{ name: currentRoute.label, item: currentPath },
+					],
 				}}
 			/>
+			<FAQSchema items={SERVICES_FAQ} />
 
 			<Container maxWidth="lg">
 				<Breadcrumbs sx={{ mb: 4 }}>

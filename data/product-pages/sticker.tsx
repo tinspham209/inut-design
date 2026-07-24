@@ -1,4 +1,5 @@
 import { ProductPageData } from "@/models/product-page";
+import { STICKER_FAQ } from "@/utils/seo-constants";
 import BoltIcon from "@mui/icons-material/Bolt";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
@@ -227,6 +228,7 @@ export const STICKER_DIECUT_DATA: ProductPageData = {
 		),
 		filters: [],
 	},
+	faq: STICKER_FAQ,
 };
 
 export const STICKER_KISSCUT_DATA: ProductPageData = {
@@ -448,6 +450,7 @@ export const STICKER_KISSCUT_DATA: ProductPageData = {
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
 		filters: [],
 	},
+	faq: STICKER_FAQ,
 };
 
 export const STICKER_MAGNET_DATA: ProductPageData = {
@@ -673,6 +676,7 @@ export const STICKER_MAGNET_DATA: ProductPageData = {
 		),
 		filters: [],
 	},
+	faq: STICKER_FAQ,
 };
 
 export const STICKER_SHEET_DATA: ProductPageData = {
@@ -890,6 +894,7 @@ export const STICKER_SHEET_DATA: ProductPageData = {
 		),
 		filters: [],
 	},
+	faq: STICKER_FAQ,
 };
 
 export const STICKER_PACK_DATA: ProductPageData = {
@@ -1116,4 +1121,5 @@ export const STICKER_PACK_DATA: ProductPageData = {
 		),
 		filters: [],
 	},
+	faq: STICKER_FAQ,
 };

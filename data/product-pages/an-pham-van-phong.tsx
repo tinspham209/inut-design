@@ -1,4 +1,5 @@
 import { ProductPageData } from "@/models/product-page";
+import { VAN_PHONG_FAQ } from "@/utils/seo-constants";
 import BoltIcon from "@mui/icons-material/Bolt";
 import BusinessIcon from "@mui/icons-material/Business";
 import CampaignIcon from "@mui/icons-material/Campaign";
@@ -225,6 +226,7 @@ export const GIAY_KHEN_DATA: ProductPageData = {
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
 		filters: [],
 	},
+	faq: VAN_PHONG_FAQ,
 };
 
 export const IN_BI_THU_DATA: ProductPageData = {
@@ -436,6 +438,7 @@ export const IN_BI_THU_DATA: ProductPageData = {
 		images: Array.from({ length: 8 }).map(() => HERO_IMAGE),
 		filters: [],
 	},
+	faq: VAN_PHONG_FAQ,
 };
 
 export const SO_TAY_DATA: ProductPageData = {
@@ -647,6 +650,7 @@ export const SO_TAY_DATA: ProductPageData = {
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
 		filters: [],
 	},
+	faq: VAN_PHONG_FAQ,
 };
 
 export const BANG_CUNG_IN_THONG_TIN_DATA: ProductPageData = {
@@ -863,4 +867,5 @@ export const BANG_CUNG_IN_THONG_TIN_DATA: ProductPageData = {
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
 		filters: [],
 	},
+	faq: VAN_PHONG_FAQ,
 };

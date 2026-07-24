@@ -1,4 +1,5 @@
 import { ProductPageData } from "@/models/product-page";
+import { CA_NHAN_HOA_FAQ } from "@/utils/seo-constants";
 import BoltIcon from "@mui/icons-material/Bolt";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
@@ -185,6 +186,7 @@ export const SKIN_LAPTOP_DATA: ProductPageData = {
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
 		filters: [],
 	},
+	faq: CA_NHAN_HOA_FAQ,
 };
 
 export const SKIN_NUT_PHIM_DATA: ProductPageData = {
@@ -363,6 +365,7 @@ export const SKIN_NUT_PHIM_DATA: ProductPageData = {
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
 		filters: [],
 	},
+	faq: CA_NHAN_HOA_FAQ,
 };
 
 export const SKIN_DIEN_THOAI_DATA: ProductPageData = {
@@ -535,6 +538,7 @@ export const SKIN_DIEN_THOAI_DATA: ProductPageData = {
 		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
 		filters: [],
 	},
+	faq: CA_NHAN_HOA_FAQ,
 };
 
 export const LIGHTERS_CUSTOMIZE_DATA: ProductPageData = {
@@ -708,4 +712,5 @@ export const LIGHTERS_CUSTOMIZE_DATA: ProductPageData = {
 		),
 		filters: [],
 	},
+	faq: CA_NHAN_HOA_FAQ,
 };

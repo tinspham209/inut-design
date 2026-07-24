@@ -1,4 +1,5 @@
 import { Seo } from "@/components/common";
+import { FAQSchema } from "@/components/scripts";
 import { ProductPageData } from "@/models/product-page";
 import { trackViewProduct } from "@/utils/analytics";
 import { Box, Fade } from "@mui/material";
@@ -66,6 +67,7 @@ export const ProductPageTemplate: React.FC<ProductPageTemplateProps> = ({
 	return (
 		<>
 			{renderSeo()}
+			{data.faq && <FAQSchema items={data.faq} />}
 			<Fade in={isVisible} timeout={500}>
 				<Box>{renderLayout()}</Box>
 			</Fade>
