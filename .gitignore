@@ -41,4 +41,7 @@ dist
 
 /public/sitemap.xml
 
+# generated reports
+sanity/reports/
+
 test-results/**
