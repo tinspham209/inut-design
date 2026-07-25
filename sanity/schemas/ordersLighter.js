@@ -287,7 +287,15 @@ export default {
 			const { orderNumber, customerName, finalAmount, status, orderDate } = selection;
 
 			// Format date
-			const date = orderDate ? new Date(orderDate).toLocaleDateString("vi-VN") : "N/A";
+			const date = orderDate
+				? new Date(orderDate).toLocaleDateString("vi-VN", {
+						day: "2-digit",
+						month: "2-digit",
+						year: "numeric",
+						hour: "2-digit",
+						minute: "2-digit",
+				  })
+				: "N/A";
 
 			// Status emoji mapping
 			const statusEmoji = {
@@ -301,7 +309,7 @@ export default {
 
 			return {
 				title: `${statusEmoji[status] || ""} ${orderNumber || "New Order"}`,
-				subtitle: `${customerName || "Unknown"} | ${date} | ${
+				subtitle: `${customerName || "Unknown"} • ${date} • ${
 					finalAmount ? finalAmount.toLocaleString() : 0
 				}₫`,
 			};

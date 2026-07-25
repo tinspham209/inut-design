@@ -94,7 +94,7 @@ export default {
 		{
 			name: "quantity",
 			title: "Số lượng",
-			type: "string",
+			type: "number",
 		},
 		{
 			name: "deviceModel",
@@ -161,6 +161,14 @@ export default {
 			type: "text",
 			rows: 3,
 		},
+		{
+			name: "createdAt",
+			title: "Ngày gửi",
+			type: "datetime",
+			description: "Thời gian gửi form nhận báo giá",
+			initialValue: () => new Date().toISOString(),
+			readOnly: true,
+		},
 	],
 	preview: {
 		select: {
@@ -168,18 +176,32 @@ export default {
 			phone: "phone",
 			email: "email",
 			usagePurpose: "usagePurpose",
+			createdAt: "createdAt",
 		},
 		prepare(selection) {
-			const { title, phone, email, usagePurpose } = selection;
+			const { title, phone, email, usagePurpose, createdAt } = selection;
+			const formattedDate = createdAt
+				? new Date(createdAt).toLocaleString("vi-VN", {
+						day: "2-digit",
+						month: "2-digit",
+						year: "numeric",
+						hour: "2-digit",
+						minute: "2-digit",
+				  })
+				: "";
+			const subTitle = [formattedDate, phone, usagePurpose, email].filter(Boolean).join(" • ");
 			return {
 				title: title || "(Chưa có tên)",
-				subtitle: `${phone || ""}${email ? " • " + email : ""}${
-					usagePurpose ? " • " + usagePurpose : ""
-				}`,
+				subtitle: subTitle,
 			};
 		},
 	},
 	orderings: [
+		{
+			name: "createdAtDesc",
+			title: "Mới gửi nhất",
+			by: [{ field: "createdAt", direction: "desc" }],
+		},
 		{
 			name: "nameAsc",
 			title: "Tên khách hàng (A → Z)",

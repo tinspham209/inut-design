@@ -5,6 +5,7 @@ export const quoteRequestApi = {
 	async create(input: CreateQuoteRequestInput): Promise<QuoteRequestForm> {
 		const doc = {
 			_type: "form-nhan-bao-gia",
+			createdAt: new Date().toISOString(),
 			customerName: input.customerName,
 			companyBrand: input.companyBrand,
 			phone: input.phone,
