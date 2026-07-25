@@ -162,14 +162,16 @@ export default {
 							quantity: "quantity",
 							subtotal: "subtotal",
 							hasPreviewUrl: "builderPreviewUrl",
+							media: "product.image",
 						},
 						prepare(selection) {
-							const { productName, typeName, quantity, subtotal, hasPreviewUrl } = selection;
+							const { productName, typeName, quantity, subtotal, hasPreviewUrl, media } = selection;
 							return {
 								title: `${productName || "Unknown Product"} - ${typeName || "Unknown Type"}`,
 								subtitle: `${hasPreviewUrl ? "🔗 " : ""}Qty: ${quantity} × ${
 									subtotal ? (subtotal / quantity).toLocaleString() : 0
 								}₫ = ${subtotal ? subtotal.toLocaleString() : 0}₫`,
+								media: media && media[0],
 							};
 						},
 					},
