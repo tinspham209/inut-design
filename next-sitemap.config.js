@@ -11,7 +11,7 @@ const nextSitemapConfig = {
 			{
 				userAgent: "*",
 				allow: "/",
-				disallow: ["/*?updated-max=*", "/signup", "/*.avif$", "/_next/image"],
+				disallow: ["/*?updated-max=*", "/signup", "/*.avif$", "/_next/image", "/_next/static/", "/apple-app-site-association", "/.well-known/"],
 				host: siteUrl,
 				siteMap: `${siteUrl}/sitemap.xml`,
 			},
