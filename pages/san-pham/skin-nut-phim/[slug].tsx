@@ -32,7 +32,6 @@ import Link from "next/link";
 import React from "react";
 import "yet-another-react-lightbox/styles.css";
 import styles from "./productItem.module.css";
-import { useRouter } from "next/router";
 
 const Carousel = dynamic(() => import("react-material-ui-carousel"), { ssr: false });
 const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
@@ -46,7 +45,6 @@ type Props = {
 const ProductDetail = ({ product, products, staticContent }: Props) => {
 	const [isOpenLightBox, setIsOpenLightBox] = React.useState(false);
 	const [lightboxIndex, setLightboxIndex] = React.useState(0);
-	const router = useRouter();
 
 	// Track product view on mount
 	React.useEffect(() => {

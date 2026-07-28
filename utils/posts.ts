@@ -31,6 +31,7 @@ export async function getPostList(): Promise<Post[]> {
 			tagList: data.tags,
 			publishedDate: data.date,
 			description: excerpt || "",
+			ogImage: data.ogImage || null,
 			mdContent: content,
 		});
 	}
@@ -62,6 +63,7 @@ export async function getPostListSummary(): Promise<Post[]> {
 			tagList: data.tags,
 			publishedDate: data.date,
 			description: excerpt || "",
+			ogImage: data.ogImage || null,
 			// Omitting mdContent for performance
 		});
 	}
@@ -105,6 +107,7 @@ export async function getPostListLimit(limit: number): Promise<Post[]> {
 				tagList: data.tags,
 				publishedDate: data.date,
 				description: excerpt || "",
+				ogImage: data.ogImage || null,
 				// Omitting mdContent for performance
 			});
 		}
@@ -139,6 +142,7 @@ export async function getPostBySlug(slug: string | string[]): Promise<Post | nul
 				tagList: data.tags,
 				publishedDate: data.date,
 				description: data.description || "",
+				ogImage: data.ogImage || null,
 				mdContent: content,
 			};
 		}

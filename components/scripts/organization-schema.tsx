@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/utils/siteUrl";
 import React from "react";
 
 export function GlobalSchema() {
@@ -5,9 +6,9 @@ export function GlobalSchema() {
 		"@context": "https://schema.org",
 		"@type": "LocalBusiness",
 		name: "INUT Design",
-		url: "https://inutdesign.com",
-		logo: "https://inutdesign.com/branding/logo.avif",
-		image: "https://inutdesign.com/branding/ogImage.avif",
+		url: SITE_URL,
+		logo: `${SITE_URL}/branding/logo.avif`,
+		image: `${SITE_URL}/branding/ogImage.avif`,
 		priceRange: "$$",
 		currenciesAccepted: "VND",
 		paymentAccepted: "Cash, Bank Transfer, QR Code",
@@ -35,12 +36,12 @@ export function GlobalSchema() {
 		"@context": "https://schema.org",
 		"@type": "WebSite",
 		name: "INUT Design",
-		url: "https://inutdesign.com",
+		url: SITE_URL,
 		potentialAction: {
 			"@type": "SearchAction",
 			target: {
 				"@type": "EntryPoint",
-				urlTemplate: "https://inutdesign.com/search?q={search_term_string}",
+				urlTemplate: `${SITE_URL}/search?q={search_term_string}`,
 			},
 			"query-input": "required name=search_term_string",
 		},

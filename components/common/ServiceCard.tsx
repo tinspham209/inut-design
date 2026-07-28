@@ -5,10 +5,11 @@ import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import NewReleasesIcon from "@mui/icons-material/NewReleases";
 import StarIcon from "@mui/icons-material/Star";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import { Box, Card, Chip, Icon, Stack, Typography } from "@mui/material";
+import { Box, Card, Chip, Stack, Typography } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 
+/* eslint-disable camelcase */
 export interface ServiceCardProps {
 	title: string;
 	description?: string;
@@ -31,7 +32,9 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 }) => {
 	const handleCardClick = () => {
 		trackEvent("service_click", {
+			// eslint-disable-next-line camelcase
 			service_title: title,
+			// eslint-disable-next-line camelcase
 			service_path: href,
 		});
 	};

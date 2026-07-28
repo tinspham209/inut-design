@@ -9,6 +9,7 @@ import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { ProductType, Products } from "@/models/products";
 import { COLOR_CODE, trackSearch } from "@/utils";
+import { SITE_URL } from "@/utils/siteUrl";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
 	Accordion,
@@ -86,10 +87,11 @@ const Search: NextPageWithLayout = ({ products, productTypes, banner }: Props) =
 					title: "Tìm kiếm - INUT Design",
 					description:
 						"Thiết kế & In ấn - Skin Laptop - Sticker - Decal - Thiệp - Card - Tem Nhãn, skin laptop da nang, skin laptop đà nẵng",
-					url: "https://inutdesign.com/san-pham/skin-laptop",
+					url: `${SITE_URL}/search`,
 					thumbnailUrl:
 						(banner && !isEmpty(banner) && urlFor(banner[0]?.image || "").url()) ||
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
+					noindex: !!q,
 				}}
 			/>
 

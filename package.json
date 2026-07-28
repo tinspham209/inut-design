@@ -20,7 +20,7 @@
 		"start": "next start",
 		"lint": "next lint",
 		"export": "next export",
-		"postbuild": "next-sitemap --config next-sitemap.config.js",
+		"postbuild": "next-sitemap --config next-sitemap.config.js && node scripts/verify-seo.mjs",
 		"sanity": "cd ./sanity && pnpm start",
 		"regression": "./scripts/regression-test.sh",
 		"regression:lighter": "./scripts/test-lighter-builder.sh"

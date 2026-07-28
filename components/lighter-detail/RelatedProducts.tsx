@@ -19,6 +19,7 @@ interface RelatedProduct {
 	_id: string;
 	name: string;
 	slug: { current: string };
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	image: any[];
 	imageUrl: string;
 }

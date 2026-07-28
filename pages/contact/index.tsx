@@ -132,6 +132,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 							{LIST_CONTACTS.map((item) => (
 								<MuiLink
 									href={item.link}
+									// eslint-disable-next-line @typescript-eslint/no-explicit-any
 									{...(!(item as any).isInternalUrl && {
 										target: "_blank",
 										rel: "noopener noreferrer",

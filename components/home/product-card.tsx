@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { HiDuplicate } from "react-icons/hi";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const DuplicateIcon = HiDuplicate as any;
 import styles from "../product/product-item.module.css";
 

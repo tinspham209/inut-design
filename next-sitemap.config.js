@@ -1,7 +1,9 @@
 /** @type {import('next-sitemap').IConfig} */
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://inutdesign.com";
 const nextSitemapConfig = {
-	siteUrl: "https://inutdesign.com",
+	siteUrl,
 	generateIndexSitemap: false,
+	exclude: ["/search"],
 
 	generateRobotsTxt: true,
 	robotsTxtOptions: {
@@ -9,9 +11,9 @@ const nextSitemapConfig = {
 			{
 				userAgent: "*",
 				allow: "/",
-				disallow: ["/*?updated-max=*", "/signup"],
-				host: "https://inutdesign.com",
-				siteMap: "https://inutdesign.com/sitemap.xml",
+				disallow: ["/*?updated-max=*", "/signup", "/*.avif$", "/_next/image"],
+				host: siteUrl,
+				siteMap: `${siteUrl}/sitemap.xml`,
 			},
 			{ userAgent: "Mediapartners-Google", allow: "/search", disallow: "*archive.html" },
 			// AI Search Crawlers — allow full indexing for AI-powered search visibility

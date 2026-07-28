@@ -14,6 +14,7 @@ export interface Post {
 
 	slug: string
 	author?: Author
+	ogImage?: string | null
 
 	mdContent?: string
 	htmlContent?: string

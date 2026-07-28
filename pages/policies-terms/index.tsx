@@ -76,7 +76,9 @@ const PoliciesTermsIndexPage: NextPageWithLayout = () => {
 		trackEvent("policies_terms_index_view", {
 			category: "engagement",
 			label: "policies_terms_index_page",
+			// eslint-disable-next-line camelcase
 			page_path: PAGE_PATH,
+			// eslint-disable-next-line camelcase
 			page_title: PAGE_TITLE,
 		});
 		trackUmamiEvent("policies_terms_index_view", { pagePath: PAGE_PATH });
@@ -86,6 +88,7 @@ const PoliciesTermsIndexPage: NextPageWithLayout = () => {
 		trackEvent("policies_terms_card_click", {
 			category: "engagement",
 			label: title,
+			// eslint-disable-next-line camelcase
 			page_path: url,
 		});
 		trackUmamiEvent("policies_terms_card_click", { pagePath: url, label: title });

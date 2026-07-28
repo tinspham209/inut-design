@@ -9,7 +9,6 @@ import {
 	WARNING_COLOR,
 } from "../constants";
 import { Box, Typography } from "@mui/material";
-import React from "react";
 
 export const useImageUploader = (onUpload?: (image: UploadedImage) => void) => {
 	const [uploadedImage, setUploadedImage] = useState<UploadedImage | null>(null);
@@ -41,7 +40,7 @@ export const useImageUploader = (onUpload?: (image: UploadedImage) => void) => {
 
 				if (width < RECOMMENDED_WIDTH || height < RECOMMENDED_HEIGHT) {
 					toast(
-						(t) => (
+						() => (
 							<Box>
 								<Typography variant="body2" fontWeight="bold" color={WARNING_COLOR}>
 									Độ phân giải thấp

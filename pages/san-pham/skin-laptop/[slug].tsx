@@ -28,7 +28,6 @@ import "yet-another-react-lightbox/styles.css";
 import { Portal } from "@/components/common/Portal";
 // import CountUp from "react-countup";
 // import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import styles from "./productItem.module.css";
 
@@ -39,7 +38,6 @@ import { StaticContentEachPage, UsagePurposeValue } from "@/models";
 import BlockContentWrapper from "@/components/common/block-content";
 
 const ProductDetail = ({ product, products, staticContent }: Props) => {
-	const router = useRouter();
 	const [isOpenLightBox, setIsOpenLightBox] = React.useState(false);
 	const [lightboxIndex, setLightboxIndex] = React.useState(0);
 
@@ -418,6 +416,8 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params: { slug } }) => {
 	const product = await productsApi.getProductBySlug(slug as string);
+	if (!product) return { notFound: true };
+
 	const products = await productsApi.getAllProducts(20);
 	const staticContent = await staticContentEachPageApi.getStaticContentBySlug("products");
 

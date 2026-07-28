@@ -5,7 +5,9 @@ import { AddToLighterCartButton } from "@/components/cart";
 import { trackContactClick } from "@/utils/analytics";
 
 interface ActionButtonsProps {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	lighter: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	lighterType: any;
 	quantity: number;
 }

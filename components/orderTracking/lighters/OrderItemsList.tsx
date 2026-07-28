@@ -33,7 +33,12 @@ const OrderItemsList: React.FC<OrderItemsListProps> = ({
 				<Divider sx={{ my: 2 }} />
 				<Stack spacing={2}>
 					{items.map((item, index) => (
-						<OrderItem item={item as any} index={index} key={item._key} />
+						<OrderItem
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
+							item={item as any}
+							index={index}
+							key={item._key}
+						/>
 					))}
 				</Stack>
 				<Divider sx={{ my: 3 }} />
@@ -89,6 +94,7 @@ const OrderItemsList: React.FC<OrderItemsListProps> = ({
 type OrderItemProps = {
 	item: Omit<OrderItemLighter, "lighterType" | "product"> & {
 		lighterType: LighterType;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		product: any;
 	};
 	index: number;

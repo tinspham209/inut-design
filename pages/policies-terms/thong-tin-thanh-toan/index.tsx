@@ -45,7 +45,9 @@ const PaymentInfoPage: NextPageWithLayout = () => {
 		trackEvent("payment_info_view", {
 			category: "engagement",
 			label: "payment_info_page",
+			// eslint-disable-next-line camelcase
 			page_path: PAGE_PATH,
+			// eslint-disable-next-line camelcase
 			page_title: PAGE_TITLE,
 		});
 		trackUmamiEvent("payment_info_view", { pagePath: PAGE_PATH });

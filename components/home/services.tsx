@@ -25,6 +25,7 @@ const SERVICE_CATEGORIES = [
 	{ path: "/services/an-pham-luu-niem", maxItems: 6 },
 ];
 
+/* eslint-disable camelcase */
 function ServiceItemCard({ item }: { item: RouteItem }) {
 	const handleItemClick = () => {
 		trackEvent("service_click", {
@@ -140,8 +141,6 @@ function ServiceItemCard({ item }: { item: RouteItem }) {
 
 function ServiceSubSection({ route, maxItems }: { route: RouteItem; maxItems: number }) {
 	const items = (route.children || []).slice(0, maxItems);
-	const cols = items.length <= 2 ? 6 : items.length === 3 ? 4 : 3;
-
 	const handleHeaderClick = () => {
 		trackEvent("service_click", {
 			service_title: route.label,

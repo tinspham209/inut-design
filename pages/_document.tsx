@@ -34,6 +34,7 @@ export default class MyDocument extends Document {
 						href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,800;0,900;1,300;1,400;1,500;1,700&family=Roboto+Serif:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
 						rel="stylesheet"
 						media="print"
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
 						onLoad={(e: any) => {
 							e.target.media = "all";
 						}}
@@ -61,6 +62,7 @@ export default class MyDocument extends Document {
 					/>
 
 					<meta name="emotion-insertion-point" content="" />
+					{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
 					{(this.props as any).emotionStyleTags}
 
 					{/* Speculation Rules for bfcache and prefetch/prerender */}
@@ -96,6 +98,7 @@ MyDocument.getInitialProps = async (ctx) => {
 
 	ctx.renderPage = () =>
 		originalRenderPage({
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			enhanceApp: (App: any) =>
 				function EnhanceApp(props) {
 					return <App emotionCache={cache} {...props} />;

@@ -23,6 +23,7 @@ interface BankInfo {
 	bankShortName: string;
 	accountNumber: string;
 	accountHolderName: string;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	image?: any;
 }
 

@@ -3,7 +3,9 @@ import { IconButton, InputAdornment, InputBaseComponentProps, TextField } from "
 import React, { HTMLProps, MouseEventHandler, RefObject } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const EyeInvisibleIcon = AiFillEyeInvisible as any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const EyeIcon = AiFillEye as any;
 
 export const Input: React.FC<InputProps> = ({

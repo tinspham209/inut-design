@@ -4,6 +4,7 @@ import MarkdownWrapper from "@/components/common/markdown/MarkdownWrapper";
 import { MainLayout } from "@/components/layout";
 import { Post } from "@/models";
 import { getAllPostSlugs, getPostBySlug } from "@/utils";
+import { SITE_URL } from "@/utils/siteUrl";
 import { trackEvent } from "@/utils/analytics";
 import { getVFile } from "@/utils/unified";
 import { Box, Breadcrumbs, Container, Divider, Link as MuiLink, Typography } from "@mui/material";
@@ -21,7 +22,9 @@ export default function BlogDetailPage({ post }: BlogPageProps) {
 	React.useEffect(() => {
 		if (post) {
 			trackEvent("blog_post_view", {
+				// eslint-disable-next-line camelcase
 				post_title: post.title,
+				// eslint-disable-next-line camelcase
 				post_slug: post.slug,
 			});
 		}
@@ -35,8 +38,9 @@ export default function BlogDetailPage({ post }: BlogPageProps) {
 				data={{
 					title: post.title + " - Blog - INUT Design",
 					description: post.description,
-					url: `https://inutdesign.com/blog/${post.slug}`,
+					url: `${SITE_URL}/blog/${post.slug}`,
 					thumbnailUrl:
+						post.ogImage ||
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
 				}}
 			/>
@@ -96,20 +100,25 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<BlogPageProps> = async (
 	context: GetStaticPropsContext
 ) => {
-	const slug = context.params?.slug;
-	if (!slug) return { notFound: true };
+	try {
+		const slug = context.params?.slug;
+		if (!slug) return { notFound: true };
 
-	const post = await getPostBySlug(slug);
-	if (!post) return { notFound: true };
+		const post = await getPostBySlug(slug);
+		if (!post) return { notFound: true };
 
-	const file = await getVFile(post.mdContent || "", { title: post.title });
-	const htmlContent = file.toString();
+		const file = await getVFile(post.mdContent || "", { title: post.title });
+		const htmlContent = file.toString();
 
-	post.htmlContent = DOMPurify.sanitize(htmlContent);
+		post.htmlContent = DOMPurify.sanitize(htmlContent);
 
-	return {
-		props: {
-			post: post,
-		},
-	};
+		return {
+			props: {
+				post: post,
+			},
+		};
+	} catch (error) {
+		console.error("Error loading blog post:", error);
+		return { notFound: true };
+	}
 };

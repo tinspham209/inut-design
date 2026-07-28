@@ -4,10 +4,14 @@ import { MainLayout } from "@/components/layout";
 import QuoteRequestFormComponent from "@/components/contact/QuoteRequestForm";
 import { NextPageWithLayout } from "@/models/common";
 import { COLOR_CODE } from "@/utils";
+import { SITE_URL } from "@/utils/siteUrl";
 import { Box, Breadcrumbs, Container, Link as MuiLink, Typography } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const ContactForm: NextPageWithLayout = () => {
+	const router = useRouter();
+	const hasQueryParams = Object.keys(router.query).length > 0;
 	return (
 		<Box>
 			<Seo
@@ -15,8 +19,9 @@ const ContactForm: NextPageWithLayout = () => {
 					title: "Đăng ký nhận tư vấn, báo giá - INUT Design",
 					description:
 						"Điền thông tin để nhận tư vấn, báo giá về thiết kế, in ấn tại Đà Nẵng. INUT Design sẽ liên hệ bạn sớm nhất.",
-					url: "https://inutdesign.com/contact/form",
+					url: `${SITE_URL}/contact/form`,
 					thumbnailUrl: "/branding/og-image/contact.jpg",
+					noindex: hasQueryParams,
 				}}
 			/>
 			<Box pt={2} bgcolor={COLOR_CODE.INK}>

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase, @typescript-eslint/no-explicit-any */
 import envConst from "@/utils/env-const";
 import Script from "next/script";
 

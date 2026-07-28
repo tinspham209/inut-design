@@ -80,7 +80,9 @@ const CompanyInfoPage: NextPageWithLayout = () => {
 		trackEvent("company_info_view", {
 			category: "engagement",
 			label: "company_info_page",
+			// eslint-disable-next-line camelcase
 			page_path: PAGE_PATH,
+			// eslint-disable-next-line camelcase
 			page_title: PAGE_TITLE,
 		});
 		trackUmamiEvent("company_info_view", { pagePath: PAGE_PATH });

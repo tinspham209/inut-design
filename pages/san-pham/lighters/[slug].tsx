@@ -105,6 +105,7 @@ const LighterDetail: NextPageWithLayout = ({
 				reviewCount: "89",
 			},
 		});
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [lighter.name, lighter.details, galleryImages, priceTiers, lighter._id, lighter.slug.current]);
 
 	// Track product view on mount

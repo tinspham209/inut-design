@@ -1,6 +1,6 @@
 import axiosClient from "@/api/axios-client";
 import { EmptyLayout } from "@/components/layout";
-import { FacebookChatPlugin, GlobalSchema, GoogleTagSchema } from "@/components/scripts";
+import { FacebookChatPlugin, GoogleTagSchema } from "@/components/scripts";
 import { SpeculationRulesScript } from "@/components/scripts/speculation-rules";
 import useEngagementTracking from "@/hooks/useEngagementTracking";
 import { AppPropsWithLayout } from "@/models";
@@ -117,7 +117,6 @@ function MyApp({
 			<Analytics mode="production" />
 			<FacebookChatPlugin />
 			<GoogleTagSchema />
-			<GlobalSchema />
 			<SpeculationRulesScript />
 		</>
 	);

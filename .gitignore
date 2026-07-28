@@ -40,6 +40,7 @@ yarn-error.log*
 dist
 
 /public/sitemap.xml
+/public/robots.txt
 
 # generated reports
 sanity/reports/

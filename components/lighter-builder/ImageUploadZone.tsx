@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { useCallback, useRef, useState } from "react";
 import { UploadedImage } from "./types";
-import { ACCEPTED_TYPES, ACCENT_COLOR, MAX_FILE_SIZE } from "./constants";
+import { ACCEPTED_TYPES } from "./constants";
 
 // Design tokens
 const T = {

@@ -142,7 +142,9 @@ const PrivacyPolicyPage: NextPageWithLayout = () => {
 		trackEvent("privacy_policy_view", {
 			category: "engagement",
 			label: "privacy_policy_page",
+			// eslint-disable-next-line camelcase
 			page_path: PAGE_PATH,
+			// eslint-disable-next-line camelcase
 			page_title: PAGE_TITLE,
 		});
 		trackUmamiEvent("privacy_policy_view", { pagePath: PAGE_PATH });

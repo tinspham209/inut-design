@@ -18,6 +18,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
 
 	const handleCtaClick = () => {
 		trackEvent("cta_click", {
+			// eslint-disable-next-line camelcase
 			cta_label: data.ctaLabel || "Đặt In Ngay",
 			section: "Hero",
 		});

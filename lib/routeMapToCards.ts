@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { ROUTE_LIST, RouteItem } from "@/components/common/header/routes";
 import { ServiceCardProps } from "@/components/common/ServiceCard";
 

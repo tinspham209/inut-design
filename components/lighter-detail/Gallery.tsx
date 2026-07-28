@@ -20,7 +20,7 @@ interface GalleryProps {
 	productName: string;
 }
 
-const Gallery: React.FC<GalleryProps> = ({ images, productName }) => {
+const Gallery: React.FC<GalleryProps> = ({ images }) => {
 	const [isOpenLightBox, setIsOpenLightBox] = React.useState(false);
 	const [lightboxIndex, setLightboxIndex] = React.useState(0);
 

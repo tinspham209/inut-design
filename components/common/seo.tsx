@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/utils/siteUrl";
 import Head from "next/head";
 import * as React from "react";
 
@@ -37,7 +38,7 @@ export function Seo({ data }: SeoProps) {
 				"@type": "ListItem",
 				position: index + 1,
 				name: crumb.name,
-				item: crumb.item.startsWith("http") ? crumb.item : `https://inutdesign.com${crumb.item}`,
+				item: crumb.item.startsWith("http") ? crumb.item : `${SITE_URL}${crumb.item}`,
 			})),
 		});
 	}, [breadcrumbs]);
@@ -57,10 +58,13 @@ export function Seo({ data }: SeoProps) {
 			{!noindex && <meta name="robots" content="index,follow" />}
 
 			<meta property="og:type" content="website" />
+			<meta property="og:locale" content="vi_VN" />
+			<meta property="og:site_name" content="INUT Design" />
 			<meta property="og:url" content={url} />
 			<meta property="og:title" content={title} />
 			<meta property="og:description" content={description} />
 			<meta property="og:image" content={thumbnailUrl} />
+			<meta property="og:image:alt" content={title} />
 
 			<meta property="twitter:card" content="summary_large_image" />
 			<meta property="twitter:url" content={url} />

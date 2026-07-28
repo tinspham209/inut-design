@@ -15,6 +15,7 @@ export function LighterCartBadge({ onClick }: LighterCartBadgeProps) {
 	const handleBadgeClick = () => {
 		trackEvent("cart_view", {
 			source: "floating_badge",
+			// eslint-disable-next-line camelcase
 			total_items: totalItems,
 		});
 		onClick?.();

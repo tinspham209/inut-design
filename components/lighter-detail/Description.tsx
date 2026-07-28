@@ -3,7 +3,9 @@ import { Box, Typography } from "@mui/material";
 import BlockContentWrapper from "@/components/common/block-content";
 
 interface DescriptionProps {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	details?: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	lighterTypeDescription?: any;
 	minOrder?: string;
 }

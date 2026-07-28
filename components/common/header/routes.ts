@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export interface RouteItem {
 	label: string;
 	path: string;

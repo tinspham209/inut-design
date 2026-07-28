@@ -18,7 +18,9 @@ const CountUp = dynamic(() => import("react-countup"), { ssr: false });
 const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
 	const handlePostClick = (post: Post) => {
 		trackEvent("blog_post_click", {
+			// eslint-disable-next-line camelcase
 			post_title: post.title,
+			// eslint-disable-next-line camelcase
 			post_slug: post.slug,
 		});
 	};

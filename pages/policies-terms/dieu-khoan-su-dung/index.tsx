@@ -228,7 +228,9 @@ const TermsOfUsePage: NextPageWithLayout = () => {
 		trackEvent("terms_of_use_view", {
 			category: "engagement",
 			label: "terms_of_use_page",
+			// eslint-disable-next-line camelcase
 			page_path: PAGE_PATH,
+			// eslint-disable-next-line camelcase
 			page_title: PAGE_TITLE,
 		});
 		trackUmamiEvent("terms_of_use_view", { pagePath: PAGE_PATH });

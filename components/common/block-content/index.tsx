@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 import envConst from "@/utils/env-const";
 
 type Props = {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	blocks: any;
 };
 

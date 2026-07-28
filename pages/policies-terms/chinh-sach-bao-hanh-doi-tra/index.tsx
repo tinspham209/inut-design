@@ -157,7 +157,9 @@ const WarrantyPolicyPage: NextPageWithLayout = () => {
 		trackEvent("warranty_policy_view", {
 			category: "engagement",
 			label: "warranty_policy_page",
+			// eslint-disable-next-line camelcase
 			page_path: PAGE_PATH,
+			// eslint-disable-next-line camelcase
 			page_title: PAGE_TITLE,
 		});
 		trackUmamiEvent("warranty_policy_view", { pagePath: PAGE_PATH });

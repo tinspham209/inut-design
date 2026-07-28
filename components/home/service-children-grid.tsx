@@ -27,6 +27,7 @@ type Props = {
 	id?: string;
 };
 
+/* eslint-disable camelcase */
 export function ServiceChildrenGrid({
 	title,
 	eyebrow,

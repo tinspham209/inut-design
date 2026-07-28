@@ -1,15 +1,9 @@
 import { Seo } from "@/components/common";
 import { MainLayout } from "@/components/layout";
 import { NextPageWithLayout } from "@/models/common";
-import { COLOR_CODE, trackEvent, trackOutboundClick, trackUmamiEvent } from "@/utils";
+import { trackEvent, trackUmamiEvent } from "@/utils";
 import {
-	AccountBalanceOutlined,
-	BadgeOutlined,
-	EmailOutlined,
 	ExpandMore,
-	LocationOnOutlined,
-	PhoneOutlined,
-	ReceiptLongOutlined,
 } from "@mui/icons-material";
 import {
 	Accordion,
@@ -18,11 +12,7 @@ import {
 	Box,
 	Breadcrumbs,
 	Container,
-	Grid,
-	Icon,
 	Link as MuiLink,
-	Paper,
-	Stack,
 	Typography,
 } from "@mui/material";
 import Link from "next/link";
@@ -41,7 +31,9 @@ const FaqsPage: NextPageWithLayout = () => {
 		trackEvent("faqs_view", {
 			category: "engagement",
 			label: "faqs_page",
+			// eslint-disable-next-line camelcase
 			page_path: PAGE_PATH,
+			// eslint-disable-next-line camelcase
 			page_title: PAGE_TITLE,
 		});
 		trackUmamiEvent("faqs_view", { pagePath: PAGE_PATH });
