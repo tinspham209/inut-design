@@ -75,7 +75,12 @@ export function Seo({ data }: SeoProps) {
 			{productStructuredData && (
 				<script
 					type="application/ld+json"
-					dangerouslySetInnerHTML={{ __html: productStructuredData }}
+					dangerouslySetInnerHTML={{
+						__html:
+							typeof productStructuredData === "string"
+								? productStructuredData
+								: JSON.stringify(productStructuredData),
+					}}
 				/>
 			)}
 

@@ -57,6 +57,7 @@ export const SAN_PHAM_DECOR_DATA: ProductPageData = {
 			},
 			offer: {
 				"@type": "Offer",
+				price: "0",
 				priceCurrency: "VND",
 			},
 		},
@@ -284,6 +285,7 @@ export const THIET_KE_IN_MENU_DATA: ProductPageData = {
 			},
 			offer: {
 				"@type": "Offer",
+				price: "0",
 				priceCurrency: "VND",
 			},
 		},
@@ -513,6 +515,7 @@ export const PHIEU_VE_HOA_DON_GTGT_DATA: ProductPageData = {
 			},
 			offer: {
 				"@type": "Offer",
+				price: "0",
 				priceCurrency: "VND",
 			},
 		},
@@ -743,6 +746,7 @@ export const TAM_LOT_BAN_AN_DATA: ProductPageData = {
 			},
 			offer: {
 				"@type": "Offer",
+				price: "0",
 				priceCurrency: "VND",
 			},
 		},

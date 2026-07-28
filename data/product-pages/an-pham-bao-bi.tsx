@@ -54,6 +54,7 @@ export const DECAL_NHAN_MAC_DATA: ProductPageData = {
 			},
 			offer: {
 				"@type": "Offer",
+				price: "0",
 				priceCurrency: "VND",
 			},
 		},
@@ -290,6 +291,7 @@ export const HOP_SAN_PHAM_DATA: ProductPageData = {
 			},
 			offer: {
 				"@type": "Offer",
+				price: "0",
 				priceCurrency: "VND",
 			},
 		},
@@ -526,6 +528,7 @@ export const TEM_BAO_HANH_DATA: ProductPageData = {
 			},
 			offer: {
 				"@type": "Offer",
+				price: "0",
 				priceCurrency: "VND",
 			},
 		},

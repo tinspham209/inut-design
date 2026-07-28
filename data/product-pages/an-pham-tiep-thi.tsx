@@ -488,6 +488,7 @@ export const IN_VOUCHER_VE_MOI_SU_KIEN_THE_TICH_DIEM_DATA: ProductPageData = {
 			},
 			offer: {
 				"@type": "Offer",
+				price: "0",
 				priceCurrency: "VND",
 			},
 		},

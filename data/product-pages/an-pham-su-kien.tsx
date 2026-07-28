@@ -940,6 +940,7 @@ export const SU_KIEN_TRON_GOI_DATA: ProductPageData = {
 			},
 			offer: {
 				"@type": "Offer",
+				price: "0",
 				priceCurrency: "VND",
 			},
 		},
