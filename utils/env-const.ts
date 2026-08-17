@@ -16,8 +16,12 @@ const envConst = {
 	TELEGRAM_CHAT_ID: process.env.NEXT_PUBLIC_TELEGRAM_CHAT_ID,
 
 	ENABLE_UMAMI: process.env.NEXT_PUBLIC_ENABLE_UMAMI,
+	ENABLE_ZALO_PHONE_CHECK: process.env.NEXT_PUBLIC_ENABLE_ZALO_PHONE_CHECK,
 	UMAMI_WEBSITE_ID: process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID,
 	UMAMI_HOST_URL: process.env.NEXT_PUBLIC_UMAMI_HOST_URL || "https://cloud.umami.is",
 };
+
+export const isZaloPhoneCheckEnabled = (): boolean =>
+	envConst.ENABLE_ZALO_PHONE_CHECK?.toLowerCase() !== "false";
 
 export default envConst;

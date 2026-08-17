@@ -1,5 +1,6 @@
 import { useSubmitQuoteRequest } from "@/hooks/useSubmitQuoteRequest";
 import { useTelegramQuoteNotification } from "@/hooks/useTelegramQuoteNotification";
+import { usePhoneZaloCheck } from "@/hooks/usePhoneZaloCheck";
 import {
 	CreateQuoteRequestInput,
 	DesignStatusValue,
@@ -7,7 +8,11 @@ import {
 	UsagePurposeValue,
 } from "@/models/quoteRequest";
 import { COLOR_CODE } from "@/utils";
-import { trackFormSubmit } from "@/utils/analytics";
+import { isZaloPhoneCheckEnabled } from "@/utils/env-const";
+import { trackEvent, trackFormSubmit } from "@/utils/analytics";
+import { isValidVietnamesePhone, normalizePhone } from "@/utils/phone";
+import useDialogSlice from "@/store/dialog/slice";
+import { DIALOG_TYPES } from "@/store/dialog/type";
 import {
 	Alert,
 	Autocomplete,
@@ -28,7 +33,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
@@ -82,8 +87,8 @@ const USAGE_PURPOSE_OPTIONS = [
 	{ title: "Sổ Tay, Kỷ Yếu & Sổ Bấm Ghim", value: UsagePurposeValue.SO_TAY_KY_YEU_SO_BAM_GHIM },
 	{ title: "Bảng cứng in thông tin", value: UsagePurposeValue.BANG_CUNG_IN_THONG_TIN },
 
-	{ title: "Kinh doanh", value: UsagePurposeValue.KINH_DOANH },
-	{ title: "Cá nhân", value: UsagePurposeValue.CA_NHAN },
+	// { title: "Kinh doanh", value: UsagePurposeValue.KINH_DOANH },
+	// { title: "Cá nhân", value: UsagePurposeValue.CA_NHAN },
 	{ title: "Khác", value: UsagePurposeValue.OTHER },
 ];
 
@@ -96,6 +101,8 @@ const DEVICE_MODEL_PURPOSE = [
 export default function QuoteRequestFormComponent() {
 	const { submit, isSubmitting } = useSubmitQuoteRequest();
 	const { sendNotification } = useTelegramQuoteNotification();
+	const dialogSlice = useDialogSlice();
+	const zaloConfirmRef = useRef(false);
 	const [submitSuccess, setSubmitSuccess] = React.useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -132,6 +139,8 @@ export default function QuoteRequestFormComponent() {
 	const usagePurpose = watch("usagePurpose");
 	const receiveQuoteChannel = watch("receiveQuoteChannel");
 	const priorityLevel = watch("priorityLevel");
+	const phoneValue = watch("phone");
+	const { status: zaloStatus } = usePhoneZaloCheck(phoneValue);
 
 	useEffect(() => {
 		if (fromQuery && Object.values(UsagePurposeValue).includes(fromQuery as UsagePurposeValue)) {
@@ -141,6 +150,59 @@ export default function QuoteRequestFormComponent() {
 			setValue("notes", noteQuery, { shouldValidate: true });
 		}
 	}, [fromQuery, noteQuery, setValue]);
+
+	const handleSubmitForm = async (data: CreateQuoteRequestInput) => {
+		const normalizedPhone = normalizePhone(data.phone);
+		const payload = { ...data, phone: normalizedPhone };
+
+		if (
+			receiveQuoteChannel === "zalo" &&
+			isZaloPhoneCheckEnabled() &&
+			!zaloConfirmRef.current &&
+			!isSubmitting &&
+			!isLoading &&
+			!Object.values(dialogSlice.isVisible).some(Boolean)
+		) {
+			zaloConfirmRef.current = true;
+			try {
+				dialogSlice.showDialog({
+					type: DIALOG_TYPES.YESNO_DIALOG,
+					data: {
+						title: "Xác nhận gửi qua Zalo",
+						content: (
+							<>
+								<Typography variant="body1" gutterBottom>
+									Số điện thoại của bạn: <b>{normalizedPhone}</b>
+								</Typography>
+								<Typography variant="body2">
+									Để nhận được báo giá qua Zalo, vui lòng bật “Nhận tin nhắn từ người lạ” trong Cài
+									đặt Zalo (Zalo → Cài đặt → Quyền riêng tư).
+								</Typography>
+							</>
+						),
+						okText: "Xác nhận gửi",
+						cancelText: "Hủy",
+						onOk: async () => {
+							trackEvent("cta_click", { cta: "quote_form_zalo_confirm" });
+							dialogSlice.hideDialog();
+							zaloConfirmRef.current = false;
+							await onSubmit(payload);
+						},
+						onCancel: () => {
+							trackEvent("cta_click", { cta: "quote_form_zalo_cancel" });
+							dialogSlice.hideDialog();
+							zaloConfirmRef.current = false;
+						},
+					},
+				});
+			} catch {
+				zaloConfirmRef.current = false;
+			}
+			return;
+		}
+
+		await onSubmit(payload);
+	};
 
 	const onSubmit = async (data: CreateQuoteRequestInput) => {
 		try {
@@ -180,6 +242,18 @@ export default function QuoteRequestFormComponent() {
 						</Typography>
 						<Typography variant="body1">
 							Chúng tôi đã nhận được thông tin và sẽ liên hệ với bạn trong thời gian sớm nhất.
+							<br />
+							Nếu bạn yêu cầu gửi báo giá qua Zalo, vui lòng bật “Nhận tin nhắn từ người lạ” trong
+							Cài đặt Zalo (Zalo → Cài đặt → Quyền riêng tư).
+							<br />
+							Nếu gấp, bạn có thể liên hệ trực tiếp qua số điện thoại <strong>
+								0327124321
+							</strong>{" "}
+							hoặc Zalo{" "}
+							<Link href="https://zalo.me/0327124321" target="_blank">
+								<strong>0327124321</strong>
+							</Link>
+							.
 						</Typography>
 					</Alert>
 					<Button
@@ -202,11 +276,18 @@ export default function QuoteRequestFormComponent() {
 				<Typography variant="h5" fontWeight="bold" gutterBottom>
 					Đăng ký nhận báo giá
 				</Typography>
-				<Typography variant="body2" sx={{ color: "text.secondary", mb: 3 }}>
+				<Typography variant="body2" sx={{ color: "text.secondary" }}>
 					Vui lòng điền đầy đủ thông tin bên dưới, chúng tôi sẽ liên hệ tư vấn báo giá cho bạn.
 				</Typography>
+				<Typography variant="body2" sx={{ color: "text.secondary", mb: 3 }}>
+					Nếu gấp, bạn có thể liên hệ trực tiếp qua số điện thoại <strong>0327124321</strong> hoặc
+					Zalo{" "}
+					<Link href="https://zalo.me/0327124321" target="_blank">
+						<strong>0327124321</strong>
+					</Link>
+				</Typography>
 
-				<form onSubmit={handleSubmit(onSubmit)}>
+				<form onSubmit={handleSubmit(handleSubmitForm)}>
 					<Grid container spacing={1.5}>
 						{/* Customer Name */}
 						<Grid item xs={12} md={6}>
@@ -237,6 +318,57 @@ export default function QuoteRequestFormComponent() {
 							/>
 						</Grid>
 
+						{/* Receive Quote Channel */}
+						<Grid item xs={12}>
+							<FormControl component="fieldset" error={!!errors.receiveQuoteChannel}>
+								<FormLabel component="legend">Nhận bảng báo giá qua kênh *</FormLabel>
+								<Controller
+									name="receiveQuoteChannel"
+									control={control}
+									rules={{ required: "Vui lòng chọn kênh nhận báo giá" }}
+									render={({ field }) => (
+										<RadioGroup {...field} row>
+											<FormControlLabel value="zalo" control={<Radio />} label="Zalo" />
+											<FormControlLabel value="phone" control={<Radio />} label="Số điện thoại" />
+											<FormControlLabel value="email" control={<Radio />} label="Email" />
+											<FormControlLabel value="other" control={<Radio />} label="Khác" />
+										</RadioGroup>
+									)}
+								/>
+								{errors.receiveQuoteChannel && (
+									<Typography variant="caption" color="error">
+										{errors.receiveQuoteChannel.message}
+									</Typography>
+								)}
+								{receiveQuoteChannel === "zalo" && (
+									<Typography variant="caption">
+										Để nhận được báo giá qua Zalo, vui lòng bật “Nhận tin nhắn từ người lạ” trong
+										Cài đặt Zalo (Zalo → Cài đặt → Quyền riêng tư).
+									</Typography>
+								)}
+							</FormControl>
+						</Grid>
+
+						{/* Other Receive Quote Channel Detail */}
+						{receiveQuoteChannel === "other" && (
+							<Grid item xs={12}>
+								<Controller
+									name="receiveQuoteChannelOtherDetail"
+									control={control}
+									rules={{ required: "Vui lòng nhập nền tảng nhận báo giá" }}
+									render={({ field }) => (
+										<TextField
+											{...field}
+											fullWidth
+											label="Vui lòng nhập nền tảng bạn muốn *"
+											error={!!errors.receiveQuoteChannelOtherDetail}
+											helperText={errors.receiveQuoteChannelOtherDetail?.message}
+										/>
+									)}
+								/>
+							</Grid>
+						)}
+
 						{/* Phone */}
 						<Grid item xs={12} md={6}>
 							<Controller
@@ -244,18 +376,23 @@ export default function QuoteRequestFormComponent() {
 								control={control}
 								rules={{
 									required: "Vui lòng nhập số điện thoại",
-									pattern: {
-										value: /^[0-9+()\s-]+$/,
-										message: "Số điện thoại không hợp lệ",
-									},
+									validate: (value) =>
+										isValidVietnamesePhone(value) ||
+										"Số điện thoại không hợp lệ. Vui lòng nhập số di động 10 số bắt đầu bằng 03, 05, 07, 08 hoặc 09 (ví dụ: 0912345678).",
 								}}
 								render={({ field }) => (
 									<TextField
 										{...field}
 										fullWidth
 										label="Số điện thoại *"
-										error={!!errors.phone}
-										helperText={errors.phone?.message}
+										inputProps={{ inputMode: "tel", maxLength: 20 }}
+										error={!!errors.phone || zaloStatus === "not_registered"}
+										helperText={
+											errors.phone?.message ||
+											(zaloStatus === "not_registered"
+												? "Số này chưa đăng ký Zalo. Bạn vẫn có thể gửi — chúng tôi sẽ liên hệ qua số điện thoại trực tiếp."
+												: undefined)
+										}
 									/>
 								)}
 							/>
@@ -386,51 +523,6 @@ export default function QuoteRequestFormComponent() {
 											label="Vui lòng mô tả mục đích sử dụng *"
 											error={!!errors.usagePurposeOtherDetail}
 											helperText={errors.usagePurposeOtherDetail?.message}
-										/>
-									)}
-								/>
-							</Grid>
-						)}
-
-						{/* Receive Quote Channel */}
-						<Grid item xs={12}>
-							<FormControl component="fieldset" error={!!errors.receiveQuoteChannel}>
-								<FormLabel component="legend">Nhận bảng báo giá qua kênh *</FormLabel>
-								<Controller
-									name="receiveQuoteChannel"
-									control={control}
-									rules={{ required: "Vui lòng chọn kênh nhận báo giá" }}
-									render={({ field }) => (
-										<RadioGroup {...field} row>
-											<FormControlLabel value="email" control={<Radio />} label="Email" />
-											<FormControlLabel value="zalo" control={<Radio />} label="Zalo" />
-											<FormControlLabel value="phone" control={<Radio />} label="Số điện thoại" />
-											<FormControlLabel value="other" control={<Radio />} label="Khác" />
-										</RadioGroup>
-									)}
-								/>
-								{errors.receiveQuoteChannel && (
-									<Typography variant="caption" color="error">
-										{errors.receiveQuoteChannel.message}
-									</Typography>
-								)}
-							</FormControl>
-						</Grid>
-
-						{/* Other Receive Quote Channel Detail */}
-						{receiveQuoteChannel === "other" && (
-							<Grid item xs={12}>
-								<Controller
-									name="receiveQuoteChannelOtherDetail"
-									control={control}
-									rules={{ required: "Vui lòng nhập nền tảng nhận báo giá" }}
-									render={({ field }) => (
-										<TextField
-											{...field}
-											fullWidth
-											label="Vui lòng nhập nền tảng bạn muốn *"
-											error={!!errors.receiveQuoteChannelOtherDetail}
-											helperText={errors.receiveQuoteChannelOtherDetail?.message}
 										/>
 									)}
 								/>

@@ -23,7 +23,8 @@
 		"postbuild": "next-sitemap --config next-sitemap.config.js && node scripts/verify-seo.mjs",
 		"sanity": "cd ./sanity && pnpm start",
 		"regression": "./scripts/regression-test.sh",
-		"regression:lighter": "./scripts/test-lighter-builder.sh"
+		"regression:lighter": "./scripts/test-lighter-builder.sh",
+		"regression:quote-form": "./scripts/regression-test-quote-form.sh"
 	},
 	"dependencies": {
 		"@emotion/cache": "^11.10.1",
