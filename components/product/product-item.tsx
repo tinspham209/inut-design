@@ -1,4 +1,4 @@
-import { urlFor } from "@/api-client/sanity-client";
+import { sanityImageUrl } from "@/api-client/sanity-image";
 import { Product, ProductType } from "@/models/products";
 import { trackSelectProduct } from "@/utils/analytics";
 import { COLOR_CODE } from "@/utils/theme";
@@ -22,11 +22,11 @@ export function ProductItem({ product, productTypes, isMacnut = false }: Product
 		[product.image]
 	);
 	const primaryUrl = useMemo(
-		() => (primaryImage ? urlFor(primaryImage).width(500).url() : ""),
+		() => (primaryImage ? sanityImageUrl(primaryImage, "card") : ""),
 		[primaryImage]
 	);
 	const secondaryUrl = useMemo(
-		() => (secondaryImage ? urlFor(secondaryImage).width(500).url() : undefined),
+		() => (secondaryImage ? sanityImageUrl(secondaryImage, "card") : undefined),
 		[secondaryImage]
 	);
 
@@ -100,7 +100,6 @@ export function ProductItem({ product, productTypes, isMacnut = false }: Product
 									unoptimized
 									layout="responsive"
 									alt={product.name}
-									priority={true}
 									style={{
 										borderRadius: 8,
 										transition: "opacity 0.3s ease",

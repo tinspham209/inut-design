@@ -3,14 +3,16 @@ import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import { creater, fetcher } from ".";
 
+const COST_FIELDS = `{
+	"id": _id,
+	"createdAt": _createdAt,
+	title,
+	date,
+	price
+}`;
+
 export function useGetAllCosts() {
-	const query = `*[_type == "costs"]{
-		"id": _id,
-		"createdAt": _createdAt,
-		title,
-		date,
-		price
-	}`;
+	const query = `*[_type == "costs"]${COST_FIELDS}`;
 
 	const { data, error, mutate, isLoading } = useSWR(query, fetcher, {
 		revalidateOnFocus: false,
@@ -29,13 +31,7 @@ export function useGetByDateRange(start?: Date, end?: Date) {
 		: new Date(firstDateOfMonth).toISOString();
 	const formattedEnd = end ? new Date(end).toISOString() : new Date(lastDateOfMonth).toISOString();
 
-	const query = `*[_type == "costs" && date >= "${formattedStart}" && date <= "${formattedEnd}"]{
-		"id": _id,
-		"createdAt": _createdAt,
-		title,
-		date,
-		price
-	}`;
+	const query = `*[_type == "costs" && date >= "${formattedStart}" && date <= "${formattedEnd}"]${COST_FIELDS}`;
 	const { data, error, isLoading, mutate } = useSWR(query, fetcher, {
 		revalidateOnFocus: true,
 		revalidateIfStale: true,
@@ -51,7 +47,7 @@ export function useGetByDateRange(start?: Date, end?: Date) {
 }
 
 export function useGetById(id: string) {
-	const query = `*[_type == "costs" && _id == "${id}"]`;
+	const query = `*[_type == "costs" && _id == "${id}"]${COST_FIELDS}`;
 	const { data, error, isLoading } = useSWR(query, fetcher, {
 		revalidateOnFocus: false,
 	});

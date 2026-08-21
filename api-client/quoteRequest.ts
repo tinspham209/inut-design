@@ -1,27 +1,16 @@
-import { client } from "./sanity-client";
 import { CreateQuoteRequestInput, QuoteRequestForm } from "../models/quoteRequest";
 
 export const quoteRequestApi = {
 	async create(input: CreateQuoteRequestInput): Promise<QuoteRequestForm> {
-		const doc = {
-			_type: "form-nhan-bao-gia",
-			createdAt: new Date().toISOString(),
-			customerName: input.customerName,
-			companyBrand: input.companyBrand,
-			phone: input.phone,
-			email: input.email,
-			usagePurpose: input.usagePurpose,
-			usagePurposeOtherDetail: input.usagePurposeOtherDetail,
-			quantity: input.quantity,
-			deviceModel: input.deviceModel,
-			receiveQuoteChannel: input.receiveQuoteChannel,
-			receiveQuoteChannelOtherDetail: input.receiveQuoteChannelOtherDetail,
-			designStatus: input.designStatus,
-			priorityLevel: input.priorityLevel,
-			urgentDate: input.urgentDate,
-			notes: input.notes,
-		};
-
-		return await client.create(doc);
+		const response = await fetch("/api/quote-request", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(input),
+		});
+		if (!response.ok) {
+			const payload = await response.json().catch(() => null);
+			throw new Error(payload?.error || "Failed to submit quote request.");
+		}
+		return response.json();
 	},
 };

@@ -47,7 +47,7 @@ Core folders:
 - Store reference: `store/cart/lightersCart.ts`
 - Pricing reference: `utils/priceCalculator.ts`
 - Checkout reference: `pages/checkout/lighters.tsx`
-- Sanity write reference: `api-client/sanity-client.ts`
+- Sanity write reference: `api-client/sanity-server.ts` via `pages/api/*` routes.
 
 Every Sanity array item in order payloads must include `_key`.
 
@@ -85,7 +85,7 @@ Canonical order item shape:
 
 ### 5) Image handling
 
-- Sanity images: use `urlFor()` from `api-client/sanity-client.ts`.
+- Sanity images: use `sanityImageUrl()` from `api-client/sanity-image.ts`.
 - External image domains must remain compatible with `next.config.js`.
 
 ## Environment and Secrets
@@ -94,7 +94,7 @@ Environment template exists at `.env.example`.
 
 Common keys used by app features include:
 
-- Sanity: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_TOKEN`
+- Sanity: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `SANITY_TOKEN`
 - Analytics: `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_GTM_ID`, `NEXT_PUBLIC_ENABLE_UMAMI`
 - Social/chat: `NEXT_PUBLIC_FACEBOOK_PAGE_ID`, `NEXT_PUBLIC_ENABLE_FB_CHAT`
 - Notifications/integrations: `NEXT_PUBLIC_TELEGRAM_BOT_TOKEN`, `NEXT_PUBLIC_TELEGRAM_CHAT_ID`, `NEXT_PUBLIC_X_API_KEY`

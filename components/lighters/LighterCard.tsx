@@ -1,4 +1,4 @@
-import { urlFor } from "@/api-client/sanity-client";
+import { sanityImageUrl } from "@/api-client/sanity-image";
 import { LighterProduct, LighterType } from "@/models/cart";
 import { useLightersCart } from "@/store";
 import { formatPrice, getPriceTierOptions } from "@/utils/priceCalculator";
@@ -40,11 +40,11 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, href }
 		[lighter.image]
 	);
 	const primaryUrl = useMemo(
-		() => (primaryImage ? urlFor(primaryImage).width(500).url() : ""),
+		() => (primaryImage ? sanityImageUrl(primaryImage, "card") : ""),
 		[primaryImage]
 	);
 	const secondaryUrl = useMemo(
-		() => (secondaryImage ? urlFor(secondaryImage).width(500).url() : undefined),
+		() => (secondaryImage ? sanityImageUrl(secondaryImage, "card") : undefined),
 		[secondaryImage]
 	);
 
@@ -165,7 +165,6 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, href }
 									unoptimized
 									layout="responsive"
 									alt={lighter.name}
-									priority={true}
 									style={{
 										borderRadius: 8,
 										transition: "opacity 0.3s ease",

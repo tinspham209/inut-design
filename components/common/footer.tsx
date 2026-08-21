@@ -308,6 +308,15 @@ export function Footer() {
 						>
 							© 2018–{new Date().getFullYear()} Công ty TNHH INUT DESIGN - mọi quyền bảo lưu
 						</Typography>
+						<Typography
+							variant="caption"
+							sx={{ color: COLOR_CODE.TEXT_SOFT, display: "block", mt: 1 }}
+						>
+							Designed and Maintained by{" "}
+							<Link href="https://www.tinspham.dev" target="_blank" rel="noopener noreferrer">
+								tinspham.dev
+							</Link>
+						</Typography>
 					</Stack>
 				</Box>
 			</Container>

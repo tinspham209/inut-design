@@ -5,7 +5,11 @@ import { ShippingFee } from "@/models/shippingFee";
 export function useShippingFees(enabled = true) {
 	const { data, error, isLoading, mutate } = useSWR<ShippingFee[]>(
 		enabled ? "shippingFees" : null,
-		() => shippingFeeApi.getAll()
+		() => shippingFeeApi.getAll(),
+		{
+			revalidateOnFocus: false,
+			dedupingInterval: 5 * 60 * 1000,
+		}
 	);
 	return {
 		fees: data || [],

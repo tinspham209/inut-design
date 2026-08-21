@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { productsApi } from "@/api-client/products";
-import { urlFor } from "@/api-client/sanity-client";
+import { sanityImageUrl } from "@/api-client/sanity-image";
 import { staticContentEachPageApi } from "@/api-client/staticContentEachPage";
 import { Seo } from "@/components/common";
 import BlockContentWrapper from "@/components/common/block-content";
@@ -68,7 +68,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 			"@context": "https://schema.org/",
 			"@type": "Product",
 			name: product.name,
-			image: product.image.map((img) => urlFor(img).url()),
+			image: product.image.slice(0, 1).map((img) => sanityImageUrl(img, "structured")),
 			description: `Skin nút phím ${product.name} - Chất liệu cao cấp, bảo vệ phím, thiết kế tinh tế.`,
 			sku: `INUT-K-${product._id}`,
 			brand: { "@type": "Brand", name: "INUT Design" },
@@ -103,7 +103,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 					title: `${product.name} - Skin Nút Phím - Sản phẩm - INUT Design`,
 					description: `Skin nút phím ${product.name}. Chất liệu cao cấp, bảo vệ bàn phím laptop. In hình theo yêu cầu tại Đà Nẵng.`,
 					url: `https://inutdesign.com/san-pham/skin-nut-phim/${product.slug.current}`,
-					thumbnailUrl: urlFor(product.image[0]).width(1000).url(),
+					thumbnailUrl: sanityImageUrl(product.image[0], "thumbnail"),
 					productStructuredData: productStructuredData,
 					breadcrumbs: [
 						{ name: "Trang chủ", item: "/" },
@@ -121,7 +121,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 						close={() => setIsOpenLightBox(false)}
 						index={lightboxIndex}
 						slides={product.image.map((image) => ({
-							src: urlFor(image).url(),
+							src: sanityImageUrl(image, "hero"),
 						}))}
 					/>
 				</Portal>
@@ -176,7 +176,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 										}}
 									>
 										<Image
-											src={urlFor(image).width(1000).url()}
+											src={sanityImageUrl(image, "thumbnail")}
 											layout="fill"
 											priority={idx === 0}
 											unoptimized
@@ -208,7 +208,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 										}}
 									>
 										<Image
-											src={urlFor(thumbnail).width(200).url()}
+											src={sanityImageUrl(thumbnail, "small")}
 											alt={"product-image-thumbnail"}
 											width={80}
 											height={80}
@@ -363,7 +363,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 													}}
 												>
 													<Image
-														src={urlFor(relatedProduct.image[0]).width(500).url()}
+														src={sanityImageUrl(relatedProduct.image[0], "card")}
 														layout="fill"
 														objectFit="cover"
 														unoptimized

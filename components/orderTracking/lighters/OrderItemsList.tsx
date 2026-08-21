@@ -3,7 +3,7 @@ import { formatPrice } from "@/utils/priceCalculator";
 import React from "react";
 import type { LighterType, OrderItemLighter, OrderLighter } from "@/models/cart";
 import Image from "next/image";
-import { urlFor } from "@/api-client/sanity-client";
+import { sanityImageUrl } from "@/api-client/sanity-image";
 
 interface OrderItemsListProps {
 	items: OrderLighter["orderItems"];
@@ -113,7 +113,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ item, index }) => {
 					}}
 				>
 					<Image
-						src={urlFor(item.product?.image[0]).width(60).url()}
+						src={sanityImageUrl(item.product?.image[0], "tiny")}
 						alt={item.product?.name || "Sản phẩm"}
 						width="100%"
 						height={"100%"}

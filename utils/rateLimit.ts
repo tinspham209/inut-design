@@ -1,4 +1,5 @@
 import { LRUCache } from "lru-cache";
+import type { NextApiRequest } from "next";
 
 type Options = {
 	uniqueTokenPerInterval?: number;
@@ -31,4 +32,11 @@ function rateLimit(options?: Options) {
 			}),
 	};
 }
+
+export function getRequestRateLimitToken(req: NextApiRequest): string {
+	const forwardedFor = req.headers["x-forwarded-for"];
+	const forwardedAddress = Array.isArray(forwardedFor) ? forwardedFor[0] : forwardedFor?.split(",")[0];
+	return forwardedAddress?.trim() || req.socket.remoteAddress || "unknown";
+}
+
 export default rateLimit;

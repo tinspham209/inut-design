@@ -1,5 +1,5 @@
 import { bannerApi } from "@/api-client/banner";
-import { urlFor } from "@/api-client/sanity-client";
+import { sanityImageUrl } from "@/api-client/sanity-image";
 import { Seo } from "@/components/common";
 import { HeroImage } from "@/components/home";
 import { MainLayout } from "@/components/layout";
@@ -23,7 +23,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 					description:
 						"Thiết kế & In ấn - Skin Laptop - Sticker - Decal - Thiệp - Card - Tem Nhãn, skin laptop da nang, skin laptop đà nẵng",
 					url: "https://inutdesign.com/contact",
-					thumbnailUrl: urlFor(banner.image).url(),
+					thumbnailUrl: sanityImageUrl(banner.image, "seo"),
 				}}
 			/>
 
@@ -189,7 +189,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 					</Stack>
 				</Container>
 				<Box mt={8}>
-					<HeroImage imgUrl={urlFor(banner.image).url()} />
+					<HeroImage imgUrl={sanityImageUrl(banner.image, "hero")} />
 				</Box>
 			</Box>
 		</>
@@ -208,6 +208,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 		props: {
 			banner: banner ? banner[0] : [],
 		},
+		revalidate: 300,
 	};
 };
 

@@ -1,4 +1,4 @@
-import { urlFor } from "@/api-client/sanity-client";
+import { sanityImageUrl } from "@/api-client/sanity-image";
 import { Seo } from "@/components/common";
 import { MainLayout } from "@/components/layout";
 import { usePrimaryBankInfo } from "@/hooks/usePrimaryBankInfo";
@@ -298,7 +298,7 @@ const PaymentInfoPage: NextPageWithLayout = () => {
 								) : bankInfo?.image ? (
 									<Box
 										component="img"
-										src={urlFor(bankInfo.image).width(400).url()}
+										src={sanityImageUrl(bankInfo.image, "small")}
 										alt="QR Payment INUT Design"
 										sx={{
 											width: "100%",

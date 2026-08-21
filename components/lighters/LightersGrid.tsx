@@ -2,7 +2,6 @@ import { LighterProduct, LighterType } from "@/models/cart";
 import { useLightersLayout } from "@/store";
 import { COLOR_CODE } from "@/utils";
 import { Box, Grid, Typography } from "@mui/material";
-import { useRouter } from "next/router";
 import React from "react";
 import LighterCard from "./LighterCard";
 import LighterCardBuilder from "./LighterCardBuilder";
@@ -18,18 +17,12 @@ interface LightersGridProps {
 }
 
 const LightersGrid: React.FC<LightersGridProps> = ({ lighters, lighterTypes, onCartOpen }) => {
-	const router = useRouter();
-	const { filter } = router.query;
 	const layoutView = useLightersLayout((state) => state.layoutView);
 	const gridItemProps = {
 		xs: layoutView === "list" ? 12 : 6,
 		md: layoutView === "list" ? 12 : 3,
 		lg: layoutView === "list" ? 12 : 3,
 	};
-
-	const filteredLighters = lighters.filter((lighter) =>
-		lighter.typeSlug.includes((filter as string) || "")
-	);
 
 	return (
 		<>
@@ -41,7 +34,7 @@ const LightersGrid: React.FC<LightersGridProps> = ({ lighters, lighterTypes, onC
 				<LighterCardCustomize />
 			</Grid>
 
-			{filteredLighters.length === 0 ? (
+			{lighters.length === 0 ? (
 				<Grid item xs={12}>
 					<Box textAlign="center" py={4}>
 						<Typography variant="h4" fontWeight="bold" sx={{ color: COLOR_CODE.TEXT_MUTED }}>
@@ -50,7 +43,7 @@ const LightersGrid: React.FC<LightersGridProps> = ({ lighters, lighterTypes, onC
 					</Box>
 				</Grid>
 			) : (
-				filteredLighters.map((lighter) => (
+				lighters.map((lighter) => (
 					<Grid item {...gridItemProps} key={lighter._id}>
 						<LighterCard lighter={lighter} lighterTypes={lighterTypes} onCartOpen={onCartOpen} />
 					</Grid>

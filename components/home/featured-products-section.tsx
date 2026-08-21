@@ -1,4 +1,4 @@
-import { urlFor } from "@/api-client/sanity-client";
+import { sanityImageUrl } from "@/api-client/sanity-image";
 import { SanityImage } from "@/models/image";
 import { COLOR_CODE, trackSelectProduct } from "@/utils";
 import { Box, Button, Container, Grid, Link as MuiLink, Stack, Typography } from "@mui/material";
@@ -104,7 +104,7 @@ export function FeaturedProductsSection({
 								}}
 							>
 								<ProductCard
-									imageUrl={urlFor(item.image[0]).width(600).url()}
+									imageUrl={sanityImageUrl(item.image[0], "card")}
 									href={itemHref(item.slug.current)}
 									alt={item.name}
 									priority={index < priorityCount}

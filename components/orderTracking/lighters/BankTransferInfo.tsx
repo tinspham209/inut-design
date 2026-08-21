@@ -15,7 +15,7 @@ import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import React from "react";
 import { formatPrice } from "@/utils/priceCalculator";
-import { urlFor } from "@/api-client/sanity-client";
+import { sanityImageUrl } from "@/api-client/sanity-image";
 import { toast } from "react-hot-toast";
 
 interface BankInfo {
@@ -85,7 +85,7 @@ const BankTransferInfo: React.FC<BankTransferInfoProps> = ({
 								<Box sx={{ mx: "auto", mt: 1, textAlign: "center" }}>
 									{/* eslint-disable-next-line @next/next/no-img-element */}
 									<img
-										src={urlFor(bankInfo.image).width(400).url()}
+										src={sanityImageUrl(bankInfo.image, "small")}
 										alt="QR Code"
 										style={{
 											width: "100%",

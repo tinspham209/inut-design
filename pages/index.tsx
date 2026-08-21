@@ -1,7 +1,7 @@
 import { bannerApi } from "@/api-client/banner";
 import { lightersApi } from "@/api-client/lighters";
 import { productsApi } from "@/api-client/products";
-import { urlFor } from "@/api-client/sanity-client";
+import { sanityImageUrl } from "@/api-client/sanity-image";
 import { Seo } from "@/components/common";
 import { ROUTE_LIST, RouteItem } from "@/components/common/header/routes";
 import {
@@ -74,7 +74,7 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs, banner }
 					description:
 						"Xưởng in ấn cá nhân hóa tại Đà Nẵng: Sticker, Bật lửa, skin laptop, skin nút phím. Báo giá 15 phút, giao toàn quốc. Zalo: 0327 124 321.",
 					url: "https://inutdesign.com",
-					thumbnailUrl: urlFor(banner.image).url() || "/branding/ogImage.jpg",
+					thumbnailUrl: sanityImageUrl(banner.image, "seo") || "/branding/ogImage.jpg",
 				}}
 			/>
 			{/* <Box pt={2} bgcolor={COLOR_CODE.BACKGROUND}>
@@ -171,6 +171,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			blogs,
 			banner: banner ? banner[0] : [],
 		},
+		revalidate: 300,
 	};
 };
 

@@ -1,4 +1,4 @@
-import { client } from "./sanity-client";
+import { client } from "./sanity-browser";
 import { ShippingFee } from "../models/shippingFee";
 
 export const shippingFeeApi = {

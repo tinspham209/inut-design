@@ -1,4 +1,4 @@
-import { client } from "./sanity-client";
+import { client } from "./sanity-browser";
 
 export const priceLaptopApi = {
 	async getAll() {
@@ -13,13 +13,13 @@ export const priceLaptopApi = {
 	},
 
 	async getBySlug(slug: string) {
-		const query = `*[_type == "price-laptop" && slug.current == '${slug}'][0]{
+		const query = `*[_type == "price-laptop" && slug.current == $slug][0]{
 			"id": _id,
 			"createdAt": _createdAt,
 			title,
 			price,
 			"slug": slug.current
 		}`;
-		return await client.fetch(query);
+		return await client.fetch(query, { slug });
 	},
 };

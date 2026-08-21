@@ -1,4 +1,4 @@
-import { urlFor } from "@/api-client/sanity-client";
+import { sanityImageUrl } from "@/api-client/sanity-image";
 import { useLightersCart } from "@/store";
 import { trackRemoveFromCart } from "@/utils/analytics";
 import { formatPrice } from "@/utils/priceCalculator";
@@ -142,7 +142,7 @@ export function LighterCartContent({
 												}}
 											>
 												<Image
-													src={urlFor(item.productImage).width(200).url()}
+													src={sanityImageUrl(item.productImage, "small")}
 													alt={item.productName}
 													width={80}
 													height={80}

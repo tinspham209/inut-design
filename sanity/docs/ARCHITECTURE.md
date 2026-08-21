@@ -807,7 +807,7 @@ export const client = sanityClient({
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   apiVersion: "2022-09-19",
   useCdn: true,                    // Use CDN for reads
-  token: process.env.NEXT_PUBLIC_SANITY_TOKEN  // For writes
+  token: process.env.SANITY_TOKEN  // For writes
 });
 
 // Image URL builder
@@ -819,7 +819,7 @@ export const urlFor = (source: any) => builder.image(source);
 ```bash
 NEXT_PUBLIC_SANITY_PROJECT_ID=soud11bs
 NEXT_PUBLIC_SANITY_DATASET=dev          # or 'production'
-NEXT_PUBLIC_SANITY_TOKEN=your-token-here
+SANITY_TOKEN=your-token-here
 ```
 
 ### 6.2 API Endpoints

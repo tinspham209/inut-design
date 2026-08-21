@@ -1,6 +1,5 @@
-"use client";
-
-import { urlFor, uploadImageToSanity } from "@/api-client/sanity-client";
+import { sanityImageUrl } from "@/api-client/sanity-image";
+import { uploadImageToSanity } from "@/api-client/sanity-upload";
 import { MainLayout } from "@/components/layout";
 import { useCreateLighterOrder } from "@/hooks";
 import { CreateOrderLighterInput } from "@/models/cart";
@@ -270,7 +269,7 @@ const LighterCheckout: NextPageWithLayout = () => {
 							const blob = await response.blob();
 							// Upload to Sanity
 							designImage = await uploadImageToSanity(blob);
-							designSourceUrl = urlFor(designImage).url();
+							designSourceUrl = sanityImageUrl(designImage, "design");
 
 							if (item.designPreview) {
 								designPreview = {
@@ -678,7 +677,7 @@ const LighterCheckout: NextPageWithLayout = () => {
 																}}
 															>
 																<Image
-																	src={urlFor(item.productImage).width(120).url()}
+																	src={sanityImageUrl(item.productImage, "tiny")}
 																	alt={item.productName}
 																	width={60}
 																	height={60}

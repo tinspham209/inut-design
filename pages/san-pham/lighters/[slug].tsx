@@ -1,5 +1,5 @@
 import { lightersApi } from "@/api-client/lighters";
-import { urlFor } from "@/api-client/sanity-client";
+import { sanityImageUrl } from "@/api-client/sanity-image";
 import { staticContentEachPageApi } from "@/api-client/staticContentEachPage";
 import { Seo } from "@/components/common";
 import BlockContentWrapper from "@/components/common/block-content";
@@ -60,9 +60,9 @@ const LighterDetail: NextPageWithLayout = ({
 	const galleryImages = React.useMemo(() => {
 		return lighter.image.map((img) => ({
 			_key: img._key,
-			url: urlFor(img).width(1000).url(),
+			url: sanityImageUrl(img, "thumbnail"),
 			alt: lighter.name,
-			thumbUrl: urlFor(img).width(200).url(),
+			thumbUrl: sanityImageUrl(img, "small"),
 		}));
 	}, [lighter.image, lighter.name]);
 
@@ -72,7 +72,7 @@ const LighterDetail: NextPageWithLayout = ({
 			name: product.name,
 			slug: product.slug,
 			image: product.image,
-			imageUrl: urlFor(product.image[0]).width(500).url(),
+			imageUrl: sanityImageUrl(product.image[0], "card"),
 		}));
 	}, [lighters]);
 
@@ -85,7 +85,7 @@ const LighterDetail: NextPageWithLayout = ({
 			"@context": "https://schema.org/",
 			"@type": "Product",
 			name: lighter.name,
-			image: galleryImages.map((img) => img.url),
+			image: galleryImages.slice(0, 1).map((img) => img.url),
 			description: descriptionText,
 			sku: `INUT-L-${lighter._id}`,
 			brand: { "@type": "Brand", name: "INUT Design" },

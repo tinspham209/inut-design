@@ -44,6 +44,7 @@ import {
 	trackUmamiSocialClick,
 	trackUmamiVideoEngagement,
 	trackUmamiZaloClick,
+	trackUmamiEvent,
 	type UmamiProductData,
 } from "./umamiAnalytics";
 
@@ -547,6 +548,12 @@ export const trackSearch = (searchTerm: string): void => {
 
 	// Track engagement
 	trackSearchEngagement(searchTerm, 0);
+};
+
+export const trackCatalogPagination = (catalog: string, page: number): void => {
+	const params = { catalog, page };
+	trackEvent("catalog_pagination", params);
+	trackUmamiEvent("catalog_pagination", params);
 };
 
 /**

@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { getOrderByNumber } from "@/api-client/sanity-client";
+import { getOrderByNumber } from "@/api-client/orders";
 import { OrderLighter } from "@/models/cart";
 
 export function useOrderByNumber(orderNumber?: string | string[]) {

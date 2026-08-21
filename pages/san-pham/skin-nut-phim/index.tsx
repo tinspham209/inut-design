@@ -1,14 +1,15 @@
 import { bannerApi } from "@/api-client/banner";
 import { productsApi } from "@/api-client/products";
 import { productTypeApi } from "@/api-client/productType";
-import { urlFor } from "@/api-client/sanity-client";
+import { sanityImageUrl } from "@/api-client/sanity-image";
 import { Seo } from "@/components/common";
 import { MainLayout } from "@/components/layout";
 import { MacnutCustomizeCard, ProductCard } from "@/components/product";
+import { useInfiniteCatalog } from "@/hooks/useInfiniteCatalog";
 import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { Products, ProductType } from "@/models/products";
-import { COLOR_CODE } from "@/utils";
+import { COLOR_CODE, trackCatalogPagination } from "@/utils";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
 	Accordion,
@@ -16,6 +17,7 @@ import {
 	AccordionSummary,
 	Box,
 	Breadcrumbs,
+	Button,
 	Container,
 	FormControl,
 	FormControlLabel,
@@ -30,20 +32,21 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { GetStaticProps } from "next/types";
+import { GetServerSideProps } from "next";
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 const CountUp = dynamic(() => import("react-countup"), { ssr: false });
-const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => {
+const Home: NextPageWithLayout = ({ products, productTypes, banner, total, page, pageSize }: Props) => {
 	const router = useRouter();
 	const { filter } = router.query;
+	const activeFilter = typeof filter === "string" ? filter : "";
 	const handleOnChangeCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = (event.target as HTMLInputElement).value;
 		setCurrentFilter(value);
 		router.push(
 			{
 				pathname: "/san-pham/skin-nut-phim",
-				query: { filter: value },
+				query: value ? { filter: value } : {},
 			},
 			undefined,
 			{ scroll: false }
@@ -52,7 +55,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 		setTimeout(() => {
 			document
 				.getElementById("title")
-				.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+				?.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
 		}, 500);
 	};
 
@@ -60,7 +63,13 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 	const isMobileScreen = useMediaQuery(theme.breakpoints.down("md"));
 
 	const [expandedFilter, setExpandedFilter] = useState<boolean>(true);
-	const [currentFilter, setCurrentFilter] = useState(filter || "");
+	const [currentFilter, setCurrentFilter] = useState(
+		typeof filter === "string" ? filter : ""
+	);
+
+	useEffect(() => {
+		setCurrentFilter(typeof filter === "string" ? filter : "");
+	}, [filter]);
 
 	useEffect(() => {
 		if (isMobileScreen) {
@@ -69,6 +78,47 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 			setExpandedFilter(true);
 		}
 	}, [isMobileScreen]);
+
+	const loadPage = React.useCallback(
+		async (nextPage: number) => {
+			const catalog = await productsApi.getMacnutBatch({
+				page: nextPage,
+				pageSize,
+				filter: activeFilter,
+			});
+
+			return catalog
+				.filter((product) => !product._id.includes("drafts"))
+				.map((product) => ({
+					...product,
+					type:
+						productTypes.find((productType) => productType?._id === product.macnutType?._ref)
+							?.slug?.current || "",
+				}));
+		},
+		[activeFilter, pageSize, productTypes]
+	);
+
+	const onPageLoad = React.useCallback((nextPage: number) => {
+		trackCatalogPagination("skin-nut-phim", nextPage);
+	}, []);
+
+	const {
+		items: loadedProducts,
+		sentinelRef,
+		isLoading,
+		error,
+		retry,
+		hasMore,
+	} = useInfiniteCatalog({
+		initialItems: products,
+		initialPage: page,
+		pageSize,
+		total,
+		resetKey: activeFilter,
+		loadPage,
+		onPageLoad,
+	});
 
 	return (
 		<Box
@@ -87,12 +137,11 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 						"Skin nút phím MacBook (MACNUT) theo yêu cầu tại Đà Nẵng. Tương thích MacBook Air M1/M2, Pro 13/14/16. Mỏng 0.1mm, không ảnh hưởng gõ phím. Giao trong ngày.",
 					url: "https://inutdesign.com/san-pham/skin-nut-phim",
 					thumbnailUrl:
-						(banner && urlFor(banner[0].image).url()) ||
+						(banner && sanityImageUrl(banner[0]?.image, "seo")) ||
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
 				}}
 			/>
 
-			{/* <HeroImage imgUrl={banner && urlFor(banner[0].image).url()} /> */}
 			<Container disableGutters>
 				<Box>
 					<Breadcrumbs
@@ -123,14 +172,14 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 							NÚT PHÍM MACNUT
 						</Typography>
 					</Stack>
-					<Box mt={1}>
+					<Box mt={1} id="title">
 						<Typography
 							variant="h2"
 							fontWeight="800"
 							letterSpacing="-0.04em"
 							sx={{ color: COLOR_CODE.WHITE }}
 						>
-							Sản phẩm (<CountUp end={products.length} duration={2} />)
+							Sản phẩm (<CountUp end={total} duration={2} />)
 						</Typography>
 					</Box>
 					<Grid
@@ -146,23 +195,23 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 							<Grid item xs={6} md={4}>
 								<MacnutCustomizeCard />
 							</Grid>
-							{products.map((product) => {
-								if (product.type.includes(currentFilter as string)) {
-									return (
-										<Grid item xs={6} md={4} key={product._id}>
-											<ProductCard product={product} productTypes={productTypes} isMacnut />
-										</Grid>
-									);
-								} else {
-									<Grid item xs={6} md={4} key={product._id}>
-										<Box>
-											<Typography variant="h4" fontWeight="bold">
-												Không có sản phẩm nào
-											</Typography>
-										</Box>
-									</Grid>;
-								}
-							})}
+							{loadedProducts.map((product) => (
+								<Grid item xs={6} md={4} key={product._id}>
+									<ProductCard product={product} productTypes={productTypes} isMacnut />
+								</Grid>
+							))}
+						{hasMore && (
+							<Grid item xs={12}>
+								<Box ref={sentinelRef} display="flex" justifyContent="center" py={2} minHeight={56}>
+									{isLoading && <Typography color="text.secondary">Đang tải thêm sản phẩm...</Typography>}
+									{error && (
+										<Button color="primary" onClick={retry}>
+											Không tải được. Thử lại
+										</Button>
+									)}
+								</Box>
+							</Grid>
+						)}
 						</Grid>
 						<Grid container item xs={12} md={3}>
 							<Box
@@ -261,12 +310,23 @@ type Props = {
 	products: Products;
 	productTypes: ProductType[];
 	banner: Banner[];
+	total: number;
+	page: number;
+	pageSize: number;
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
-	const products: Products = await productsApi.getAllProductsMacnut();
-	const productTypes: ProductType[] = await productTypeApi.getAllMacNut();
-	const banner: Banner[] = await bannerApi.getBannerPage("macnut-page");
+export const getServerSideProps: GetServerSideProps<Props> = async ({ query, res }) => {
+	const filter = typeof query.filter === "string" ? query.filter : "";
+	const page = 1;
+	const pageSize = 24;
+	res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=600");
+
+	const [catalog, productTypes, banner] = await Promise.all([
+		productsApi.getMacnutPage({ page, pageSize, filter }),
+		productTypeApi.getAllMacNut(),
+		bannerApi.getBannerPage("macnut-page"),
+	]);
+	const products: Products = catalog.items;
 
 	const productUndefined = products
 		.filter((product) => !product.productType)
@@ -285,7 +345,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			return {
 				...product,
 				type:
-					productTypes.find((productType) => productType?._id === product.macnutType?._ref).slug
+					productTypes.find((productType) => productType?._id === product.macnutType?._ref)?.slug
 						?.current || "",
 			};
 		});
@@ -295,6 +355,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			products: formatProducts,
 			productTypes: productTypes.filter((product) => !product._id.includes("drafts")),
 			banner,
+			total: catalog.total,
+			page: catalog.page,
+			pageSize: catalog.pageSize,
 		},
 	};
 };

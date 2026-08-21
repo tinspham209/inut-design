@@ -5,7 +5,11 @@ import { StaticContentEachPage } from "@/models/staticContentEachPage";
 export function useStaticContentBySlug(slug: string | undefined, enabled = true) {
 	const { data, error, isLoading, mutate } = useSWR<StaticContentEachPage | null>(
 		enabled && slug ? `staticContent-${slug}` : null,
-		() => (slug ? staticContentEachPageApi.getStaticContentBySlug(slug) : null)
+		() => (slug ? staticContentEachPageApi.getStaticContentBySlug(slug) : null),
+		{
+			revalidateOnFocus: false,
+			dedupingInterval: 5 * 60 * 1000,
+		}
 	);
 
 	return {

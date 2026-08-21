@@ -3,8 +3,20 @@ import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import { creater, fetcher } from ".";
 
+const INCOME_FIELDS = `{
+	"id": _id,
+	"createdAt": _createdAt,
+	title,
+	date,
+	discount,
+	vienManHinh,
+	matPhim,
+	matDay,
+	matLung
+}`;
+
 export function useAllIncomes() {
-	const query = '*[_type == "income"]';
+	const query = `*[_type == "income"]${INCOME_FIELDS}`;
 
 	const { data, error, mutate, isLoading } = useSWR(query, fetcher, {
 		revalidateOnFocus: false,
@@ -24,17 +36,7 @@ export function useIncomeWithDateRange(start?: Date, end?: Date) {
 	const formattedEnd = end ? new Date(end).toISOString() : new Date(lastDateOfMonth).toISOString();
 
 	// Query to fetch income documents within the specified time range
-	const query = `*[_type == "income" && date >= "${formattedStart}" && date <= "${formattedEnd}"]{
-		"id": _id,
-		"createdAt": _createdAt,
-		title,
-		date,
-		discount,
-		vienManHinh,
-		matPhim,
-		matDay,
-		matLung
-	}`;
+	const query = `*[_type == "income" && date >= "${formattedStart}" && date <= "${formattedEnd}"]${INCOME_FIELDS}`;
 	const { data, error, isLoading, mutate } = useSWR(query, fetcher, {
 		revalidateOnFocus: true,
 		revalidateIfStale: true,
@@ -50,7 +52,7 @@ export function useIncomeWithDateRange(start?: Date, end?: Date) {
 }
 
 export function useGetById(id: string) {
-	const query = `*[_type == "income" && _id == "${id}"]`;
+	const query = `*[_type == "income" && _id == "${id}"]${INCOME_FIELDS}`;
 	const { data, error, isLoading } = useSWR(query, fetcher, {
 		revalidateOnFocus: false,
 	});

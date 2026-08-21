@@ -1,5 +1,4 @@
 import useSWRMutation from "swr/mutation";
-import { createLighterOrder } from "@/api-client/sanity-client";
 import { CreateOrderLighterInput, OrderLighter } from "@/models/cart";
 
 /**
@@ -11,7 +10,16 @@ async function createOrderFetcher(
 	_key: string,
 	{ arg }: { arg: CreateOrderLighterInput }
 ): Promise<OrderLighter> {
-	return await createLighterOrder(arg);
+	const response = await fetch("/api/orders/lighters", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(arg),
+	});
+	if (!response.ok) {
+		const payload = await response.json().catch(() => null);
+		throw new Error(payload?.error || "Failed to create order.");
+	}
+	return response.json();
 }
 
 /**

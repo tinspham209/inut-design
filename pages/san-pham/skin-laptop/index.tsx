@@ -1,14 +1,15 @@
 import { bannerApi } from "@/api-client/banner";
 import { productTypeApi } from "@/api-client/productType";
 import { productsApi } from "@/api-client/products";
-import { urlFor } from "@/api-client/sanity-client";
+import { sanityImageUrl } from "@/api-client/sanity-image";
 import { Seo } from "@/components/common";
 import { MainLayout } from "@/components/layout";
 import { ProductCard, SkinLaptopCustomizeCard } from "@/components/product";
+import { useInfiniteCatalog } from "@/hooks/useInfiniteCatalog";
 import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { ProductType, Products } from "@/models/products";
-import { COLOR_CODE } from "@/utils";
+import { COLOR_CODE, trackCatalogPagination } from "@/utils";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
 	Accordion,
@@ -16,6 +17,7 @@ import {
 	AccordionSummary,
 	Box,
 	Breadcrumbs,
+	Button,
 	Container,
 	FormControl,
 	FormControlLabel,
@@ -29,22 +31,23 @@ import {
 	useTheme,
 } from "@mui/material";
 import isEmpty from "lodash/isEmpty";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import dynamic from "next/dynamic";
 const CountUp = dynamic(() => import("react-countup"), { ssr: false });
-const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => {
+const Home: NextPageWithLayout = ({ products, productTypes, banner, total, page, pageSize }: Props) => {
 	const router = useRouter();
 	const { filter } = router.query;
+	const activeFilter = typeof filter === "string" ? filter : "";
 	const handleOnChangeCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = (event.target as HTMLInputElement).value;
 		setCurrentFilter(value);
 		router.push(
 			{
 				pathname: "/san-pham/skin-laptop",
-				query: { filter: value },
+				query: value ? { filter: value } : {},
 			},
 			undefined,
 			{ scroll: false }
@@ -53,7 +56,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 		setTimeout(() => {
 			document
 				.getElementById("title")
-				.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+				?.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
 		}, 500);
 	};
 
@@ -61,7 +64,13 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 	const isMobileScreen = useMediaQuery(theme.breakpoints.down("md"));
 
 	const [expandedFilter, setExpandedFilter] = React.useState<boolean>(true);
-	const [currentFilter, setCurrentFilter] = React.useState(filter || "");
+	const [currentFilter, setCurrentFilter] = React.useState(
+		typeof filter === "string" ? filter : ""
+	);
+
+	React.useEffect(() => {
+		setCurrentFilter(typeof filter === "string" ? filter : "");
+	}, [filter]);
 
 	React.useEffect(() => {
 		if (isMobileScreen) {
@@ -70,6 +79,48 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 			setExpandedFilter(true);
 		}
 	}, [isMobileScreen]);
+
+	const loadPage = React.useCallback(
+		async (nextPage: number) => {
+			const catalog = await productsApi.getProductsBatch({
+				page: nextPage,
+				pageSize,
+				filter: activeFilter,
+			});
+
+			return catalog
+				.filter((product) => !product._id.includes("drafts"))
+				.map((product) => ({
+					...product,
+					type:
+						productTypes.find((productType) => productType._id === product?.productType?._ref)
+							?.slug?.current || "",
+				}));
+		},
+		[activeFilter, pageSize, productTypes]
+	);
+
+	const onPageLoad = React.useCallback((nextPage: number) => {
+		// Keep the existing event name so historical analytics remain comparable.
+		trackCatalogPagination("skin-laptop", nextPage);
+	}, []);
+
+	const {
+		items: loadedProducts,
+		sentinelRef,
+		isLoading,
+		error,
+		retry,
+		hasMore,
+	} = useInfiniteCatalog({
+		initialItems: products,
+		initialPage: page,
+		pageSize,
+		total,
+		resetKey: activeFilter,
+		loadPage,
+		onPageLoad,
+	});
 
 	return (
 		<Box
@@ -88,7 +139,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 						"Dán skin laptop đà nẵng uy tín tại INUT Design. Hàng nghìn mẫu sẵn có hoặc in theo yêu cầu. Tương thích MacBook, Dell, HP, Asus. Báo giá trong 5 phút qua Zalo.",
 					url: "https://inutdesign.com/san-pham/skin-laptop",
 					thumbnailUrl:
-						(banner && !isEmpty(banner) && urlFor(banner[0]?.image || "").url()) ||
+						(banner && !isEmpty(banner) && sanityImageUrl(banner[0]?.image, "seo")) ||
 						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
 				}}
 			/>
@@ -130,7 +181,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 							letterSpacing="-0.04em"
 							sx={{ color: COLOR_CODE.WHITE }}
 						>
-							Sản phẩm (<CountUp end={products.length} duration={2} />)
+							Sản phẩm (<CountUp end={total} duration={2} />)
 						</Typography>
 					</Box>
 					<Grid
@@ -150,23 +201,23 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner }: Props) => 
 									<SkinLaptopCustomizeCard />
 								</Grid>
 							)}
-							{products.map((product) => {
-								if (product.type.includes(currentFilter as string)) {
-									return (
-										<Grid item xs={6} md={4} key={product._id}>
-											<ProductCard product={product} productTypes={productTypes} />
-										</Grid>
-									);
-								} else {
-									<Grid item xs={6} md={4} key={product._id}>
-										<Box>
-											<Typography variant="h4" fontWeight="bold">
-												Không có sản phẩm nào
-											</Typography>
-										</Box>
-									</Grid>;
-								}
-							})}
+							{loadedProducts.map((product) => (
+								<Grid item xs={6} md={4} key={product._id}>
+									<ProductCard product={product} productTypes={productTypes} />
+								</Grid>
+							))}
+						{hasMore && (
+							<Grid item xs={12}>
+								<Box ref={sentinelRef} display="flex" justifyContent="center" py={2} minHeight={56}>
+									{isLoading && <Typography color="text.secondary">Đang tải thêm sản phẩm...</Typography>}
+									{error && (
+										<Button color="primary" onClick={retry}>
+											Không tải được. Thử lại
+										</Button>
+									)}
+								</Box>
+							</Grid>
+						)}
 						</Grid>
 						<Grid container item xs={12} md={3}>
 							<Box
@@ -265,10 +316,23 @@ type Props = {
 	products: Products;
 	productTypes: ProductType[];
 	banner: Banner[];
+	total: number;
+	page: number;
+	pageSize: number;
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
-	const products: Products = await productsApi.getAllProducts();
+export const getServerSideProps: GetServerSideProps<Props> = async ({ query, res }) => {
+	const filter = typeof query.filter === "string" ? query.filter : "";
+	const page = 1;
+	const pageSize = 24;
+	res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=600");
+
+	const [catalog, productTypes, banner] = await Promise.all([
+		productsApi.getProductsPage({ page, pageSize, filter }),
+		productTypeApi.getAll(),
+		bannerApi.getBannerPage("products-page"),
+	]);
+	const products: Products = catalog.items;
 
 	const productUndefined = products
 		.filter((product) => !product.productType)
@@ -281,17 +345,13 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 		console.log("productUndefined: ", productUndefined);
 	}
 
-	const productTypes: ProductType[] = await productTypeApi.getAll();
-
-	const banner: Banner[] = await bannerApi.getBannerPage("products-page");
-
 	const formatProducts = products
 		.filter((product) => !product._id.includes("drafts") || !product.productType)
 		.map((product) => {
 			return {
 				...product,
 				type:
-					productTypes.find((productType) => productType._id === product?.productType._ref)?.slug
+					productTypes.find((productType) => productType._id === product?.productType?._ref)?.slug
 						.current || "",
 			};
 		})
@@ -309,6 +369,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			products: formatProducts,
 			productTypes: formatProductTypes,
 			banner,
+			total: catalog.total,
+			page: catalog.page,
+			pageSize: catalog.pageSize,
 		},
 	};
 };

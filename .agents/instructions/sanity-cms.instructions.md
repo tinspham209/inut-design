@@ -24,9 +24,10 @@ Maintain schema compatibility and stable read/write behavior between Next.js fro
 
 ## Client configuration rules
 
-- Preserve env-driven configuration in `api-client/sanity-client.ts`.
+- Keep public reads in `api-client/sanity-browser.ts`; keep tokens and writes in
+  `api-client/sanity-server.ts` and server API routes.
 - Do not hardcode project id, dataset, or tokens.
-- Use existing image helper patterns (`urlFor`).
+- Use `sanityImageUrl` presets from `api-client/sanity-image.ts`.
 
 ## Checkout/order write safety
 

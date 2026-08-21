@@ -1,5 +1,5 @@
 import { bannerApi } from "@/api-client/banner";
-import { urlFor } from "@/api-client/sanity-client";
+import { sanityImageUrl } from "@/api-client/sanity-image";
 import { PostItem } from "@/components/blog";
 import { Seo } from "@/components/common";
 import { HeroImage } from "@/components/home";
@@ -32,11 +32,11 @@ const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
 					description:
 						"Thiết kế & In ấn - Skin Laptop - Sticker - Decal - Thiệp - Card - Tem Nhãn, skin laptop da nang, skin laptop đà nẵng",
 					url: "https://inutdesign.com/blog",
-					thumbnailUrl: urlFor(banner.image).url() || "/branding/ogImage.jpg",
+					thumbnailUrl: sanityImageUrl(banner.image, "seo") || "/branding/ogImage.jpg",
 				}}
 			/>
 
-			<HeroImage imgUrl={urlFor(banner.image).url()} />
+			<HeroImage imgUrl={sanityImageUrl(banner.image, "hero")} />
 			<Container>
 				<Box>
 					<Breadcrumbs>
@@ -86,6 +86,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			posts: posts.sort((a, b) => (a.publishedDate < b.publishedDate ? 1 : -1)),
 			banner: banner ? banner[0] : [],
 		},
+		revalidate: 300,
 	};
 };
 
