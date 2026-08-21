@@ -11,8 +11,9 @@ import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import React, { useState } from "react";
 import { ROUTE_LIST, RouteItem } from "./routes";
+import { SearchPopover } from "./search-popover";
 import { Divider, Grid } from "@mui/material";
 
 interface HeaderDesktopProps {
@@ -346,9 +347,10 @@ export function HeaderDesktop({ routes = ROUTE_LIST }: HeaderDesktopProps) {
 					<Stack
 						direction="row"
 						alignItems="center"
-						spacing={{ md: 2, lg: 4 }}
+						spacing={{ md: 1, lg: 2 }}
 						sx={{
 							height: "100%",
+							minWidth: 0,
 						}}
 					>
 						{routes.map((route, index) => {
@@ -426,6 +428,7 @@ export function HeaderDesktop({ routes = ROUTE_LIST }: HeaderDesktopProps) {
 							);
 						})}
 
+						<SearchPopover device="desktop" />
 						{routes
 							.filter((r) => r.isButton)
 							.map((route) => (

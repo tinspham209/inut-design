@@ -538,16 +538,31 @@ export const trackSocialClick = (platform: string): void => {
  * Track search queries
  * @param searchTerm - Search term entered
  */
-export const trackSearch = (searchTerm: string): void => {
+export const trackSearch = (searchTerm: string, resultsCount = 0): void => {
 	trackEvent("search", {
 		search_term: searchTerm,
+		results_count: resultsCount,
 	});
 
 	// Track to Umami
-	trackUmamiSearch(searchTerm);
+	trackUmamiSearch(searchTerm, resultsCount);
 
 	// Track engagement
-	trackSearchEngagement(searchTerm, 0);
+	trackSearchEngagement(searchTerm, resultsCount);
+};
+
+export const trackSearchOpen = (device: "desktop" | "mobile"): void => {
+	const params = { device };
+	trackEvent("search_open", params);
+	trackUmamiEvent("search_open", params);
+};
+
+export const trackSearchResultClick = (
+	kind: "product" | "macnut" | "lighter" | "service" | "blog" | "information"
+): void => {
+	const params = { result_kind: kind };
+	trackEvent("search_result_click", params);
+	trackUmamiEvent("search_result_click", params);
 };
 
 export const trackCatalogPagination = (catalog: string, page: number): void => {

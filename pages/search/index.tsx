@@ -1,255 +1,341 @@
-import { bannerApi } from "@/api-client/banner";
-import { productTypeApi } from "@/api-client/productType";
-import { productsApi } from "@/api-client/products";
-import { sanityImageUrl } from "@/api-client/sanity-image";
 import { Seo } from "@/components/common";
 import { MainLayout } from "@/components/layout";
-import { ProductCard } from "@/components/product";
-import { useInfiniteCatalog } from "@/hooks/useInfiniteCatalog";
-import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
-import { ProductType, Products } from "@/models/products";
-import { COLOR_CODE, trackCatalogPagination, trackSearch } from "@/utils";
-import { SITE_URL } from "@/utils/siteUrl";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
-	Accordion,
-	AccordionDetails,
-	AccordionSummary,
+	SearchPage as SearchResultPage,
+	SearchResult,
+	parseSearchParams,
+	searchSite,
+} from "@/server/search";
+import { SEARCH_DEFAULT_PAGE_SIZE } from "@/server/search/domain";
+import { COLOR_CODE, trackCatalogPagination, trackSearch, trackSearchResultClick } from "@/utils";
+import SearchIcon from "@mui/icons-material/Search";
+import {
 	Box,
 	Breadcrumbs,
 	Button,
+	Card,
+	CardContent,
+	Chip,
 	Container,
-	FormControl,
-	FormControlLabel,
 	Grid,
 	Link as MuiLink,
-	Radio,
-	RadioGroup,
 	Stack,
+	TextField,
 	Typography,
-	useMediaQuery,
-	useTheme,
 } from "@mui/material";
-import isEmpty from "lodash/isEmpty";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import dynamic from "next/dynamic";
-const CountUp = dynamic(() => import("react-countup"), { ssr: false });
-const Search: NextPageWithLayout = ({ products, productTypes, banner, total, page, pageSize }: Props) => {
+
+type SearchStatus = "prompt" | "success" | "error";
+
+type Props = {
+	query: string;
+	page: SearchResultPage | null;
+	status: SearchStatus;
+};
+
+const darkTextFieldSx = {
+	"& .MuiInputLabel-root": {
+		color: COLOR_CODE.TEXT_MUTED,
+	},
+	"& .MuiInputLabel-root.Mui-focused": {
+		color: COLOR_CODE.PRIMARY,
+	},
+	"& .MuiOutlinedInput-root": {
+		color: COLOR_CODE.WHITE,
+		"& fieldset": {
+			borderColor: COLOR_CODE.INK_4,
+		},
+		"&:hover fieldset": {
+			borderColor: COLOR_CODE.TEXT_MUTED,
+		},
+		"&.Mui-focused fieldset": {
+			borderColor: COLOR_CODE.PRIMARY,
+		},
+	},
+	"& .MuiFormHelperText-root": {
+		color: COLOR_CODE.TEXT_MUTED,
+	},
+};
+
+const SearchResultCard = ({ result }: { result: SearchResult }) => (
+	<Link href={result.url} passHref legacyBehavior>
+		<Card
+			component="a"
+			onClick={() => trackSearchResultClick(result.kind)}
+			sx={{
+				height: "100%",
+				display: "block",
+				textDecoration: "none",
+				backgroundColor: COLOR_CODE.INK_3,
+				transition: "transform 150ms ease, border-color 150ms ease",
+				border: "1px solid",
+				borderColor: COLOR_CODE.INK_4,
+				"&:hover": {
+					transform: "translateY(-2px)",
+					borderColor: COLOR_CODE.PRIMARY,
+					backgroundColor: COLOR_CODE.INK_2,
+				},
+			}}
+		>
+			<CardContent>
+				<Stack direction="row" justifyContent="space-between" alignItems="flex-start" gap={1} mb={1}>
+					<Typography
+						variant="h6"
+						component="h2"
+						sx={{ color: COLOR_CODE.WHITE }}
+						fontWeight="bold"
+					>
+						{result.title}
+					</Typography>
+					<Chip
+						size="small"
+						variant="outlined"
+						label={result.kindLabel}
+						sx={{ color: COLOR_CODE.PRIMARY, borderColor: COLOR_CODE.PRIMARY }}
+					/>
+				</Stack>
+				<Typography sx={{ color: COLOR_CODE.TEXT_MUTED, lineHeight: 1.65 }}>
+					{result.excerpt}
+				</Typography>
+			</CardContent>
+		</Card>
+	</Link>
+);
+
+const Search: NextPageWithLayout<Props> = ({ query, page, status }) => {
 	const router = useRouter();
-	const { q } = router.query;
-	const activeSearch = typeof q === "string" ? q : "";
-	const handleOnChangeCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const value = (event.target as HTMLInputElement).value;
-		setCurrentFilter(value);
-		router.push(
-			{
-				pathname: "/search",
-				query: value ? { q: value } : {},
-			},
-			undefined,
-			{ scroll: false }
-		);
-
-		setTimeout(() => {
-			document
-				.getElementById("title")
-				?.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
-		}, 500);
-	};
+	const knownUrls = React.useRef(new Set((page?.items || []).map((item) => item.url)));
+	const [currentPage, setCurrentPage] = React.useState(page);
+	const [isLoading, setIsLoading] = React.useState(false);
+	const [loadError, setLoadError] = React.useState(false);
+	const [searchValue, setSearchValue] = React.useState(query);
+	const [searchError, setSearchError] = React.useState(false);
+	const loadMoreRef = React.useRef<HTMLDivElement | null>(null);
+	const requestInFlight = React.useRef(false);
+	const activeFacet = typeof router.query.productType === "string" ? router.query.productType : "";
 
 	React.useEffect(() => {
-		if (q) {
-			setCurrentFilter(q);
-			// Track search query
-			trackSearch(q as string);
-		}
-	}, [q]);
-
-	const theme = useTheme();
-	const isMobileScreen = useMediaQuery(theme.breakpoints.down("md"));
-
-	const [expandedFilter, setExpandedFilter] = React.useState<boolean>(true);
-	const [currentFilter, setCurrentFilter] = React.useState(q || "");
+		setCurrentPage(page);
+		knownUrls.current = new Set((page?.items || []).map((item) => item.url));
+		setLoadError(false);
+		setSearchValue(query);
+	}, [activeFacet, page, query]);
 
 	React.useEffect(() => {
-		if (isMobileScreen) {
-			setExpandedFilter(false);
-		} else {
-			setExpandedFilter(true);
-		}
-	}, [isMobileScreen]);
+		if (status !== "success" || !query) return;
+		trackSearch(query, page?.total || 0);
+	}, [query, status, page?.total]);
 
-	const loadPage = React.useCallback(
-		async (nextPage: number) => {
-			const catalog = await productsApi.getProductsBatch({
-				page: nextPage,
-				pageSize,
-				search: activeSearch,
+	const loadNextPage = React.useCallback(async () => {
+		if (!currentPage?.hasMore || requestInFlight.current) return;
+		requestInFlight.current = true;
+		setIsLoading(true);
+		setLoadError(false);
+		try {
+			const nextPage = currentPage.page + 1;
+			const params = new URLSearchParams({
+				q: query,
+				page: String(nextPage),
+				pageSize: String(currentPage.pageSize),
+			});
+			if (activeFacet) params.set("productType", activeFacet);
+
+			const response = await fetch(`/api/search?${params.toString()}`);
+			if (!response.ok) throw new Error("Search page unavailable");
+			const result: SearchResultPage = await response.json();
+			const newItems = result.items.filter((item) => {
+				if (knownUrls.current.has(item.url)) return false;
+				knownUrls.current.add(item.url);
+				return true;
 			});
 
-			return catalog
-				.filter((product) => !product._id.includes("drafts"))
-				.map((product) => ({
-					...product,
-					type:
-						productTypes.find((productType) => productType._id === product.productType?._ref)
-							?.slug?.current || "",
-				}));
-		},
-		[activeSearch, pageSize, productTypes]
-	);
+			setCurrentPage({
+				...result,
+				items: [...(currentPage.items || []), ...newItems],
+			});
+			trackCatalogPagination("search", nextPage);
+		} catch (error) {
+			console.error("Error loading more search results:", error instanceof Error ? error.message : "unknown error");
+			setLoadError(true);
+		} finally {
+			requestInFlight.current = false;
+			setIsLoading(false);
+		}
+	}, [activeFacet, currentPage, query]);
 
-	const onPageLoad = React.useCallback((nextPage: number) => {
-		trackCatalogPagination("search", nextPage);
-	}, []);
+	React.useEffect(() => {
+		const sentinel = loadMoreRef.current;
+		if (!sentinel || !currentPage?.hasMore || isLoading || loadError) return;
 
-	const {
-		items: loadedProducts,
-		sentinelRef,
-		isLoading,
-		error,
-		retry,
-		hasMore,
-	} = useInfiniteCatalog({
-		initialItems: products,
-		initialPage: page,
-		pageSize,
-		total,
-		resetKey: activeSearch,
-		loadPage,
-		onPageLoad,
-	});
+		const observer = new IntersectionObserver(
+			(entries) => {
+				if (entries.some((entry) => entry.isIntersecting)) {
+					void loadNextPage();
+				}
+			},
+			{ rootMargin: "600px 0px" }
+		);
+
+		observer.observe(sentinel);
+		return () => observer.disconnect();
+	}, [currentPage?.hasMore, isLoading, loadError, loadNextPage]);
+
+	const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const trimmedValue = searchValue.trim().replace(/\s+/g, " ");
+		if (!trimmedValue) {
+			setSearchError(true);
+			return;
+		}
+
+		setSearchError(false);
+		void router.push(`/search?q=${encodeURIComponent(trimmedValue)}`);
+	};
 
 	return (
-		<Box component={"section"} bgcolor="secondary.dark" pt={4} pb={4}>
+		<Box component="section" sx={{ bgcolor: COLOR_CODE.INK, color: COLOR_CODE.WHITE }} pt={4} pb={8}>
 			<Seo
 				data={{
 					title: "Tìm kiếm - INUT Design",
 					description:
-						"Thiết kế & In ấn - Skin Laptop - Sticker - Decal - Thiệp - Card - Tem Nhãn, skin laptop da nang, skin laptop đà nẵng",
-					url: `${SITE_URL}/search`,
-					thumbnailUrl:
-						(banner && !isEmpty(banner) && sanityImageUrl(banner[0]?.image, "seo")) ||
-						"https://res.cloudinary.com/dmspucdtf/image/upload/v1663573733/294864835_731768937929745_7146257828673250026_n_fv3uhz.webp",
-					noindex: !!q,
+						"Khám phá sản phẩm, dịch vụ, bài viết và thông tin hữu ích từ INUT Design.",
+					url: "https://inutdesign.com/search",
+					thumbnailUrl: "/branding/ogImage.jpg",
+					noindex: true,
 				}}
 			/>
-
 			<Container>
-				<Box>
-					<Breadcrumbs>
-						<Link href={"/"} passHref>
-							<MuiLink>Trang chủ</MuiLink>
-						</Link>
+				<Breadcrumbs sx={{ color: COLOR_CODE.TEXT_MUTED }}>
+					<Link href="/" passHref>
+						<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }}>Trang chủ</MuiLink>
+					</Link>
+					<Typography sx={{ color: COLOR_CODE.WHITE }}>Tìm kiếm</Typography>
+				</Breadcrumbs>
 
-						<Typography>Tìm kiếm</Typography>
-					</Breadcrumbs>
-					<Box mt={3} id="title">
-						<Typography variant="h2" fontWeight="bold" textAlign="center" letterSpacing="10px">
-							Sản phẩm (<CountUp end={total} duration={2} />)
+				<Box mt={4}>
+					<Stack direction="row" justifyContent="center" alignItems="center" gap={1}>
+						<SearchIcon color="primary" />
+						<Typography
+							variant="h3"
+							component="h1"
+							sx={{ color: COLOR_CODE.WHITE }}
+							fontWeight="bold"
+							textAlign="center"
+						>
+							Tìm kiếm
 						</Typography>
-					</Box>
-					<Grid
-						container
-						spacing={2}
+					</Stack>
+					<Stack
+						component="form"
+						onSubmit={handleSearchSubmit}
+						direction={{ xs: "column", sm: "row" }}
+						spacing={1}
+						maxWidth={720}
+						mx="auto"
 						mt={3}
-						flexDirection={{
-							xs: "column-reverse",
-							md: "row",
-						}}
+						width="100%"
 					>
-						<Grid container item xs={12} md={9} spacing={3} id="productTitle">
-							{loadedProducts.map((product) => (
-								<Grid item xs={6} md={4} key={product._id}>
-									<ProductCard product={product} productTypes={productTypes} />
-								</Grid>
-							))}
-						{hasMore && (
-							<Grid item xs={12}>
-								<Box ref={sentinelRef} display="flex" justifyContent="center" py={2} minHeight={56}>
-									{isLoading && <Typography color="text.secondary">Đang tải thêm sản phẩm...</Typography>}
-									{error && (
-										<Button color="primary" onClick={retry}>
-											Không tải được. Thử lại
-										</Button>
-									)}
-								</Box>
+						<TextField
+							fullWidth
+							size="small"
+							label="Từ khóa tìm kiếm"
+							value={searchValue}
+							sx={darkTextFieldSx}
+							onChange={(event) => {
+								setSearchValue(event.target.value);
+								if (searchError) setSearchError(false);
+							}}
+							error={searchError}
+							helperText={searchError ? "Vui lòng nhập từ khóa tìm kiếm." : " "}
+							inputProps={{ "aria-label": "Từ khóa tìm kiếm" }}
+						/>
+						<Button
+							type="submit"
+							variant="contained"
+							startIcon={<SearchIcon />}
+							sx={{ minWidth: { xs: "100%", sm: 140 }, height: 40, flexShrink: 0 }}
+						>
+							Tìm kiếm
+						</Button>
+					</Stack>
+				</Box>
+
+				{status === "prompt" && (
+					<Typography textAlign="center" sx={{ color: COLOR_CODE.TEXT_MUTED }} mt={6}>
+						Nhập từ khóa để tìm sản phẩm, dịch vụ, bài viết hoặc thông tin trên INUT Design.
+					</Typography>
+				)}
+
+				{status === "error" && (
+					<Stack alignItems="center" spacing={2} mt={6}>
+						<Typography textAlign="center" sx={{ color: COLOR_CODE.PRIMARY }}>
+							Không thể tải kết quả tìm kiếm lúc này. Vui lòng thử lại.
+						</Typography>
+						<Button
+							variant="outlined"
+							onClick={() => router.reload()}
+							sx={{ color: COLOR_CODE.PRIMARY, borderColor: COLOR_CODE.PRIMARY }}
+						>
+							Thử lại
+						</Button>
+					</Stack>
+				)}
+
+				{status === "success" && currentPage && (
+					<>
+						<Stack
+							direction={{ xs: "column", sm: "row" }}
+							justifyContent="space-between"
+							alignItems={{ xs: "flex-start", sm: "center" }}
+							gap={1}
+							mt={4}
+							mb={2}
+						>
+							<Typography variant="h5" component="h2" fontWeight="bold">
+								Kết quả tìm kiếm{query ? ` cho “${query}”` : ""}
+							</Typography>
+							<Typography sx={{ color: COLOR_CODE.TEXT_MUTED }}>
+								{currentPage.total} kết quả
+							</Typography>
+						</Stack>
+						{currentPage.total === 0 ? (
+							<Typography textAlign="center" sx={{ color: COLOR_CODE.TEXT_MUTED }} mt={6}>
+								Không tìm thấy kết quả phù hợp.
+							</Typography>
+						) : (
+							<Grid container spacing={{ xs: 2, md: 3 }}>
+								{currentPage.items.map((result) => (
+									<Grid item xs={12} sm={6} md={4} key={result.url}>
+										<SearchResultCard result={result} />
+									</Grid>
+								))}
+								{currentPage.hasMore && (
+									<Grid item xs={12}>
+										<Stack alignItems="center" py={2} ref={loadMoreRef}>
+											{isLoading && (
+												<Typography sx={{ color: COLOR_CODE.TEXT_MUTED }}>
+													Đang tải thêm kết quả...
+												</Typography>
+											)}
+											{loadError && (
+												<Button
+													onClick={loadNextPage}
+													sx={{ color: COLOR_CODE.PRIMARY }}
+												>
+													Không tải được. Thử lại
+												</Button>
+											)}
+										</Stack>
+									</Grid>
+								)}
 							</Grid>
 						)}
-						</Grid>
-						<Grid container item xs={12} md={3}>
-							<Box
-								sx={{
-									width: "100%",
-									borderRadius: 16,
-								}}
-							>
-								<Accordion
-									expanded={expandedFilter}
-									onChange={() => {
-										setExpandedFilter(!expandedFilter);
-									}}
-									TransitionProps={{ unmountOnExit: true }}
-									sx={{
-										position: {
-											md: "sticky",
-										},
-										top: {
-											md: "90px",
-										},
-										right: {
-											md: 0,
-										},
-										minHeight: {
-											md: "1px",
-										},
-										maxHeight: "80vh",
-										overflowY: "auto",
-										border: `1px solid ${COLOR_CODE.BORDER}`,
-										borderRadius: "8px 4px 4px 8px !important",
-									}}
-								>
-									<AccordionSummary
-										expandIcon={<ExpandMoreIcon color="primary" />}
-										aria-controls="panel1a-content"
-										id="panel1a-header"
-									>
-										<Typography variant="h4" fontWeight="bold">
-											Bộ lọc
-										</Typography>
-									</AccordionSummary>
-									<AccordionDetails>
-										<Stack flexDirection="column">
-											<FormControl>
-												<RadioGroup
-													name="radio-buttons-filters"
-													value={currentFilter}
-													onChange={handleOnChangeCheckbox}
-												>
-													<FormControlLabel value={""} control={<Radio />} label={"Tất cả"} />
-													{productTypes.map((productType) => {
-														return (
-															<FormControlLabel
-																key={productType._id}
-																value={productType.slug.current}
-																control={<Radio />}
-																label={productType.name}
-															/>
-														);
-													})}
-												</RadioGroup>
-											</FormControl>
-										</Stack>
-									</AccordionDetails>
-								</Accordion>
-							</Box>
-						</Grid>
-					</Grid>
-				</Box>
+					</>
+				)}
 			</Container>
 		</Box>
 	);
@@ -257,53 +343,50 @@ const Search: NextPageWithLayout = ({ products, productTypes, banner, total, pag
 
 Search.Layout = MainLayout;
 
-type Props = {
-	products: Products;
-	productTypes: ProductType[];
-	banner: Banner[];
-	total: number;
-	page: number;
-	pageSize: number;
-};
-
 export const getServerSideProps: GetServerSideProps<Props> = async ({ query, res }) => {
-	const search = typeof query.q === "string" ? query.q : "";
-	const page = 1;
-	const pageSize = 24;
-	res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=600");
+	const parsed = parseSearchParams({
+		q: query.q,
+		productType: query.productType,
+		page: query.page,
+		pageSize: query.pageSize,
+	});
 
-	const [catalog, productTypes, banner] = await Promise.all([
-		productsApi.getProductsPage({ page, pageSize, search }),
-		productTypeApi.getAll(),
-		bannerApi.getBannerPage("products-page"),
-	]);
-	const products: Products = catalog.items;
+	if (parsed.status !== "valid") {
+		return {
+			props: {
+				query: "",
+				page: null,
+				status: "prompt",
+			},
+		};
+	}
 
-	const formatProducts = products
-		.filter((product) => !product._id.includes("drafts"))
-		.map((product) => {
-			return {
-				...product,
-				type:
-					productTypes.find((productType) => productType._id === product.productType?._ref)?.slug
-						?.current || "",
-			};
+	try {
+		const result = await searchSite({
+			q: query.q,
+			productType: query.productType,
+			page: query.page,
+			pageSize: query.pageSize || String(SEARCH_DEFAULT_PAGE_SIZE),
 		});
-
-	const formatProductTypes = productTypes
-		.filter((productType) => productType?.name !== "Macnut")
-		.filter((product) => !product._id.includes("drafts"));
-
-	return {
-		props: {
-			products: formatProducts,
-			productTypes: formatProductTypes,
-			banner,
-			total: catalog.total,
-			page: catalog.page,
-			pageSize: catalog.pageSize,
-		},
-	};
+		res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=600");
+		return {
+			props: {
+				query: parsed.request.query,
+				page: result,
+				status: "success",
+			},
+		};
+	} catch (error) {
+		console.error("Search source unavailable", error instanceof Error ? error.message : "unknown error");
+		res.statusCode = 503;
+		return {
+			props: {
+				query: parsed.request.query,
+				page: null,
+				status: "error",
+			},
+		};
+	}
 };
 
 export default Search;

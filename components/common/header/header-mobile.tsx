@@ -20,6 +20,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { ROUTE_LIST, RouteItem } from "./routes";
+import { SearchPopover } from "./search-popover";
 
 interface HeaderMobileProps {
 	routes?: RouteItem[];
@@ -153,20 +154,23 @@ export function HeaderMobile({ routes = ROUTE_LIST }: HeaderMobileProps) {
 						</Link>
 					</Stack>
 
-					<Link href={"/contact/form"} passHref>
-						<Button
-							variant="contained"
-							size="small"
-							sx={{
-								fontSize: "0.75rem",
-								fontWeight: "bold",
-								textTransform: "uppercase",
-								letterSpacing: "0.06em",
-							}}
-						>
-							Báo giá
-						</Button>
-					</Link>
+					<Stack direction="row" alignItems="center" spacing={0.5}>
+						<SearchPopover device="mobile" />
+						<Link href={"/contact/form"} passHref>
+							<Button
+								variant="contained"
+								size="small"
+								sx={{
+									fontSize: "0.75rem",
+									fontWeight: "bold",
+									textTransform: "uppercase",
+									letterSpacing: "0.06em",
+								}}
+							>
+								Báo giá
+							</Button>
+						</Link>
+					</Stack>
 				</Stack>
 
 				<Drawer
