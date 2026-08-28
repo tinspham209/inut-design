@@ -1,0 +1,5 @@
+# Files
+
+- [Analytics, Consent, SEO, and Performance Surfaces](analytics-and-seo.md) - Maps client-side route, commerce, conversion, and engagement telemetry across GA4, GTM dataLayer, Umami, and Vercel Analytics, with consent initialization and browser-performance instrumentation. Separates runtime measurement from build-time sitemap and robots verification, and documents the speculation and BFCache fallbacks.
+- [Sanity CMS Integration and Content Contracts](sanity-cms.md) - Sanity v2 is the Content Lake and Studio behind the catalog, editable site content, lighter orders, quote requests, and payment-account display. This page defines the schema contracts, GROQ read paths, server-only write boundary, dataset configuration, and operational safeguards.
+- [Telegram Notifications and Zalo Phone Advisory](telegram-and-zalo.md) - Documents the authenticated, rate-limited Telegram notification routes for orders, quote requests, and abandoned checkouts, including formatting, retries, and failure behavior. It also explains the optional Zalo registration probe and its deliberately non-blocking degradation contract.

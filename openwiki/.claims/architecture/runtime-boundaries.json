@@ -1,0 +1,234 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:84259b61f3a590aee64aa42288d3c5d083e8510caeebf87516fad165fba7bf12",
+  "claims": [
+    {
+      "id": "claim_71b0a91c7b30459ea114a340e113ceed",
+      "statement": "The shared Next.js app shell selects a page layout, provides MUI and Emotion providers, configures SWR with an Axios `/api` fetcher plus retry behavior, and mounts the cart, toast, and dialog UI; those three UI modules are dynamically imported with SSR disabled.",
+      "evidence": [
+        {
+          "resource": "repo://pages/_app.tsx#L1-L36",
+          "version": "repo-lines-v1:sha256:567fa363c11b2a6f9eb4d3c8e16b12617348eca7d64eb83f2873bc46db955d1b:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlMmJhYjc5NmM2NzAyZTA0M2YyYTJmZDYxZTc2OWIwYTU1NzlkMjRhZTdhMTBlMDJhYWNjNzYwNmZhYTY3ZTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZkMzA3YzIyOTIwM2RkOTdkODY2NWQ5YTA1ODk5ZWNiMTk3YWI2NWRlZmE0NDQxZWJmY2NkNDBlOGEwMjI0YTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAzYjRhYzY2ZmVjZDA5MWY4MWQ4YWQ4MjU2M2NiZjM5YTE3MjlkODA5NzkzOTA4ZjJmY2JhMzJkMDZkZGViNTMifQ"
+        },
+        {
+          "resource": "repo://pages/_app.tsx#L42-L50",
+          "version": "repo-lines-v1:sha256:921a41f279a2136725d7d8a4c3c892867ad77108cefd85c10af1242d1130401d:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjQ4NWU4NzBhMWIzMjEyYzBjY2FmMzk2ZWY1NjI4NmMxMWY0MzVhNjBmMTZiNzcwZGEyZjlmOGIzMjQzZTNjNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmQ3YTEyNDc2YTMwZmVlZjkzZDlmMDM0Njc5ZWNiNjNjYzNjZWIzYjY1Y2VlMWZmZmQ0ZGZjMWMwMzQ1YjQ1YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTU1YTdlMDZjNTQ4MzM3Y2VlZjRkZDA0NGNlNjE0MjViODQwNGRjMzFmOTc0NzYzZTNkYzM4YWNkN2E5MzdlYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODQyNWM2YzhjNzFjNmMzYjM1ODU4YzhmMDc0ZDM5MjgyZTkyZDk1YzZiMmVhNjZlMmUwZDMzYTkwNzA0NTViMSJ9"
+        },
+        {
+          "resource": "repo://pages/_app.tsx#L92-L120",
+          "version": "repo-lines-v1:sha256:6454301ced512f0056003da87a289e79071a9d79f3f16ba19de5fc20e6e5779c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwODBhYzNjZDUwOWY1MTA2N2QwYjJmMzlhMTYzYjc5ZGFhNzA2YzUyZDNhYjYxMzkyODM3YWMyODljMmYxNDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJlMmFlMmYwMDZjZjk2MDYxMjM1YTEyOWQ3MDczZmQwNDE5NDVjODE0ZGEyNTFiNDc5MDRlMjM5ZmNkZmYwMjIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA4MWQ0NDM0YmVjMzRhYzVjZWUwNGUzZWVmNjkyZTYxOWE4NTc2YjIwMTc4NGRhNmM5MTIxODU3ZTZiMDUxOTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc4M2JlMjIzNjNhYzIxYzBjN2M4NzRmYmNhYWQyZWU2MmM4ZWZhNWQ0MmFjNGQ3M2ViZDMxNmM1ZjQ3ZDBjOWEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5592aa1cf4bd40b2ab8d1e1199b394f6",
+      "statement": "The cart wrapper waits until the browser has mounted before rendering persisted cart UI, avoiding a hydration mismatch caused by localStorage, and only exposes the lighter cart on `/san-pham/lighters` paths.",
+      "evidence": [
+        {
+          "resource": "repo://components/cart/CartWrapper.tsx#L7-L31",
+          "version": "repo-lines-v1:sha256:04d0eee31ecf7364757e81fc7bde7104a151db0936c144f1c7e3bc5e2d21be47:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3ODI2NWY0OTE4MzRmMmU4YjI5M2YxY2JkNGY3NzNlMTI5OTA2MTYyODY0MjUwZGJlNTE4MmI4YzIwNTY0NDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjMjU3ZDhiZDVhMzRmZTgzNTEyNDUyZjNjOTlmM2RkYzU5ZGU2M2IyNDJlYWZjZTM1Mjk4N2M5ZjNlNmE3MzQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU2ZjYxZTA3NGVjNjkwMmJiNmY1N2I3MjU4YWY5MDY2Mjc1YjNjNjE1NThiMzkxZmY3M2Y2ZTY2ZDc4ZDdjZGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9b46811437dc46fda5a3723d3bbbe6c6",
+      "statement": "The application uses both static generation with timed revalidation and server-side rendering with cache headers: the home page statically generates content and revalidates after 300 seconds, while the lighter catalog fetches its first page during getServerSideProps and sets a 300-second shared cache with stale-while-revalidate.",
+      "evidence": [
+        {
+          "resource": "repo://pages/index.tsx#L156-L175",
+          "version": "repo-lines-v1:sha256:4e4607a8c7b852c24036df20b50d598a8c1d08424db6a43e52acd3fc02fc24be:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY1NjYwNzNkMjM1OThhM2UyMGNiOGVjMWVkMDFiYzk5NWNkNWRlZWE5ODZlNjIxYTEwNjc4MjczMTc2ZDIwNDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA3NmY5NGNmMzY5YjVmMTNjMTk4M2JkZTViZTdlN2U2N2Q1MGY0ZGI5ZjAwMTk1MDFhNTA4OWJlYWMxMzViZjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdjN2JmZGQzZDljMTU4YjFhZDM5YzJjZjY0YzQ4YWFmYjc2MjZmYmJkZjNkNzY5NzVjMTJkMzZiODNhYjU3NjgifQ"
+        },
+        {
+          "resource": "repo://pages/san-pham/lighters/index.tsx#L47-L57",
+          "version": "repo-lines-v1:sha256:e70bb7845c2b3921e617aed601f7c71dee0306c34b5b4ef523d54aaad152b993:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhhNzhmZDI3MTk5ZTZkMDBiODZjNTY5OWJmNzgwNzYyZjYyY2NkNTAzYjMxMzVhYzNlZTQxYTIyZWNiODljZjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMzNGExMDQyZDY5ZmQ1MTMyZGQyZTVhODlkNTUzY2QxMTE3OGU3ZTAxMjM4ZjM3MTFmOWM1ZTVlZjRjZmNiODIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI2ZjkwYTZhMmJmYWZhYTA4ZGE1YzliZjY4NTJiODA3YWY5NDgxNTI4MDAxZWNjZDIxYWY0MGQ5MGQ1NzY2ZDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQxYzhlMzdjNzkxNjU3Zjg4ODg2MDNhNTMyMjg4MTIzNTZlMGRmNGEwMTFlNmFhMTIwNDFjZTJhZDIwOWM5NDQifQ"
+        },
+        {
+          "resource": "repo://pages/san-pham/lighters/index.tsx#L81-L90",
+          "version": "repo-lines-v1:sha256:55f9299ad4d8cf050b7479b99f30c53d783d6bb3420ff16617e374fe86fdaa46:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1YmZlNTJhN2U1NzhjMzRmM2Q4NjEwYmIwMWUzOWJlYjJjOGI5YzY1OTUwNTk0NTA5YzA5MjdlYmY1NTMxMmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3YTgxYzU4MzQyMjEwNjBmY2EzNDNlN2I5NjFiZWFlYjBiNWNkYTRlNTcwNDNjMTdkNDFmZDIyNjBhNWNkMzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNlMjFjMWYxZmFiMTE3ZjRiNGQyNjQ5YTM1MWQxODlkNjlmNDM5YTQ5NDcwZTg2MjQ2MDkyMDE5YzMxMjEzOGEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9eab437338564775b455d9d39f1d1490",
+      "statement": "The browser catalog hook appends pages loaded by an IntersectionObserver, prevents concurrent loads, stops when no more items exist or the total is reached, and exposes a retryable local error state without discarding loaded items.",
+      "evidence": [
+        {
+          "resource": "repo://components/lighters/LightersPageContainer.tsx#L167-L178",
+          "version": "repo-lines-v1:sha256:fb72a4c1c7f5eaf940cde553d272ef955462e72172c592a3fc3a94e4e8896528:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3N2NhNTA1OGI2NjY4ZmQyNjE5YmFlYjYwZjhjN2JkZDk4NmU2MDU0NDI5NGI2YTQ2ZjM3YjY5ZGI0ODkwZTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVmMTk4ZGJhMDc0OTljY2UwYTQ1OWUxZWE5M2EwMjkzYjdmNjhiODczODZiYzU0NDI4MTIzMmQwM2Y5MDVhYjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJkNjA4MmY5NzkzMzBiNTBlMjA1ZDdmYmFjMGEzM2ZlODQwZThiM2Q5ODNjMjQyMzNjZTIwZDZhNTc5ZTk2M2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU2ZWMzODRmYWVjMzNjODhmMjEyNTZmYWQ1NzAyMWU3ZGU2NDEzZTE2ZDE4NGEzNjY4NGVlMGIzMWEzYTUyZDAifQ"
+        },
+        {
+          "resource": "repo://components/lighters/LightersPageContainer.tsx#L70-L85",
+          "version": "repo-lines-v1:sha256:94710c8d94a5200df10a7a8534b172d4ecab01e3e8dd5d3051d63c089046f83c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM4OWJlMzNjMzhjMjM2OWQ1ZTRhZDBmNzA3MGJlZWIxMzA4YWI3NzA2OTc2M2U1ZDY4YjNlMGE3MWViMWQ0ZjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhNzM0OTJkODk0NmIxZDBmOWQ5YzA0YjcwNGE5MjBmMjRmODllZjdjN2Y3MzExYTg1OTlkMTBjN2Y2MzU4ZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY1YzRmMDg4YTk3MTNhNTkzMWIwZTMzNGRmODE0NjRkNTMxZDJhZDNjZmUzMDUwZDUzNjQ4MWZiOTA5OGFiYTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRiNDAwMTMyZjg3N2IwYjdhMTMzNzJiMThlNGVhYjU0MWY4YzE2MzY3MjU3ZGY1NzVlNGY3ZWFkNzViYWM5MjcifQ"
+        },
+        {
+          "resource": "repo://hooks/useInfiniteCatalog.ts#L22-L35",
+          "version": "repo-lines-v1:sha256:e0c8da715b497c54ef96fbccaa7bfd8b958476109763f04cbaabcd8a72731b38:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU0OTVlYTQyZDUyNjg2MTAwNjkyZGVmYWU4ODg1ZmEzZjBkYTVjZmU1YTRlNzE3NmVlMDdkYWJlN2UwNjlkYjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1OTNjNWYyNTg3M2UzMmU0MmU0NzM1N2FjYWY0YjI5OWYyZjk5NGQ2ZGU1ZDgwNTFmZjczNWIxYWQ5MGFhMDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFkZTcyNWM1YTQwYjQ2MjE0ZjRhYzM4MGQwMWRkZDNiNWIxYjRkNDJlMzFiMzE4Y2E5ZGFiNzFhMmQ4ZjgxNzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg4MDI5YjMwMWUwYTA3OTgyMjAwZjYzNmVlMzY0Y2Y4ZDE3ZDZlNTAzMmQ5OWFkMzllMjI4ODE4ZTMyM2YwYzYifQ"
+        },
+        {
+          "resource": "repo://hooks/useInfiniteCatalog.ts#L37-L60",
+          "version": "repo-lines-v1:sha256:0bf69e0693273596e1d83cedd16df0c4e2208e70f5fd7aaa514df92517785980:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5NTM2MzE3Mjg2ODE1YWQ4NDE3NjlkNzQwMDUyNzc1OGM1NmMwMDAyMDE3OTU1MTQ5OGU5MTRiNGQ0ODg1NTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBiNDc4OWZkZGY3YTMzYmI4N2IwYTI3YjEwMTM4OGY4MDhhZDIyMzM1MjZjYzdmZTA4ZjdmMzYyZmJlMDY0NDUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRjNzkxM2VkMjgwYzFiNzI4ODhjMjVjMDI4YjM5MTFmZmI1MGM0MDk0YmFkZDBjNDllYjkzYTJjYzg0YmJhNjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM0M2MwNjhhMmU1YWM4MDE3NWYyYTFjZTEwMGMzOWMwMDMwYWIxMjU3MzJmNWJmYTEwZmNhOGNlMDdmMjYxZGYifQ"
+        },
+        {
+          "resource": "repo://hooks/useInfiniteCatalog.ts#L66-L90",
+          "version": "repo-lines-v1:sha256:980f108bbe4841f0abc912417212d9c2640feecc03fdd5ca9af19912d9fa3bf1:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzNjEyMDYzMzNiNGYyMzBmNmJmYjI3Nzg1NDA0YWNiMjgwNzQ0MzI4NjdkNTFhMmZkNWY4MjNiNzI0ZGY3NzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzNTc0MjJiZjA0Mzk1MjUyZjRiNThlZTNhMjgyODBkYTE2MmMxN2E3NTMxZGUyZDI1ZWRkMzQzODVkNDlmMmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_89b3f48de9e149e8ad41298a6f272c6d",
+      "statement": "The browser Axios client targets `/api`, adds request metadata and the configured API key, unwraps successful response data, and normalizes cancellation, HTTP, no-response, and setup failures.",
+      "evidence": [
+        {
+          "resource": "repo://api-client/axios-client.ts#L30-L88",
+          "version": "repo-lines-v1:sha256:a28e758d62b58f062be38159710d7fc3a52edcd5cb49d0ed650ecf04fe9b2629:eyJzZWxlY3RlZExpbmVDb3VudCI6NTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5MDNlY2E5MmI5ODUzNjllMjFhMTNhYzBkZTE1OTA3OWEwNWVjOWIxMDMzZTdhZWNiYTBkNDdlMTg4ZDRhYjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5OTY3ZWMxZWQzODM2ZjhlYjE3YWZmMTcyYjViZmVmN2RlNjA0ODVhNDM5YzZjYTExYzU5MWUxNzU1NzM5YWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQyYmY5M2Q1MGIxZTlhZjRkMGE5NzEwNzg3ZDZmMmU4MjNiNzRmM2ZhMDNlODIzYjk5M2U5NjFmZmJiZDkxYzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE0NTFlMTU3ZTAyY2M0ZGE4OTY1M2FlNWI2YWE3ODkzMzQzMDU2YmZjMDk3NzgwMGMwZWY3YTZmM2VjY2ExMDAifQ"
+        },
+        {
+          "resource": "repo://api-client/axios-client.ts#L4-L28",
+          "version": "repo-lines-v1:sha256:48b6a59cd1c96a60a63faf3c85a440a5aa774a6407044dfe5d48f182d27365d6:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUyYjhiZGUzMjIwMzU4MTA1ZjRlNWE5MmQ1YTRkMzY3MTgwMjM0ZDcwOWMyNjUzMTZiNmM0OGFiM2FjZTI4MmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5OTY3ZWMxZWQzODM2ZjhlYjE3YWZmMTcyYjViZmVmN2RlNjA0ODVhNDM5YzZjYTExYzU5MWUxNzU1NzM5YWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFhMzM4Y2RjNjAzYmViYzk0ZmEzOWVkYjRmMzE2M2U1N2M1ZDQzNDgwMjYzODIzNjkyNWVmZDZkNDYxNTMzMjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRjN2U1MmRjODhmMDNmZGU5OWVkNGNlOTJlYTkxYjg3ZWFmN2E3NWQ4NjJmMjVlZDE2MTJmZTY4NjViODZkMDgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_edf5e6bf56c54164917cc5aa225c5919",
+      "statement": "Public Sanity reads use a tokenless CDN-enabled browser client, while the server client uses server environment credentials, disables the CDN, and provides privileged order, status, and asset-write operations.",
+      "evidence": [
+        {
+          "resource": "repo://api-client/sanity-browser.ts#L4-L16",
+          "version": "repo-lines-v1:sha256:ea21f946d360b5cf63ecfb62077475ce0b45ad7c8b6f5c23400574860bab4908:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZkNDM3ZjllNWU0NGY3MGQ1ZWViZmJhYjc3Mzc5NTM5MzlhMzJjYjRhNTE3NTY5NmNkOTlkNmNkNmFmY2U2ODMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NzU2ZDQ0YzlkOTE2NmRiOWE5NGQ3OWMwODhlN2NkNzE4MGNhM2NkZTEwNWJkMDU3ZDM5ZDQ0MWUwMTgxNGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc1NjM3NmNkMDhjMjFhZmUxYTI3NmJiN2VkYmQzYjc0NGI1NGQ3NDM1Y2MyNjVmYzQ1MzI0Njk3NmNhMzg4NmEifQ"
+        },
+        {
+          "resource": "repo://api-client/sanity-server.ts#L26-L64",
+          "version": "repo-lines-v1:sha256:df47994099865828798bfeddc390bb9ca422a690a162e15f4a79c29b187623e4:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQzZTk1MTk5OTI0OWQ3MmZkMmEwMmYyNmI0Y2M1YjkxZWQxMGQ1NGQyYTZkOGU1OWU3Y2NkMjVlYjVjNzdmN2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZiY2IyOGZmZWNhMWRmOTllOWNlMzI2NTFmNGNiMTNkZTU2NTJmMjIzZTg5ZTRjMjc5YmM3ODE1ZWZhMjg4ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk4OGYxNzVhZjNlZGY0NTEyMmRiOTZlZTFjZmNlZDQzMmYwMGM5ZmY4NmYzYjgzNjNlODY1YTA4NDVhYTlmMDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://api-client/sanity-server.ts#L4-L10",
+          "version": "repo-lines-v1:sha256:a782f793003847c655766fcc86ed50ddf73e272205df34876669a64bd0d16290:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzY3NzcxYmI5ZmM3YTA2ZDE4NzYyNmI0ZjU1ZGNjYTNhNDRhZjdjYTRiMzhhYThjMDFmODk1YWI4MWY0NGFjMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjZmNWI0MGIxNTg0NTdkMTc4NjRmMjE3OTA3ODZkZDVhMmVjZGI2NGI2NmE2NTFmNzg4ZDRlMjVjZDMzMDNkMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmYzMjUwMjFiNmMwZWZmYmViNGI1MTQzNDNmYzVhYTBkYzAzMTVlZGFkNjg2MjhhMDc2ZjU2OGMyYjg3NzU3OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWZiMjQwYThmZTE1Zjc2YjVmOGY3MTJjNDNlMGMyODNlZWY5Yzc4OWI0YmIyN2EwNDZhYjVmMGNkNWQ5MWYyNiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_1f75b2bc6aba4afab59687332f62e36c",
+      "statement": "The lighters cart and layout preference are independent persisted Zustand stores backed by localStorage; the cart merges matching product and lighter-type items, recalculates tiered prices and totals, and recalculates totals during rehydration.",
+      "evidence": [
+        {
+          "resource": "repo://store/cart/lightersCart.ts#L119-L165",
+          "version": "repo-lines-v1:sha256:ba5307f6a38b1847f84abe86bed6f4c4d42146c1e7ac3849c3934f04fecf7213:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjOTc5YTljN2QyMmUwMzM5MTE2YWI4NGFjODYwNTYwM2U2NGViOWJlNTA0ZjczYjM0Y2FiYTAwMTE1MmJlYTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQyOGVmZjg1MTQyY2M1NjQxNzcyNjA4NTZlZjkwOTVjYjZlMTU4MmU1NmZlMzMyMGU4MGZhMWVjNGEwNjE3YWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQwZDY5NTMyZTJmNzMwZTE0MDY5OTJjN2IxMmMyOWJmZDk3MmJiMjc5Mzc1MDBkZjg0OTk0ZGNiYTg0MTBjNDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRjNTg1Y2NkOTlhYmM5ZTdkNDRlMjA4YmJlZjYwYzA5NmUzYWFiMjE2YTYyYzFlNTBlNGQwMmNhYjVjZGNhYTUifQ"
+        },
+        {
+          "resource": "repo://store/cart/lightersCart.ts#L168-L185",
+          "version": "repo-lines-v1:sha256:8c5eab1636ccf57ca6d27ae98669de7da4aad8c2a07440b12726a7e2b3b65aea:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg5YmM3NTExYjIyYjUzOGRmMTQyODMzNzUxZDRhMDM3NDFiYjI4MzkzYjQzZjE5ZjhkNjZkNDkxZGFmNTJkOWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmYWMxOGEzYjU0OTg2OTA0YzI3NzhhNDBjZjVkZWM0ZmViYzU2MmNlNWRhOThlNTY3MmMxZWM2NzY5YWI2MTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjExMzQzYzJiNjE3NjEwZWRlZDYzOTI4MWM1NjJhMjM2YjU1MjNjZWZiNGQ3OTdkZTc0YjVjYjg1MWNiM2QxMGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM0ZDM3YjkwZjA5YzQwOGFiNDhhNDQ4M2Q2YjY3NGQyZDVhYzY4MzZlYTVlZWFhZjQwOTgxMDcxNWYyYWM0ODEifQ"
+        },
+        {
+          "resource": "repo://store/cart/lightersCart.ts#L17-L27",
+          "version": "repo-lines-v1:sha256:5fc00835770540f2c18232b88aec0e99b70561cb5794f40cee5e2ae54a6ff3ae:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzMjI5MDRiMTQ3OTEwYjlmMjcxMDhhZjBmMjU1YjM0Mzg0ZTg2ZTMyODZlZDQ3NGMwOWU4ZTgwZmE3NGU4ZTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEwNTBjNGE0ZDFkMWQ0OGIxMmUxNTRhNmI4ZWEwMmI4ZmExNjkxY2Y5MDU2ZjE2MGNjNzk5Y2I3ZDdlYzIxYzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNjZmEyYTRhMmFjMWZmYjBkOGU2YjE3MmRlMzAxZTkxZjhjZTM2MzA3NTJjZjM2YmYzMmI0MGM2MTQzNTQwNGYifQ"
+        },
+        {
+          "resource": "repo://store/cart/lightersCart.ts#L34-L78",
+          "version": "repo-lines-v1:sha256:c96a92f58aa980b0c7508f43046e5649102c748ab8d60e9041da1eae83100b70:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBiNTk4MWZlODBkNjQ1Mjc3ZWNjNWVkZjVhOThkZDk4N2RmNTUxZTIwN2E2ZWQxNmNjMDZkZDViYjM3M2JjY2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY5MWY2NDZlY2IxNGYzZDVmZTc4YzA4MjVkNmE1MzA3NGMxNTE2NTE5MjViNWIzYjU0MTRjMzEzOTM2OTEzODkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA2YWRhMmY4MDgwYzdhMDYyNTRjNThkZjMwYjgyMjg2MGM0YmQ1YWY4ZjcxZThiZGFlMGUxNGUwNmJlNDc4NGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc3MzkxYzk1Y2JmN2FhNDZiNTczZTdjMDY4MWRlNWQzMDEwZDA5YWE5MzZlNzY2YzAwZGI5ZTFiY2NmZDdiOWIifQ"
+        },
+        {
+          "resource": "repo://store/layout/lightersLayout.ts#L17-L46",
+          "version": "repo-lines-v1:sha256:3768dfe60bbec552bcab002439a9cdc85859e48a251d7cb5a3b161d8e4e6ca95:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBmNzQ5OTY2N2JkZmYwNGM5NWU4ZWVkODMwMDJhNzdjMjBkNDQ3ZjQzZWJjZjc2NmEzYzNhYThmMzc0ZjhlODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5OTY3ZWMxZWQzODM2ZjhlYjE3YWZmMTcyYjViZmVmN2RlNjA0ODVhNDM5YzZjYTExYzU5MWUxNzU1NzM5YWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE1ODk5ZjQyNzRjMjFlZjE5MWVhMzY4YTA0MDcyYTIzN2M0NDI2NzQ0MDQ0MjdjMmViM2RmOGY1OWZlNWY1YTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE1NzAyNmUwOTA5NGRmYzMyNDUwMmQxZWM1NmI2NWYxNWVjYjI2ZTRjODBhM2ZiZWYyMzBiZTQ5NjJjMGNmMjUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9e0876135a4f444bb956ae93437bfe78",
+      "statement": "The lighter order, quote, and image-upload API routes validate methods and payloads, apply rate limits, and cross the server boundary into Sanity; image upload additionally restricts MIME types and input size, while order items must contain valid Sanity references.",
+      "evidence": [
+        {
+          "resource": "repo://pages/api/orders/lighters.ts#L10-L39",
+          "version": "repo-lines-v1:sha256:5a54c9c044118e1a300ce17f053bfca7c392822bbc802f5a587bd58157177200:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1NjQ4ZjMxZjk2NzRkMDljN2VmZmU5ZmMyNWZkY2E4YTM4NzJlMmE1MTBkNDIwNTYzYjIxMGU0MjlhNmI2OTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYwZjQ0YTdkNGFhMjJiMTIwODVhMzY3NThmOTE2NzliMjU3NmFjNTM1ZjdlMjkwODJkZjU0ZWVjNjAyMmM0ZTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://pages/api/quote-request.ts#L8-L53",
+          "version": "repo-lines-v1:sha256:ac70118fc45434a43574fd639ae7571a53c7e2ad2ca05cf278c61a9a5b3eaff8:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwZTE3NzhmYWI5YWZmZWQyMzJlNWU2MjU3ZmNiNGQwNjg4NjRjNmU0MjgyMTc4ZGUyZTEzNDUyZWUyOTA2YjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5ODhmNjc3YjkwOTQ2M2I1Yjg5MWFlMjE3OTk4OTYxM2VmZWRkYzNlNDNjZTBjODFlOWViODE1OTJiYzczMzUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYwZjQ0YTdkNGFhMjJiMTIwODVhMzY3NThmOTE2NzliMjU3NmFjNTM1ZjdlMjkwODJkZjU0ZWVjNjAyMmM0ZTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwMzk5NDVmNzEzY2VjY2MyYTJiZTk4MWFiNWM1ZWVhMzdmOTVmOTc2OWU1NzVjZDhlZDlhOWZjYmFmZGYwNmEifQ"
+        },
+        {
+          "resource": "repo://pages/api/sanity/upload-image.ts#L21-L57",
+          "version": "repo-lines-v1:sha256:1de96b5b223fd76e300d4ef316e21aafc1b42da75e95ade47381d0b0b55dcb02:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwZTE3NzhmYWI5YWZmZWQyMzJlNWU2MjU3ZmNiNGQwNjg4NjRjNmU0MjgyMTc4ZGUyZTEzNDUyZWUyOTA2YjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYzNjNmZWE1YjAzYzI2YTBmZWM1NGMxOGI3MTVkODdhOWU0ODNiZTY0OTlkOTY2NDQxYzM1ZTk1NWZhYmFiZGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://pages/api/sanity/upload-image.ts#L5-L19",
+          "version": "repo-lines-v1:sha256:3fc7cf5aa21b62535eaacbc33a148ea5561d6b054a673973f3454c65d760a541:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4ZmY3NzdmNGMyMjBjYTI2YWQyY2UzNmQ5ZWM4NTY1YmFlZjJlNmNiZWQ0ZjZkYzllNDM4NDkzMWQ4YTA2OGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2NGU4NGNiNWI0NTUxZjhkOThkYTI4MmFkODU1NDBlZDI5MDNkMGRmN2VlOTFiMjI5YTY3NmJkNzA3NGRhNWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyYTUwODczYjgwOGJiNzc4NTQ1MGM3YTM4N2FiMjJhNzdjZDZhNDRlNjE1ZDBjOGE5ODBlNjU0MDRjYWNmOWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE3Y2RkMjQ2NTUwNzVhN2U2ZTJhNzQwMWExZDc2OWE5Mjg5MmQ5MDY5YzgzN2NjYThlNmI2MzM4MjllNzJhYzMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ca8ee4990a4f442c821aa475af00de71",
+      "statement": "Phone validation is advisory rather than submission-blocking: the API returns `zaloRegistered: null` for rate limits, invalid input, and upstream errors, and the browser hook debounces valid input by 500ms and ignores stale responses.",
+      "evidence": [
+        {
+          "resource": "repo://hooks/usePhoneZaloCheck.ts#L9-L53",
+          "version": "repo-lines-v1:sha256:3f4cc6edba6890a56d45d8b170a3fc29d63bc0b6fe8825e76a183c66a3fb233a:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRlMGUyNTcwNDIzN2ZkNzhhMTg1NmM4Y2IxZmU1OTU2MjM0NDkxNWZjMWUyYzU3NDIyMTlmNDI1NGE4ODU5MzEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEwYzY4NDdkZjhkMzM4ODU3ZGVmNzhiMzM4MTFlZWQxZGUxNDgzYzBlOTFhOWY2NDExMmIwZGRiNmEzYWI3YmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJlOThmMGM5ZWM4MzkwMDI1YmZjODFhODNiYTgyNDQ3YmY1YjQ2OWZkY2QwZDczZGJlMGI5NjVhMjdhMzNiNTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhhNTYzNzI2ZWM5ZWYyZmFmODIwNGUyMDRmOTFhODAzNGYzMDc1MTQ4MDRhNmUxY2QwNTBkN2JkZjczNzA1MjgifQ"
+        },
+        {
+          "resource": "repo://pages/api/validate-phone.ts#L21-L24",
+          "version": "repo-lines-v1:sha256:6ddc49d1c955a173c31b446dfcec87afd3ba76481cdffc3cc7977a6790024cf1:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWZmNjViZWRlM2Y0NTNhNDc5ZWExN2JiYmIwMDk5YjgyMTllNTI1NzQwYTAyMjdmNTJmYjUzMDUwMTVjZmEyNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDIwN2FkMWUyZDQyYWU3YjcxMmFmNTdmYmIyYmFkYzM5ZTY0MTdlMzA4YWJhYjVlYzZmOTRjZTFhYWM4MDJjMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjM0ZWZmOTZhODU1ZWNkMDE3YmU0ZmVkMTYzN2VmZDRmMTI3ZjdmNWJlZWI4MzIyYTk2ZjAwODk4MzhjMGQ5MSJ9"
+        },
+        {
+          "resource": "repo://pages/api/validate-phone.ts#L30-L72",
+          "version": "repo-lines-v1:sha256:6262093f728e0cba95aa092cabc42a10dd34ab3354aa5ca510785f2c7f78b481:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlM2E0NTcyOWZhZjk3ZmNkYjUxYTYyOTExM2EyM2EzZDczZTRiOGY2NTliMmFkYjY2ZDExZjk2NGE4YTdhYjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE4ZjAzMzMxZjFhYzQxMTM1ZjQ2ZTMxMzA3MTJkYTVjYWZlMjgzNTkyZTk2NzFjMTgwNDUxYTQ4NmI1YTk4MmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_675ba328dd0a4e2aad4491569177133c",
+      "statement": "Telegram notification routes authenticate with the API key, validate configuration and required payload fields, use retry-capable delivery, and return explicit success or failure statuses; SWR mutation hooks expose trigger, in-flight, and error state to callers.",
+      "evidence": [
+        {
+          "resource": "repo://hooks/useTelegramNotification.ts#L8-L26",
+          "version": "repo-lines-v1:sha256:ca536c64bccbd4b874ee9147f26a956b82e1e3ef1d5d8c0dc181b922d99d2e14:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMwODcyZDA2NzJlYWEzYTNmOWJmYWJlZDljNjQ5ZjIxMGU1NmFiMTkwZTM1OTQwNjlhN2UxODgxM2FkNmJiYjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://hooks/useTelegramQuoteNotification.ts#L15-L30",
+          "version": "repo-lines-v1:sha256:ec5415bc74e3d4e668cbe1a4349b14c9279488875b7f9199aa23e700c1e6a57f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIxNmVkMzY1Yjk1ZTg3MTllMTAxMmU3Y2I5MTE1MjY4YWUzNTE3MDI0MWRmMjFkZTk1NTQ5MmEzZGU1YmUwNWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk2YzA1MWU3YWE3YzFkZjQ0N2MwYTYzZjY2MzgxMTQ3ZWVlNGJiMzFkNDUzODkzNWU2YWY4OWM4NWU1NjIwODciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://pages/api/telegram/send-order-notification.ts#L17-L43",
+          "version": "repo-lines-v1:sha256:f8874f3a3ecd0cf43283bfb5ddb8617f7e5b8747cf6e17c10f20896f8699a537:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJiMGVmMzdmNjM5NWI3NWNhYmYxMjdiMjdiZWIzNTYyOTRiNTA1M2I4ZWE2NzA5ZWY3YWMxYTQ5OGViN2NlNTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMxY2M2ZjBlOWQ1MTNiMzMyOTNlYTQ3OGM2ZWZiNTdkNDFmZDdjOTQxNzM2MjA1MjhhYzgzMmQyM2FjMjhlOTIifQ"
+        },
+        {
+          "resource": "repo://pages/api/telegram/send-order-notification.ts#L45-L135",
+          "version": "repo-lines-v1:sha256:96e95756d12b6c287fd1ea0529c7cc219872b3435799b7a8bfe4e99bc6c9eb41:eyJzZWxlY3RlZExpbmVDb3VudCI6OTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlM2E0NTcyOWZhZjk3ZmNkYjUxYTYyOTExM2EyM2EzZDczZTRiOGY2NTliMmFkYjY2ZDExZjk2NGE4YTdhYjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmZmVlZTI1NmI1NWEyM2VlYzQzMjhhZTAwMzQ3NjI5NzU0MDY1M2JkMWI1NjExYWU3ODkwMTg0MWM2YzdhZGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d91d33aeea8340bdb5271acedede4667",
+      "statement": "There is no repository-wide React ErrorBoundary; failure handling is implemented in domain and request layers such as SSR search prompt/error props, API status responses, Axios normalization, and catalog retry UI.",
+      "evidence": [
+        {
+          "resource": "repo://api-client/axios-client.ts#L30-L88",
+          "version": "repo-lines-v1:sha256:a28e758d62b58f062be38159710d7fc3a52edcd5cb49d0ed650ecf04fe9b2629:eyJzZWxlY3RlZExpbmVDb3VudCI6NTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5MDNlY2E5MmI5ODUzNjllMjFhMTNhYzBkZTE1OTA3OWEwNWVjOWIxMDMzZTdhZWNiYTBkNDdlMTg4ZDRhYjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5OTY3ZWMxZWQzODM2ZjhlYjE3YWZmMTcyYjViZmVmN2RlNjA0ODVhNDM5YzZjYTExYzU5MWUxNzU1NzM5YWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQyYmY5M2Q1MGIxZTlhZjRkMGE5NzEwNzg3ZDZmMmU4MjNiNzRmM2ZhMDNlODIzYjk5M2U5NjFmZmJiZDkxYzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE0NTFlMTU3ZTAyY2M0ZGE4OTY1M2FlNWI2YWE3ODkzMzQzMDU2YmZjMDk3NzgwMGMwZWY3YTZmM2VjY2ExMDAifQ"
+        },
+        {
+          "resource": "repo://components/lighters/LightersPageContainer.tsx#L167-L178",
+          "version": "repo-lines-v1:sha256:fb72a4c1c7f5eaf940cde553d272ef955462e72172c592a3fc3a94e4e8896528:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3N2NhNTA1OGI2NjY4ZmQyNjE5YmFlYjYwZjhjN2JkZDk4NmU2MDU0NDI5NGI2YTQ2ZjM3YjY5ZGI0ODkwZTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVmMTk4ZGJhMDc0OTljY2UwYTQ1OWUxZWE5M2EwMjkzYjdmNjhiODczODZiYzU0NDI4MTIzMmQwM2Y5MDVhYjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJkNjA4MmY5NzkzMzBiNTBlMjA1ZDdmYmFjMGEzM2ZlODQwZThiM2Q5ODNjMjQyMzNjZTIwZDZhNTc5ZTk2M2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU2ZWMzODRmYWVjMzNjODhmMjEyNTZmYWQ1NzAyMWU3ZGU2NDEzZTE2ZDE4NGEzNjY4NGVlMGIzMWEzYTUyZDAifQ"
+        },
+        {
+          "resource": "repo://pages/search/index.tsx#L346-L390",
+          "version": "repo-lines-v1:sha256:9b1fb75e70ce4103108c5ac0c1ba2ba158e783a339957d1c4a75a866fd56176a:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhhNzhmZDI3MTk5ZTZkMDBiODZjNTY5OWJmNzgwNzYyZjYyY2NkNTAzYjMxMzVhYzNlZTQxYTIyZWNiODljZjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNlZWIwNjgwNGExNzMxNDgzOTJlMzczMDgzNGNiNzZlYjNjYzBiYTdlZDQxNDIwNjU0ODEzODNiMTRlMTI4OTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAzZTU0M2JlMjlkYjQ2NWQ3Y2E3MTc4MGI4NGY2NjhkYTUxNjA3YTQ4OTkxNzczNDQzYzM1MzQ2MGY2ZTg5NGIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4cef10f2426e4bf3acfbc4b9dc777ebc",
+      "statement": "The Sanity Studio is a separate Sanity v2 workspace configured for project `soud11bs` and the `production` dataset, with schemas and admin plugins defined in its own workspace configuration.",
+      "evidence": [
+        {
+          "resource": "repo://sanity/README.md#L1-L28",
+          "version": "repo-lines-v1:sha256:c9940550709860eab02f77ddb2940cc928763c32b776cfa2e51a7ca6d51b9f90:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjMzRkMTI2ZmQyMDM4OTEzMDgzMzcyMDIwYTA5NTViMmJkNmVjOWNkZGRlZTc2NTIzMzc2N2RjYWRkMDM4MmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YzA2YzU2MWQ1YzMyNzM0MzY4NTI2OGE0NmIzMzkxZjM5OThlZWU4OTBkMmJlNTFmMGQyMWNjNGE1M2FlNmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNmNmRiOWZkNmUxYWU0MzU2NjM0ZWFlNTA3MTA2ZmQzMjEzN2IzNzRmZWU0NzEzNDgxYTgxZDM5OWZiNTBiZDkifQ"
+        },
+        {
+          "resource": "repo://sanity/sanity.json#L1-L27",
+          "version": "repo-lines-v1:sha256:f0e16534b39d8af5b28f6432133deaa9073d12cb942c69985af8267903d1a676:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgxYjUxYTUyMzZjYjAzYmJiMjE3N2M5MTBjMDhkN2E0NGI1NjEwYTQ3ZTdiMjI0ODVmNjA5ZmM2NDI2MzY0MmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.0",
+    "at": "2026-08-25T17:23:14.366Z"
+  }
+}

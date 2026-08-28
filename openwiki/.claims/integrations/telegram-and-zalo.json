@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:b9db561faceb7dd17be3ac5ff9e623dea05f0e155e0b86201f255846a2d3e5aa",
+  "claims": [
+    {
+      "id": "claim_5f76d83fe4bc447198160b22269af8d0",
+      "statement": "The three Telegram API routes accept POST requests, authenticate with an exact x-api-key comparison, validate bot-token and chat-ID configuration, validate route-specific payload fields, and return success with a Telegram message ID or an error status.",
+      "evidence": [
+        {
+          "resource": "repo://pages/api/telegram/send-abandoned-checkout-notification.ts#L21-L80",
+          "version": "repo-lines-v1:sha256:2a97d5d566fceb2a9c4f06d6cb9b72141aaada42d61149f3d3d1c1a74f9b1062:eyJzZWxlY3RlZExpbmVDb3VudCI6NjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwZTE3NzhmYWI5YWZmZWQyMzJlNWU2MjU3ZmNiNGQwNjg4NjRjNmU0MjgyMTc4ZGUyZTEzNDUyZWUyOTA2YjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4ZWY5MDE2ZWZiYmRlZDQ3ZTJmZmVmNDkyYjE3ODg1ZTdhYWVmYzk0NzEyMmM4N2NjMmZmMTRlNWYyMDEyNTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcxMjg3NTAwNTg5NjhiMmU3YTY2NmJmZGY4YjUwZDI1Zjg0Nzg0NGE2MWFiMWU4ZGU0NWNjNzQ1N2UxM2ZlZDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZkYjRjNDI2YWQ2YmJhNTRlMjJlNTlmNmQxNTA1N2E1MzJkNmIyMTYxYzQwMWI1NzFkM2Y5ZjE3YWEzM2I1ZTQifQ"
+        },
+        {
+          "resource": "repo://pages/api/telegram/send-order-notification.ts#L21-L54",
+          "version": "repo-lines-v1:sha256:09a90e4f1d0b3fd3a5433e5c7664199e52cacb850645cff99ee3637c2fb68ed7:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwZTE3NzhmYWI5YWZmZWQyMzJlNWU2MjU3ZmNiNGQwNjg4NjRjNmU0MjgyMTc4ZGUyZTEzNDUyZWUyOTA2YjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY0ZWZjNDk0MThkMjZkY2YxMjliMjJhNmFhMjExMDhjZWVjMzc2NzdhMzJkMDhlOWQ1ZmVlMzVkZGE2NmJiOWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYzMGUxZTA0NjU5M2VmOTA5MjY1MmZkNmE2ODM2YWY4OTkwNWY0YTM4MjI1NjRhNzA3YzAwOWQyMjljYzM5NTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwY2I0YmY5ZjA4Nzc1YjZlOTkyNTAxZjVlOTg0ZDM4Y2Q1MmJmOTM1NmRhZTBlMjVkNzhmNjg2YzQ5NzRjYmQifQ"
+        },
+        {
+          "resource": "repo://pages/api/telegram/send-order-notification.ts#L60-L85",
+          "version": "repo-lines-v1:sha256:cbd38886f0bf77df1bc6a24116510e5b4fdbe80faf05b4f34a33c67d25c80bbc:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjOTdjZGNkMTlhNDZhNzg3ZDNlNDU3YzJjMzRlY2Q1MTNjODU2NmVjOTNjM2M1NjFhYjg1ZTkxZGI4N2QzOWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMyYjExZjBlZTU3NzlkM2NkOTBlYTBhM2E5OTI4YTY1ZGQxYTFjZTljYTJlMmQwMGRlZTE1NmU0Mzc1ZjFkNTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ2YmI2NzM5ZGZmN2QyMGYzZTIxOWY5OTJiYzQxZTJlNGU5ZTI4YTgzNDMzMzIyNjM0ODg4Zjc4YTY3MjljZjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMxMjU1Njk4OTBiNTNjY2M3MTBhNTUzNmUyYmIxNTllMDFjYjM0Yzg0ODRlZDA0MTM2MTk0NzRiZDUxNTA3NTgifQ"
+        },
+        {
+          "resource": "repo://pages/api/telegram/send-quote-notification.ts#L28-L78",
+          "version": "repo-lines-v1:sha256:0417ac1b6242ec38140c89c0481b3a1320d58c5c2c7aff3ee41f384dd406a091:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwZTE3NzhmYWI5YWZmZWQyMzJlNWU2MjU3ZmNiNGQwNjg4NjRjNmU0MjgyMTc4ZGUyZTEzNDUyZWUyOTA2YjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY5MWY2NDZlY2IxNGYzZDVmZTc4YzA4MjVkNmE1MzA3NGMxNTE2NTE5MjViNWIzYjU0MTRjMzEzOTM2OTEzODkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIwYTIxODA5YzJmM2QyNzE0ZjIzNGZmMGQxZTRkOTlmY2FjYzM4NWUwNDlkMDE4YWU4OWE2YmUxODhjMmNhYmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNjMjYxYjNjMmNmMWNiNjYxNGEyZDhjMjkzOTc4YjY0MGQ3YzE3YWFkNjMxYjEzNzRhZTgzYzk1NDNhNzMwM2QifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f36ddde4a7c14bd98d9cb73d8a080eea",
+      "statement": "Telegram routes use a one-minute in-memory limiter with a shared CACHE_TOKEN: orders and quotes are limited to 10 requests and abandoned checkouts to 20 requests, with excess requests returning HTTP 429.",
+      "evidence": [
+        {
+          "resource": "repo://pages/api/telegram/send-abandoned-checkout-notification.ts#L12-L28",
+          "version": "repo-lines-v1:sha256:01bb9912f1eee664209761661b6424dd3a2f17d8f913f9f307d50676a8342b46:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzNzA4ODdlYWJmODYwZjUyMjYyNmYwYjAxMDhhNTdmOTJkNmUzNjU4MWZmOGEyYzUzM2UwYjBjZjI4YjZjOGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1MDQyZmExMjVhY2EyNmVkODQ5ZDUwOGFlZGQ3OWZlOGUxYTg4MzIzYjExYjc5NDA2MWMyZmUwZDAyNDAxMmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg5MDYxYzI2NGFiODg5NzQ1MDg4Yzk5ZWVmOWEyZjY0MjllYTc4NjVhOTEzOTZlYzNiZTExN2RlZjA1NDA4NDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVkMGMyNDVlN2E2YWI4YTJmMDAwNDA0ZDRiMTY5MTFhNDJjODAyN2ZmNWRlMjg3YzdkMzgzY2Q2ZDU4NDIyMzcifQ"
+        },
+        {
+          "resource": "repo://pages/api/telegram/send-order-notification.ts#L11-L29",
+          "version": "repo-lines-v1:sha256:d976a79c198393820a535d0e249c096efd46acae7e0bd720a58ac16f21cd1eb2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3YmU0YjA0NTIxZWFmMTcwYzc5ZjcxZjU2NWMyNWRlODVmOGU4YzYyNDNhZGU5MjJhMTE3Y2JlZDNjMTUxOTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1MDQyZmExMjVhY2EyNmVkODQ5ZDUwOGFlZGQ3OWZlOGUxYTg4MzIzYjExYjc5NDA2MWMyZmUwZDAyNDAxMmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNGNlYWU1YjBiM2Y5MWQ0OTVhOWVhZmE4MjA2NTM0ZWMyNmMxMTlkYWJkZTdmYmRmZWFiOGEyMGQxYmEyMzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY0NjAxOTM3NjMwMTIxOWUyOTA1NzVjZTAwMjE5N2Y1MDQzZjc0NzBlZWMxNTllZDMyNzdmYTg4N2VhNDFhNjYifQ"
+        },
+        {
+          "resource": "repo://pages/api/telegram/send-quote-notification.ts#L9-L35",
+          "version": "repo-lines-v1:sha256:e0b466240fa74b4d9498469ba6d6fed8944edd1302b03845692b3b0e05ee0d35:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzNzA4ODdlYWJmODYwZjUyMjYyNmYwYjAxMDhhNTdmOTJkNmUzNjU4MWZmOGEyYzUzM2UwYjBjZjI4YjZjOGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1MDQyZmExMjVhY2EyNmVkODQ5ZDUwOGFlZGQ3OWZlOGUxYTg4MzIzYjExYjc5NDA2MWMyZmUwZDAyNDAxMmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJkZGQ4YzhjMDkzYmZmZmMyOGFiOGQyY2FkYTQyMmM4ZjZkZDIwZTIyZjM1MjZhOTJlZjk4Y2JmNjkwN2FiNWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVkMGMyNDVlN2E2YWI4YTJmMDAwNDA0ZDRiMTY5MTFhNDJjODAyN2ZmNWRlMjg3YzdkMzgzY2Q2ZDU4NDIyMzcifQ"
+        },
+        {
+          "resource": "repo://utils/rateLimit.ts#L9-L33",
+          "version": "repo-lines-v1:sha256:3bbbc90c465a7824da96e47df77a7f0d5b08e626fcb907e94045861b1b409429:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgyM2QxODcwYjg4OTExYmY3MTJhMjRlNzk3M2U2ZGM0MWUzNGVkNTIxMWE3YWU0NTcxMGM4NWYxMDFhYzRlYWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBhODhmNjZmZjQzNWE4OTg4NTRjZGRlZGE1ZjczNWY4YzM3NjAyNTUyMGJhNTk3NDQ2ODQ4NjNiNDhmYjA5YWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQxZjdhNWUyZTk3NTQ0ZTRhZGRlYzhjMjk4NmRkMGFkZjMzMTA2Y2JiNGEzYTA0M2ExNDMwNGU2YTcwZGJhM2MifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_01bc45ad475941bb8538be4589f951a7",
+      "statement": "Telegram environment validation requires bot token and chat ID, checks the bot token against a basic format and the chat ID as a signed numeric string, and reports validation errors before a Telegram client is used.",
+      "evidence": [
+        {
+          "resource": "repo://pages/api/telegram/send-order-notification.ts#L45-L58",
+          "version": "repo-lines-v1:sha256:c88236545690ceef11b6f2bd33079e8121ff0931613efa38cc579ce4e05a588f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlM2E0NTcyOWZhZjk3ZmNkYjUxYTYyOTExM2EyM2EzZDczZTRiOGY2NTliMmFkYjY2ZDExZjk2NGE4YTdhYjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0ZDQyNzMxZTBkYjc5ZTEyMzZmYjBiN2I0NjQ4OTZlNDk1Y2EwMDE2MWMwZGEzYWViZWU2MmVkMWQ5NzM5OTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmZmVlZTI1NmI1NWEyM2VlYzQzMjhhZTAwMzQ3NjI5NzU0MDY1M2JkMWI1NjExYWU3ODkwMTg0MWM2YzdhZGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU5Yjk5Y2I1MTJiYWI2NTQ1NGZjNDY1OTM5MzRjNjRmMDFiMGZlNGZlMTU4YTUzN2FiYmIwMTkxNGZjMWQ1Y2YifQ"
+        },
+        {
+          "resource": "repo://utils/telegram/validateTelegramEnv.ts#L6-L37",
+          "version": "repo-lines-v1:sha256:87810eb3ea7f781742d3adbb1cab01cca2c03a100756402d69391eaffbf6d26b:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk5ZTdjODcwN2E1ZTRjNDE4M2QxNDI5MjFjZmYzMzczMzU0YWI3NDJlNmRhYmQyMDZkMGVhNDU1ODAzMzhmMzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVjZmIyYjE5YzBiMTM3OGM2YWM4NTU2ODhkYjhkNzg1NWQ1ZGIxMTE1YThmNWQ3NGIyMWQxZjA1YjRhYmM0YTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_aff9b2f6e09346b99837ed3b5ac5ddfa",
+      "statement": "TelegramClient sends HTML-formatted Telegram sendMessage requests, converts unsuccessful API and Axios responses into structured failures, and logs chat migration guidance when Telegram supplies migrate_to_chat_id.",
+      "evidence": [
+        {
+          "resource": "repo://utils/telegram/index.ts#L11-L80",
+          "version": "repo-lines-v1:sha256:e2b4515749e96962c09195b2c3bd23186045b83f7a18551a22ae615fc008d33d:eyJzZWxlY3RlZExpbmVDb3VudCI6NzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI0YjFhZTMzMzUyNjZmM2Q1YzJjOTVmMTQ5ZWQyODZlMWUyMGM1MDc2ZjE2ODJiYzg0OTg3OGQwYzJhZWNiYTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiZTJlMjgyN2Y5MDFhY2VlN2Q5MDE3ZDI0ZTllNWQyZmM1N2ZjZDE5NWYxNzUzYWRkNTk5NTkyODcxMWYwNGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ5ZmY3MGFjMTQ4OTk4YzYxMGI2MmE0MTFhODg1Y2ZiNmZmYTk3NGJlYzM5MWVjZmNmNDdmNDcxNjg1MjdiNzcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_76286aa61d484a7fa73334b4222e5b0f",
+      "statement": "sendWithRetry retries unsuccessful Telegram sends up to maxRetries, defaulting to three attempts and exponential delays beginning at one second, and returns the final error with the number of attempts.",
+      "evidence": [
+        {
+          "resource": "repo://pages/api/telegram/send-order-notification.ts#L96-L105",
+          "version": "repo-lines-v1:sha256:ba79c6fb817c8b9dfb6116fa765bcb258e798126973e758652af0889c8e26f45:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY0OTc3MTc1NTM1NDA2Yzk0MjcyNWI3YWEyMmUyMDQzZmM3NzllODMyZGM2MzUyMWU4MmFhOGUwOThlNWM5ODgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZhMmEzYjc2ZTEyY2UxNTM3OWQwNWYyODY5ZGM0ODMyZGU3NTg5MDUzYjQ5YmZmMjM3ZTQyNWM3MjM3ODAxNTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwODMzZmJkYWYxNWI1OGRmYTdlNjk0MWVhMGIyNTk0ZDQxOTkwNmVkYTdiYmU4MzMwN2RiNTg2NzlmYmM4NDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVkZWU4NTFlZWRjOTg4MjJjYjJlMDA0ZjhmMWVlMjcwNzdjMThjZTQzZDBiMTI2YjNhMzkwZWUzODIyODgyN2UifQ"
+        },
+        {
+          "resource": "repo://utils/telegram/index.ts#L96-L151",
+          "version": "repo-lines-v1:sha256:22179dadcc2835309b8f9fabb0c0410332b4aa9291b9e115edbeefa90c78e799:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YmM2OTY2ZjRjNjc3OGNiZTY1MzE3ZjgwZTQwYWZjYjQzYjg1NmI4YjU3MGI0MjFmNmMzNzI3NjU1NTUzN2YiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OTI5ZTkxZTBmOTljM2U4MjVkZTY5YjQzNWZiNjQ4NGQxYjBhMWRmMmY0NjU2MWFiZjFhMjlmMDQxODhiODgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c22b718c2f1e4d01a4e48f717bacfc84",
+      "statement": "Order, quote, and abandoned-checkout notifications use distinct formatters that produce Vietnam-localized operational messages with variant-specific customer, order, quote, cart, totals, links, and optional-field content.",
+      "evidence": [
+        {
+          "resource": "repo://utils/telegram/formatAbandonedCheckoutMessage.ts#L5-L55",
+          "version": "repo-lines-v1:sha256:f3e69d63b38bc2a7d5f18cbc72c3345292ef2e6069fb7960926e6fdc9756ed91:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkYjZhZDE1N2RlYTAwNGIwMWIzYWQ2YmEwNWY4MDNmN2Q3MjE0YzdiODVjYWJlOTRhM2ZjN2Q0MTA0NzkzMDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4NDBiMTkwOWY3M2RlMTUwMjc2OTQ2NTUyMTBlZjM2ZTJiZWRhMzQ0ODQ3NDZkODZjOGQ5ZTdmZDljZGQxMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmYWE1ZDJjMDgzYTAwZGI4ZmJiYmNmYjQxYzM5MTM2NmM2NDY1NDQ1ZWIzOTFhZDM0NTdhNzdlNjBhMTQ2NjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://utils/telegram/formatQuoteRequestMessage.ts#L5-L140",
+          "version": "repo-lines-v1:sha256:cfc65d7365977bc16c35ee954b7545288e849d4f1849f9645162dd36d23bd484:eyJzZWxlY3RlZExpbmVDb3VudCI6MTM2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI1NTQ3MzA2ZDA5YWZkZjhhYTY0ZGIzOTE1MGRlOWRjYjg2ZmE0M2EwNzliYzA1NDNmNWM0ZjcwNWEyMDQ1ZDRlIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI4ZmFhNWQyYzA4M2EwMGRiOGZiYmJjZmI0MWMzOTEzNjZjNjQ2NTQ0NWViMzkxYWQzNDU3YTc3ZTYwYTE0NjYxIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        },
+        {
+          "resource": "repo://utils/telegram/index.ts#L154-L275",
+          "version": "repo-lines-v1:sha256:7761bf5a744515fb1351dca20f542f296326da710bb4d76150a68be5bcfb33a4:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIyLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlYWYyMmNmMDczMjU5MmMyNDcxNDFjYmU2MWVmYTExMDEyNjEyZjVhMzEyMmI5YWY5YmJhZjUyZjU3MjRkMTk0IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJlNjFjOTllYTc3ZjRlNTY1NDI3ZmRhY2RlOWQwOTkzYjRkMDE4Mjc0M2ZlNjFmZDNmM2UyODgwMjE5ZDM1OWE2IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5NzYwM2ViMmI1ZjEyYWVlYmNhMWExNDJmYjJlODQ4NjhjN2NhNjVkNDE3MjgwYmRlY2E2NzM0OGRjOGY1OGMzIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIzNzkyOWU5MWUwZjk5YzNlODI1ZGU2OWI0MzVmYjY0ODRkMWIwYTFkZjJmNDY1NjFhYmYxYTI5ZjA0MTg4Yjg4In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_8ed88c165d9149789b13ca6facaa1a80",
+      "statement": "The checkout creates an order before sending its Telegram notification, then performs purchase tracking, completion state, cart clearing, success feedback, and redirect; the quote form persists and acknowledges the quote before attempting Telegram and explicitly does not fail the quote flow when notification delivery fails.",
+      "evidence": [
+        {
+          "resource": "repo://components/contact/QuoteRequestForm.tsx#L207-L233",
+          "version": "repo-lines-v1:sha256:59fadd61b92e4b5606e86f1991e6c9e79582a933d9520a6ce1439f6903f112f9:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM5ZDA3ZjQ5ZDUxOWI2OGRiZGVjYjg2NWJiNmExOGMyZmJmMjIyNmYyOTNjYjg3MWJiMjdlZGNhNDY2NjA1NjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEyNDBlZDQ2YWZjOGU0YWQ5NzljYjJlNmJjNjE1ODJhMmVlOTA5MDIxODIwNjY4MzEzNTljMjEyYjllMGI2MmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY4M2E1MmZkMThlMGQxMjZhMWI5YWIzMzVhNzhmM2MzNjljOTkzYTk0ODBiMGIwNjMwZjI5NGFjOTNiMGE0NGIifQ"
+        },
+        {
+          "resource": "repo://pages/checkout/lighters.tsx#L324-L379",
+          "version": "repo-lines-v1:sha256:bb3c30a40ac5403f6bd92f1e2d24d5e990e1a3f287642ca63658c9ff4518c00f:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0OWQxYzFjODA0NDE5YzNmOGYzZDQ5OTI4YzY3NGExMmM4MTBmMWJmNDk4NWE2OGNkNjE3NWJlMWFkYjg2ODQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY0ZWZjNDk0MThkMjZkY2YxMjliMjJhNmFhMjExMDhjZWVjMzc2NzdhMzJkMDhlOWQ1ZmVlMzVkZGE2NmJiOWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNjMWQ4YWRiMzY3YmQ2OWU0N2Y1MzFhZDViMWEwZjFlMjAzZGNhY2VlMzRjYjNkNGYyNzFkYjY0ZjU5ZGJkM2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxZDUzYmIxYTA1NTIxNDExNjcwYTMwMzg0OTA5NjMxZGFhYjA3NDU0MDEyNGNjNWRiZDM0YmNmNzY0NmI2OWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_23d885cb7ada44dfa7e9f6a7ab74fa44",
+      "statement": "Abandoned checkout tracking fires at most once when the cart has items, the phone is ten digits, no order was submitted or completed, and navigation occurs through beforeunload or routeChangeStart; beforeunload uses a keepalive fetch while route changes use the SWR mutation.",
+      "evidence": [
+        {
+          "resource": "repo://hooks/useTelegramAbandonedCheckoutNotification.ts#L12-L47",
+          "version": "repo-lines-v1:sha256:6b63cfd051bcd981351ae9fb2ab509f685be3194884beb638d1a8a0df24684be:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YThmMGVjOTcxM2I5ZTA1YWMxYThiYjAxZGNkODU1YzRmNzI1MmNmNGVhZGEzMjIxMjBjNWY2N2Y4NmYwYTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImExZDg2OWUxYzgwMmI4ZGJiZmRmZjZkYzRmYmMzZTUyZDJjZmJlMGRmMzNiOTQ4NWY3YzIxNmQzNGRjNzFhZWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://pages/checkout/lighters.tsx#L141-L243",
+          "version": "repo-lines-v1:sha256:4e810f3b3a5928ad0220284d1bd3a302ebb17487a4a522e679ec9898e841ad0e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI0NmVhMjhkZjNlZWMyMDE3NDYwZmM5YzdlNGMyNzg2ZDE3MDljMjk2MGNkZGM3MGViYzI1Y2RjYTdiNzUwMWQwIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIzMzRhMTA0MmQ2OWZkNTEzMmRkMmU1YTg5ZDU1M2NkMTExNzhlN2UwMTIzOGYzNzExZjljNWU1ZWY0Y2ZjYjgyIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI4ODlhZjk2NGY4MWM3ODA4ODE2YjVkZTQwYTM0ZjE2Mzc0ODhlNzE3M2Y1NjhhOWM3ODUyMDIwYzljMmY0YjdlIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJjNGQwOTQ1OTkzMmVkMDgzMjZjYTNmNWMzNTg0NmI5OWY2MTQ2MzYyM2FiNTc5Nzk3YWI4NDhlYTdhODQ3MjI5In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_443dc109fe9e47c4847cc469aced1aff",
+      "statement": "The Zalo phone hook debounces valid normalized Vietnamese mobile numbers for 500 milliseconds, posts to /validate-phone when enabled, ignores stale responses, and maps true, false, and null or errors to registered, not_registered, and unknown states.",
+      "evidence": [
+        {
+          "resource": "repo://hooks/usePhoneZaloCheck.ts#L7-L55",
+          "version": "repo-lines-v1:sha256:90f2684dace66067f6f90fb500329c277ce4522e1a6fe0a355a0189faa1c4a53:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzYWQxN2RjYmYwZWEwNTUyYzkyZWJjZjU4ZGM3ZWZlMTBkZjU0NjQzZWRjNzlhNDU4MjMyZWE4YjMyMTg2ZDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5N2Y0Zjc3MzM3NGNjNTJiMmQ4OGRmNWVhNDg2ZGQwZmZkZTAxOTNlZDBhYmVkZjU3ZTg0NWYxZjZhZTJjYWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIzYTVlMWViYjg4Y2QwZWEzMTJjODdhM2Q2Y2JjZGI0YTNiZDg2OGE2MDM3ODMzMWNkMDVlNDdmYmI2ODgxN2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://utils/phone.ts#L1-L13",
+          "version": "repo-lines-v1:sha256:be92961c4919fa4a24672d022139543b3ed636714a21c9a05177a4281f70e2ee:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0MzFiZDFjMDRmMWZmN2RmYTQ4N2RlZTQ3NzU2YWM0YjAxOWU0MGJjYTQ2MzNkMmE5NTc2MGM3ZTc5OTkyZmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b563641884794286a98252e4fecd903a",
+      "statement": "The validate-phone route rate-limits by client IP and deliberately returns HTTP 200 with zaloRegistered null for rate limits, malformed phones, and probe failures, while method and API-key failures remain 405 and 401.",
+      "evidence": [
+        {
+          "resource": "repo://pages/api/validate-phone.ts#L26-L72",
+          "version": "repo-lines-v1:sha256:efa5da4668a1c598cc59c7965a05bb7440134df92a74b41111f5e0a48c1156e6:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwZTE3NzhmYWI5YWZmZWQyMzJlNWU2MjU3ZmNiNGQwNjg4NjRjNmU0MjgyMTc4ZGUyZTEzNDUyZWUyOTA2YjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNkYWQ3Zjc3ODlmOWQzYTBiNGVkZTc0NDg1NzRhYWNkNGQzMWE4YjdlZWVmYjIwNTg5NzliMDRhOTZmNDczZTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://pages/api/validate-phone.ts#L8-L24",
+          "version": "repo-lines-v1:sha256:88da0547debab3989adf79bf00bca02fae0b43fe1949750e6401dafd46fedfa6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzNzA4ODdlYWJmODYwZjUyMjYyNmYwYjAxMDhhNTdmOTJkNmUzNjU4MWZmOGEyYzUzM2UwYjBjZjI4YjZjOGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFmZjY1YmVkZTNmNDUzYTQ3OWVhMTdiYmJiMDA5OWI4MjE5ZTUyNTc0MGEwMjI3ZjUyZmI1MzA1MDE1Y2ZhMjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhiNjA2NTM1NmQzOWU3NzU2ZGRmNmMwY2JmYzAzZjdiZDFhNGRiMDU3NDAxZGNkYzAzMGRjMGM0MWIzZWQ3NDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzNGVmZjk2YTg1NWVjZDAxN2JlNGZlZDE2MzdlZmQ0ZjEyN2Y3ZjViZWViODMyMmE5NmYwMDg5ODM4YzBkOTEifQ"
+        },
+        {
+          "resource": "repo://utils/rateLimit.ts#L36-L40",
+          "version": "repo-lines-v1:sha256:9982bae0f754a282997a97c52742aff92ab1b1e15196cf8fa3c94c614ae54a4e:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjlmMzk2MTEzN2VmMmEwZTg1ZmE4MTYwOGI1NDg4OTA0MmEzNWI1ZWYxNTU1ODRlYTkxNzNkOGQ4Y2E2YWIwNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTRiYTcyNjNjMTA4NzAyYTU1Y2M5ZGNmNTgxZjExMzMzNzgyOTc2ZGU3ZTYwNGQxMjE1ZTZkOGNmNTFhMDhmZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjIsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmY0NjhlYjYzMzdiMTM2ZjdjYTlkNjZhZDc3Y2FhYWE3ZWQwYTI3NjVkMDlhOGM4NmY0ZjY3NTQxMmU5MzEyMCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_34ec80633cb2434ead3b1480c242e4f6",
+      "statement": "The Zalo probe normalizes the phone, uses a ten-second timeout, manually follows at most five HTTP(S) redirects, classifies zalo.me as registered and Apple App Store hosts as not registered, retries unknown results once, and otherwise degrades to null.",
+      "evidence": [
+        {
+          "resource": "repo://utils/zalo/index.ts#L27-L83",
+          "version": "repo-lines-v1:sha256:f426dc03c7767ee906ef34a6b08721507175b5abc6e6aa84dc55aa10bfe9d65f:eyJzZWxlY3RlZExpbmVDb3VudCI6NTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhODhjYzRjNmJlNDY2MTUyY2EzNzYzN2Y0OGEzMTIxMTgwOTFjYjRkYjRlMTExYjcyZTY2YmUxN2JjNmFkYzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://utils/zalo/index.ts#L3-L25",
+          "version": "repo-lines-v1:sha256:da3e6a74d9c15bd30ba0f45b20878962a7a692d84adff3627091776032fd89fe:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU0OTI1MzhiMGM0M2M5OTJjM2EwOTEyMmYzNTRmN2I1YTM5ZWFhYTgyNDMyMmNjMmUwOTI5M2UyNzlmYzlmZjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoyLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNjMTk3NmI2YWI5ZDQ5MDE4ZjgzMDVjNzAwY2Y0NjJkN2ExMDE5ZTdkYTUwNDM5MzI1YTE3NGY2NzFkN2RiNWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc1NDEzZTc5Y2Y0N2Q0MjEwMmFjNzMyYzdmYmVkMThjYTJjNjNkZjlmMjA2MzFkZWNiOWY0NTE2ZjY4YjE4MTcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_182c1f47e9164b79b8656ad0610282ae",
+      "statement": "Zalo checking is enabled unless ENABLE_ZALO_PHONE_CHECK is exactly false ignoring case, and the quote form's Zalo confirmation is advisory: quote submission proceeds independently of registration status or probe failure.",
+      "evidence": [
+        {
+          "resource": "repo://components/contact/QuoteRequestForm.tsx#L154-L205",
+          "version": "repo-lines-v1:sha256:6f071c4ed1a7a1cc473e8cac7351419c6ddb15ad1d4404eb2eafb0d648d652f9:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUzODg5YTgxYTk3YTAyZjJjNGY0ZGUzZDViMjIxMTg2OTk2YmIxNThhNjQ3ZDRhYTkxZmY5MTUzNTI4YWRhYWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ1MmY3Yzk1ZjE1ZGRmMmFjMjhmYTdmYTg1MzkyYzIwZDMzOWFkYzkzN2UyNTk0MWZmOWVlYTQxYjM3OTlmZDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJlYjE1NGM4MWQ5M2Y2YmIwOTM2NDkwYzg4M2I4YTFmZDI3NzRmYTk3MzJkY2VhZTkwNDIzY2I4MTRmN2QxYmYifQ"
+        },
+        {
+          "resource": "repo://components/contact/QuoteRequestForm.tsx#L207-L233",
+          "version": "repo-lines-v1:sha256:59fadd61b92e4b5606e86f1991e6c9e79582a933d9520a6ce1439f6903f112f9:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM5ZDA3ZjQ5ZDUxOWI2OGRiZGVjYjg2NWJiNmExOGMyZmJmMjIyNmYyOTNjYjg3MWJiMjdlZGNhNDY2NjA1NjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEyNDBlZDQ2YWZjOGU0YWQ5NzljYjJlNmJjNjE1ODJhMmVlOTA5MDIxODIwNjY4MzEzNTljMjEyYjllMGI2MmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY4M2E1MmZkMThlMGQxMjZhMWI5YWIzMzVhNzhmM2MzNjljOTkzYTk0ODBiMGIwNjMwZjI5NGFjOTNiMGE0NGIifQ"
+        },
+        {
+          "resource": "repo://hooks/usePhoneZaloCheck.ts#L19-L47",
+          "version": "repo-lines-v1:sha256:3f828c86b1298a076d8099b0d7ee4a833f124efe7f37a6ef213c82087e653b72:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY0YzczMTgyZTAyYmJjYzhmNzgwOWI1Y2M3YzY4ZDQ1YTc4MWM5ZjM2OWE5N2E5ZDQ1ZGI5Y2JiZTU3Y2QyZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2ODA2ZjE1NWM1YWMxYWUyNzIyY2EwNmYyYWM5Y2FkY2I4ODFiOTEyM2NiNjI0YTNjMTA0NzViNDQ0OWRjMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRiMDY1MDJjNzk4NjljMWVjODM3ZjE0ZTA5ZjdmMjU3NzRlNzgxZjQyNTk2ODgyNjFjMzkzNTBlOWY5YzFmNTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxOTAyMDVhMGJlZDM3NTY2MTQ0OGYxYjI4MmQzZWZjZDQ3MWEyMDZkMjUwNTZmYzcwOWI2MzUzMjI0MWEzNTUifQ"
+        },
+        {
+          "resource": "repo://pages/api/validate-phone.ts#L21-L25",
+          "version": "repo-lines-v1:sha256:508cb0b5e0dc0e03920b26b05061c9c61103d9cba75830f1c869553df69336fe:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTcyYTQyOTM4MmIyZTE0NzE4ZTBlMzdiMDU3MGE4YTE3MDI5OTFmY2Q4NDk4Y2Q4NDA2MGE4YmY0ZjA1MDE3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDIwN2FkMWUyZDQyYWU3YjcxMmFmNTdmYmIyYmFkYzM5ZTY0MTdlMzA4YWJhYjVlYzZmOTRjZTFhYWM4MDJjMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmYyYTNiZDAxNjk3ZGZkYTkwMWI4OGYxODMwMTE0ZTljYjVlNDI0NzE3NmQyNmMyZTBjYTEwZjU2OGQ5ZGVmOCJ9"
+        },
+        {
+          "resource": "repo://utils/env-const.ts#L17-L24",
+          "version": "repo-lines-v1:sha256:59216b6a1abe086a0c73ab9bd87688139d648ce62e84e38e9237d599bd6b9051:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODUzMDRkZjJjNmMyZWU3OGE0YmExZmM5NWQ4Yjc4MjhjMjcyOTAxMWNiOWZjZTc5NzQyODUxYjg0ZDU4Y2FhNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTA0ZTcwZjE0NjRkMDU1OGIwNzVlNmE2ZTBhZDQ3ZDE4ZTUzYjg0OTFjNzYxYWJlMThiMTg2MTY3Yjc4MDRmOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWY5MjUzMTMxZWMzZGVlNmJhZDc0ZDNhOTVkNjU5YWUyNDAyYzYxODM3ZDA3MTQ0NTY2OGM2MjViMGMxZTI0MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjIsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2RmZGFlOTM2MDYyZjk4YTYwM2ZlZDNjMzQ3ZjU3NTA5YzExZjA5MmYwZDU3ZTAwZDJlY2VkZjE3OTdhM2MzMCJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.0",
+    "at": "2026-08-25T17:23:14.366Z"
+  }
+}

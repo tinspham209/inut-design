@@ -1,0 +1,206 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:5d4999d0fe9b8faf6749f7bf68974fbb856e7df9005a8eecaba2740c7f2133a9",
+  "claims": [
+    {
+      "id": "claim_856d5d1561a24af5aa57a09777481e19",
+      "statement": "The repository’s implemented verification surface is primarily shell and browser regression checks rather than a broad unit-test suite; the Feature 4 plan explicitly records that there is no Jest setup yet, while package scripts expose lint, build, and three regression commands.",
+      "evidence": [
+        {
+          "resource": "repo://docs/plans/2026-07-24-01-engagement-pwa-seo-feature-4-test_plan.md#L9-L18",
+          "version": "repo-lines-v1:sha256:854df765714451fdefb0adf7c7bfabaca11e1e82d7a05f8952ab30ee89381fd3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3NTliNmRlMmU5OTQ0OGE2ZGRiNWM0ZTY5YmRjYjkwMDQxZTI3MmEyZjU3ZjNhODdkMzZhNjZlMThhYzc5YzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3YTNiMjZiMTYxYTVjNDJkMWE0ZTQyMTk0MWNhNDcxZjc2NWUyNzc0ZGVmMzAwYTJlZjBiODk2ZmE3YjBhZjEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAwMWYyZWMxNzU5M2MxMDU0ZWI0NjM2N2Q4NDUzZWYyNGExNzNjZTk2YjcxMTdkOTFmOWE2OGQ0NGZlZjhiMDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAwMWYyZWMxNzU5M2MxMDU0ZWI0NjM2N2Q4NDUzZWYyNGExNzNjZTk2YjcxMTdkOTFmOWE2OGQ0NGZlZjhiMDEifQ"
+        },
+        {
+          "resource": "repo://package.json#L16-L27",
+          "version": "repo-lines-v1:sha256:05c63b7057589cb923fbe25b3f1dab1c96898183c81ca7ccf26913a18483f6d2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3M2NhMGRkN2QzYTM4OWJiODNhMzhhMWIzYzQ5MzhlZjA5ZDFmZjhiYTYxYzA3NTM4YTE1NTNkNDkyYmEyZjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3MDgwYWNjNjI3NDE3NGIxNGNiM2M2ZjI3NmY2OTgzOTc4MjM3YTI4YjljZTgxYjUxZWIxZDMzOTJjMDVkYTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRjZjE5OGZlY2E5MTkzYzE1OGVmNTQ5MWU2MDhjMGE5NTVhZjNiNWY4Yjc3NTE3ZDA5NzhlNjNiYmY2MmZlOGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE3ZDRmNTBhMmU1MGIxYzlhMTA3NGE2MDY0MzNiN2M4YTA0YzA5YjFiNDk1OGYxNWZkYmI0ZTU4YTNiZjdjY2EifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7e7fb4723ebb4957a6b219b98f20ec2f",
+      "statement": "The recommended validation order for routing or runtime changes is `pnpm lint`, then `pnpm build`, followed by a focused manual or regression check.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L53-L57",
+          "version": "repo-lines-v1:sha256:8ec248cd2705e3ffe99c0162593fe87404ee3f8cd1ed7b7f03349dc46ffc446f:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTY3YTA4NDcyNTJlM2QxY2JhOTFjNTgzMjA0ZDFjOTkxZDBkNjJjMzc4YjEwNjI4ZDM1NGRhYTMyZjk5ZjEzOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDdjMDZjNTYxZDVjMzI3MzQzNjg1MjY4YTQ2YjMzOTFmMzk5OGVlZTg5MGQyYmU1MWYwZDIxY2M0YTUzYWU2ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDAxZjJlYzE3NTkzYzEwNTRlYjQ2MzY3ZDg0NTNlZjI0YTE3M2NlOTZiNzExN2Q5MWY5YTY4ZDQ0ZmVmOGIwMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDAxZjJlYzE3NTkzYzEwNTRlYjQ2MzY3ZDg0NTNlZjI0YTE3M2NlOTZiNzExN2Q5MWY5YTY4ZDQ0ZmVmOGIwMSJ9"
+        },
+        {
+          "resource": "repo://package.json#L16-L27",
+          "version": "repo-lines-v1:sha256:05c63b7057589cb923fbe25b3f1dab1c96898183c81ca7ccf26913a18483f6d2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3M2NhMGRkN2QzYTM4OWJiODNhMzhhMWIzYzQ5MzhlZjA5ZDFmZjhiYTYxYzA3NTM4YTE1NTNkNDkyYmEyZjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3MDgwYWNjNjI3NDE3NGIxNGNiM2M2ZjI3NmY2OTgzOTc4MjM3YTI4YjljZTgxYjUxZWIxZDMzOTJjMDVkYTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRjZjE5OGZlY2E5MTkzYzE1OGVmNTQ5MWU2MDhjMGE5NTVhZjNiNWY4Yjc3NTE3ZDA5NzhlNjNiYmY2MmZlOGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE3ZDRmNTBhMmU1MGIxYzlhMTA3NGE2MDY0MzNiN2M4YTA0YzA5YjFiNDk1OGYxNWZkYmI0ZTU4YTNiZjdjY2EifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9ef9de3a89f74b6f9c5b54f53cd49c3a",
+      "statement": "The main browser regression script defaults to `http://localhost:3000` and `basic` mode, checks homepage branding and navigation plus lighters, products, and blog routes, and saves phase screenshots; `full` and `cart` modes add a simplified lighter add-to-cart and checkout path.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/regression-test.sh#L3-L9",
+          "version": "repo-lines-v1:sha256:01692992d1244a93bd998da2b4f10226aa94ea90e873befb5341ec0a733346f5:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODAxZTYwN2VhZDk0M2IzNmVkYzBkOGFhNTQ4NTFjOGQ4Y2JmODM3ZmEzNDExNWU5YWY3MTE1MzZmZmJmOGVjNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWViNTlkMmFhNGNiMmU1MGFkMzQ1NjY5YzM2OTQ5ZGMwNmQyMTQxMGQ1NzlmOWFhN2Q0OGE0MzJlMGI4YjA2MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDk2MjJmYWUyYWIwMmZlMzU5ZWQxNTA5NjRhOTI2NTM2OTdiZmIyMzVlMjA5NDdhYTNjM2YzODU0ODRlOTdiZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDUyY2VlZDdkNjk5M2E2MzkyMTAyOGU0MmUwOTRjZDQwYTgyYmZjNTdkZmU3ZDY0MzIyMDg0ODczMDQ5MDFlZSJ9"
+        },
+        {
+          "resource": "repo://scripts/regression-test.sh#L43-L97",
+          "version": "repo-lines-v1:sha256:20d0ccf79d7d35ac16a3af7dea0d7490772fcf6a1fcbd5e71a9fb9bcf06772d9:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBlODUzN2QwYmFhNzNiNzcxODY3YzgzNzFkYzM2ODNjOTUxNDQwNzVhNGVkNmNhOTQxN2VmOTc3Y2FhYjI2MjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1NjlmOTJkMDZmODJkZjMzNzJjNGQwMWZhZDlmYzFjNTMwZWNjY2QwMmRhMTJhNzU4YTBiZDNkY2IwMTE3MjIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU2Y2U5Mzk2OTAzOTJiODczNzY1OWVjYjI1MzdlZjFhOTAxYjU4MWI2NWRjNTJmYjExNWY5YmMzM2NhNGRiZjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJlNzMyOGEwMDE4NTYyNGZhYWZiNjBmMjc1NGUwMDk0NWI3OWZjMDc3M2QzMDdlYjQ2ZDBlYThlMDQ0MTg5M2MifQ"
+        },
+        {
+          "resource": "repo://scripts/regression-test.sh#L99-L161",
+          "version": "repo-lines-v1:sha256:fa05267f6cc1f3f1dda9aae468f99ae8dac5d7aca6793c78fba37eeb164a9b13:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNlYTExNThkYjI5YjE0M2I4YWY1ZTZiNGJmNzBmMzQxOTExZmU3ZjRlMWVhMWU4NjYyNGVhOTczMWQ4OWFkYzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3NjlkMjM3Y2Q0MjBiOWQzOGI5ODFhMGE0ZjY3NzAxOTBhNGE4M2RjYTFmZTU2YzRmNWJhMWUyY2JjMGVmNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNlNDM5NzhlOWJkMWNmZjFiMDc5YTllYTFjMDA3OWJlNjc2NTk1NThhM2I2YTRiYzE2NmFjODZiNGRjZjQ2MDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE3ZWM3MzUyMjM1Y2Y3ODU0M2FhZTIwN2YyNmEyZWUzOTM3NDUyZjYxODJiODZlNDcyMGIzNjY3NTZkMTg0NjQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_14a4485990fd47fe84c19e2205da6b45",
+      "statement": "The quote-form regression script covers invalid-phone blocking, valid submission, Zalo confirmation and cancel/confirm behavior, +84 phone normalization, and malformed-phone hint precedence.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/regression-test-quote-form.sh#L48-L60",
+          "version": "repo-lines-v1:sha256:3f8d8d1c5d25c2745f55ffc418eebc563b25d1d4bcd959e2c72ed1f84f16d2a6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc1NzcyMDU0ZWEyMzRiYWRmNzc0ZGY2MzhkZGM5ODk2ZThhMGE1NWU3Yjg0ZjBlNWM1OTYzZmY1OGNmYjcwN2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU2Y2U5Mzk2OTAzOTJiODczNzY1OWVjYjI1MzdlZjFhOTAxYjU4MWI2NWRjNTJmYjExNWY5YmMzM2NhNGRiZjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY5NDcyZDZiZmQyNTI2YWIyY2U2NzI4Yjc0MGE0YjI5ZjgxYmM4NTE5MmZlOTFhNGIxNDZkMjBhMGU1MzU0NGYifQ"
+        },
+        {
+          "resource": "repo://scripts/regression-test-quote-form.sh#L73-L171",
+          "version": "repo-lines-v1:sha256:e69f3e701da7cb8bb3e82078ae23f9186b93329bb5aeea517ffa7d738512fdf8:eyJzZWxlY3RlZExpbmVDb3VudCI6OTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE0MTVmOWNkZWY4OTNlZTM4YTQzMmEwYmI5NTFlZTQ4ZWRjMWRhNDI1ZGJlNDk2YmMwNWU5Zjg5ZTUxNzk1OGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxNTcxNDYwZWM3MWNkMmM3M2EzMjdlZWMxY2M0MWMwM2NlYzg2MmU2NzM4MjI1ZDk3ZjI5MGUyMDQ2ZjM1YjIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY5NTRmYTk5YjUzYjBhZjI3OGExOTIyYmZhYzkwMmNlMWM1ZWZmM2Y3NmY1NGYyYzVjMWI2NGU0ODNjOGJiZTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg5MmFkNDk2ZTU3MDk5Y2YxNDM2OTdmYzVlMGU0N2ZjMjBjMzEzYzgyNmIzZGI2NTk0MjY0ZWEwMmU1NjIyNGQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b48aaff56f1647589bad52f7fd966dd1",
+      "statement": "A successful quote-form regression submission has real external side effects: the quote API rate-limits and validates the request before creating a Sanity `form-nhan-bao-gia` document, then the form sends the created result to Telegram; Telegram failure is logged without failing the user-facing submission flow.",
+      "evidence": [
+        {
+          "resource": "repo://components/contact/QuoteRequestForm.tsx#L207-L232",
+          "version": "repo-lines-v1:sha256:b8c4cbcfb88030c2aae4c2698bf3cea6f3010d89ba9bafdc5c3db73d8d5c0f3e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM5ZDA3ZjQ5ZDUxOWI2OGRiZGVjYjg2NWJiNmExOGMyZmJmMjIyNmYyOTNjYjg3MWJiMjdlZGNhNDY2NjA1NjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY0ZWZjNDk0MThkMjZkY2YxMjliMjJhNmFhMjExMDhjZWVjMzc2NzdhMzJkMDhlOWQ1ZmVlMzVkZGE2NmJiOWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEyNDBlZDQ2YWZjOGU0YWQ5NzljYjJlNmJjNjE1ODJhMmVlOTA5MDIxODIwNjY4MzEzNTljMjEyYjllMGI2MmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRlYTE2NzQxMjAyM2E5YmY3OTZjMDk4ZTRkOTBlMGQ4NmNjZjFmMmVmYWIzMjU2MzU0YmZjYWRlZDAzMTk3MmMifQ"
+        },
+        {
+          "resource": "repo://hooks/useTelegramQuoteNotification.ts#L15-L24",
+          "version": "repo-lines-v1:sha256:2e2d696383d92bba78ce8524baea7d27eac2fc86237e1bfe035bb59a6fcd6b3a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIxNmVkMzY1Yjk1ZTg3MTllMTAxMmU3Y2I5MTE1MjY4YWUzNTE3MDI0MWRmMjFkZTk1NTQ5MmEzZGU1YmUwNWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhNzM0OTJkODk0NmIxZDBmOWQ5YzA0YjcwNGE5MjBmMjRmODllZjdjN2Y3MzExYTg1OTlkMTBjN2Y2MzU4ZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk2YzA1MWU3YWE3YzFkZjQ0N2MwYTYzZjY2MzgxMTQ3ZWVlNGJiMzFkNDUzODkzNWU2YWY4OWM4NWU1NjIwODciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAzNmY5MzFjNzUyZmY1MDFmYTFlMWJkMjY2ZGM4NzJmNWYxZWIyYmRmYThiNzVjZjg1MDVkNDgxMGRmYzQzNzMifQ"
+        },
+        {
+          "resource": "repo://pages/api/quote-request.ts#L12-L53",
+          "version": "repo-lines-v1:sha256:f5a009e685d3303cceec80b5b68cf916a6f25a25424ab9d9c18363da347dffab:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3MzQzZjlmZmQ2YWI3MzM5NTU1YTgwODk0NGZmZjY3NTI0MzFlMGYyMDgxMTMyOTBiYzg5OTEyMGFhYTFiOTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5ODhmNjc3YjkwOTQ2M2I1Yjg5MWFlMjE3OTk4OTYxM2VmZWRkYzNlNDNjZTBjODFlOWViODE1OTJiYzczMzUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFlYjMwMDVkMTcwMTEyMGY4YWRjNWFkZjhkMDgxMGE3ZGRjZDFiODEzNzU3NTgyZTg0YTE3OTczZDQ1NjViNTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwMzk5NDVmNzEzY2VjY2MyYTJiZTk4MWFiNWM1ZWVhMzdmOTVmOTc2OWU1NzVjZDhlZDlhOWZjYmFmZGYwNmEifQ"
+        },
+        {
+          "resource": "repo://scripts/regression-test-quote-form.sh#L3-L9",
+          "version": "repo-lines-v1:sha256:d83e0686ca31a881a4601fb6058965400b023df9fad4728a93dcc5a14010291b:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGRiZjI4OWYzZTdkZWM5NzEwNjgxNTIyMTg2ZGI1ODc0YjUwN2UyZTRkY2QzMWU2MDBjMDY0YTQ2ZTY4ZTBkNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTFlOWMwMTU4YmQ0MGI3ZGQ3NTFjYjA4MmUzMGUwNTNhYjk4YjMyZGViN2M2ODgyM2E4NTY2OWE3ODExOWQ0NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDk2MjJmYWUyYWIwMmZlMzU5ZWQxNTA5NjRhOTI2NTM2OTdiZmIyMzVlMjA5NDdhYTNjM2YzODU0ODRlOTdiZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTVmMThiMGUxYTA3NWM5MGUwY2RkZjFmN2QyN2U2ZmQzZDIyY2MzZTViNjAwNWM4ZmMxYTlhYTZjNmI0YjY0NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_6a54151594ef456893266b3dcb23117e",
+      "statement": "The lighter-builder script is not a full assertion-based E2E test: it explicitly simulates file upload, uses a helper that only prints element checks, and notes that drag interaction, browser-level resizing, and related interaction verification require additional handling.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/test-lighter-builder.sh#L129-L145",
+          "version": "repo-lines-v1:sha256:a94f735a63726c0bc284ecebbd29f4b1b0b5c43abe1e4f3fdd334081bc82a423:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY4ZWM5NDdmNDhiNmEzNTIyNjg5NDBmZjVhOWMzYjc2ZTA4MGViYmY4YjI0ZDVkYWM1YWE4M2UzMmNkMThhY2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU0ZTBkODhiY2YyNWQ4Y2MzNGMxNDBlOTliNDg0OThhYTQxY2JiMWQyYTI2ZWExYWZhMmIyYzI1MTU1ODI5OWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc5ZGU5NDgwNDY0ODliN2Y5OTExYTYwMWJiMGI0MTc2ODg4NGVhZTNjNjc0M2RiZmIzNzc0ZDY4Y2YzZWIyZWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIxOWMxYTUzN2Q0ZGJhNjhlOTBjM2NlNWM3NDcwNDJkNjkxODFiNGE0MDY3MzkzMzRjOGIwYjA3YjkzMDRiY2QifQ"
+        },
+        {
+          "resource": "repo://scripts/test-lighter-builder.sh#L181-L195",
+          "version": "repo-lines-v1:sha256:630efd80155e1c2736a42da9f2486a83ad88ce2f43721ae4374542513345dadd:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY4ZWM5NDdmNDhiNmEzNTIyNjg5NDBmZjVhOWMzYjc2ZTA4MGViYmY4YjI0ZDVkYWM1YWE4M2UzMmNkMThhY2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJiM2EwZmY1NGVlZjVmMzNmY2Y1YmU4YTVjYjRiYTNmY2EwOTU5ZmI5MjgzYzY3ODVhODY5NDZiMDAyOGU0MzIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM5ZWY3MzQxNGFhMjNjOThmNjQyYmE3YzVhMWFiMGI5OTEzMDA2ZGEyZmQ1YmM0NGQwMjNhMDdhODU0NTQwMGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIxOWMxYTUzN2Q0ZGJhNjhlOTBjM2NlNWM3NDcwNDJkNjkxODFiNGE0MDY3MzkzMzRjOGIwYjA3YjkzMDRiY2QifQ"
+        },
+        {
+          "resource": "repo://scripts/test-lighter-builder.sh#L40-L44",
+          "version": "repo-lines-v1:sha256:e44092d25f25b28cdc81d405c4cab89e84643c257c7d5a6369c6d76234c80818:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTNhOWE1NjcyZTUzMDlmMDIxNmU5OWM3MTQ4MGMxZmRmYmI2MGVjYzQ5NWFkMWZlOTdlNzNlM2FiM2RlNzQzNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTI4YTViZDEzNDlhMjgyODlmNzg1NzE1NDczOGRjYzJkYjg1ZmMxNzhjOWUxZDU4YjYwYTNlMWU2ZDQyNzI5MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzY1OGZmYjBjMDA5ODdhMGNkMjc0OTA3ZDY5MDg3MGUyYTE5OGU4M2Q1MjEyNjBlNGZkMDljOTM4YWVkYTZmOCJ9"
+        },
+        {
+          "resource": "repo://scripts/test-lighter-builder.sh#L77-L106",
+          "version": "repo-lines-v1:sha256:c2a38d27fdfd0658aa3d63dc90d4004daf75ac25e4374f82e8f8932e33b9af1c:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJkNjYwYjljMzgwMDRiYTljNGQ1ZGQyMThjZDdiMWFhNWY4NjJlYjkyZjhkOGQ3YzM3OTgyZDBiNWUzYTkxMTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ2YjE5YjA4MmQ1N2M2ZjUwYTU5ZDYzMDRiM2NmYTU0MDI4MGY1YTkwNjllYjg4YjJlMzRjZjM2YmQ4OTBiY2MiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE3ZGZjZDFmNjlhOTQ3ZWQxMTBlNGY0MjM4N2YwZmFlMTA5NzU4MzAxODk4NmQzOTViNDYwYmNjMzFhMjhmMmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIxOWMxYTUzN2Q0ZGJhNjhlOTBjM2NlNWM3NDcwNDJkNjkxODFiNGE0MDY3MzkzMzRjOGIwYjA3YjkzMDRiY2QifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_714f14d97bbd40b98f0166820d2d5043",
+      "statement": "The production build runs `next-sitemap --config next-sitemap.config.js && node scripts/verify-seo.mjs`; the SEO verifier checks generated robots and sitemap artifacts, required directives and URLs, and rejects search or query-parameter sitemap URLs.",
+      "evidence": [
+        {
+          "resource": "repo://next-sitemap.config.js#L2-L25",
+          "version": "repo-lines-v1:sha256:61bb2837f2c165bf6691e251b4b744b4051ebb9be64bf5998a26657e2ca0503b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImExODE4MjBhNjhkZTk3NzlmOGJiY2VkNWU5YTdjYTBiYjE5YWE3OTFmZDM3NzNmMDc3ODRhODhmYTI3Y2ZiMjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyMTBlZjgzMzNmNjhkYTNiM2Q5ZjQyZWFiZTU1MWMwZGYzOTAxM2NhMzRhN2RiMzU5YjMyYTQ3OWVlNzgzYzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoxLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFhNTNiNDY0MzU2M2MxNmI4MTdmNGJmZjUxOWU1MTFlYzJkNzRkNDE5MTIyZWUzNjQ5MTZmYzQ0YWExYjY2MDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMxMjU4NWZmMmU4NWZjODNmNjI0OWE3OGQ3NmQ1Y2IzN2Q5YzExMWQ1MTBkNzE0NTMwYzcxZDQ1OTI1YmYyYWUifQ"
+        },
+        {
+          "resource": "repo://package.json#L21-L27",
+          "version": "repo-lines-v1:sha256:40bf3a73e63b42a5ffdbf613136c3253f52177e0766cfbb0465c6533d6e3ad4b:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOThjNjE4Njg3MTI1MmJkNDk5YzBjZjhiNjhmMTJhMjRiN2JkMDczYmYyOTBmNjRjOWFkMTVkNzQ5M2VjZDUzNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDcwODBhY2M2Mjc0MTc0YjE0Y2IzYzZmMjc2ZjY5ODM5NzgyMzdhMjhiOWNlODFiNTFlYjFkMzM5MmMwNWRhNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzc5YWQ3MzBjYTE4NzBmYmU4N2RiMmYyODkzYTYxMTg1YTU1ZWM4YjA4ZDcwNzE3ZTAwMmE0MzVjYmFlNmZlYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTdkNGY1MGEyZTUwYjFjOWExMDc0YTYwNjQzM2I3YzhhMDRjMDliMWI0OTU4ZjE1ZmRiYjRlNThhM2JmN2NjYSJ9"
+        },
+        {
+          "resource": "repo://scripts/verify-seo.mjs#L14-L89",
+          "version": "repo-lines-v1:sha256:7dd879fd3998e6d9c2ef23521c9dc85abd5d9863a89af110c7ce8a3a8d7d76f0:eyJzZWxlY3RlZExpbmVDb3VudCI6NzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5OGE5Yjc5NGI2NGFlYzhhYjRhNDE4ZDFhYTNlNGYyMTFiNDU5YzViYjJjOGMzZmY2YjJhM2E4ZTIxNGRjYzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBkYzFiZTM0MjlkMmVkMjE4MDdmODQ4MDVlMDQwNGQxOTkyMTNmNjY1ZDg0MmViYTljNDY1NmQzNmI2YmUzYTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNiYjMxMzYzNDZlNjA5YWEzNGIwNjlkMDEzNmM1OGQwNWQxYTZlNGI0YWZlYzRmNDgzYmRmYjhlMDE0OGFhOGIifQ"
+        },
+        {
+          "resource": "repo://scripts/verify-seo.mjs#L91-L110",
+          "version": "repo-lines-v1:sha256:d042c2c030975898d01ff0c41bc99767a741b40e807ce32a0e01623a54f76baa:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRjZGE0MzIzZDljZmI1MmI1MjAyYmVlMjkyMTlmYjk1ZDdjNWM5YjBjYWZlNzJhZjA1ZmNkZDRhZDEzYWRhNTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk4ZTA2MzA0MGZlMTg4NmVjMDA3ZGEzMzdhNmE3MDYwODk1ODVkYjZjMGYzNGMzODk5ODYyYzVlYzA2N2Y4ZGUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_daf3d9628c384acf9f123decea0f4ba9",
+      "statement": "The tracking validator statically scans TypeScript and TSX files while excluding build, dependency, Git, and Sanity directories; it checks analytics imports, nearby duplicate calls, event parameters, Umami, consent, dataLayer, and environment configuration, and exits non-zero only when errors are found while warnings pass with exit code zero.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/validate-tracking.ts#L120-L198",
+          "version": "repo-lines-v1:sha256:adc43b39df3e3b6be644e677627b7310a9b9aeda5ff4d1216a763ce190be2364:eyJzZWxlY3RlZExpbmVDb3VudCI6NzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU0NjA0MWJjYzUyZGUzNzYzYTA0YWJhMDFkZjE0Y2FhMmY2NWM2MmJkOGJkNmRjZDQ1NTNjZTRlNzQ0ODhkZmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVkNWRhNThjM2I3MjU1MzE2NjFkNmNhMjhiYWJhNzViZTQ3NTY2MzNlNWEwNmU5NzQxOTQzNGU5MDQxMDhkZDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ4NDMyNjZkN2Q4NzU5NzhlYjkwZDg2NTAyM2JhOWU2NGYzN2MyYzhlMDNmZWNhNTg1MDNmNThlZWMxY2M2YjMifQ"
+        },
+        {
+          "resource": "repo://scripts/validate-tracking.ts#L273-L311",
+          "version": "repo-lines-v1:sha256:e01062505c3546d872368c10448e431c79afd10a257b385fa9fea6b697378925:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgzNmRjNmFiNjkwYTllYzI4OWU0N2RjZTcyZjEwZTE2ZjFlMzU4M2NkODkxYTA4ZDE5MjMzMWRjMjBkMDAxMTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRjY2NjYWNlOTViOTE4NjlhNmY3ZDdiZDlmYjkzZGI5MDUwMGI2ZDI4MGEwZDg2ZGUxNTY3YTFlYjA2Y2EzYzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlZWNhOWFmY2U1ZjIwMzVkOTdjYjgwNGEwNjI4MmE0YTEyMjM5ZWM1YTI0YWJiNmFlZmVlNzAzZTQ4YjhjODIifQ"
+        },
+        {
+          "resource": "repo://scripts/validate-tracking.ts#L33-L74",
+          "version": "repo-lines-v1:sha256:a06819e3bfcc7d2d602f53e41297761167e55fb6ad9df81e7efb4c8449d6ce5f:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVkYmU5MDY3OTRlMDA5N2FjMzdmZjFiOTdiYWU5YmFkZjE4MDMwYTFmZWI2MzgyNDBmNDNkMDFkZjlhNzk0Y2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJhNTUxNzQwODk5OTYzN2M5YjA1NTNhZDA0ZmRkYWJlYTVmOWY0N2U4ZDIwNjVmMDAyODljMzM0NDA5ZTA4ZWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMzNDc1OWM4ZmMxMGQ5ZmQzMWU4MzM5YjNkNjk4ZmZjZjg2Nzg1YTUyMGUxNjEzMWJhYzMwZjUyNDY3MzI3NWMifQ"
+        },
+        {
+          "resource": "repo://scripts/validate-tracking.ts#L352-L381",
+          "version": "repo-lines-v1:sha256:8741c69589c3b208e655e7b99456a2a5019ace6e3ae38c5e7124b7209ab61696:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhNzM0OTJkODk0NmIxZDBmOWQ5YzA0YjcwNGE5MjBmMjRmODllZjdjN2Y3MzExYTg1OTlkMTBjN2Y2MzU4ZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVhNjg0NGQ2NTM5NGZlZGRlYjAwYmQ1MDc3ZjZjNWNlZDBkOGIwYTg2YTc0MGVjYjEzMGE5NjU4YzgzNzA0MTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEyNjk5ODMwY2E2ZDA1NDg2MWQxYTE2ZjY0YWU3ZGI4MmIyNzg5ZDY3NTdmMzc0N2FlNTIwZDM5M2U1OTA2NjEifQ"
+        },
+        {
+          "resource": "repo://scripts/validate-tracking.ts#L403-L455",
+          "version": "repo-lines-v1:sha256:6a0cb0b6191de80f5ae5a94fa05128b3ff18ad21b47ef524daa2270877f61c2e:eyJzZWxlY3RlZExpbmVDb3VudCI6NTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ2ZDBiNzkzMTkxZmQwYjUzNzNkMjhhMzBkOGYyNjY1MTYxNWU5NDc0YmE0MTM0NTJiOTY3ZmQ1YzA3NjM2ZDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU5YTczNTY3YTBlNTdjOWM0M2RhNmZjYjY0YmJiMWUwYTViYTI2NTdiNjMxMDM0NTE0NDcxZjM2N2ExMmI5MzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZjYjMwMzMzNTgyNjdiMDI0OTMxOWU2Mjg0OGYxYzcxZDZhZGIwMTFkZTQyNThiOTA2ODgzYTZkMjg2NmE4OGUifQ"
+        },
+        {
+          "resource": "repo://scripts/validate-tracking.ts#L91-L115",
+          "version": "repo-lines-v1:sha256:b6332f67e619005d187159fe4ad01e91969d4fd6c433504e92219c1baae663fb:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjZWJmYzU4Y2YyNzdmM2YxMjEwNjMxY2U1NjE4MGI3NmJiNWUwMWFiYzM1NmI2MGM0NjYyYzk4OWMxOTQyNmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUwMmJiNDA0M2I0ZDNiYzhmOWI0Y2Y0NGRiYzJkZTcxZGM4ZDExMzNkN2VlMWFmNmNmZjBlNzBkNmNhOWE0NDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMxMmU0ZWVhNzlhN2NmOTBkMzIxMjdhOWY4YTIyZjczYThhM2QwMGM3MzA3YThjMGFiZjU4ZDM2ZTQ1NTZlM2MifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d40451d7688d472dbcabf2b308bcf0e5",
+      "statement": "The AI configuration validator checks the `.agents` hub, global rules, root IDE links, GitHub and Codex links, and whole-directory or per-item Trae links; missing or broken required structure sets a non-zero exit code, while an existing link with an unexpected target is reported as a warning.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/validate-ai-config.sh#L115-L179",
+          "version": "repo-lines-v1:sha256:8a8a09eb283a765b523cd013cc5c66b08a1753bbaba3f163138d287b66810359:eyJzZWxlY3RlZExpbmVDb3VudCI6NjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY0ZTJhNDg0OWM0NTBkMjYxMDJiODRiOGQ3MmVhYjI0YzdmOWIzZGQ4OWUxNGY2NzdkNzEzMjUzOTdiN2Q2MTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3NjlkMjM3Y2Q0MjBiOWQzOGI5ODFhMGE0ZjY3NzAxOTBhNGE4M2RjYTFmZTU2YzRmNWJhMWUyY2JjMGVmNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyMmFiZjQ5NWI1ZTc5YWNjZGI3MjVmOTFiMjA4NDA3YTU0YTMzMzdlZWI5ZjJmOGQ1NGE3YWI2NDc0ZDkzMGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk3ODE4Nzg4MWQ0NTExMjE3YmNmNTM3NDUwMDYzOTA1NWQ1Nzk0ODZmODFhNjU4NDdlNjI0NTFkN2I2OTEwNjIifQ"
+        },
+        {
+          "resource": "repo://scripts/validate-ai-config.sh#L181-L189",
+          "version": "repo-lines-v1:sha256:92939726429a09882f759a1da6880b890545210d7d95877599fa3a5dc1647ad2:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2IxYmZjMGVhNTAyOWYwNGQzYjJmZDc5YmUzZWE2ODliMmRjZGUzMDQzMzc4MTFmYmU1NzUxZWIxZTgzNWRhZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzc2OWQyMzdjZDQyMGI5ZDM4Yjk4MWEwYTRmNjc3MDE5MGE0YTgzZGNhMWZlNTZjNGY1YmExZTJjYmMwZWY3NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjVmYTIxNTRiYzM3ZmU0MmE0NGY2MjdiOWU3OWVkZjBkNzNiZjg3YzVmNjkxMzkxNzlhYjIxNWQyZmVmMTQ1MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://scripts/validate-ai-config.sh#L30-L74",
+          "version": "repo-lines-v1:sha256:7002a3eaef07d95d5f71c776c124f708022062197da0c763d36f74701c24dfc5:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzYzBlZTYxNzNkNTEwM2I5MjAwNGI4ZmUzMzVmZDgzMjNiZDkwZjY4MjgxZGUzYWY4MmVmNDMxOWNkODFjNDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwOGJhOTAzOTBjZThlNmFiY2I5NDdjMmNkZjIxYjkzNjA2YmJjYzgwOTRlMTQ4ZTc1ZTUwYThhZGFjODdjNjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMxMDIwYzViYmFjNWVjYmQ0OWQ3MDBhMzIxOWIzNjRjM2RlYzU5OGZkYTdjZGY3M2FhODQ0ZjE3MmUxNDgxNDkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_97b53551d9ce46ca9ae96df3f8cd60c7",
+      "statement": "The SEO verifier reads local generated files rather than making deployed HTTP assertions, and the tracking validator produces static findings and recommendations with separate error and warning exit behavior; browser or external checks are therefore still needed for runtime delivery and deployed behavior.",
+      "evidence": [
+        {
+          "resource": "repo://docs/plans/2026-07-24-01-engagement-pwa-seo-feature-4-test_plan.md#L11-L18",
+          "version": "repo-lines-v1:sha256:3fd7e3047e203bf964626479709c27d48c1f0348bbe326201a6f252a3b5f4ac7:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTNiNGM3OTRjNGNlZWU2MmJiODQyMzE1YTgwMWQ1N2Y1ODU2YTJlODdmYjBkNTkzZDM1Y2IwZGVjN2Y5YmE5ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjdhM2IyNmIxNjFhNWM0MmQxYTRlNDIxOTQxY2E0NzFmNzY1ZTI3NzRkZWYzMDBhMmVmMGI4OTZmYTdiMGFmMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDVmODE5NmQwYTcwMDg1NTI3YTg0YjM0MzdkYWFlNTVjMTE1NTIxODhkYzNmMGQxMmIyYjBhNzg3OGU1NjlmNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDAxZjJlYzE3NTkzYzEwNTRlYjQ2MzY3ZDg0NTNlZjI0YTE3M2NlOTZiNzExN2Q5MWY5YTY4ZDQ0ZmVmOGIwMSJ9"
+        },
+        {
+          "resource": "repo://scripts/validate-tracking.ts#L383-L455",
+          "version": "repo-lines-v1:sha256:e8902fa9731688ea11c63f99bbd2a097b085558a433397f1b09226b0f7b6ab2c:eyJzZWxlY3RlZExpbmVDb3VudCI6NzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgwYThmMzc4MTllYmZhMzBiMDliZGNkYWFlZTg3MDQ1MzViNTNmYjNkYzE3NTFjMmI5ZjA1YTFkM2U2MjA5ZTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNiNTA3ZjkzMjQxNmQwZmRjN2ExZDkwY2JkZjNjODViZThiYjFlZTA0ZTAyOTYyOWM3MTk5YWE3ZDI3YmRiNDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZjYjMwMzMzNTgyNjdiMDI0OTMxOWU2Mjg0OGYxYzcxZDZhZGIwMTFkZTQyNThiOTA2ODgzYTZkMjg2NmE4OGUifQ"
+        },
+        {
+          "resource": "repo://scripts/verify-seo.mjs#L3-L8",
+          "version": "repo-lines-v1:sha256:489dea35e51175bb3cc6197383de05c86ba13461a5af0bf07b3f56615b2eb94b:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzc4YWQ2MGY0NGQ0ZTIwYjQ2YjFjZDgyYmQ1NzEwYzBjZTI4NmRmYTFiOTZhZGIzOWMyZTNjMTUxMDNjMGU4ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGJkMTI2ZWU5NWM1OGJmNjUyNTk5MGQyYjhjNjhkNmU0MTRjZjk3NTVlOTNjYmNiMjc1OTg5MTE3YjU1ZWVhNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmQ3YjE3MGJmNTJlMDg5NTEwMDhiZjNlY2NiYmI4NzBhMjZiZTBhMWU1YjhlNWYwMjBiYWZiY2YzNTk5OTdjOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWU5NzBkMzg1YzMyM2ZhNTAyZWZhNzliY2E4ODQyZjU3NjZhZDI1ZTY5MGE1ZTQ5M2E1MTc2YjM2YTdmM2Q3MiJ9"
+        },
+        {
+          "resource": "repo://scripts/verify-seo.mjs#L91-L110",
+          "version": "repo-lines-v1:sha256:d042c2c030975898d01ff0c41bc99767a741b40e807ce32a0e01623a54f76baa:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRjZGE0MzIzZDljZmI1MmI1MjAyYmVlMjkyMTlmYjk1ZDdjNWM5YjBjYWZlNzJhZjA1ZmNkZDRhZDEzYWRhNTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk4ZTA2MzA0MGZlMTg4NmVjMDA3ZGEzMzdhNmE3MDYwODk1ODVkYjZjMGYzNGMzODk5ODYyYzVlYzA2N2Y4ZGUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.0",
+    "at": "2026-08-25T17:23:14.366Z"
+  }
+}

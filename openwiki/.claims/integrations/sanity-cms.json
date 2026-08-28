@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:734f6242d7f800b42f6a23967c6d3c02e0bf26b51c1296da9b828039f9ec6749",
+  "claims": [
+    {
+      "id": "claim_81d6bb21c34a4962925d3787ab2312cb",
+      "statement": "The integration separates public reads from privileged mutations: the browser client uses public environment variables with CDN-enabled reads, while the server client uses the SANITY_TOKEN and disables the CDN for document creation, patches, and asset uploads; the backward-compatible sanity-client entry point re-exports the tokenless browser client.",
+      "evidence": [
+        {
+          "resource": "repo://api-client/sanity-browser.ts#L1-L20",
+          "version": "repo-lines-v1:sha256:6c549e17a6f24b2534f81b22ead9d95dfccaf15cc39b11615d6a9b61c543a4b9:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQzODQwOGRiZTNkYzMzMTE5MzVmZTVlYjQ1YmViM2UwYjMyNGNkMWQwMjlkOGQ3NDM3NWQxMTk2NzYyODE1YjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY1OTI0MTliOWNmYTc0NmIyOTAzNDEwNjgxM2M4ZjRlNmJkNGE1OTQzNzhiZjlkNjVhNWNlMDA3ZThhNzk1MmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://api-client/sanity-client.ts#L1-L7",
+          "version": "repo-lines-v1:sha256:053dbb01307516784f4ac9e091684dd74bfcae3ab0a774f47bdc66b966d51177:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODg5OTU3MGMwYjRiMDEwZjFkYWUxYTgwYjQxODNmYWQ4MDA0YjIzNDJiZjk2M2Q1NTc3YzMwYjk1Y2Y0ZmNiNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://api-client/sanity-server.ts#L1-L10",
+          "version": "repo-lines-v1:sha256:dda1dafcaa00a19da5da8a4fb2c7e5fc9d753450fa8cbfd47f1c230a3b1b0c15:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQzODQwOGRiZTNkYzMzMTE5MzVmZTVlYjQ1YmViM2UwYjMyNGNkMWQwMjlkOGQ3NDM3NWQxMTk2NzYyODE1YjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVmYjI0MGE4ZmUxNWY3NmI1ZjhmNzEyYzQzZTBjMjgzZWVmOWM3ODliNGJiMjdhMDQ2YWI1ZjBjZDVkOTFmMjYifQ"
+        },
+        {
+          "resource": "repo://api-client/sanity-server.ts#L26-L64",
+          "version": "repo-lines-v1:sha256:df47994099865828798bfeddc390bb9ca422a690a162e15f4a79c29b187623e4:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQzZTk1MTk5OTI0OWQ3MmZkMmEwMmYyNmI0Y2M1YjkxZWQxMGQ1NGQyYTZkOGU1OWU3Y2NkMjVlYjVjNzdmN2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZiY2IyOGZmZWNhMWRmOTllOWNlMzI2NTFmNGNiMTNkZTU2NTJmMjIzZTg5ZTRjMjc5YmM3ODE1ZWZhMjg4ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk4OGYxNzVhZjNlZGY0NTEyMmRiOTZlZTFjZmNlZDQzMmYwMGM5ZmY4NmYzYjgzNjNlODY1YTA4NDVhYTlmMDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6bad1fe21c934e90b13412670130ccdb",
+      "statement": "The Sanity v2 Studio is configured for project INUT, dataset production, the standard Studio/media plugins, development Vision, and the schema registry at ./schemas/schema; the Studio provides start, build, and deploy scripts and documents dev/production dataset switching.",
+      "evidence": [
+        {
+          "resource": "repo://sanity/README.md#L8-L28",
+          "version": "repo-lines-v1:sha256:8622798728b3e466ef1a135855ebd62f0eb85006997439c9461d2634e0a78fb9:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3NzA0NGNjNGI0OTliM2NmOWY1N2E2MzEwNmYzOTUyZjE3ZTc5NjIzMjRmOGRmYzQzMmFlYTBhYmRiZDgzM2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YzA2YzU2MWQ1YzMyNzM0MzY4NTI2OGE0NmIzMzkxZjM5OThlZWU4OTBkMmJlNTFmMGQyMWNjNGE1M2FlNmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFjNTNmOWNlNGRmZWQyNTBjNzdmNzYwZWFiOGEwODRmYzA0YjZiMTc3M2I1MzIxYjI5NmQxMmM5ZGI5Mzk1ODEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNmNmRiOWZkNmUxYWU0MzU2NjM0ZWFlNTA3MTA2ZmQzMjEzN2IzNzRmZWU0NzEzNDgxYTgxZDM5OWZiNTBiZDkifQ"
+        },
+        {
+          "resource": "repo://sanity/package.json#L9-L12",
+          "version": "repo-lines-v1:sha256:e47357a15361008e8d3610d50691b3f36b24f7955268b1be0397ac88f73717a3:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjczY2EwZGQ3ZDNhMzg5YmI4M2EzOGExYjNjNDkzOGVmMDlkMWZmOGJhNjFjMDc1MzhhMTU1M2Q0OTJiYTJmNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTZmZTZkNWNmYjAzOGRjOTY0MjMyYWQ3ZTVlOWYzZTJkMjc5ZDFiYzBmYzVmYjE0YTM2MzA1MGYxMjdhMzQ5YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2Y3ZDQ2YmJjN2JlMzc1NDBkZTZhNzZmYzNkZTY4YWQ3ZTE0MTE2MjM1ODM2ZjJkNjRmN2EzNjk5OTQyNjFlNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjY4NmIyMWUyZjM5ZTliZWFmMDg3NTVhOTIzYTMxYWEzMjMwOTc5NTJmMjMyOTVhY2ZiNmUwNTY2NmI2YTIzZCJ9"
+        },
+        {
+          "resource": "repo://sanity/sanity.json#L1-L27",
+          "version": "repo-lines-v1:sha256:f0e16534b39d8af5b28f6432133deaa9073d12cb942c69985af8267903d1a676:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2ZmIwOGZkYTFhY2I5NTdiNjExNmJkMzc4MTFhMWZlNDFhMDE2MTFjMDYzMWVkYmY3ODZkNjg4OWEyN2E1NWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgxYjUxYTUyMzZjYjAzYmJiMjE3N2M5MTBjMDhkN2E0NGI1NjEwYTQ3ZTdiMjI0ODVmNjA5ZmM2NDI2MzY0MmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_54341cc0d1a041ee8a09117ed8337419",
+      "statement": "The schema registry includes the lighter and general product catalogs, type documents, lighter orders, quote-request forms, bank information, shipping and editable marketing/content documents; product documents use required slug/category references, lighter products reference lighterType, and lighterType owns validated quantity-based price tiers.",
+      "evidence": [
+        {
+          "resource": "repo://sanity/schemas/lighterProducts.js#L15-L53",
+          "version": "repo-lines-v1:sha256:6ef2c60771e3d364597892c0fc1aeaf65d238cddf482aa36b7ec8d88f52bb53e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg5YmM3NTExYjIyYjUzOGRmMTQyODMzNzUxZDRhMDM3NDFiYjI4MzkzYjQzZjE5ZjhkNjZkNDkxZGFmNTJkOWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViYWQ3Y2MyZGZhZmMyMTc1ZmEyZDk3MDRlMDIwMmY5NDA4M2E5ZGE2OWE1ODViMGIxOGM0OGJlYTIzNjI3NWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRkNjk2NzI1NDE3NGIxYTZhMGEwZDQ4ZDVhZWZjMWM2ZDkxOTE1N2MyMTcwMWViZmE5MTM0NGVmMWIzNjQyNWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZiMzk3MDcwOTU1ODI5NmU1ZmU2ZjE4MTYxY2QxYjAxMzFmM2ZlYWU2NDM1NjIzZjcxNTM4NjFmMWE5OWFmZTcifQ"
+        },
+        {
+          "resource": "repo://sanity/schemas/lighterType.js#L23-L66",
+          "version": "repo-lines-v1:sha256:82c67e3430b4e3c9666a942d393d82e5f2d2fd37d0cf488d2528a95bb4eea08f:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVmYThhODE1MzhkNGZlODY3YWFmZTYyZDBlZDJhY2Q1MjQ3YzBlNmZjZjU3YmEyNzFlN2I5YjlmYjU2OWFhMzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2ODIxYzhlYjA2MWM4YTdkNzkyOTU0YWNiYWRlNmYyZmQ2YmIzNGNmNWI3Y2E0MWJhMmFmZjI3YjQ5NzJmMWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ5OTVjOTE2YjY3YjRjMzJiOWIyM2I4ODY1NTE4NDRkYjQ2OTkxYWJmNDc4NjM0NTFmOTUyZjM1YzNhMTJmZDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYwNWJiN2Y2ZDdjYjI4MmUwZjQ5YmU4MTdiOWQ3OWMwZWJkNjgxNDBkMTEzZjVlNGM1MmIzNjQzNjgyNTI5MjYifQ"
+        },
+        {
+          "resource": "repo://sanity/schemas/products.js#L15-L49",
+          "version": "repo-lines-v1:sha256:b3d431db2fc192e4be5bf976d247928c8ac4c9de7697ff24f0a4854a685d9953:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg5YmM3NTExYjIyYjUzOGRmMTQyODMzNzUxZDRhMDM3NDFiYjI4MzkzYjQzZjE5ZjhkNjZkNDkxZGFmNTJkOWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViYWQ3Y2MyZGZhZmMyMTc1ZmEyZDk3MDRlMDIwMmY5NDA4M2E5ZGE2OWE1ODViMGIxOGM0OGJlYTIzNjI3NWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRkNjk2NzI1NDE3NGIxYTZhMGEwZDQ4ZDVhZWZjMWM2ZDkxOTE1N2MyMTcwMWViZmE5MTM0NGVmMWIzNjQyNWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZiMzk3MDcwOTU1ODI5NmU1ZmU2ZjE4MTYxY2QxYjAxMzFmM2ZlYWU2NDM1NjIzZjcxNTM4NjFmMWE5OWFmZTcifQ"
+        },
+        {
+          "resource": "repo://sanity/schemas/schema.js#L6-L42",
+          "version": "repo-lines-v1:sha256:7fe2ffed5b2bb0a8f087d07f4badd7e977c9b1bc6e72f1e261dde862eb61b714:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3NDRhNDBiOTcxODQ3ZmVjZmU3OWZjZDViMjA1NjI3ODMyODI4N2Q2OTFhYzhjNjBkYzQ1MjI4YTk2OGYyNDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMyMDIxNDM4ZWRlNjAyNDM3OGE2MDA4M2NhNGJmYzI5ZmZkMzUwODI5MmM5MTlkOWFjYjM0ZTc1YzBjNGY0NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg0NmU2Y2U1NzhjNTE0YzlhZWExZGExNjFkOGNjNjMxZTdhYzU1MzhkOGJlYzk3ZmZlODFkOTY1ZmNjMjUxMTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_138f7d6630e34738a3eac518bab233e9",
+      "statement": "Catalog GROQ APIs use explicit list/detail projections and parameterized filters, exclude drafts in paginated views, order by _createdAt desc, run item and count queries together for page results, clamp pages to 1–48 items, and explicitly dereference lighterType when pricing/category details are needed.",
+      "evidence": [
+        {
+          "resource": "repo://api-client/lighters.ts#L5-L95",
+          "version": "repo-lines-v1:sha256:3f817a243c68ec44185a2e95fb2e35eb3b4f152955207bc1c6827671de367959:eyJzZWxlY3RlZExpbmVDb3VudCI6OTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgxYTVmMWQ2ODFiN2RjYTVmOGEyOTY2N2M2NTU1MGM4OGVhNWI0Yjg3M2UyNGY3OGRjNTVhNTc4NDdkMDUzNWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1NTg1ODQyZTZkNDRiYmQ2ZTlkMzEwNzQwY2RjMDA2OTkwNDU4MzUyNDkzMGMxYzM2YzM4ZTQ4ZWMxNTE3MTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ2ZmZkMDE3ZjVhMzEyMmM2NDM2ODIyMDA2YzI3NjNmMzBmZDc5Y2QxNjhjMzM2ODEzMjhiZmZiYjI2OTA2MmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVjYzk1NmVmNzg5NzFmZjlmMTMxNzI0OTIxODhlNmJmMzIxYmQ3MGZkMjFkZGQ4NzFlM2E5MDYyMjVhMzU4OWUifQ"
+        },
+        {
+          "resource": "repo://api-client/products.ts#L5-L66",
+          "version": "repo-lines-v1:sha256:5c1e77ed45afde9388124b1096b799feec856639c8c5081a87f7c4348f1bd33d:eyJzZWxlY3RlZExpbmVDb3VudCI6NjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgxYTVmMWQ2ODFiN2RjYTVmOGEyOTY2N2M2NTU1MGM4OGVhNWI0Yjg3M2UyNGY3OGRjNTVhNTc4NDdkMDUzNWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZlNTAzMjQ5NjI1NjU2ODVhNTljMzk3NWUxYTU0MjRhODE3NWJhNDBmN2RmYTNhMDk2NTc5MTliMjFjZDkyNmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY3NTRhN2RlZDc2MjZjNzAxNDdkMTBhMDdiZDRjYzcyODFmOGI0MDkxYjg1ZTU2MGE4YmJiMWQ0MjcwNTMzMDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQzOTA3NGMyNzdiNDQ2MjZkZDMyZGFlODNjZWE3YjFmMWIxMmE0OWI1NjBiZTMwMTUzYWQzZjY3OTAzZDg2NTMifQ"
+        },
+        {
+          "resource": "repo://api-client/products.ts#L68-L157",
+          "version": "repo-lines-v1:sha256:3e75d6c2440e10a3c64bb09ad99ada1ccdee70b47d32308cdb22d70dddcc2416:eyJzZWxlY3RlZExpbmVDb3VudCI6OTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE5YmQ5ZDc3ZmMyMTBlODNiZjEzY2JjZjE4NDI5YjFhMDg2YWRkOGJlZGQ0N2Q0ZGZhZGZjY2NiMGRjNWNjMjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZlNTAzMjQ5NjI1NjU2ODVhNTljMzk3NWUxYTU0MjRhODE3NWJhNDBmN2RmYTNhMDk2NTc5MTliMjFjZDkyNmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyYThjM2YwOThkZDdjMGI0Njk0ZjFkYmM1YjA0NjY5YmU1NThkODI2M2U1MTM0OWJiNThkZDUzMzI5OTk4M2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_128c8cad5af5469995e90f46100a4599",
+      "statement": "The lighter-order API accepts POST only, rate-limits attempts, requires customer identity plus order items containing _key and product/lighterType _ref values, and the server mutation adds the ordersLighter type, generates a LIGHTER-prefixed number, defaults orderDate, and creates the document.",
+      "evidence": [
+        {
+          "resource": "repo://api-client/sanity-server.ts#L12-L36",
+          "version": "repo-lines-v1:sha256:55a8f0bb1d6b1408377ddfe6617a941bb01a1fee539f6c491bf5716402821b80:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1ZDNhNTQ5YmQ4ZGM2YzhjMGMyNDU3NWRiM2E5Yjc4ZDYwYzc5NWQxOTFlMTQzYzIxZTdmODg1Mjk5ZjVjYzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJlOTJmODc1ZmEwZTI3OTIwZWMxYjBkMTI2OGQyZjNjZTE0NTFkNWYzNzUyYWNmZWY1Y2NlZGU1ODE3MTIyNGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVhOWU4YTYwNTA2OWQ3NzRhMjkzZjkwYTFlOGY4NjVkMmRmMjQ1YTEyZGFhZTcwMDk3N2RmNjgyNGQ5MDM2YjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYwM2E3NmYxOTkxYmY1NjdjNWZmYjUxMzk1YTJiMGI2MjRiMTUxOTI2ZTAzY2E3ZGFlZDBiMTRjNWExNDc1YjgifQ"
+        },
+        {
+          "resource": "repo://pages/api/orders/lighters.ts#L10-L37",
+          "version": "repo-lines-v1:sha256:127830e96c92fc69d8966effde1b6a85edf93017adb36b2e3107fbb660c5b2ef:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1NjQ4ZjMxZjk2NzRkMDljN2VmZmU5ZmMyNWZkY2E4YTM4NzJlMmE1MTBkNDIwNTYzYjIxMGU0MjlhNmI2OTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjNjBmNWRhN2FjOWMxYmNmOTczNWZiNzlhOTNhYzA0NWM1NDRkZjUwNTcxYmRkZDQyYTJjZGIyYjJhYzczODUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYwZjQ0YTdkNGFhMjJiMTIwODVhMzY3NThmOTE2NzliMjU3NmFjNTM1ZjdlMjkwODJkZjU0ZWVjNjAyMmM0ZTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwMzk5NDVmNzEzY2VjY2MyYTJiZTk4MWFiNWM1ZWVhMzdmOTVmOTc2OWU1NzVjZDhlZDlhOWZjYmFmZGYwNmEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8d723012104d4137bd4ebf42e67407d1",
+      "statement": "The ordersLighter schema requires at least one item with product and lighterType references, quantity and non-negative price/subtotal values, defines the order and payment status choices, and leaves finalAmount as a manually maintained value when total, shipping, or discount changes.",
+      "evidence": [
+        {
+          "resource": "repo://sanity/schemas/ordersLighter.js#L223-L252",
+          "version": "repo-lines-v1:sha256:216d626398123b21c6cffd237a5ec664ad002b4d688a47c78cf45b05f3096698:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE5YmVjZWM0YjI2MjM2MWU2YzVhNDgyNTZjODA3N2E1NWM5YTYwOTE0OTZiM2Y3N2E0MzNhNzY4YjIzZjY4MGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViYWQ3Y2MyZGZhZmMyMTc1ZmEyZDk3MDRlMDIwMmY5NDA4M2E5ZGE2OWE1ODViMGIxOGM0OGJlYTIzNjI3NWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM3MTNkZGVjOTA2NzlmNDY4ZTg1MGMyNGVhNjdlNWI0N2IyY2Q1ZjA3MmNiNDczYzVmYjFjMzA5OWJmYTcxMmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQxMDE5NWJlMjE1NjJkOTBlY2VlY2FiNzEwZjIzMTE0NDkzZGUxMTRiMWM1OGU0M2EwYjA4ZjgzMWMyMDY0ZGIifQ"
+        },
+        {
+          "resource": "repo://sanity/schemas/ordersLighter.js#L24-L57",
+          "version": "repo-lines-v1:sha256:e75ea873771869458e2e780b423770ed59948a5e9c77003ea3ff82fc3c1f107c:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg5YmM3NTExYjIyYjUzOGRmMTQyODMzNzUxZDRhMDM3NDFiYjI4MzkzYjQzZjE5ZjhkNjZkNDkxZGFmNTJkOWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViYWQ3Y2MyZGZhZmMyMTc1ZmEyZDk3MDRlMDIwMmY5NDA4M2E5ZGE2OWE1ODViMGIxOGM0OGJlYTIzNjI3NWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImViMDI2YzEyYjZmOGNmM2RmNDkwNThkY2E3ZDA4ZDkyMWY0Njc5YTg3MWE5ODFjMzFmYTVkMzUwM2RlY2QyNWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgyN2M1NGY0MGU3OTE2YjNjYTIyOWZmY2IyYWU1MWQ3ODExZmU0MmRjZTZiOThkZjJiZmE5MGNjMjlhZWExYjAifQ"
+        },
+        {
+          "resource": "repo://sanity/schemas/ordersLighter.js#L59-L181",
+          "version": "repo-lines-v1:sha256:e8d15762b2000f818f07f3cb2ba7424f13b7744e1ad1d2cf6222e406094875ff:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIyMzNjNjk3ZDEwMDk2ZmU3NWVkNGIwMGIzODFmYTQ4OWI3YmRlZTM4MjJkZDMxMzFhNWJlY2RlOGU5ODdlZjVhIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI1YmFkN2NjMmRmYWZjMjE3NWZhMmQ5NzA0ZTAyMDJmOTQwODNhOWRhNjlhNTg1YjBiMThjNDhiZWEyMzYyNzVlIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJkY2I0YzExOWRjNTVkNzVmYTY3MGQyNzNhYjBiODU0OTNhYWVlOTExZTM2MjdjNDZiY2JlMGZmNWQxZGE4MjAwIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlNGYxODRhNDIyODlkZjA1MTRhZDE0MjAyZTZmNDVmOWQ3ZWVkOWEyYzZmMDNmNDllZTc3ZjhkMGVhZGNiYzkwIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_0537e303cfc54dcf8377767b685f74c3",
+      "statement": "Quote requests are written through POST /api/quote-request after rate-limit and required-field checks; the route creates a form-nhan-bao-gia document with a server timestamp, while the schema validates customer/phone/purpose/channel fields and conditionally exposes other-detail and urgent-date fields.",
+      "evidence": [
+        {
+          "resource": "repo://pages/api/quote-request.ts#L8-L53",
+          "version": "repo-lines-v1:sha256:ac70118fc45434a43574fd639ae7571a53c7e2ad2ca05cf278c61a9a5b3eaff8:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwZTE3NzhmYWI5YWZmZWQyMzJlNWU2MjU3ZmNiNGQwNjg4NjRjNmU0MjgyMTc4ZGUyZTEzNDUyZWUyOTA2YjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5ODhmNjc3YjkwOTQ2M2I1Yjg5MWFlMjE3OTk4OTYxM2VmZWRkYzNlNDNjZTBjODFlOWViODE1OTJiYzczMzUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYwZjQ0YTdkNGFhMjJiMTIwODVhMzY3NThmOTE2NzliMjU3NmFjNTM1ZjdlMjkwODJkZjU0ZWVjNjAyMmM0ZTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwMzk5NDVmNzEzY2VjY2MyYTJiZTk4MWFiNWM1ZWVhMzdmOTVmOTc2OWU1NzVjZDhlZDlhOWZjYmFmZGYwNmEifQ"
+        },
+        {
+          "resource": "repo://sanity/schemas/formNhanBaoGia.js#L126-L170",
+          "version": "repo-lines-v1:sha256:4b78b8264828e8ff64221bb2498cb8bb13e9ac3dec0414772ed954df71975d09:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwZGEyZGM0ZjNjZTU3MDc1YzBjZjcwMzkwMTFkYTgzMGI1NDFjYmE2NGNkOTU3YTlhYWViMmFlODI2MTY4M2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU4ODkwYmVmNWYxYjA5NDM0YmEyZTc2OTYxMzc2ZDc3YzY3MWJmYzhiMWI3ZTAwMmUyMTUxM2MwOTAxYWZlNjkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ODkxOGE1MTJhNGZiODEyNzFjNjY4ZDYwOGU3YTA5OTc2MjI3M2Q4NTlmODQ5YmIzOWU5M2Y3NzRlNzhhNjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYwNWJiN2Y2ZDdjYjI4MmUwZjQ5YmU4MTdiOWQ3OWMwZWJkNjgxNDBkMTEzZjVlNGM1MmIzNjQzNjgyNTI5MjYifQ"
+        },
+        {
+          "resource": "repo://sanity/schemas/formNhanBaoGia.js#L5-L27",
+          "version": "repo-lines-v1:sha256:b6d47ff5988db5675450a74e80b151caf5a660eb016c2698f9bf2948450d80ab:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY5YzRlNDA4MjAwMzE0NmUxZDBkYTk2OTZlNmQ5MzcxYWQzYmNjYWNlN2EzNzdjMjE5OTY4MTA0MThhNGRlYTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViYWQ3Y2MyZGZhZmMyMTc1ZmEyZDk3MDRlMDIwMmY5NDA4M2E5ZGE2OWE1ODViMGIxOGM0OGJlYTIzNjI3NWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU2NWUyNTUxZTY1MWI2N2I5ZmNiNzVhMmU2ZGJiNTY2NmJjODgyZjRkNTM4MTgyMzIxMjM2YjY0OTQyNTBlMGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlMTNiZTU1OWVlYmViZjc2ZTFjMjVmMWZiMTU4NjY4ZTQ0MmI3NGU4M2RlYzJiYmMwNDE2YjYzN2YzOWY2ZTcifQ"
+        },
+        {
+          "resource": "repo://sanity/schemas/formNhanBaoGia.js#L88-L123",
+          "version": "repo-lines-v1:sha256:b7a969891959dd788bd88390dfa8b9b6ed03f6950ad2ddf4f61048bde88dd255:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg5YmM3NTExYjIyYjUzOGRmMTQyODMzNzUxZDRhMDM3NDFiYjI4MzkzYjQzZjE5ZjhkNjZkNDkxZGFmNTJkOWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2NzM4NmM2NDhiNTE4MGVlN2FjYjI2NDFlYzFkYzM3Njc3MjE1MTIzM2U5NDM0MDJlYmJlYTcwZWRiMTRjMmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBiMmJjYzFhZDA4YTRiMzE3MzNjNGQ5ZjgzNjkzYTU4NGNhM2Q3NDk1NGEwZjEzMWE1N2ExNzA5M2I5MDQxZjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU3Zjg5NTNiYTYwYzdmMjYwYTI1MWQ4N2M1NDEzMWIyNWRjNTFmMTc0NDljOTMzZGVlNmUzZmNhMTVhYzQzMGYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2688c8ee3a2a4466b74a7f0a652be7d2",
+      "statement": "Image uploads are prepared in the browser with allowed-type and 10 MB checks, raster resizing/compression up to 2048 pixels while preserving SVG, then sent as base64 JSON to a rate-limited server route; the server route applies a 14 MB parser limit and returns a Sanity image value containing an asset _ref after token-bearing upload.",
+      "evidence": [
+        {
+          "resource": "repo://api-client/sanity-server.ts#L46-L61",
+          "version": "repo-lines-v1:sha256:065050ba0141f907cd5e96b2cd375b31188bde6f06166b9e760548edaeee6126:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU4NzYyMjQxMDRlNTlkMWY1MTAyY2Y2ZTBkN2I3NjMyMzc0MjVkYWFkNGFhMWYwMmVlMzBhZTI3YzdkOWE0ZjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEyYzU4OTI3OTZkZmMyYjliM2I0M2M5ZTIyMGVlMzUwNjA1MzA1MzI3OGJhZmU1NmViNmU2YWUxZmI4YThiZTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYyMzZhNmVkMjNiZmFmNzk4YzkwYjcyMmFkZjliYzZjMTVlY2Q2MDAzNjJlOTgyYTRiMjBiMjdlZDQ0YzJiOWMifQ"
+        },
+        {
+          "resource": "repo://api-client/sanity-upload.ts#L1-L57",
+          "version": "repo-lines-v1:sha256:2a23ef366de1ecf147a0e67db1cb3b96e79b0d589e1bbfb5ed32790d79e4a529:eyJzZWxlY3RlZExpbmVDb3VudCI6NTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIyMmEwZjdjZDgzZmNhNmUyZDkxN2JiYWU3YjkwYzA2ODU1ZTIyODg0Nzc5N2I4OTUxZjU3NTBlNWZmYmE1NzEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY3NDVjZjdiMzk2ZDFhZDUyMWI5MmZkY2IzNWE5MWU1Y2RjZmE0MjMxZmU0YmViMjViMDc1OTUxY2U5ZjhhNzYifQ"
+        },
+        {
+          "resource": "repo://api-client/sanity-upload.ts#L59-L86",
+          "version": "repo-lines-v1:sha256:8bf397a339fc99fc61c896aacac07be0af3d24bc0b2fc9fa493989eae3906fef:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjNjQ3MmJkNWQ1ODNiZDFkMGU3NmIzYWYzZmU5YTk1ZGUyMjgxYjhhN2M0Mjk4YjRjMmQ3ZGE0ZGE0YTY1ZTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdiMzA1OTM2Y2ZmMDQyOTgyNWYwNzllMDg3Njg2ZjRkNzc3OTQxZjM2MjRjMzRiNmFlN2NhZjljY2M5ODU4Y2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://pages/api/sanity/upload-image.ts#L21-L57",
+          "version": "repo-lines-v1:sha256:1de96b5b223fd76e300d4ef316e21aafc1b42da75e95ade47381d0b0b55dcb02:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwZTE3NzhmYWI5YWZmZWQyMzJlNWU2MjU3ZmNiNGQwNjg4NjRjNmU0MjgyMTc4ZGUyZTEzNDUyZWUyOTA2YjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYzNjNmZWE1YjAzYzI2YTBmZWM1NGMxOGI3MTVkODdhOWU0ODNiZTY0OTlkOTY2NDQxYzM1ZTk1NWZhYmFiZGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://pages/api/sanity/upload-image.ts#L5-L18",
+          "version": "repo-lines-v1:sha256:d6eb88212ede37bae69bfdf44cf1c50b76b77266b849b3596bb19d0186de2817:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4ZmY3NzdmNGMyMjBjYTI2YWQyY2UzNmQ5ZWM4NTY1YmFlZjJlNmNiZWQ0ZjZkYzllNDM4NDkzMWQ4YTA2OGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1ZTI2Y2Q5MjM2NmY2MGQ4ZWQ5MmQwMjM5ZjA3ZmVmNzRjYWMxNGFhNjlhZGRmOWMyY2MwZDExZWIwMGE0NjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyYTUwODczYjgwOGJiNzc4NTQ1MGM3YTM4N2FiMjJhNzdjZDZhNDRlNjE1ZDBjOGE5ODBlNjU0MDRjYWNmOWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFhZjBjOTE0MGViZDIzZGViNTg4MzkxZWJjZTUyZjc5YWZjNTZlMmMxNjYyODhhYmE2MjgyMDMxNTE4Y2RiYjMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_752a6698f6fd4fa7b7ae43566bceda20",
+      "statement": "Bank information is editable CMS content whose active accounts are read through explicit GROQ projections and ordered by primary status then display order; the schema requires bank identity/account fields and provides active, primary, display-order, QR/logo, and internal-notes controls.",
+      "evidence": [
+        {
+          "resource": "repo://api-client/bankInfo.ts#L4-L49",
+          "version": "repo-lines-v1:sha256:b85ee159a7b502abe013ace4419d0931c74cf3093d376fc3bcfe4800a318a628:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRlYmQyMjFkYzAxOWU3YTM2YmNiZGI2ZTYxMTQzZWFmNTY5NjEwMDllNGUwZDdjZDczZTI3Y2RmY2QzOTVkMWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNlMmQ2NWRkNmZiMjAyODNiMzIzYmI5NjA2ZmY3NGNhOTcyYTU1ZDJkYTlmMzAxMmI2ZjdmMGQyMDhmYzg4MDQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJlNWMyYzRiZWMyOWRkMTE1ODU0OWQzMjEzMWFkMjgwNjM2YTk3N2QxY2UzODdhM2RjMzBhNmMyNzk3NjZhMTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE4OTFhYTI5NDQwZWJmMDcwMzVlZTU1NjBkZjdiYmU2MDA3NzY3OGFiMWQ3NzgwZGFjYmM1YjUxZDYzMDY4MTAifQ"
+        },
+        {
+          "resource": "repo://sanity/schemas/bankInfo.js#L5-L84",
+          "version": "repo-lines-v1:sha256:251b8be5e1abcfc9118eebaa25017e9033008407fd39b71e5ad5c768010f181b:eyJzZWxlY3RlZExpbmVDb3VudCI6ODAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY5YzRlNDA4MjAwMzE0NmUxZDBkYTk2OTZlNmQ5MzcxYWQzYmNjYWNlN2EzNzdjMjE5OTY4MTA0MThhNGRlYTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViYWQ3Y2MyZGZhZmMyMTc1ZmEyZDk3MDRlMDIwMmY5NDA4M2E5ZGE2OWE1ODViMGIxOGM0OGJlYTIzNjI3NWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFhZGFkNTliY2MzMGRhMTAxMmE2ZmE3NWUxNjM4NmQ3MmI0MTFlNWE4NGY2ZDI5ZjMxYTcwZGU1NDZiZmU4MmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzMzEzOGM1YzlmYjlmZTliN2E1ZTdiNTE2NzdhOGQ5YjFjODNlMDlkZGE5NTIwMDQyMzgwZjUyNzdjYjcxZTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7519a762d97a4cb9b65bb22f9a459e80",
+      "statement": "The Studio documentation provides a report workflow for quote and lighter-order documents and a createdAt backfill migration for older quote submissions; the migration is documented with a dry-run-first procedure.",
+      "evidence": [
+        {
+          "resource": "repo://sanity/README.md#L127-L137",
+          "version": "repo-lines-v1:sha256:d39660c727addb27943c9225aa484d9494df5f89fb8bf988a71a3e3a9c94535b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0MzkwM2RlYWQ0Y2ZjZjQ4MDFkMTdiZDZjNjBiYTA2Y2UzMDI1YmYzZDY0ZDJmN2ExYzdmZjEwNWUzZjQ4MDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YzA2YzU2MWQ1YzMyNzM0MzY4NTI2OGE0NmIzMzkxZjM5OThlZWU4OTBkMmJlNTFmMGQyMWNjNGE1M2FlNmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc5NzY3ODBhNjc5NDc3OTVmMjUxYjc2MjEwMjk1OTcwYzAzOTdjMzNhMDU4M2Q0MTgxMjU3OTU1ZjQ0Y2IxOTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIifQ"
+        },
+        {
+          "resource": "repo://sanity/README.md#L30-L78",
+          "version": "repo-lines-v1:sha256:e8b6c56edbb35d6c7095e8c38cd442f08a4218702af606a6291769931e6d56a8:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyNjAxMDI4MDMyMWRlZDJhNTczMjMwN2MwYjg0ZjUyNmNlNGVjMDQyMDc5MTI1YTgyMTQ2YTFhZGMxNDNiMmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA1MmNjYTg2NTdmMjE0ZTliYzY0ZDAwNTE5Mjk0ODhjY2FmZWIzOGQ0YjQ1Yzg5YTBkMTUwOGIyZWE4MGY2NTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVkZGVmOTFmYjRmM2FjNjAzZjdkZDYyNjAyY2RkZTAxNGIzZGI4NmE2OTRiNGNjNjZhNDc1NWViYmQ4ODZkZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBjOGYxMDVjYzQzZWMyNDE2ODMwNjUzZjc4MzBjZjI4NDUwYzdiMmE3OGVlYjhlNzgxMjJmMTg5Y2Y2OGM0ZDkifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.0",
+    "at": "2026-08-25T17:23:14.366Z"
+  }
+}

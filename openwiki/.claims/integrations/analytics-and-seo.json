@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:835014f9b3a55530d866adfa6ae6e0f103865559c87709c94be4625f0d052a08",
+  "claims": [
+    {
+      "id": "claim_082a99a99e0c4c1998da18e7c1129c7d",
+      "statement": "pages/_app.tsx tracks the initial route and each Next.js routeChangeComplete through trackPageView, removes the route listener during effect cleanup, mounts Vercel Analytics in production mode, and initializes BFCache, speculation, and prefetch monitors with cleanup handlers.",
+      "evidence": [
+        {
+          "resource": "repo://pages/_app.tsx#L117-L120",
+          "version": "repo-lines-v1:sha256:50751dd0bf67e439dc38af034747ce8a9cb28610f6ee7937ee257f2ecd918402:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWYyNzNmOGQ4MDk4YjgxMDhmNDgyZTk3NzhiYThhN2IyNWJiNWRhNDZjNjAyOTIxNGYwYWIyMDAyZjA0NTRjNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmUyYWUyZjAwNmNmOTYwNjEyMzVhMTI5ZDcwNzNmZDA0MTk0NWM4MTRkYTI1MWI0NzkwNGUyMzlmY2RmZjAyMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTVlOWEwNTk3NDNjMjg5MTYyOTdmMGYwNjcxZGU0ZjMyMzhlNDJkZDZiYTgwYTE5NTMyN2NkZjZjYjM4OGZmYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzgzYmUyMjM2M2FjMjFjMGM3Yzg3NGZiY2FhZDJlZTYyYzhlZmE1ZDQyYWM0ZDczZWJkMzE2YzVmNDdkMGM5YSJ9"
+        },
+        {
+          "resource": "repo://pages/_app.tsx#L52-L90",
+          "version": "repo-lines-v1:sha256:ad730a1215d4f46af1cf7e0be33bf98b57d0cacb16ea7c9e9de72afea814146e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRjZmEzODU3OGM0YmE0MDFiOTA1MmVlZTlkZjYzZjc1MzdkYTBkMDAyMWY0YTNkZDQ3ZjVkOWIyMjYzM2UxYzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRlNzk1Y2VlNGZiZTYxMGE1NmViY2FlMmViMjYwZDU0YWI0MmU2MWNiYzRkNTc2NzUzNDJhOWQzNTk2ZjM2ODkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg5ZDEzYWFkNWE3NGQyZDFjZWUyZTIzYTRkYWIzNjkwYTBlYWE2Yzk0M2ZkZDlkYTQ3YzRlN2M5MWRlZjFiZWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE3MWJkOTU1Mzc1YzA5YWVmZWU1OWEzNzViOGQ4NWY5MThlOTZmMmM4MDU2YTNhZDdhMTMzMjAzYmZmOTY5MDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d42edf7c3aee4590bf7a49cc068d37c4",
+      "statement": "trackPageView fans out a page_view to GA4, a custom Umami page view, and the GTM dataLayer enriched with page title/path, user type, device type, traffic source, and session ID.",
+      "evidence": [
+        {
+          "resource": "repo://utils/analytics.ts#L76-L114",
+          "version": "repo-lines-v1:sha256:d1a673e3b358790a0929b4dfaef006a7a8c51d3fd8f4aa0e6340d45bbe974b78:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhNTdiMGNkYTg3NTYzN2ZkZjRkZDE3Yzg1OWRhYmYyMGVjZWZjMWM1ZWE5NTMxYzEzNTUzZDJhOGY0YTQ1NWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdhOWVmODI4NjE3OGM0MzllYzQ0NWM5NGFiNjAxZDQ0NmIwOTc2ZjNhNzYxMGExNjAxMjE1MDE2M2RjNDZkMGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMxMzQ3NjUwZjk0MGFhYzVkMTg2ZDJjYjFiYmI3MzEwZmFjOTM1YjhhYTljYjI1ZDc5ZDg1YmVlMDZiNjUxYzYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b9bcaad329544d8e8aca4f5c82b87b7b",
+      "statement": "The analytics utility provides GA4 commerce and conversion helpers with stable event names including view_item, add_to_cart, begin_checkout, purchase, order_button_click, contact_click, and form_submit; GA4 commerce payloads use VND and include product/order context.",
+      "evidence": [
+        {
+          "resource": "repo://utils/analytics.ts#L129-L183",
+          "version": "repo-lines-v1:sha256:4b4a3916f1ecbb3cb707bcdba5a430fd7eac72a296297400592770f55bbac17f:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRhNDVhMzcxYWY0NjVkN2Q1N2UxZjM3ZGU2ZWRjMzg0NjFmMDA0MmI1ZTM2MjhkMTI5NmJmODE5MGY1YzIxYTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmNmQ3NGExMTNkMDJjNTA0N2E4MjZiYzRhZmU1NmE1OTYwYjhkMzYxMjRkNTRkYWQ2NGY3M2JkNWE4NGM4YTcifQ"
+        },
+        {
+          "resource": "repo://utils/analytics.ts#L226-L280",
+          "version": "repo-lines-v1:sha256:743d612698e93d998f799f4da3600c30d75fdf6b8a7ae95714f2471fe43a056b:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQyZTVhMDIxNGQ4OWRkYjM3MjdhZmZhYjI0Y2E3ODQ4NWYxZGY1OGUwZWY1OGI3ZGZkOGFjZmNhMGQ1YzdlNjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVmZTkwMDEzYzUxOTMxZDgzMmJkMjEyYmQzMmMyZmY5NTQwZjEwNWJlZjU0MzI2ZTk1NmI0MTg3OWM2NjQ2MGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUyMWU5ZDg4OGViMzIyMWRmMzBhYWI0MWVhOTBhNTFhZTlhMjNhNWZiZTIyY2YwYmQzZmMzYjllMDkzOGZiMjMifQ"
+        },
+        {
+          "resource": "repo://utils/analytics.ts#L313-L400",
+          "version": "repo-lines-v1:sha256:ef7d40b81ac3de734c50788f94d585281117a5269c39f414d5a11314ad8a8a27:eyJzZWxlY3RlZExpbmVDb3VudCI6ODgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxZjRjYzVmZWNjMzI4MzkwYmRkMmU0OGEyZDIyZTQyZWEzOTllZjc5NTE1NTdiMGQzNGQyMGRhY2MyMzFiZjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgyY2NkMDcwNzQ1YzkzYWFiMTgxZDI1NzM4YjkxMjE4MzJjNzljODlmNTA1ZGJlODU4ZDI3NjZhMmRjNGFmMWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU4ZWRhZjc1YmZkOTA0YjcyMzM3MGNkYWM0OWI2OWJkMWIwOWJhOTg0NWQxM2RmNDEzYzE2YTkzYTk0NjRkODcifQ"
+        },
+        {
+          "resource": "repo://utils/analytics.ts#L439-L504",
+          "version": "repo-lines-v1:sha256:c9a1b7a4f1ab71d14a2ae295e0f22e547098adf578e6a9980ac0b2a73ec00f9d:eyJzZWxlY3RlZExpbmVDb3VudCI6NjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAwYjVlM2YzZWRlOWE2N2E0MWEzNTc5MmM0M2VjMDQ1NTU3ZDIxZGI0OWU0YThjMjMwYTY5OGYxYWFmNzM3YzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY4MDY4YjQ4YjE2MjYzZWNmZDgzYjk2YzAwMjM1YzIzOTg5ZTJlMzk0Mjc1Y2IxZGY3NGI5YmFlMWQ5OWMxZDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMzOTc4OGRlNzA5NjZkNzEwN2Y1YjhkYzgzZjJhOTFjNmQxNDg5ZDg2NGUxY2ExYThiYzI3N2RjZjQ3NmQzOTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0f3df85b6fa64dea80ece00860237d1d",
+      "statement": "Umami delivery is enabled only when window.umami exists and NEXT_PUBLIC_ENABLE_UMAMI is exactly true; paired specialized helpers emit corresponding commerce, conversion, engagement, and performance events, while the low-level GA trackEvent primitive itself only calls gtag.",
+      "evidence": [
+        {
+          "resource": "repo://utils/analytics.ts#L439-L465",
+          "version": "repo-lines-v1:sha256:39fdf691f8843bb687e8e4fec009d68a9fc54574491d1edbb7785f2db35def91:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAwYjVlM2YzZWRlOWE2N2E0MWEzNTc5MmM0M2VjMDQ1NTU3ZDIxZGI0OWU0YThjMjMwYTY5OGYxYWFmNzM3YzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY4MDY4YjQ4YjE2MjYzZWNmZDgzYjk2YzAwMjM1YzIzOTg5ZTJlMzk0Mjc1Y2IxZGY3NGI5YmFlMWQ5OWMxZDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg4MTc2ZDEwNzVkZmY3NTE0MzU5ZTkyMjdmMGRjZmM3ZjU2ZjRmZDQ2NTI2ZTlhN2YwODM3ZDE4ZWViYzg4NzMifQ"
+        },
+        {
+          "resource": "repo://utils/analytics.ts#L76-L123",
+          "version": "repo-lines-v1:sha256:d8ce51a7f1beb47126cb6f247f6978f42378eda069ee25cb6455b56597420b50:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhNTdiMGNkYTg3NTYzN2ZkZjRkZDE3Yzg1OWRhYmYyMGVjZWZjMWM1ZWE5NTMxYzEzNTUzZDJhOGY0YTQ1NWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdhOWVmODI4NjE3OGM0MzllYzQ0NWM5NGFiNjAxZDQ0NmIwOTc2ZjNhNzYxMGExNjAxMjE1MDE2M2RjNDZkMGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVkYmJhNjdjMGUwNTVkN2M0OTdlODhlNGI5OTIyYjdmNmEyNGRmNDQ4YWY4ZWE1ZDg0OGM3MzM4N2EyNDk5OTAifQ"
+        },
+        {
+          "resource": "repo://utils/umamiAnalytics.ts#L25-L75",
+          "version": "repo-lines-v1:sha256:5feda6a8f154d88163d934be467a47653bf27bd9d4e802b871540ec77404fce1:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkOGU0MzRhNzcyZTA0YmI0NjA2OWZkYmJjMjg0YTZmYTdlMmEzNzE3YzA2NDRlYWM5ZWY5YmQ3NjMxNWI0NzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ5MzY2MmRhZTNmMjUyZDBjZTI3ODYwNTA4ZDFhZGU3YjcyYzUwZmZiODczZTI1ODk4NjRmNmZlYzg4N2UxYzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNjNmJmMmM5MTg4MjhlZTUwZWY0YmE1N2Y2NWRjMDEyNWVhMjg3ODUyODU3YWVlZDM4YWNhYzc2MzAyYjViZjAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b3c3cd094b6f4305b50dc98f0750dfa4",
+      "statement": "The GTM dataLayer utility lazily initializes window.dataLayer, pushes typed event records, supports ecommerce/custom/user-property events and inspection helpers, and derives device, user-type, price-range, session, traffic-source, and page-depth dimensions on the client.",
+      "evidence": [
+        {
+          "resource": "repo://utils/dataLayer.ts#L181-L293",
+          "version": "repo-lines-v1:sha256:a6522d61a30ffd846e26ce55a073e1414b4c62af66f656e0f17bfe07e8a18191:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlYWYyMmNmMDczMjU5MmMyNDcxNDFjYmU2MWVmYTExMDEyNjEyZjVhMzEyMmI5YWY5YmJhZjUyZjU3MjRkMTk0IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJhYTFkMWE2MzM5MDIyOWM3OTgzNDdlODNhMDQwNTQ0MWM5NDAwMDM1Mjg0YWQxNjhjMWJmNmNkZjFkNzBhMzcwIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJiYTQ4MmE5OTFlNDNjNDVlYzA1MjQ3MGZkZjMwNzc4ZWZhYTkxODVmNjY5YTE1MzZkNzE3ZTFmZTI1ODNiMjA5IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIxN2ViZTBmMGViMzhkNzkxYmM5M2QzYjEwZTdmMTdmZmZmNjhjYzdkMmU0ZDFkODc0Y2JjZjk5NzBhYWYyMWMwIn0"
+        },
+        {
+          "resource": "repo://utils/dataLayer.ts#L74-L179",
+          "version": "repo-lines-v1:sha256:1b3bee1b5e7fcc94e0940afb26f1486652f39cc5dc79a2ecc64ddc771b60cacb:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlYWYyMmNmMDczMjU5MmMyNDcxNDFjYmU2MWVmYTExMDEyNjEyZjVhMzEyMmI5YWY5YmJhZjUyZjU3MjRkMTk0IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJhYTFkMWE2MzM5MDIyOWM3OTgzNDdlODNhMDQwNTQ0MWM5NDAwMDM1Mjg0YWQxNjhjMWJmNmNkZjFkNzBhMzcwIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJmMjk2NDA3OWMzYzVjODE1MjBlZjMzYTJiOWQyZTE1YTFiODRkNzI4MGRiODU5MGRjZDY1NzQ3ZTNlMDEyYTQwIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJmYTRhOGU1OWIwNTIwMDUzOWE5NmIxZjFiMzEwNzZkMzJmOWViZDMxYWVjMmNjMzg2YTg4ZTMyMTNlM2ZmYTkxIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_37245ad031ce46ed8eb15409c667a20a",
+      "statement": "Consent Mode initializes with analytics and advertising storage denied, functionality and security storage granted, and wait_for_update 500; saved preferences under inut_consent_preferences are restored, updates are persisted and pushed as consent_update, and renewal is required when unset or at least 365 days old.",
+      "evidence": [
+        {
+          "resource": "repo://utils/consent.ts#L168-L181",
+          "version": "repo-lines-v1:sha256:ecbd6bf079bfc5d943b1c2dc71daa97df70badf15056ccf1d0ca7dbd9bf94294:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2NDEzMWI1ZGU5NzJjYTVhYzcxZmQ0MTkwOGZiZGQ5MzAyMWQzYThkYmVlYzg0Y2M0YzIzN2I0ZmZhMjcyYjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmMTQ1MzJhN2VlYzFiN2I3ZWM3MjMxMDJlZDU0YjA4OTNjYmY2Y2YwNTVhNTQxNjRiYzhhZTc5NTMwZDQ1NDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY4YTMyMzZkMjJlNjY1OGUyODc0OTYzNWIzZDM5YTY5NDNhYjc3YWU4NTg2ZDQ2MjU4MWFjZDhmMGVjNDRkZjAifQ"
+        },
+        {
+          "resource": "repo://utils/consent.ts#L20-L64",
+          "version": "repo-lines-v1:sha256:d66ce6fc3b8c1fb7f71c005e87cd5ae04bdf681989edafe6f3c0960fa4dfdb88:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjVjYWI1YWVlODNjY2M5M2RhNzIzNjE4OGE3YWIxOWEwZWVmMWVlZjlhN2I2NDYxNWJjNmEyZjM3YThlNzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRiMzI4MjQ0MTRhMjIwYWNjYTg3ODI5NDIzNzQzMjA4MmU1YTM5MDNmM2FiYTc2ODY4Y2IxZDRmNThjMTdhNDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZlYzYyODE5NWM2MjhlYTJiNjU0MjlhYTJjYmJlNjZkMWUyMjFhYzBhMzZjNGZjNzc2ZGQ1ODI4MDQ4NjBmOTQifQ"
+        },
+        {
+          "resource": "repo://utils/consent.ts#L220-L252",
+          "version": "repo-lines-v1:sha256:d4f80f531b0daa6f17720615b3d192fac49bdc221a5c79f1bf8de5ba8df134a5:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVkMTdjZGUzYTMxNTY5Y2FkMmI4OTEwMmJkYTc0NzM5YTg1MjUyZmJkOWViZTE4Y2UwYTUwZTU0MzFjYWE0MDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE1NDE0YTg2Y2Y0NDBjZGViY2IxYmViM2YyYmM3NWQ5NWVkM2I2Njc0ZWFhMjdkMWE5OGI3OWVhNzA5MzYyZDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzOTJkNGJlZmIzZTZiNjZhMWJkNzgwNzUyNWYzMmNjMmQyMDY2N2E5N2ViYmFhYjQ5ZTU5ZTVjYTQ3NTY1YTcifQ"
+        },
+        {
+          "resource": "repo://utils/consent.ts#L66-L90",
+          "version": "repo-lines-v1:sha256:4383903b536a3941792f3bfb1a52b9d6bb57953936a539cb0c0fe5ba178fd6e8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUzNjFjOGNkMDNkMDNhM2EyNWZkMDY0OWIwMGQ3NGUwMzI0Y2ExZWM5MTA3NjM5Y2QzMWVjYTc2NGE4MTMyMTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUyNmM2MGU0NzU5OWU3Njk5NTIzNGY3MjQ2NjUyNTdjMTQ5MWVmMGUyNGQ2MTdjMDQ1ZDY2NDllMWZjNjg3OGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlZWNhOWFmY2U1ZjIwMzVkOTdjYjgwNGEwNjI4MmE0YTEyMjM5ZWM1YTI0YWJiNmFlZmVlNzAzZTQ4YjhjODIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3327daebf32e429b9790abba2535cc16",
+      "statement": "useEngagementTracking attaches a passive scroll listener per route, reports only the highest unreached milestone and currently sends scroll_depth to GA4 only at 100 percent, then reports time_on_page on cleanup; the engagement scorer stores at most 100 events, applies weighted time decay, persists the score, and pushes engagement_event to the dataLayer.",
+      "evidence": [
+        {
+          "resource": "repo://hooks/useEngagementTracking.ts#L12-L54",
+          "version": "repo-lines-v1:sha256:187feff05ec07d821743c2f271ce3d9a3ac8b67aff862f74f97528156684e5ce:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEwNDA5OWRhOGU5N2ViMmFjOTUxNjFhM2ZiMjViZmQ2MzAxM2VhYmZmMDlmZWFhNDc0OGNjYmNjOWM2ZWFlZTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUwN2RmOGFiM2M2MzgyYzQ2ZThjMTk3N2Q0ZWY4ODc3YjIxMjMyMGI5YTQ4NmI2Yjk2ODBhZTYxNDcxZjU1YWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBlNzNmNjU4MzNhNDY2NjFlZWVmYzc1ZWI0MDRjZmI5YTQyYTk5YzVmZWIxNTQ3NGUzNzcwODMwMjgyZjc5YzcifQ"
+        },
+        {
+          "resource": "repo://utils/engagementScore.ts#L119-L159",
+          "version": "repo-lines-v1:sha256:33e469aaa767ec344de993db4b5b979ca003a12c3478dcd38b62609ed1c7c2ba:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM3MGE2MjI5ZWMwOTJmYzE4MWYzN2RiYmFjOGM2ODg5ZjIxYjYzODNlMGI3YjU4NmI1MWIzMWJkM2U2MTFjNjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5YjEzYTVkOTM5NjJiMTkwMDYxMTkyNTg2MDY3YzYwZmY0YzRlZmIwZTE1MTRkYTA4MzIzZmM0MjQxOGY5N2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEwZTM3ZWViYzZhYTZiMGQyMWFhYzBhNzAwZWFhYThhOTBkMDIwYzc0NDI1NGZlMzg1ODc1MDAyNDgxNWQ0MzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlZWNhOWFmY2U1ZjIwMzVkOTdjYjgwNGEwNjI4MmE0YTEyMjM5ZWM1YTI0YWJiNmFlZmVlNzAzZTQ4YjhjODIifQ"
+        },
+        {
+          "resource": "repo://utils/engagementScore.ts#L63-L112",
+          "version": "repo-lines-v1:sha256:07f409d994aac3722bae5eaed241773efa42d426585f692050307b71a8f3334b:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU0ZDBkOGJhYjYzYTNkNmY2ZWJhYzZkYjQ5MjE4MTJhYTA2YjRlYjk0ZjY0NWJmYzU3ODMxZjdlZDYwNzdmNDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjExODUyNTFjNzcyZDMyODVlNDQ4M2I0NzAzZTVjZjM1YmFhNmRhYjJkOTVhZTMyYTRiNGM0MmVhNWIxNTdkY2MifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_789165c6cda7458ba0a883e62c1206df",
+      "statement": "BFCache monitoring uses pageshow and Navigation Timing to report restoration status, navigation type, timing, and recursively extracted notRestoredReasons; persisted restorations trigger an additional Umami page view.",
+      "evidence": [
+        {
+          "resource": "repo://utils/bfcache-monitor.ts#L128-L209",
+          "version": "repo-lines-v1:sha256:7fa3772d14f82c6db6ecdb72e0dea44a652ac582386fd75b6dea837b472405cc:eyJzZWxlY3RlZExpbmVDb3VudCI6ODIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU0ZDBkOGJhYjYzYTNkNmY2ZWJhYzZkYjQ5MjE4MTJhYTA2YjRlYjk0ZjY0NWJmYzU3ODMxZjdlZDYwNzdmNDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlZWNhOWFmY2U1ZjIwMzVkOTdjYjgwNGEwNjI4MmE0YTEyMjM5ZWM1YTI0YWJiNmFlZmVlNzAzZTQ4YjhjODIifQ"
+        },
+        {
+          "resource": "repo://utils/bfcache-monitor.ts#L41-L54",
+          "version": "repo-lines-v1:sha256:0e7eb419b71b069f3a9c27563c49b947800d0750e9f8924ad81bea4a454c21fc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgzMGY1NGZlNzQ2MWYxY2Q2MGY5ZjllY2Y1MTFmYTIzYTA1NjRjOTIzNTdiYzUxM2U4YzJhNjE3YmIzMTMxMDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU3ZDYxODQzMjliN2RlNmNjOWIyYWI4ODg3MjBhMjQ3Y2FmNTk2NmZkNDNmOGUzNGU2YWI2ZDQ1NjcwNDcxYmEifQ"
+        },
+        {
+          "resource": "repo://utils/bfcache-monitor.ts#L86-L126",
+          "version": "repo-lines-v1:sha256:638963ce3f6a67a9df702521081cb47e15608a160cd99159d4aa27d8101a366f:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5ZmIwZGU5YWEwMWZiZjYzNjEzOTkxZjQwNmE1ZjcyOTdiYjgwNDQ3NjVlNGE3NWY5YmNjN2ZmZTk5NWRmM2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNmNmE2Mjg0NzFiZGM3YzUxNDgwNWY4NGQyZWY1MDYwZTcwNzliYjY0MmZlNzNhZjc3N2I0NTViMzE5NDJiNDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVkMmEyYTY4MmIyZGQ5ZmM0NGQ0NWFmNzVlNjBmZjVlZTQ5MDA5NmVjOTExMjY1NzY3YTQ0NjQwY2JmNDBiMDMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0c15cd32fd49401cbf7cfd0ff0ba91ba",
+      "statement": "Speculation rules define critical and secondary prefetch routes, context-aware product/service rules, a root prerender target, and exclusions for checkout, API, Sanity, and order-tracking patterns; unsupported browsers receive link-prefetch fallback and hover prefetch with duplicate prevention and cleanup.",
+      "evidence": [
+        {
+          "resource": "repo://utils/prefetch-fallback.ts#L108-L177",
+          "version": "repo-lines-v1:sha256:c342e298ac6beb580c6814882a6b5d4fbb8800a622dd39372fb6846346c52aa2:eyJzZWxlY3RlZExpbmVDb3VudCI6NzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiMjQzM2MzYTE0YmNhNTVkMzU3Y2NmZTEzZGMwMDQ4NmNhNmNkMzZjZTFjMzg0ZTViYWNhNjgxOWJkNjhmYjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE1MGQxYTk2OWIwN2Q3MmU1NDMxOTNhMGRmZGQ4OWU5MjJhNzk0NWU2ZWQ2YTI2NjBiYzY2YTE3MjI5NGM5YjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRmNjc3ZTFjODY3NTZjNzA1M2U5M2RiODhkNTEwYzdiNmY0NGI5NDYyMTM4ZTE3NzkyZDgwNWQ1OGE5ODFmMmMifQ"
+        },
+        {
+          "resource": "repo://utils/prefetch-fallback.ts#L23-L49",
+          "version": "repo-lines-v1:sha256:c040be9324116bcf0128295fd952ee71f844f76c4057904a50c5ec2af4a3eb62:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2MTQ3MWU4NjI4NGZmYmM3NGNjNzUxYThiMjdkYjkzZGZlN2VmZjJlMTE2OWRiNTBjYmM2N2M4NGI3OGIyZTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM1NzE0OWRjMDcyNTVkZmIxMzNkNTEyODA3ZDlkNGMzMWUwNjI5ZjU2ZTMzY2YyM2M3M2JiNDUyMGE3ZjZjZTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRiYTI0YTI3NDVmMjczNGZmM2Q3NzBhYjhmMDMwYWE1MjZkNjJiMTdiOTdiNTM3NTkyYjdlZjQ0NDY2NzkxNzgifQ"
+        },
+        {
+          "resource": "repo://utils/speculation-rules.ts#L34-L70",
+          "version": "repo-lines-v1:sha256:443e298f7314a9247e8986be5139b8134e210cdbd9c33fbb25e9b6c5a18ca5f4:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM2NzM3NDI4YTZjNjQxOGU1NTY4YTNiMTg0Mzc1YmE1M2M1ZDZjMGE3ZTZlZTAyYWU1ZjQ0YWZlMzU0ZGZhOTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkzZDIwZDI3ODVhZmNiNzI2MjViMmI1ZTQyYTk1ODFkYWQ2YmU1ODE1Yjk1MmZlMGJlYjg5ZDZkZTE3NmRkOGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmYjM3NzNlN2E3MDM4ZTk0OTJmNjNjOTE1Mjc2NmIzYjM5YzkzZWVhNGM2NzBlN2I1ZmJlYzNhN2NhMzkwM2IifQ"
+        },
+        {
+          "resource": "repo://utils/speculation-rules.ts#L76-L165",
+          "version": "repo-lines-v1:sha256:eaac73588a5a42204e30e32f0b5da4da1d6f5d72b6b3a164686adb1f61eeae5d:eyJzZWxlY3RlZExpbmVDb3VudCI6OTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwM2FmNzViNzA5YjNmN2IxYmMxZWExNWUwMWRkMTViNzY1YTNjOWMwYjgwYzY1MTUzZDcyOGE5YjdiYzJiOTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjZTNkMzdiYmZkYjUzMWE1NzhjNjFkYjU3MDYxZTllODE2MDI1NTI5ZDZmNDQyOGFlMjFjZDYxZmM0ZDhjNDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk4YjA5MGFkMWI4ZDdlNDZkZTM3OTNmNzE2NzczMTc1OThjODAzMDVlN2Y4OWJjMzlmNWZhZDM5MzIxNWUyYzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlZWNhOWFmY2U1ZjIwMzVkOTdjYjgwNGEwNjI4MmE0YTEyMjM5ZWM1YTI0YWJiNmFlZmVlNzAzZTQ4YjhjODIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5260016221c14b178575e46bc70f3395",
+      "statement": "The postbuild command generates sitemap and robots artifacts with next-sitemap and runs scripts/verify-seo.mjs, which fails for missing artifacts, missing required robots directives, empty/query-containing or /search sitemap URLs, and missing expected canonical routes.",
+      "evidence": [
+        {
+          "resource": "repo://next-sitemap.config.js#L1-L27",
+          "version": "repo-lines-v1:sha256:c48a3ba89fb7cadb873d8fb501c7cb8ab2897f94ce156f8344185dfd0c306f71:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFhNTNiNDY0MzU2M2MxNmI4MTdmNGJmZjUxOWU1MTFlYzJkNzRkNDE5MTIyZWUzNjQ5MTZmYzQ0YWExYjY2MDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcyODU2M2MyOTg0ZTdmZjBkYjU5MjQ2NjMwNDIzYTAyOGZmNGU3MzgzNjJmMWM2YjY2NWE0NjQ2MmUyYzlhZGMifQ"
+        },
+        {
+          "resource": "repo://package.json#L16-L27",
+          "version": "repo-lines-v1:sha256:05c63b7057589cb923fbe25b3f1dab1c96898183c81ca7ccf26913a18483f6d2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3M2NhMGRkN2QzYTM4OWJiODNhMzhhMWIzYzQ5MzhlZjA5ZDFmZjhiYTYxYzA3NTM4YTE1NTNkNDkyYmEyZjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3MDgwYWNjNjI3NDE3NGIxNGNiM2M2ZjI3NmY2OTgzOTc4MjM3YTI4YjljZTgxYjUxZWIxZDMzOTJjMDVkYTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRjZjE5OGZlY2E5MTkzYzE1OGVmNTQ5MWU2MDhjMGE5NTVhZjNiNWY4Yjc3NTE3ZDA5NzhlNjNiYmY2MmZlOGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE3ZDRmNTBhMmU1MGIxYzlhMTA3NGE2MDY0MzNiN2M4YTA0YzA5YjFiNDk1OGYxNWZkYmI0ZTU4YTNiZjdjY2EifQ"
+        },
+        {
+          "resource": "repo://scripts/verify-seo.mjs#L14-L108",
+          "version": "repo-lines-v1:sha256:9025cd932482ce08c3c5e4d70650b68f6333e5ebedab794f2b61d525967576a5:eyJzZWxlY3RlZExpbmVDb3VudCI6OTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5OGE5Yjc5NGI2NGFlYzhhYjRhNDE4ZDFhYTNlNGYyMTFiNDU5YzViYjJjOGMzZmY2YjJhM2E4ZTIxNGRjYzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3YWM5MWJlMzcwMzllZGQ3NGRiMjk5ZjZlMjgwMmMzZTliNjM4ODRiYjk2MzVhZmE2ZjkwNzI0MjViZWY5NjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBkYzFiZTM0MjlkMmVkMjE4MDdmODQ4MDVlMDQwNGQxOTkyMTNmNjY1ZDg0MmViYTljNDY1NmQzNmI2YmUzYTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMxYzdmNjk1OGIxZDc5N2FhOGIzYTVlYTQwNjkxZjMwZjFlMjcyMjZhNzkxNWMzOTIzZmIxMmU3NzU5ZGJjNzgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_52270aa866ef4e55b1221720049fa713",
+      "statement": "GoogleTagSchema renders GA4 and GTM scripts only in production and only when their environment IDs are present, using lazyOnload and configuring the initial GA4 page_path; environment configuration also exposes Umami enablement, website ID, and host URL with a cloud.umami.is default.",
+      "evidence": [
+        {
+          "resource": "repo://components/scripts/google-tag-manager.tsx#L1-L55",
+          "version": "repo-lines-v1:sha256:c5558a214cc51b90b75bbfbd726dda4710daeb978522fbae6a19aef05109c832:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ2YTUxY2M5NTFjZmNhMWE2Mzc2ODcwYWE2M2ZmM2ViNDY1NjZjMzEwYjgxN2E1OTU2ZTEzMTg1NDhkZTA5OTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://utils/env-const.ts#L1-L20",
+          "version": "repo-lines-v1:sha256:b988d9311fd8f84a961ad42bd61546c2638653f0d4f680920aaf4f9aedefd1d1:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzOGM1MmI0OWUzMTVjYWViMDUwZDc5NTliODU0OTBmM2E1OTA2MWNiZTc3MTJjMzZhMGI0YjY4ZjgyNDU1MTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBkNzg3N2FlZjFhZDQxYTg3N2RhODNmMWViMTk3YjdhNWE2OGY3MzI2MzcyMmI1NDJiNGQ1ZjYwZjEzZmYwNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVmNzM0ODQxMTE5NTg1MTllY2EyZTRlZmViZGY1MGVmYmMxYzYwYjc0ZDhhNjg0NjU4YTkyMTczZDMwZDM2NmIifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.0",
+    "at": "2026-08-25T17:23:14.366Z"
+  }
+}

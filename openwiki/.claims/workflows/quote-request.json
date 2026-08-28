@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:d459a2950baf1bf0ee8baf176341da37692313302f72212fb7c447a650b00153",
+  "claims": [
+    {
+      "id": "claim_b89b8c8c3d2d45fa8a3c0efb0389b286",
+      "statement": "The quote workflow starts at `/contact/form`: `pages/contact/form/index.tsx` renders `QuoteRequestFormComponent`, which validates and normalizes the client payload, persists it through `/api/quote-request`, then performs Telegram notification as a separate post-persistence side effect; Telegram failure is logged without failing the completed quote flow.",
+      "evidence": [
+        {
+          "resource": "repo://components/contact/QuoteRequestForm.tsx#L154-L233",
+          "version": "repo-lines-v1:sha256:e40597cce75d13acabb32fdeb9039da2253ff764315b1fd349307bced3804d07:eyJzZWxlY3RlZExpbmVDb3VudCI6ODAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUzODg5YTgxYTk3YTAyZjJjNGY0ZGUzZDViMjIxMTg2OTk2YmIxNThhNjQ3ZDRhYTkxZmY5MTUzNTI4YWRhYWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ1MmY3Yzk1ZjE1ZGRmMmFjMjhmYTdmYTg1MzkyYzIwZDMzOWFkYzkzN2UyNTk0MWZmOWVlYTQxYjM3OTlmZDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY4M2E1MmZkMThlMGQxMjZhMWI5YWIzMzVhNzhmM2MzNjljOTkzYTk0ODBiMGIwNjMwZjI5NGFjOTNiMGE0NGIifQ"
+        },
+        {
+          "resource": "repo://pages/contact/form/index.tsx#L1-L5",
+          "version": "repo-lines-v1:sha256:1802290897a731baff61e45b3475ff2f7b2e64b89de54238801d0f6a881aea24:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzUxMWNiY2E2NDBiZGJiZjM4YzJhYTRhNGM1OGQ1MDlkNWNkOTYwNDU1NWZiZTBmMTg5ZjU5NmFmNmMwNTQ4MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGNjNTJmNjkyMmRiMzY1ZjYyZmVkODMzMDc1OTc1ODJmZDA3YTU3MzY5NzY5Y2ZmOWQ4ZTI0YmNhZjdjMmZmOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTRlY2ZkZjc3MmQwOTU2OThmNDFiZGMyMmZlZDRhMmQ3MWQ2NWQ1YzkyMzljMzNlMjY5ZjMzODRiNGExYmIxYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_35d8693e1847458e9e685102d434166b",
+      "statement": "The client form requires customer name, phone, usage purpose, receive-quote channel, design status, and quantity; email, alternate-purpose/channel details, and urgent date have conditional validation, while device model is conditional on laptop, phone, or keyboard customization purpose.",
+      "evidence": [
+        {
+          "resource": "repo://components/contact/QuoteRequestForm.tsx#L113-L137",
+          "version": "repo-lines-v1:sha256:60cdd48e69d113fa9f987a18f7f742e0c5ebab53fc4e040b5dc347b7e9ba254a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM4OWJlMzNjMzhjMjM2OWQ1ZTRhZDBmNzA3MGJlZWIxMzA4YWI3NzA2OTc2M2U1ZDY4YjNlMGE3MWViMWQ0ZjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhNzM0OTJkODk0NmIxZDBmOWQ5YzA0YjcwNGE5MjBmMjRmODllZjdjN2Y3MzExYTg1OTlkMTBjN2Y2MzU4ZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ5Mzg0MGNkNzFlMGQyNjg2MmI5OGRkYzc0ZTViODY0OThjNGUwOTdlNzg0MDU0MGMwNWFiMmE2MzRkOWUwMWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU0YTkzNjdkNmRiMjk3OTZjZTMyYjUwOWQzNDc1MjUwMmFmYjM3YTFhMTg2ZGZlNzkwM2UxNWFkYWU2NDUxYzMifQ"
+        },
+        {
+          "resource": "repo://components/contact/QuoteRequestForm.tsx#L321-L370",
+          "version": "repo-lines-v1:sha256:58b7a5348871c54b97671443b281158280e439d5218372c687009675886e673b:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBiNWJlNDVmNDAyZmQ4MDMyNjg2MzA5Y2ZlYzk0NTc1MTI2ZjMwZTUxNDJhZDZiNDk4MGZhMTJkNjM0NTJlZDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJkYWNhOWY2MzgzMDM3MDJjOGJmMGRkZWU2ZjhjZTNmYTNhMzY1YjhhZGViM2FlN2FlNTkyZmQ3ZmM5OTZiMmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgzYWJhNmU4YmQ1MzI3NTYwNmM0Mzk1ZmFiMzZiYjMwYjdjNzhjZWU4ZjhkYTQ4MjA2MDI0NzFmNWUyMGEzOGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjczZDkyZGQwN2UxMDM2NzI4YjdjMzBhOGIyZTQwZGE5ZjQ2OTYyMmY4OTg4ZDI2ZjUzM2M5ZjFhMmM4NDIwMjcifQ"
+        },
+        {
+          "resource": "repo://components/contact/QuoteRequestForm.tsx#L401-L426",
+          "version": "repo-lines-v1:sha256:e1873697e41e8e853de06e2848a7dd94282aeb2993235c77acfdfae531afb3c8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJiMThhYmE5NGU4Y2FiY2VmMjE4YzEyZDdhMjI2ZjEzYWFlZmY1MTk3ZTAzMjk1ZDAxYzFmZWUzOWQ0ZDA4NjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJkYWNhOWY2MzgzMDM3MDJjOGJmMGRkZWU2ZjhjZTNmYTNhMzY1YjhhZGViM2FlN2FlNTkyZmQ3ZmM5OTZiMmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgzYWJhNmU4YmQ1MzI3NTYwNmM0Mzk1ZmFiMzZiYjMwYjdjNzhjZWU4ZjhkYTQ4MjA2MDI0NzFmNWUyMGEzOGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI2YjA1NTZjZGI1NDhkYjQ3ZmU4ZDk3ODIwZWY2YmE5NTU3MDQzMTg3YTAyNDNmOWE1NDViNjg5ZTA2MWM0NWYifQ"
+        },
+        {
+          "resource": "repo://components/contact/QuoteRequestForm.tsx#L428-L530",
+          "version": "repo-lines-v1:sha256:f285b32bb30091daaf36b666e06f77c5bac7a57d8e234473de8ae1c247036f40:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIyYmJiM2VjZTZkZGJkYzI5MDY2OWIyN2FkZDg3NWFjY2QyYjFiNDY3OWZhMTliYmZiNTE3NmZiYWQzZTAwMTRmIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJiZGFjYTlmNjM4MzAzNzAyYzhiZjBkZGVlNmY4Y2UzZmEzYTM2NWI4YWRlYjNhZTdhZTU5MmZkN2ZjOTk2YjJjIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJhMDIyNTFhZGY5NzIwOTM3NGQyNmUxN2VjZDdiOWE2YzFkZWRiMjhjOTU0MDU4YjMwZjJjMDY0YzllZDBkMzVjIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIzOWM2YTc4YzQwYjVhZTEzZjEzZGZkY2RkMmIxMjM0Yzg5N2I3OTYzNDk2OTJmOWFhMzU5NzMyZDIzYjI4NDMyIn0"
+        },
+        {
+          "resource": "repo://components/contact/QuoteRequestForm.tsx#L532-L619",
+          "version": "repo-lines-v1:sha256:826f1dde0c6e24311a5e513d1d10044e1c199e801c2c649ec4c7e37d86ef1e41:eyJzZWxlY3RlZExpbmVDb3VudCI6ODgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1NzY1MGJhOWI2MjY4MjJjNzQ2Njc5NmE0M2Y1ZWY3NDEyNGZjZDhlYjE0YWZiZmVlNTEzMmE1MTA0ZDc0ZjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJkYWNhOWY2MzgzMDM3MDJjOGJmMGRkZWU2ZjhjZTNmYTNhMzY1YjhhZGViM2FlN2FlNTkyZmQ3ZmM5OTZiMmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEwMjI1MWFkZjk3MjA5Mzc0ZDI2ZTE3ZWNkN2I5YTZjMWRlZGIyOGM5NTQwNThiMzBmMmMwNjRjOWVkMGQzNWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxNTliZGIzMDk3ZTg4YjNhNjUwYTE1MGZiNmEwODY0NmFkY2FhYjA5OTczYmNhNDIyMWUxMDRjYWZjMDZiNjIifQ"
+        },
+        {
+          "resource": "repo://models/quoteRequest.ts#L53-L70",
+          "version": "repo-lines-v1:sha256:baede447549e049666e402c62cac64b746deafe2741ec12cdb5d1fe6aea6d841:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUzZTgwYmUxMGEwOTlhNzQ5YTQ3YTgxMzc5NjI2ZDFjZjY3ZjE3MzYzYTg1ZTRmZjU2YzRhODM5ZTY1MmQ2YTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMzY2ZhNTFlNDU4MTIyOWYxM2VkZGI0OWY2ZGJlNjZmMjRhMTYxODE2OTY4N2U0NTcwMTA5MWI0ZmZkM2ZhYmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJiOWI1NDBjMTk0OTJjZWRiMDNjODQ4OTE3NTM1NDhlMDY5MWM3MWNkNmNlMWQzOGViMzhkZTQzYmYwNTA5ZjQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_73fc0d361d654b08b71bdfc0ae7eaae6",
+      "statement": "Phone normalization removes spaces, hyphens, and parentheses, converts a `+84` prefix to a local `0`, and validates exactly ten-digit Vietnamese mobile numbers beginning with 03, 05, 07, 08, or 09; the form sends the normalized phone in the quote payload.",
+      "evidence": [
+        {
+          "resource": "repo://components/contact/QuoteRequestForm.tsx#L154-L156",
+          "version": "repo-lines-v1:sha256:db3f308a89f85b3dc8052dea7529e3c408341c190dd32dc17ba9b1a8fb74b0f5:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTM4ODlhODFhOTdhMDJmMmM0ZjRkZTNkNWIyMjExODY5OTZiYjE1OGE2NDdkNGFhOTFmZjkxNTM1MjhhZGFhYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjI0NGU0NjNiZTQxYWNmNWE4NDE5ZTAyNGZiMjQ1YWNjYjA4NDBjYWIxYTM3YmZiOWExNTNhMmQ0YzVmMmVhZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDUyZjdjOTVmMTVkZGYyYWMyOGZhN2ZhODUzOTJjMjBkMzM5YWRjOTM3ZTI1OTQxZmY5ZWVhNDFiMzc5OWZkMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDdhY2ZlNDExNGYzN2NlOWMxMDU1ZGQxMzQyODlkMmE2Zjc3N2Y3MWM0ZTEzNDE4ZGExODVjMDZhOWMyMzY3ZCJ9"
+        },
+        {
+          "resource": "repo://components/contact/QuoteRequestForm.tsx#L372-L397",
+          "version": "repo-lines-v1:sha256:1eac212fc1b2e64de20f73b191e6d4c3a438e06241db27bfd59cc1a37ff2475e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2MThlM2E0Y2VmZmQ1ZGUwMDY1YzQ1NjE0OWQ4MTRhZTI3N2NmMzYzNDRkYTc0MTRiZDg3YzZlNzBjNWZhOWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUzNTFhZTQ4OGY1ZjkyYjdkOGJmODc3YTBkOTcwYjhkNTE2OWE0NDE2MzEzYWFmMjVlMTViNzVjNjdlY2RmODUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEwMjI1MWFkZjk3MjA5Mzc0ZDI2ZTE3ZWNkN2I5YTZjMWRlZGIyOGM5NTQwNThiMzBmMmMwNjRjOWVkMGQzNWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgzYWJhNmU4YmQ1MzI3NTYwNmM0Mzk1ZmFiMzZiYjMwYjdjNzhjZWU4ZjhkYTQ4MjA2MDI0NzFmNWUyMGEzOGIifQ"
+        },
+        {
+          "resource": "repo://utils/phone.ts#L1-L13",
+          "version": "repo-lines-v1:sha256:be92961c4919fa4a24672d022139543b3ed636714a21c9a05177a4281f70e2ee:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0MzFiZDFjMDRmMWZmN2RmYTQ4N2RlZTQ3NzU2YWM0YjAxOWU0MGJjYTQ2MzNkMmE5NTc2MGM3ZTc5OTkyZmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7820f99d2afc47aca4edd5e015778be6",
+      "statement": "`usePhoneZaloCheck` is a debounced advisory check: it only probes valid normalized phones when enabled, waits 500 ms, posts to `/validate-phone`, ignores stale responses for older phone values, and maps `true`, `false`, and `null` to registered, not-registered, and unknown states.",
+      "evidence": [
+        {
+          "resource": "repo://api-client/axios-client.ts#L4-L25",
+          "version": "repo-lines-v1:sha256:49dd7868ff6770340327e6a0a27e351c2af74423bc940ec7d9bcfbabf5ef8eb0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUyYjhiZGUzMjIwMzU4MTA1ZjRlNWE5MmQ1YTRkMzY3MTgwMjM0ZDcwOWMyNjUzMTZiNmM0OGFiM2FjZTI4MmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg3ODZhOTJjNGYxYzA3OTdmZWFhMWYwMTdjNjkzZjI0NzQ2N2ZjYzY0MTg4ZDVhNjAyYzgwYWJmNjI3MGIzZjEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFhMzM4Y2RjNjAzYmViYzk0ZmEzOWVkYjRmMzE2M2U1N2M1ZDQzNDgwMjYzODIzNjkyNWVmZDZkNDYxNTMzMjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ4ZWU3MGFkM2FmN2I4YmYwNTc4YTQyNWNhM2JmMDg4ZTNjNjA1Nzk0NWU5M2U3YmZjYmE1NzU3MDM3YzNhNzkifQ"
+        },
+        {
+          "resource": "repo://hooks/usePhoneZaloCheck.ts#L7-L55",
+          "version": "repo-lines-v1:sha256:90f2684dace66067f6f90fb500329c277ce4522e1a6fe0a355a0189faa1c4a53:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzYWQxN2RjYmYwZWEwNTUyYzkyZWJjZjU4ZGM3ZWZlMTBkZjU0NjQzZWRjNzlhNDU4MjMyZWE4YjMyMTg2ZDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5N2Y0Zjc3MzM3NGNjNTJiMmQ4OGRmNWVhNDg2ZGQwZmZkZTAxOTNlZDBhYmVkZjU3ZTg0NWYxZjZhZTJjYWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIzYTVlMWViYjg4Y2QwZWEzMTJjODdhM2Q2Y2JjZGI0YTNiZDg2OGE2MDM3ODMzMWNkMDVlNDdmYmI2ODgxN2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_752245fd8ec5480fa8c7da087bc6809e",
+      "statement": "`/api/validate-phone` deliberately never blocks quote submission: rate-limit hits, malformed input, and Zalo probe failures return HTTP 200 with `zaloRegistered: null`; wrong methods return 405 and an incorrect API key returns 401. The route rate-limits by client IP before method and authentication checks.",
+      "evidence": [
+        {
+          "resource": "repo://pages/api/validate-phone.ts#L21-L72",
+          "version": "repo-lines-v1:sha256:e19339b8024ca7149481927a00772e2e0caf8f44152ca9a551c43e24fab9a1ef:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQyMDdhZDFlMmQ0MmFlN2I3MTJhZjU3ZmJiMmJhZGMzOWU2NDE3ZTMwOGFiYWI1ZWM2Zjk0Y2UxYWFjODAyYzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://utils/rateLimit.ts#L9-L40",
+          "version": "repo-lines-v1:sha256:95ec3a4576d02917f51588410ca8ea1b1fd08ed50f4e62e4f039906cdb243a02:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgyM2QxODcwYjg4OTExYmY3MTJhMjRlNzk3M2U2ZGM0MWUzNGVkNTIxMWE3YWU0NTcxMGM4NWYxMDFhYzRlYWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBhODhmNjZmZjQzNWE4OTg4NTRjZGRlZGE1ZjczNWY4YzM3NjAyNTUyMGJhNTk3NDQ2ODQ4NjNiNDhmYjA5YWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZmNDY4ZWI2MzM3YjEzNmY3Y2E5ZDY2YWQ3N2NhYWFhN2VkMGEyNzY1ZDA5YThjODZmNGY2NzU0MTJlOTMxMjAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3d03f11bc7d4416cb20074add6af34fd",
+      "statement": "The Zalo probe normalizes the phone, manually follows at most five HTTP redirects, rejects non-HTTP(S) redirect targets, times out after 10 seconds per attempt, classifies `zalo.me` as registered and Apple App Store hosts as not registered, and retries unknown results once before returning null.",
+      "evidence": [
+        {
+          "resource": "repo://utils/zalo/index.ts#L12-L25",
+          "version": "repo-lines-v1:sha256:3591dd261a9659697220c83223db473f15599de4d22483b916054fcab2a889c1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVmODhlM2U3NzMxNDljOTI5MTA4NDRjOGIwNTM5NGFmZDQ4OTJjNzY3Y2U0ZjgxYjMzYzVhNzM3NjU0YTM0OTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFhNWQ1NDNhNWY2YzU4MGU5MzI5OGVlMmVjNDgwMTU2YjNjM2U0MDUwYTUzZjg2OWJmNjRlM2Y4NGY0OWQ0ZTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc1NDEzZTc5Y2Y0N2Q0MjEwMmFjNzMyYzdmYmVkMThjYTJjNjNkZjlmMjA2MzFkZWNiOWY0NTE2ZjY4YjE4MTcifQ"
+        },
+        {
+          "resource": "repo://utils/zalo/index.ts#L27-L83",
+          "version": "repo-lines-v1:sha256:f426dc03c7767ee906ef34a6b08721507175b5abc6e6aa84dc55aa10bfe9d65f:eyJzZWxlY3RlZExpbmVDb3VudCI6NTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhODhjYzRjNmJlNDY2MTUyY2EzNzYzN2Y0OGEzMTIxMTgwOTFjYjRkYjRlMTExYjcyZTY2YmUxN2JjNmFkYzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://utils/zalo/index.ts#L3-L10",
+          "version": "repo-lines-v1:sha256:5ffbf5d01a408142cc34f3e1b201ce5382ebdf70a3fb267067d1080f2e0b56f2:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTQ5MjUzOGIwYzQzYzk5MmMzYTA5MTIyZjM1NGY3YjVhMzllYWFhODI0MzIyY2MyZTA5MjkzZTI3OWZjOWZmMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjIxOThkZjE5MmZlYWFjY2ExYjMwNTBhMmE1MTIyOGMyOTAyNWU5MTA1ZjgzNWUzMTJiM2ExMzBkOGVhZDVlNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2MxOTc2YjZhYjlkNDkwMThmODMwNWM3MDBjZjQ2MmQ3YTEwMTllN2RhNTA0MzkzMjVhMTc0ZjY3MWQ3ZGI1YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWJkODMzMGVkNjJhMmVkMzI2NzQ2ODQ3OTNiODMzYTZiMGQ4MTZkZDVjNzlmZDVkZGZiZjgyNTg2YjU2OWJmYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_34d14294e99242bfbbbad2836c558075",
+      "statement": "When the user selects Zalo and the feature is enabled, the form opens a confirmation dialog before persistence; Cancel hides the dialog and stops without submitting, while Confirm hides it, clears the guard, and invokes the normal quote submission. The dialog is a reminder rather than a registration gate.",
+      "evidence": [
+        {
+          "resource": "repo://components/contact/QuoteRequestForm.tsx#L158-L205",
+          "version": "repo-lines-v1:sha256:c59bac57eff8930bbdb1d150d3ba5618a89cb8a782fec6123b03bb93fbd9f346:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5NTAzNDQxYjE0MWMwZDBkM2Y2N2ZiNjBiZjgyYjQwNDlmMWMwNDUwYmZlNjQ1NTAyOWIzZmMxYTRiMjljNjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNjODgyYjU5NjNiYmUxZWExM2Y3MzA5YWYwYmY3MGY4NDg4ZDMyMmRhNGViMTdkYWQ5YjY1NmMyODcxZWNmNDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJlYjE1NGM4MWQ5M2Y2YmIwOTM2NDkwYzg4M2I4YTFmZDI3NzRmYTk3MzJkY2VhZTkwNDIzY2I4MTRmN2QxYmYifQ"
+        },
+        {
+          "resource": "repo://utils/env-const.ts#L23-L24",
+          "version": "repo-lines-v1:sha256:d14649d3c737f76ee7463df76959cc891c66ce09e455b5898bc37918ed70b2fb:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTYwY2ZhYWZiMGU0MjY2ZjkyNWM0Y2UwYzBmMTBhODRkZDljMjY3MzJiZTE5MmEzZTNmMjM4ZTZkZWM1MWYzYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTA0ZTcwZjE0NjRkMDU1OGIwNzVlNmE2ZTBhZDQ3ZDE4ZTUzYjg0OTFjNzYxYWJlMThiMTg2MTY3Yjc4MDRmOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzI5YjAwMDJjMzkxMTZiODljNzhkZWE1ZmE2ZDRlYTMyMTA1MGQ2ZTJiZGFiN2IzMDdhZTg4NGM4NzVmODc5OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjIsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2RmZGFlOTM2MDYyZjk4YTYwM2ZlZDNjMzQ3ZjU3NTA5YzExZjA5MmYwZDU3ZTAwZDJlY2VkZjE3OTdhM2MzMCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_eb19f05758de4fbaaf226d2f65742594",
+      "statement": "`POST /api/quote-request` accepts only POST, rate-limits requests with a one-minute process-local limiter, requires truthy `customerName`, `phone`, and `usagePurpose`, creates a `form-nhan-bao-gia` Sanity document with a write-time ISO `createdAt`, and returns 405, 429, 400, 200, or 500 according to method, rate limit, required fields, creation success, or persistence failure.",
+      "evidence": [
+        {
+          "resource": "repo://pages/api/quote-request.ts#L31-L55",
+          "version": "repo-lines-v1:sha256:183dbe1f4820119655935c720bb2982ba4697b20f3b9122e359e76905382b87f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlM2E0NTcyOWZhZjk3ZmNkYjUxYTYyOTExM2EyM2EzZDczZTRiOGY2NTliMmFkYjY2ZDExZjk2NGE4YTdhYjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ1Yjk4YjY3ZWRkNzBlODA0MjA2NGVlNmU4YWQ1Y2MyY2Q0YjJmYzBmZjE5M2RkODdhMjQzNmM2ODdiY2FiYzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://pages/api/quote-request.ts#L6-L29",
+          "version": "repo-lines-v1:sha256:27c4dbf594a8877ec8e2d0951b1c6737fc346f6ccc48b4a2f03e28061e0ed8df:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2NGU4NGNiNWI0NTUxZjhkOThkYTI4MmFkODU1NDBlZDI5MDNkMGRmN2VlOTFiMjI5YTY3NmJkNzA3NGRhNWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2RhODJkYTYwNjIzOGUwNWU2MjM5OTU2OWM1ZWUwMzk5MzQxOTY0OGFlNWQ0M2EyYmY4Y2Q2MzQ3ZjgyNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIxYzRjZDJjNWJlOTY5MWU4YTAxMTg2NmU2YzQ4OGEzMmQ1MjgxZjljYjM2YTI2YTliNzg0ZjYwM2RiMDM1OGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2OGFhYzExNDNlNjQ3OWViNTNiM2U2YzZmZmIzMzFkNTFlYTY4N2Y5ZjA4ZTVkYTY5MDIzNmZlNDU1OTk2YjEifQ"
+        },
+        {
+          "resource": "repo://utils/rateLimit.ts#L9-L32",
+          "version": "repo-lines-v1:sha256:6a3c5f06114eb9df6839f6dde531e79858e645048e80ffad352f62efb207f393:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgyM2QxODcwYjg4OTExYmY3MTJhMjRlNzk3M2U2ZGM0MWUzNGVkNTIxMWE3YWU0NTcxMGM4NWYxMDFhYzRlYWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyM2Q0MmUzMWFlZWMxNGQ3NmEyZGIwODVlOTZkMmQ3ODRkM2U1ZjQyZGMzYjlhZWRhZGFkYjUwZDY5Yjg4MmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBhODhmNjZmZjQzNWE4OTg4NTRjZGRlZGE1ZjczNWY4YzM3NjAyNTUyMGJhNTk3NDQ2ODQ4NjNiNDhmYjA5YWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU0YmE3MjYzYzEwODcwMmE1NWNjOWRjZjU4MWYxMTMzMzc4Mjk3NmRlN2U2MDRkMTIxNWU2ZDhjZjUxYTA4ZmYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_184163eb53af4d7fb95079019cf39bc1",
+      "statement": "The `form-nhan-bao-gia` Sanity schema requires customer name, phone, usage purpose, and receive-quote channel, validates phone length and allowed characters, and conditionally hides purpose/channel detail fields and urgent date in Studio.",
+      "evidence": [
+        {
+          "resource": "repo://sanity/schemas/formNhanBaoGia.js#L1-L27",
+          "version": "repo-lines-v1:sha256:f33d573cc283fe2023000da13248f06f07ea5ccb038bb670077ad31fd2202106:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzMjdiNmMyNmNjYTI4MDRiMjY2YTc3YTJhNGYxMTU1NTBkOTNiNmUyYzI3MjI4MmJiMGJjZjY0OWQ1Y2MzMDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViYWQ3Y2MyZGZhZmMyMTc1ZmEyZDk3MDRlMDIwMmY5NDA4M2E5ZGE2OWE1ODViMGIxOGM0OGJlYTIzNjI3NWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlMTNiZTU1OWVlYmViZjc2ZTFjMjVmMWZiMTU4NjY4ZTQ0MmI3NGU4M2RlYzJiYmMwNDE2YjYzN2YzOWY2ZTcifQ"
+        },
+        {
+          "resource": "repo://sanity/schemas/formNhanBaoGia.js#L105-L157",
+          "version": "repo-lines-v1:sha256:62b6343bae2eff0accd333a6bdcc98379de1fdce5d7157c42288d5b1fab4d5a2:eyJzZWxlY3RlZExpbmVDb3VudCI6NTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmYmNhOTYxYTI2ZGNjNzczYzVhMTIyNmU5ZjYzOWU0ZmZmM2MyZTM4Y2IxNWY3NDllNTYzN2RhNTBiOGFhNjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViYWQ3Y2MyZGZhZmMyMTc1ZmEyZDk3MDRlMDIwMmY5NDA4M2E5ZGE2OWE1ODViMGIxOGM0OGJlYTIzNjI3NWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwN2RjYzUxYjg3ODY5YzY1NzM5NWFmZjFkNTZkMTNlM2E1ZmU5NTU3NmQyMjUyMTgxOTY4ZTVjYWNhM2I5NDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc3NWUxM2U4YzAyYjIxYjNlYzk2OGE3MzI1YzE2ZGFhMTk0NDUxMTY4NjQzMGUyZWVmNTMwMGI1NTc1NTZjMWMifQ"
+        },
+        {
+          "resource": "repo://sanity/schemas/formNhanBaoGia.js#L34-L93",
+          "version": "repo-lines-v1:sha256:8c1af1f6d3b47898e1fd438f24abec6d8958a1100920c2aa91c38fa1d2274022:eyJzZWxlY3RlZExpbmVDb3VudCI6NjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmMTQzYjc0MTEwNDMyNjBiMjRjMDYyZjYwZTU5MDBhOTFmOGNmY2EzNzczMzdkMWQ4YzdiNmY3ZjQ0YjUzYzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViYWQ3Y2MyZGZhZmMyMTc1ZmEyZDk3MDRlMDIwMmY5NDA4M2E5ZGE2OWE1ODViMGIxOGM0OGJlYTIzNjI3NWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwN2RjYzUxYjg3ODY5YzY1NzM5NWFmZjFkNTZkMTNlM2E1ZmU5NTU3NmQyMjUyMTgxOTY4ZTVjYWNhM2I5NDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM0NWQzYmZmZjQzY2VmNmY2ZWVmNjk4OGE3MDVjMDEwZjRjYWE2ZDJmN2YxMjBmM2MzNTAxODkxYTM5MjczNzUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7a3dad715ee7445ea4867a45a0d751f1",
+      "statement": "After Sanity persistence, the Telegram notification route requires POST, API-key authentication, valid Telegram environment configuration, and quoteData containing customerName, phone, and usagePurpose; it formats HTML, retries sends with configurable exponential backoff, and returns 200 on Telegram success or 400, 401, 405, 429, or 500 on the corresponding failures.",
+      "evidence": [
+        {
+          "resource": "repo://hooks/useTelegramQuoteNotification.ts#L15-L30",
+          "version": "repo-lines-v1:sha256:ec5415bc74e3d4e668cbe1a4349b14c9279488875b7f9199aa23e700c1e6a57f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIxNmVkMzY1Yjk1ZTg3MTllMTAxMmU3Y2I5MTE1MjY4YWUzNTE3MDI0MWRmMjFkZTk1NTQ5MmEzZGU1YmUwNWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk2YzA1MWU3YWE3YzFkZjQ0N2MwYTYzZjY2MzgxMTQ3ZWVlNGJiMzFkNDUzODkzNWU2YWY4OWM4NWU1NjIwODciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://pages/api/telegram/send-quote-notification.ts#L24-L123",
+          "version": "repo-lines-v1:sha256:134fdaea13e20188b99104156c4fff7566d4ab2d706865d289a66ecd21d3b5e2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAwLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlYWYyMmNmMDczMjU5MmMyNDcxNDFjYmU2MWVmYTExMDEyNjEyZjVhMzEyMmI5YWY5YmJhZjUyZjU3MjRkMTk0IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI2N2NkYTgyZGE2MDYyMzhlMDVlNjIzOTk1NjljNWVlMDM5OTM0MTk2NDhhZTVkNDNhMmJmOGNkNjM0N2Y4MjYzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5NmMwNTFlN2FhN2MxZGY0NDdjMGE2M2Y2NjM4MTE0N2VlZTRiYjMxZDQ1Mzg5MzVlNmFmODljODVlNTYyMDg3IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MSwiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIn0"
+        },
+        {
+          "resource": "repo://utils/telegram/index.ts#L96-L151",
+          "version": "repo-lines-v1:sha256:22179dadcc2835309b8f9fabb0c0410332b4aa9291b9e115edbeefa90c78e799:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YmM2OTY2ZjRjNjc3OGNiZTY1MzE3ZjgwZTQwYWZjYjQzYjg1NmI4YjU3MGI0MjFmNmMzNzI3NjU1NTUzN2YiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyOTY0MDc5YzNjNWM4MTUyMGVmMzNhMmI5ZDJlMTVhMWI4NGQ3MjgwZGI4NTkwZGNkNjU3NDdlM2UwMTJhNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OTI5ZTkxZTBmOTljM2U4MjVkZTY5YjQzNWZiNjQ4NGQxYjBhMWRmMmY0NjU2MWFiZjFhMjlmMDQxODhiODgifQ"
+        },
+        {
+          "resource": "repo://utils/telegram/validateTelegramEnv.ts#L6-L37",
+          "version": "repo-lines-v1:sha256:87810eb3ea7f781742d3adbb1cab01cca2c03a100756402d69391eaffbf6d26b:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk5ZTdjODcwN2E1ZTRjNDE4M2QxNDI5MjFjZmYzMzczMzU0YWI3NDJlNmRhYmQyMDZkMGVhNDU1ODAzMzhmMzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVjZmIyYjE5YzBiMTM3OGM2YWM4NTU2ODhkYjhkNzg1NWQ1ZGIxMTE1YThmNWQ3NGIyMWQxZjA1YjRhYmM0YTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5e46c999c271434abc0bcd8616e34ed5",
+      "statement": "The quote regression script exercises invalid-phone blocking, normal valid submission, Zalo dialog cancel and confirm behavior, `+84` normalization, and malformed-phone advisory precedence, but successful cases create real Sanity documents and attempt real Telegram notifications that the script cannot assert.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/regression-test-quote-form.sh#L1-L9",
+          "version": "repo-lines-v1:sha256:24860d7338a5fef2bb49e65d159368f83781f0dcd5984c0c0c3db36d0c7f9f72:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjg3NWY5Mjg1NDZhZWU3ODU1Y2IxZGI5YWZjOGFiM2YxYThhMzRkNDNkZTViYmQ2MmY3MDc2ZDdiYTlmMzkxNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTFlOWMwMTU4YmQ0MGI3ZGQ3NTFjYjA4MmUzMGUwNTNhYjk4YjMyZGViN2M2ODgyM2E4NTY2OWE3ODExOWQ0NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTVmMThiMGUxYTA3NWM5MGUwY2RkZjFmN2QyN2U2ZmQzZDIyY2MzZTViNjAwNWM4ZmMxYTlhYTZjNmI0YjY0NSJ9"
+        },
+        {
+          "resource": "repo://scripts/regression-test-quote-form.sh#L73-L170",
+          "version": "repo-lines-v1:sha256:354d96774e7c7ff3fef6a6cc5feaad4ffa64b56d8cade5cdb96d03e48eeaf25a:eyJzZWxlY3RlZExpbmVDb3VudCI6OTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE0MTVmOWNkZWY4OTNlZTM4YTQzMmEwYmI5NTFlZTQ4ZWRjMWRhNDI1ZGJlNDk2YmMwNWU5Zjg5ZTUxNzk1OGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3NjlkMjM3Y2Q0MjBiOWQzOGI5ODFhMGE0ZjY3NzAxOTBhNGE4M2RjYTFmZTU2YzRmNWJhMWUyY2JjMGVmNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY5NTRmYTk5YjUzYjBhZjI3OGExOTIyYmZhYzkwMmNlMWM1ZWZmM2Y3NmY1NGYyYzVjMWI2NGU0ODNjOGJiZTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU1ZGYzNGMxNDU1ZDBiYmNkODYwNmI4NDY3ODhiOGJlZWQ1MzgyNzBiNzcwZDJhMDk0ZjQ5OTcwM2IxY2VhOGQifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.0",
+    "at": "2026-08-25T17:23:14.366Z"
+  }
+}

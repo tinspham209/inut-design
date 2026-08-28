@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:61c13ab99264d58a590425920484162cef9e44e528660f1829f2b6aa7d86d94a",
+  "claims": [
+    {
+      "id": "claim_7280872df4ea42189aec2f6d05572b76",
+      "statement": "The lighter commerce path is split across dedicated builder, cart, checkout, API, and tracking entrypoints: `/builder/lighters` loads the client-only builder, `/cart/lighters` renders the lighter cart, `/checkout/lighters` submits orders, and `/order-tracking/lighters/[slug]` looks up an order by its route slug.",
+      "evidence": [
+        {
+          "resource": "repo://pages/builder/lighters/index.tsx#L7-L35",
+          "version": "repo-lines-v1:sha256:0d87791baf2d26f1f1f69f9a8f32081efce0b89a72123efc0b93e37a96f933a7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU0NjBjYWNkYWI1ODJiYzRmY2FiNzA0NTUyOWYwOTYwOTViNTcxYjFiMDE5NTY0NTg1NzliZWRjZTMyMGYwMGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlmODM2MjA0YWNiMzIwYTk1NGUyNzUwYzM2ZWE0ZThmNGY3OTRhMmZiZDc1NWNhMTdmZmQzZGRjMDgzYWUzNmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY0MjIzMzI4NDQwNmYyYmEyNDFiNDQxNGNiNDRmYTAxZTQ1OWM5MTQ4NjVlNjQ1NmNjYjIzYjhjMTFlYjRlOGIifQ"
+        },
+        {
+          "resource": "repo://pages/cart/lighters.tsx#L1-L83",
+          "version": "repo-lines-v1:sha256:cbd796f5bbbac737cd33990550db6d0609055747d06a942d66dc2db877655767:eyJzZWxlY3RlZExpbmVDb3VudCI6ODMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc1MTFjYmNhNjQwYmRiYmYzOGMyYWE0YTRjNThkNTA5ZDVjZDk2MDQ1NTVmYmUwZjE4OWY1OTZhZjZjMDU0ODEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI0M2UwYmQyZGEyYTdlYzNlZGFhNzFkYWI1MzJiMzM2ZTc3ZTdkNjJiY2QxODQzNWZkNjgyNTkxZDI4NGJkMjYifQ"
+        },
+        {
+          "resource": "repo://pages/checkout/lighters.tsx#L53-L58",
+          "version": "repo-lines-v1:sha256:47ef1149de56607d0f58c8f3a4eb40873a680662372790a97ede92bb95172c77:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2M4MmMyMWFjNTU3NTUzZTUwYjA1Mjg0ZDJmNTVmMDYzYWFjYzkyNzcxMmY5MzI1MThhMjk1Y2U4Yjk2MTk2NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmM3ZjA1M2EzNzQwYjFiZmI3MDBiNjQ5MDQ3OGYzNzkzNWEzNThiYjk5YTg5M2MzNWVhNzc3MGRjODNhZTZiZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODQ5ODJiMzFkY2Y3YjhlZmU3NzJjN2IxODgzZmRhZDgwMGZjN2UxOWEwNmU3MzUzYjA4NWVmNjA3NTcyNTBlYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzgwZjIzYjUyYjk1NzMxNjY2ZWE2Y2JlZGQxN2NlN2QzMzk2OWUyZmM1N2E5M2VlNDI4ZTdiZTBlZGUyMDI0MSJ9"
+        },
+        {
+          "resource": "repo://pages/order-tracking/lighters/%5Bslug%5D.tsx#L19-L25",
+          "version": "repo-lines-v1:sha256:42aaaee736611d6903a0c0aaecfeecbe0c5e667736e5add51601f41e1a729b48:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjAwYTcwMWM0ZWRhNTQ4OTM3NDFkNTIzMWU5YTJmZDliZGY4ZTAwMjcxOWE2MWUyYjRhYjE5NDJlNjk5ZWU2ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWVmZTQ3NzYzYTM3NGY3YjY2NWJhN2EwYjY0Y2M1MWIyMzY4NmEyMDA3OGIzN2U0Mzg2YTg4MjAyYTRmZmFlMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDBjMDE3MmFjY2JmYjg1NmUwMTMxZjJkYjVkMGNlMTA4OWM0ODBlNTRlYzBjMGIzYmFmODk4NjAyMmYwOGUxMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjk5NjFjOWJhY2Y3NDE3YzViMWIzYWM5YWFjNTU3OTI2YzQzNjQ0NzM3MjIzMTJhMTE4NWFjNjc0ZGQwMDIwOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_63e685f6c14e465999279c2c35b83e06",
+      "statement": "The builder requires an uploaded image, resolves the custom lighter product, stores the design image and transform values, creates a builder deep-link with preview parameters, and adds the configured item to the lighter cart before redirecting to `/cart/lighters`.",
+      "evidence": [
+        {
+          "resource": "repo://components/lighter-builder/LighterBuilder.tsx#L150-L240",
+          "version": "repo-lines-v1:sha256:ed91996de506740227a20babadbcef5e7a1eec72b68fd4bb4029ebc6e0cea513:eyJzZWxlY3RlZExpbmVDb3VudCI6OTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlODA5ZDFkOTc0ZTljMDJkMmQ5MzE4ODQ2OTgzODE5Njg4NDdiZWZiZDVkN2U5MmZjY2M3NTE2ZjEyYjA5Y2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJhY2FmYjJhOGU1MWI1MWU5M2FkNDVkZjY4OGM2MGY2ODA4Njc3ZTBjNWEwMzE5OWVlZjRhMmE2Y2NiZTBmMDMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk4NjYyYzg0NzE0M2NmYjYxM2NlYjkzOTFkMzIxMjM5NDZmYzdjMDY0MmI2ZmIyM2QyYzAzMzVmYzQ5NmMxNWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBkMjQ0MmRlNjMxNTM2ODhiZGFmMWRiY2ZlZTMyYWQ3ZGQyMGI0Yjc4ZDgxMjA3YmI5NWY3MDJmZjg5ZTIzYzkifQ"
+        },
+        {
+          "resource": "repo://components/lighter-builder/LighterBuilder.tsx#L45-L136",
+          "version": "repo-lines-v1:sha256:79937ab863e6972761ccb70e772e4b9d8306c7ee78867c42f4f0240cc761a6a2:eyJzZWxlY3RlZExpbmVDb3VudCI6OTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjMGNlNGNlY2JlNTc5ZTdhMzc4MjJiZDIwZTQ1NGI5MDczNjdlZmUzYjZkYmNkMjE1YzU1NDY0NzVmZDYyYTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM2ZmIxZmI2ODI3NzljN2MxN2E4Yzc3MmFmMjk0OGU2YjNiZDQyYjYwMzY1ODllMWQ3MGYwNzA2YjhkNmI2NzgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAwMzdmOTZmYzhiMmUyNzU3ZDkzNzc5YWVmMjE3Yjc3Y2U2MGI5NWYwOGI5N2I4ODkxNDRhYmE1NDBkMWQ1NmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxNGViYjU1ZWQyNzdmZTg5MDMwMGE2ZTZmZjNkOTQ2MmRhM2ZlN2I2NTc0OWNhM2FkMGFlMDRlZTI2Yzc2NWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_57f10abc64194371b64a7f4b73ecb1c8",
+      "statement": "The lighter Zustand cart persists `items`, `totalAmount`, and `totalItems` under the `inut-lighters-cart` localStorage key and recalculates totals after rehydration; items merge by product and lighter type, while quantity changes, removals, and clearing update derived totals.",
+      "evidence": [
+        {
+          "resource": "repo://store/cart/lightersCart.ts#L12-L21",
+          "version": "repo-lines-v1:sha256:f4e4e7a8266a9ccd3a378de2d034ffd9bf09583f414b30600cf27499864e039b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk0NjU3NGZjMjRhMmRiMGVmMjVhMjQwM2Q1MzY4YzdlMTVjZjMzMGMzMGYyZWMyMjYwZmE1NTdkYTI0MWJhODAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhjNzU0OWUyZWNmMDA3ODA3YzIwMjg2MjBmMWI3NDY5MzZjM2UzN2M2ODViMjliN2VkYWZjYWVhODE3OGY0N2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQyYWIwM2Y4YzQxYTYzM2U5ZWMyOWIxMTIxMzQ2ODZkZmVmYmJlZjU3Zjg5Y2ZmMzljOWU2MDU1ZTk2Y2IxYTIifQ"
+        },
+        {
+          "resource": "repo://store/cart/lightersCart.ts#L168-L183",
+          "version": "repo-lines-v1:sha256:75f70c6c94e5fb3920e759fd58210e5f32921882da9a87e31c02aa95c6ec461b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg5YmM3NTExYjIyYjUzOGRmMTQyODMzNzUxZDRhMDM3NDFiYjI4MzkzYjQzZjE5ZjhkNjZkNDkxZGFmNTJkOWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgwMjk2YTNjMDQ3OGYxMTMxZDFjMzQ1ODI0YjA5ZDhjMTMwZDg3NmFkM2Q5Nzc2NjY4ZDIyNjE1YzkzNWIwMzIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjExMzQzYzJiNjE3NjEwZWRlZDYzOTI4MWM1NjJhMjM2YjU1MjNjZWZiNGQ3OTdkZTc0YjVjYjg1MWNiM2QxMGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY5YWNiMDdiMTJlMzFmODdiZmFhYjllODEyMjhhMjg5NzAzOGJlYjk1Yzg3NzUwM2Q4MWU3MmIyZDRlOGFkNmIifQ"
+        },
+        {
+          "resource": "repo://store/cart/lightersCart.ts#L30-L78",
+          "version": "repo-lines-v1:sha256:2182d75e2d34451fd33745182e493594de037dbebfb3aeb6bf9f3d606b59cf91:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJkYTFiZjg0ZTVhN2MyN2U1Yjk1MzJjNDI5MmQwMjhhYjM4NDZhYTY4ZmMwMDM2ZDYwZDI0Y2NkNmU0MThjY2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY5MWY2NDZlY2IxNGYzZDVmZTc4YzA4MjVkNmE1MzA3NGMxNTE2NTE5MjViNWIzYjU0MTRjMzEzOTM2OTEzODkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU1ZWFmMzk5MjZmMGU3MTdjZjdmOTUyZTYyMGE1YzhhMWI2MzQyODZkNTRiNTgyNzQ0ZmQ3OTAyNmY0NWY4ZTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc3MzkxYzk1Y2JmN2FhNDZiNTczZTdjMDY4MWRlNWQzMDEwZDA5YWE5MzZlNzY2YzAwZGI5ZTFiY2NmZDdiOWIifQ"
+        },
+        {
+          "resource": "repo://store/cart/lightersCart.ts#L81-L165",
+          "version": "repo-lines-v1:sha256:f2805b88b46ea61aa188b85bb0f7dfd4266e27818ea8fdc52bff6d72b6b4d321:eyJzZWxlY3RlZExpbmVDb3VudCI6ODUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJkYTFiZjg0ZTVhN2MyN2U1Yjk1MzJjNDI5MmQwMjhhYjM4NDZhYTY4ZmMwMDM2ZDYwZDI0Y2NkNmU0MThjY2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQyOGVmZjg1MTQyY2M1NjQxNzcyNjA4NTZlZjkwOTVjYjZlMTU4MmU1NmZlMzMyMGU4MGZhMWVjNGEwNjE3YWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM2YjJjODZiYjBjN2E0OWU5Yzk1OTlmNWZmNDBiZmEyNjEwMmJjYmY0OGNjOTJiOWE1YTUxMzhmNzE4OGQ3MzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRjNTg1Y2NkOTlhYmM5ZTdkNDRlMjA4YmJlZjYwYzA5NmUzYWFiMjE2YTYyYzFlNTBlNGQwMmNhYjVjZGNhYTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1db50581e0f349838e515e3919f171d6",
+      "statement": "Lighter unit pricing selects the highest applicable quantity tier, falls back to the lowest tier below the minimum, and computes item subtotal as unit price times quantity; empty tiers and non-positive quantities return zero.",
+      "evidence": [
+        {
+          "resource": "repo://utils/priceCalculator.ts#L3-L40",
+          "version": "repo-lines-v1:sha256:995449db67de58b921b751afb9a04563d7684a1bd1ccc3b876f93203d9a86460:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdmMGZjNGJkNWI5N2EyYzg2NDg2NmE1YzYwNjg5MDRjYTQxMjNiMDRiNjllNmVkYTc3ZmE2ZGJhYjk5ODk1ODgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoyLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ5OWRkOWM0ZjNkODBmNTNiNTA3NjE5NTQ5NDExMjA4ZTgwMTMwZDcwOTNkMGUzYTc5Zjg4OWEwNDBhZDA2NDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OTI5ZTkxZTBmOTljM2U4MjVkZTY5YjQzNWZiNjQ4NGQxYjBhMWRmMmY0NjU2MWFiZjFhMjlmMDQxODhiODgifQ"
+        },
+        {
+          "resource": "repo://utils/priceCalculator.ts#L43-L73",
+          "version": "repo-lines-v1:sha256:a037663f0e8555fcafa597848b624c43ba189f82593bfbdb147caf7b587813df:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ0YTMxNjU0NDJlODg2MjFhZDcwOGUyNGEzMmU5MmQ0MzA0OTY0ZjI0MGM0Y2FmYTcyNjRkMjQzY2IwN2Q0YTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY1YzIzMzkwNDQzZDVjYzYzMjg1NzczZDk5YmI1ODQ5OWFhMDhmZDRiOTU5ZGY0NjVlNjUxZDQxNDFhMmU4NjMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_087bbb20c1db4f5cb82c912c825a3147",
+      "statement": "Checkout validates required customer name and a ten-digit phone number, optionally validates email, detects or falls back to a shipping fee, and computes the displayed and submitted final amount as total amount plus shipping fee minus discount, with discount currently zero.",
+      "evidence": [
+        {
+          "resource": "repo://hooks/useShippingFees.ts#L5-L20",
+          "version": "repo-lines-v1:sha256:782c5df4b1f79b87c3249ffde471a77ad9d80343a69070cc80f22b8d304a66cf:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYzYjBmYWQ0OTczNzY4YWM5N2QzNjY5NTFhZTZlZTIwOGMwMTk1ZDI2NThlZDI3ZTlhNDg2YWUxNjM4YzFhMDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdjYmMxN2MwOWQwMDExZWY1OGVkZTg3NjU4OGU1NGU0YWRlZTA4N2Y5ZmNkNjRmNGQxNzUzODRlY2JmNDFlMTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://pages/checkout/lighters.tsx#L245-L251",
+          "version": "repo-lines-v1:sha256:f5a32dcb3e52baca6b329b7f8c65444e05aa8dc81f8523081dcb2790739628a3:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzEyMmEzYzcwODUxMzU2MTM0MTYwOTY4YzFmYzA3MTlhMmY5ZTZjMzIyNTVkNGVlMDVmZDdlOWM4OTAyZWU3NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWEwYzhiZDQ4MDMxNTE0MTRkMjdhMGQ2MDYwMTc3ODMwNGZlZWZmNjAzZWYxZTMxY2EyYTRhNDIwMmE4MjBhNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDllOGQwMzM5YWRiYTUxNjI2NzVkNTY2MDY0YWQxMGIyNTZkNzdlOTc4ZDFlYzhkMGIyZjEzMTkxM2Y3ZDcwOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2U5MmQ0MTM0ZTk3ZjMwMTY1YjVmMzk4YzhjOWZlNDEzNDYzN2MyMDQ3YzRhZWUzZGIxY2ZkZGVmYzE4NmVmMCJ9"
+        },
+        {
+          "resource": "repo://pages/checkout/lighters.tsx#L319-L339",
+          "version": "repo-lines-v1:sha256:ac8d4e6ea49b2d3d4a904c914bc33de72c2800383c50bfb710ef2260d06188ab:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3YjNkODI4YTBmZWQzYTU3NDMwNDZmMmNkNzgyYjI3N2U3MjBiNmFjN2U2YTBhYzg3Mzg0ODliOTY5MzFiOTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjODU0OTQwYzE5ZmIxMDA2YTE3NmQxYTQwMmY3MWQyNGE4ZDUwZWRmMDlkMzY1NDIxNmFiYjhjZWNmZWQ1ZjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmZGRjZjY1YWYzNjFlZGMzNDBhMTg1ODlmYjNjMGU0MzFmNGJmZWZhNmI3ZjRkNzg2NWRhN2M0YjUxMDk1YWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNhM2VkY2QyY2UzMjI4NGI3NWI3NTgzZGE1MGJiODI5ODExMGFiMTU1N2Q4M2IzZTcyMjQyMzNjOWM5MmQ3NmMifQ"
+        },
+        {
+          "resource": "repo://pages/checkout/lighters.tsx#L43-L79",
+          "version": "repo-lines-v1:sha256:41f54a41d6f8939a189887599c5bf938afad8a9d83867daf720636ba5ea4d572:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYyMjNmNGE5ZWRlNDMyYzRjMDIwMzRjMWE2ZDlhZWQwZjk0MmE1MWM2YTRmNzBkNjVhMmRmYzg2OGY0NWMzYmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhNzM0OTJkODk0NmIxZDBmOWQ5YzA0YjcwNGE5MjBmMjRmODllZjdjN2Y3MzExYTg1OTlkMTBjN2Y2MzU4ZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJhZDQ1NjlkNGFmY2Y2MjE0YzRiYWZjYjg1NGNlNDJjMTFlMmIwZGRmODk1N2U1YTBiY2FkOWJiYjI4Yzg3MmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM5MGVkMmUxMTQxN2Q2MmEwYzI3ZjBkZWQ2YTI5ZjY2MmMzMGU4Y2JmYjcxYTFmMjZmNWVkMzRiMzhkMjg5M2MifQ"
+        },
+        {
+          "resource": "repo://pages/checkout/lighters.tsx#L97-L139",
+          "version": "repo-lines-v1:sha256:f62bfcfda438f01be0d47ed893e76710e78a8c6583902f8c8804977ea6c2f334:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5N2Y1YTExOTE2ZWZhM2E5ZDUyZTFiZTIxNDBkYzQ3ZDA4ZTdhMjljMGMyN2YzNzNjMTY3MjliMTk5NjViMjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEwNTkxODZmN2QzYWE4MWEzZDVkODkwYzBkZDYwNmFiNzRiNjMwODY1Y2Q3OGJiMGNlMjRhNjYxN2U0YzA1MGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRkNjVlZTcyMGRhMjQwNzU5NWIyYTU3ZGM1ZDNkMmNkZWFiYzEwNGM3ZGE5NWIwNmY4M2I4YzUxYTExZjlmNjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEyZDdhNGFmYjU2YmYzZGNhYjc1Zjg2YmY4MTIyYmVhMjA2N2E4NTdjNzUzMjg0NTk1ZWRmOTUyNWQ3MTQwZmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4ffb6ed5d6b54e01ad63ab16f2e9d296",
+      "statement": "Before order creation, checkout converts cart IDs into Sanity references with unique item keys and, when a design image exists, uploads it to Sanity and carries `designSourceUrl`, `designPreview`, and `builderPreviewUrl`; an upload failure is logged and does not abort order submission.",
+      "evidence": [
+        {
+          "resource": "repo://models/cart.ts#L76-L101",
+          "version": "repo-lines-v1:sha256:3db084671d150decc954953458dadc9bfd49142aeba5a07513e6874de1ae19be:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlmZDM4YzA5MjkzNTI1ZmNiZjIwZDEyNTUzMzA2NzAzODFlMjUzNDAxZWFkNWMwZDNhODI3YmY5NDU1ZTk3NzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ4NjFhYTJjZTQ4OWFhYTFmYWRmZmEwMGI5MTc5YTUxZWViNDg0MTBlNTdlMjY2ZThlNjI2NmQyNDJkZjllOGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg4NmQ2ZDUxMjZlNjU5YjE4ZTUwNzI3YWEyMjg3MTYxZWRiNGFkMTgwNjY4ODYxMTQyMzA4YjYzZDk2NTkxYjUifQ"
+        },
+        {
+          "resource": "repo://pages/checkout/lighters.tsx#L253-L315",
+          "version": "repo-lines-v1:sha256:7f4f948ebf797b3a9ba29b350e4adc37d28861eb3ae5c0d6f1b396b3daff7411:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUxN2QyOGIxOWY5NjJhZDkwYTk4MzhkMWMzNWY1YWIyN2VjZTVkZDA3ZTNiZTMyMWUxZGM5ZTVmZjNmNWY4OTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdmMDUwYjhmOTk4MDRmODE2Mjk4NmNiYzZhYWFlOThiODUxZjlkMGMzZDVlZjJlZDM4NDNjZDJhMmFmZjMwYWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFjZTkyYzliNzdjMjUzN2YzMTZlNGEyNWY2ZjNmYzA4ZDNkNDc2MzUyZmJkNDQ2YjNmYmMwNGU5NmVhYzU3YTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhmZGRjZjY1YWYzNjFlZGMzNDBhMTg1ODlmYjNjMGU0MzFmNGJmZWZhNmI3ZjRkNzg2NWRhN2M0YjUxMDk1YWIifQ"
+        },
+        {
+          "resource": "repo://sanity/schemas/ordersLighter.js#L104-L156",
+          "version": "repo-lines-v1:sha256:3ff674725caab3e256d3c29e18ee36d0e7eec6d3d50240cca164ea4acfb41893:eyJzZWxlY3RlZExpbmVDb3VudCI6NTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBiMjE1MGRiZGZiOGE1YWRkYTgzYjg2YzIyM2FkNWI0NWY2ODk0OWQ2YThhM2QwODBjZGRkMmExZTRhM2Y5OTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmYjlhNzNkNDQ3MzhmZDUzYjE5NDdjNjFjZDU2ZTgxMWI2OWVhYTdkOTU2OGNmOGQzOGZhODA3ZTUxMzZmMjkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5ODI1M2Y3YmY0ZGQxZDQ3NDE1MGJlNmM3ZmJjNGQwODEyZWU1NTczOTMxNGQ0MjI4YjRhZmEwZjAwYzc1MWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYxYWE5MTU1ZjY5MDZjYjI5OGE2NzUyZjA2NGVjMTUzNzdmZmUyYzg2NTZhM2MwMGRmZDQ3ZDgzMDlmMWFlYmEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2c77246ed342437893d78756e83a4a36",
+      "statement": "The lighter orders API accepts only POST, rate-limits requests to 10 attempts per 60 seconds per request token, validates customer and item reference fields, returns 405, 429, or 400 for those failures, and returns a generic 500 when Sanity creation fails.",
+      "evidence": [
+        {
+          "resource": "repo://pages/api/orders/lighters.ts#L1-L39",
+          "version": "repo-lines-v1:sha256:d4238be47f80a73feebb611b37f08380138a68b74e8b2b5e954f236ab3f017df:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlYjY0MWU3ZjMzMDU5Yjg1OGUyNmY3MDJlNmIyMGUxMTk4ZThiNWRiZjdkMjFjZGIyYmVkYzk4OTY4ZmY5M2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_96ada79912a04d09b37e4e63fd9b82b1",
+      "statement": "The server persists lighter orders as Sanity `ordersLighter` documents, generates order numbers in the `LIGHTER-YYYYMMDDHHmmssN` form, uses a supplied order date or the current ISO timestamp, and relies on schema validation for required status, items, references, quantities, and non-negative monetary fields.",
+      "evidence": [
+        {
+          "resource": "repo://api-client/sanity-server.ts#L4-L36",
+          "version": "repo-lines-v1:sha256:d8f4a090c90910931b845012237c030d4839137cdf358a5f6d252260e4e7e1b8:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc2Nzc3MWJiOWZjN2EwNmQxODc2MjZiNGY1NWRjY2EzYTQ0YWY3Y2E0YjM4YWE4YzAxZjg5NWFiODFmNDRhYzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJlOTJmODc1ZmEwZTI3OTIwZWMxYjBkMTI2OGQyZjNjZTE0NTFkNWYzNzUyYWNmZWY1Y2NlZGU1ODE3MTIyNGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZmMzI1MDIxYjZjMGVmZmJlYjRiNTE0MzQzZmM1YWEwZGMwMzE1ZWRhZDY4NjI4YTA3NmY1NjhjMmI4Nzc1NzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYwM2E3NmYxOTkxYmY1NjdjNWZmYjUxMzk1YTJiMGI2MjRiMTUxOTI2ZTAzY2E3ZGFlZDBiMTRjNWExNDc1YjgifQ"
+        },
+        {
+          "resource": "repo://sanity/schemas/ordersLighter.js#L223-L252",
+          "version": "repo-lines-v1:sha256:216d626398123b21c6cffd237a5ec664ad002b4d688a47c78cf45b05f3096698:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE5YmVjZWM0YjI2MjM2MWU2YzVhNDgyNTZjODA3N2E1NWM5YTYwOTE0OTZiM2Y3N2E0MzNhNzY4YjIzZjY4MGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViYWQ3Y2MyZGZhZmMyMTc1ZmEyZDk3MDRlMDIwMmY5NDA4M2E5ZGE2OWE1ODViMGIxOGM0OGJlYTIzNjI3NWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM3MTNkZGVjOTA2NzlmNDY4ZTg1MGMyNGVhNjdlNWI0N2IyY2Q1ZjA3MmNiNDczYzVmYjFjMzA5OWJmYTcxMmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQxMDE5NWJlMjE1NjJkOTBlY2VlY2FiNzEwZjIzMTE0NDkzZGUxMTRiMWM1OGU0M2EwYjA4ZjgzMWMyMDY0ZGIifQ"
+        },
+        {
+          "resource": "repo://sanity/schemas/ordersLighter.js#L3-L42",
+          "version": "repo-lines-v1:sha256:ab32cadea45244632a6cb9ffa6f29984c6e170961237487aeae2665b5b748a19:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzMjdiNmMyNmNjYTI4MDRiMjY2YTc3YTJhNGYxMTU1NTBkOTNiNmUyYzI3MjI4MmJiMGJjZjY0OWQ1Y2MzMDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViYWQ3Y2MyZGZhZmMyMTc1ZmEyZDk3MDRlMDIwMmY5NDA4M2E5ZGE2OWE1ODViMGIxOGM0OGJlYTIzNjI3NWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoyLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM0YTdiNTgyZjBmOGQxNmZlNmQwN2E5NmY5YWM2MjhmNjk0OTI4N2NiZjNhY2NkOWJiMWE5MTUwYjNkYzNmMDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxOTA3NDUxMTU1NWZmZmVhYWU0NjBiZjU3Yjg4NDNjZDVkOTZmZmI0MDdjNTI5NDRhYzBmZDcyNWM3NjdlOTIifQ"
+        },
+        {
+          "resource": "repo://sanity/schemas/ordersLighter.js#L59-L103",
+          "version": "repo-lines-v1:sha256:63761d992310cc920cd43d811dd1cefd6cc14065fdc1c93b71a021c40ebd2bf7:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzM2M2OTdkMTAwOTZmZTc1ZWQ0YjAwYjM4MWZhNDg5YjdiZGVlMzgyMmRkMzEzMWE1YmVjZGU4ZTk4N2VmNWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmYjlhNzNkNDQ3MzhmZDUzYjE5NDdjNjFjZDU2ZTgxMWI2OWVhYTdkOTU2OGNmOGQzOGZhODA3ZTUxMzZmMjkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRjYjRjMTE5ZGM1NWQ3NWZhNjcwZDI3M2FiMGI4NTQ5M2FhZWU5MTFlMzYyN2M0NmJjYmUwZmY1ZDFkYTgyMDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc4YzZhZGU2ZTU0NWFhNWJjYWFjODRiYzAzYmZiNDNjNWNkMDQ0ODcxNmY1MTA2MzcwZGNlY2E4MGZhNzY1YWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c3ba675c53a0420db9c36f676dccf53a",
+      "statement": "After the API returns a created order, checkout awaits an optional Telegram notification, tracks the purchase, marks completion before clearing the cart, and redirects to tracking with the generated order number; if notification throws, the surrounding handler shows an error and does not reach clear-and-redirect even though persistence may already have succeeded.",
+      "evidence": [
+        {
+          "resource": "repo://hooks/useTelegramNotification.ts#L8-L26",
+          "version": "repo-lines-v1:sha256:ca536c64bccbd4b874ee9147f26a956b82e1e3ef1d5d8c0dc181b922d99d2e14:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjM2EyMDc3NGQ1YzJiYjRjNzkwYzE4ODkwYTljNDk0Y2NiNTEwZmM4ZThjMDllYzc0NTE5YmMxNjRmYzc4NGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMwODcyZDA2NzJlYWEzYTNmOWJmYWJlZDljNjQ5ZjIxMGU1NmFiMTkwZTM1OTQwNjlhN2UxODgxM2FkNmJiYjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://pages/checkout/lighters.tsx#L340-L379",
+          "version": "repo-lines-v1:sha256:c02df48a9c01e5da73cc4bdb5443afe5c32b15506e6c3ca045d7226b0304bb87:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVkN2UwZjY1NDdiNGUzZTcxNTY2ZGFlNDhiMTcyNTY4NzZjNThhNTA0YjA0MWVkZTFkOTYyYjYwYTk0ZWVmMDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY0ZWZjNDk0MThkMjZkY2YxMjliMjJhNmFhMjExMDhjZWVjMzc2NzdhMzJkMDhlOWQ1ZmVlMzVkZGE2NmJiOWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE0ZDY5YWQ2ODg4NzQwMGNkYzBlYjFjODdlMDJmYTU3NDRlZjY0ZDkyZDc1MGRkZWUzZTM4MWIwYjU5ZDk4OTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxZDUzYmIxYTA1NTIxNDExNjcwYTMwMzg0OTA5NjMxZGFhYjA3NDU0MDEyNGNjNWRiZDM0YmNmNzY0NmI2OWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2ecac6c87ec74590b1cb2ed900cfd871",
+      "statement": "Order tracking fetches only for a non-empty string order number, queries Sanity for an exact `ordersLighter.orderNumber`, renders loading or error states when appropriate, and displays status, payment, fulfillment, customer, totals, tracking, and design-preview fields.",
+      "evidence": [
+        {
+          "resource": "repo://api-client/orders.ts#L4-L65",
+          "version": "repo-lines-v1:sha256:4f8e505f5a3c92d8d0b6a1ed1cbdfaef7dee70e242fff240878f433da11b685e:eyJzZWxlY3RlZExpbmVDb3VudCI6NjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNlMTk4ZWVjMTk5NGFmNDJhZmNhZmJmNjA0NmRmZDgwZmY5NGI1Mzc2YzFlOWE4ZmQ4ZDk1NGVhMjc4MDA5Y2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQwODEzZGIzZDNiM2FjZWZiNTA1OGM4MDQ0MWMzZmI2YTZhZDBjM2RiYjFkNDM5MDkzY2ExODE5YzJhNDdiYzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://hooks/useOrderByNumber.ts#L1-L11",
+          "version": "repo-lines-v1:sha256:cebdade843a0afb8367c1eb879bedf41186d2e02b81ce1d010626f8ee5d4efcf:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhNmUxMzY2OGRjM2NhOWU1ZTE1YmVmZmRkZjY4Mjg4ZTE0MWQ0ODQyYjIwNTJkMWFkOWU5OGJjZGE5MGNmZjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNmNDQ5MjI0Mjc5MjdlYTg5OTY4MmU5ODZiMTNmMjk1MWMzMGFmNzZhNGQ3MjE4MzYxNmIxYzdjNmM3ZjFhNDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://pages/order-tracking/lighters/%5Bslug%5D.tsx#L19-L45",
+          "version": "repo-lines-v1:sha256:5886bab012f54ca14d9f1ed3709757ee9350b5a7704bfc06f9da6ff1997dfba1:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwMGE3MDFjNGVkYTU0ODkzNzQxZDUyMzFlOWEyZmQ5YmRmOGUwMDI3MTlhNjFlMmI0YWIxOTQyZTY5OWVlNmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAwYzAxNzJhY2NiZmI4NTZlMDEzMWYyZGI1ZDBjZTEwODljNDgwZTU0ZWMwYzBiM2JhZjg5ODYwMjJmMDhlMTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFiNzc4MDkxNGZmNWQzYmExZmM4NTk0ZmY2ZWEzZjRkOGY2ZDExYWEwODk0NWRkNmEyNDJlMmExMzFmODkzYzAifQ"
+        },
+        {
+          "resource": "repo://pages/order-tracking/lighters/%5Bslug%5D.tsx#L46-L99",
+          "version": "repo-lines-v1:sha256:5f8c4cc40c5d267c5eb694056720b0e92f9766911865c794896ad5f6dea3c05e:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwODBhYzNjZDUwOWY1MTA2N2QwYjJmMzlhMTYzYjc5ZGFhNzA2YzUyZDNhYjYxMzkyODM3YWMyODljMmYxNDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMGM4YmQ0ODAzMTUxNDE0ZDI3YTBkNjA2MDE3NzgzMDRmZWVmZjYwM2VmMWUzMWNhMmE0YTQyMDJhODIwYTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA0NDE0NjlhYjkxNGZmNDhiY2Y0ZGQwM2M4MmVkYzJkODVhY2RkYTFlYjJjNDYxMDJiNmE2OTA2NjdjNzI4YmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ0Yjk4MWI1YjZmMDIwODUyZmZlN2I0M2YyNWE3Nzg0YzdjODdkNWJjMTk3ZmMwMmY0ZjYzODFiOTc5NzI2YTcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_21533919f86646f784ecd895415c25a0",
+      "statement": "The lighter order lifecycle exposes pending, confirmed, processing, in_transit, completed, and cancelled statuses, while payment status is a separate pending, paid, failed, or refunded field; the route-aware cart configuration includes lighters and other category extension entries, while the dedicated store and checkout in this workflow are lighter-specific.",
+      "evidence": [
+        {
+          "resource": "repo://models/cart.ts#L113-L137",
+          "version": "repo-lines-v1:sha256:3b95044a532da24d9523dcb9f15be25484cbfc15c3c4eeacb1a8f9f794cfcb7e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1YjZlYWU4MmRiN2FkMzM0ZGNiZDI0NTdmZTNkZDcwOGE3NjBjMTA0OWY0MDg5MTE3NWFmY2U0MTBhYjgxZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVkNjcxODQzNTk0ZTFjYmIwZTY0ZTIwYzMyMGMzYmUwYzFiYTIyNjNmN2Q2YzM1MjQyYTQ3NmU0YTQ0OTA3NDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNkZDIxMWM5YmI2ZmU1MjZiY2MxYzM5NzhhYjE3ZDQyYjVjYWIyYjI5YzBlMTIyNzUyN2I1ZTUwMmQ0Nzg2ZTgifQ"
+        },
+        {
+          "resource": "repo://sanity/schemas/ordersLighter.js#L25-L57",
+          "version": "repo-lines-v1:sha256:a28b63bf69efb2f7c39d531d78cb8e7b613f82a304293c7ddcbee953a820f2a5:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1OGUyODU5NDE4YTdmODg2MTE2YWEyZWQ3YzA4Y2UyMzM2ZjVkYjQ3ODI2ZTFlZTE5MmQyODcwNWFkOTBjNWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViYWQ3Y2MyZGZhZmMyMTc1ZmEyZDk3MDRlMDIwMmY5NDA4M2E5ZGE2OWE1ODViMGIxOGM0OGJlYTIzNjI3NWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ5OTVjOTE2YjY3YjRjMzJiOWIyM2I4ODY1NTE4NDRkYjQ2OTkxYWJmNDc4NjM0NTFmOTUyZjM1YzNhMTJmZDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgyN2M1NGY0MGU3OTE2YjNjYTIyOWZmY2IyYWU1MWQ3ODExZmU0MmRjZTZiOThkZjJiZmE5MGNjMjlhZWExYjAifQ"
+        },
+        {
+          "resource": "repo://store/cart/lightersCart.ts#L12-L18",
+          "version": "repo-lines-v1:sha256:79fb4abbf92bb5f92fad7db409425d7da7b9e2bcb9fe859b0f76107cfa7516ad:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWFmMjJjZjA3MzI1OTJjMjQ3MTQxY2JlNjFlZmExMTAxMjYxMmY1YTMxMjJiOWFmOWJiYWY1MmY1NzI0ZDE5NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTlhNzhkMzIyODZjNzEzMmYwZmRmOWMxMjNhNjk1M2U1YzYzYjNkYWRhMzlhOGFmNzI0YzQwNjg4MTNkZDMxNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGM3NTQ5ZTJlY2YwMDc4MDdjMjAyODYyMGYxYjc0NjkzNmMzZTM3YzY4NWIyOWI3ZWRhZmNhZWE4MTc4ZjQ3ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2U0MTkzNTUzZWE2YmMxYWU1OGY3MmQzYWEzZDdhOGMxYTY2MmNlOGRmMzljZjY5ODY1Y2YxNjVjNGVmOWM0MSJ9"
+        },
+        {
+          "resource": "repo://utils/cart-routing.ts#L7-L36",
+          "version": "repo-lines-v1:sha256:fcf78edc20fd561012ff15a029f600e84f75e00b07ccbe15679ff2411d71ab8c:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2MzczMTQ1ZGNmMDdkZjY0NjE5Y2JmMjZhZjhjYTgwZDA0YTM0ZTFlZjgwMzk0ODE1ZTIzNGE0NmMyNDg1ODMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwMmQyYzBkNmRjNWU3NGQ5MmZhMTRiOTFkYmVhMjY0MDkwYmViMzVmZGI5MTg4ZDliMzQxMTgxZGNlOWY0Y2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU4MGM2NmFjMzcwZDUzYjI0OTcxMTMyMGNjYmRkNjZlNGVlM2FkYjE0NmM4NzViNTVjMWUzNDlhYzljZjM5ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEzNzU0MDViYmVjZGQyMDZkMTRiNTBmZWUzZWU5YTYzM2FmMDNiZDYxM2M5YTAwOWM2Yjk4NDRhNmMyMmVkNWIifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.4.0",
+    "at": "2026-08-25T17:23:14.366Z"
+  }
+}
