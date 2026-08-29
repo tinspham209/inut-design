@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios, { AxiosError } from "axios";
-import { SendOrderNotificationRequest } from "./telegram.types";
+import axios, { type AxiosError } from "axios";
+import type { SendOrderNotificationRequest } from "./telegram.types";
 
 const VIETNAM_TIMEZONE = "Asia/Ho_Chi_Minh";
 
@@ -30,6 +30,8 @@ export class TelegramClient {
 			replyMarkup?: {
 				inline_keyboard?: Array<Array<{ text: string; callback_data?: string; url?: string }>>;
 			};
+			requestTimeoutMs?: number;
+			suppressErrorLogs?: boolean;
 		}
 	): Promise<{
 		success: boolean;
@@ -37,14 +39,20 @@ export class TelegramClient {
 		error?: string;
 	}> {
 		try {
-			const response = await axios.post(`${this.baseUrl}/sendMessage`, {
-				chat_id: chatId,
-				text,
-				parse_mode: options?.parseMode || "HTML",
-				disable_web_page_preview: options?.disableWebPagePreview ?? false,
-				disable_notification: options?.disableNotification ?? false,
-				reply_markup: options?.replyMarkup,
-			});
+			const response = await axios.post(
+				`${this.baseUrl}/sendMessage`,
+				{
+					chat_id: chatId,
+					text,
+					parse_mode: options?.parseMode || "HTML",
+					disable_web_page_preview: options?.disableWebPagePreview ?? false,
+					disable_notification: options?.disableNotification ?? false,
+					reply_markup: options?.replyMarkup,
+				},
+				{
+					timeout: options?.requestTimeoutMs,
+				}
+			);
 
 			if (response.data.ok) {
 				return {
@@ -64,13 +72,15 @@ export class TelegramClient {
 				responseData?.description || axiosError.message || "Failed to send Telegram message";
 
 			// Log detailed error for debugging migration issues
-			if (responseData?.parameters?.migrate_to_chat_id) {
+			if (responseData?.parameters?.migrate_to_chat_id && !options?.suppressErrorLogs) {
 				console.error(
 					`[Telegram] Chat migration detected! New Chat ID: ${responseData.parameters.migrate_to_chat_id}. Please update your environment variables.`
 				);
 			}
 
-			console.error("[Telegram] Send message error:", errorMessage, responseData || "");
+			if (!options?.suppressErrorLogs) {
+				console.error("[Telegram] Send message error:", errorMessage, responseData || "");
+			}
 
 			return {
 				success: false,
@@ -108,6 +118,9 @@ export async function sendWithRetry(
 		replyMarkup?: any;
 		maxRetries?: number; // default 3
 		baseDelayMs?: number; // default 1000
+		requestTimeoutMs?: number;
+		deadlineAt?: number;
+		suppressErrorLogs?: boolean;
 	}
 ): Promise<{ success: boolean; messageId?: number; error?: string; attempts: number }> {
 	const {
@@ -117,33 +130,56 @@ export async function sendWithRetry(
 		replyMarkup,
 		maxRetries = 3,
 		baseDelayMs = 1000,
+		requestTimeoutMs,
+		deadlineAt,
+		suppressErrorLogs = false,
 	} = options || {};
 
 	let attempt = 0;
 	let lastError: string | undefined;
 
 	while (attempt < maxRetries) {
+		if (deadlineAt && Date.now() >= deadlineAt) {
+			return {
+				success: false,
+				error: "TELEGRAM_BUDGET_EXHAUSTED",
+				attempts: attempt,
+			};
+		}
 		attempt += 1;
 		const result = await client.sendMessage(chatId, message, {
 			parseMode,
 			disableWebPagePreview,
 			disableNotification,
 			replyMarkup,
+			requestTimeoutMs: deadlineAt
+				? Math.max(1, Math.min(requestTimeoutMs || 5000, deadlineAt - Date.now()))
+				: requestTimeoutMs,
+			suppressErrorLogs,
 		});
 		if (result.success) {
-			if (attempt > 1) {
+			if (attempt > 1 && !suppressErrorLogs) {
 				console.log(`[Telegram] sendWithRetry succeeded on attempt ${attempt}`);
 			}
 			return { success: true, messageId: result.messageId, attempts: attempt };
 		}
 		lastError = result.error;
-		console.warn(
-			`[Telegram] Attempt ${attempt} failed: ${lastError}.${
-				attempt < maxRetries ? " Retrying..." : ""
-			}`
-		);
+		if (!suppressErrorLogs) {
+			console.warn(
+				`[Telegram] Attempt ${attempt} failed: ${lastError}.${
+					attempt < maxRetries ? " Retrying..." : ""
+				}`
+			);
+		}
 		if (attempt < maxRetries) {
 			const delay = baseDelayMs * Math.pow(2, attempt - 1);
+			if (deadlineAt && Date.now() + delay >= deadlineAt) {
+				return {
+					success: false,
+					error: "TELEGRAM_BUDGET_EXHAUSTED",
+					attempts: attempt,
+				};
+			}
 			await new Promise((r) => setTimeout(r, delay));
 		}
 	}

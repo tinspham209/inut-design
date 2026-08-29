@@ -130,9 +130,26 @@ export type OrderLighter = {
 	paymentStatus: "pending" | "paid" | "failed" | "refunded";
 	adminNotes?: string;
 	trackingNumber?: string;
+	readonly spxSyncNote?: string;
+	readonly spxTrackingNumber?: string;
+	readonly spxTrackingStatus?: string;
+	readonly spxTrackingEventCode?: string;
+	readonly spxTrackingEventAt?: string;
+	readonly spxSyncError?: string;
 };
 
-export type CreateOrderLighterInput = Omit<OrderLighter, "_type" | "orderNumber" | "orderDate"> & {
+export type CreateOrderLighterInput = Omit<
+	OrderLighter,
+	| "_type"
+	| "orderNumber"
+	| "orderDate"
+	| "spxSyncNote"
+	| "spxTrackingNumber"
+	| "spxTrackingStatus"
+	| "spxTrackingEventCode"
+	| "spxTrackingEventAt"
+	| "spxSyncError"
+> & {
 	orderDate?: string;
 };
 

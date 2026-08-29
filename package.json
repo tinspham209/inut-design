@@ -24,6 +24,7 @@
 		"sanity": "cd ./sanity && pnpm start",
 		"regression": "./scripts/regression-test.sh",
 		"regression:lighter": "./scripts/test-lighter-builder.sh",
+		"regression:spx": "node --import ./scripts/register-typescript-loader.mjs ./scripts/test-spx-sync.mjs",
 		"regression:quote-form": "./scripts/regression-test-quote-form.sh"
 	},
 	"dependencies": {
