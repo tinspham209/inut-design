@@ -42,11 +42,13 @@ import { validateTelegramCredentials } from "../utils/telegram/validateTelegramE
 import {
 	conflictingStatusFixture,
 	deliveredFixture,
+	descriptionOnlyReturnFixture,
 	emptyRecordsFixture,
 	EVENT_TIMESTAMPS,
 	invalidCodeFixture,
 	invalidTimestampFixture,
 	malformedResponseFixture,
+	returnedFixture,
 	returningFixture,
 	TRACKING_CODES,
 	unsortedHistoryFixture,
@@ -104,6 +106,7 @@ function processedOrderResult(orderId, overrides = {}) {
 		checked: 1,
 		changed: 0,
 		completed: 0,
+		cancelled: 0,
 		unchanged: 1,
 		skipped: 0,
 		failed: 0,
@@ -182,9 +185,11 @@ await test("normalizes delivered and returning fixtures without PII", () => {
 	const returning = normalizeSpxProviderResponse(returningFixture, TRACKING_CODES.returning);
 	assert.equal(delivered.kind, "success");
 	assert.equal(delivered.snapshot.shouldComplete, true);
+	assert.equal(delivered.snapshot.shouldCancel, false);
 	assert.equal(delivered.snapshot.eventCode, "F980");
 	assert.equal(returning.kind, "success");
 	assert.equal(returning.snapshot.shouldComplete, false);
+	assert.equal(returning.snapshot.shouldCancel, false);
 	assert.deepEqual(Object.keys(delivered.snapshot).sort(), [
 		"description",
 		"eventAt",
@@ -192,11 +197,86 @@ await test("normalizes delivered and returning fixtures without PII", () => {
 		"eventTimestamp",
 		"fingerprint",
 		"group",
+		"shouldCancel",
 		"shouldComplete",
 		"status",
 		"subgroup",
 		"trackingNumber",
 	]);
+});
+
+await test("cancels only for canonical Return/Returned; Returning and description-only text never cancel", () => {
+	const cancelled = normalizeSpxProviderResponse(returnedFixture, TRACKING_CODES.returned);
+	assert.equal(cancelled.kind, "success");
+	assert.equal(cancelled.snapshot.shouldCancel, true);
+	assert.equal(cancelled.snapshot.shouldComplete, false);
+	assert.equal(cancelled.snapshot.status, "Return / Returned");
+	assert.equal(cancelled.snapshot.description, "Đơn hàng đã hoàn trả thành công");
+
+	const stillReturning = normalizeSpxProviderResponse(
+		returningFixture,
+		TRACKING_CODES.returning
+	);
+	assert.equal(stillReturning.snapshot.shouldCancel, false);
+
+	const descriptionOnly = normalizeSpxProviderResponse(
+		descriptionOnlyReturnFixture,
+		TRACKING_CODES.delivered
+	);
+	assert.equal(descriptionOnly.kind, "success");
+	assert.equal(descriptionOnly.snapshot.description, "Đơn hàng đã hoàn trả thành công");
+	assert.equal(descriptionOnly.snapshot.shouldCancel, false);
+	assert.equal(descriptionOnly.snapshot.shouldComplete, false);
+
+	const tolerantCanonical = normalizeSpxProviderResponse(
+		{
+			...returnedFixture,
+			data: {
+				...returnedFixture.data,
+				order_info: {
+					tracking_code_group_name: " Re-turn ",
+					tracking_code_subgroup_name: "re turned",
+				},
+			},
+		},
+		TRACKING_CODES.returned
+	);
+	assert.equal(tolerantCanonical.kind, "success");
+	assert.equal(tolerantCanonical.snapshot.shouldCancel, true);
+	assert.equal(tolerantCanonical.snapshot.group, "Return");
+	assert.equal(tolerantCanonical.snapshot.subgroup, "Returned");
+	assert.equal(tolerantCanonical.snapshot.status, "Return / Returned");
+	assert.equal(
+		buildSpxSyncNote(tolerantCanonical.snapshot).split("\n")[0],
+		"tracking order status: Return / Returned - Đơn hàng đã hoàn trả thành công"
+	);
+});
+
+await test("treats a Delivered group with Returned subgroup as a conflict, never cancels or completes", () => {
+	const fixture = {
+		retcode: 0,
+		data: {
+			order_info: {
+				tracking_code_group_name: "Delivered",
+				tracking_code_subgroup_name: "Returned",
+			},
+			sls_tracking_info: {
+				records: [
+					{
+						tracking_code: "CONFLICT2",
+						tracking_name: "Delivered",
+						seller_description: "conflicting synthetic event",
+						milestone_name: "Delivered",
+						actual_time: EVENT_TIMESTAMPS.newest,
+					},
+				],
+			},
+		},
+	};
+	assert.deepEqual(normalizeSpxProviderResponse(fixture, TRACKING_CODES.delivered), {
+		kind: "data_error",
+		errorCode: SPX_SYNC_ERROR_CODES.STATUS_CONFLICT,
+	});
 });
 
 await test("selects the newest valid record independently of array order", () => {
@@ -541,6 +621,64 @@ await test("provider errors preserve the last successful notes", () => {
 	assert.deepEqual(decision.set, { spxSyncError: SPX_SYNC_ERROR_CODES.TIMEOUT });
 	assert.equal(Object.hasOwn(decision.set, "adminNotes"), false);
 	assert.equal(Object.hasOwn(decision.set, "spxSyncNote"), false);
+});
+
+await test("builds one atomic cancellation decision only for canonical Return/Returned", () => {
+	const cancelSnapshot = snapshotFrom(returnedFixture, TRACKING_CODES.returned);
+	assert.equal(cancelSnapshot.shouldCancel, true);
+	const note = buildSpxSyncNote(cancelSnapshot);
+	assert.equal(
+		note.split("\n")[0],
+		"tracking order status: Return / Returned - Đơn hàng đã hoàn trả thành công"
+	);
+
+	const freshOrder = eligibleOrder({ trackingNumber: TRACKING_CODES.returned });
+	const freshDecision = decideSuccessfulSpxSync(freshOrder, cancelSnapshot);
+	assert.equal(freshDecision.type, "cancel_order");
+	assert.equal(freshDecision.shouldMutate, true);
+	assert.equal(freshDecision.set.status, "cancelled");
+	assert.equal(freshDecision.set.spxTrackingStatus, "Return / Returned");
+	assert.equal(freshDecision.set.spxSyncNote, note);
+});
+
+await test("keeps Return/Returning in_transit and never cancels on description text alone", () => {
+	const returningSnapshot = snapshotFrom(returningFixture, TRACKING_CODES.returning);
+	assert.equal(returningSnapshot.shouldCancel, false);
+	const returningDecision = decideSuccessfulSpxSync(
+		eligibleOrder({ trackingNumber: TRACKING_CODES.returning }),
+		returningSnapshot
+	);
+	assert.notEqual(returningDecision.type, "cancel_order");
+	assert.equal(Object.hasOwn(returningDecision.set, "status"), false);
+
+	const descriptionOnlySnapshot = snapshotFrom(
+		descriptionOnlyReturnFixture,
+		TRACKING_CODES.delivered
+	);
+	assert.equal(descriptionOnlySnapshot.shouldCancel, false);
+	const descriptionOnlyDecision = decideSuccessfulSpxSync(
+		eligibleOrder(),
+		descriptionOnlySnapshot
+	);
+	assert.notEqual(descriptionOnlyDecision.type, "cancel_order");
+	assert.equal(Object.hasOwn(descriptionOnlyDecision.set, "status"), false);
+});
+
+await test("reconciles a stored Return/Returned order to cancelled even with unchanged metadata and note", () => {
+	const cancelSnapshot = snapshotFrom(returnedFixture, TRACKING_CODES.returned);
+	const note = buildSpxSyncNote(cancelSnapshot);
+	const alreadyReconciledLookingOrder = eligibleOrder({
+		trackingNumber: TRACKING_CODES.returned,
+		spxSyncNote: note,
+		spxTrackingNumber: cancelSnapshot.trackingNumber,
+		spxTrackingStatus: cancelSnapshot.status,
+		spxTrackingEventCode: cancelSnapshot.eventCode,
+		spxTrackingEventAt: cancelSnapshot.eventAt,
+	});
+	const decision = decideSuccessfulSpxSync(alreadyReconciledLookingOrder, cancelSnapshot);
+	assert.equal(decision.type, "cancel_order");
+	assert.equal(decision.shouldMutate, true);
+	assert.equal(decision.set.status, "cancelled");
 });
 
 await test("enforces published-only discovery, overflow sentinel, and bounded concurrency", async () => {
@@ -930,6 +1068,43 @@ await test("aggregates malformed legacy markers as non-provider attention", asyn
 	assert.equal(observedFailures[0].errorCode, SPX_SYNC_ERROR_CODES.MARKER_ERROR);
 });
 
+await test("aggregates cancelled orders into the cron summary with a compact Return/Returned result", async () => {
+	let alertCalls = 0;
+	const result = await runAuthorizedSpxSync(
+		authorizedRunInput({
+			getDraftOrders: async () => [],
+			publishDraftOrder: async () => {
+				throw new Error("No draft publish expected");
+			},
+			getEligibleOrders: async () => [eligibleOrder({ _id: "return-cancelled" })],
+			processEligibleOrder: async (order) =>
+				processedOrderResult(order._id, {
+					result: {
+						orderId: order._id,
+						result: "cancelled",
+						spxStatus: "Return / Returned",
+					},
+					changed: 1,
+					cancelled: 1,
+					unchanged: 0,
+				}),
+			sendAlert: async () => {
+				alertCalls += 1;
+				return { status: "not_required" };
+			},
+		})
+	);
+	assert.equal(result.httpStatus, 200);
+	assert.equal(result.summary.queried, 1);
+	assert.equal(result.summary.changed, 1);
+	assert.equal(result.summary.cancelled, 1);
+	assert.equal(result.summary.completed, 0);
+	assert.deepEqual(result.results, [
+		{ orderId: "return-cancelled", result: "cancelled", spxStatus: "Return / Returned" },
+	]);
+	assert.equal(alertCalls, 1);
+});
+
 await test("strips crafted SPX metadata from order creation input", () => {
 	const sanitized = stripServerManagedSpxFields({
 		customerName: "Synthetic",
@@ -1001,6 +1176,7 @@ await test("formats one bounded HTML-safe Telegram alert with ten-order cap", ()
 			checked: 14,
 			changed: 2,
 			completed: 1,
+			cancelled: 2,
 			unchanged: 0,
 			skipped: 0,
 			failed: 14,
@@ -1020,6 +1196,7 @@ await test("formats one bounded HTML-safe Telegram alert with ten-order cap", ()
 	assert.equal(message.includes("4 additional affected order(s) omitted"), true);
 	assert.equal((message.match(/<a href=/g) || []).length, 10);
 	assert.equal(message.includes("publishing: 3 queried / 3 attempted / 2 published / 1 failed"), true);
+	assert.equal(message.includes("2 cancelled"), true);
 });
 
 await test("groups multiple failure categories for the same affected order", () => {
@@ -1043,6 +1220,7 @@ await test("groups multiple failure categories for the same affected order", () 
 			checked: 6,
 			changed: 0,
 			completed: 0,
+			cancelled: 0,
 			unchanged: 0,
 			skipped: 0,
 			failed: 6,

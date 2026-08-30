@@ -51,7 +51,10 @@ export type SpxTrackingSnapshot = {
 	eventAt: string;
 	description: string;
 	fingerprint: string;
+	// Mutually exclusive terminal outcomes. Both are computed defensively so that
+	// they can never be true at the same time (see utils/spx/tracking.ts).
 	shouldComplete: boolean;
+	shouldCancel: boolean;
 };
 
 export type SpxProviderResult =
@@ -107,7 +110,7 @@ export type SpxPatchValues = {
 	spxTrackingEventCode?: string;
 	spxTrackingEventAt?: string;
 	spxSyncError?: SpxPersistedErrorCode;
-	status?: "completed";
+	status?: "completed" | "cancelled";
 };
 
 export type SpxPatchDecision =
@@ -119,7 +122,7 @@ export type SpxPatchDecision =
 			attentionErrorCode?: typeof SPX_SYNC_ERROR_CODES.MARKER_ERROR;
 	  }
 	| {
-			type: "status_changed" | "complete_order";
+			type: "status_changed" | "complete_order" | "cancel_order";
 			shouldMutate: true;
 			set: SpxPatchValues;
 			unset: string[];
@@ -156,6 +159,7 @@ export type SpxFailureRecord = {
 
 export type SpxOrderResultCategory =
 	| "completed"
+	| "cancelled"
 	| "updated"
 	| "error_cleared"
 	| "error_recorded"
@@ -180,6 +184,7 @@ export type SpxSyncSummary = {
 	checked: number;
 	changed: number;
 	completed: number;
+	cancelled: number;
 	unchanged: number;
 	skipped: number;
 	failed: number;

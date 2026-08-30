@@ -83,6 +83,7 @@ type ProcessedOrder = {
 	checked: number;
 	changed: number;
 	completed: number;
+	cancelled: number;
 	unchanged: number;
 	skipped: number;
 	failed: number;
@@ -117,6 +118,7 @@ function createEmptySummary(queried = 0): SpxSyncSummary {
 		checked: 0,
 		changed: 0,
 		completed: 0,
+		cancelled: 0,
 		unchanged: 0,
 		skipped: 0,
 		failed: 0,
@@ -278,6 +280,7 @@ function createBaseProcessedOrder(orderId: string): ProcessedOrder {
 		checked: 0,
 		changed: 0,
 		completed: 0,
+		cancelled: 0,
 		unchanged: 0,
 		skipped: 0,
 		failed: 0,
@@ -386,11 +389,14 @@ async function processSuccessfulLookup(
 
 	processed.changed = mutation.kind === "mutated" ? 1 : 0;
 	processed.completed = decision.type === "complete_order" ? 1 : 0;
+	processed.cancelled = decision.type === "cancel_order" ? 1 : 0;
 	processed.result = {
 		orderId: order._id,
 		result:
 			decision.type === "complete_order"
 				? "completed"
+				: decision.type === "cancel_order"
+				? "cancelled"
 				: decision.type === "clear_error"
 				? "error_cleared"
 				: "updated",
@@ -460,6 +466,7 @@ function aggregateProcessedOrders(
 		summary.checked += processed.checked;
 		summary.changed += processed.changed;
 		summary.completed += processed.completed;
+		summary.cancelled += processed.cancelled;
 		summary.unchanged += processed.unchanged;
 		summary.skipped += processed.skipped;
 		summary.failed += processed.failed;

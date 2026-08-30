@@ -121,7 +121,7 @@ export function formatSpxSyncErrorMessage(input: {
 						`publishing: ${input.publishing.queried} queried / ${input.publishing.attempted} attempted / ${input.publishing.published} published / ${input.publishing.failed} failed`,
 				  ]
 				: []),
-			`summary: ${input.summary.checked} checked / ${input.summary.changed} updated / ${input.summary.completed} completed / ${input.summary.failed} failed / ${input.summary.attentionRequired} attention required`,
+			`summary: ${input.summary.checked} checked / ${input.summary.changed} updated / ${input.summary.completed} completed / ${input.summary.cancelled} cancelled / ${input.summary.failed} failed / ${input.summary.attentionRequired} attention required`,
 			"affected_orders:",
 			...(affectedLines.length ? affectedLines : ["  - run — SPX_ORCHESTRATION_ERROR"]),
 			`action: ${escapeHtml(action)}`,

@@ -3,6 +3,7 @@ export const TRACKING_CODES = {
 	delivered: "SPXVN100000000001",
 	returning: "SPXVN100000000002",
 	replacement: "SPXVN100000000003",
+	returned: "SPXVN100000000004",
 };
 
 export const EVENT_TIMESTAMPS = {
@@ -52,6 +53,31 @@ export const returningFixture = response("Return", "Returning", [
 		tracking_name: "Returning",
 		seller_description: "Đơn hàng đang được hoàn về kho",
 		milestone_name: "Returning",
+		actual_time: EVENT_TIMESTAMPS.newest,
+	}),
+]);
+
+// Canonical terminal return: order-info group is exactly "Return" and subgroup
+// is exactly "Returned". Only this exact combination should cancel the order.
+export const returnedFixture = response("Return", "Returned", [
+	record({
+		tracking_code: "R980",
+		tracking_name: "Returned",
+		seller_description: "Đơn hàng đã hoàn trả thành công",
+		milestone_name: "Returned",
+		actual_time: EVENT_TIMESTAMPS.newest,
+	}),
+]);
+
+// A seller_description that mentions a completed return in Vietnamese, while the
+// canonical group/subgroup remain non-terminal. Description text alone must never
+// cancel an order.
+export const descriptionOnlyReturnFixture = response("In Transit", "Transporting", [
+	record({
+		tracking_code: "F150",
+		tracking_name: "In Transit",
+		seller_description: "Đơn hàng đã hoàn trả thành công",
+		milestone_name: "In Transit",
 		actual_time: EVENT_TIMESTAMPS.newest,
 	}),
 ]);

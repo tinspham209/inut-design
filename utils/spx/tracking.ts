@@ -130,6 +130,18 @@ function isReturnSignal(value: unknown): boolean {
 	return token === "return" || token === "returning" || token === "returned";
 }
 
+// Exact (case/spacing/hyphen tolerant) canonical group/subgroup match used only
+// for the terminal cancellation decision. Deliberately narrower than
+// `isReturnSignal`, which also matches non-terminal "Returning" for conflict
+// detection: description text and non-terminal return states must never cancel.
+function isCanonicalReturnGroup(value: unknown): boolean {
+	return statusToken(value) === "return";
+}
+
+function isCanonicalReturnedSubgroup(value: unknown): boolean {
+	return statusToken(value) === "returned";
+}
+
 function isValidTimestamp(value: unknown): value is number {
 	return (
 		typeof value === "number" &&
@@ -254,18 +266,35 @@ export function normalizeSpxProviderResponse(
 	}
 
 	const eventTimestamp = latest.actual_time as number;
-	const status = group === subgroup ? group : `${group} / ${subgroup}`;
+	const shouldComplete =
+		isDeliveredSignal(group) && isDeliveredSignal(subgroup) && !hasReturnSignal;
+	// Canonical (fresh) group/subgroup only — description text alone never
+	// cancels, and non-terminal "Returning" never cancels. `!shouldComplete`
+	// keeps the two terminal outcomes structurally impossible to both be true.
+	const shouldCancel =
+		!shouldComplete &&
+		isCanonicalReturnGroup(group) &&
+		isCanonicalReturnedSubgroup(subgroup) &&
+		!hasDeliveredSignal;
+	// Keep the persisted note/status and compact route result deterministic when
+	// tolerant token matching accepts harmless case/spacing/hyphen variations.
+	const normalizedGroup = shouldCancel ? "Return" : group;
+	const normalizedSubgroup = shouldCancel ? "Returned" : subgroup;
+	const status =
+		normalizedGroup === normalizedSubgroup
+			? normalizedGroup
+			: `${normalizedGroup} / ${normalizedSubgroup}`;
 	const snapshotWithoutFingerprint: Omit<SpxTrackingSnapshot, "fingerprint"> = {
 		trackingNumber,
-		group,
-		subgroup,
+		group: normalizedGroup,
+		subgroup: normalizedSubgroup,
 		status,
 		eventCode,
 		eventTimestamp,
 		eventAt: new Date(eventTimestamp * 1000).toISOString(),
 		description,
-		shouldComplete:
-			isDeliveredSignal(group) && isDeliveredSignal(subgroup) && !hasReturnSignal,
+		shouldComplete,
+		shouldCancel,
 	};
 
 	return {

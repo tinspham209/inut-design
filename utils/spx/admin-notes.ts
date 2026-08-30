@@ -185,8 +185,15 @@ export function decideSuccessfulSpxSync(
 		order.spxTrackingEventAt !== snapshot.eventAt;
 	const noteChanged = order.spxSyncNote !== spxSyncNote;
 	const legacyNotesChanged = legacyNotes.kind === "removed";
+	// Terminal outcomes always count as a state change so a stored order that
+	// already reflects Return/Returned (or Delivered) metadata is still
+	// reconciled to the terminal Sanity status on the next run.
 	const successfulStateChanged =
-		metadataChanged || noteChanged || legacyNotesChanged || snapshot.shouldComplete;
+		metadataChanged ||
+		noteChanged ||
+		legacyNotesChanged ||
+		snapshot.shouldComplete ||
+		snapshot.shouldCancel;
 
 	if (!successfulStateChanged) {
 		if (order.spxSyncError) {
@@ -217,10 +224,15 @@ export function decideSuccessfulSpxSync(
 		spxTrackingEventCode: snapshot.eventCode,
 		spxTrackingEventAt: snapshot.eventAt,
 		...(snapshot.shouldComplete ? { status: "completed" as const } : {}),
+		...(snapshot.shouldCancel ? { status: "cancelled" as const } : {}),
 	};
 
 	return {
-		type: snapshot.shouldComplete ? "complete_order" : "status_changed",
+		type: snapshot.shouldComplete
+			? "complete_order"
+			: snapshot.shouldCancel
+			? "cancel_order"
+			: "status_changed",
 		shouldMutate: true,
 		set,
 		unset: order.spxSyncError ? ["spxSyncError"] : [],

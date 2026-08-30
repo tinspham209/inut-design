@@ -18,6 +18,16 @@ Scope: publish every `ordersLighter` draft first, then synchronize published
 > earlier proposal sections. Earlier sections remain for investigation and decision
 > traceability.
 
+> **Confirmed terminal-return behavior (current revision):** in addition to the
+> `Delivered` → `completed` mapping, a **fresh, canonical** SPX order-info
+> response whose `group` is exactly `Return` and `subgroup` is exactly
+> `Returned` (case/spacing/hyphen tolerant) now transitions an eligible
+> `in_transit` order directly to `cancelled`. Non-terminal `Return`/`Returning`
+> and any signal derived only from carrier description text never cancel an
+> order. See the updated **Business Goal**, **Approved Decisions**, **Status
+> Mapping**, and **Acceptance Criteria** (AC36–AC40) below, and Revised Tasks 3
+> and 7 for the corresponding implementation and regression coverage.
+
 ## Business Goal
 
 Reduce manual shipment checks by synchronizing SPX tracking information into
@@ -32,9 +42,15 @@ Sanity once per day at 17:00 GMT+7:
 5. Write the latest automated snapshot to the dedicated `spxSyncNote` field.
 6. Change the existing order `status` to `completed` only when SPX reports
    `Delivered` / `Đã giao hàng`.
-7. Leave return, failed-delivery, and other shipment states as `in_transit` while
-   showing a meaningful latest status to sales in `spxSyncNote`.
-8. Send one Telegram alert to the configured operations channel when the SPX API
+7. Change the existing order `status` to `cancelled` only when the fresh,
+   canonical SPX order-info `group` is exactly `Return` and `subgroup` is
+   exactly `Returned`. This reconciles an order to `cancelled` even when the
+   provider fingerprint and the previously stored `spxSyncNote` are unchanged;
+   description text alone never triggers this transition.
+8. Leave `Return`/`Returning` and other non-terminal shipment states as
+   `in_transit` while showing a meaningful latest status to sales in
+   `spxSyncNote`.
+9. Send one Telegram alert to the configured operations channel when the SPX API
    phase or Sanity query/update phase returns an error so action can be taken
    without waiting for cron-job.org history to be checked manually.
 
@@ -44,8 +60,11 @@ Sanity once per day at 17:00 GMT+7:
 | --- | --- |
 | Implementation stage | Uncommitted implementation and validation |
 | Draft prerequisite | Publish every `ordersLighter` draft before SPX discovery |
-| Internal status mapping | Only SPX `Delivered` changes `status` to `completed` |
-| Return/failure mapping | Keep `status == "in_transit"` and update `spxSyncNote` |
+| Delivery terminal mapping | Fresh, canonical SPX `Delivered`/`Delivered` changes `status` to `completed` |
+| Return terminal mapping | Only fresh, canonical SPX `Return`/`Returned` changes `status` to `cancelled` |
+| Return/failure mapping | Non-terminal `Return`/`Returning` and other failure states keep `status == "in_transit"` and update `spxSyncNote` |
+| Terminal-outcome exclusivity | `shouldComplete`/`shouldCancel` are computed so they can never both be true; a Delivered/Return conflict fails safe and completes/cancels nothing |
+| Reconciliation | A stored order already reflecting Return/Returned metadata is still re-evaluated and moved to `cancelled` on the next run, even if the note/fingerprint did not change |
 | Audit-note policy | Keep one deterministic marker-free snapshot in `spxSyncNote` |
 | Existing admin notes | Leave unchanged unless one valid legacy marker block is migrated |
 | Tracking input | Accept both full `spx.vn` URLs and raw `SPXVN...` codes |
@@ -400,11 +419,14 @@ Use provider codes for logic and Vietnamese descriptions only for display.
 | SPX result | Sanity `status` | Automated note behavior |
 | --- | --- | --- |
 | Canonical group and subgroup are both `Delivered`, with a valid non-conflicting newest event | Set `completed` | Update `spxSyncNote`; migrate one valid legacy block |
-| `Return`, `Returning`, failed delivery, delivery unsuccessful | Keep `in_transit` | Update `spxSyncNote`; migrate one valid legacy block |
+| Canonical (fresh) order-info group is exactly `Return` and subgroup is exactly `Returned`, with a valid non-conflicting newest event | Set `cancelled` | Update `spxSyncNote`; migrate one valid legacy block; reconciles even if metadata/note already match |
+| `Return`/`Returning` (non-terminal), failed delivery, delivery unsuccessful | Keep `in_transit` | Update `spxSyncNote`; migrate one valid legacy block |
 | Normal in-transit states | Keep `in_transit` | Update `spxSyncNote`; migrate one valid legacy block |
+| Carrier description text alone mentions a return/refund outcome without canonical `Return`/`Returned` group+subgroup | Keep `in_transit` | Update `spxSyncNote` with the sanitized description; never cancels |
 | Invalid/missing SPX code | No change | No change; include skip reason in route result |
 | SPX `retcode != 0` | No change | Keep both note fields unchanged; record `spxSyncError` |
 | Timeout/network/invalid JSON | No change | Keep both note fields unchanged; record `spxSyncError` |
+| Conflicting Delivered/Return signals in the same fresh response | No change (fails safe) | Keep both note fields unchanged; record `spxSyncError` as `SPX_STATUS_CONFLICT` |
 
 Never move an order backwards from `completed`, `cancelled`, or another manually
 selected state. The eligible-order query only selects `in_transit`, and the patch
@@ -706,8 +728,10 @@ analytics.
 4. Optional additive Sanity fields can remain safely; they do not affect existing
    documents or checkout.
 5. Do not remove or rewrite manual `adminNotes`.
-6. Orders already changed to `completed` remain completed unless sales explicitly
-   determines a correction is required.
+6. Orders already changed to `completed` or `cancelled` remain in that terminal
+   state unless sales explicitly determines a correction is required; a
+   mistaken automated cancellation is corrected the same way as any other
+   manual Studio status correction, not by re-running the cron.
 
 ## Acceptance Criteria
 
@@ -721,13 +745,15 @@ analytics.
 6. `adminNotes` without legacy markers remains unchanged.
 7. Exactly one valid legacy block is removed while manual prefix/suffix content is
    preserved with deterministic minimum boundary cleanup.
-8. An unchanged successful order causes no Sanity mutation.
-9. A changed return/failure/in-transit event updates `spxSyncNote` but leaves the
-   order `status` as `in_transit`.
+8. An unchanged successful order causes no Sanity mutation, unless the fresh
+   result is the terminal Return/Returned cancellation described in AC36–AC38.
+9. A changed non-terminal return/failure/in-transit event (including
+   `Return`/`Returning`) updates `spxSyncNote` but leaves the order `status` as
+   `in_transit`.
 10. A delivered event atomically updates `spxSyncNote`, performs any valid legacy
     cleanup, and changes `status` to `completed`.
 11. A provider error never clears the last successful `spxSyncNote`, alters
-    `adminNotes`, or completes an order.
+    `adminNotes`, or completes/cancels an order.
 12. Repeating the same provider error does not create another Sanity mutation.
 13. A concurrent Studio edit causes a revision conflict instead of lost data.
 14. Every `ordersLighter` draft is publish-attempted before SPX discovery, and the
@@ -743,7 +769,8 @@ analytics.
     mutations; it creates no run document or daily per-order timestamp write.
 21. More than 25 eligible orders causes a visible capacity failure before any SPX
     call or Sanity mutation.
-22. Conflicting Delivered/Return provider signals never complete an order.
+22. Conflicting Delivered/Return provider signals never complete or cancel an
+    order.
 23. New SPX metadata is read-only in Studio and cannot be injected through the
     existing order-creation request.
 24. Partial/reversed/duplicate/nested markers leave `adminNotes` untouched, do not
@@ -756,7 +783,8 @@ analytics.
 27. Persisted error values are bounded stable codes rather than volatile upstream
     messages.
 28. Sales has a documented procedure to move fully resolved returns out of
-    `in_transit` so they stop consuming daily checks.
+    `in_transit` so they stop consuming daily checks for cases the automated
+    canonical Return/Returned cancellation (AC36) does not cover.
 29. Any SPX API, Sanity query, Sanity mutation, revision-conflict, capacity, or
     authenticated orchestration error produces at most one aggregated Telegram
     alert during that cron invocation.
@@ -773,6 +801,27 @@ analytics.
 35. Sanity query and mutation calls use bounded request timeouts so a stalled
     Content Lake request cannot consume the entire route budget before Telegram
     alerting is attempted.
+36. A fresh, canonical SPX response whose order-info `group` is exactly `Return`
+    and `subgroup` is exactly `Returned` (case/spacing/hyphen tolerant token
+    matching) atomically changes an eligible `in_transit` order's `status` to
+    `cancelled` via the same revision-guarded patch mechanism used for
+    completion.
+37. Non-terminal `Return`/`Returning` states, and any signal derived only from
+    carrier description text, never change `status`; the order remains
+    `in_transit` with an updated `spxSyncNote`.
+38. A previously stored `in_transit` order whose `spxTrackingStatus`/
+    `spxSyncNote` already reflect `Return`/`Returned` is still reconciled to
+    `cancelled` on the next run when the fresh response confirms
+    `Return`/`Returned`, even if the provider fingerprint and stored note are
+    unchanged; this cancellation counts as a successful state change for
+    Sanity-mutation and summary-aggregation purposes.
+39. `shouldComplete` and `shouldCancel` are mutually exclusive on every
+    normalized snapshot; a conflicting Delivered/Return signal never sets
+    either flag and never completes or cancels an order.
+40. The cron response `summary` and the Telegram alert both include a
+    `cancelled` aggregate alongside the existing `completed`/`changed`/`failed`
+    fields, and the compact per-order result for a cancellation reports
+    `result: "cancelled"` with `spxStatus` exactly `"Return / Returned"`.
 
 ## Implementation Tasks
 
@@ -1107,15 +1156,22 @@ accepts its current payload and cannot set the new server-managed SPX fields.
 
 ### G19 — Non-delivered terminal shipments have no polling lifecycle
 
-The approved mapping keeps return/failure states as `in_transit`. A parcel that has
-finished returning to sender can therefore remain eligible forever, consuming one
-SPX lookup per day and eventually contributing to the 25-order cap.
+The original mapping kept every return/failure state as `in_transit`. A parcel
+that had finished returning to sender could therefore remain eligible forever,
+consuming one SPX lookup per day and eventually contributing to the 25-order cap.
 
-**Resolution:** version 1 does not invent a new automatic order-status mapping.
-Task 8 documents the operational rule that sales closes a resolved return by
-manually moving the order out of `in_transit` (normally `cancelled`, following the
-existing status model). Eligible-order counts are monitored during rollout, and
-overflow fails visibly rather than silently starving orders.
+**Resolution (superseded by the confirmed terminal-return behavior above):**
+version 1 shipped without an automatic terminal mapping for returns and
+documented a manual sales rule (Task 8) to move resolved returns to `cancelled`.
+This revision closes that gap: a fresh, canonical `Return`/`Returned`
+order-info response now automatically moves the order to `cancelled` using the
+same revision-guarded, change-detecting patch path as `Delivered` →
+`completed`, so a fully returned parcel stops consuming daily SPX lookups
+without a manual Studio edit. Non-terminal `Return`/`Returning` states are
+unaffected and still rely on the manual sales rule until SPX itself reports the
+canonical `Returned` subgroup. Eligible-order counts continue to be monitored
+during rollout, and overflow still fails visibly rather than silently starving
+orders.
 
 ### G20 — Existing Telegram routes are the wrong integration boundary
 
@@ -1223,13 +1279,14 @@ like other Sanity phase failures.
 - **A13 — Shipment completion does not change payment state.** The cron updates
   `status` only; `paymentStatus` remains under the existing business process.
 - **A14 — SPX descriptions are internal context, not trusted business logic.**
-  Descriptions may be shown after sanitization but never determine `completed`.
+  Descriptions may be shown after sanitization but never determine `completed` or
+  `cancelled`.
 - **A15 — Revision conflicts are retried on the next daily run.** Version 1 does not
   re-read and retry the same order in the current invocation because that would add
   Sanity requests and risk overriding an active Studio edit.
-- **A16 — Resolved returns require a manual terminal status.** Because the approved
-  automation maps only Delivered to `completed`, sales must move a fully resolved
-  returned order out of `in_transit` to stop daily polling.
+- **A16 — Non-canonical returns still require manual review.** Canonical
+  `Return`/`Returned` is automatically mapped to `cancelled`; sales must still
+  resolve non-terminal, ambiguous, or provider-conflicting return cases manually.
 - **A17 — Changing to a non-SPX carrier does not trigger legacy migration.** AC4
   requires no mutation for non-SPX input. Sales must manually resolve any obsolete
   legacy marker content when no successful SPX lookup occurs.
@@ -1255,8 +1312,9 @@ like other Sanity phase failures.
   for one daily invocation. Do not add Redis, a lock document, or another service.
 - **O4 — No append-only status-history array or run documents.** They add document
   growth and writes without serving the approved latest-status workflow.
-- **O5 — No new order status enum.** Return/failure states remain carrier context in
-  `spxSyncNote` and SPX metadata; only Delivered maps to `completed`.
+- **O5 — No new order status enum.** Reuse the existing `completed` and `cancelled`
+  values for canonical terminal delivery/return outcomes. Non-terminal
+  return/failure states remain carrier context in `spxSyncNote` and SPX metadata.
 - **O6 — No cron IP allowlist in version 1.** The server-only secret is sufficient.
   IP maintenance can be added later only if a concrete threat requires it.
 - **O7 — No public/manual dry-run feature.** A dry-run request mode adds branching
@@ -1354,14 +1412,25 @@ like other Sanity phase failures.
   - `no_change`;
   - `status_changed`;
   - `complete_order`;
+  - `cancel_order`;
   - `set_error`;
   - `clear_error`.
+- Compute `shouldComplete`/`shouldCancel` on the normalized snapshot
+  (`utils/spx/tracking.ts`) from the fresh, canonical order-info `group`/
+  `subgroup` tokens only, never from description text, and construct them so
+  they are structurally mutually exclusive (a Delivered/Return conflict is
+  already rejected upstream as `SPX_STATUS_CONFLICT` before either flag can be
+  computed).
+- Treat `shouldCancel` as a successful state change even when stored metadata
+  and `spxSyncNote` already match, so a previously-synced Return/Returned order
+  is reconciled to `cancelled` on the next run.
 - Attach stable `SPX_MARKER_ERROR` attention to otherwise successful decisions
   when legacy markers are malformed.
 - Treat unchanged status plus an existing error as `clear_error`, not `no_change`.
-- **Acceptance coverage:** AC4–AC12, AC24, AC25, AC27.
+- **Acceptance coverage:** AC4–AC12, AC24, AC25, AC27, AC36–AC39.
 - **Done when:** note output and mutation/no-mutation decisions are deterministic
-  for every fixture and marker edge case.
+  for every fixture and marker edge case, including the canonical
+  Return/Returned cancellation and its reconciliation case.
 
 - [ ]
 
@@ -1496,7 +1565,11 @@ like other Sanity phase failures.
   - empty records;
   - missing fields;
   - invalid timestamp;
-  - Delivered/Return conflict;
+  - Delivered/Return conflict, including Delivered group with Returned subgroup;
+  - canonical Return/Returned cancellation with a sanitized Vietnamese
+    seller_description fixture (`Đơn hàng đã hoàn trả thành công`);
+  - description-only return text with non-terminal group/subgroup never
+    cancels;
   - timeout and HTTP/JSON failure.
 - Cover note/decision cases:
   - no-marker manual notes remain unchanged;
@@ -1511,12 +1584,19 @@ like other Sanity phase failures.
   - same status no-op;
   - changed tracking number with same status;
   - new/same/cleared error;
-  - GMT+7 date-boundary formatting.
+  - GMT+7 date-boundary formatting;
+  - canonical Return/Returned produces `cancel_order` with `status: "cancelled"`
+    and the exact
+    `tracking order status: Return / Returned - <sanitized description>` note;
+  - Return/Returning never produces `cancel_order`;
+  - a stored order whose metadata/note already match Return/Returned is still
+    reconciled to `cancel_order` on the next run.
 - Cover Sanity/orchestration cases with stubs or pure decision inputs:
   - draft exclusion;
   - 26-document overflow;
   - zero-mutation unchanged run;
   - atomic delivered patch shape;
+  - atomic cancelled patch shape and cron summary/result `cancelled` aggregate;
   - revision conflict;
   - compact non-PII response;
   - expected HTTP response categories.
@@ -1530,7 +1610,8 @@ like other Sanity phase failures.
   - Sanity query/mutation timeout classification;
   - insufficient remaining budget;
   - Telegram failure preserves the original HTTP status/result;
-  - no recursive alert attempt.
+  - no recursive alert attempt;
+  - the summary line includes the `cancelled` aggregate.
 - Validate the route rejects invalid auth locally before external calls.
 - Validate the existing order creation payload still works and injected SPX fields
   including `spxSyncNote` are discarded.
@@ -1541,7 +1622,7 @@ like other Sanity phase failures.
   - `pnpm --dir sanity build`;
   - the existing lighter regression/manual checkout flow appropriate for the
     environment.
-- **Acceptance coverage:** AC1–AC35.
+- **Acceptance coverage:** AC1–AC40.
 - **Done when:** deterministic checks pass without depending on live customer
   tracking data, Telegram failure handling is bounded and non-recursive, and
   existing order creation/checkout behavior is unchanged.
