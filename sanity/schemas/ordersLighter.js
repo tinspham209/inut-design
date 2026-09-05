@@ -283,13 +283,6 @@ export default {
 			readOnly: true,
 		},
 		{
-			name: "spxTrackingNumber",
-			title: "SPX Tracking Number (Automated)",
-			type: "string",
-			description: "Normalized SPX tracking number managed by the daily synchronization.",
-			readOnly: true,
-		},
-		{
 			name: "spxTrackingStatus",
 			title: "SPX Status (Automated)",
 			type: "string",
@@ -297,17 +290,24 @@ export default {
 			readOnly: true,
 		},
 		{
-			name: "spxTrackingEventCode",
-			title: "SPX Event Code (Automated)",
-			type: "string",
-			description: "Latest SPX event code managed by automation.",
-			readOnly: true,
-		},
-		{
 			name: "spxTrackingEventAt",
 			title: "SPX Event Time (Automated)",
 			type: "datetime",
 			description: "Latest validated SPX event timestamp stored in UTC.",
+			readOnly: true,
+		},
+		{
+			name: "spxTrackingNumber",
+			title: "SPX Tracking Number (Automated)",
+			type: "string",
+			description: "Normalized SPX tracking number managed by the daily synchronization.",
+			readOnly: true,
+		},
+		{
+			name: "spxTrackingEventCode",
+			title: "SPX Event Code (Automated)",
+			type: "string",
+			description: "Latest SPX event code managed by automation.",
 			readOnly: true,
 		},
 		{
