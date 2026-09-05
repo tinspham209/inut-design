@@ -1,5 +1,9 @@
 import sanityClient from "@sanity/client";
-import { CreateOrderLighterInput, OrderLighter } from "@/models/cart";
+import {
+	CreateLighterOrderResponse,
+	CreateOrderLighterInput,
+	OrderLighter,
+} from "@/models/cart";
 import type {
 	DraftOrderDocument,
 	EligibleSpxOrder,
@@ -35,19 +39,36 @@ function generateOrderNumber(prefix: string): string {
 }
 
 export async function createLighterOrder(
-	orderData: CreateOrderLighterInput
-): Promise<OrderLighter> {
+	orderData: CreateOrderLighterInput,
+	idempotencyKey: string
+): Promise<CreateLighterOrderResponse> {
 	const customerOrderData = stripServerManagedSpxFields(
 		orderData as unknown as Record<string, unknown>
 	) as unknown as CreateOrderLighterInput;
+	const orderNumber = generateOrderNumber("LIGHTER");
 	const newOrder = {
+		_id: `lighter-order-${idempotencyKey}`,
 		...customerOrderData,
 		_type: "ordersLighter",
-		orderNumber: generateOrderNumber("LIGHTER"),
+		orderNumber,
 		orderDate: customerOrderData.orderDate || new Date().toISOString(),
 	};
 
-	return (await serverClient.create(newOrder)) as OrderLighter;
+	// Ask Sanity for the mutation result so concurrent requests can distinguish
+	// the one that created the document from idempotent replays.
+	const mutationResult = await serverClient.mutate(
+		[{ createIfNotExists: newOrder }],
+		{ returnDocuments: false, returnFirst: true, visibility: "sync" }
+	);
+	const order = (await serverClient.getDocument(newOrder._id)) as OrderLighter | undefined;
+	if (!order) {
+		throw new Error("Order was not available after idempotent create");
+	}
+
+	return {
+		order,
+		created: mutationResult.results?.[0]?.operation === "create",
+	};
 }
 
 export async function getEligibleSpxOrders(timeoutMs: number): Promise<EligibleSpxOrder[]> {

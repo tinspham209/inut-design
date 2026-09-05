@@ -1,5 +1,8 @@
 import useSWRMutation from "swr/mutation";
-import { CreateOrderLighterInput, OrderLighter } from "@/models/cart";
+import {
+	CreateLighterOrderRequest,
+	CreateLighterOrderResponse,
+} from "@/models/cart";
 
 /**
  * Fetcher function for SWR mutation
@@ -8,18 +11,25 @@ import { CreateOrderLighterInput, OrderLighter } from "@/models/cart";
  */
 async function createOrderFetcher(
 	_key: string,
-	{ arg }: { arg: CreateOrderLighterInput }
-): Promise<OrderLighter> {
+	{ arg }: { arg: CreateLighterOrderRequest }
+): Promise<CreateLighterOrderResponse> {
 	const response = await fetch("/api/orders/lighters", {
 		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify(arg),
+		headers: {
+			"Content-Type": "application/json",
+			"Idempotency-Key": arg.idempotencyKey,
+		},
+		body: JSON.stringify(arg.order),
 	});
 	if (!response.ok) {
 		const payload = await response.json().catch(() => null);
 		throw new Error(payload?.error || "Failed to create order.");
 	}
-	return response.json();
+	const order = await response.json();
+	return {
+		order,
+		created: response.headers.get("X-Order-Created") === "true",
+	};
 }
 
 /**
@@ -27,7 +37,7 @@ async function createOrderFetcher(
  *
  * @returns {Object} SWR mutation object
  * @returns {Function} trigger - Function to trigger the order creation with order data
- * @returns {OrderLighter | undefined} data - The created order data
+ * @returns {CreateLighterOrderResponse | undefined} data - The created order result
  * @returns {Error | undefined} error - Error object if the request failed
  * @returns {boolean} isMutating - True if the mutation is in progress
  *
@@ -38,14 +48,17 @@ async function createOrderFetcher(
  * const handleSubmit = async (formData) => {
  *   try {
  *     const order = await trigger({
- *       status: "pending",
- *       orderItems: [...],
- *       customerName: formData.customerName,
+ *       order: {
+ *         status: "pending",
+ *         orderItems: [...],
+ *         customerName: formData.customerName,
+ *       },
+ *       idempotencyKey: crypto.randomUUID(),
  *       // ... other fields
  *     });
  *
- *     console.log("Order created:", order);
- *     router.push(`/order-tracking/lighters/${order.orderNumber}`);
+ *     console.log("Order created:", order.order);
+ *     router.push(`/order-tracking/lighters/${order.order.orderNumber}`);
  *   } catch (err) {
  *     console.error("Failed to create order:", err);
  *   }

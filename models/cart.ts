@@ -153,6 +153,16 @@ export type CreateOrderLighterInput = Omit<
 	orderDate?: string;
 };
 
+export type CreateLighterOrderRequest = {
+	order: CreateOrderLighterInput;
+	idempotencyKey: string;
+};
+
+export type CreateLighterOrderResponse = {
+	order: OrderLighter;
+	created: boolean;
+};
+
 // ==================== Regular Products Cart Types ====================
 
 export type CartItemProduct = {

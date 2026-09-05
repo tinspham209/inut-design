@@ -2,7 +2,7 @@ import { sanityImageUrl } from "@/api-client/sanity-image";
 import { uploadImageToSanity } from "@/api-client/sanity-upload";
 import { MainLayout } from "@/components/layout";
 import { useCreateLighterOrder } from "@/hooks";
-import { CreateOrderLighterInput } from "@/models/cart";
+import { CreateLighterOrderRequest, CreateOrderLighterInput } from "@/models/cart";
 import { NextPageWithLayout } from "@/models/common";
 import { useLightersCart } from "@/store";
 import { trackAbandonedCheckout, trackBeginCheckout, trackPurchase } from "@/utils/analytics";
@@ -57,6 +57,9 @@ const LighterCheckout: NextPageWithLayout = () => {
 	const { trigger: createOrder, isMutating } = useCreateLighterOrder();
 	const [isOrderComplete, setIsOrderComplete] = useState(false);
 	const [mounted, setMounted] = useState(false);
+	const submissionLockRef = useRef(false);
+	const idempotencyKeyRef = useRef<string | null>(null);
+	const purchaseTrackedRef = useRef(false);
 	const { sendNotification } = useTelegramNotification();
 	const { sendNotification: sendAbandonedCheckoutNotification, sendNotificationKeepAlive } =
 		useTelegramAbandonedCheckoutNotification();
@@ -251,6 +254,17 @@ const LighterCheckout: NextPageWithLayout = () => {
 	);
 
 	const onSubmit = async (data: CheckoutFormData) => {
+		if (submissionLockRef.current) return;
+		submissionLockRef.current = true;
+		setIsLoading(true);
+
+		if (!idempotencyKeyRef.current) {
+			idempotencyKeyRef.current =
+				typeof window !== "undefined" && typeof window.crypto?.randomUUID === "function"
+					? window.crypto.randomUUID()
+					: `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+		}
+
 		try {
 			// Prepare order items for Sanity (convert to reference format)
 			const orderItems = await Promise.all(
@@ -337,44 +351,57 @@ const LighterCheckout: NextPageWithLayout = () => {
 				paymentMethod: data.paymentMethod,
 				paymentStatus: "pending",
 			};
-			setIsLoading(true);
-
 			// Submit order to Sanity using SWR mutation
-			const createdOrder = await createOrder(orderInput);
+			const orderRequest: CreateLighterOrderRequest = {
+				order: orderInput,
+				idempotencyKey: idempotencyKeyRef.current,
+			};
+			const orderResult = await createOrder(orderRequest);
+			const createdOrder = orderResult.order;
 
-			await sendNotification({
-				orderNumber: createdOrder.orderNumber,
-				orderData: createdOrder,
-				orderId: createdOrder._id,
-			});
+			// The order is persisted at this point. Make the checkout non-retryable
+			// before running analytics, notifications, or navigation side effects.
+			hasSubmittedRef.current = true;
+			setIsOrderComplete(true);
+			clearCart();
 
 			// Track purchase conversion
-			trackPurchase(
-				createdOrder.orderNumber,
-				items.map((item) => ({
-					id: item.productId,
-					name: item.productName,
-					category: "Lighters",
-					variant: item.lighterTypeName,
-					price: item.unitPrice,
-					quantity: item.quantity,
-				})),
-				finalAmount
-			);
+			if (!purchaseTrackedRef.current) {
+				trackPurchase(
+					createdOrder.orderNumber,
+					items.map((item) => ({
+						id: item.productId,
+						name: item.productName,
+						category: "Lighters",
+						variant: item.lighterTypeName,
+						price: item.unitPrice,
+						quantity: item.quantity,
+					})),
+					finalAmount
+				);
+				purchaseTrackedRef.current = true;
+			}
 
-			// Mark order as complete BEFORE clearing cart to prevent redirect
-			setIsOrderComplete(true);
-
-			// Clear cart
-			clearCart();
 			// Show success message
 			toast.success("Đặt hàng thành công!");
 
+			// Notifications are a side effect and must not make a persisted order retryable.
+			if (orderResult.created) {
+				void sendNotification({
+					orderNumber: createdOrder.orderNumber,
+					orderData: createdOrder,
+					orderId: createdOrder._id,
+				}).catch((error) => {
+					console.error("Failed to send order notification:", error);
+				});
+			}
+
 			// Redirect to order tracking page with order number and justOrdered param
-			router.push(`/order-tracking/lighters/${createdOrder.orderNumber}?justOrdered=1`);
+			await router.push(`/order-tracking/lighters/${createdOrder.orderNumber}?justOrdered=1`);
 		} catch (error) {
 			console.error("Error creating order:", error);
 			toast.error("Có lỗi xảy ra. Vui lòng thử lại!");
+			submissionLockRef.current = false;
 			setIsLoading(false);
 		}
 	};
@@ -429,7 +456,7 @@ const LighterCheckout: NextPageWithLayout = () => {
 						Quay lại
 					</Button>
 					<Typography variant="h3" fontWeight="bold" gutterBottom>
-						Đặt hàng Lighters
+						Đặt hàng Bật lửa
 					</Typography>
 					<Typography variant="body1" color="text.secondary">
 						Hoàn tất thông tin để đặt hàng
