@@ -31,7 +31,7 @@ import {
 	useTheme,
 } from "@mui/material";
 import isEmpty from "lodash/isEmpty";
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -41,6 +41,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner, total, page,
 	const router = useRouter();
 	const { filter } = router.query;
 	const activeFilter = typeof filter === "string" ? filter : "";
+	const initialTotal = typeof total === "number" && Number.isFinite(total) ? total : 0;
 	const handleOnChangeCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = (event.target as HTMLInputElement).value;
 		setCurrentFilter(value);
@@ -67,6 +68,49 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner, total, page,
 	const [currentFilter, setCurrentFilter] = React.useState(
 		typeof filter === "string" ? filter : ""
 	);
+	const [catalogProducts, setCatalogProducts] = React.useState<Products>(products);
+	const [catalogTotal, setCatalogTotal] = React.useState(initialTotal);
+
+	React.useEffect(() => {
+		let cancelled = false;
+
+		if (!activeFilter) {
+			setCatalogProducts(products);
+			setCatalogTotal(initialTotal);
+			return () => {
+				cancelled = true;
+			};
+		}
+
+		setCatalogProducts([]);
+		setCatalogTotal(0);
+		void productsApi
+			.getProductsPage({ page: 1, pageSize, filter: activeFilter })
+			.then((catalog) => {
+				if (cancelled) return;
+				setCatalogProducts(
+					catalog.items
+						.filter((product) => !product._id.includes("drafts"))
+						.map((product) => ({
+							...product,
+							type:
+								productTypes.find((productType) => productType._id === product?.productType?._ref)
+									?.slug?.current || "",
+						}))
+				);
+				setCatalogTotal(catalog.total);
+			})
+			.catch(() => {
+				if (!cancelled) {
+					setCatalogProducts([]);
+					setCatalogTotal(0);
+				}
+			});
+
+		return () => {
+			cancelled = true;
+		};
+	}, [activeFilter, initialTotal, pageSize, products, productTypes]);
 
 	React.useEffect(() => {
 		setCurrentFilter(typeof filter === "string" ? filter : "");
@@ -113,10 +157,10 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner, total, page,
 		retry,
 		hasMore,
 	} = useInfiniteCatalog({
-		initialItems: products,
+		initialItems: catalogProducts,
 		initialPage: page,
 		pageSize,
-		total,
+		total: catalogTotal,
 		resetKey: activeFilter,
 		loadPage,
 		onPageLoad,
@@ -181,7 +225,7 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner, total, page,
 							letterSpacing="-0.04em"
 							sx={{ color: COLOR_CODE.WHITE }}
 						>
-							Sản phẩm (<CountUp end={total} duration={2} />)
+							Sản phẩm (<CountUp end={catalogTotal} duration={2} />)
 						</Typography>
 					</Box>
 					<Grid
@@ -321,14 +365,12 @@ type Props = {
 	pageSize: number;
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async ({ query, res }) => {
-	const filter = typeof query.filter === "string" ? query.filter : "";
+export const getStaticProps: GetStaticProps<Props> = async () => {
 	const page = 1;
 	const pageSize = 24;
-	res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=600");
 
 	const [catalog, productTypes, banner] = await Promise.all([
-		productsApi.getProductsPage({ page, pageSize, filter }),
+		productsApi.getProductsPage({ page, pageSize }),
 		productTypeApi.getAll(),
 		bannerApi.getBannerPage("products-page"),
 	]);
@@ -373,6 +415,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ query, res
 			page: catalog.page,
 			pageSize: catalog.pageSize,
 		},
+		revalidate: 86400,
 	};
 };
 

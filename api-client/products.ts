@@ -7,6 +7,9 @@ const PRODUCT_LIST_FIELDS = `_id, _type, name, slug{current}, image[0...2]{${IMA
 const PRODUCT_DETAIL_FIELDS = `_id, _type, name, slug{current}, image[]{${IMAGE_PROJECTION}}, details, productType, macnutType, type, special, _createdAt, _updatedAt, _rev`;
 const DEFAULT_PAGE_SIZE = 24;
 
+const normalizeCatalogTotal = (total: unknown): number =>
+	typeof total === "number" && Number.isFinite(total) && total >= 0 ? total : 0;
+
 const safePage = (page?: number) => Math.max(1, Math.floor(page || 1));
 const safePageSize = (pageSize?: number) => Math.min(48, Math.max(1, Math.floor(pageSize || DEFAULT_PAGE_SIZE)));
 const searchPattern = (search?: string) =>
@@ -62,7 +65,7 @@ export const productsApi = {
 			client.fetch(`count(${where})`, params),
 		]);
 
-		return { items, total, page, pageSize };
+		return { items, total: normalizeCatalogTotal(total), page, pageSize };
 	},
 
 	async getProductsBatch(options: {
@@ -133,7 +136,7 @@ export const productsApi = {
 			client.fetch(`count(${where})`, params),
 		]);
 
-		return { items, total, page, pageSize };
+		return { items, total: normalizeCatalogTotal(total), page, pageSize };
 	},
 
 	async getMacnutBatch(options: {

@@ -57,7 +57,6 @@ export const SkinLaptopCustomizeCard: React.FC = () => {
 									alt="Skin Laptop Custom"
 									layout="fill"
 									objectFit="cover"
-									priority
 								/>
 							</Box>
 						</Box>

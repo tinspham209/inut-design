@@ -9,6 +9,9 @@ const LIGHTER_TYPE_LIST_FIELDS = `_id, _type, name, slug{current}, priceTiers[]{
 const LIGHTER_TYPE_DETAIL_FIELDS = `${LIGHTER_TYPE_LIST_FIELDS}, description`;
 const DEFAULT_PAGE_SIZE = 24;
 
+const normalizeCatalogTotal = (total: unknown): number =>
+	typeof total === "number" && Number.isFinite(total) && total >= 0 ? total : 0;
+
 const safePage = (page?: number) => Math.max(1, Math.floor(page || 1));
 const safePageSize = (pageSize?: number) => Math.min(48, Math.max(1, Math.floor(pageSize || DEFAULT_PAGE_SIZE)));
 
@@ -46,7 +49,7 @@ export const lightersApi = {
 			client.fetch(`count(${where})`, params),
 		]);
 
-		return { items, total, page, pageSize };
+		return { items, total: normalizeCatalogTotal(total), page, pageSize };
 	},
 
 	async getLightersBatch(options: {

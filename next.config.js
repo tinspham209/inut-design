@@ -76,6 +76,11 @@ const nextConfig = {
 				destination: "/san-pham/skin-nut-phim/:slug*",
 				permanent: true,
 			},
+			{
+				source: "/creatiave",
+				destination: "/creativa",
+				permanent: true,
+			},
 		];
 	},
 	webpack: (config, { isServer }) => {

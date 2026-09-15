@@ -4,7 +4,7 @@ import { MainLayout } from "@/components/layout";
 import { LighterProduct, LighterType } from "@/models/cart";
 import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 import React from "react";
 import { LightersPageContainer } from "@/components/lighters";
 
@@ -44,14 +44,12 @@ type Props = {
 	pageSize: number;
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async ({ query, res }) => {
-	const filter = typeof query.filter === "string" ? query.filter : "";
+export const getStaticProps: GetStaticProps<Props> = async () => {
 	const page = 1;
 	const pageSize = 24;
-	res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=600");
 
 	const [catalog, lighterTypes, banner] = await Promise.all([
-		lightersApi.getLightersPage({ page, pageSize, filter }),
+		lightersApi.getLightersPage({ page, pageSize }),
 		lightersApi.getAllLighterTypes(),
 		bannerApi.getBannerPage("lighters-page"),
 	]);
@@ -87,6 +85,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ query, res
 			page: catalog.page,
 			pageSize: catalog.pageSize,
 		},
+		revalidate: 86400,
 	};
 };
 

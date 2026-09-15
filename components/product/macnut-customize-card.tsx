@@ -59,7 +59,6 @@ export const MacnutCustomizeCard: React.FC = () => {
 									alt="Custom skin nút phím"
 									layout="fill"
 									objectFit="cover"
-									priority
 								/>
 							</Box>
 						</Box>

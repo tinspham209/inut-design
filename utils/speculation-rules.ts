@@ -74,81 +74,9 @@ const EXCLUDED_PATTERNS = ["/checkout/*", "/api/*", "/sanity/*", "/order-trackin
  * @param currentPath - Current page path for context-aware rules
  */
 export const getSpeculationRules = (currentPath?: string): SpeculationRulesConfig => {
-	const rules: SpeculationRulesConfig = {
-		prefetch: [
-			// Tier 1: Critical navigation - prefetch immediately on moderate interaction
-			{
-				source: "list",
-				urls: CRITICAL_ROUTES,
-				eagerness: "moderate",
-			},
-			// Tier 2: Secondary routes - prefetch on conservative interaction (hover)
-			{
-				source: "list",
-				urls: SECONDARY_ROUTES,
-				eagerness: "conservative",
-			},
-			// Tier 3: Document-based prefetch for product links
-			{
-				source: "document",
-				where: {
-					and: [{ href_matches: "/san-pham/*" }, { not: { href_matches: "/san-pham/*/*" } }],
-				},
-				eagerness: "conservative",
-			},
-			// Tier 4: Document-based prefetch for service links
-			{
-				source: "document",
-				where: {
-					href_matches: "/services/**",
-				},
-				eagerness: "conservative",
-			},
-			// Tier 5: Document-based prefetch for blog links
-			{
-				source: "document",
-				where: {
-					href_matches: "/blog/*",
-				},
-				eagerness: "conservative",
-			},
-		],
-		prerender: [
-			// Only prerender the most critical pages to save bandwidth
-			{
-				source: "list",
-				urls: ["/"],
-				eagerness: "moderate",
-			},
-		],
-	};
-
-	// Context-aware rules based on current page
-	if (currentPath) {
-		// If on a product listing page, prerender top products
-		if (currentPath.startsWith("/san-pham/")) {
-			rules.prerender?.push({
-				source: "document",
-				where: {
-					href_matches: "/san-pham/**",
-				},
-				eagerness: "conservative",
-			});
-		}
-
-		// If on services page, aggressively prefetch service subcategories
-		if (currentPath.startsWith("/services")) {
-			rules.prefetch?.push({
-				source: "document",
-				where: {
-					href_matches: "/services/**",
-				},
-				eagerness: "moderate",
-			});
-		}
-	}
-
-	return rules;
+	// Let Next.js Link prefetch only links it renders instead of issuing a broad
+	// set of speculative requests for catalog and product routes.
+	return { prefetch: [] };
 };
 
 /**
@@ -162,7 +90,7 @@ export const serializeSpeculationRules = (rules: SpeculationRulesConfig): string
  * Get fallback prefetch URLs for browsers without speculation rules support
  */
 export const getFallbackPrefetchUrls = (): string[] => {
-	return [...CRITICAL_ROUTES, ...SECONDARY_ROUTES.slice(0, 4)];
+	return [];
 };
 
 /**

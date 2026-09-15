@@ -64,7 +64,6 @@ const LighterCardCustomize: React.FC = () => {
 									alt="Bật lửa theo yêu cầu"
 									layout="fill"
 									objectFit="cover"
-									priority
 								/>
 							</Box>
 						</Box>

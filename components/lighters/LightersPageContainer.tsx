@@ -40,6 +40,52 @@ const LightersPageContainer: React.FC<LightersPageContainerProps> = ({
 	const router = useRouter();
 	const { isCartOpen, handleCartOpen, handleCartClose } = useLightersPage();
 	const activeFilter = typeof router.query.filter === "string" ? router.query.filter : "";
+	const initialTotal = typeof total === "number" && Number.isFinite(total) ? total : 0;
+	const [catalogLighters, setCatalogLighters] = useState(lighters);
+	const [catalogTotal, setCatalogTotal] = useState(initialTotal);
+
+	useEffect(() => {
+		let cancelled = false;
+
+		if (!activeFilter) {
+			setCatalogLighters(lighters);
+			setCatalogTotal(initialTotal);
+			return () => {
+				cancelled = true;
+			};
+		}
+
+		setCatalogLighters([]);
+		setCatalogTotal(0);
+		void lightersApi
+			.getLightersPage({ page: 1, pageSize, filter: activeFilter })
+			.then((catalog) => {
+				if (cancelled) return;
+				setCatalogLighters(
+					catalog.items
+						.filter((lighter) => !lighter._id.includes("drafts"))
+						.map((lighter) => {
+							const lighterType = lighterTypes.find((type) => type._id === lighter.lighterType?._ref);
+							return {
+								...lighter,
+								typeName: lighterType?.name || "",
+								typeSlug: lighterType?.slug?.current || "",
+							};
+						})
+				);
+				setCatalogTotal(catalog.total);
+			})
+			.catch(() => {
+				if (!cancelled) {
+					setCatalogLighters([]);
+					setCatalogTotal(0);
+				}
+			});
+
+		return () => {
+			cancelled = true;
+		};
+	}, [activeFilter, initialTotal, lighters, lighterTypes, pageSize]);
 
 	const loadPage = React.useCallback(
 		async (nextPage: number) => {
@@ -75,10 +121,10 @@ const LightersPageContainer: React.FC<LightersPageContainerProps> = ({
 		retry,
 		hasMore,
 	} = useInfiniteCatalog({
-		initialItems: lighters,
+		initialItems: catalogLighters,
 		initialPage: page,
 		pageSize,
-		total,
+		total: catalogTotal,
 		resetKey: activeFilter,
 		loadPage,
 		onPageLoad,
@@ -130,7 +176,7 @@ const LightersPageContainer: React.FC<LightersPageContainerProps> = ({
 			/>
 
 			<Container>
-				<LightersPageHeader itemCount={total} />
+				<LightersPageHeader itemCount={catalogTotal} />
 
 				<Stack
 					direction="row"

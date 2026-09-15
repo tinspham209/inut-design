@@ -109,6 +109,8 @@ export type SearchCorpus = {
 };
 
 let pendingCorpus: Promise<SearchCorpus> | null = null;
+let cachedCorpus: { value: SearchCorpus; expiresAt: number } | null = null;
+const SEARCH_CORPUS_TTL_MS = 10 * 60 * 1000;
 
 const isExcludedPath = (path: string): boolean =>
 	/^\/(search|api|cart|checkout|order-tracking|builder)(\/|$)/.test(path);
@@ -452,12 +454,19 @@ async function buildSearchCorpus(): Promise<SearchCorpus> {
 }
 
 export function getSearchCorpus(): Promise<SearchCorpus> {
+	if (cachedCorpus && cachedCorpus.expiresAt > Date.now()) {
+		return Promise.resolve(cachedCorpus.value);
+	}
 	if (pendingCorpus) return pendingCorpus;
 
 	const corpusPromise = buildSearchCorpus();
 	pendingCorpus = corpusPromise;
 	corpusPromise.then(
-		() => {
+		(value) => {
+			cachedCorpus = {
+				value,
+				expiresAt: Date.now() + SEARCH_CORPUS_TTL_MS,
+			};
 			if (pendingCorpus === corpusPromise) pendingCorpus = null;
 		},
 		() => {

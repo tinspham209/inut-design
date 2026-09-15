@@ -165,16 +165,9 @@ export const initPrefetchFallback = (): (() => void) | void => {
 		return;
 	}
 
-	// Apply fallback prefetch
-	applyFallbackPrefetch();
-
-	// Initialize hover prefetch for progressive enhancement
-	const cleanupHover = initHoverPrefetch();
-
-	return () => {
-		if (typeof cleanupHover === "function") cleanupHover();
-		removePrefetchLinks();
-	};
+	// Keep the fallback disabled as well. Next.js Link remains responsible for
+	// targeted navigation prefetching without broad document requests.
+	return undefined;
 };
 
 const PrefetchFallback = {
