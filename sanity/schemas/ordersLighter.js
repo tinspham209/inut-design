@@ -193,6 +193,7 @@ export default {
 			type: "string",
 			validation: (Rule) => Rule.required(),
 		},
+
 		{
 			name: "customerEmail",
 			title: "Customer Email",
@@ -207,6 +208,15 @@ export default {
 			type: "text",
 			rows: 2,
 		},
+
+		{
+			name: "notes",
+			title: "Order Notes",
+			type: "text",
+			rows: 2,
+			description: "Customer notes or special instructions",
+		},
+
 		{
 			name: "paymentMethod",
 			title: "Payment Method",
@@ -249,15 +259,6 @@ export default {
 			description:
 				"(total_amount + shipping_fee - discount), If manual change any value of these 3 field above, please recalculate this field manually to avoid missing values.",
 			validation: (Rule) => Rule.required().min(0),
-		},
-
-		// Additional Information
-		{
-			name: "notes",
-			title: "Order Notes",
-			type: "text",
-			rows: 2,
-			description: "Customer notes or special instructions",
 		},
 
 		// Internal Admin Fields
