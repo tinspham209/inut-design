@@ -7,13 +7,13 @@ import {
 
 export const SPX_TRACKING_ENDPOINT =
 	"https://spx.vn/shipment/order/open/order/get_order_info";
-export const SPX_MAX_CODE_LENGTH = 37;
+export const SPX_MAX_CODE_LENGTH = 38;
 export const SPX_MAX_INPUT_LENGTH = 2048;
 export const SPX_MAX_RESPONSE_BYTES = 256 * 1024;
 export const SPX_MAX_TRACKING_RECORDS = 200;
 
-const SPX_CODE_PATTERN = /^SPXVN\d{1,32}$/i;
-const SPX_CODE_CANDIDATE_PATTERN = /SPXVN\d+/gi;
+const SPX_CODE_PATTERN = /^SPXVN\d{1,32}[A-Z]?$/i;
+const SPX_CODE_CANDIDATE_PATTERN = /SPXVN\d+[A-Z]?(?![A-Z0-9])/gi;
 const MIN_EVENT_TIMESTAMP = 946684800; // 2000-01-01T00:00:00Z
 const MAX_EVENT_TIMESTAMP = 4102444800; // 2100-01-01T00:00:00Z
 const DEFAULT_TIMEOUT_MS = 5000;

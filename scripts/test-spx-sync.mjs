@@ -133,6 +133,18 @@ await test("parses raw, lowercase, URL-key, named, and encoded SPX inputs", () =
 		kind: "valid",
 		trackingNumber: TRACKING_CODES.delivered,
 	});
+	assert.deepEqual(parseSpxTrackingInput("SPXVN06384354474A"), {
+		kind: "valid",
+		trackingNumber: "SPXVN06384354474A",
+	});
+	assert.deepEqual(
+		parseSpxTrackingInput("https://spx.vn/track?SPXVN06141276865A"),
+		{ kind: "valid", trackingNumber: "SPXVN06141276865A" }
+	);
+	assert.deepEqual(
+		parseSpxTrackingInput("https://spx.vn/track?spx_tn=spxvn06141276865a"),
+		{ kind: "valid", trackingNumber: "SPXVN06141276865A" }
+	);
 	assert.equal(
 		parseSpxTrackingInput(`https://spx.vn/track?${TRACKING_CODES.delivered}`).kind,
 		"valid"
@@ -168,7 +180,11 @@ await test("rejects wrong hosts, protocols, whitespace, ambiguity, and oversized
 		{ kind: "skip", reason: "ambiguous_spx" }
 	);
 	assert.equal(parseSpxTrackingInput(`SPXVN${"1".repeat(33)}`).kind, "skip");
-	assert.equal(`SPXVN${"1".repeat(32)}`.length, SPX_MAX_CODE_LENGTH);
+	assert.equal(
+		parseSpxTrackingInput(`SPXVN${"1".repeat(32)}A`).kind,
+		"valid"
+	);
+	assert.equal(`SPXVN${"1".repeat(32)}A`.length, SPX_MAX_CODE_LENGTH);
 });
 
 await test("accepts repeated occurrences of the same SPX code", () => {
