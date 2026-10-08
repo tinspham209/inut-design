@@ -1,84 +1,31 @@
-# AI Context Deployment & Rollback Procedures
+# Skills-only deployment and rollback
 
-This document outlines the standard procedure for updating the unified AI context architecture and how to recover from potential configuration issues.
+## Deployment
 
-## Deployment Process
+1. Inspect Git changes and preserve user edits before changing skill content.
+2. Edit `.agents/skills/<name>/SKILL.md` and bundled references/assets/scripts.
+   Keep root `AGENTS.md` minimal and preserve its OpenWiki section.
+3. Run `rtk proxy bash scripts/validate-ai-config.sh` (read-only), inspect the
+   diff, and run scoped safe examples. No app build is needed for customization.
+4. Commit only reviewed task files when requested. Do not create mirrors.
 
-The deployment of new AI instructions, agents, or workflows follows the "Write Once, Sync Everywhere" principle.
+## Recovery
 
-### 1. Identify Target
-- **Global Rules**: Edit `.agents/instructions/global-rules.md`.
-- **Scoped Rules**: Add or edit `*.instructions.md` in `.agents/instructions/`.
-- **Specialized Assets**: Use `.agents/agents/`, `.agents/prompts/`, `.agents/skills/`, or `.agents/workflows/`.
+For bad skill content, inspect the diff and selectively restore the affected
+canonical file from a known-good skills-only Git revision or the external backup.
+Preserve unrelated/untracked user work. Do not blindly reset the repository.
+Restore bundled resources together when their contracts changed, then validate.
 
-### 2. Implementation
-- Always make changes in the `.agents/` directory.
-- **Strict Rule**: Never create new files in `.trae/`. Create in `.agents/` and verify symlink propagation.
-- Ensure naming conventions are followed (`*.agent.md`, `*.prompt.md`, `*.instructions.md`).
+If a client misses a skill, explicitly supply its `SKILL.md` path; restart/check
+client discovery separately. Rebuilding symlinks is not a recovery step.
+If an obsolete mirror reappears, inspect its actual file type and content first,
+back up unique changes, migrate useful material into skills, then remove only
+the confirmed obsolete entry without following its target.
 
-### 3. Verification
-Run the validation script to ensure symlink integrity:
-```bash
-./scripts/validate-ai-config.sh
-```
+## Migration backup
 
-### 4. Commit
-Commit the changes in `.agents/`. If new symlinks were created, ensure they are included in the commit.
-
----
-
-## Rollback Procedures
-
-In case of broken symlinks or corrupted instructions that negatively impact AI behavior across IDEs.
-
-### Scenario A: Broken Symlinks
-If `validate-ai-config.sh` reports broken symlinks:
-1. Identify the broken link.
-2. Re-create the link pointing to the correct `.agents/` target.
-   - Example: `ln -sf ../.agents/instructions/global-rules.md .github/copilot-instructions.md`
-
-### Scenario B: Corrupted Instruction Content
-If the AI starts hallucinating or ignoring rules:
-1. Use Git to revert the specific file in `.agents/`.
-   - `git checkout HEAD~1 -- .agents/instructions/global-rules.md`
-2. Verify with the validation script.
-
-### Scenario C: Emergency Reset (Full Re-link)
-If the symlink structure is heavily compromised:
-1. Remove all AI-specific symlinks in `.github/`, `.codex/`, `.trae/`, and root (`.cursorrules`, `.traerules`).
-2. Run the initialization commands to restore standard links:
-   ```bash
-   # Re-link root
-   ln -sf .agents/instructions/global-rules.md .cursorrules
-   ln -sf .agents/instructions/global-rules.md .traerules
-   
-   # Re-link .github
-   ln -sf ../.agents/agents .github/agents
-   ln -sf ../.agents/prompts .github/prompts
-   ln -sf ../.agents/skills .github/skills
-   ln -sf ../.agents/instructions .github/instructions
-   ln -sf ../.agents/instructions/global-rules.md .github/copilot-instructions.md
-   
-   # Re-link .codex
-   ln -sf ../.agents/agents .codex/agents
-   ln -sf ../.agents/prompts .codex/prompts
-   ln -sf ../.agents/skills .codex/skills
-   ln -sf ../.agents/workflows .codex/workflows
-   ln -sf ../.agents/instructions .codex/instructions
-
-   # Re-link .trae
-   ln -sf ../.agents/prompts .trae/prompts
-   ln -sf ../.agents/skills .trae/skills
-   ```
-3. Run `./scripts/validate-ai-config.sh`.
-
-## Naming & Organization Standards
-
-| Category           | Location                                 | Pattern                                                        |
-| :----------------- | :--------------------------------------- | :------------------------------------------------------------- |
-| Global Baseline    | `.agents/instructions/global-rules.md`   | Single source for all IDE instructions.                        |
-| Scoped Rules       | `.agents/instructions/*.instructions.md` | `[topic].instructions.md` (e.g., `analytics.instructions.md`). |
-| Specialized Agents | `.agents/agents/*.agent.md`              | `[name].agent.md`.                                             |
-| Prompt Templates   | `.agents/prompts/*.prompt.md`            | `[task].prompt.md`.                                            |
-| Skill Workflows    | `.agents/skills/[name]/SKILL.md`         | Folder-based skill definition.                                 |
-| Playbooks          | `.agents/workflows/*.md`                 | Narrative multi-step workflows.                                |
+The 2026-10-08 migration's exact source-to-skill map, hashes and removal allowlist
+live in `docs/ai/SKILLS_MIGRATION_MANIFEST.json`. The external backup includes
+regular and untracked originals plus symlink metadata, not `.git`/`node_modules`.
+Backup availability is local and temporary; Git history is the durable recovery
+source after commit. Do not reconstruct the retired architecture from that backup.

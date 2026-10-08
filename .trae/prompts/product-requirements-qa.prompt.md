@@ -1,1 +1,0 @@
-../../.agents/prompts/product-requirements-qa.prompt.md

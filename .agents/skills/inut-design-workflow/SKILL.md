@@ -1,84 +1,37 @@
 ---
 name: inut-design-workflow
-description: "Use whenever making changes to the Inut Design codebase — especially for cart, checkout, Sanity schemas, GROQ queries, analytics instrumentation, or blog pipeline. Always invoke this skill before touching shared utilities, order payloads, localStorage keys, or any code that interfaces with Sanity or analytics. This skill enforces the safe implementation + verification workflow that protects business-critical flows. Use it even for 'small' changes to cart, checkout, analytics, or Sanity — the guardrails are especially important there."
+description: "Use for Inut Design engineering changes: Next.js pages/components/hooks/store/utils, frontend UI, Sanity schemas/GROQ/api-client/models, GA4/GTM + Umami analytics, blog parsing/rendering, feature delivery, root-cause bug fixes, checkout regression audits and shared contracts. Read before changing order payloads, localStorage, pricing or tracking, even for small changes. Vietnamese blog/product prose also uses inut-content-writer."
 ---
 
-# Inut Design Workflow Skill
+# Safe engineering workflow
 
-## When to use
+## Load relevant references
 
-Use this skill for:
+- All engineering: [project conventions](references/project-conventions.md).
+- Sanity schemas, GROQ, clients, models or writes: [Sanity](references/sanity.md).
+- New behaviors/pages/interactions or tracking: [analytics](references/analytics.md).
+- Cart, pricing, checkout, confirmation or audit: [checkout](references/checkout.md).
+- Features/bugs: [input recipes](references/task-recipes.md).
+- Blog rendering: [pipeline](references/blog-pipeline.md); prose also uses
+  [writer](../inut-content-writer/SKILL.md).
 
-- cart/checkout updates
-- Sanity schema/query/client changes
-- analytics instrumentation changes
-- blog content pipeline changes
-- medium/large refactors requiring safe incremental validation
+## Execute
 
-## Step-by-step workflow
+1. Inspect existing behavior, nearby patterns, call sites and shared contracts.
+2. Plan a small verifiable change, surfacing risks early; preserve user edits.
+3. Implement incrementally using wrappers/helpers and compatible public shapes.
+4. Validate code with `rtk pnpm lint`, then `rtk pnpm build` when runtime/routing
+   changes. Run focused regressions and touched-flow QA using the
+   [browser skill](../agent-browser-automation/SKILL.md) for visual proof.
+5. Customization/prose-only changes use architecture/metadata/Markdown checks,
+   not app lint/build. Do not claim parsing proves browser rendering.
+6. Report changes, rationale, evidence, risk and remaining manual checks.
 
-1. **Discover context quickly**
+## Invariants
 
-   - Identify feature area (`pages`, `components`, `store`, `api-client`, `sanity`, `utils`).
-   - Read existing nearby code before introducing new patterns.
-
-2. **Map dependencies**
-
-   - Find call sites and consumers before changing shared utilities.
-   - Confirm payload contracts between frontend and Sanity.
-
-3. **Plan minimal edits**
-
-   - Prefer low-risk, incremental updates.
-   - Keep public interfaces stable unless explicitly changing contract.
-
-4. **Implement safely**
-
-   - Reuse existing helpers (`api-client/*`, `utils/analytics.ts`, `utils/priceCalculator.ts`).
-   - Preserve `@/` path alias style and existing naming conventions.
-
-5. **Validate in this order**
-
-   - `pnpm lint`
-   - `pnpm build` for routing/runtime-impacting changes
-   - Manual checks for touched user flows
-
-6. **Domain-specific checks**
-
-### Cart/Checkout checks
-
-- localStorage key remains `inut-lighters-cart`
-- quantity updates recalculate `unitPrice` and `subtotal`
-- order payload array items include `_key`
-- Sanity order write still succeeds
-
-### Sanity checks
-
-- GROQ query output shape matches consumer expectations
-- no hardcoded secrets/project config
-- references resolve correctly (`->` usage where needed)
-
-### Analytics checks
-
-- no duplicate events
-- events fired at action source for BOTH GA4 and UmamiJS
-- conversion-critical events preserved
-
-### Blog checks
-
-- frontmatter includes `slug`, `title`, `tags`, `date`
-- markdown remains parseable by current remark/rehype pipeline
-
-## Guardrails
-
-- Do not introduce new state management libraries.
-- Do not do broad rewrites when a local fix is sufficient.
-- Do not break existing checkout/confirmation flows.
-- Keep TypeScript compatible with non-strict setup.
-
-## Suggested output format for coding tasks
-
-1. What changed
-2. Why it changed
-3. How it was verified
-4. Follow-up recommendations (optional)
+Retain `inut-lighters-cart`, pricing recalculation, unique Sanity array `_key`,
+reference integrity, order writes/confirmation and dual action-source tracking.
+Use `api-client/*`, `utils/analytics.ts`, `utils/umamiAnalytics.ts`,
+`utils/priceCalculator.ts`; preserve `@/`, `strict: false`, SSG/layout conventions.
+No broad rewrites, new state libraries, hardcoded secrets or unapproved production
+orders for tests. Never commit user changes without authorization.

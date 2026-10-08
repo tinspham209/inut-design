@@ -5,18 +5,19 @@ This directory contains utility scripts for maintaining the Inut Design codebase
 ## Scripts
 
 ### 1. `validate-ai-config.sh`
-**Version**: 2.0.0
-**Description**: Checks the integrity of the unified AI context architecture. It verifies that all directories, global rules, and symbolic links required for multi-IDE compatibility (Trae, Copilot, Codex, Antigravity) are correctly configured.
+**Version**: 3.0.0
+**Description**: Read-only validator for the skills-only AI architecture. Requires Node
+and installed project dependencies; validates seven skill names/YAML metadata,
+bundled links, active documentation and the source-to-skill migration manifest.
 
 **Key Features**:
-- Verifies `.agents/` directory structure.
-- Checks root symlinks (`.cursorrules`, `.traerules`).
-- Validates IDE-specific symlinks in `.github/`, `.codex/`, and `.trae/`.
-- Robust error handling and color-coded reporting.
+- Requires `.agents/` to contain only `skills/` and exactly the seven retained skills.
+- Rejects obsolete mirror paths, including broken symlinks without following them.
+- Reports complete validation errors; never repairs links or writes repository files.
 
 **Usage**:
 ```bash
-./scripts/validate-ai-config.sh
+rtk proxy bash scripts/validate-ai-config.sh
 ```
 
 ## Governance Rules
@@ -26,6 +27,10 @@ This directory contains utility scripts for maintaining the Inut Design codebase
 - Maintain consistency with the centralized AI governance structure defined in `AGENTS.md`.
 
 ## Change Log
+
+### [2026-10-08] - v3.0.0
+- Migrated to skills-only validation. The v2 notes below are historical, not
+	instructions to reconstruct mirrors.
 
 ### [2026-03-14] - v2.0.0
 - **Modernization**: Refactored `validate-ai-config.sh` to version 2.0.0.

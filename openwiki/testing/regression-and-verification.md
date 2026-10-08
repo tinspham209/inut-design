@@ -3,6 +3,17 @@ type: verification guide
 title: Testing, Regression, and Safe Change Verification
 description: Describes the repository's practical verification surface for linting, builds, SEO artifacts, browser regressions, quote requests, the lighter builder, analytics, and AI configuration. Distinguishes executable checks from simulated or manual coverage and identifies tests with real external side effects.
 tags: [testing, regression, verification, browser, seo, analytics]
+manual_review:
+  by: GitHub Copilot (user-authorized manual refresh)
+  date: '2026-10-08'
+  scope: AI configuration, scoped blog checks, and prose-only checklist; runtime assertions not reverified
+manual_sources:
+  - repo://.agents/skills/inut-design-workflow/SKILL.md
+  - repo://.agents/skills/inut-design-workflow/scripts/validate-ai-config.mjs
+  - repo://docs/ai/SKILLS_MIGRATION_MANIFEST.json
+  - repo://docs/ai/DUAL_EDITOR_WORKFLOW.md
+  - repo://.agents/skills/inut-content-writer/references/blog-contract.md
+  - repo://.agents/skills/inut-content-writer/scripts/validate-blog.mjs
 verified:
   - by: openwiki/0.4.0
     at: 2026-08-25T17:23:14.366Z
@@ -34,8 +45,15 @@ sources:
   - id: openwiki-source-98d10f9b6091628fff52545f
     resource: repo://scripts/verify-seo.mjs
 generated: {by: "openwiki/0.4.0", at: "2026-08-25T17:23:14.366Z"}
+manualReviews:
+  - by: user-authorized manual review
+    at: '2026-10-08'
+    scope: AI validator table/section and customization/prose-only checklist; runtime guidance not reverified
+    sources:
+      - repo://scripts/validate-ai-config.sh#L1-L5
+      - repo://.agents/skills/inut-design-workflow/scripts/validate-ai-config.mjs#L6-L166
+      - repo://.agents/skills/inut-design-workflow/SKILL.md#L23-L27
 ---
-
 # Testing, Regression, and Safe Change Verification
 
 ## What this repository actually tests
@@ -45,8 +63,8 @@ The repository's primary verification surface is a set of shell- and browser-ori
 For a routing or runtime change, preserve the repository's recommended order:
 
 ```bash
-pnpm lint
-pnpm build
+rtk pnpm lint
+rtk pnpm build
 ```
 
 Then run the narrowest relevant browser or focused validator. Keep the complete output from every failed command, including browser snapshots, screenshots, and script diagnostics, rather than reducing a failure to a summary line. A green `pnpm build` is not a substitute for lint: the development guidance notes that Next.js is configured to ignore lint failures during production build.
@@ -65,16 +83,17 @@ This is the recommended validation order and the build-to-SEO artifact control f
 
 ## Core commands and their scope
 
-| Command | What it covers | Important limit |
-| --- | --- | --- |
-| `pnpm lint` | Next.js linting | Must be run explicitly; build success does not prove lint success. |
-| `pnpm build` | Production compilation plus the `postbuild` hook | Requires SEO artifact verification to pass after sitemap generation. |
-| `pnpm regression` | `scripts/regression-test.sh` against `http://localhost:3000` by default | Requires a running app and `agent-browser`; `basic` checks navigation/content, while `full` or `cart` adds a simplified lighter cart path. |
-| `pnpm regression:lighter` | `scripts/test-lighter-builder.sh` | Several checks are labels, screenshots, or stated simulations rather than assertions against browser state. |
-| `pnpm regression:quote-form` | `scripts/regression-test-quote-form.sh` | Exercises real submission behavior and therefore creates external side effects. |
-| `npx ts-node scripts/validate-tracking.ts` | Static inspection of TypeScript/TSX tracking usage and environment shape | It reports errors, warnings, and informational findings; warnings still exit successfully. The repository does not define a package script for it. |
-| `node scripts/verify-seo.mjs` | Existing `public/robots.txt` and `public/sitemap.xml` artifacts | It is an artifact smoke test, not a browser or deployed-HTTP check. |
-| `./scripts/validate-ai-config.sh` | `.agents` directories/files and IDE symlink integrity | It must be run from the repository root and exits non-zero for missing or broken required links. |
+| Command                                                                                                           | What it covers                                                                                                               | Important limit                                                                                                                                    |
+| ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm lint`                                                                                                       | Next.js linting                                                                                                              | Must be run explicitly; build success does not prove lint success.                                                                                 |
+| `pnpm build`                                                                                                      | Production compilation plus the `postbuild` hook                                                                             | Requires SEO artifact verification to pass after sitemap generation.                                                                               |
+| `pnpm regression`                                                                                                 | `scripts/regression-test.sh` against `http://localhost:3000` by default                                                      | Requires a running app and `agent-browser`; `basic` checks navigation/content, while `full` or `cart` adds a simplified lighter cart path.         |
+| `pnpm regression:lighter`                                                                                         | `scripts/test-lighter-builder.sh`                                                                                            | Several checks are labels, screenshots, or stated simulations rather than assertions against browser state.                                        |
+| `pnpm regression:quote-form`                                                                                      | `scripts/regression-test-quote-form.sh`                                                                                      | Exercises real submission behavior and therefore creates external side effects.                                                                    |
+| `npx ts-node scripts/validate-tracking.ts`                                                                        | Static inspection of TypeScript/TSX tracking usage and environment shape                                                     | It reports errors, warnings, and informational findings; warnings still exit successfully. The repository does not define a package script for it. |
+| `node scripts/verify-seo.mjs`                                                                                     | Existing `public/robots.txt` and `public/sitemap.xml` artifacts                                                              | It is an artifact smoke test, not a browser or deployed-HTTP check.                                                                                |
+| `rtk proxy bash scripts/validate-ai-config.sh`                                                                    | Read-only skills-only architecture, YAML metadata, bundled links, active docs, migration manifest, and obsolete-path absence | Wrapper resolves the repository root; errors exit non-zero. Hash format checks do not verify backup contents or client discovery.                  |
+| `rtk proxy node .agents/skills/inut-content-writer/scripts/validate-blog.mjs --spec /absolute/path/to/batch.json` | Selected blog outputs: metadata, uniqueness, counts, canonical page existence, CTA spacing, excerpt/footer, and remark parse | Reads existing metadata for uniqueness, not historic contract compliance. Cannot prove facts, intent diversity, or rendered UI.                    |
 
 Start the app with `pnpm dev` before browser scripts, or use a production build followed by `pnpm start` when validating production behavior. The regression scripts create `test-results` screenshots and should be run against an explicitly supplied URL when the target is not local.
 
@@ -139,13 +158,25 @@ For SEO changes, run `pnpm build` so generation and verification happen in seque
 
 ## AI configuration validation
 
-`./scripts/validate-ai-config.sh` checks the `.agents` hub directories and global rules, root `.cursorrules` and `.traerules` links, `.github` and `.codex` links, and either whole-directory or per-item `.trae` links. It distinguishes missing directories/files, broken links, valid links, and configuration drift; expected-target mismatches are warnings when the target still exists, while missing or broken required structure sets a non-zero exit code. Run it when changing agent instructions, skills, workflows, or IDE integration rather than as a substitute for application verification.
+`scripts/validate-ai-config.sh` is a read-only wrapper delegating to `.agents/skills/inut-design-workflow/scripts/validate-ai-config.mjs`. It derives the root from its own location and passes it to Node, so it works from any working directory when invoked by the correct path. Direct Node invocation needs an explicit repository-root argument outside the root. Errors exit non-zero; there is no link repair or mirror reconstruction.
+
+It requires physical `.agents/skills/` structure with exactly seven retained skills: `inut-design-workflow`, `inut-content-writer`, `inut-product-page-automation`, `product-page-generator`, `agent-browser-automation`, `autoresearch`, and `skill-creator`. Each regular `SKILL.md` needs valid YAML, a matching `name`, and a string description longer than 20 trimmed characters. Bundled Markdown local links must resolve; unexpected skill symlinks and deprecated active paths are errors. The enumerated legacy instruction/prompt/workflow/agent trees and editor aliases must be absent. This does **not** require deleting all of `.github` or `.codex`: real `.github/workflows/` and `.codex/config.toml` are separate from obsolete aliases.
+
+Active-document checks cover `AGENTS.md`, `README.md`, the four named operational docs under `docs/ai/`, and files discovered under the script's literal `.deveveloper-docs` path. They reject deprecated paths and symlink-reconstruction commands, not audit every repository document or runtime behavior.
+
+For `docs/ai/SKILLS_MIGRATION_MANIFEST.json`, it requires 22 legacy regular source entries, recorded source SHA-256 **format** (64 lowercase hexadecimal characters), migrated-source/alias absence, and destination existence. It does **not** recompute historical backup hashes or prove migrated content equivalence. See the [wrapper](repo://scripts/validate-ai-config.sh#L1-L5) and [implementation](repo://.agents/skills/inut-design-workflow/scripts/validate-ai-config.mjs#L54-L166). Use this for AI customization changes, not as a substitute for application verification.
+
+## Scoped blog and prose checks
+
+Follow [Blog Content Workflow](../workflows/blog-content.md) for the writer contract and explicit-date batch spec. For prose-only work, validate selected metadata/Markdown and manually review sources, unique intent, and contextual CTA; do not run application lint/build merely for prose. Existing posts are read for uniqueness, not rewritten or certified under the new contract. Rendering, route, or runtime changes additionally use the engineering lint/build and relevant browser checks. Parsing alone is not rendered UI evidence.
 
 ## Safe-change checklist
 
-- Run `pnpm lint` first.
-- Run `pnpm build` for routing, runtime, SEO, or shared configuration changes; inspect `postbuild` output.
-- Run the narrowest relevant regression script against a known app instance.
+- For customization/prose-only changes, use architecture, metadata, JSON and Markdown checks as applicable, **not application lint/build**. Blog prose uses the [scoped writer contract](../workflows/blog-content.md); parsing does not prove facts or browser rendering.
+- For application code changes, run `pnpm lint` first.
+- For code changes, run `rtk pnpm lint` first; run `rtk pnpm build` for routing, runtime, SEO, or build-affecting shared configuration changes and inspect `postbuild` output.
+- For selected blog outputs, run the scoped writer validator with an explicit-date spec and manually review facts, intent diversity, and CTA; do not claim historic articles comply.
+- For runtime/UI changes, run the narrowest relevant regression script against a known app instance; parsing does not prove rendering.
 - Use `pnpm regression cart` or `MODE=full` for cart/checkout changes, then manually verify persisted state and order behavior.
 - Run `pnpm regression:quote-form` only with awareness that passing submissions write Sanity data and trigger Telegram notifications; clean up or identify test records afterward.
 - Treat lighter-builder upload, drag, viewport, and element checks as simulations or manual gaps.

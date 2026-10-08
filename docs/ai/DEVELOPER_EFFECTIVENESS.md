@@ -49,10 +49,10 @@ For every PR include:
 ## 5) AI usage recommendations
 
 - For cross-editor usage (Copilot + Trae + Antigravity), start with `AGENTS.md` and `docs/ai/DUAL_EDITOR_WORKFLOW.md`.
-- **File Governance**: Always create new AI assets (skills, prompts, instructions) in `.agents/`. Do not create them in `.trae/`.
-- Use `docs/ai/PORTABLE_PROMPTS.md` when your editor doesn't support `.github/prompts` or `.trae/prompts` frontmatter.
-- Use `.agents/prompts/fix-bug.prompt.md` for debugging tasks (accessible via symlinks).
-- Use `.agents/prompts/add-feature.prompt.md` for scoped feature delivery.
-- Use `.agents/prompts/blog-batch.prompt.md` for content operations.
-- Use `.agents/agents/inut-maintainer.agent.md` for larger multi-file work.
-- Use `.agents/skills/inut-design-workflow/SKILL.md` for repeatable end-to-end implementation.
+- **File Governance**: Keep AI knowledge only in `.agents/skills/` and bundled resources.
+- Use `docs/ai/PORTABLE_PROMPTS.md` as a routing index, not a separate prompt system.
+- Read `.agents/skills/inut-design-workflow/SKILL.md` for features, root-cause debugging,
+  checkout audits and larger multi-file tasks.
+- Read `.agents/skills/inut-content-writer/SKILL.md` for content operations.
+- If a client does not discover skills, explicitly provide the relevant `SKILL.md` path.
+- Run the read-only `scripts/validate-ai-config.sh` for customization-only changes.

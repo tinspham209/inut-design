@@ -1,1 +1,0 @@
-../../.agents/prompts/write-product-content.prompt.md

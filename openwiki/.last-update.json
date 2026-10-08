@@ -1,8 +1,27 @@
 {
-  "updatedAt": "2026-08-25T17:36:18.835Z",
-  "command": "init",
-  "gitHead": "e42ad8f72925ea6d7112cfbb1f66af32baded810",
-  "model": "gpt-5.6-luna",
-  "status": "complete",
-  "language": "en"
+	"updatedAt": "2026-08-25T17:36:18.835Z",
+	"command": "init",
+	"gitHead": "e42ad8f72925ea6d7112cfbb1f66af32baded810",
+	"model": "gpt-5.6-luna",
+	"status": "complete",
+	"language": "en",
+	"manualScopedAudit": {
+		"by": "GitHub Copilot (user-authorized manual refresh)",
+		"date": "2026-10-08",
+		"scope": "Skills-only AI migration, current blog writer contract, scoped verification selection, and wiki discoverability only",
+		"generatorRan": false,
+		"entireWikiVerified": false,
+		"originalRunMetadata": "Top-level updatedAt, command, gitHead, model, status, and language remain the original generator record, not this manual audit",
+		"files": [
+			"testing/regression-and-verification.md",
+			"workflows/blog-content.md",
+			"workflows/index.md",
+			"quickstart.md",
+			"index.md",
+			".claims/testing/regression-and-verification.json",
+			".claims/quickstart.json",
+			".last-update.json"
+		],
+		"claimHandling": "Only obsolete AI-validator and verification-selection claims invalidated with current wording and source paths. Original generator evidence versions, pageVersion hashes, and verification timestamps are historical; unrelated claims were not reverified. New blog page has manual source metadata, not a fabricated generated claim ledger."
+	}
 }

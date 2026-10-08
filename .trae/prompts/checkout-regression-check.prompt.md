@@ -1,1 +1,0 @@
-../../.agents/prompts/checkout-regression-check.prompt.md

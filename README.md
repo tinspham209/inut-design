@@ -109,18 +109,14 @@ sanity deploy
 - [Sanity Architecture](./sanity/docs/ARCHITECTURE.md) - CMS documentation
 
 ### AI Assistant Toolkit
-- [Global Rules](./.agents/instructions/global-rules.md) - Core behavior for AI assistants
-- [Maintainer Agent](./.agents/agents/inut-maintainer.agent.md) - Specialized agent for large tasks
-- [Portable Prompt Pack](./docs/ai/PORTABLE_PROMPTS.md) - Reusable prompt templates
-- [Dual Editor Workflow](./docs/ai/DUAL_EDITOR_WORKFLOW.md) - Multi-IDE collaboration guide
-- [Scoped Instructions](./.agents/instructions/) - Context-specific AI rules
-- [Content Writer Agent](./.agents/agents/inut-content-writer.agent.md) - Specialized agent for Vietnamese SEO copy
- - [Project Skill](./.agents/skills/inut-design-workflow/SKILL.md) - Repeatable implementation workflow
- - [Content Writer Skill](./.agents/skills/inut-content-writer/SKILL.md) - Vietnamese SEO product-content writing system
- - [Prompt Templates](./.agents/prompts/) - Reusable prompts for feature work, bug fixing, and content
-- [Write Product Content Prompt](./.agents/prompts/write-product-content.prompt.md) - Guided prompt for content generation
-- [Antigravity Workflows](./.agents/workflows/) - Slash-command workflows for Antigravity editor
-- [Antigravity Agent Mirrors](./.agents/) - Native agent/skill/prompt files for Antigravity ingestion
+- [AI Bootstrap](./AGENTS.md) - Safety and routing to seven canonical skills
+- [Skill Usage Index](./docs/ai/PORTABLE_PROMPTS.md) - Task routing, not a second prompt tree
+- [Multi-Editor Operation](./docs/ai/DUAL_EDITOR_WORKFLOW.md) - Explicit-path fallback when discovery is unavailable
+- [Project Skill](./.agents/skills/inut-design-workflow/SKILL.md) - Engineering conventions, feature/bug recipes and checkout audits
+- [Content Writer](./.agents/skills/inut-content-writer/SKILL.md) - Grounded Vietnamese copy and compact blog batches
+- [New Product Page](./.agents/skills/inut-product-page-automation/SKILL.md) - Draft-first landing page automation
+- [Existing Content Generator](./.agents/skills/product-page-generator/SKILL.md) - Centralized typed data/template routes
+- [Migration Manifest](./docs/ai/SKILLS_MIGRATION_MANIFEST.json) - Source mapping, backup and exact removal inventory
 - [MCP Tooling Guide](./docs/ai/MCP_TOOLING_GUIDE.md) - Tool/MCP usage playbook for this repo
 - [Developer Effectiveness Playbook](./docs/ai/DEVELOPER_EFFECTIVENESS.md) - Fast QA and productivity recommendations
 
@@ -160,7 +156,7 @@ See [Analytics Guide](./docs/ANALYTICS_GUIDE.md) for implementation examples and
 
 ## 🤝 Contributing
 
-This is a private project. For development guidelines, see [Copilot Instructions](./.github/copilot-instructions.md).
+This is a private project. For development guidelines, start with [AGENTS.md](./AGENTS.md) and the relevant canonical skill.
 
 ## 📄 License
 

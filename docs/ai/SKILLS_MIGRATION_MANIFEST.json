@@ -1,0 +1,268 @@
+{
+	"date": "2026-10-08",
+	"status": "Complete: unique rules migrated to seven skills, all 36 symlink aliases and 22 legacy source files removed, empty legacy directories removed, and skills-only architecture validation passed.",
+	"backup": "/var/folders/rc/t7rph9791m103_lr80bzrjg00000gn/T/inut-ai-migration-b58wx24y",
+	"mirror_comparison": "All mirror entries were inspected with lstat/readlink. They are symlinks, not independent text copies. Resolved targets were canonical sources; broken nested aliases have no separate content. Full inventory and Git status are in the backup.",
+	"sources": [
+		{
+			"path": ".agents/agents/inut-content-writer.agent.md",
+			"sha256": "55f882021c95c422f8fe155654ce238a428c2230cfc1ba7c18c1f06d9526bcfc",
+			"destinations": [
+				".agents/skills/inut-content-writer/SKILL.md",
+				".agents/skills/inut-content-writer/references/product-copy.md",
+				".agents/skills/inut-content-writer/references/input-examples.md"
+			]
+		},
+		{
+			"path": ".agents/agents/inut-maintainer.agent.md",
+			"sha256": "750319e23c49cd0edf66d6ff57fab4b7732a90c67082640bf5fc63aa2bdc81e3",
+			"destinations": [
+				".agents/skills/inut-design-workflow/SKILL.md",
+				".agents/skills/inut-design-workflow/references/project-conventions.md"
+			]
+		},
+		{
+			"path": ".agents/agents/inut-product-page-automation.agent.md",
+			"sha256": "c04c45c6a24cd7425680317eec011f2d0bedc7e155b78e4144b807df66815304",
+			"destinations": [
+				".agents/skills/inut-product-page-automation/SKILL.md",
+				".agents/skills/inut-product-page-automation/references/input-recipes.md",
+				".agents/skills/product-page-generator/references/requirements-qa.md"
+			]
+		},
+		{
+			"path": ".agents/instructions/analytics.instructions.md",
+			"sha256": "a11c86fb0a83d20ec6953864f24770757080446b4a26c0d4f76bf6d4e27b0c9e",
+			"destinations": [".agents/skills/inut-design-workflow/references/analytics.md"]
+		},
+		{
+			"path": ".agents/instructions/blog-content.instructions.md",
+			"sha256": "fcd14777c8dbff9ec1a85fdaa7ff725edce35a6c09371023eaf05d6eb6b397ef",
+			"destinations": [
+				".agents/skills/inut-content-writer/references/blog-contract.md",
+				".agents/skills/inut-design-workflow/references/blog-pipeline.md"
+			]
+		},
+		{
+			"path": ".agents/instructions/global-rules.md",
+			"sha256": "5c0a3edc557722980f8dc329f047a405f489bf3371fef6f6143f19aab7cc0a15",
+			"destinations": [
+				".agents/skills/inut-design-workflow/references/project-conventions.md",
+				".agents/skills/inut-design-workflow/references/analytics.md",
+				".agents/skills/inut-design-workflow/references/checkout.md",
+				".agents/skills/inut-content-writer/references/blog-contract.md",
+				"AGENTS.md"
+			]
+		},
+		{
+			"path": ".agents/instructions/nextjs-app.instructions.md",
+			"sha256": "e51cd3bfe69c6ede4e4a9c83af701e1b5aec120d03eee32887064020c6604af7",
+			"destinations": [
+				".agents/skills/inut-design-workflow/references/project-conventions.md",
+				".agents/skills/inut-design-workflow/references/checkout.md"
+			]
+		},
+		{
+			"path": ".agents/instructions/sanity-cms.instructions.md",
+			"sha256": "d3606d81faea499bf5023fb64fb67358b922d72af36d7a186bd58bd71b0f12d7",
+			"destinations": [".agents/skills/inut-design-workflow/references/sanity.md"]
+		},
+		{
+			"path": ".agents/prompts/add-feature.prompt.md",
+			"sha256": "346df4b8cfc8f1a17763b61c8b15b32aa1cb0dfa97ff562574be6001ba464c2b",
+			"destinations": [".agents/skills/inut-design-workflow/references/task-recipes.md"]
+		},
+		{
+			"path": ".agents/prompts/blog-batch.prompt.md",
+			"sha256": "45aaa9e3124b99019d7023a6f7b014cc8f861c83e184144af601f27035c53f23",
+			"destinations": [
+				".agents/skills/inut-content-writer/references/blog-contract.md",
+				".agents/skills/inut-content-writer/references/input-examples.md"
+			]
+		},
+		{
+			"path": ".agents/prompts/checkout-regression-check.prompt.md",
+			"sha256": "8e1426ccefffdfea72c3f69bed059f0c9604929ae07178cdaf5046cbfe9f1b5a",
+			"destinations": [".agents/skills/inut-design-workflow/references/checkout.md"]
+		},
+		{
+			"path": ".agents/prompts/fix-bug.prompt.md",
+			"sha256": "0f3abfe50545dc70b3f5cbfc7519bd7170f72b7ab87c9e9ab49b7fe34d8a6c2f",
+			"destinations": [".agents/skills/inut-design-workflow/references/task-recipes.md"]
+		},
+		{
+			"path": ".agents/prompts/new-product-page.prompt.md",
+			"sha256": "9473e13ad885f8ab690a03f2b3de7510bb2c435fd86af19bdded002270997347",
+			"destinations": [
+				".agents/skills/inut-product-page-automation/SKILL.md",
+				".agents/skills/inut-product-page-automation/references/input-recipes.md",
+				".agents/skills/product-page-generator/SKILL.md"
+			]
+		},
+		{
+			"path": ".agents/prompts/product-page-draft.prompt.md",
+			"sha256": "14df92e4ba3b86809cef21abee6d9d48e524d5a482f2e0cdc016bf16ffa074de",
+			"destinations": [".agents/skills/inut-product-page-automation/references/input-recipes.md"]
+		},
+		{
+			"path": ".agents/prompts/product-requirements-qa.prompt.md",
+			"sha256": "2e92fa79ae92f56208ff0de55ad9018a24cb08d38d5c42724713d3ebaadfb423",
+			"destinations": [".agents/skills/product-page-generator/references/requirements-qa.md"]
+		},
+		{
+			"path": ".agents/prompts/write-product-content.prompt.md",
+			"sha256": "8ecf2075b52f3172df77723057e8508940c62bbb335a3a56cd2b20b79e017c00",
+			"destinations": [
+				".agents/skills/inut-content-writer/references/product-copy.md",
+				".agents/skills/inut-content-writer/references/input-examples.md"
+			]
+		},
+		{
+			"path": ".agents/workflows/add-feature.md",
+			"sha256": "d490348bbe9f4d3555268e59ae3239bb9cdadfafbf7c30e008d82ee7a99b749e",
+			"destinations": [".agents/skills/inut-design-workflow/references/task-recipes.md"]
+		},
+		{
+			"path": ".agents/workflows/checkout-regression-check.md",
+			"sha256": "5c2f138a025c8399fbb50a0961811d10fb62fe2e761f31645aaa1934de9d6134",
+			"destinations": [".agents/skills/inut-design-workflow/references/checkout.md"]
+		},
+		{
+			"path": ".agents/workflows/fix-bug.md",
+			"sha256": "b52fe612ba7f2f900b0823a56dfc2f09371a6fa76a50e0be82b7bef87489621e",
+			"destinations": [".agents/skills/inut-design-workflow/references/task-recipes.md"]
+		},
+		{
+			"path": ".agents/workflows/inut-content-writer.md",
+			"sha256": "d96f0c99108ab2be95bff8e7303eca721024eb0f252ab69c5fa2eee625a602b6",
+			"destinations": [".agents/skills/inut-content-writer/SKILL.md"]
+		},
+		{
+			"path": ".agents/workflows/inut-design-workflow.md",
+			"sha256": "425990e187744a58f1ecf021ee422abb530a63709df85034f295b8709f87bef8",
+			"destinations": [".agents/skills/inut-design-workflow/SKILL.md"]
+		},
+		{
+			"path": ".agents/workflows/inut-product-page-automation.md",
+			"sha256": "9fc3664c457676e494e04a5159f3e44039d8c083c6e522f6e36aa7cae5ff1e0d",
+			"destinations": [".agents/skills/inut-product-page-automation/SKILL.md"]
+		}
+	],
+	"aliases": [
+		{ "path": ".agents/agents/agents", "target": "../.agents/agents" },
+		{ "path": ".agents/instructions/instructions", "target": "../.agents/instructions" },
+		{ "path": ".agents/workflows/workflows", "target": "../.agents/workflows" },
+		{ "path": ".github/agents", "target": "../.agents/agents" },
+		{
+			"path": ".github/copilot-instructions.md",
+			"target": "../.agents/instructions/global-rules.md"
+		},
+		{ "path": ".github/instructions", "target": "../.agents/instructions" },
+		{ "path": ".github/prompts", "target": "../.agents/prompts" },
+		{ "path": ".github/skills", "target": "../.agents/skills" },
+		{ "path": ".codex/agents", "target": "../.agents/agents" },
+		{ "path": ".codex/instructions", "target": "../.agents/instructions" },
+		{ "path": ".codex/prompts", "target": "../.agents/prompts" },
+		{ "path": ".codex/skills", "target": "../.agents/skills" },
+		{ "path": ".codex/workflows", "target": "../.agents/workflows" },
+		{
+			"path": ".trae/prompts/add-feature.prompt.md",
+			"target": "../../.agents/prompts/add-feature.prompt.md"
+		},
+		{
+			"path": ".trae/prompts/blog-batch.prompt.md",
+			"target": "../../.agents/prompts/blog-batch.prompt.md"
+		},
+		{
+			"path": ".trae/prompts/checkout-regression-check.prompt.md",
+			"target": "../../.agents/prompts/checkout-regression-check.prompt.md"
+		},
+		{
+			"path": ".trae/prompts/fix-bug.prompt.md",
+			"target": "../../.agents/prompts/fix-bug.prompt.md"
+		},
+		{
+			"path": ".trae/prompts/new-product-page.prompt.md",
+			"target": "../../.agents/prompts/new-product-page.prompt.md"
+		},
+		{
+			"path": ".trae/prompts/product-page-draft.prompt.md",
+			"target": "../../.agents/prompts/product-page-draft.prompt.md"
+		},
+		{
+			"path": ".trae/prompts/product-requirements-qa.prompt.md",
+			"target": "../../.agents/prompts/product-requirements-qa.prompt.md"
+		},
+		{
+			"path": ".trae/prompts/write-product-content.prompt.md",
+			"target": "../../.agents/prompts/write-product-content.prompt.md"
+		},
+		{ "path": ".trae/prompts-link", "target": "../.agents/prompts" },
+		{
+			"path": ".trae/skills/inut-content-writer",
+			"target": "../../.agents/skills/inut-content-writer"
+		},
+		{
+			"path": ".trae/skills/inut-design-workflow",
+			"target": "../../.agents/skills/inut-design-workflow"
+		},
+		{
+			"path": ".trae/skills/inut-product-page-automation",
+			"target": "../../.agents/skills/inut-product-page-automation"
+		},
+		{
+			"path": ".trae/skills/product-page-generator/product-page-generator",
+			"target": "../../.agents/skills/product-page-generator"
+		},
+		{ "path": ".trae/skills/skills", "target": "../../.agents/skills/skills" },
+		{ "path": ".trae/skills-link", "target": "../.agents/skills" },
+		{ "path": ".clinerules/agents", "target": "../.agents/agents" },
+		{ "path": ".clinerules/default-rules.md", "target": "../.agents/instructions/global-rules.md" },
+		{ "path": ".clinerules/instructions", "target": "../.agents/instructions" },
+		{ "path": ".clinerules/prompts", "target": "../.agents/prompts" },
+		{ "path": ".clinerules/skills", "target": "../.agents/skills" },
+		{ "path": ".clinerules/workflows", "target": "../.agents/workflows" },
+		{ "path": ".cursorrules", "target": ".agents/instructions/global-rules.md" },
+		{ "path": ".traerules", "target": ".agents/instructions/global-rules.md" }
+	],
+	"empty_directory_removals": [
+		".agents/agents",
+		".agents/instructions",
+		".agents/prompts",
+		".agents/workflows",
+		".trae/prompts",
+		".trae/skills/product-page-generator",
+		".trae/skills",
+		".trae",
+		".clinerules"
+	],
+	"retained_skills": [
+		"inut-design-workflow",
+		"inut-content-writer",
+		"inut-product-page-automation",
+		"product-page-generator",
+		"agent-browser-automation",
+		"autoresearch",
+		"skill-creator"
+	],
+	"preserved": [
+		"CLAUDE.md",
+		".codex/config.toml",
+		".github/workflows/deploy-sanity.yml",
+		".agents/skills/skill-creator/agents/",
+		".agents/skills/skill-creator/assets/",
+		"openwiki/",
+		"blog/"
+	],
+	"superseded_rules": [
+		"Unsupported MOQ 10 items and turnaround 3–4 days replaced by source grounding",
+		"Stale page paths and flat-route default replaced by canonical hierarchy and ProductPageData/ProductPageTemplate",
+		"Automation ban on analytics replaced by mandatory dual tracking without unrelated flow edits",
+		"Mirror/slash-agent reconstruction replaced by explicit skill-path fallback"
+	],
+	"historical_records": [
+		"DOCUMENTATION_AUDIT_LOG.md",
+		"tasks/phone-validation-audit-report.md",
+		"scripts/README.md v2 changelog"
+	]
+}

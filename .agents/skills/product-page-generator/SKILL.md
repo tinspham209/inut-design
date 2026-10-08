@@ -19,6 +19,10 @@ This skill automates the creation of new product pages using the standard `Produ
 
    - Ensure the user provides a `route path` (e.g., `/an-pham-su-kien/new-product`) and a source `content.md`.
    - Read the `content.md` file using the `Read` tool.
+   - Read [requirements QA](references/requirements-qa.md) and
+     [engineering workflow](../inut-design-workflow/SKILL.md). Inspect the actual
+     category hierarchy before choosing a route; don't use an obsolete example
+     as proof. Confirm category/main highlights from approved inputs first.
 
 2. **Content Parsing & Adaptation**:
 
@@ -34,6 +38,13 @@ This skill automates the creation of new product pages using the standard `Produ
 
    - **Data File**: Add the new data object to the appropriate file in `data/product-pages/`.
    - **Route File**: Create `pages/[route]/index.tsx` using the `ProductPageTemplate`.
+   - Inspect `components/product-template/ProductPageTemplate.tsx`,
+     `models/product-page.ts`, the relevant `data/product-pages/*.tsx`, and
+     `pages/services/sticker/sticker-sheet/index.tsx` for current imports/layout.
+     Preserve `NextPageWithLayout`, `MainLayout` and template SEO conventions.
+   - Preserve existing route/content/user edits; scaffold only authorized files.
+   - New CTA/page behavior needs both GA4 and Umami; reuse template tracking and
+     inspect it before adding events to avoid duplicate firing.
 
 5. **Validation**:
    - Verify SEO tags are unique and descriptive.
@@ -46,7 +57,9 @@ This skill automates the creation of new product pages using the standard `Produ
 2. Generate a `ProductPageData` JSON draft.
 3. Propose changes to `data/product-pages/[category].tsx`.
 4. Create the new route directory and `index.tsx`.
-5. Run `pnpm lint` to verify.
+5. Run `rtk pnpm lint`, `rtk pnpm build` for route/runtime changes, and browser
+   verification for hero/showcase, responsive grid, contact and CTA. Use grounded
+   content; never invent testimonials, statistics, MOQ, price or SLA to fill fields.
 
 ## Rendering Constraints (strict)
 

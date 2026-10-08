@@ -1,1 +1,0 @@
-../../.agents/prompts/fix-bug.prompt.md
