@@ -66,6 +66,8 @@ INUT Design hiện nhận đơn từ **10 cái**; thời gian tham khảo khoả
 ## Đặt làm acrylic magnet theo yêu cầu tại INUT Design
 
 Bạn đã có artwork hoặc đang cần tư vấn từ ý tưởng ban đầu? Xem thông tin dịch vụ [làm Acrylic Magnet theo yêu cầu tại Đà Nẵng](/services/an-pham-luu-niem/acrylic-magnet), sau đó gửi mẫu thiết kế, số lượng và thời gian mong muốn để được hỗ trợ về quy cách và báo giá.
+
+- [https://inutdesign.com/services/an-pham-luu-niem/acrylic-magnet](/services/an-pham-luu-niem/acrylic-magnet)
 - [https://inutdesign.com/services/an-pham-luu-niem/acrylic-magnet](/services/an-pham-luu-niem/acrylic-magnet)
 
 ## Kết luận
