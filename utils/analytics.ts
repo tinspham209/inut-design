@@ -25,6 +25,7 @@ import {
 	trackSearchEngagement,
 } from "./engagementScore";
 import envConst from "./env-const";
+import { CREATIVA_PRIVATE_PROPERTY, isCreativaPath, safeCreativaUrl } from "./creativa/privacy";
 import {
 	trackUmamiAbandonedCheckout,
 	trackUmamiAddToCart,
@@ -80,6 +81,21 @@ const isGtagAvailable = (): boolean => {
 
 // Core gtag wrapper
 export const gtag = (...args: any[]): void => {
+	if (typeof window !== "undefined") {
+		if (args[0] === "event" && isCreativaPath(window.location.pathname)) {
+			const parameters: GAEventParams = { ...(args[2] || {}) };
+			for (const key of Object.keys(parameters)) {
+				if (CREATIVA_PRIVATE_PROPERTY.test(key)) delete parameters[key];
+			}
+			parameters.page_path = safeCreativaUrl(window.location.pathname);
+			parameters.page_location = safeCreativaUrl(window.location.href);
+			parameters.page_referrer = safeCreativaUrl(document.referrer || "");
+			if (/^\/creativa\/order-tracking\//.test(window.location.pathname)) {
+				parameters.page_title = "Tra cứu đơn hàng — INUT Creativa";
+			}
+			args[2] = parameters;
+		}
+	}
 	if (isGtagAvailable()) {
 		window.gtag!(...args);
 	} else if (envConst.NODE_ENV === "development") {

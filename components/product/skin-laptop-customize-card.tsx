@@ -7,7 +7,7 @@ import { COLOR_CODE } from "@/utils/theme";
 
 export const SkinLaptopCustomizeCard: React.FC = () => {
 	return (
-		<Link href="/services/ca-nhan-hoa/skin-laptop-customize" passHref>
+		<Link href="/creativa/skin-laptop" passHref>
 			<MuiLink sx={{ textDecoration: "none" }}>
 				<Card
 					sx={{
@@ -69,7 +69,7 @@ export const SkinLaptopCustomizeCard: React.FC = () => {
 									fontWeight: 600,
 								}}
 							>
-								Thiết kế theo yêu cầu
+								Đặt hàng tại INUT Creativa
 							</Typography>
 							<Typography
 								variant="h6"
@@ -80,7 +80,7 @@ export const SkinLaptopCustomizeCard: React.FC = () => {
 									color: COLOR_CODE.WHITE,
 								}}
 							>
-								Custom skin laptop
+								Skin MacBook — INUT Creativa
 							</Typography>
 						</Box>
 						<Stack direction="row" alignItems="center" justifyContent="space-between" p={1}>

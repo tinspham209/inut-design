@@ -11,6 +11,7 @@ export interface SeoData {
 	breadcrumbs?: Array<{ name: string; item: string }>;
 	noindex?: boolean;
 	canonical?: string;
+	siteName?: string;
 }
 
 interface SeoProps {
@@ -27,6 +28,7 @@ export function Seo({ data }: SeoProps) {
 		breadcrumbs,
 		noindex = false,
 		canonical,
+		siteName = "INUT Design",
 	} = data;
 
 	const breadcrumbStructuredData = React.useMemo(() => {
@@ -59,7 +61,7 @@ export function Seo({ data }: SeoProps) {
 
 			<meta property="og:type" content="website" />
 			<meta property="og:locale" content="vi_VN" />
-			<meta property="og:site_name" content="INUT Design" />
+			<meta property="og:site_name" content={siteName} />
 			<meta property="og:url" content={url} />
 			<meta property="og:title" content={title} />
 			<meta property="og:description" content={description} />

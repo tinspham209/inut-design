@@ -1,85 +1,64 @@
-import { ComingSoon, Seo } from "@/components/common";
-import { CreativaLayout } from "@/components/layout";
-import { NextPageWithLayout } from "@/models/common";
-import { trackContactClick, trackEvent } from "@/utils/analytics";
-import { Box, Button, Container, Link as MuiLink, Stack, Typography } from "@mui/material";
+/* eslint-disable camelcase */
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Link from "next/link";
+import { CreativaLayout } from "@/components/layout";
+import { CreativaSeo } from "@/components/creativa/Seo";
+import type { NextPageWithLayout } from "@/models/common";
+import { trackCreativa } from "@/utils/creativa/analytics";
 
-const CreativaHomePage: NextPageWithLayout = () => {
-	return (
-		<>
-			<Seo
-				data={{
-					title: "inut.creativa — Merchandise cho Running, Trail, Trekking",
-					description:
-						"inut.creativa là nhánh thương hiệu chuyên merchandise cho cộng đồng chạy bộ, trail và trekking: khung kỷ niệm race, sticker, phụ kiện và quà tặng sự kiện.",
-					url: "https://inutdesign.com/creativa",
-					thumbnailUrl: "/branding/ogImage.jpg",
-					canonical: "https://inutdesign.com/creativa",
-				}}
-			/>
-
-			<Box sx={{ bgcolor: "#0A0A0A", color: "#FFF", py: { xs: 8, md: 10 } }}>
-				<Container>
-					<Stack spacing={3} maxWidth={860}>
-						<Typography variant="overline" sx={{ color: "primary.main", letterSpacing: 1.5 }}>
-							inut.creativa
-						</Typography>
-						<Typography variant="h2" sx={{ fontWeight: 800, lineHeight: 1.1 }}>
-							Run. Create. Connect. Inspire.
-						</Typography>
-						<Typography variant="h6" sx={{ color: "#D0D0D0", fontWeight: 400 }}>
-							Brand dành cho running / trail / trekking: thiết kế và sản xuất merchandise giúp mỗi
-							race có một dấu ấn đáng nhớ.
-						</Typography>
-
-						<Stack direction={{ xs: "column", sm: "row" }} spacing={2} pt={1}>
-							<Link href="#" passHref legacyBehavior>
-								<MuiLink
-									underline="none"
-									onClick={() => {
-										trackEvent("cta_click", {
-											ctaName: "creativa_quote_now",
-											location: "creativa_hero",
-											pagePath: "/creativa",
-										});
-										trackContactClick("form", "creativa_homepage");
-									}}
-								>
-									<Button variant="contained" color="primary">
-										Nhận báo giá ngay
-									</Button>
-								</MuiLink>
-							</Link>
-
-							<Link href="#" passHref legacyBehavior>
-								<MuiLink
-									underline="none"
-									onClick={() => {
-										trackEvent("cta_click", {
-											ctaName: "creativa_contact_consulting",
-											location: "creativa_hero",
-											pagePath: "/creativa",
-										});
-									}}
-								>
-									<Button variant="outlined" sx={{ color: "#FFF", borderColor: "#FFF" }}>
-										Liên hệ tư vấn
-									</Button>
-								</MuiLink>
-							</Link>
-						</Stack>
-					</Stack>
-				</Container>
+const CreativaHome: NextPageWithLayout = () => (
+	<>
+		<CreativaSeo title="Thiết kế cho dấu ấn riêng" path="/creativa" />
+		<Container maxWidth="xl" sx={{ py: { xs: 7, md: 12 } }}>
+			<Stack gap={2} maxWidth={860}>
+				<Typography variant="overline">INUT DESIGN / CREATIVA</Typography>
+				<Typography
+					component="h1"
+					sx={{
+						fontSize: { xs: 44, md: 76 },
+						fontWeight: 500,
+						lineHeight: 1.05,
+						letterSpacing: "-.055em",
+					}}
+				>
+					Thiết kế cho
+					<br />
+					dấu ấn riêng.
+				</Typography>
+				<Typography sx={{ maxWidth: 520, mt: 1, color: "text.secondary" }}>
+					Không gian mới dành cho các sản phẩm của INUT Creativa. Bắt đầu với những mẫu skin MacBook
+					— chọn thiết kế, mẫu máy và phạm vi dán theo cách của bạn.
+				</Typography>
+				<Box mt={2}>
+					<Link href="/creativa/skin-laptop" passHref>
+						<Button
+							component="a"
+							size="large"
+							variant="outlined"
+							sx={{ borderRadius: 20, px: 4 }}
+							onClick={() => trackCreativa("cta_click", { cta_name: "shop_skin", surface: "home" })}
+						>
+							Khám phá skin MacBook
+						</Button>
+					</Link>
+				</Box>
+			</Stack>
+			<Box sx={{ borderTop: "1px solid #dfcfc6", mt: { xs: 7, md: 12 }, pt: 3 }}>
+				<Typography variant="overline">DANH MỤC ĐẦU TIÊN</Typography>
+				<Link href="/creativa/skin-laptop" passHref>
+					<Typography
+						component="a"
+						sx={{ display: "block", color: "inherit", fontSize: 28, my: 1 }}
+					>
+						Skin MacBook →
+					</Typography>
+				</Link>
+				<Typography variant="body2" color="text.secondary">
+					Những danh mục tiếp theo sẽ được giới thiệu khi sẵn sàng.
+				</Typography>
 			</Box>
-
-			<Box>
-				<ComingSoon />
-			</Box>
-		</>
-	);
-};
-
-CreativaHomePage.Layout = CreativaLayout;
-
-export default CreativaHomePage;
+		</Container>
+	</>
+);
+CreativaHome.Layout = CreativaLayout;
+export default CreativaHome;

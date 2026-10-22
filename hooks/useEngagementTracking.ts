@@ -9,8 +9,9 @@ import { useEffect } from "react";
  * Usage:
  * const start = useEngagementTracking("product_detail");
  */
-export const useEngagementTracking = (pageName: string) => {
+export const useEngagementTracking = (pageName: string, enabled = true) => {
 	useEffect(() => {
+		if (!enabled) return;
 		const startTime = Date.now();
 		let maxDepthReported = 0; // Highest milestone reported
 
@@ -48,7 +49,7 @@ export const useEngagementTracking = (pageName: string) => {
 			const durationSeconds = Math.floor((Date.now() - startTime) / 1000);
 			trackTimeOnPage(pageName, durationSeconds);
 		};
-	}, [pageName]);
+	}, [pageName, enabled]);
 
 	return null; // Just a behavioral hook
 };
