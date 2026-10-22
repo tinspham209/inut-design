@@ -1,7 +1,8 @@
 # Creativa Staff Audit
 
-**Overall:** FAIL — actionable implementation issues and external readiness blockers remain.
-**Phase:** Read-only audit round 1 completed; rework follows separately.
+**Code re-audit:** Round 2 PASS for its reviewed rework; final verification subsequently found I-07 through I-11, which reopen rework.
+**Overall acceptance:** FAIL / BLOCKED — E-01 through E-04 still lack their required external witnesses.
+**Phase:** Read-only audit rounds 1 and 2 completed; no code was changed by either audit.
 **Baseline:** `551ab8e`; implementation reviewed through `a98bb7e` on `feat/creativa`.
 **Scope:** Approved idea, specs, technical design, revised plan/test plan and repository rules.
 **Runtime boundary:** No production order, CMS mutation or notification was authorized/performed. Chromium response fixtures and mocked SDK probes are not real Sanity/native/hosted acceptance.
@@ -41,12 +42,12 @@ The reviewer reproduced I-01, I-02, I-03, I-04 and I-05 through actual source fu
 
 | Issue | Resolution | Current evidence |
 | --- | --- | --- |
-| I-01 | Applied; targeted probe passes, awaiting read-only re-audit | Server emits `terminal: true` only for confirmed rejected intent; client clears only that signal. Actual resolver probe retains a 503 pending capability and clears confirmed terminal rejection. |
-| I-02 | Applied; targeted probe passes, awaiting read-only re-audit | Completion re-reads current shared journal/flags; persisted-and-cleared journals do not fall back to stale volatile state. Two actual source completion instances cannot resurrect forgotten history or repeat cleanup. |
-| I-03 | Applied; targeted probe passes, awaiting read-only re-audit | Per-entry quarantine keeps healthy items accessible and blocks submit; explicit invalid-only discard preserves healthy instance/quantity. Whole malformed container still requires explicit reset. |
-| I-04 | Applied; isolated transport/SDK probes pass, awaiting read-only re-audit | Complete HTML/Unicode-safe message parts have revision-guarded per-part progress; retry skips known sent parts, progresses failed/budget-deferred parts and requires acknowledgment for uncertain delivery. Original valid 4,417-character case covered without external sends. |
-| I-05 | Applied; actual updater probe passes, awaiting read-only re-audit | Untouched initial coverage uses first current active option; valid deliberate choice survives reordering; invalid deliberate choice requires reselection. Four updater cases pass. |
-| I-06 | Applied; actual handler probe passes, awaiting read-only re-audit | Additional responses emit impressions for newly presented deduplicated cards only, with batch and current layout context; a duplicate next response emits no repeat impression. |
+| I-01 | Resolved; round 2 code re-audit PASS | Server emits `terminal: true` only for confirmed rejected intent; client clears only that signal. Actual resolver probe retains a 503 pending capability and clears confirmed terminal rejection. |
+| I-02 | Resolved; round 2 code re-audit PASS | Completion re-reads current shared journal/flags; persisted-and-cleared journals do not fall back to stale volatile state. Two actual source completion instances cannot resurrect forgotten history or repeat cleanup. |
+| I-03 | Resolved; round 2 code re-audit PASS | Per-entry quarantine keeps healthy items accessible and blocks submit; explicit invalid-only discard preserves healthy instance/quantity. Whole malformed container still requires explicit reset. |
+| I-04 | Resolved; round 2 code re-audit PASS | Complete HTML/Unicode-safe message parts have revision-guarded per-part progress; retry skips known sent parts, progresses failed/budget-deferred parts and requires acknowledgment for uncertain delivery. Original valid 4,417-character case covered without external sends. |
+| I-05 | Resolved; round 2 code re-audit PASS | Untouched initial coverage uses first current active option; valid deliberate choice survives reordering; invalid deliberate choice requires reselection. Four updater cases pass. |
+| I-06 | Resolved; round 2 code re-audit PASS | Additional responses emit impressions for newly presented deduplicated cards only, with batch and current layout context; a duplicate next response emits no repeat impression. |
 
 No external blocker may be marked resolved solely because an actionable code defect is fixed. Subsequent read-only audit rounds must identify their reviewed revision and preserve this history.
 
@@ -61,3 +62,47 @@ No external blocker may be marked resolved solely because an actionable code def
 **Repository stop gate after all fixes:** lint and TypeScript pass; existing SPX 42 checks pass; application production build/postbuild SEO and current Studio build pass. The catalog's missing-configuration state is explicit and expected while E-01 is unresolved.
 
 **Evidence limit:** Source-function/SDK/transport probes are isolated, not real target/native/hosted acceptance. A probe setup initially omitted its callee stub; that setup failure was corrected without weakening the retained-capability assertion. No existing passing regression test was rewritten.
+
+## Read-only audit round 2
+
+**Code result:** PASS at `d3b0cdb`, reviewing `a98bb7e..d3b0cdb` and connected requirements/source.
+
+The independent staff reviewer judged all six findings resolved and found no further actionable defect/regression in the reviewed changes. Evidence includes confirmed-terminal propagation; fresh journal/checkpoint handling; per-entry quarantine and submit blocking; complete bounded notification parts/progress; explicit-user versus untouched coverage defaults; and new-only batch impressions.
+
+**Full acceptance result:** FAIL / BLOCKED remains. The reviewer explicitly retained E-01 through E-04 and did not treat mocked SDK/transport, browser-only fixtures, mobile viewport emulation or repository builds as actual Sanity/native/hosted/operator proof.
+
+No additional implementation work is justified solely to “remove” those external findings. Their next phase is recorded in [issue-routing.md](./issue-routing.md). If authorized external verification later exposes a code defect, reopen Implement → Audit → Rework for that concrete issue.
+
+## Final-verification interruption / round 3 findings
+
+**Result:** FAIL at `d3b0cdb`. Read-only verification stopped before any application change. These are approved-event implementation defects, not new requirements or external blockers.
+
+| ID | Severity | Evidence at reviewed revision | Requirement / issue | Recommendation |
+| --- | --- | --- | --- | --- |
+| I-07 | Medium | `pages/creativa/order-tracking/[slug].tsx:60-64`; invoking the actual catch callback with a 404 produced `{outcome:"error"}`. | Not-found lookup is mislabeled as service error; failure results omit entry/source. AN-02/04, AC-31. | Classify typed 404 as `not_found`; retain safe entry/source context for both failure classes. |
+| I-08 | Medium | `components/creativa/RecentOrders.tsx:26-37,67-80,106-120` | Read/parse failure only displays a warning; failed forget/clear lacks the required history-storage-error event. AN-11, AC-52, CT-14. | Emit safe operation/category errors at their sources, deduplicating unchanged read failures; never send stored values or raw errors. |
+| I-09 | Medium | `pages/creativa/cart.tsx:129-150,173-178` | Cart view is emitted only after a successful nonempty quote. Empty hydrated carts and visible carts with failed quotes have no view lifecycle. AN-01/04, AC-31. | Cover hydrated empty/invalid and failed-quote views once; retain authoritative value on successful quotes and omit unavailable money instead of inventing it. |
+| I-10 | Medium | `pages/creativa/checkout.tsx:246-270,366-369,513-520,540-546` | Shipping is measured only on address blur, potentially from a stale quote; blank-address default shipping is not measured. Unchanged default payment can be submitted without a commit event. AN-04, AC-31. | Measure committed current quote rule/fee changes; measure default payment on valid submit without repeating an already measured selection. |
+| I-11 | Medium | `pages/creativa/skin-laptop/index.tsx:107-110,145-166,174-179` | Visible initial ISR cards get no list impression if fresh revalidation fails. AN-01/04, AC-31. | Include initially displayed cards in the impression lifecycle, deduplicating unchanged refreshes, additional batches and layout rerenders. Preserve I-06. |
+
+All five findings route to **Missing Implementation → Implement → Verify**. Existing CT-14 already requires these producer paths; the rework adds explicit negative/default witnesses, not tooling or a changed acceptance bar.
+
+## Rework round 2
+
+**Resolved issues:** I-07 through I-11 have applied fixes and targeted evidence; read-only round 3 must audit them before final verification resumes.
+
+| Issue | Resolution / evidence |
+| --- | --- |
+| I-07 | Typed 404 produces `not_found`; service failure produces `error`. Four actual-source combinations retain root entry and manual/history source without lookup IDs. |
+| I-08 | Read/parse failure is deduplicated until recovery/change; remove/clear failures have safe operation/category events. Actual-source probes verify no stored ID/raw canary payload. Chromium malformed-history navigation produced one event per locally stubbed destination; confirmed clear removed only the history key. |
+| I-09 | Hydrated empty/invalid/quote-failure views occur once. Successful quote keeps authoritative merchandise value; unavailable money and item prices are omitted. Four isolated branches/rerenders pass. Chromium empty cart produced one GA4 and one Umami event into local stubs, with zero counts/value and explicit empty basis. |
+| I-10 | Shipping comes from successful current quote rule/fee signatures, not blur; identical signatures and cancelled old responses do not emit. Valid submit commits an unchanged default payment; explicit selection is not repeated. Both actual-source probe groups pass. |
+| I-11 | Initial cached cards, fresh results and additional batches share per-query impression deduplication. Failed initial refresh still measures cached cards; unchanged refresh, duplicate additional records and layout changes do not replay them. I-06's new-only batch behavior remains covered. |
+
+**Remaining issues:** E-01 through E-04. Local collector stubs are not actual hosted GA4/Umami proof. No real order, Sanity mutation or notification was performed.
+
+**Files modified:** `components/creativa/RecentOrders.tsx`; `pages/creativa/{cart,checkout}.tsx`; `pages/creativa/order-tracking/[slug].tsx`; `pages/creativa/skin-laptop/index.tsx`; analytics guide and related plan/test/audit/routing records.
+
+**Red → green:** All six new isolated actual-source probe groups failed on `d3b0cdb`, then all six passed after rework. No passing repository test was rewritten; no test runner, dependency or repository test-code file was added.
+
+**Repository stop gate:** Lint without warnings, TypeScript, existing SPX 42 checks, application production build (229 pages), postbuild SEO (221 sitemap URLs) and Studio build all pass after these fixes. The missing real catalog configuration still renders the expected explicit unavailable state. A browser reference expired during the dialog-close animation; refreshing the snapshot completed the check without changing code or weakening its oracle.

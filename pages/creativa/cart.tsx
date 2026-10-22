@@ -128,8 +128,34 @@ const Cart: NextPageWithLayout = () => {
 	const [retry, setRetry] = useState(0);
 	const viewed = useRef(false);
 	useEffect(() => {
-		if (!cart.hydrated || cart.error || !cart.items.length) {
+		if (!cart.hydrated) return;
+		function reportView(currentQuote?: CreativaQuote, reason?: string) {
+			if (viewed.current) return;
+			viewed.current = true;
+			const empty = !cart.error && !cart.items.length;
+			trackCreativa(
+				"cart_view",
+				{
+					item_count: cart.items.length,
+					unit_count: cart.items.reduce((sum, item) => sum + item.quantity, 0),
+					price_basis: currentQuote ? "current_quote" : empty ? "empty" : "unavailable",
+					...(currentQuote ? { value: currentQuote.merchandiseTotal } : empty && { value: 0 }),
+					...(reason && { reason }),
+				},
+				currentQuote
+					? currentQuote.lines.map(measureCreativaLine)
+					: cart.items.map((item) => {
+							const measurement = measureCreativaLine(item);
+							delete measurement.price;
+							return measurement;
+					  })
+			);
+		}
+		if (cart.error || !cart.items.length) {
 			setQuote(null);
+			setLoading(false);
+			setError(null);
+			reportView(undefined, cart.error ? "invalid_cart" : undefined);
 			return;
 		}
 		let current = true;
@@ -140,18 +166,7 @@ const Cart: NextPageWithLayout = () => {
 			.then((next) => {
 				if (!current) return;
 				setQuote(next);
-				if (!viewed.current) {
-					viewed.current = true;
-					trackCreativa(
-						"cart_view",
-						{
-							item_count: cart.items.length,
-							unit_count: cart.items.reduce((sum, item) => sum + item.quantity, 0),
-							value: next.merchandiseTotal,
-						},
-						next.lines.map(measureCreativaLine)
-					);
-				}
+				reportView(next);
 				if (
 					cart.items.some(
 						(item) =>
@@ -169,6 +184,7 @@ const Cart: NextPageWithLayout = () => {
 				if (current) {
 					setQuote(null);
 					setError(failure.message);
+					reportView(undefined, "quote_unavailable");
 				}
 			})
 			.finally(() => {

@@ -17,7 +17,7 @@ import type { GetStaticProps } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CreativaLayout } from "@/components/layout";
 import { CreativaSeo } from "@/components/creativa/Seo";
 import { creativaApi } from "@/api-client/creativa-checkout";
@@ -121,7 +121,38 @@ const SkinCatalog: NextPageWithLayout<{
 	const additionalRequest = useRef<string | null>(null);
 	const batch = useRef(1);
 	const currentColumns = useRef(columns);
+	const initialPage = useRef(initial);
+	const impressed = useRef(new Set<string>());
+	const impressionQuery = useRef("");
 	currentColumns.current = columns;
+	const reportList = useCallback(
+		(items: CreativaProduct[], fromPrice: number | null, page: number) => {
+			const unseen = items.filter((item) => !impressed.current.has(item._id));
+			if (!unseen.length) return;
+			unseen.forEach((item) => impressed.current.add(item._id));
+			trackCreativa(
+				"view_item_list",
+				{
+					item_count: unseen.length,
+					page,
+					columns: currentColumns.current,
+					surface: "catalog",
+				},
+				unseen.map((item) => ({
+					item_id: item._id,
+					item_name: item.name,
+					item_category: "skin-laptop",
+					quantity: 1,
+					...(fromPrice !== null && { price: fromPrice }),
+				}))
+			);
+		},
+		[]
+	);
+	useEffect(() => {
+		if (initialPage.current)
+			reportList(initialPage.current.items, initialPage.current.fromPrice, 1);
+	}, [reportList]);
 	useEffect(() => {
 		if (router.isReady)
 			setQuery(typeof router.query.q === "string" ? router.query.q.slice(0, 80) : "");
@@ -132,6 +163,10 @@ const SkinCatalog: NextPageWithLayout<{
 		setLoading(true);
 		const controller = new AbortController();
 		const normalized = query.trim();
+		if (impressionQuery.current !== normalized) {
+			impressionQuery.current = normalized;
+			impressed.current.clear();
+		}
 		const timer = window.setTimeout(() => {
 			const previousQuery = activeQuery.current;
 			if (activeQuery.current !== normalized)
@@ -147,22 +182,7 @@ const SkinCatalog: NextPageWithLayout<{
 					presented.current = new Set(page.items.map((item) => item._id));
 					batch.current = 1;
 					initialized.current = true;
-					trackCreativa(
-						"view_item_list",
-						{
-							item_count: page.items.length,
-							page: 1,
-							columns: currentColumns.current,
-							surface: "catalog",
-						},
-						page.items.map((item) => ({
-							item_id: item._id,
-							item_name: item.name,
-							item_category: "skin-laptop",
-							quantity: 1,
-							...(page.fromPrice !== null && { price: page.fromPrice }),
-						}))
-					);
+					reportList(page.items, page.fromPrice, 1);
 					if (normalized || previousQuery)
 						trackCreativa("search", {
 							query_length: normalized.length,
@@ -186,7 +206,7 @@ const SkinCatalog: NextPageWithLayout<{
 		};
 		// Layout changes deliberately do not reset the query lifecycle.
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [query, reload]);
+	}, [query, reload, reportList]);
 	async function loadMore() {
 		if (!data.cursor || loading || !initialized.current || query.trim() !== activeQuery.current)
 			return;
@@ -207,23 +227,7 @@ const SkinCatalog: NextPageWithLayout<{
 				items: [...current.items, ...added],
 			}));
 			trackCreativa("catalog_pagination", { item_count: added.length, page: nextBatch });
-			if (added.length)
-				trackCreativa(
-					"view_item_list",
-					{
-						item_count: added.length,
-						page: nextBatch,
-						columns: currentColumns.current,
-						surface: "catalog",
-					},
-					added.map((item) => ({
-						item_id: item._id,
-						item_name: item.name,
-						item_category: "skin-laptop",
-						quantity: 1,
-						...(next.fromPrice !== null && { price: next.fromPrice }),
-					}))
-				);
+			reportList(added, next.fromPrice, nextBatch);
 		} catch (failure) {
 			if (generation === sequence.current) {
 				setError(failure instanceof Error ? failure.message : "Không thể tải thêm sản phẩm.");

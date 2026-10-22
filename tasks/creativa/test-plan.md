@@ -112,6 +112,8 @@ Exercise the planned endpoints using current HTTP/browser facilities. Record req
 | CT-14 | Use the delivered analytics-guide producer map to exercise each applicable approved event, including searches/no-results, additional loads, gallery, options, cart, validation/errors, abandonment, history and copy actions. | Correct trigger/property/destination once per intended action; attribution and amount fields agree with source state. Verify the entire applicable event catalog rather than infer it from a successful purchase event. |
 | CT-15 | Use a valid long note/address and many/escaped/Unicode field values that exceed one staff message; interrupt part delivery and retry failed/unknown/deferred cases. | All required content remains complete in bounded parts; known sent parts are not routinely resent, failed/deferred parts make progress and unknown delivery requires acknowledgment. Do not truncate immutable customer data to make a test pass. |
 
+CT-14 explicitly includes initial cached catalog cards when revalidation fails, unchanged refresh/additional-page/layout deduplication, hydrated empty/invalid/failed-quote carts, default shipping without address interaction, unchanged default payment at valid submit, cancelled stale quote responses, typed 404 versus service-error lookups from both sources, and history read/parse/remove/clear failures. Unavailable cart money is omitted with an unavailable price basis, not reported as a fabricated zero. Isolated source probes establish local producer logic only; actual intended destinations remain a separate required witness.
+
 Do not expose a new public fault-injection/test endpoint to make these checks convenient.
 
 ## 6. Sanity integration and database scenarios

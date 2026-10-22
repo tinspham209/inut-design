@@ -12,7 +12,7 @@ import {
 	Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCreativaOrderHistory } from "@/hooks/creativa/useBrowserState";
 import { clearHistory, removeHistoryId } from "@/utils/creativa/storage";
 import { trackCreativa } from "@/utils/creativa/analytics";
@@ -27,6 +27,20 @@ export function RecentCreativaOrders({
 	const [visible, setVisible] = useState(20);
 	const [confirm, setConfirm] = useState(false);
 	const [error, setError] = useState<string | null>(null);
+	const reportedReadError = useRef<string | null>(null);
+	useEffect(() => {
+		if (!history.ready) return;
+		if (!history.error) {
+			reportedReadError.current = null;
+		} else if (reportedReadError.current !== history.error) {
+			reportedReadError.current = history.error;
+			trackCreativa("order_history_storage_error", {
+				entry_point: entryPoint,
+				phase: "read",
+				reason: "invalid_or_unavailable",
+			});
+		}
+	}, [history.ready, history.error, entryPoint]);
 	if (!history.ready) return null;
 	return (
 		<Box>
@@ -66,6 +80,12 @@ export function RecentCreativaOrders({
 						onDelete={() => {
 							const result = removeHistoryId(id);
 							setError(result.error || null);
+							if (result.error)
+								trackCreativa("order_history_storage_error", {
+									entry_point: entryPoint,
+									phase: "remove",
+									reason: "storage_failed",
+								});
 							trackCreativa("order_history_action", {
 								action: "remove",
 								entry_point: entryPoint,
@@ -102,8 +122,15 @@ export function RecentCreativaOrders({
 							const result = clearHistory();
 							setError(result.error || null);
 							setConfirm(false);
+							if (result.error)
+								trackCreativa("order_history_storage_error", {
+									entry_point: entryPoint,
+									phase: "clear",
+									reason: "storage_failed",
+								});
 							trackCreativa("order_history_action", {
 								action: "clear",
+								entry_point: entryPoint,
 								count_before: history.value.length,
 								count_after: result.value.length,
 								outcome: result.error ? "error" : "success",
