@@ -1,6 +1,6 @@
 # Creativa Staff Audit
 
-**Code re-audit:** Round 5 FAIL at `bb7676a`; I-14, I-17 and I-18 need connected-contract rework.
+**Code re-audit:** Round 6 FAIL at `eb8ce71`; I-14 has one remaining wrapper-level identifier variant.
 **Overall acceptance:** FAIL / BLOCKED — E-01 through E-04 still lack their required external witnesses.
 **Phase:** Read-only audit rounds 1 and 2 completed; no code was changed by either audit.
 **Baseline:** `551ab8e`; implementation reviewed through `a98bb7e` on `feat/creativa`.
@@ -183,3 +183,17 @@ Files changed: `utils/creativa/{contracts,quote.server}.ts`, checkout snapshot a
 **Post-fix stop gate:** Lint without warnings, TypeScript, all 16 source-lifecycle groups, application build (229 pages) and postbuild SEO (221 URLs) pass. Unchanged SPX/Studio source retains its prior passing checks. The dependency warning observed during rework was resolved by explicitly depending on the cart array used by the snapshot association.
 
 **Current browser witness:** Chromium 390×844 with local options/quote/collector stubs and aborted order endpoints: empty name plus a valid synthetic phone marks the name invalid, shows its localized helper, focuses `name`, emits one validation event per local destination and leaves submit count zero/journal absent. This supplements the earlier invalid-phone witness; it is not native or real-database proof.
+
+## Read-only audit round 6
+
+**Code result:** FAIL at `eb8ce71cd0705db37817b3b5389767f2c60d9cb6`. I-17/I-18 have no remaining actionable finding in this review. I-14's pure helper is correct, but `evaluateQuote()` rejects invalid/draft identifiers before reaching it, without an identity-keyed map.
+
+**I-14, Medium:** `quote.server.ts:372-373`; actual source with a healthy line, `drafts.bad-product` and a missing valid identifier yields `ITEM_UNAVAILABLE` with no field errors/affected measurement. CART-06/08, AN-04 and CT-14 require recoverable affected rows. Filter disallowed identifiers out of SDK reads, then let the complete-map path reject their original identities alongside unavailable valid IDs. Never fetch drafts/private IDs.
+
+This remains Missing Implementation → Implement → Verify, continuation YES. E-01 through E-04 remain unchanged.
+
+## Rework round 6
+
+I-14's wrapper now filters disallowed identifiers out of SDK reads and passes the original lines into the already complete authoritative map. Draft/private identifiers are never fetched; malformed and missing valid identifiers are reported together, with the healthy identity excluded.
+
+The actual wrapper with a fully stubbed SDK was red at `eb8ce71` (zero fields/zero reads), then green (two affected identities, one root-only SDK read). No real SDK network request occurred. Current lint without warnings, TypeScript and application build/postbuild SEO pass; the source-lifecycle/UI/Studio/SPX evidence for unchanged surfaces remains as recorded above. Final read-only re-audit is required before verification resumes.
