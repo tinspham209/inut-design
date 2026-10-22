@@ -202,6 +202,18 @@ These boxes record the actionable finding's applied fix plus its targeted isolat
 
 The post-rework repository stop gate passes. E-01 through E-04 remain open; no production send/order/write or native/hosted witness is inferred from these checkboxes.
 
+### Rework checkpoint — final-verification telemetry findings
+
+Read-only final verification at `d3b0cdb` reopened the code loop. Six isolated actual-source probes first failed, then passed after these changes. These boxes do not close CT-14's hosted-destination witness or any parent CR/AC gate.
+
+- [x] I-07 — Typed 404 and service failures have distinct outcomes with safe entry/source context for manual and history lookups.
+- [x] I-08 — Read/parse and failed remove/clear history operations emit safe storage-error events; unchanged read errors are not repeated on rerender.
+- [x] I-09 — Empty, invalid and failed-quote cart views are measured once after hydration; unavailable amounts/prices are omitted, not fabricated.
+- [x] I-10 — Current quote rule/fee signatures own shipping commits, including blank-address defaults; valid submit records an unchanged default payment without duplicating an explicit selection.
+- [x] I-11 — Initial visible cached catalog cards have impressions even on revalidation failure; unchanged refreshes, duplicate batches and layout rerenders do not replay them.
+
+The post-rework stop gate passes: lint without warnings, TypeScript, existing SPX 42 checks, application/postbuild SEO and Studio builds. Chromium locally stubbed collectors also observed one history-read error and empty-cart view per destination. Read-only round 3 audit is still required before final verification restarts. External blockers E-01 through E-04 remain unchanged.
+
 ### Shared-file ownership
 
 - CR-03 owns new schema registration and Studio action integration.

@@ -113,6 +113,14 @@ const Checkout: NextPageWithLayout = () => {
 	const completed = useRef(new Set<string>());
 	const began = useRef(false);
 	const methodChosen = useRef(false);
+	const measuredShipping = useRef("");
+	const measuredPayment = useRef<"cod" | "bank_transfer" | null>(null);
+
+	function reportPayment(method: "cod" | "bank_transfer") {
+		if (measuredPayment.current === method) return;
+		measuredPayment.current = method;
+		trackCreativa("add_payment_info", { payment_method: method });
+	}
 
 	function acceptedCompletion(result: CreativaAccepted, current: CheckoutAttempt) {
 		setAccepted(result.order);
@@ -252,6 +260,14 @@ const Checkout: NextPageWithLayout = () => {
 					if (!current) return;
 					setQuote(next);
 					setError(null);
+					const shippingSignature = JSON.stringify([next.shipping.code, next.shippingFee]);
+					if (measuredShipping.current !== shippingSignature) {
+						measuredShipping.current = shippingSignature;
+						trackCreativa("add_shipping_info", {
+							shipping_rule: next.shipping.code,
+							shipping_fee: next.shippingFee,
+						});
+					}
 					if (!began.current) {
 						began.current = true;
 						trackCreativa(
@@ -366,6 +382,7 @@ const Checkout: NextPageWithLayout = () => {
 			setBusy(true);
 			setFieldErrors({});
 			setError(null);
+			reportPayment(payment);
 			trackCreativa("checkout_submit", { item_count: body.lines.length, value: quote.finalAmount });
 			const result = await creativaApi.create(body, current.capability);
 			acceptedCompletion(result, current);
@@ -511,13 +528,6 @@ const Checkout: NextPageWithLayout = () => {
 											rows={2}
 											value={customer.address}
 											onChange={(event) => changeField("address", event.target.value)}
-											onBlur={() => {
-												if (quote)
-													trackCreativa("add_shipping_info", {
-														shipping_rule: quote.shipping.code,
-														shipping_fee: quote.shippingFee,
-													});
-											}}
 											inputProps={{ maxLength: 2000 }}
 										/>
 										{!customer.address && (
@@ -536,7 +546,7 @@ const Checkout: NextPageWithLayout = () => {
 													const method = event.target.value === "cod" ? "cod" : "bank_transfer";
 													methodChosen.current = true;
 													setPayment(method);
-													trackCreativa("add_payment_info", { payment_method: method });
+													reportPayment(method);
 												}}
 											>
 												<MenuItem value="bank_transfer" disabled={bankAvailable === false}>

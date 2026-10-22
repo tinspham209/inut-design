@@ -187,19 +187,19 @@ GA4 discovery/cart events include `items`; Umami receives bounded scalar context
 | Event | Producer and trigger | Safe context |
 | --- | --- | --- |
 | `page_view` | Creativa app route lifecycle for GA4; automatic Umami lifecycle only | Sanitized path/location/referrer, generic tracking title |
-| `view_item_list`, `select_item` | Catalog batch presentation / card click | Public design identities, count, price basis |
+| `view_item_list`, `select_item` | Initial cached/new batch presentation / card click; unchanged refreshes deduplicated per query lifecycle | Public design identities, count, price basis |
 | `search`, `catalog_pagination`, `catalog_load_error` | Completed user query / additional batch / failed request | Query length and result counts, phase; no raw search |
 | `catalog_layout_change` | User switches one/two columns | Previous/current column count |
 | `view_item`, `gallery_interaction`, `product_option_change` | Product lifecycle / user gallery or selector action | Design, model/coverage, image position; no autoplay/default action |
 | `quantity_change`, `add_to_cart`, `add_to_cart_error` | Committed quantity / successful addition / rejected attempt | Configured public item, delta/value or safe reason |
-| `cart_view`, `remove_from_cart`, `cart_revalidation` | Hydrated cart lifecycle / removal / changed quote | Counts, merchandise value, affected-item reason |
+| `cart_view`, `remove_from_cart`, `cart_revalidation` | One hydrated cart lifecycle including empty/invalid/failed quote / removal / changed quote | Counts, current-quote merchandise value; unavailable money omitted with explicit price basis |
 | `begin_checkout` | One nonempty checkout attempt | Accepted configuration candidate and merchandise total |
-| `add_shipping_info`, `add_payment_info` | Shipping/payment selection committed | Rule and fee / method, never address/account input |
+| `add_shipping_info`, `add_payment_info` | Current quote rule/fee signature changes / explicit method selection or unchanged default committed at valid submit | Rule and fee / method, never address/account input; unchanged commits deduplicated |
 | `checkout_validation_error`, `checkout_submit`, `checkout_error` | Invalid form / reviewed submit / failed outcome | Field/reason categories and reviewed totals |
 | `abandoned_checkout` | Observably leaving an unaccepted, resolved checkout state | Stage/count/value only; unknown acceptance is not abandonment |
 | `purchase`, `purchase_item` | Checkout-capability-authorized claim after acceptance/recovery | Separate opaque analytics transaction ID; saved amounts and typed lines |
-| `order_tracking_search`, `order_tracking_result` | Manual submission/tag click / resolved lookup | `entry_point`, `lookup_source`, outcome; never lookup reference |
-| `order_history_action`, `order_history_storage_error` | Explicit forget/clear / storage failure | Action/count/outcome or safe category; no stored array |
+| `order_tracking_search`, `order_tracking_result` | Manual submission/tag click / resolved lookup | `entry_point`, `lookup_source`, found/not_found/error outcome; never lookup reference |
+| `order_history_action`, `order_history_storage_error` | Explicit forget/clear / read, parse, save, remove or clear failure | Entry/action/count/outcome or safe operation/category; unchanged read failure deduplicated, no stored array |
 | `order_reference_copy` | Confirmed/failed ID or URL copy | Target kind/outcome only; never copied content |
 | `cta_click`, `contact_click` | Creativa navigation / actual support action | Named CTA, surface and method |
 

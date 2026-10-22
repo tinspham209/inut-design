@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { CreativaLayout } from "@/components/layout";
 import { CreativaSeo } from "@/components/creativa/Seo";
-import { creativaApi } from "@/api-client/creativa-checkout";
+import { creativaApi, CreativaRequestError } from "@/api-client/creativa-checkout";
 import type { CreativaPublicOrder } from "@/models/creativa";
 import type { NextPageWithLayout } from "@/models/common";
 import { CREATIVA_PUBLIC_ID, formatCreativaPrice } from "@/utils/creativa/contracts";
@@ -60,7 +60,14 @@ const OrderDetail: NextPageWithLayout = () => {
 			.catch((failure: Error) => {
 				if (current) {
 					setError(failure.message);
-					trackCreativa("order_tracking_result", { outcome: "error" });
+					trackCreativa("order_tracking_result", {
+						entry_point: router.query.entry === "root" ? "root" : "creativa",
+						lookup_source: router.query.source === "history" ? "history" : "manual",
+						outcome:
+							failure instanceof CreativaRequestError && failure.status === 404
+								? "not_found"
+								: "error",
+					});
 				}
 			});
 		return () => {
