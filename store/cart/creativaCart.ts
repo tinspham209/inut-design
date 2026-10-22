@@ -2,6 +2,7 @@ import { create } from "zustand";
 import type { CreativaImage, CreativaPurchaseLine } from "@/models/creativa";
 import {
 	CREATIVA_CART_KEY,
+	CreativaError,
 	isRecord,
 	lineIdentity,
 	parsePurchaseLines,
@@ -28,58 +29,85 @@ type CartState = {
 	error: string | null;
 	warning: string | null;
 	memoryOnly: boolean;
+	quarantinedCount: number;
 	hydrate: () => void;
 	add: (item: CartInput) => void;
 	update: (instanceId: string, quantity: number) => void;
 	remove: (instanceId: string) => void;
 	reconcile: (submitted: SubmittedContribution[]) => void;
 	resetCorrupt: () => void;
+	discardInvalid: () => void;
 };
 
-function decodeCart(raw: string | null): CreativaCartLine[] {
-	if (raw === null) return [];
+function decodeEntry(item: unknown): CreativaCartLine {
+	if (
+		!isRecord(item) ||
+		typeof item.instanceId !== "string" ||
+		!item.instanceId ||
+		!Array.isArray(item.contributions) ||
+		typeof item.productName !== "string" ||
+		typeof item.productSlug !== "string" ||
+		typeof item.modelName !== "string" ||
+		typeof item.coverageName !== "string"
+	)
+		throw new Error("INVALID_CART");
+	const [purchase] = parsePurchaseLines([item]);
+	const contributions = item.contributions.map((entry: unknown) => {
+		if (!isRecord(entry) || typeof entry.id !== "string" || !entry.id)
+			throw new Error("INVALID_CART");
+		return { id: entry.id, quantity: safeQuantity(entry.quantity) };
+	});
+	if (
+		!contributions.length ||
+		new Set(contributions.map((entry) => entry.id)).size !== contributions.length ||
+		contributions.reduce((sum, entry) => safeQuantity(sum + entry.quantity), 0) !==
+			purchase.quantity
+	) {
+		throw new Error("INVALID_CART");
+	}
+	const unitPrice = safeMoney(item.unitPrice);
+	safeMoney(unitPrice * purchase.quantity);
+	return {
+		...purchase,
+		instanceId: item.instanceId,
+		productName: item.productName,
+		productSlug: item.productSlug,
+		modelName: item.modelName,
+		coverageName: item.coverageName,
+		unitPrice,
+		contributions,
+	};
+}
+
+function decodeCart(raw: string | null): { items: CreativaCartLine[]; invalidCount: number } {
+	if (raw === null) return { items: [], invalidCount: 0 };
 	const value: unknown = JSON.parse(raw);
 	if (!isRecord(value) || value.version !== 1 || !Array.isArray(value.items))
 		throw new Error("INVALID_CART");
-	return value.items.map((item: unknown) => {
-		if (
-			!isRecord(item) ||
-			typeof item.instanceId !== "string" ||
-			!Array.isArray(item.contributions) ||
-			typeof item.productName !== "string" ||
-			typeof item.productSlug !== "string" ||
-			typeof item.modelName !== "string" ||
-			typeof item.coverageName !== "string"
-		)
-			throw new Error("INVALID_CART");
-		const [purchase] = parsePurchaseLines([item]);
-		const contributions = item.contributions.map((entry: unknown) => {
-			if (!isRecord(entry) || typeof entry.id !== "string") throw new Error("INVALID_CART");
-			return { id: entry.id, quantity: safeQuantity(entry.quantity) };
-		});
-		if (
-			!contributions.length ||
-			new Set(contributions.map((entry) => entry.id)).size !== contributions.length ||
-			contributions.reduce((sum, entry) => safeQuantity(sum + entry.quantity), 0) !==
-				purchase.quantity
-		) {
-			throw new Error("INVALID_CART");
+	const items: CreativaCartLine[] = [];
+	let invalidCount = 0;
+	for (const entry of value.items) {
+		try {
+			const item = decodeEntry(entry);
+			if (items.some((existing) => existing.instanceId === item.instanceId))
+				throw new Error("INVALID_CART");
+			items.push(item);
+		} catch (error) {
+			if (
+				!(error instanceof CreativaError) &&
+				!(error instanceof Error && error.message === "INVALID_CART")
+			)
+				throw error;
+			invalidCount += 1;
 		}
-		return {
-			...purchase,
-			instanceId: item.instanceId,
-			productName: item.productName,
-			productSlug: item.productSlug,
-			modelName: item.modelName,
-			coverageName: item.coverageName,
-			unitPrice: safeMoney(item.unitPrice),
-			contributions,
-		};
-	});
+	}
+	return { items, invalidCount };
 }
 
 function latestCart(): CreativaCartLine[] {
-	return decodeCart(localStorage.getItem(CREATIVA_CART_KEY));
+	const decoded = decodeCart(localStorage.getItem(CREATIVA_CART_KEY));
+	if (decoded.invalidCount) throw new Error("INVALID_CART");
+	return decoded.items;
 }
 
 function persist(items: CreativaCartLine[]): void {
@@ -138,6 +166,7 @@ export const useCreativaCart = create<CartState>()((set, get) => {
 		error: null,
 		warning: null,
 		memoryOnly: false,
+		quarantinedCount: 0,
 		hydrate: () => {
 			if (typeof window === "undefined") return;
 			if (get().memoryOnly) {
@@ -145,7 +174,15 @@ export const useCreativaCart = create<CartState>()((set, get) => {
 				return;
 			}
 			try {
-				set({ items: latestCart(), hydrated: true, error: null });
+				const decoded = decodeCart(localStorage.getItem(CREATIVA_CART_KEY));
+				set({
+					items: decoded.items,
+					hydrated: true,
+					quarantinedCount: decoded.invalidCount,
+					error: decoded.invalidCount
+						? `Có ${decoded.invalidCount} mục giỏ hàng không hợp lệ. Các mục hợp lệ được giữ lại; hãy khôi phục hoặc loại bỏ mục lỗi trước khi thanh toán.`
+						: null,
+				});
 			} catch (error) {
 				if (error instanceof Error && error.name === "SecurityError") {
 					set({
@@ -229,9 +266,32 @@ export const useCreativaCart = create<CartState>()((set, get) => {
 				if (readAttempt().value || readAttempt().error)
 					throw new Error("Vui lòng khôi phục lần đặt hàng trước khi xóa giỏ.");
 				localStorage.removeItem(CREATIVA_CART_KEY);
-				set({ items: [], error: null, warning: null, memoryOnly: false, hydrated: true });
+				set({
+					items: [],
+					error: null,
+					warning: null,
+					memoryOnly: false,
+					quarantinedCount: 0,
+					hydrated: true,
+				});
 			} catch (error) {
 				set({ error: error instanceof Error ? error.message : "Không thể xóa giỏ hàng lỗi." });
+			}
+		},
+		discardInvalid: () => {
+			try {
+				const decoded = decodeCart(localStorage.getItem(CREATIVA_CART_KEY));
+				persist(decoded.items);
+				set({
+					items: decoded.items,
+					quarantinedCount: 0,
+					error: null,
+					warning: null,
+					memoryOnly: false,
+					hydrated: true,
+				});
+			} catch {
+				set({ error: "Không thể loại bỏ mục lỗi. Dữ liệu cũ vẫn được giữ lại; vui lòng thử lại." });
 			}
 		},
 	};

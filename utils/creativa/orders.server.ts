@@ -97,16 +97,22 @@ export async function acceptedOrderForCapability(capability: unknown): Promise<S
 
 function terminalRejection(intent: StoredIntent): never {
 	const rejection = intent.rejection;
-	if (rejection?.quote) throw new QuoteChanged(rejection.quote);
+	if (rejection?.quote) {
+		const error = new QuoteChanged(rejection.quote);
+		error.terminal = true;
+		throw error;
+	}
 	const code =
 		rejection?.code === "ITEM_UNAVAILABLE" || rejection?.code === "INTENT_NOT_BOUND"
 			? rejection.code
 			: "INTENT_REJECTED";
-	throw new CreativaError(
+	const error = new CreativaError(
 		code,
 		rejection?.message || "Lần đặt hàng đã kết thúc. Vui lòng kiểm tra trước khi đặt lại.",
 		409
 	);
+	error.terminal = true;
+	throw error;
 }
 
 async function accepted(intent: StoredIntent, created: boolean): Promise<CreativaAccepted> {
@@ -172,6 +178,7 @@ async function resume(
 		} catch {
 			return resume(await loadIntent(intent._id), fingerprint, depth + 1);
 		}
+		error.terminal = true;
 		throw error;
 	}
 	const setup = await notificationSetup();

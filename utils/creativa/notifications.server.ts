@@ -2,7 +2,7 @@
 import { randomUUID } from "crypto";
 import { creativaServerClient } from "@/api-client/creativa-server";
 import { CreativaError } from "./contracts";
-import { conflict, Receipt, sha256, StoredOrder } from "./records.server";
+import { conflict, NotificationPart, Receipt, sha256, StoredOrder } from "./records.server";
 
 type Sales = {
 	_id: string;
@@ -60,7 +60,7 @@ export async function notificationSetup(): Promise<{
 export const escapeTelegram = (value: string) =>
 	value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-export function formatNotification(order: StoredOrder): string {
+function notificationText(order: StoredOrder): string {
 	const text = [
 		`INUT Creativa — ${order.publicId}`,
 		`Ngày: ${order.orderDate}`,
@@ -84,160 +84,320 @@ export function formatNotification(order: StoredOrder): string {
 		`Hàng: ${order.merchandiseTotal}; Vận chuyển (${order.shipping.name}): ${order.shippingFee}`,
 		`Tổng: ${order.finalAmount} VND; Đơn: ${order.status}`,
 	];
-	return escapeTelegram(text.join("\n"));
+	return text.join("\n");
 }
 
-async function saveOutcome(
+export function formatNotification(order: StoredOrder): string {
+	return escapeTelegram(notificationText(order));
+}
+
+function notificationParts(order: StoredOrder): NotificationPart[] {
+	const chunks: string[] = [];
+	let chunk = "";
+	const append = (value: string) => {
+		const escaped = escapeTelegram(value);
+		if (chunk.length + escaped.length > 3600) {
+			chunks.push(chunk);
+			chunk = "";
+		}
+		chunk += escaped;
+	};
+	for (const { segment } of new Intl.Segmenter("vi", { granularity: "grapheme" }).segment(
+		notificationText(order)
+	)) {
+		// Pathologically long combining clusters still split only between complete Unicode code points.
+		if (escapeTelegram(segment).length > 3600) {
+			for (const character of segment) append(character);
+		} else append(segment);
+	}
+	if (chunk) chunks.push(chunk);
+	return chunks.map((body, index) => {
+		const text =
+			chunks.length === 1
+				? body
+				: `INUT Creativa — ${escapeTelegram(order.publicId)} [${index + 1}/${
+						chunks.length
+				  }]\n${body}`;
+		return {
+			_type: "notificationPart",
+			_key: sha256(`v1:${index}:${text}`).slice(0, 32),
+			position: index + 1,
+			text,
+			state: "pending",
+			attempts: 0,
+		};
+	});
+}
+
+type DispatchOptions = { retry?: boolean; acknowledgeUnknown?: boolean };
+type DispatchRun = { deadline: number; sends: number };
+type NotificationClient = ReturnType<typeof creativaServerClient>;
+
+function mayDispatch(
+	progress: Pick<NotificationPart, "state" | "attemptedAt">,
+	options: DispatchOptions
+): boolean {
+	if (progress.state === "sent") return false;
+	if (progress.state === "pending") return true;
+	if (!options.retry) return false;
+	if (progress.state === "failed") return true;
+	if (!options.acknowledgeUnknown) {
+		throw new CreativaError(
+			"UNKNOWN_REQUIRES_ACK",
+			"Cần đối soát và xác nhận trước khi gửi lại phần chưa rõ kết quả.",
+			409
+		);
+	}
+	if (progress.state === "dispatching") {
+		const attemptedAt = Date.parse(progress.attemptedAt || "");
+		if (!Number.isFinite(attemptedAt) || Date.now() - attemptedAt < 60000) {
+			throw new CreativaError("DISPATCH_IN_PROGRESS", "Đang gửi; không được gửi chồng.", 409);
+		}
+	}
+	return true;
+}
+
+function aggregateReceipt(
+	receipt: Receipt,
+	parts: NotificationPart[],
+	pendingOutcome = "PARTIAL_PENDING"
+): Receipt {
+	const incomplete = parts.find((part) => part.state !== "sent");
+	return {
+		...receipt,
+		parts,
+		formatVersion: 1,
+		state: incomplete?.state || "sent",
+		outcome: incomplete
+			? incomplete.state === "pending"
+				? pendingOutcome
+				: incomplete.outcome
+			: "DELIVERED",
+	};
+}
+
+async function patchReceipt(
+	client: NotificationClient,
+	order: StoredOrder,
+	receipt: Receipt
+): Promise<void> {
+	await client
+		.patch(order._id)
+		.ifRevisionId(order._rev)
+		.set({
+			notifications: order.notifications.map((current) =>
+				current._key === receipt._key ? receipt : current
+			),
+		})
+		.commit({ visibility: "sync", returnDocuments: false, timeout: 2500 });
+}
+
+function stateUnavailable(): CreativaError {
+	return new CreativaError(
+		"HANDOFF_STATE_UNAVAILABLE",
+		"Chưa lưu được kết quả thông báo; cần kiểm tra trạng thái trước khi thử lại.",
+		503
+	);
+}
+
+async function savePartOutcome(
+	client: NotificationClient,
 	orderId: string,
 	key: string,
+	partKey: string,
 	nonce: string,
-	outcome: Partial<Receipt>
+	outcome: Partial<NotificationPart>
 ): Promise<void> {
 	for (let attempt = 0; attempt < 4; attempt++) {
-		const order = await creativaServerClient().getDocument<StoredOrder>(orderId);
-		const receipt = order?.notifications.find((r) => r._key === key);
-		if (!order || receipt?.nonce !== nonce || receipt.state !== "dispatching") return;
+		const order = await client.getDocument<StoredOrder>(orderId);
+		const receipt = order?.notifications.find((current) => current._key === key);
+		const part = receipt?.parts?.find((current) => current._key === partKey);
+		if (!order || !receipt || !part || part.nonce !== nonce || part.state !== "dispatching") {
+			throw stateUnavailable();
+		}
+		const parts = receipt.parts.map((current) =>
+			current._key === partKey ? { ...current, ...outcome } : current
+		);
 		try {
-			await creativaServerClient()
-				.patch(orderId)
-				.ifRevisionId(order._rev)
-				.set({
-					notifications: order.notifications.map((r) =>
-						r._key === key ? { ...r, ...outcome } : r
-					),
-				})
-				.commit({ visibility: "sync", returnDocuments: false });
+			await patchReceipt(
+				client,
+				order,
+				aggregateReceipt(
+					receipt,
+					parts,
+					outcome.state === "pending" ? outcome.outcome || "PARTIAL_PENDING" : "PARTIAL_PENDING"
+				)
+			);
 			return;
 		} catch (error) {
 			if (!conflict(error)) throw error;
 		}
 	}
-	throw new CreativaError("HANDOFF_STATE_UNAVAILABLE", "Chưa lưu được kết quả thông báo.", 503);
+	throw stateUnavailable();
+}
+
+async function sendPart(
+	chatId: string,
+	text: string,
+	timeout: number
+): Promise<Partial<NotificationPart>> {
+	const token = process.env.CREATIVA_TELEGRAM_BOT_TOKEN;
+	if (!token) return { state: "failed", outcome: "TOKEN_MISSING" };
+	const abort = new AbortController();
+	const timer = setTimeout(() => abort.abort(), timeout);
+	try {
+		const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+			method: "POST",
+			signal: abort.signal,
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" }),
+		});
+		const result: unknown = await response.json();
+		if (
+			typeof result === "object" &&
+			result !== null &&
+			"ok" in result &&
+			result.ok === true &&
+			"result" in result &&
+			typeof result.result === "object" &&
+			result.result !== null &&
+			"message_id" in result.result &&
+			typeof result.result.message_id === "number"
+		) {
+			return { state: "sent", outcome: "DELIVERED", messageId: String(result.result.message_id) };
+		}
+		return response.status >= 400 && response.status < 500
+			? { state: "failed", outcome: "PROVIDER_REJECTED" }
+			: { state: "unknown", outcome: "PROVIDER_OUTCOME_UNKNOWN" };
+	} catch {
+		return { state: "unknown", outcome: "TRANSPORT_OUTCOME_UNKNOWN" };
+	} finally {
+		clearTimeout(timer);
+	}
+}
+
+async function dispatchOne(
+	client: NotificationClient,
+	orderId: string,
+	key: string,
+	options: DispatchOptions,
+	run: DispatchRun
+): Promise<void> {
+	let conflicts = 0;
+	while (conflicts < 4) {
+		const order = await client.getDocument<StoredOrder>(orderId);
+		const receipt = order?.notifications.find((current) => current._key === key);
+		if (!order || !receipt || receipt.state === "sent") return;
+		if (!receipt.parts?.length) {
+			if (!mayDispatch(receipt, options)) return;
+			const legacyUnknown = receipt.state === "unknown" || receipt.state === "dispatching";
+			const initialized = aggregateReceipt(
+				{
+					...receipt,
+					...(legacyUnknown && { legacyUnknownAcknowledgedAt: new Date().toISOString() }),
+				},
+				notificationParts(order)
+			);
+			try {
+				await patchReceipt(client, order, initialized);
+			} catch (error) {
+				if (!conflict(error)) throw error;
+				conflicts++;
+			}
+			continue;
+		}
+		const part = receipt.parts.find((current) => current.state !== "sent");
+		if (!part || !mayDispatch(part, options)) return;
+		if (run.sends >= 4 || run.deadline - Date.now() < 3500) {
+			// No send has been claimed: future operator invocations can safely advance pending parts.
+			if (part.state === "pending") {
+				try {
+					await patchReceipt(
+						client,
+						order,
+						aggregateReceipt(
+							receipt,
+							receipt.parts,
+							run.sends >= 4 ? "DISPATCH_BUDGET_EXHAUSTED" : "DISPATCH_DEADLINE_REACHED"
+						)
+					);
+					return;
+				} catch (error) {
+					if (!conflict(error)) throw error;
+					conflicts++;
+					continue;
+				}
+			}
+			return;
+		}
+		const nonce = randomUUID();
+		const attemptedAt = new Date().toISOString();
+		const claimed: NotificationPart = {
+			...part,
+			state: "dispatching",
+			outcome: "DISPATCHING",
+			nonce,
+			attemptedAt,
+			attempts: part.attempts + 1,
+			...(part.state === "unknown" || part.state === "dispatching"
+				? { unknownAcknowledgedAt: attemptedAt }
+				: {}),
+		};
+		try {
+			await patchReceipt(
+				client,
+				order,
+				aggregateReceipt(
+					{ ...receipt, nonce, attemptedAt },
+					receipt.parts.map((current) => (current._key === part._key ? claimed : current))
+				)
+			);
+		} catch (error) {
+			if (!conflict(error)) throw error;
+			conflicts++;
+			continue;
+		}
+		const timeLeft = run.deadline - Date.now() - 500;
+		if (timeLeft <= 0) {
+			await savePartOutcome(client, orderId, key, part._key, nonce, {
+				state: "pending",
+				outcome: "DEADLINE_BEFORE_SEND",
+			});
+			return;
+		}
+		run.sends++;
+		const outcome = await sendPart(receipt.chatId, part.text, Math.min(3000, timeLeft));
+		await savePartOutcome(client, orderId, key, part._key, nonce, outcome);
+		if (outcome.state !== "sent") return;
+		conflicts = 0;
+	}
+	throw stateUnavailable();
 }
 
 export async function dispatchNotifications(
 	orderId: string,
-	options: { retry?: boolean; acknowledgeUnknown?: boolean } = {}
+	options: DispatchOptions = {}
 ): Promise<void> {
-	let order = await creativaServerClient().getDocument<StoredOrder>(orderId);
+	// At most four transport attempts; no new send after the 15-second send budget.
+	const run = { deadline: Date.now() + 15000, sends: 0 };
+	const client = creativaServerClient().withConfig({ timeout: 2500 });
+	let order = await client.getDocument<StoredOrder>(orderId);
 	if (!order || order._type !== "creativaOrder")
 		throw new CreativaError("ORDER_NOT_FOUND", "Không tìm thấy đơn.", 404);
 	if (options.retry && !order.notifications.length) {
 		const setup = await notificationSetup();
 		if (setup.issue)
 			throw new CreativaError(setup.issue, "Kiểm tra cấu hình sales trước khi thử lại.", 503);
-		await creativaServerClient()
+		await client
 			.patch(orderId)
 			.ifRevisionId(order._rev)
 			.set({ notifications: setup.receipts })
 			.unset(["handoffIssue"])
-			.commit({ visibility: "sync", returnDocuments: false });
-		order = await creativaServerClient().getDocument<StoredOrder>(orderId);
+			.commit({ visibility: "sync", returnDocuments: false, timeout: 2500 });
+		order = await client.getDocument<StoredOrder>(orderId);
 		if (!order) throw new CreativaError("SERVICE_UNAVAILABLE", "Không thể tải đơn.", 503);
 	}
 	for (const candidate of order.notifications) {
-		if (candidate.state === "sent") continue;
-		if (candidate.state === "dispatching" || candidate.state === "unknown") {
-			if (!options.retry) continue;
-			if (!options.acknowledgeUnknown)
-				throw new CreativaError(
-					"UNKNOWN_REQUIRES_ACK",
-					"Cần xác nhận đã đối soát kết quả chưa rõ.",
-					409
-				);
-			if (
-				candidate.state === "dispatching" &&
-				Date.now() - Date.parse(candidate.attemptedAt || "") < 60000
-			) {
-				throw new CreativaError("DISPATCH_IN_PROGRESS", "Đang gửi; không được gửi chồng.", 409);
-			}
-		}
-		if (candidate.state === "failed" && !options.retry) continue;
-		await dispatchOne(orderId, candidate._key, options);
-	}
-}
-
-async function dispatchOne(
-	orderId: string,
-	key: string,
-	options: { retry?: boolean; acknowledgeUnknown?: boolean }
-) {
-	for (let attempt = 0; attempt < 4; attempt++) {
-		const order = await creativaServerClient().getDocument<StoredOrder>(orderId);
-		const receipt = order?.notifications.find((r) => r._key === key);
-		if (!order || !receipt || receipt.state === "sent") return;
-		if (receipt.state !== "pending" && !options.retry) return;
-		if (["dispatching", "unknown"].includes(receipt.state) && !options.acknowledgeUnknown) return;
-		if (
-			receipt.state === "dispatching" &&
-			(!Number.isFinite(Date.parse(receipt.attemptedAt || "")) ||
-				Date.now() - Date.parse(receipt.attemptedAt || "") < 60000)
-		)
-			return;
-		const token = process.env.CREATIVA_TELEGRAM_BOT_TOKEN;
-		const message = formatNotification(order);
-		const nonce = randomUUID();
-		const claimed = {
-			...receipt,
-			state: "dispatching" as const,
-			nonce,
-			attemptedAt: new Date().toISOString(),
-		};
-		try {
-			await creativaServerClient()
-				.patch(orderId)
-				.ifRevisionId(order._rev)
-				.set({ notifications: order.notifications.map((r) => (r._key === key ? claimed : r)) })
-				.commit({ visibility: "sync", returnDocuments: false });
-		} catch (error) {
-			if (conflict(error)) continue;
-			throw error;
-		}
-		if (!token || message.length > 4000) {
-			await saveOutcome(orderId, key, nonce, {
-				state: "failed",
-				outcome: !token ? "TOKEN_MISSING" : "MESSAGE_TOO_LARGE",
-			});
-			return;
-		}
-		const abort = new AbortController();
-		const timer = setTimeout(() => abort.abort(), 3000);
-		let outcome: Partial<Receipt>;
-		try {
-			const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-				method: "POST",
-				signal: abort.signal,
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ chat_id: receipt.chatId, text: message, parse_mode: "HTML" }),
-			});
-			const result: unknown = await response.json();
-			if (
-				typeof result === "object" &&
-				result !== null &&
-				"ok" in result &&
-				result.ok === true &&
-				"result" in result &&
-				typeof result.result === "object" &&
-				result.result !== null &&
-				"message_id" in result.result &&
-				typeof result.result.message_id === "number"
-			) {
-				outcome = {
-					state: "sent",
-					outcome: "DELIVERED",
-					messageId: String(result.result.message_id),
-				};
-			} else if (response.status >= 400 && response.status < 500) {
-				outcome = { state: "failed", outcome: "PROVIDER_REJECTED" };
-			} else {
-				outcome = { state: "unknown", outcome: "PROVIDER_OUTCOME_UNKNOWN" };
-			}
-		} catch {
-			outcome = { state: "unknown", outcome: "TRANSPORT_OUTCOME_UNKNOWN" };
-		} finally {
-			clearTimeout(timer);
-		}
-		await saveOutcome(orderId, key, nonce, outcome);
-		return;
+		await dispatchOne(client, orderId, candidate._key, options, run);
 	}
 }

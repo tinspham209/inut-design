@@ -58,6 +58,7 @@ async function request<T>(url: string, init?: RequestInit): Promise<T> {
 			payload.error.fieldErrors
 		);
 		error.quote = payload.error.quote;
+		error.terminal = payload.error.terminal === true;
 		throw error;
 	}
 	if (!response.ok || payload.ok !== true)

@@ -226,7 +226,7 @@ Return a typed envelope: success with data, or error with allowlisted `code`, lo
 | 413 / 429 | Oversized input or rate limit; preserve client state and honor retry guidance. |
 | 503 | CMS/configuration/allocation temporarily unavailable or acceptance outcome cannot yet be resolved. Retry/resolve the same capability. |
 
-All checkout/order responses and tracking responses use `Cache-Control: no-store`; never send secrets in query strings, exception messages or response diagnostics.
+All checkout/order responses and tracking responses use `Cache-Control: no-store`; never send secrets in query strings, exception messages or response diagnostics. Error `terminal: true` is emitted only after an intent is durably rejected; the browser does not infer rejection from a configuration code or 5xx response.
 
 ### 7.2 Quote evaluation
 
@@ -298,7 +298,7 @@ The order starts `pending` / `pending`, stores all typed production/financial sn
 
 ### Cart
 
-Use Zustand's existing persistence pattern with versioned payload at `inut-creativa-cart`; do not reuse its lighter domain model. Validate persisted data before marking hydration ready. Keep a quarantine/error state for corrupt/unknown data and show recovery choices; never overwrite unread corrupt storage with a default empty state.
+Use Zustand's existing persistence pattern with versioned payload at `inut-creativa-cart`; do not reuse its lighter domain model. Validate entries individually: retain healthy lines, quarantine invalid/unknown rows and block checkout until explicit invalid-only repair. An entirely unreadable container has a separate explicit-reset path. Never overwrite unread corruption with a default empty success.
 
 Each displayed configuration line has a stable instance ID and quantity contributions with random contribution IDs. New additions merge visually but retain their contribution identity. At submit, capture/reserve the exact submitted contributions/quantities. While outcome is unknown, block editing/removal of reserved quantities, but allow unrelated/new additions. This is the minimum ledger needed for accepted cleanup, not a generic reservation/stock or replicated-cart engine.
 
@@ -321,6 +321,8 @@ On reload with a journal, resolve first; do not redirect to empty checkout befor
 5. Dispatch permitted conversion work separately using accepted context. Do not retain/replay cart/history solely to wait for metrics or future consent; never emit purchase from an ordinary public tracking render.
 
 The completion ledger distinguishes critical local reconciliation from ancillary measurement. Browser keys are not an atomic transaction: denied checkpoint writes require a visible limitation, not an exactly-once local-storage claim. CR-08/CR-17 must prove the interruption windows in DB-11/BDD-25 of the refined test plan.
+
+An accepted callback first checks the current shared attempt rather than trusting captured flags. A missing/replaced/completed journal cannot be recreated by a delayed component merely to repeat local side effects. Volatile fallback is reserved for a never-persisted live-tab attempt, not an already-cleared persisted journal.
 
 Local-storage failure must not reclassify a server-accepted order. Fall back to in-memory capability during the live tab, show a storage/recovery limitation and keep copy actions available. Do not promise reload/tab-close recovery when the browser refused to retain the capability.
 
@@ -367,6 +369,8 @@ Accepted orders contain notification state `pending`, `dispatching`, `sent`, `fa
 Invoke the existing Telegram transport server-side with a Creativa-specific formatter, escaping all user text for the chosen format. Read the saved order, not client notification bodies. Bound the HTTP timeout/request budget; do not launch an unawaited serverless background promise.
 
 Persist sent/message identity on known success. Known rejection is failed; a network timeout/crash after possible delivery is unknown. An accepted checkout remains accepted in all cases. Do not automatically retry uncertain delivery as though it were definitely not sent.
+
+Valid input can exceed one provider message. Split complete escaped content into bounded Unicode/entity-safe parts and persist per-part progress within the destination receipt. Known sent parts are skipped on replay; failed/deferred parts can progress in another bounded invocation, and uncertain parts require explicit operator acknowledgment. Current send budget is at most four sends and 15 seconds per invocation; actual hosting duration remains a deployment verification prerequisite, not an assumed guarantee.
 
 Staff can filter failed/unknown/stale-dispatching states in authenticated Studio. A proposed `scripts/retry-creativa-notification.mjs` uses server credentials and the same claim routine; unknown delivery needs explicit operator reconciliation/confirmation before retry. No public “send arbitrary order notification” API, queue or new cron service is introduced.
 

@@ -179,6 +179,7 @@ export type CreativaAccepted = { created: boolean; order: CreativaPublicOrder };
 export type CreativaApiError = {
 	code: string;
 	message: string;
+	terminal?: boolean;
 	fieldErrors?: Record<string, string>;
 	quote?: CreativaQuote;
 };

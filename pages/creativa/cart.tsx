@@ -200,13 +200,22 @@ const Cart: NextPageWithLayout = () => {
 							action={
 								<Button
 									onClick={() => {
+										if (cart.quarantinedCount) {
+											if (
+												window.confirm(
+													"Chỉ loại bỏ các mục không hợp lệ và giữ nguyên sản phẩm hợp lệ? Thao tác này không hủy đơn đã gửi."
+												)
+											)
+												cart.discardInvalid();
+											return;
+										}
 										if (
 											window.confirm("Chỉ xóa giỏ Creativa lỗi? Đơn hàng và lịch sử không bị xóa.")
 										)
 											cart.resetCorrupt();
 									}}
 								>
-									Khôi phục giỏ lỗi
+									{cart.quarantinedCount ? "Loại bỏ mục lỗi" : "Khôi phục giỏ lỗi"}
 								</Button>
 							}
 						>

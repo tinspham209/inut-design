@@ -118,8 +118,19 @@ const Checkout: NextPageWithLayout = () => {
 		setAccepted(result.order);
 		setError(null);
 		if (completed.current.has(current.capability)) return;
-		completed.current.add(current.capability);
-		const progress = { ...current };
+		const latest = readAttempt();
+		if (
+			!latest.value ||
+			latest.value.capability !== current.capability ||
+			(latest.error && !latest.unavailable)
+		) {
+			setWarning(
+				latest.error ||
+					"Tiến trình cục bộ đã được xử lý hoặc thay đổi. Đơn đã được tiếp nhận; không đặt lại."
+			);
+			return;
+		}
+		const progress = { ...latest.value };
 		const warnings: string[] = [];
 		if (!progress.cartHandled) {
 			try {
@@ -151,7 +162,10 @@ const Checkout: NextPageWithLayout = () => {
 		if (progress.cartHandled && progress.historyHandled) {
 			const failure = clearAttempt(progress.capability);
 			if (failure) warnings.push(failure);
-			else setAttempt(null);
+			else {
+				completed.current.add(progress.capability);
+				setAttempt(null);
+			}
 		}
 		if (warnings.length) setWarning([...new Set(warnings)].join(" "));
 		void dispatchPurchase(progress.capability, result.order);
@@ -168,18 +182,7 @@ const Checkout: NextPageWithLayout = () => {
 		try {
 			acceptedCompletion(await creativaApi.resolve(current.capability), current);
 		} catch (failure) {
-			if (
-				failure instanceof CreativaRequestError &&
-				[
-					"INTENT_NOT_BOUND",
-					"INTENT_REJECTED",
-					"QUOTE_CHANGED",
-					"ITEM_UNAVAILABLE",
-					"INVALID_PAYMENT",
-					"CONFIGURATION_ERROR",
-					"INVALID_PRICE",
-				].includes(failure.code)
-			) {
+			if (failure instanceof CreativaRequestError && failure.terminal) {
 				const cleared = clearAttempt(current.capability);
 				if (cleared) setWarning(cleared);
 				else setAttempt(null);
@@ -312,7 +315,16 @@ const Checkout: NextPageWithLayout = () => {
 
 	async function submit(event: React.FormEvent) {
 		event.preventDefault();
-		if (lock.current || attempt || !quote || quoteLoading || accepted || journalCorrupt) return;
+		if (
+			lock.current ||
+			attempt ||
+			!quote ||
+			quoteLoading ||
+			accepted ||
+			journalCorrupt ||
+			cart.error
+		)
+			return;
 		let current: CheckoutAttempt | null = null;
 		try {
 			const body = parseCheckout({
@@ -362,11 +374,7 @@ const Checkout: NextPageWithLayout = () => {
 				setQuote(failure.quote);
 				trackCreativa("checkout_error", { reason: "quote_changed" });
 			}
-			const isDefiniteRejection =
-				failure instanceof CreativaRequestError &&
-				failure.status >= 400 &&
-				failure.status < 500 &&
-				failure.status !== 429;
+			const isDefiniteRejection = failure instanceof CreativaRequestError && failure.terminal;
 			if (current && isDefiniteRejection) {
 				const clearing = clearAttempt(current.capability);
 				if (!clearing) setAttempt(null);
@@ -434,6 +442,11 @@ const Checkout: NextPageWithLayout = () => {
 									Xem đơn và sao chép mã
 								</Button>
 							</Link>
+							{attempt && (
+								<Button disabled={busy} onClick={() => void resolve(attempt)} sx={{ mt: 1 }}>
+									Thử khôi phục giỏ cục bộ (không đặt lại)
+								</Button>
+							)}
 						</Box>
 					) : attempt ? (
 						<Alert
