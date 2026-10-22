@@ -221,10 +221,14 @@ export function quoteFromRecords(
 			422
 		);
 	}
-	const lines: StoredLine[] = purchases.map((purchase) => {
-		const product = products.find((p) => p._id === purchase.productId);
-		const model = models.find((m) => m._id === purchase.selection.modelId);
-		const coverage = coverages.find((c) => c._id === purchase.selection.coverageId);
+	const selections = purchases.map((purchase) => ({
+		purchase,
+		product: products.find((p) => p._id === purchase.productId),
+		model: models.find((m) => m._id === purchase.selection.modelId),
+		coverage: coverages.find((c) => c._id === purchase.selection.coverageId),
+	}));
+	const unavailable: Record<string, string> = {};
+	for (const { purchase, product, model, coverage } of selections) {
 		if (
 			!publishedId(purchase.productId) ||
 			!publishedId(purchase.selection.modelId) ||
@@ -233,13 +237,17 @@ export function quoteFromRecords(
 			!model ||
 			!coverage
 		) {
-			throw new CreativaError(
-				"ITEM_UNAVAILABLE",
-				"Một lựa chọn không còn khả dụng. Vui lòng kiểm tra giỏ hàng.",
-				409,
-				{ [lineIdentity(purchase)]: "Sản phẩm, mẫu máy hoặc phạm vi dán không khả dụng." }
-			);
+			unavailable[lineIdentity(purchase)] = "Sản phẩm, mẫu máy hoặc phạm vi dán không khả dụng.";
 		}
+	}
+	if (Object.keys(unavailable).length)
+		throw new CreativaError(
+			"ITEM_UNAVAILABLE",
+			"Một lựa chọn không còn khả dụng. Vui lòng kiểm tra giỏ hàng.",
+			409,
+			unavailable
+		);
+	const lines: StoredLine[] = selections.map(({ purchase, product, model, coverage }) => {
 		const unitPrice = safeMoney(coverage.price);
 		if (unitPrice === 0)
 			throw new CreativaError("CONFIGURATION_ERROR", "Giá sản phẩm chưa khả dụng.", 503);

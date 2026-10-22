@@ -231,6 +231,14 @@ Both new actual-source probes were red on `918134b`; all eight groups now pass. 
 
 All 15 isolated actual-source probe groups pass; the eight already green groups were retained. Current lint/TypeScript/application build/postbuild gates pass. Chromium at 390×844 confirms invalid-phone field error/focus with one event per local destination and no submit/journal, and affected-row warning beside a retained healthy row with checkout blocked and no horizontal overflow. Browser API responses/collectors are synthetic local stubs, and order requests are aborted. Read-only re-audit remains required.
 
+### Rework checkpoint — audit round 5 connected variants
+
+- [x] I-17 — Shared customer validation now returns localized field metadata for invalid required name and malformed/oversized optional fields; existing error code/status and validation limits remain unchanged.
+- [x] I-14 — Authoritative availability validation collects every unavailable identity before rejecting; one healthy/two unavailable pure-helper case reports exactly two errors and no healthy error.
+- [x] I-18 — Quote and cart/address/payment snapshot are associated; abandonment cannot mix changed-cart counts with another snapshot's amount.
+
+All 16 actual-source lifecycle groups pass, plus actual shared-parser invalid-name/optional-field metadata and complete unavailable-map/valid-quote checks without external I/O. Another read-only audit remains required.
+
 ### Shared-file ownership
 
 - CR-03 owns new schema registration and Studio action integration.
