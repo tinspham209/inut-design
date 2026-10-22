@@ -1,10 +1,10 @@
 # INUT Creativa — Technical Design
 
 **SDD gate:** Technical design.
-**Status:** Baseline approved by the owner on 2026-10-22. The current gate refines the plan/test strategy; the [revised plan](./plan.md) is the implementation source of truth.
+**Status:** Baseline approved by the owner on 2026-10-22; plan/test refinements were approved and feature-branch implementation performed. The [revised plan](./plan.md) remains the task/evidence source of truth; [final verification](./final-verification.md) records blocked full acceptance.
 **Date:** 2026-10-22.
 **Authority:** [Approved specification](./specs.md) and [approved idea](./idea.md).
-**Boundary:** Architecture, data ownership, interfaces, algorithms, failure behavior and verification design. Proposed source paths below do not mean those files or features already exist.
+**Boundary:** Architecture, data ownership, interfaces, algorithms, failure behavior and verification design. Delivered paths are evidenced by source and the final report, not by this design's existence alone.
 **Refinement precedence:** Follow the plan's explicit Gap/Assumption/Over-engineering dispositions: canonical business-value digests, replay-safe local completion, nonblocking analytics, early evidence feasibility and an actual production handoff. These clarify implementation sufficiency without removing business requirements.
 
 ## 1. Design decisions
@@ -26,7 +26,7 @@
 
 ## 2. Existing foundations and change boundary
 
-The repository already provides the necessary stack, but its product-specific implementations are references rather than drop-in Creativa contracts:
+At design approval, the repository provided the following baseline. This historical comparison explains the change boundary; it does not describe the delivered Creativa layout as still sharing the root footer:
 
 - [CreativaLayout](../../components/layout/creativa.tsx) already uses a Creativa header but still shares the root footer. Existing header components retain main-brand visual/link assumptions.
 - [Lighter checkout](../../pages/checkout/lighters.tsx) provides the guest form, bank/COD UI and workflow. Its client-computed order body and lighter types are not the new server-authoritative contract.
@@ -37,9 +37,9 @@ The repository already provides the necessary stack, but its product-specific im
 
 Do not change existing lighter schemas, storage keys, pricing tiers, API responses, references, SPX behavior or public routes. Shared-file edits are limited to route-aware integration, optional backwards-compatible SEO data and registration of new schemas.
 
-### Proposed source ownership
+### Source ownership
 
-| Surface | Proposed location/responsibility |
+| Surface | Location/responsibility |
 | --- | --- |
 | Pure domain contracts | `models/creativa.ts`: discriminated line types, quotes, public views and error codes; no server imports. |
 | Public catalog wrapper | `api-client/creativa-catalog.ts`: explicit public projections and parameterized catalog queries. |
@@ -474,7 +474,7 @@ Verification layers:
 | Public reference access | Reference is a lookup capability, not customer authentication. Short IDs require masking, rate/abuse controls and careful sharing/logging. |
 | Cache/concurrent CMS edits | Cached views may be stale; server validation defines the accepted snapshot, not retroactive catalog reads. |
 
-**Gate outcome:** the baseline design, plan and test strategy were accepted. The current gate is refinement: [plan.md](./plan.md) governs revised tasks/exits and [test-plan.md](./test-plan.md) provides their evidence procedures. No implementation is authorized by writing this review; production deployment, test orders and third-party changes remain separately authorized.
+**Gate outcome:** Design, plan, test strategy and refinement were approved; the owner subsequently authorized implementation/commits/publication on `feat/creativa`. The revised plan governs exits and [final-verification.md](./final-verification.md) records actual results. Production deployment, data activation, real orders and third-party changes still require separate authorization.
 
 ### Evidence and authoritative references
 

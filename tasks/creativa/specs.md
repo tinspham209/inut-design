@@ -1,7 +1,7 @@
 # INUT Creativa — Product Specification
 
 **SDD gate:** Specification.
-**Status:** Approved by the owner on 2026-10-22. The next artifact is [technical-design.md](./technical-design.md); approval of this specification does not approve that technical design or authorize production implementation.
+**Status:** Approved by the owner on 2026-10-22; subsequent design/plan/test/refinement gates were also approved and feature-branch implementation authorized. Current results are in [final-verification.md](./final-verification.md); production activation remains unapproved.
 **Date:** 2026-10-22.
 **Latest amendment:** Prefix-free 10-character public order IDs and uncapped browser-local order-ID shortcuts on both tracking search pages.
 **Authority:** [Approved idea](./idea.md), subsequent owner answers recorded below, and [supplied references](#10-visual-and-interaction-requirements).
@@ -296,7 +296,7 @@ All new Creativa schema display titles MUST use the exact prefix **`Creative - `
 
 ## 12. Acceptance scenarios
 
-These scenarios are requirements for future implementation verification, not claims that tests have already run.
+These scenarios define acceptance, not automatic passing claims. Per-scenario results and unexecuted witnesses are in [final-verification.md](./final-verification.md).
 
 | ID | Given / when | Required outcome | Requirements |
 | --- | --- | --- | --- |
@@ -371,7 +371,7 @@ No extra product type, stock promise, material statement, MOQ, shipping SLA or l
 
 ## 14. Specification exit gate
 
-**Gate outcome:** the owner approved this specification and requested [technical-design.md](./technical-design.md). This gate is complete; technical design remains a separate review gate before implementation tasks and production work.
+**Gate outcome:** The specification and subsequent design/plan/test/refinement gates are approved. Implementation is recorded in the revised plan and final report; full acceptance/deployment still require the outstanding authorized witnesses. The requirements and all 52 ACs above remain unchanged.
 
 Technical design must resolve the implementation of these requirements: internal schema/types and safe product-type extension, explicit public/server projections, configuration/cache freshness and quote review, idempotent write/recovery semantics, cryptographic short-ID allocation/uniqueness, snapshot/reference retention, deterministic shipping fallback, safe public order access, browser-history validation/storage failure and cross-tab mutation limitations, notification failure/retry visibility, cart hydration/cleanup and actual GA4/GTM/Umami dispatch/deduplication/privacy behavior.
 

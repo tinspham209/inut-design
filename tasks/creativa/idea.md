@@ -1,6 +1,6 @@
 # INUT Creativa — Product Idea
 
-**SDD phase:** Idea clarification, before specification, technical design and implementation tasks.
+**SDD phase:** Approved idea; implementation and verification status are tracked in the revised plan and final report.
 **Source:** [Original brief](./brief.md), owner clarification answers, and the supplied Uniqfind screenshots.
 **Status:** Approved by the owner for the specification gate on 2026-10-22. See [specs.md](./specs.md) for detailed requirements and the subsequent selection, price-display and checkout-field clarifications.
 **Latest revision:** Prefix-free 10-character public order IDs and uncapped browser-local saved-order tags, within the shared Creativa cart/checkout/order journey and independent of lighters.
@@ -408,12 +408,12 @@ The following are owner-provided inputs, not permission to invent missing facts:
 | Approved material, availability, delivery, warranty or policy claims, if displayed | Truthful product and checkout messaging. |
 | Future guide content | Later guide/content phase, not a blocker for honest placeholders. |
 
-**Gate outcome:** the owner accepted the idea, specification, technical design, plan and test strategy. The current gate refines [plan.md](./plan.md) and [test-plan.md](./test-plan.md) together; application implementation has not started.
+**Gate outcome:** The owner approved the idea, specification, design, plan, test strategy and refinement, then authorized feature-branch implementation. Code and audit work are recorded in [plan.md](./plan.md); [final-verification.md](./final-verification.md) retains the unresolved launch/acceptance witnesses. Approval is not deployment or production-data authorization.
 
-### Repository evidence consulted
+### Repository evidence consulted at idea clarification
 
-- [Existing Creativa homepage](../../pages/creativa/index.tsx): current running/trail positioning to replace.
-- [Creativa layout](../../components/layout/creativa.tsx) and [header entry](../../components/common/header/index.tsx): a Creativa header already exists; the current layout still uses the shared footer.
+- [Creativa homepage](../../pages/creativa/index.tsx): originally had the running/trail positioning now replaced by the implementation.
+- [Creativa layout](../../components/layout/creativa.tsx) and [header entry](../../components/common/header/index.tsx): the original layout shared the root footer; the delivered Creativa layout now has its own shell.
 - [Legacy catalog](../../pages/san-pham/skin-laptop/index.tsx), [product card imagery](../../components/product/product-item.tsx) and [detail gallery](../../pages/san-pham/skin-laptop/[slug].tsx): the image-interaction baseline, not the new light-theme styling.
 - [Lighter cart](../../store/cart/lightersCart.ts), [checkout](../../pages/checkout/lighters.tsx), [order API](../../pages/api/orders/lighters.ts) and [order models](../../models/cart.ts): workflow reference and contracts to keep isolated.
 - [Shared tracking search](../../pages/order-tracking/index.tsx) and [lighter tracking detail](../../pages/order-tracking/lighters/[slug].tsx): existing lookup/confirmation pattern to extend without regression.
