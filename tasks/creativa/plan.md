@@ -1,7 +1,7 @@
 # INUT Creativa — Implementation Plan
 
-**SDD gate:** Plan and test-plan refinement.
-**Status:** Baseline plan and test strategy accepted by the owner on 2026-10-23; this reverse-validated refinement is pending review. All implementation tasks are **not started**.
+**SDD gate:** Approved plan/refinement; implementation, audit and issue routing executed; final acceptance remains blocked.
+**Status:** Owner-approved baseline and refinement. Application implementation is committed on `feat/creativa` through `7fedd01`; all recorded source findings are resolved. Required external/manual witnesses keep the applicable tasks, CR-19 and CR-20 incomplete. See [final-verification.md](./final-verification.md).
 **Date:** 2026-10-22.
 **Refinement date:** 2026-10-23.
 **Source of truth:** This revised plan governs implementation scope, task dependencies, exit evidence and the dispositions below. [test-plan.md](./test-plan.md) supplies the linked procedures. Earlier documents supply the approved business requirements; an older implementation detail does not override an explicit refinement here. No acceptance criterion is silently removed or weakened.
@@ -109,7 +109,7 @@ Do not commit, deploy, seed production data, send production notifications or cr
 | G-02 | Approved model/Interior fits, retained printable masters/templates, three-view gallery assets, wording and any displayed claims. | CR-21 publication readiness and CR-22 handoff; not merely a final code review. |
 | G-03 | Independent shipping/default fee, bank, sales/support destinations and server-only bot credential. | CR-21 configuration and CR-22 operational readiness; earlier tests use explicitly authorized fake values. |
 | G-04 | Actual collector/container, proxy/edge/log access and permitted fault-control methods. | CR-23 feasibility, affected task witnesses and CR-19/CR-20; source assumptions are insufficient. |
-| G-05 | Baseline plan/test strategy accepted; refined plan/test plan are the current review, then separate release authorization. | Implementation execution, then production activation respectively. |
+| G-05 | Baseline and refined plan/test strategy approved; feature-branch implementation/commits/publication authorized. Release authorization remains separate and absent. | Implementation approval is satisfied; production activation still requires CR-20 signoff. |
 | G-06 | Real iPhone/Safari and owner/staff review availability. | Native-device CR-19 evidence and CR-22's operational signoff; viewport emulation is not the substitute. |
 
 These inputs are **unconfirmed until supplied/verified**, not assumed available and not invented. Missing external access does not prevent isolated pure/mock work, but it does block the corresponding integration/release claim.
@@ -168,7 +168,7 @@ Checked means the task's scoped witness is available, not merely that files were
 - [ ] CR-16 — Durable claims implemented and bounded payloads exercised in isolated worker checks; actual hosted delivery/interruption evidence pending.
 - [ ] CR-17 — Guest form/browser-only accepted response exercised with blank optional fields; cart became empty, history stayed one entry and journal cleared. No real order was created.
 - [ ] CR-18 — Legacy ordering destinations and SEO exclusions implemented; production build/postbuild SEO smoke pass. Complete browser/owner crawl pending.
-- [ ] CR-19 — Reserved for the separate verification phase; no complete AC pass claimed.
+- [ ] CR-19 — Final verification executed and recorded per requirement/AC; full integrated acceptance remains blocked by E-01 through E-04.
 - [ ] CR-20 — No deployment, activation, real order or main-branch operation authorized/performed.
 - [ ] CR-21 — Blocked on approved new catalog/model/print/fee/bank/recipient content; legacy artwork was read only for a clearly labeled local UI fixture.
 - [ ] CR-22 — Blocked on actual operator/production-fit/asset handoff authorization and inputs.
@@ -212,14 +212,14 @@ Read-only final verification at `d3b0cdb` reopened the code loop. Six isolated a
 - [x] I-10 — Current quote rule/fee signatures own shipping commits, including blank-address defaults; valid submit records an unchanged default payment without duplicating an explicit selection.
 - [x] I-11 — Initial visible cached catalog cards have impressions even on revalidation failure; unchanged refreshes, duplicate batches and layout rerenders do not replay them.
 
-The post-rework stop gate passes: lint without warnings, TypeScript, existing SPX 42 checks, application/postbuild SEO and Studio builds. Chromium locally stubbed collectors also observed one history-read error and empty-cart view per destination. Read-only round 3 audit is still required before final verification restarts. External blockers E-01 through E-04 remain unchanged.
+The post-rework stop gate passes: lint without warnings, TypeScript, existing SPX 42 checks, application/postbuild SEO and Studio builds. Chromium locally stubbed collectors observed one history-read error and empty-cart view per destination. Subsequent rounds found/fixed the variants below; cumulative closure is recorded through round 7. External blockers E-01 through E-04 remain unchanged.
 
 ### Rework checkpoint — audit round 3
 
 - [x] I-12 — Impression ownership resets only when a debounced query commits and changes presentation; cancelling transient input retains continuously displayed-card deduplication.
 - [x] I-13 — Repricing failure has one specific error emission while preserving the replacement quote and confirmed-terminal journal cleanup.
 
-Both new actual-source probes were red on `918134b`; all eight groups now pass. They were added alongside, not in place of, the six passing probe groups. Post-fix lint, TypeScript, SPX 42 and application/postbuild SEO gates pass; unchanged Studio source retains its passing build. Another read-only audit remains required.
+Both new actual-source probes were red on `918134b`; all eight groups passed after rework without replacing the original six. Post-fix gates passed and round 4 re-audit resolved I-12/I-13; later exact-contract work is recorded below.
 
 ### Rework checkpoint — exact-contract final-verification gaps
 
@@ -229,7 +229,7 @@ Both new actual-source probes were red on `918134b`; all eight groups now pass. 
 - [x] I-17 — The form delegates required/format validation to the existing shared parser, retains accessible required labels and focuses the first named invalid field.
 - [x] I-18 — Quote-failure/pending-exit entry has truthful unavailable money, abandonment has stable lifecycle ownership and synchronous in-flight/known-acceptance guards.
 
-All 15 isolated actual-source probe groups pass; the eight already green groups were retained. Current lint/TypeScript/application build/postbuild gates pass. Chromium at 390×844 confirms invalid-phone field error/focus with one event per local destination and no submit/journal, and affected-row warning beside a retained healthy row with checkout blocked and no horizontal overflow. Browser API responses/collectors are synthetic local stubs, and order requests are aborted. Read-only re-audit remains required.
+All 15 isolated actual-source probe groups passed without replacing the original eight. Chromium at 390×844 confirmed invalid-phone error/focus and affected-row/healthy-row blocking with local stubs. Rounds 5/6 subsequently exposed and fixed the connected variants below; round 7 closes the remaining source finding.
 
 ### Rework checkpoint — audit round 5 connected variants
 
@@ -237,7 +237,7 @@ All 15 isolated actual-source probe groups pass; the eight already green groups 
 - [x] I-14 — Authoritative availability validation collects every unavailable identity before rejecting; one healthy/two unavailable pure-helper case reports exactly two errors and no healthy error.
 - [x] I-18 — Quote and cart/address/payment snapshot are associated; abandonment cannot mix changed-cart counts with another snapshot's amount.
 
-All 16 actual-source lifecycle groups pass, plus actual shared-parser invalid-name/optional-field metadata and complete unavailable-map/valid-quote checks without external I/O. Another read-only audit remains required.
+All 16 actual-source lifecycle groups pass, plus actual shared-parser invalid-name/optional-field metadata and complete unavailable-map/valid-quote checks without external I/O. Read-only rounds 6/7 resolved the remaining wrapper variant below.
 
 - [x] I-14 wrapper variant — `evaluateQuote` excludes invalid/draft/private identifiers from SDK reads rather than bypassing the complete identity-error map. The stubbed SDK probe covers a healthy row, malformed/draft row and unavailable valid-ID row together; no external read is needed.
 
@@ -583,7 +583,7 @@ Additional mandatory refinement witnesses are CT-11 through CT-14, DB-11, NE-11 
 
 ## 7. Verification commands and artifacts
 
-Do not run app builds/tests merely for this documentation change. The existing commands below and the contract/database/browser procedures in [test-plan.md](./test-plan.md) govern later verification. No new unit-test suite, test script or test framework is required by this plan.
+Documentation-only reconciliation does not require another application build. Existing commands and the contract/database/browser procedures in [test-plan.md](./test-plan.md) govern verification; executed scope is in the final report. No new unit-test suite, test script or test framework is required.
 
 | Check | Command/convention | When |
 | --- | --- | --- |
@@ -622,6 +622,6 @@ Do not blindly restore old manual-order CTAs or point legacy users at a broken n
 
 ## 9. Plan exit gate
 
-**Current state:** the business idea/specification and prior design/plan/test strategy have been accepted. This refined plan and its test-plan amendments are the current review gate and source of truth. None of CR-01 through CR-23 has been executed by writing these documents.
+**Current state:** All SDD/refinement documents were approved and feature-branch implementation was authorized. Source findings I-01 through I-18 are resolved through code audit round 7 at `7fedd01`. [Final verification](./final-verification.md) records every requirement/AC, actual evidence and E-01 through E-04.
 
-After refinement approval, start with CR-01 and proceed through dependency-ready tasks, including early CR-23 feasibility. Update actual evidence, not just task checkboxes. Any missing required witness leaves its task and CR-19 incomplete; there is no “all tasks done, AC still blocked” success state. Production activation remains subject to CR-20 and explicit authorization.
+CR-01, CR-02 and CR-23 have their recorded completion. Unchecked tasks retain missing required witnesses, not a false “not implemented” blanket status or a false completion. There is no “all tasks done, AC still blocked” success state. Next work is the classified owner/environment/device verification; production activation remains subject to CR-20 and explicit authorization.

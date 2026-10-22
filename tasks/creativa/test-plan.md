@@ -1,7 +1,7 @@
 # INUT Creativa — Test Plan
 
-**SDD gate:** Plan and test-plan refinement.
-**Status:** Baseline strategy accepted by the owner on 2026-10-23; the amendments below are pending refinement review. No test execution or implementation pass is claimed.
+**SDD gate:** Approved strategy/refinement; partial execution and final verification recorded.
+**Status:** Baseline and refinements approved by the owner. Current evidence, individual requirement/AC results and unexecuted required witnesses are recorded in [final-verification.md](./final-verification.md). Full integration/release acceptance remains blocked; this plan is not itself a passing result.
 **Date:** 2026-10-23.
 **Authority:** The [revised plan](./plan.md) is the implementation/task/exit source of truth; this document supplies procedures for its reverse-validation matrix. The approved [specification](./specs.md) and [technical design](./technical-design.md) retain business context, subject to explicit refinement dispositions.
 **Constraint:** This is test documentation, not test code. Do not introduce a unit-test suite, runner, dependency, framework, CI job or coverage-percentage target. Existing focused assertions may be used where relevant; hypothetical Creativa test scripts are not existing quality gates.
@@ -66,7 +66,7 @@ The [Sanity deployment workflow](../../.github/workflows/deploy-sanity.yml) is a
 
 ### Entry conditions
 
-- The corresponding CR task and connected consumers are implemented; the approved API paths below are not claimed to exist today.
+- The corresponding CR task and connected consumers are implemented. API routes now exist; their existence is not proof of an authorized target, actual private access or acceptance.
 - Test URL, actual Sanity dataset/project and server permissions are identified. A localhost UI can still point to production; hostname alone is not isolation.
 - Mutations, private-record reads, recipient use and any third-party event delivery are explicitly authorized.
 - Existing lighter/legacy behavior is recorded before touching its shared surfaces.
@@ -303,7 +303,7 @@ Script exit status, a screenshot count and a “PASSED” log do not override th
 
 ### Exit criteria
 
-The owner accepted the baseline strategy; the current gate exits on review of this refined plan/test plan and its source-of-truth/closure rules. **No runtime tests need to be run merely to approve these documents.**
+The owner approved the baseline and refined plan/test strategy; that documentation gate is complete. Runtime execution remains a separate evidence gate, recorded in the final verification report rather than inferred from approval.
 
 Later implementation acceptance requires passing evidence for all applicable original and refinement oracles, the business handoff and existing quality gates, with no unresolved required criterion. Native-device/vendor/database/control gaps keep the relevant task and CR-19 blocked; do not relabel them as passed, mark all tasks done or assign an unsupported coverage percentage. Documentation completeness here is not runtime verification.
 
