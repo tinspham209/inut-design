@@ -34,7 +34,7 @@ import styles from "./productItem.module.css";
 const Carousel = dynamic(() => import("react-material-ui-carousel"), { ssr: false });
 const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
 import { staticContentEachPageApi } from "@/api-client/staticContentEachPage";
-import { StaticContentEachPage, UsagePurposeValue } from "@/models";
+import { StaticContentEachPage } from "@/models";
 import BlockContentWrapper from "@/components/common/block-content";
 
 const ProductDetail = ({ product, products, staticContent }: Props) => {
@@ -237,25 +237,14 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 							</Stack>
 
 							<Stack flexDirection="row" alignItems={"center"} mt={2} gap={2}>
-								<Link
-									href={`/contact/form?from=${
-										UsagePurposeValue.LAPTOP_CUSTOMIZE
-									}&note=${encodeURIComponent(`Tôi muốn dán skin laptop mẫu: ${product.name}`)}`}
-									passHref
-								>
+								<Link href="/creativa/skin-laptop" passHref>
 									<MuiLink>
 										<Button variant="contained" color="primary">
 											Đặt hàng
 										</Button>
 									</MuiLink>
 								</Link>
-								<MuiLink
-									href={`https://m.me/642209429738886?text=${encodeURI(
-										`I want to order product skin laptop ${product.name}. Can you support me?`
-									)}`}
-									target="_blank"
-									rel="noopener noreferrer"
-								>
+								<MuiLink href="/creativa/skin-laptop">
 									<Button
 										variant="outlined"
 										color="primary"
@@ -263,7 +252,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 											trackOrderButtonClick(product.name, "skin laptop");
 										}}
 									>
-										Liên hệ tư vấn
+										Chọn mẫu tại Creativa
 									</Button>
 								</MuiLink>
 							</Stack>

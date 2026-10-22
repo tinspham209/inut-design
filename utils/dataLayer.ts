@@ -5,6 +5,7 @@
  */
 
 import envConst from "./env-const";
+import { CREATIVA_PRIVATE_PROPERTY, isCreativaPath, safeCreativaUrl } from "./creativa/privacy";
 
 // Type definitions for data layer events
 export interface DataLayerEvent {
@@ -87,9 +88,18 @@ const initDataLayer = (): void => {
 export const pushToDataLayer = (event: DataLayerEvent): void => {
 	initDataLayer();
 	if (typeof window !== "undefined" && window.dataLayer) {
-		window.dataLayer.push(event);
+		const sanitized: DataLayerEvent = { ...event };
+		if (isCreativaPath(window.location.pathname)) {
+			for (const key of Object.keys(sanitized)) {
+				if (CREATIVA_PRIVATE_PROPERTY.test(key)) delete sanitized[key];
+			}
+			sanitized.page_path = safeCreativaUrl(window.location.pathname);
+			sanitized.page_location = safeCreativaUrl(window.location.href);
+			sanitized.page_referrer = safeCreativaUrl(document.referrer || "");
+		}
+		window.dataLayer.push(sanitized);
 		if (envConst.NODE_ENV === "development") {
-			console.log("[DataLayer]", event.event, event);
+			console.log("[DataLayer]", sanitized.event, sanitized);
 		}
 	}
 };
@@ -128,10 +138,7 @@ export const pushUserProperties = (properties: UserProperties): void => {
  * @param eventName - Event name
  * @param eventData - Event data
  */
-export const pushCustomEvent = (
-	eventName: string,
-	eventData: Record<string, any>
-): void => {
+export const pushCustomEvent = (eventName: string, eventData: Record<string, any>): void => {
 	pushToDataLayer({
 		event: eventName,
 		...eventData,
@@ -208,9 +215,7 @@ export const getUserType = (): string => {
  * @param price - Product price in VND
  * @returns Price range category
  */
-export const getPriceRange = (
-	price: number
-): "budget" | "mid-range" | "premium" => {
+export const getPriceRange = (price: number): "budget" | "mid-range" | "premium" => {
 	if (price < 100000) return "budget";
 	if (price < 300000) return "mid-range";
 	return "premium";
@@ -221,9 +226,7 @@ export const getPriceRange = (
  * @param items - Array of cart items
  * @returns Total value
  */
-export const calculateCartTotal = (
-	items: Array<{ price: number; quantity: number }>
-): number => {
+export const calculateCartTotal = (items: Array<{ price: number; quantity: number }>): number => {
 	return items.reduce((total, item) => total + item.price * item.quantity, 0);
 };
 
@@ -247,18 +250,18 @@ export const getSessionId = (): string => {
  */
 export const getTrafficSource = (): string => {
 	if (typeof window === "undefined") return "direct";
-	
+
 	const urlParams = new URLSearchParams(window.location.search);
 	const utmSource = urlParams.get("utm_source");
 	const utmMedium = urlParams.get("utm_medium");
-	
+
 	if (utmSource) {
 		return utmMedium ? `${utmSource}_${utmMedium}` : utmSource;
 	}
-	
+
 	const referrer = document.referrer;
 	if (!referrer) return "direct";
-	
+
 	try {
 		const referrerDomain = new URL(referrer).hostname;
 		if (referrerDomain.includes("google")) return "google_search";

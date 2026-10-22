@@ -3,6 +3,7 @@ import { COLOR_CODE, createEmotionCache } from "@/utils";
 import createEmotionServer from "@emotion/server/create-instance";
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import Script from "next/script";
+import { CREATIVA_TELEMETRY_BOOTSTRAP } from "@/utils/creativa/analytics";
 
 export default class MyDocument extends Document {
 	render() {
@@ -56,9 +57,21 @@ export default class MyDocument extends Document {
 					{/* Google Analytics & GTM are now loaded via GoogleTagSchema component in body */}
 
 					<Script
+						id="creativa-telemetry-policy"
+						strategy="beforeInteractive"
+						dangerouslySetInnerHTML={{
+							__html: `window.creativaGoogleId=${JSON.stringify(
+								process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ""
+							)};window.creativaUmamiEnabled=${
+								process.env.NEXT_PUBLIC_ENABLE_UMAMI === "true"
+							};${CREATIVA_TELEMETRY_BOOTSTRAP}`,
+						}}
+					/>
+					<Script
 						strategy="lazyOnload"
 						src="https://cloud.umami.is/script.js"
 						data-website-id="2d970e4e-411e-4b9e-b6ee-c48c2b040f56"
+						data-before-send="creativaBeforeSend"
 					/>
 
 					<meta name="emotion-insertion-point" content="" />

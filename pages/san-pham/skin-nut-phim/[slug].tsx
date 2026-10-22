@@ -7,7 +7,7 @@ import BlockContentWrapper from "@/components/common/block-content";
 import { Portal } from "@/components/common/Portal";
 import { MainLayout } from "@/components/layout";
 import { FAQSchema } from "@/components/scripts";
-import { StaticContentEachPage, UsagePurposeValue } from "@/models";
+import { StaticContentEachPage } from "@/models";
 import { Product, Products } from "@/models/products";
 import { trackOrderButtonClick, trackViewProduct } from "@/utils/analytics";
 import { MACNUT_FAQ, MERCHANT_LISTING_CONFIG } from "@/utils/seo-constants";
@@ -242,25 +242,14 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 							</Stack>
 
 							<Stack flexDirection="row" alignItems={"center"} mt={2} gap={2}>
-								<Link
-									href={`/contact/form?from=${
-										UsagePurposeValue.MACNUT_CUSTOMIZE
-									}&note=${encodeURIComponent(`Tôi muốn dán skin nút phím mẫu: ${product.name}`)}`}
-									passHref
-								>
+								<Link href="/creativa/skin-laptop" passHref>
 									<MuiLink>
 										<Button variant="contained" color="primary">
 											Đặt hàng
 										</Button>
 									</MuiLink>
 								</Link>
-								<MuiLink
-									href={`https://m.me/642209429738886?text=${encodeURI(
-										`I want to order product macnut ${product.name}. Can you support me?`
-									)}`}
-									target="_blank"
-									rel="noopener noreferrer"
-								>
+								<MuiLink href="/creativa/skin-laptop">
 									<Button
 										variant="outlined"
 										color="primary"
@@ -268,7 +257,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 											trackOrderButtonClick(product.name, "skin macnut");
 										}}
 									>
-										Liên hệ tư vấn
+										Chọn mẫu tại Creativa
 									</Button>
 								</MuiLink>
 							</Stack>

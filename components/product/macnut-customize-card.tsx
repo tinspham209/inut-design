@@ -7,7 +7,7 @@ import { COLOR_CODE } from "@/utils/theme";
 
 export const MacnutCustomizeCard: React.FC = () => {
 	return (
-		<Link href="/services/ca-nhan-hoa/skin-nut-phim-customize" passHref>
+		<Link href="/creativa/skin-laptop" passHref>
 			<MuiLink sx={{ textDecoration: "none" }}>
 				<Card
 					sx={{
@@ -71,7 +71,7 @@ export const MacnutCustomizeCard: React.FC = () => {
 									fontWeight: 600,
 								}}
 							>
-								Thiết kế theo yêu cầu
+								Đặt hàng tại INUT Creativa
 							</Typography>
 							<Typography
 								variant="h6"
@@ -82,7 +82,7 @@ export const MacnutCustomizeCard: React.FC = () => {
 									color: COLOR_CODE.WHITE,
 								}}
 							>
-								Custom skin nút phím
+								Skin MacBook — INUT Creativa
 							</Typography>
 						</Box>
 						<Stack direction="row" alignItems="center" justifyContent="space-between" p={1}>

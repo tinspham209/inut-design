@@ -17,6 +17,7 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { isCreativaPath, safeCreativaUrl, trackCreativaPage } from "@/utils/creativa/analytics";
 import { SWRConfig } from "swr";
 
 const ProductCartWrapper = dynamic(
@@ -50,17 +51,19 @@ function MyApp({
 	const router = useRouter();
 
 	// Engagement tracking (scroll depth + time on page per route)
-	useEngagementTracking(router.pathname);
+	useEngagementTracking(router.pathname, !isCreativaPath(router.pathname));
 	// useUmamiEngagement(router.pathname);
 
 	// Track page views on route changes
 	useEffect(() => {
 		const handleRouteChange = (url: string) => {
-			trackPageView(url);
+			if (isCreativaPath(url)) trackCreativaPage(url);
+			else trackPageView(url);
 		};
 
 		// Track initial page load
-		trackPageView(router.pathname);
+		if (isCreativaPath(router.pathname)) trackCreativaPage(router.asPath);
+		else trackPageView(router.pathname);
 
 		// Subscribe to route changes
 		router.events.on("routeChangeComplete", handleRouteChange);
@@ -69,7 +72,9 @@ function MyApp({
 		return () => {
 			router.events.off("routeChangeComplete", handleRouteChange);
 		};
-	}, [router.events, router.pathname]);
+		// Route completion is the owner; do not repeat initialization on every pathname change.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [router.events]);
 
 	// Initialize consent mode before analytics load
 	useEffect(() => {
@@ -114,8 +119,14 @@ function MyApp({
 					</SWRConfig>
 				</ThemeProvider>
 			</CacheProvider>
-			<Analytics mode="production" />
-			<FacebookChatPlugin />
+			<Analytics
+				mode="production"
+				beforeSend={(event) => {
+					if (isCreativaPath(new URL(event.url, "https://inutdesign.com").pathname)) return null;
+					return { ...event, url: safeCreativaUrl(event.url) };
+				}}
+			/>
+			{!isCreativaPath(router.pathname) && <FacebookChatPlugin />}
 			<GoogleTagSchema />
 			<SpeculationRulesScript />
 		</>

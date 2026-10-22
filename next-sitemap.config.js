@@ -3,7 +3,15 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://inutdesign.com";
 const nextSitemapConfig = {
 	siteUrl,
 	generateIndexSitemap: false,
-	exclude: ["/search"],
+	exclude: [
+		"/search",
+		"/creativa/cart",
+		"/creativa/checkout",
+		"/creativa/order-tracking",
+		"/creativa/order-tracking/*",
+		"/creativa/skin-laptop/huong-dan-su-dung",
+		"/creativa/skin-laptop/huong-dan-su-dung/*",
+	],
 
 	generateRobotsTxt: true,
 	robotsTxtOptions: {
@@ -11,7 +19,15 @@ const nextSitemapConfig = {
 			{
 				userAgent: "*",
 				allow: "/",
-				disallow: ["/*?updated-max=*", "/signup", "/*.avif$", "/_next/image", "/_next/static/", "/apple-app-site-association", "/.well-known/"],
+				disallow: [
+					"/*?updated-max=*",
+					"/signup",
+					"/*.avif$",
+					"/_next/image",
+					"/_next/static/",
+					"/apple-app-site-association",
+					"/.well-known/",
+				],
 				host: siteUrl,
 				siteMap: `${siteUrl}/sitemap.xml`,
 			},

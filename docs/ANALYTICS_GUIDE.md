@@ -171,3 +171,56 @@ trackEvent("custom_event_name", { category: "engagement", label: "button_label",
 ---
 
 **For further help, see this file or ask your friendly Copilot!**
+
+## INUT Creativa: isolated commerce measurement
+
+Creativa uses `utils/creativa/analytics.ts` with the existing guarded GA4 and
+Umami primitives. Do not additionally call the legacy combined ecommerce helpers
+for the same Creativa action. Keep changes on `feat/creativa`; this feature's
+workflow does not authorize a push or merge to `main`.
+
+Common context is `storefront=creativa`, `currency=VND`, the journey surface and
+public catalog identifiers. Model/coverage identifiers belong to skin items.
+GA4 discovery/cart events include `items`; Umami receives bounded scalar context.
+`view_item` maps to Umami `product_view`, and `select_item` to `product_click`.
+
+| Event | Producer and trigger | Safe context |
+| --- | --- | --- |
+| `page_view` | Creativa app route lifecycle for GA4; automatic Umami lifecycle only | Sanitized path/location/referrer, generic tracking title |
+| `view_item_list`, `select_item` | Catalog batch presentation / card click | Public design identities, count, price basis |
+| `search`, `catalog_pagination`, `catalog_load_error` | Completed user query / additional batch / failed request | Query length and result counts, phase; no raw search |
+| `catalog_layout_change` | User switches one/two columns | Previous/current column count |
+| `view_item`, `gallery_interaction`, `product_option_change` | Product lifecycle / user gallery or selector action | Design, model/coverage, image position; no autoplay/default action |
+| `quantity_change`, `add_to_cart`, `add_to_cart_error` | Committed quantity / successful addition / rejected attempt | Configured public item, delta/value or safe reason |
+| `cart_view`, `remove_from_cart`, `cart_revalidation` | Hydrated cart lifecycle / removal / changed quote | Counts, merchandise value, affected-item reason |
+| `begin_checkout` | One nonempty checkout attempt | Accepted configuration candidate and merchandise total |
+| `add_shipping_info`, `add_payment_info` | Shipping/payment selection committed | Rule and fee / method, never address/account input |
+| `checkout_validation_error`, `checkout_submit`, `checkout_error` | Invalid form / reviewed submit / failed outcome | Field/reason categories and reviewed totals |
+| `abandoned_checkout` | Observably leaving an unaccepted, resolved checkout state | Stage/count/value only; unknown acceptance is not abandonment |
+| `purchase`, `purchase_item` | Checkout-capability-authorized claim after acceptance/recovery | Separate opaque analytics transaction ID; saved amounts and typed lines |
+| `order_tracking_search`, `order_tracking_result` | Manual submission/tag click / resolved lookup | `entry_point`, `lookup_source`, outcome; never lookup reference |
+| `order_history_action`, `order_history_storage_error` | Explicit forget/clear / storage failure | Action/count/outcome or safe category; no stored array |
+| `order_reference_copy` | Confirmed/failed ID or URL copy | Target kind/outcome only; never copied content |
+| `cta_click`, `contact_click` | Creativa navigation / actual support action | Named CTA, surface and method |
+
+Purchase is **order placed**, not payment received. GA4 `value` is merchandise
+total excluding shipping; shipping is separate. Umami also receives merchandise,
+shipping and final payable values. Its `purchase_item` companions are not extra
+conversions. Public tracking visits never create purchase events.
+
+`POST /api/creativa/orders/analytics-claim` uses a private checkout capability
+and revision-guarded receipts. Claims grant at-most-once dispatch permission,
+not exactly-once external delivery: interruption after a claim can undercount.
+Disabled/unavailable collectors or failed claims must not block confirmation.
+
+Never send customer names/contact/address/notes, public order IDs, recovery
+capabilities, history arrays or raw exception payloads. The pre-bootstrap
+`creativaBeforeSend` hook also sanitizes automatic Umami URL/referrer context.
+Vercel analytics is suppressed for Creativa routes. GTM is not newly bootstrapped
+on direct Creativa entry; an already loaded root container's automatic tags still
+require an authorized real-container inspection and Creativa exclusions before
+release. Do not infer hosted privacy/deduplication from development logs.
+
+Owner-provided launch data, native Safari behavior, actual Sanity privacy and
+real GA4/GTM/Umami settings remain separate verification gates in
+`tasks/creativa/plan.md` and `tasks/creativa/test-plan.md`.

@@ -116,7 +116,7 @@ These inputs are **unconfirmed until supplied/verified**, not assumed available 
 
 ## 3. Task graph
 
-All statuses start **not started**. Dependencies below are explicit prerequisite tasks; inherited prerequisites also apply.
+Dependencies below are explicit prerequisite tasks; inherited prerequisites also apply. The implementation checkpoint below records work actually performed; it is not an AC/release signoff.
 
 | Task | Deliverable | Depends on |
 | --- | --- | --- |
@@ -145,6 +145,49 @@ All statuses start **not started**. Dependencies below are explicit prerequisite
 | CR-23 | Early assumption, permission, vendor and hard-case evidence feasibility | CR-01 |
 
 Task numbers preserve earlier references, not execution order: CR-23 starts after CR-01, while CR-21/CR-22 occur before final acceptance. CR-02 and CR-23 can proceed independently. After CR-02, schema and browser-state work can proceed separately; privacy/acceptance work additionally consumes CR-23's findings. An unavailable vendor does not block unrelated pure contracts, but it does block the witness that actually needs that vendor.
+
+### Implementation checkpoint
+
+Checked means the task's scoped witness is available, not merely that files were created. Unchecked implementation-present entries retain their external or later-phase acceptance work. No AC has been transitioned by this implementation checkpoint.
+
+- [x] CR-01 — Read supplied documents/local rules; existing lint baseline passed; isolated local port and browser-only response fixtures used; no production mutations/sends.
+- [x] CR-02 — Typed contracts, canonical ordering, exact phone/optional fields, merge identity and safe arithmetic exercised with the existing Node loader; TypeScript passes.
+- [ ] CR-03 — Schemas/actions implemented; current Studio build passes. Actual authoring/permission witnesses remain pending.
+- [ ] CR-04 — API adapters/guards implemented and read-only HTTP integration exercised; actual private-target evidence pending.
+- [ ] CR-05 — Cursor/public reads implemented. The configured dataset returns no active Creativa options; catalog explicitly reports missing configuration, not invented products.
+- [ ] CR-06 — Authoritative quote/semantic digest implemented; synthetic-record calculation and malformed configuration checks exercised. Real approved configuration pending.
+- [ ] CR-07 — Atomic service/recovery implemented; in-memory SDK acceptance/claim race checks reported by implementation worker. Actual Sanity transaction/anonymous-access witnesses not executed.
+- [ ] CR-08 — Cart/journal implemented; repeated contribution cleanup preserves later additions in local checks; quota failure keeps an explicitly warned live-tab cart. Exact interruption/native witnesses pending.
+- [ ] CR-09 — Plain uncapped history implemented; 61 IDs/dedup/forget and one accepted browser-only fixture exercised. Full browser failure/device matrix pending.
+- [ ] CR-10 — Facade/bootstrap and documentation implemented; Node VM verifies page/API/data URL policy parity. Hosted collector/container/log evidence pending.
+- [ ] CR-11 — Dedicated shell/home/guide implemented and mobile Chromium development rendering exercised; owner/native visual acceptance pending.
+- [ ] CR-12 — Catalog/detail implemented; browser-only fixtures exercised columns, explicit model, coverage defaults and addition. Browser CDN requests returned 403; actual asset/fit evidence is not claimed.
+- [ ] CR-13 — Shared cart implemented; browser-only quote fixture reviewed at selected quantity/price. Full real configuration/error matrix pending.
+- [ ] CR-14 — Tracking implemented; root history tag reached Creativa with Lighters selected. Public lookup was browser-intercepted for the synthetic order; no actual private read is claimed.
+- [ ] CR-15 — Server handoff/operator retry implemented. No dedicated credential/approved destination supplied; no real send performed.
+- [ ] CR-16 — Durable claims implemented and bounded payloads exercised in isolated worker checks; actual hosted delivery/interruption evidence pending.
+- [ ] CR-17 — Guest form/browser-only accepted response exercised with blank optional fields; cart became empty, history stayed one entry and journal cleared. No real order was created.
+- [ ] CR-18 — Legacy ordering destinations and SEO exclusions implemented; production build/postbuild SEO smoke pass. Complete browser/owner crawl pending.
+- [ ] CR-19 — Reserved for the separate verification phase; no complete AC pass claimed.
+- [ ] CR-20 — No deployment, activation, real order or main-branch operation authorized/performed.
+- [ ] CR-21 — Blocked on approved new catalog/model/print/fee/bank/recipient content; legacy artwork was read only for a clearly labeled local UI fixture.
+- [ ] CR-22 — Blocked on actual operator/production-fit/asset handoff authorization and inputs.
+- [x] CR-23 — Evidence feasibility recorded below; discovery completion does not discharge its downstream blockers.
+
+### Evidence feasibility checkpoint
+
+| Witness | Current implementation evidence / remaining prerequisite |
+| --- | --- |
+| Pure request/quote/state contracts | Existing Node + repository TS loader used; no new unit runner or test files added. Root loader extended for `.server.ts` imports; existing 42-check SPX regression passes. |
+| Application race/collision/claim control | In-memory SDK controls used by the implementation worker, not a real Sanity transaction. Actual target/authorization and deterministic database witness remain unverified. |
+| Browser integration | Chromium at 390×844, local-only intercepted CMS/quote/order responses; accepted UI/history/cart cleanup observed. This is not a database/production-order test. |
+| Actual Creativa configuration | Read-only options response has empty model/coverage lists; catalog returns explicit configuration error. No production data was seeded. |
+| Asset access | Existing public legacy image references were used only in a local fixture. Browser CDN responses were 403; cause/real publication readiness unverified. |
+| Local storage | Manual Node state checks included 61 IDs and quota failure; exact browser crash windows/multiple-device/native behavior remain unexecuted. |
+| Telemetry policy | Runtime/static bootstrap URL and property guards checked with harmless canaries in Node VM; actual GA4/GTM/Umami/Vercel container/network/log gate remains open. |
+| Staff delivery | Dedicated bot credential/approved recipients absent; no external notifications sent. |
+| Native/owner acceptance | No actual iPhone/Safari or owner/operator signoff performed. |
+| Repository stop gates | Lint and TypeScript pass; SPX 42 checks pass; application production build, postbuild SEO smoke and Studio build pass. Browserslist/formatter deprecation notices are pre-existing tooling warnings. |
 
 ### Shared-file ownership
 

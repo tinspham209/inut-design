@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { MainLayout } from "@/components/layout";
 import ContactInfo from "@/components/orderTracking/lighters/ContactInfo";
 import { NextPageWithLayout } from "@/models/common";
@@ -21,8 +22,11 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { RecentCreativaOrders } from "@/components/creativa/RecentOrders";
+import { CREATIVA_PUBLIC_ID } from "@/utils/creativa/contracts";
+import { trackCreativa } from "@/utils/creativa/analytics";
 
-type OrderType = "lighters" | "";
+type OrderType = "lighters" | "skin-laptop" | "";
 
 const OrderConfirmationSearch: NextPageWithLayout = () => {
 	const router = useRouter();
@@ -42,6 +46,22 @@ const OrderConfirmationSearch: NextPageWithLayout = () => {
 
 		if (!orderType) {
 			setError("Vui lòng chọn loại đơn hàng");
+			return;
+		}
+
+		if (orderType === "skin-laptop") {
+			const id = orderNumber.trim();
+			if (!CREATIVA_PUBLIC_ID.test(id)) {
+				setError(
+					"Mã Creativa gồm đúng 10 ký tự chữ, số, dấu _ hoặc -. Chữ hoa và chữ thường được phân biệt."
+				);
+				return;
+			}
+			trackCreativa("order_tracking_search", { entry_point: "root", lookup_source: "manual" });
+			void router.push({
+				pathname: `/creativa/order-tracking/${encodeURIComponent(id)}`,
+				query: { entry: "root", source: "manual" },
+			});
 			return;
 		}
 
@@ -94,6 +114,7 @@ const OrderConfirmationSearch: NextPageWithLayout = () => {
 									>
 										<MenuItem value="">-- Chọn loại đơn hàng --</MenuItem>
 										<MenuItem value="lighters">Đơn hàng Bật lửa</MenuItem>
+										<MenuItem value="skin-laptop">Skin Laptop — INUT Creativa</MenuItem>
 										{/* Add more order types here as needed */}
 									</Select>
 								</FormControl>
@@ -103,11 +124,21 @@ const OrderConfirmationSearch: NextPageWithLayout = () => {
 									fullWidth
 									required
 									label="Mã đơn hàng"
-									placeholder="Ví dụ: LIGHTER-1234567890123"
+									placeholder={
+										orderType === "skin-laptop"
+											? "Mã Creativa 10 ký tự"
+											: "Ví dụ: LIGHTER-1234567890123"
+									}
 									value={orderNumber}
 									onChange={(e) => setOrderNumber(e.target.value)}
-									helperText="Mã đơn hàng được gửi qua email hoặc SMS sau khi đặt hàng thành công"
+									helperText={
+										orderType === "skin-laptop"
+											? "Dùng mã đã hiển thị khi đặt hàng; không có tiền tố. Không đổi chữ hoa/chữ thường."
+											: "Mã đơn hàng được gửi qua email hoặc SMS sau khi đặt hàng thành công"
+									}
+									inputProps={{ autoCapitalize: "none", autoCorrect: "off", spellCheck: false }}
 								/>
+								<RecentCreativaOrders entryPoint="root" />
 
 								{/* Error Message */}
 								{error && (
@@ -141,7 +172,7 @@ const OrderConfirmationSearch: NextPageWithLayout = () => {
 						💡 Lưu ý:
 					</Typography>
 					<Typography variant="body2" component="div">
-						• Mã đơn hàng bao gồm tiền tố (LIGHTER, SKIN, MAC, v.v.) và dãy số
+						• Mã Creativa gồm 10 ký tự, không có tiền tố. Mã bật lửa giữ định dạng LIGHTER.
 						<br />
 						• Mã đơn hàng được tạo ngay sau khi bạn đặt hàng thành công
 						<br />

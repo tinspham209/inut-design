@@ -52,6 +52,14 @@ const nextConfig = {
 					},
 				],
 			},
+			{
+				source: "/creativa/:section(cart|checkout|order-tracking)/:path*",
+				headers: [
+					{ key: "Referrer-Policy", value: "no-referrer" },
+					{ key: "Cache-Control", value: "no-store" },
+					{ key: "X-Robots-Tag", value: "noindex, nofollow" },
+				],
+			},
 		];
 	},
 	async redirects() {
