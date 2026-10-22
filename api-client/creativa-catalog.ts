@@ -1,9 +1,20 @@
 import sanityClient from "@sanity/client";
 import type {
-	CreativaBank, CreativaCatalogPage, CreativaCoverage, CreativaImage,
-	CreativaModel, CreativaOptions, CreativaProduct,
+	CoverageCode,
+	CreativaBank,
+	CreativaCatalogPage,
+	CreativaCoverage,
+	CreativaImage,
+	CreativaModel,
+	CreativaOptions,
+	CreativaProduct,
 } from "@/models/creativa";
-import { CreativaError, isRecord, RESERVED_SKIN_SLUGS, safeMoney } from "@/utils/creativa/contracts";
+import {
+	CreativaError,
+	isRecord,
+	RESERVED_SKIN_SLUGS,
+	safeMoney,
+} from "@/utils/creativa/contracts";
 
 export const CREATIVA_IMAGE_PROJECTION = `{_type,_key,asset{_type,_ref},alt,view}`;
 export const CREATIVA_PRODUCT_PROJECTION = `{
@@ -22,54 +33,138 @@ const ELIGIBLE = `_type == "creativaSkinProduct" && !(_id in path("drafts.**")) 
 function publicClient() {
 	const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 	const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
-	if (!projectId || !dataset) throw new CreativaError("SERVICE_UNAVAILABLE", "Không thể tải dữ liệu Creativa.", 503);
-	return sanityClient({ projectId, dataset, apiVersion: "2022-09-19", useCdn: false, timeout: 10000 });
+	if (!projectId || !dataset)
+		throw new CreativaError("SERVICE_UNAVAILABLE", "Không thể tải dữ liệu Creativa.", 503);
+	return sanityClient({
+		projectId,
+		dataset,
+		apiVersion: "2022-09-19",
+		useCdn: false,
+		timeout: 10000,
+	});
 }
 
 export function validImage(value: unknown): value is CreativaImage {
-	return isRecord(value) && value._type === "image" && isRecord(value.asset) &&
-		value.asset._type === "reference" && typeof value.asset._ref === "string" &&
-		value.asset._ref.startsWith("image-") && typeof value.alt === "string" && !!value.alt.trim() &&
-		["top", "bottom", "interior", "other"].includes(String(value.view));
+	return (
+		isRecord(value) &&
+		value._type === "image" &&
+		isRecord(value.asset) &&
+		value.asset._type === "reference" &&
+		typeof value.asset._ref === "string" &&
+		value.asset._ref.startsWith("image-") &&
+		typeof value.alt === "string" &&
+		!!value.alt.trim() &&
+		typeof value.view === "string" &&
+		["top", "bottom", "interior", "other"].includes(value.view) &&
+		(value._key === undefined || (typeof value._key === "string" && !!value._key.trim()))
+	);
+}
+
+export function commerceConfigurationError(): CreativaError {
+	return new CreativaError("CONFIGURATION_ERROR", "Cấu hình sản phẩm Creativa chưa hợp lệ.", 503);
+}
+
+export function configuredText(value: unknown): string {
+	if (typeof value !== "string" || !value.trim()) throw commerceConfigurationError();
+	return value;
+}
+
+function configuredOrder(value: unknown): number {
+	if (typeof value !== "number" || !Number.isSafeInteger(value) || value < 0)
+		throw commerceConfigurationError();
+	return value;
+}
+
+export function parseCreativaModel(value: unknown): CreativaModel | null {
+	if (!isRecord(value)) throw commerceConfigurationError();
+	if (value.active === false || value.fitVerified === false) return null;
+	if (value.active !== true || value.fitVerified !== true) throw commerceConfigurationError();
+	return {
+		_id: configuredText(value._id),
+		name: configuredText(value.name),
+		code: configuredText(value.code),
+		sortOrder: configuredOrder(value.sortOrder),
+		active: true,
+		fitVerified: true,
+		fitReference: configuredText(value.fitReference),
+	};
+}
+
+function coverageCode(value: unknown): CoverageCode {
+	if (value !== "top" && value !== "bottom" && value !== "interior" && value !== "full") {
+		throw commerceConfigurationError();
+	}
+	return value;
+}
+
+export function parseCreativaCoverage(value: unknown): CreativaCoverage | null {
+	if (!isRecord(value)) throw commerceConfigurationError();
+	if (value.active === false) return null;
+	if (value.active !== true) throw commerceConfigurationError();
+	const price = safeMoney(value.price);
+	if (price === 0) throw commerceConfigurationError();
+	return {
+		_id: configuredText(value._id),
+		code: coverageCode(value.code),
+		name: configuredText(value.name),
+		description: configuredText(value.description),
+		sortOrder: configuredOrder(value.sortOrder),
+		active: true,
+		price,
+	};
 }
 
 export function readBank(value: unknown): CreativaBank | null {
-	if (!isRecord(value) || value._type !== "creativaBankSettings" || value.active !== true) return null;
+	if (!isRecord(value) || value._type !== "creativaBankSettings" || value.active !== true)
+		return null;
 	for (const key of ["bankName", "accountName", "accountNumber"]) {
-		if (typeof value[key] !== "string" || !String(value[key]).trim() || String(value[key]).length > 200) return null;
+		if (
+			typeof value[key] !== "string" ||
+			!String(value[key]).trim() ||
+			String(value[key]).length > 200
+		)
+			return null;
 	}
 	return {
-		bankName: String(value.bankName), accountName: String(value.accountName),
+		bankName: String(value.bankName),
+		accountName: String(value.accountName),
 		accountNumber: String(value.accountNumber),
-		...(typeof value.transferInstructions === "string" && { transferInstructions: value.transferInstructions }),
+		...(typeof value.transferInstructions === "string" && {
+			transferInstructions: value.transferInstructions,
+		}),
 	};
 }
 
 function ordered<T extends { _id: string; sortOrder: number }>(items: T[]): T[] {
-	return items.sort((a, b) => a.sortOrder - b.sortOrder || (a._id < b._id ? -1 : a._id > b._id ? 1 : 0));
+	return items.sort(
+		(a, b) => a.sortOrder - b.sortOrder || (a._id < b._id ? -1 : a._id > b._id ? 1 : 0)
+	);
 }
 
-export function parseOptions(models: CreativaModel[], coverages: CreativaCoverage[], bank: unknown): CreativaOptions {
-	const validModels = models.filter((m) => m.active === true && m.fitVerified === true &&
-		typeof m.fitReference === "string" && !!m.fitReference.trim() &&
-		typeof m.code === "string" && !!m.code.trim() && typeof m.name === "string" &&
-		Number.isSafeInteger(m.sortOrder));
-	for (const c of coverages) {
-		if (!["top", "bottom", "interior", "full"].includes(c.code) || !c.name?.trim() ||
-			!c.description?.trim() || !Number.isSafeInteger(c.sortOrder) || safeMoney(c.price) === 0) {
-			throw new CreativaError("CONFIGURATION_ERROR", "Cấu hình phạm vi dán chưa hợp lệ.", 503);
-		}
+export function parseOptions(models: unknown, coverages: unknown, bank: unknown): CreativaOptions {
+	if (!Array.isArray(models) || !Array.isArray(coverages)) throw commerceConfigurationError();
+	const validModels: CreativaModel[] = [];
+	const validCoverages: CreativaCoverage[] = [];
+	for (const value of models) {
+		const model = parseCreativaModel(value);
+		if (model) validModels.push(model);
 	}
-	if (new Set(coverages.map((c) => c.code)).size !== coverages.length) {
+	for (const value of coverages) {
+		const coverage = parseCreativaCoverage(value);
+		if (coverage) validCoverages.push(coverage);
+	}
+	if (new Set(validCoverages.map((c) => c.code)).size !== validCoverages.length) {
 		throw new CreativaError("CONFIGURATION_ERROR", "Cấu hình phạm vi dán bị trùng.", 503);
 	}
-	return { models: ordered(validModels), coverages: ordered(coverages), bankAvailable: !!readBank(bank) };
+	return {
+		models: ordered(validModels),
+		coverages: ordered(validCoverages),
+		bankAvailable: !!readBank(bank),
+	};
 }
 
 export async function getCreativaOptions(): Promise<CreativaOptions> {
-	const result = await publicClient().fetch<{
-		models: CreativaModel[]; coverages: CreativaCoverage[]; bank: unknown;
-	}>(`{
+	const result = await publicClient().fetch<unknown>(`{
 		"models": *[_type == "creativaMacbookModel" && active == true && fitVerified == true &&
 			!(_id in path("drafts.**")) && !(_id in path("versions.**"))]{
 			_id,name,code,sortOrder,active,fitVerified,fitReference},
@@ -79,6 +174,7 @@ export async function getCreativaOptions(): Promise<CreativaOptions> {
 		"bank": *[_id == "creativa-bank-settings" && _type == "creativaBankSettings"][0]{
 			_type,active,bankName,accountName,accountNumber,transferInstructions}
 	}`);
+	if (!isRecord(result)) throw commerceConfigurationError();
 	return parseOptions(result.models, result.coverages, result.bank);
 }
 
@@ -88,62 +184,98 @@ export function parseCatalogCursor(cursor: string | undefined, q: string): Curso
 	try {
 		if (cursor.length > 1000 || !/^[A-Za-z0-9_-]+$/.test(cursor)) throw new Error("cursor");
 		const value: unknown = JSON.parse(Buffer.from(cursor, "base64url").toString("utf8"));
-		if (!isRecord(value) || value.v !== 1 || value.q !== q ||
-			typeof value.at !== "string" || !Number.isFinite(Date.parse(value.at)) ||
-			typeof value.id !== "string" || !/^[A-Za-z0-9_-]{1,128}$/.test(value.id)) throw new Error("cursor");
+		if (
+			!isRecord(value) ||
+			value.v !== 1 ||
+			value.q !== q ||
+			typeof value.at !== "string" ||
+			!Number.isFinite(Date.parse(value.at)) ||
+			typeof value.id !== "string" ||
+			!/^[A-Za-z0-9_-]{1,128}$/.test(value.id)
+		)
+			throw new Error("cursor");
 		return { v: 1, q, at: value.at, id: value.id };
 	} catch {
-		throw new CreativaError("INVALID_CURSOR", "Trang sản phẩm không hợp lệ. Vui lòng tìm lại.", 400);
+		throw new CreativaError(
+			"INVALID_CURSOR",
+			"Trang sản phẩm không hợp lệ. Vui lòng tìm lại.",
+			400
+		);
 	}
 }
 
-export async function getCreativaCatalog(query = "", cursor?: string): Promise<CreativaCatalogPage> {
+export async function getCreativaCatalog(
+	query = "",
+	cursor?: string
+): Promise<CreativaCatalogPage> {
 	const q = query.trim();
 	if (q.length > 80) throw new CreativaError("INVALID_QUERY", "Tìm kiếm tối đa 80 ký tự.", 400);
 	const after = parseCatalogCursor(cursor, q);
 	const [items, options] = await Promise.all([
-		publicClient().fetch<CreativaProduct[]>(`*[${ELIGIBLE} &&
+		publicClient().fetch<CreativaProduct[]>(
+			`*[${ELIGIBLE} &&
 			($q == "" || lower(name) match $pattern) &&
 			($after == false || _createdAt < $at || (_createdAt == $at && _id < $id))
 		] | order(_createdAt desc,_id desc)[0...25]{
 			_id,_rev,_createdAt,name,slug{current},active,description,artworkId,artworkVersion,
 			"images": images[0...2]${CREATIVA_IMAGE_PROJECTION}
-		}`, {
-			q, pattern: `*${q.toLowerCase().replace(/[\\*?[\]{}]/g, "\\$&")}*`,
-			reserved: RESERVED_SKIN_SLUGS, after: !!after, at: after?.at || "", id: after?.id || "",
-		}),
+		}`,
+			{
+				q,
+				pattern: `*${q.toLowerCase().replace(/[\\*?[\]{}]/g, "\\$&")}*`,
+				reserved: RESERVED_SKIN_SLUGS,
+				after: !!after,
+				at: after?.at || "",
+				id: after?.id || "",
+			}
+		),
 		getCreativaOptions(),
 	]);
-	if (!options.coverages.length) throw new CreativaError("CONFIGURATION_ERROR", "Chưa có giá Creativa khả dụng.", 503);
+	if (!options.coverages.length)
+		throw new CreativaError("CONFIGURATION_ERROR", "Chưa có giá Creativa khả dụng.", 503);
 	const page = items.slice(0, 24);
 	const last = page[page.length - 1];
 	return {
 		items: page,
-		cursor: items.length > 24 && last ? Buffer.from(JSON.stringify({
-			v: 1, q, at: last._createdAt, id: last._id,
-		})).toString("base64url") : null,
+		cursor:
+			items.length > 24 && last
+				? Buffer.from(
+						JSON.stringify({
+							v: 1,
+							q,
+							at: last._createdAt,
+							id: last._id,
+						})
+				  ).toString("base64url")
+				: null,
 		fromPrice: Math.min(...options.coverages.map((c) => c.price)),
 	};
 }
 
-export async function getCreativaProduct(slug: string): Promise<{ product: CreativaProduct; options: CreativaOptions }> {
+export async function getCreativaProduct(
+	slug: string
+): Promise<{ product: CreativaProduct; options: CreativaOptions }> {
 	if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) || RESERVED_SKIN_SLUGS.includes(slug)) {
 		throw new CreativaError("PRODUCT_NOT_FOUND", "Không tìm thấy sản phẩm.", 404);
 	}
 	const [products, options] = await Promise.all([
-		publicClient().fetch<CreativaProduct[]>(`*[${ELIGIBLE} && slug.current == $slug][0...2]${CREATIVA_PRODUCT_PROJECTION}`,
-			{ slug, reserved: RESERVED_SKIN_SLUGS }),
+		publicClient().fetch<CreativaProduct[]>(
+			`*[${ELIGIBLE} && slug.current == $slug][0...2]${CREATIVA_PRODUCT_PROJECTION}`,
+			{ slug, reserved: RESERVED_SKIN_SLUGS }
+		),
 		getCreativaOptions(),
 	]);
-	if (products.length !== 1) throw new CreativaError("PRODUCT_NOT_FOUND", "Không tìm thấy sản phẩm.", 404);
+	if (products.length !== 1)
+		throw new CreativaError("PRODUCT_NOT_FOUND", "Không tìm thấy sản phẩm.", 404);
 	return { product: products[0], options };
 }
 
 export const creativaCatalogApi = {
 	getPage: (query = "", cursor?: string | null) => getCreativaCatalog(query, cursor || undefined),
 	async getProductBySlug(slug: string): Promise<CreativaProduct | null> {
-		try { return (await getCreativaProduct(slug)).product; }
-		catch (error) {
+		try {
+			return (await getCreativaProduct(slug)).product;
+		} catch (error) {
 			if (error instanceof CreativaError && error.code === "PRODUCT_NOT_FOUND") return null;
 			throw error;
 		}

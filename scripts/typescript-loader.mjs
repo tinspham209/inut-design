@@ -1,4 +1,4 @@
-import { access, readFile } from "node:fs/promises";
+import { stat, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import ts from "typescript";
@@ -6,14 +6,29 @@ import ts from "typescript";
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 async function resolveFile(candidate) {
-	const candidates = path.extname(candidate)
+	const sourceExtensions = new Set([
+		".ts",
+		".tsx",
+		".js",
+		".mjs",
+		".cjs",
+		".json",
+		".jsx",
+		".node",
+	]);
+	const candidates = sourceExtensions.has(path.extname(candidate))
 		? [candidate]
-		: [`${candidate}.ts`, `${candidate}.tsx`, `${candidate}.js`, path.join(candidate, "index.ts")];
+		: [
+				candidate,
+				`${candidate}.ts`,
+				`${candidate}.tsx`,
+				`${candidate}.js`,
+				path.join(candidate, "index.ts"),
+		  ];
 
 	for (const filePath of candidates) {
 		try {
-			await access(filePath);
-			return pathToFileURL(filePath).href;
+			if ((await stat(filePath)).isFile()) return pathToFileURL(filePath).href;
 		} catch {
 			// Try the next supported local source extension.
 		}

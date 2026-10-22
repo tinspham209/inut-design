@@ -134,6 +134,18 @@ export function parseCheckout(value: unknown): CreativaCheckoutRequest {
 	if (!/^[a-f0-9]{64}$/.test(digest)) {
 		throw new CreativaError("INVALID_QUOTE", "Vui lòng kiểm tra lại báo giá.");
 	}
+	const amounts = [
+		value.reviewedQuote.merchandiseTotal,
+		value.reviewedQuote.shippingFee,
+		value.reviewedQuote.finalAmount,
+	];
+	if (
+		amounts.some(
+			(amount) => typeof amount !== "number" || !Number.isSafeInteger(amount) || amount < 0
+		)
+	) {
+		throw new CreativaError("INVALID_QUOTE", "Các số tiền trong báo giá không hợp lệ.", 422);
+	}
 	return {
 		lines: parsePurchaseLines(value.lines),
 		customer: parseCustomer(value.customer),

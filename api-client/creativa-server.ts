@@ -11,9 +11,14 @@ export function creativaServerClient() {
 	if (!projectId || !dataset || !token) {
 		throw new CreativaError("SERVICE_UNAVAILABLE", "Dịch vụ Creativa chưa sẵn sàng.", 503);
 	}
-	if (!cached) cached = sanityClient({
-		projectId, dataset, token, apiVersion: "2022-09-19", useCdn: false,
-		timeout: 10000,
-	});
+	if (!cached)
+		cached = sanityClient({
+			projectId,
+			dataset,
+			token,
+			apiVersion: "2022-09-19",
+			useCdn: false,
+			timeout: 10000,
+		});
 	return cached;
 }
