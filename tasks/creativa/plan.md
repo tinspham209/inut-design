@@ -221,6 +221,16 @@ The post-rework stop gate passes: lint without warnings, TypeScript, existing SP
 
 Both new actual-source probes were red on `918134b`; all eight groups now pass. They were added alongside, not in place of, the six passing probe groups. Post-fix lint, TypeScript, SPX 42 and application/postbuild SEO gates pass; unchanged Studio source retains its passing build. Another read-only audit remains required.
 
+### Rework checkpoint — exact-contract final-verification gaps
+
+- [x] I-14 — Existing identity-keyed availability errors appear on affected cart rows; healthy rows remain; revalidation reports only the affected count.
+- [x] I-15 — List/click position, list identity, displayed price basis and completed `search_context=catalog` are explicit bounded public telemetry context.
+- [x] I-16 — Terminal/transient resolution failures emit one safe checkout-error event without capability/raw error data.
+- [x] I-17 — The form delegates required/format validation to the existing shared parser, retains accessible required labels and focuses the first named invalid field.
+- [x] I-18 — Quote-failure/pending-exit entry has truthful unavailable money, abandonment has stable lifecycle ownership and synchronous in-flight/known-acceptance guards.
+
+All 15 isolated actual-source probe groups pass; the eight already green groups were retained. Current lint/TypeScript/application build/postbuild gates pass. Chromium at 390×844 confirms invalid-phone field error/focus with one event per local destination and no submit/journal, and affected-row warning beside a retained healthy row with checkout blocked and no horizontal overflow. Browser API responses/collectors are synthetic local stubs, and order requests are aborted. Read-only re-audit remains required.
+
 ### Shared-file ownership
 
 - CR-03 owns new schema registration and Studio action integration.

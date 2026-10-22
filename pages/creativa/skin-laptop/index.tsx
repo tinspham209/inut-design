@@ -30,9 +30,11 @@ import { trackCreativa } from "@/utils/creativa/analytics";
 function DesignCard({
 	product,
 	fromPrice,
+	position,
 }: {
 	product: CreativaProduct;
 	fromPrice: number | null;
+	position: number;
 }) {
 	const [hover, setHover] = useState(false);
 	const [failed, setFailed] = useState(false);
@@ -50,12 +52,17 @@ function DesignCard({
 							product_name: product.name,
 							product_type: "skin-laptop",
 							surface: "catalog",
+							item_list_id: "creativa_skin_laptop",
+							item_position: position,
+							price_basis: fromPrice !== null ? "from_active_coverage" : "unavailable",
 						},
 						[
 							{
 								item_id: product._id,
 								item_name: product.name,
 								item_category: "skin-laptop",
+								item_list_id: "creativa_skin_laptop",
+								index: position,
 								quantity: 1,
 								...(fromPrice !== null && { price: fromPrice }),
 							},
@@ -125,10 +132,12 @@ const SkinCatalog: NextPageWithLayout<{
 	const impressed = useRef(new Set<string>());
 	currentColumns.current = columns;
 	const reportList = useCallback(
-		(items: CreativaProduct[], fromPrice: number | null, page: number) => {
-			const unseen = items.filter((item) => !impressed.current.has(item._id));
+		(items: CreativaProduct[], fromPrice: number | null, page: number, offset = 0) => {
+			const unseen = items
+				.map((item, index) => ({ item, position: offset + index }))
+				.filter(({ item }) => !impressed.current.has(item._id));
 			if (!unseen.length) return;
-			unseen.forEach((item) => impressed.current.add(item._id));
+			unseen.forEach(({ item }) => impressed.current.add(item._id));
 			trackCreativa(
 				"view_item_list",
 				{
@@ -136,11 +145,16 @@ const SkinCatalog: NextPageWithLayout<{
 					page,
 					columns: currentColumns.current,
 					surface: "catalog",
+					item_list_id: "creativa_skin_laptop",
+					item_positions: unseen.map(({ position }) => position).join(","),
+					price_basis: fromPrice !== null ? "from_active_coverage" : "unavailable",
 				},
-				unseen.map((item) => ({
+				unseen.map(({ item, position }) => ({
 					item_id: item._id,
 					item_name: item.name,
 					item_category: "skin-laptop",
+					item_list_id: "creativa_skin_laptop",
+					index: position,
 					quantity: 1,
 					...(fromPrice !== null && { price: fromPrice }),
 				}))
@@ -185,6 +199,7 @@ const SkinCatalog: NextPageWithLayout<{
 							query_length: normalized.length,
 							results_count: page.items.length,
 							surface: "catalog",
+							search_context: "catalog",
 						});
 				})
 				.catch((failure: Error) => {
@@ -224,7 +239,7 @@ const SkinCatalog: NextPageWithLayout<{
 				items: [...current.items, ...added],
 			}));
 			trackCreativa("catalog_pagination", { item_count: added.length, page: nextBatch });
-			reportList(added, next.fromPrice, nextBatch);
+			reportList(added, next.fromPrice, nextBatch, data.items.length);
 		} catch (failure) {
 			if (generation === sequence.current) {
 				setError(failure instanceof Error ? failure.message : "Không thể tải thêm sản phẩm.");
@@ -300,9 +315,9 @@ const SkinCatalog: NextPageWithLayout<{
 						</Alert>
 					)}
 					<Grid container spacing={{ xs: 1.5, md: 2.5 }}>
-						{data.items.map((product) => (
+						{data.items.map((product, position) => (
 							<Grid item xs={columns === 1 ? 12 : 6} sm={6} md={4} lg={3} key={product._id}>
-								<DesignCard product={product} fromPrice={data.fromPrice} />
+								<DesignCard product={product} fromPrice={data.fromPrice} position={position} />
 							</Grid>
 						))}
 						{loading &&

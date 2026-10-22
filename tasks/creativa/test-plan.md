@@ -116,6 +116,8 @@ CT-14 explicitly includes initial cached catalog cards when revalidation fails, 
 
 Also type and clear a catalog query before the debounce commits: continuously displayed cards must not receive another impression, while a genuinely committed new query still does. A single repricing rejection carrying a replacement quote must emit one specifically classified checkout error, retain that quote for review and preserve terminal-attempt cleanup.
 
+Verify exact list/position/price-basis and `search_context=catalog` fields, affected-line (not whole-cart) revalidation counts, terminal/transient recovery errors and invalid-field submission through the shared validator. With a quote pending/failed, entered checkout and observable exit still have a truthful lifecycle without fabricated money. An in-flight or synchronously known accepted order must never produce abandonment, including before React state rerenders; quote rerenders cannot reset abandonment ownership. Browser-check affected-row labels/healthy-row preservation and first-invalid-field focus, not only source handlers.
+
 Do not expose a new public fault-injection/test endpoint to make these checks convenient.
 
 ## 6. Sanity integration and database scenarios

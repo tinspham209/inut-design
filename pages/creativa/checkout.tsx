@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CreativaLayout } from "@/components/layout";
 import { CreativaSeo } from "@/components/creativa/Seo";
 import { useHydratedCreativaCart } from "@/hooks/creativa/useBrowserState";
@@ -112,9 +112,34 @@ const Checkout: NextPageWithLayout = () => {
 	const lock = useRef(false);
 	const completed = useRef(new Set<string>());
 	const began = useRef(false);
+	const abandoned = useRef(false);
+	const acceptanceKnown = useRef(false);
 	const methodChosen = useRef(false);
 	const measuredShipping = useRef("");
 	const measuredPayment = useRef<"cod" | "bank_transfer" | null>(null);
+	const reportBegin = useCallback(
+		(currentQuote?: CreativaQuote) => {
+			if (began.current) return;
+			began.current = true;
+			trackCreativa(
+				"begin_checkout",
+				{
+					item_count: cart.items.length,
+					unit_count: cart.items.reduce((sum, item) => sum + item.quantity, 0),
+					price_basis: currentQuote ? "current_quote" : "unavailable",
+					...(currentQuote && { value: currentQuote.merchandiseTotal }),
+				},
+				currentQuote
+					? currentQuote.lines.map(measureCreativaLine)
+					: cart.items.map((item) => {
+							const measurement = measureCreativaLine(item);
+							delete measurement.price;
+							return measurement;
+					  })
+			);
+		},
+		[cart.items]
+	);
 
 	function reportPayment(method: "cod" | "bank_transfer") {
 		if (measuredPayment.current === method) return;
@@ -123,6 +148,7 @@ const Checkout: NextPageWithLayout = () => {
 	}
 
 	function acceptedCompletion(result: CreativaAccepted, current: CheckoutAttempt) {
+		acceptanceKnown.current = true;
 		setAccepted(result.order);
 		setError(null);
 		if (completed.current.has(current.capability)) return;
@@ -190,6 +216,13 @@ const Checkout: NextPageWithLayout = () => {
 		try {
 			acceptedCompletion(await creativaApi.resolve(current.capability), current);
 		} catch (failure) {
+			trackCreativa("checkout_error", {
+				phase: "resolve",
+				reason:
+					failure instanceof CreativaRequestError && failure.terminal
+						? "terminal_rejection"
+						: "resolve_failed",
+			});
 			if (failure instanceof CreativaRequestError && failure.terminal) {
 				const cleared = clearAttempt(current.capability);
 				if (cleared) setWarning(cleared);
@@ -268,23 +301,13 @@ const Checkout: NextPageWithLayout = () => {
 							shipping_fee: next.shippingFee,
 						});
 					}
-					if (!began.current) {
-						began.current = true;
-						trackCreativa(
-							"begin_checkout",
-							{
-								item_count: cart.items.length,
-								unit_count: cart.items.reduce((sum, item) => sum + item.quantity, 0),
-								value: next.merchandiseTotal,
-							},
-							next.lines.map(measureCreativaLine)
-						);
-					}
+					reportBegin(next);
 				})
 				.catch((failure: Error) => {
 					if (current) {
 						setQuote(null);
 						setError(failure.message);
+						reportBegin();
 					}
 				})
 				.finally(() => {
@@ -306,17 +329,31 @@ const Checkout: NextPageWithLayout = () => {
 		accepted,
 		journalCorrupt,
 		quoteRetry,
+		reportBegin,
 	]);
 
 	useEffect(() => {
-		if (!began.current || accepted || attempt || busy) return;
-		let sent = false;
+		if (
+			!cart.hydrated ||
+			!attemptReady ||
+			!cart.items.length ||
+			cart.error ||
+			journalCorrupt ||
+			accepted ||
+			attempt ||
+			busy
+		)
+			return;
 		const abandon = () => {
-			if (!sent) {
-				sent = true;
+			if (lock.current || acceptanceKnown.current) return;
+			reportBegin();
+			if (!abandoned.current) {
+				abandoned.current = true;
 				trackCreativa("abandoned_checkout", {
 					item_count: cart.items.length,
-					value: quote?.merchandiseTotal || 0,
+					...(quote
+						? { value: quote.merchandiseTotal, price_basis: "current_quote" }
+						: { price_basis: "unavailable" }),
 					phase: "form",
 				});
 			}
@@ -327,10 +364,23 @@ const Checkout: NextPageWithLayout = () => {
 			window.removeEventListener("pagehide", abandon);
 			router.events.off("routeChangeStart", abandon);
 		};
-	}, [accepted, attempt, busy, cart.items.length, quote, router.events]);
+	}, [
+		accepted,
+		attempt,
+		busy,
+		cart.hydrated,
+		cart.error,
+		cart.items.length,
+		attemptReady,
+		journalCorrupt,
+		quote,
+		reportBegin,
+		router.events,
+	]);
 
-	async function submit(event: React.FormEvent) {
+	async function submit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
+		const form = event.currentTarget;
 		if (
 			lock.current ||
 			attempt ||
@@ -397,7 +447,15 @@ const Checkout: NextPageWithLayout = () => {
 			}
 			const details = failure as Error & { fieldErrors?: Record<string, string> };
 			setError(details.message || "Không thể xác định kết quả đặt hàng.");
-			if (details.fieldErrors) setFieldErrors(details.fieldErrors);
+			if (details.fieldErrors) {
+				setFieldErrors(details.fieldErrors);
+				for (const field of ["name", "phone", "email", "address", "note"]) {
+					if (!details.fieldErrors[field]) continue;
+					const control = form.elements.namedItem(field);
+					if (control instanceof HTMLElement) control.focus();
+					break;
+				}
+			}
 			trackCreativa(current ? "checkout_error" : "checkout_validation_error", {
 				reason: updatedQuote ? "quote_changed" : current ? "submit_failed" : "invalid_form",
 			});
@@ -481,7 +539,7 @@ const Checkout: NextPageWithLayout = () => {
 							Giỏ hàng chưa có sản phẩm. <Link href="/creativa/skin-laptop">Khám phá thiết kế</Link>
 						</Alert>
 					) : (
-						<Box component="form" onSubmit={submit}>
+						<Box component="form" onSubmit={submit} noValidate>
 							<Grid container spacing={4}>
 								<Grid item xs={12} md={7}>
 									<Stack gap={2}>
@@ -490,6 +548,7 @@ const Checkout: NextPageWithLayout = () => {
 										</Typography>
 										<TextField
 											label="Họ và tên"
+											name="name"
 											autoComplete="name"
 											required
 											value={customer.name}
@@ -500,6 +559,7 @@ const Checkout: NextPageWithLayout = () => {
 										/>
 										<TextField
 											label="Số điện thoại"
+											name="phone"
 											type="tel"
 											autoComplete="tel"
 											required
@@ -511,6 +571,7 @@ const Checkout: NextPageWithLayout = () => {
 										/>
 										<TextField
 											label="Email (không bắt buộc)"
+											name="email"
 											type="email"
 											autoComplete="email"
 											value={customer.email}
@@ -521,6 +582,7 @@ const Checkout: NextPageWithLayout = () => {
 										/>
 										<TextField
 											label="Địa chỉ giao hàng (không bắt buộc)"
+											name="address"
 											autoComplete="street-address"
 											multiline
 											rows={2}
@@ -561,6 +623,7 @@ const Checkout: NextPageWithLayout = () => {
 										)}
 										<TextField
 											label="Ghi chú (không bắt buộc)"
+											name="note"
 											multiline
 											rows={2}
 											value={customer.note}

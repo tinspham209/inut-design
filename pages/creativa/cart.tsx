@@ -19,18 +19,20 @@ import { useHydratedCreativaCart } from "@/hooks/creativa/useBrowserState";
 import { isReserved, type CreativaCartLine } from "@/store/cart/creativaCart";
 import type { CreativaQuote } from "@/models/creativa";
 import type { NextPageWithLayout } from "@/models/common";
-import { creativaApi } from "@/api-client/creativa-checkout";
+import { creativaApi, CreativaRequestError } from "@/api-client/creativa-checkout";
 import { formatCreativaPrice, lineIdentity, safeQuantity } from "@/utils/creativa/contracts";
 import { measureCreativaLine, trackCreativa } from "@/utils/creativa/analytics";
 
 function CartLine({
 	item,
 	price,
+	availabilityError,
 	update,
 	remove,
 }: {
 	item: CreativaCartLine;
 	price: number;
+	availabilityError?: string;
 	update: (id: string, quantity: number) => void;
 	remove: (id: string) => void;
 }) {
@@ -110,9 +112,9 @@ function CartLine({
 			{isReserved(item) && (
 				<Typography variant="caption">Sản phẩm đang chờ xác nhận lần đặt hàng trước.</Typography>
 			)}
-			{error && (
+			{(error || availabilityError) && (
 				<Alert severity="error" sx={{ mt: 1 }}>
-					{error}
+					{error || availabilityError}
 				</Alert>
 			)}
 		</Box>
@@ -126,6 +128,7 @@ const Cart: NextPageWithLayout = () => {
 	const [loading, setLoading] = useState(false);
 	const [reviewed, setReviewed] = useState("");
 	const [retry, setRetry] = useState(0);
+	const [lineErrors, setLineErrors] = useState<Record<string, string>>({});
 	const viewed = useRef(false);
 	useEffect(() => {
 		if (!cart.hydrated) return;
@@ -155,28 +158,29 @@ const Cart: NextPageWithLayout = () => {
 			setQuote(null);
 			setLoading(false);
 			setError(null);
+			setLineErrors({});
 			reportView(undefined, cart.error ? "invalid_cart" : undefined);
 			return;
 		}
 		let current = true;
 		setLoading(true);
 		setError(null);
+		setLineErrors({});
 		void creativaApi
 			.quote(cart.items, "", "cod")
 			.then((next) => {
 				if (!current) return;
 				setQuote(next);
 				reportView(next);
-				if (
-					cart.items.some(
-						(item) =>
-							next.lines.find((line) => lineIdentity(line) === lineIdentity(item))?.unitPrice !==
-							item.unitPrice
-					)
-				) {
+				const changedItems = cart.items.filter(
+					(item) =>
+						next.lines.find((line) => lineIdentity(line) === lineIdentity(item))?.unitPrice !==
+						item.unitPrice
+				);
+				if (changedItems.length) {
 					trackCreativa("cart_revalidation", {
 						reason: "price_changed",
-						item_count: cart.items.length,
+						item_count: changedItems.length,
 					});
 				}
 			})
@@ -184,6 +188,11 @@ const Cart: NextPageWithLayout = () => {
 				if (current) {
 					setQuote(null);
 					setError(failure.message);
+					const affected = failure instanceof CreativaRequestError ? failure.fieldErrors || {} : {};
+					setLineErrors(affected);
+					const count = cart.items.filter((item) => affected[lineIdentity(item)]).length;
+					if (count)
+						trackCreativa("cart_revalidation", { reason: "item_unavailable", item_count: count });
 					reportView(undefined, "quote_unavailable");
 				}
 			})
@@ -253,6 +262,7 @@ const Cart: NextPageWithLayout = () => {
 						<CartLine
 							key={item.instanceId}
 							item={item}
+							availabilityError={lineErrors[lineIdentity(item)]}
 							price={
 								quote?.lines.find((line) => lineIdentity(line) === lineIdentity(item))?.unitPrice ??
 								item.unitPrice
