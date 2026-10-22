@@ -1,6 +1,6 @@
 # Creativa Staff Audit
 
-**Code re-audit:** Round 3 FAIL at `918134b`; I-12 and I-13 require another rework cycle.
+**Code re-audit:** Round 4 PASS for I-12/I-13; subsequent exact-contract findings I-14 through I-18 are reworked and await round 5.
 **Overall acceptance:** FAIL / BLOCKED — E-01 through E-04 still lack their required external witnesses.
 **Phase:** Read-only audit rounds 1 and 2 completed; no code was changed by either audit.
 **Baseline:** `551ab8e`; implementation reviewed through `a98bb7e` on `feat/creativa`.
@@ -129,3 +129,31 @@ All five findings route to **Missing Implementation → Implement → Verify**. 
 **Files modified:** Catalog query effect; checkout submit catch; plan/test/audit/routing records. No API, pricing, schema, storage or provider contract was changed.
 
 **Repository stop gate:** Current lint without warnings, TypeScript, SPX 42, production application build (229 pages) and postbuild SEO (221 URLs) pass. Studio's previous passing build is retained for unchanged Studio/schema source. No external mutations or native/vendor acceptance were performed.
+
+## Read-only audit round 4
+
+**Code result:** PASS at `2eb5af0153b7c5e3caf7a823b9b69aa26cc71bdf`, reviewing `918134b..2eb5af0` and connected lifecycle/cleanup behavior. The independent reviewer found I-12/I-13 resolved and no regression requiring reopening I-01 through I-11 in that bounded review. Overall acceptance remains FAIL/BLOCKED for E-01 through E-04.
+
+## Final-verification interruption / additional contract gaps
+
+Re-reading the exact requirement/event catalog at `2eb5af0` found the following source gaps outside round 4's bounded fixes. Final verification stopped before source changes; these route to Missing Implementation → Implement → Verify, not external-evidence substitutions.
+
+| ID | Severity | Evidence | Requirement / recommendation |
+| --- | --- | --- | --- |
+| I-14 | Medium | Quote server supplies `fieldErrors[lineIdentity]` for unavailable items, but cart catch discards it and rows receive no availability error. Price revalidation reports every cart line as affected, even if only one changed. | CART-06, AN-04, CT-14: map existing identity-keyed errors to affected rows, retain healthy lines, block checkout and report actual affected counts. |
+| I-15 | Medium | Catalog list/click items omit explicit position/list context; click omits displayed price basis; completed search uses `surface` but not the specified `search_context`. Facade lacks these context keys. | AN-02/04 and section 9.2: populate bounded public list/position/price-basis/search context, without new collectors or raw queries. |
+| I-16 | Medium | Checkout `resolve()` catch updates UI but emits no approved `checkout_error`; only submit catch emits it. | AN-04, CT-14: emit one safe resolve-failure category per failed resolution without leaking the capability/error body. |
+| I-17 | Medium | Native required/pattern/email validation can stop the checkout form before its submit handler, bypassing `checkout_validation_error`. | CHECKOUT-02/07, AN-04: route validation through the existing shared client/server validator with labeled errors/focus; do not weaken field rules or add another validator. |
+| I-18 | Medium | `begin_checkout` requires successful quote; quote failure leaves a visible nonempty form unmeasured. Abandonment registration depends on that ref and its local deduplication resets with quote rerenders; unavailable value becomes zero. | AN-01/04: measure the entered nonempty lifecycle on quote failure with unavailable money omitted; keep one abandonment owner across rerenders and never classify unresolved acceptance as abandonment. |
+
+## Rework round 4
+
+**Resolved issues:** I-14 maps existing identity-keyed server errors onto cart rows and measures actual affected counts. I-15 carries explicit bounded public list/position/price-basis/search context through the existing facade. I-16 measures safe resolver failures. I-17 uses the existing shared parser for form validation (`noValidate` disables only competing native submission validation, not required labels or parser rules), with named-field focus. I-18 retains authoritative quote value when available, records failed/pending-exit entry otherwise, omits unknown money and uses stable abandonment ownership plus synchronous in-flight/known-acceptance guards.
+
+**Red → green:** Six new groups reproduced the I-14..I-18 gaps on `2eb5af0`, then passed alongside the original eight. An added pending-exit/acceptance-boundary group was red during rework, then passed after callback ownership/guards were completed. All 15 actual-source isolated groups now pass; no existing passing assertion was removed or weakened.
+
+**Browser evidence:** Current production preview, Chromium 390×844, local synthetic API/collector stubs and aborted order endpoints. Invalid phone shows localized helper text and `aria-invalid`, focuses `phone`, emits one validation event per local destination, and creates no submit/journal. Correct form's `noValidate` is true (an initial generic selector inspected the separate header-search form; the selector was corrected, not the code/oracle). Two cart rows remain visible, only the targeted row has its availability warning, checkout action is absent, affected count is one per local destination and measured horizontal overflow is false. Screenshots are session artifacts, not public product data or native-device proof.
+
+**Files modified:** Creativa cart, checkout and catalog pages; existing analytics measurement type/allowlist; guide and plan/test/audit/routing records.
+
+**Stop gate:** Current lint without warnings, TypeScript, application build (229 pages) and postbuild SEO (221 URLs) pass. Previously passing SPX 42 and Studio builds cover unchanged SPX/loader/Studio/schema source. E-01 through E-04 remain; read-only audit of these changes is next.

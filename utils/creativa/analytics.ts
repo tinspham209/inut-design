@@ -11,6 +11,8 @@ export type CreativaMeasurementItem = {
 	item_name: string;
 	item_category: "skin-laptop";
 	item_variant?: string;
+	item_list_id?: string;
+	index?: number;
 	model_id?: string;
 	coverage_id?: string;
 	price?: number;
@@ -38,6 +40,10 @@ export function measureCreativaLine(line: {
 }
 const allowed = new Set([
 	"surface",
+	"item_list_id",
+	"item_position",
+	"item_positions",
+	"search_context",
 	"entry_point",
 	"lookup_source",
 	"outcome",
