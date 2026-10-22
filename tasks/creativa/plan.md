@@ -214,6 +214,13 @@ Read-only final verification at `d3b0cdb` reopened the code loop. Six isolated a
 
 The post-rework stop gate passes: lint without warnings, TypeScript, existing SPX 42 checks, application/postbuild SEO and Studio builds. Chromium locally stubbed collectors also observed one history-read error and empty-cart view per destination. Read-only round 3 audit is still required before final verification restarts. External blockers E-01 through E-04 remain unchanged.
 
+### Rework checkpoint — audit round 3
+
+- [x] I-12 — Impression ownership resets only when a debounced query commits and changes presentation; cancelling transient input retains continuously displayed-card deduplication.
+- [x] I-13 — Repricing failure has one specific error emission while preserving the replacement quote and confirmed-terminal journal cleanup.
+
+Both new actual-source probes were red on `918134b`; all eight groups now pass. They were added alongside, not in place of, the six passing probe groups. Post-fix lint, TypeScript, SPX 42 and application/postbuild SEO gates pass; unchanged Studio source retains its passing build. Another read-only audit remains required.
+
 ### Shared-file ownership
 
 - CR-03 owns new schema registration and Studio action integration.

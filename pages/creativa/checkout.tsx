@@ -387,10 +387,8 @@ const Checkout: NextPageWithLayout = () => {
 			const result = await creativaApi.create(body, current.capability);
 			acceptedCompletion(result, current);
 		} catch (failure) {
-			if (failure instanceof CreativaRequestError && failure.quote) {
-				setQuote(failure.quote);
-				trackCreativa("checkout_error", { reason: "quote_changed" });
-			}
+			const updatedQuote = failure instanceof CreativaRequestError ? failure.quote : undefined;
+			if (updatedQuote) setQuote(updatedQuote);
 			const isDefiniteRejection = failure instanceof CreativaRequestError && failure.terminal;
 			if (current && isDefiniteRejection) {
 				const clearing = clearAttempt(current.capability);
@@ -401,7 +399,7 @@ const Checkout: NextPageWithLayout = () => {
 			setError(details.message || "Không thể xác định kết quả đặt hàng.");
 			if (details.fieldErrors) setFieldErrors(details.fieldErrors);
 			trackCreativa(current ? "checkout_error" : "checkout_validation_error", {
-				reason: current ? "submit_failed" : "invalid_form",
+				reason: updatedQuote ? "quote_changed" : current ? "submit_failed" : "invalid_form",
 			});
 		} finally {
 			lock.current = false;
