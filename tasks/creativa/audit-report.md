@@ -1,6 +1,6 @@
 # Creativa Staff Audit
 
-**Code re-audit:** Round 2 PASS for its reviewed rework; final verification subsequently found I-07 through I-11, which reopen rework.
+**Code re-audit:** Round 3 FAIL at `918134b`; I-12 and I-13 require another rework cycle.
 **Overall acceptance:** FAIL / BLOCKED — E-01 through E-04 still lack their required external witnesses.
 **Phase:** Read-only audit rounds 1 and 2 completed; no code was changed by either audit.
 **Baseline:** `551ab8e`; implementation reviewed through `a98bb7e` on `feat/creativa`.
@@ -106,3 +106,26 @@ All five findings route to **Missing Implementation → Implement → Verify**. 
 **Red → green:** All six new isolated actual-source probe groups failed on `d3b0cdb`, then all six passed after rework. No passing repository test was rewritten; no test runner, dependency or repository test-code file was added.
 
 **Repository stop gate:** Lint without warnings, TypeScript, existing SPX 42 checks, application production build (229 pages), postbuild SEO (221 sitemap URLs) and Studio build all pass after these fixes. The missing real catalog configuration still renders the expected explicit unavailable state. A browser reference expired during the dialog-close animation; refreshing the snapshot completed the check without changing code or weakening its oracle.
+
+## Read-only audit round 3
+
+**Code result:** FAIL at `918134b448098a40092b5d7351042ce9c9f4d225`, reviewing `d3b0cdb..918134b` and connected requirements/source. The independent reviewer found two additional actionable cases; no code was changed by the audit.
+
+| ID | Severity | Evidence at reviewed revision | Requirement / issue | Recommendation |
+| --- | --- | --- | --- | --- |
+| I-12 | Medium | `pages/creativa/skin-laptop/index.tsx:166-168,185`; actual-source controlled timers produced requests `["",""]`, no completed search, but two impressions for one continuously visible product. | Deduplication resets on transient input before its debounce commits. Typing and clearing within 250 ms replays unchanged cards. AN-01/04, AC-31, CT-14. | Reset only when the query commits/presentation changes; preserve cancelled-input and unchanged-refresh deduplication plus new-query/batch impressions. |
+| I-13 | Medium | `pages/creativa/checkout.tsx:390-403`; actual submit handler with a typed terminal 409/updated quote produced both `quote_changed` and `submit_failed` checkout errors. | One repricing rejection is counted twice per destination. Connected pre-existing producer defect, not introduced by round 2 rework. AN-01/04, AC-31, CT-14. | Classify and emit the failure once, preserving updated quote review and confirmed-terminal cleanup. |
+
+**Overall acceptance:** FAIL / BLOCKED. E-01 through E-04 remain unchanged. Route both new findings as Missing Implementation → Implement → Verify; do not restart final verification until their re-audit passes.
+
+## Rework round 3
+
+**Resolved issues:** I-12 now clears impression ownership only inside the committed debounce callback when the active query changes; its extra transient-query ref was removed. I-13 now retains a replacement quote but classifies/emits its failure once, preserving terminal cleanup.
+
+**Evidence:** Both new probes failed with duplicate counts on `918134b`, then passed after the fixes. All eight actual-source probe groups pass, including the six already passing groups; no passing assertion was replaced or weakened. The cancelled-input probe observes only two empty-query requests and one impression for continuously displayed cards, then a second impression for a genuinely committed query. The repricing probe observes one submit, one `quote_changed` error, the replacement quote and a cleared terminal journal.
+
+**Remaining issues:** E-01 through E-04 only, pending read-only re-audit of these fixes.
+
+**Files modified:** Catalog query effect; checkout submit catch; plan/test/audit/routing records. No API, pricing, schema, storage or provider contract was changed.
+
+**Repository stop gate:** Current lint without warnings, TypeScript, SPX 42, production application build (229 pages) and postbuild SEO (221 URLs) pass. Studio's previous passing build is retained for unchanged Studio/schema source. No external mutations or native/vendor acceptance were performed.

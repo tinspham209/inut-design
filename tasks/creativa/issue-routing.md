@@ -3,7 +3,7 @@
 **Phase:** Issue routing — no code changes.
 **Code reviewed:** `d3b0cdb` on `feat/creativa`.
 **Inputs:** [Audit report](./audit-report.md), [revised plan](./plan.md), [specification](./specs.md) and [test plan](./test-plan.md).
-**Decision:** I-01 through I-06 passed round 2. Read-only final verification found I-07 through I-11 and returned them to implementation/rework before final verification resumes. Four external readiness findings remain; none may be removed by inventing inputs or silently changing requirements.
+**Decision:** I-01 through I-06 passed round 2. I-07 through I-11 have applied fixes/local witnesses; round 3 found additional I-12/I-13 cases that require rework before final verification resumes. Four external readiness findings remain; none may be removed by inventing inputs or silently changing requirements.
 
 ## Classification rules
 
@@ -28,6 +28,8 @@
 | I-09 — missing empty/error cart views | Missing Implementation → Implement → Verify | View lifecycle depends entirely on a successful nonempty quote. | Implement/rework, hydrated empty/invalid/failed/successful quote probes, then audit. | Creativa cart page. | Medium funnel undercount; unavailable money must not become a fabricated value. | YES |
 | I-10 — uncommitted checkout-default metrics | Missing Implementation → Implement → Verify | Address blur can report stale shipping, while default shipping/payment commits are unmeasured. | Implement/rework, current-quote signature/default-payment probes, then audit. | Creativa checkout page. | Medium funnel accuracy defect; no pricing/payment contract change. | YES |
 | I-11 — missing cached catalog impressions | Missing Implementation → Implement → Verify | Initial visible ISR cards are not measured when revalidation fails. | Implement/rework, cached/fresh/additional/layout deduplication probes, then audit. | Skin catalog page. | Medium impression undercount; preserve resolved I-06 batch behavior. | YES |
+| I-12 — cancelled-query duplicate impressions | Missing Implementation → Implement → Verify | Impression reset precedes debounced query commitment; transient input can replay continuously displayed records. | Rework lifecycle ownership, controlled debounce/cancellation probe, then read-only audit. | Skin catalog page; CT-14 procedure/evidence. | Medium measurement overcount; no query/API contract change. | YES |
+| I-13 — duplicate repricing-error event | Missing Implementation → Implement → Verify | Updated-quote rejection emits its specific category and a second generic error for one submit. | Rework single failure classification, terminal repricing probe, then read-only audit. | Checkout submit catch; CT-14 procedure/evidence. | Medium funnel overcount; preserve review and cleanup behavior. | YES |
 | E-01 — owner launch inputs/asset/operator readiness | Ambiguous Requirement → Clarify → Verify | Concrete roster, fit/master mapping, fees, bank/support/sales destinations, credential and operator signoff are intentionally owner-provided but unavailable. CDN 403 cause/asset access also unverified. | Clarify/provide inputs and separately authorize CR-21 configuration plus CR-22 rehearsal; then verify. | Owner CMS records/assets/configuration, `.env` server credential (never committed), plan/test evidence. No source change is currently justified. | High: usable launch catalog/checkout/fulfillment cannot be signed off. Scope/timing depends on supplied data, not a guessed engineering estimate. | NO |
 | E-02 — actual Sanity permissions/atomicity evidence | Plan Gap → Plan → Verify | Mocked SDK/source checks cannot replace direct anonymous denial and real application transaction/collision/recovery witnesses on an authorized target. | Plan the G-01 target, allowed mutations and deterministic controls; execute CR-19 database checks. | Private schema/SDK/order/lookup endpoints are verification targets; CR-23 control ledger. | High: privacy/duplicate-order invariants remain unproven in deployment. | NO |
 | E-03 — hosted telemetry/proxy/log evidence | Plan Gap → Plan → Verify | Actual collector/container versions/exclusions and host identity/cache/referrer/log controls have not been inspected with authorization. | Plan G-04 access/settings review and canary network/host checks; route any observed concrete defect back to Implement. | App/document collector integration, hosting/GTM/GA4/Umami/Vercel settings and logs; no secrets/config changes authorized here. | High: full privacy/dispatch/abuse acceptance remains blocked. | NO |
@@ -35,7 +37,7 @@
 
 ## Loop disposition
 
-The actionable cycle is complete for I-01 through I-06. I-07 through I-11 reopen Implement → Audit → Rework → Audit based on final-verification source evidence. Final verification must restart after those findings are resolved and re-audited.
+The actionable cycle is complete for I-01 through I-06. I-07 through I-11 have applied fixes; round 3 additionally routes I-12 and I-13 to Rework → Audit. Final verification must restart only after the resulting code audit passes.
 
 E-01 through E-04 must not be sent through a blind code-rework loop: their approved prerequisite is Clarify/Plan → Verify. Full acceptance remains FAIL/BLOCKED until those witnesses exist. Feature-branch publication is not deployment and cannot be represented as launch approval.
 

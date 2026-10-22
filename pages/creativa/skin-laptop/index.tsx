@@ -123,7 +123,6 @@ const SkinCatalog: NextPageWithLayout<{
 	const currentColumns = useRef(columns);
 	const initialPage = useRef(initial);
 	const impressed = useRef(new Set<string>());
-	const impressionQuery = useRef("");
 	currentColumns.current = columns;
 	const reportList = useCallback(
 		(items: CreativaProduct[], fromPrice: number | null, page: number) => {
@@ -163,14 +162,12 @@ const SkinCatalog: NextPageWithLayout<{
 		setLoading(true);
 		const controller = new AbortController();
 		const normalized = query.trim();
-		if (impressionQuery.current !== normalized) {
-			impressionQuery.current = normalized;
-			impressed.current.clear();
-		}
 		const timer = window.setTimeout(() => {
 			const previousQuery = activeQuery.current;
-			if (activeQuery.current !== normalized)
+			if (activeQuery.current !== normalized) {
+				impressed.current.clear();
 				setData({ items: [], cursor: null, fromPrice: initial?.fromPrice ?? null });
+			}
 			activeQuery.current = normalized;
 			setLoading(true);
 			setError(null);

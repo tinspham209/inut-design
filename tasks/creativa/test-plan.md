@@ -114,6 +114,8 @@ Exercise the planned endpoints using current HTTP/browser facilities. Record req
 
 CT-14 explicitly includes initial cached catalog cards when revalidation fails, unchanged refresh/additional-page/layout deduplication, hydrated empty/invalid/failed-quote carts, default shipping without address interaction, unchanged default payment at valid submit, cancelled stale quote responses, typed 404 versus service-error lookups from both sources, and history read/parse/remove/clear failures. Unavailable cart money is omitted with an unavailable price basis, not reported as a fabricated zero. Isolated source probes establish local producer logic only; actual intended destinations remain a separate required witness.
 
+Also type and clear a catalog query before the debounce commits: continuously displayed cards must not receive another impression, while a genuinely committed new query still does. A single repricing rejection carrying a replacement quote must emit one specifically classified checkout error, retain that quote for review and preserve terminal-attempt cleanup.
+
 Do not expose a new public fault-injection/test endpoint to make these checks convenient.
 
 ## 6. Sanity integration and database scenarios
