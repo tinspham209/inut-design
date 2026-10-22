@@ -120,6 +120,8 @@ Verify exact list/position/price-basis and `search_context=catalog` fields, affe
 
 Include empty/whitespace/overlong required name as well as phone errors; native-validation bypass must not remove inline error/focus metadata. Use at least two unavailable identities beside a healthy line and verify the complete authoritative map/count in one response. Change cart/address/payment while a replacement quote is pending: old quote money must not be labeled current for the changed input snapshot.
 
+Exercise the actual quote wrapper as well as its pure evaluator: malformed/draft/private identifiers must never be requested from the SDK, but their original line identities must appear with unavailable valid IDs in the complete rejected-line map. Healthy lines remain available for explicit cart repair; no partial order is accepted.
+
 Do not expose a new public fault-injection/test endpoint to make these checks convenient.
 
 ## 6. Sanity integration and database scenarios

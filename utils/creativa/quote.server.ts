@@ -368,9 +368,7 @@ export async function evaluateQuote(input: {
 				line.selection.coverageId,
 			])
 		),
-	];
-	if (!ids.every(publishedId))
-		throw new CreativaError("ITEM_UNAVAILABLE", "Lựa chọn sản phẩm không hợp lệ.", 409);
+	].filter(publishedId);
 	const documents = await creativaServerClient().getDocuments<Record<string, unknown>>([
 		...ids,
 		"creativa-shipping-settings",

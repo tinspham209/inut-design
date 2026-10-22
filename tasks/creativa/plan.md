@@ -239,6 +239,8 @@ All 15 isolated actual-source probe groups pass; the eight already green groups 
 
 All 16 actual-source lifecycle groups pass, plus actual shared-parser invalid-name/optional-field metadata and complete unavailable-map/valid-quote checks without external I/O. Another read-only audit remains required.
 
+- [x] I-14 wrapper variant — `evaluateQuote` excludes invalid/draft/private identifiers from SDK reads rather than bypassing the complete identity-error map. The stubbed SDK probe covers a healthy row, malformed/draft row and unavailable valid-ID row together; no external read is needed.
+
 ### Shared-file ownership
 
 - CR-03 owns new schema registration and Studio action integration.
