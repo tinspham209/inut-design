@@ -11,6 +11,19 @@ import type {
 import { canonicalJson, CreativaError, CREATIVA_CAPABILITY } from "./contracts";
 
 export type Ref = { _type: "reference"; _ref: string };
+export type NotificationPart = {
+	_type: "notificationPart";
+	_key: string;
+	position: number;
+	text: string;
+	state: "pending" | "dispatching" | "sent" | "failed" | "unknown";
+	attempts: number;
+	nonce?: string;
+	attemptedAt?: string;
+	outcome?: string;
+	messageId?: string;
+	unknownAcknowledgedAt?: string;
+};
 export type Receipt = {
 	_type: "notificationReceipt";
 	_key: string;
@@ -21,6 +34,9 @@ export type Receipt = {
 	attemptedAt?: string;
 	outcome?: string;
 	messageId?: string;
+	formatVersion?: 1;
+	parts?: NotificationPart[];
+	legacyUnknownAcknowledgedAt?: string;
 };
 export type StoredLine = CreativaOrderLine & {
 	_type: "acceptedLine";

@@ -69,6 +69,7 @@ function ProductContent(initial: Props) {
 	const [coverageId, setCoverageId] = useState(initial.options.coverages[0]?._id || "");
 	const [quantity, setQuantity] = useState("1");
 	const measuredQuantity = useRef(1);
+	const coverageChosen = useRef(false);
 	const [index, setIndex] = useState(0);
 	const [lightbox, setLightbox] = useState(false);
 	const [verified, setVerified] = useState(false);
@@ -89,7 +90,11 @@ function ProductContent(initial: Props) {
 				setVerified(true);
 				setError(null);
 				setCoverageId((previous) =>
-					next.options.coverages.some((item) => item._id === previous) ? previous : ""
+					!coverageChosen.current
+						? next.options.coverages[0]?._id || ""
+						: next.options.coverages.some((item) => item._id === previous)
+						? previous
+						: ""
 				);
 				setModelId((previous) =>
 					next.options.models.some((item) => item._id === previous) ? previous : ""
@@ -313,6 +318,11 @@ function ProductContent(initial: Props) {
 										: "Chưa có mẫu máy được xác nhận để đặt hàng."}
 								</FormHelperText>
 							</FormControl>
+							{!coverage && (
+								<Typography variant="caption">
+									Vui lòng chọn một phạm vi dán đang được hỗ trợ để tiếp tục.
+								</Typography>
+							)}
 							<FormControl component="fieldset">
 								<Typography id="creativa-coverage" component="legend" mb={1}>
 									Phạm vi dán
@@ -321,6 +331,7 @@ function ProductContent(initial: Props) {
 									aria-labelledby="creativa-coverage"
 									value={coverageId}
 									onChange={(event) => {
+										coverageChosen.current = true;
 										setCoverageId(event.target.value);
 										setNotice(null);
 										trackCreativa("product_option_change", {

@@ -189,6 +189,19 @@ Checked means the task's scoped witness is available, not merely that files were
 | Native/owner acceptance | No actual iPhone/Safari or owner/operator signoff performed. |
 | Repository stop gates | Lint and TypeScript pass; SPX 42 checks pass; application production build, postbuild SEO smoke and Studio build pass. Browserslist/formatter deprecation notices are pre-existing tooling warnings. |
 
+### Rework checkpoint — audit round 1
+
+These boxes record the actionable finding's applied fix plus its targeted isolated witness, not closure of its parent CR task or any external acceptance gate. See [audit-report.md](./audit-report.md) for historical evidence and subsequent audit status.
+
+- [x] I-01 — Confirmed-terminal rejection is an explicit server envelope signal; transient configuration/service errors retain the pending capability.
+- [x] I-02 — Fresh journal ownership/checkpoints suppress stale completion side effects after history was forgotten; isolated independent-instance probe passes.
+- [x] I-03 — Invalid cart entries are quarantined individually; explicit repair retains healthy entries and checkout stays blocked until repair.
+- [x] I-04 — Valid long staff handoffs use complete bounded parts with per-part resume/reconciliation, not permanent `MESSAGE_TOO_LARGE`.
+- [x] I-05 — Untouched coverage defaults follow current active order; deliberate valid selection is preserved.
+- [x] I-06 — Newly appended deduplicated products receive their own list impressions/batch/layout context; duplicate pages do not replay old impressions.
+
+The post-rework repository stop gate passes. E-01 through E-04 remain open; no production send/order/write or native/hosted witness is inferred from these checkboxes.
+
 ### Shared-file ownership
 
 - CR-03 owns new schema registration and Studio action integration.

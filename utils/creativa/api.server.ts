@@ -116,6 +116,7 @@ export function creativaApi(method: "GET" | "POST", kind: Kind, handler: Handler
 				error: {
 					code: safe.code,
 					message: safe.message,
+					...(safe.terminal && { terminal: true }),
 					...(safe.fieldErrors && { fieldErrors: safe.fieldErrors }),
 					...(error instanceof QuoteChanged && { quote: error.quote }),
 				},

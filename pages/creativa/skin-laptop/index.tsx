@@ -110,15 +110,26 @@ const SkinCatalog: NextPageWithLayout<{
 	const [columns, setColumns] = useState(2);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(initialError);
+	const [errorPhase, setErrorPhase] = useState<"initial" | "additional" | null>(
+		initialError ? "initial" : null
+	);
 	const [reload, setReload] = useState(0);
 	const sequence = useRef(0);
 	const activeQuery = useRef("");
+	const presented = useRef(new Set<string>());
+	const initialized = useRef(false);
+	const additionalRequest = useRef<string | null>(null);
+	const batch = useRef(1);
+	const currentColumns = useRef(columns);
+	currentColumns.current = columns;
 	useEffect(() => {
 		if (router.isReady)
 			setQuery(typeof router.query.q === "string" ? router.query.q.slice(0, 80) : "");
 	}, [router.isReady, router.query.q]);
 	useEffect(() => {
 		const generation = ++sequence.current;
+		initialized.current = false;
+		setLoading(true);
 		const controller = new AbortController();
 		const normalized = query.trim();
 		const timer = window.setTimeout(() => {
@@ -133,9 +144,17 @@ const SkinCatalog: NextPageWithLayout<{
 				.then((page) => {
 					if (generation !== sequence.current) return;
 					setData(page);
+					presented.current = new Set(page.items.map((item) => item._id));
+					batch.current = 1;
+					initialized.current = true;
 					trackCreativa(
 						"view_item_list",
-						{ item_count: page.items.length, page: 1, columns },
+						{
+							item_count: page.items.length,
+							page: 1,
+							columns: currentColumns.current,
+							surface: "catalog",
+						},
 						page.items.map((item) => ({
 							item_id: item._id,
 							item_name: item.name,
@@ -154,6 +173,7 @@ const SkinCatalog: NextPageWithLayout<{
 				.catch((failure: Error) => {
 					if (controller.signal.aborted || generation !== sequence.current) return;
 					setError(failure.message);
+					setErrorPhase("initial");
 					trackCreativa("catalog_load_error", { phase: "initial", reason: "request_failed" });
 				})
 				.finally(() => {
@@ -168,27 +188,50 @@ const SkinCatalog: NextPageWithLayout<{
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [query, reload]);
 	async function loadMore() {
-		if (!data.cursor || loading) return;
+		if (!data.cursor || loading || !initialized.current || query.trim() !== activeQuery.current)
+			return;
 		const generation = sequence.current;
+		const requestKey = `${generation}:${data.cursor}`;
+		if (additionalRequest.current === requestKey) return;
+		additionalRequest.current = requestKey;
 		setLoading(true);
 		setError(null);
 		try {
 			const next = await creativaApi.catalog(activeQuery.current, data.cursor);
 			if (generation !== sequence.current) return;
+			const added = next.items.filter((item) => !presented.current.has(item._id));
+			added.forEach((item) => presented.current.add(item._id));
+			const nextBatch = ++batch.current;
 			setData((current) => ({
 				...next,
-				items: [
-					...current.items,
-					...next.items.filter((item) => !current.items.some((entry) => entry._id === item._id)),
-				],
+				items: [...current.items, ...added],
 			}));
-			trackCreativa("catalog_pagination", { item_count: next.items.length });
+			trackCreativa("catalog_pagination", { item_count: added.length, page: nextBatch });
+			if (added.length)
+				trackCreativa(
+					"view_item_list",
+					{
+						item_count: added.length,
+						page: nextBatch,
+						columns: currentColumns.current,
+						surface: "catalog",
+					},
+					added.map((item) => ({
+						item_id: item._id,
+						item_name: item.name,
+						item_category: "skin-laptop",
+						quantity: 1,
+						...(next.fromPrice !== null && { price: next.fromPrice }),
+					}))
+				);
 		} catch (failure) {
 			if (generation === sequence.current) {
 				setError(failure instanceof Error ? failure.message : "Không thể tải thêm sản phẩm.");
+				setErrorPhase("additional");
 				trackCreativa("catalog_load_error", { phase: "additional", reason: "request_failed" });
 			}
 		} finally {
+			if (additionalRequest.current === requestKey) additionalRequest.current = null;
 			if (generation === sequence.current) setLoading(false);
 		}
 	}
@@ -236,7 +279,7 @@ const SkinCatalog: NextPageWithLayout<{
 								<Button
 									color="inherit"
 									onClick={() =>
-										data.items.length && data.cursor
+										errorPhase === "additional" && data.cursor
 											? void loadMore()
 											: setReload((value) => value + 1)
 									}

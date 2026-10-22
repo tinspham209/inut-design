@@ -409,6 +409,22 @@ export const creativaOrder = doc(
 					field("attemptedAt", "datetime"),
 					field("outcome"),
 					field("messageId"),
+					field("formatVersion", "number"),
+					field("legacyUnknownAcknowledgedAt", "datetime"),
+					array(
+						"parts",
+						object("notificationPart", [
+							money("position", 1),
+							field("text", "text", { validation: (Rule) => Rule.required().max(4000) }),
+							enumeration("state", ["pending", "dispatching", "sent", "failed", "unknown"]),
+							money("attempts"),
+							field("nonce"),
+							field("attemptedAt", "datetime"),
+							field("outcome"),
+							field("messageId"),
+							field("unknownAcknowledgedAt", "datetime"),
+						])
+					),
 				])
 			),
 			array(

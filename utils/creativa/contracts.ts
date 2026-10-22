@@ -12,6 +12,7 @@ export const CREATIVA_ATTEMPT_KEY = "inut-creativa-checkout-attempt";
 export const RESERVED_SKIN_SLUGS = ["huong-dan-su-dung"];
 
 export class CreativaError extends Error {
+	terminal = false;
 	constructor(
 		public code: string,
 		message: string,

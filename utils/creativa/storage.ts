@@ -18,6 +18,7 @@ export type CheckoutAttempt = {
 	order?: CreativaPublicOrder;
 };
 let liveAttempt: CheckoutAttempt | null = null;
+let liveAttemptWasPersisted = false;
 
 export function browserId(bytes = 16): string {
 	const data = new Uint8Array(bytes);
@@ -98,7 +99,7 @@ export function readAttempt(): StorageResult<CheckoutAttempt | null> {
 	if (typeof window === "undefined") return { value: null };
 	try {
 		const raw = localStorage.getItem(CREATIVA_ATTEMPT_KEY);
-		if (raw === null) return { value: liveAttempt };
+		if (raw === null) return { value: liveAttemptWasPersisted ? null : liveAttempt };
 		const value: unknown = JSON.parse(raw);
 		if (
 			!isRecord(value) ||
@@ -134,6 +135,12 @@ export function readAttempt(): StorageResult<CheckoutAttempt | null> {
 			cartHandled: value.cartHandled,
 			historyHandled: value.historyHandled,
 		};
+		if (liveAttempt?.capability === attempt.capability) {
+			attempt.cartHandled ||= liveAttempt.cartHandled;
+			attempt.historyHandled ||= liveAttempt.historyHandled;
+		}
+		liveAttempt = attempt;
+		liveAttemptWasPersisted = true;
 		return { value: attempt };
 	} catch (error) {
 		const unavailable = error instanceof Error && error.name === "SecurityError";
@@ -154,6 +161,7 @@ export function saveAttempt(attempt: CheckoutAttempt): string | null {
 		if (current.value && current.value.capability !== attempt.capability) {
 			return "Một lần đặt hàng trước đang chờ xác nhận. Vui lòng khôi phục trước khi đặt tiếp.";
 		}
+		if (liveAttempt?.capability !== attempt.capability) liveAttemptWasPersisted = false;
 		liveAttempt = attempt;
 		// Keep only recovery metadata, never customer/order payloads.
 		localStorage.setItem(
@@ -166,6 +174,7 @@ export function saveAttempt(attempt: CheckoutAttempt): string | null {
 				cartHandled: attempt.cartHandled,
 			})
 		);
+		liveAttemptWasPersisted = true;
 		return null;
 	} catch {
 		return "Không thể lưu tiến trình trên trình duyệt. Hãy giữ trang mở và sao chép mã sau khi đặt hàng.";
@@ -173,7 +182,10 @@ export function saveAttempt(attempt: CheckoutAttempt): string | null {
 }
 
 export function clearAttempt(capability: string): string | null {
-	if (liveAttempt?.capability === capability) liveAttempt = null;
+	if (liveAttempt?.capability === capability) {
+		liveAttempt = null;
+		liveAttemptWasPersisted = false;
+	}
 	try {
 		const current = readAttempt();
 		if (current.error) return current.error;

@@ -110,6 +110,7 @@ Exercise the planned endpoints using current HTTP/browser facilities. Record req
 | CT-12 | Start with a recognized unresolved journal; attempt replacement/new checkout, changed customer/payment data on the same capability and separate deliberately new capabilities. | Resolve/retain the known attempt instead of silently overwriting it; submitted intent remains frozen. Same-capability conflict/replay rules hold. Do not expect global semantic deduplication across separate intentional capabilities. |
 | CT-13 | Repeat identical quote evaluations at different times/request IDs; make harmless versus commercial CMS edits; tie option sort values; supply invalid configured money or failed image records. | Stable commercial digest despite incidental metadata/revision changes; actual artwork/fit/price/fee/availability/payment change requires review. Option choice is deterministic and invalid data is rejected/shown honestly, never a fabricated available/free product. |
 | CT-14 | Use the delivered analytics-guide producer map to exercise each applicable approved event, including searches/no-results, additional loads, gallery, options, cart, validation/errors, abandonment, history and copy actions. | Correct trigger/property/destination once per intended action; attribution and amount fields agree with source state. Verify the entire applicable event catalog rather than infer it from a successful purchase event. |
+| CT-15 | Use a valid long note/address and many/escaped/Unicode field values that exceed one staff message; interrupt part delivery and retry failed/unknown/deferred cases. | All required content remains complete in bounded parts; known sent parts are not routinely resent, failed/deferred parts make progress and unknown delivery requires acknowledgment. Do not truncate immutable customer data to make a test pass. |
 
 Do not expose a new public fault-injection/test endpoint to make these checks convenient.
 
@@ -246,6 +247,7 @@ The following maps **planned evidence**, not completed automated coverage. CT/DB
 | Entire collector/header/cache/referrer path and documented event producers | CT-11, CT-14, BDD-27; CR-04/CR-10/CR-18/CR-23 and AC-31/AC-33/AC-52. |
 | Actual launch data and usable manual fulfillment handoff | BDD-28, CT-13; CR-21/CR-22, BO-01/BO-04 and AC-15/AC-23/AC-24/AC-39. |
 | Purchase pause with historical continuity | BDD-29; CR-19/CR-20. |
+| Audit round 1 regression closure | I-01: transient 503 retains journal, confirmed rejection clears. I-02: independent late completion cannot restore forgotten ID. I-03: healthy line survives invalid sibling/explicit repair. I-04: CT-15. I-05: current untouched versus deliberate coverage updater. I-06: additional deduplicated batch impressions and duplicate-page suppression. |
 
 ### Acceptance scenario traceability
 
