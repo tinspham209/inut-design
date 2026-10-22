@@ -42,7 +42,7 @@
 
 ## Loop disposition
 
-The actionable cycle is complete for I-01 through I-13. I-14 through I-18 have applied fixes and route next to read-only Audit → Verify. Final verification must restart only after that audit passes.
+The actionable cycle is complete for I-01 through I-13. Round 5 reopens I-14's multiple-unavailable provider, I-17's missing-name metadata and I-18's stale requote amount; each remains Missing Implementation → Implement → Verify, continuation YES. I-15/I-16 have no reported remaining source defect. Final verification must restart only after the resulting re-audit passes.
 
 E-01 through E-04 must not be sent through a blind code-rework loop: their approved prerequisite is Clarify/Plan → Verify. Full acceptance remains FAIL/BLOCKED until those witnesses exist. Feature-branch publication is not deployment and cannot be represented as launch approval.
 

@@ -28,17 +28,34 @@ export function isRecord(value: unknown): value is Record<string, unknown> {
 	return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-export function requireText(value: unknown, field: string, max = 500): string {
+export function requireText(value: unknown, field: string, max = 500, errorKey?: string): string {
 	if (typeof value !== "string" || !value.trim() || value.length > max) {
-		throw new CreativaError("INVALID_INPUT", `Thông tin ${field} không hợp lệ.`);
+		const message = `Thông tin ${field} không hợp lệ.`;
+		throw new CreativaError(
+			"INVALID_INPUT",
+			message,
+			422,
+			errorKey ? { [errorKey]: message } : undefined
+		);
 	}
 	return value.trim();
 }
 
-function optionalText(value: unknown, field: string, max = 2000): string | undefined {
+function optionalText(
+	value: unknown,
+	field: string,
+	max = 2000,
+	errorKey?: string
+): string | undefined {
 	if (value === undefined || value === null || value === "") return undefined;
 	if (typeof value !== "string" || value.length > max) {
-		throw new CreativaError("INVALID_INPUT", `Thông tin ${field} không hợp lệ.`);
+		const message = `Thông tin ${field} không hợp lệ.`;
+		throw new CreativaError(
+			"INVALID_INPUT",
+			message,
+			422,
+			errorKey ? { [errorKey]: message } : undefined
+		);
 	}
 	return value.trim() || undefined;
 }
@@ -97,20 +114,20 @@ export function parsePurchaseLines(value: unknown): CreativaPurchaseLine[] {
 export function parseCustomer(value: unknown): CreativaCustomer {
 	if (!isRecord(value))
 		throw new CreativaError("INVALID_CUSTOMER", "Vui lòng nhập thông tin khách hàng.");
-	const name = requireText(value.name, "họ tên", 200);
+	const name = requireText(value.name, "họ tên", 200, "name");
 	if (typeof value.phone !== "string" || !/^[0-9]{10}$/.test(value.phone)) {
 		throw new CreativaError("INVALID_PHONE", "Số điện thoại phải gồm đúng 10 chữ số.", 422, {
 			phone: "Số điện thoại phải gồm đúng 10 chữ số.",
 		});
 	}
-	const email = optionalText(value.email, "email", 254);
+	const email = optionalText(value.email, "email", 254, "email");
 	if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
 		throw new CreativaError("INVALID_EMAIL", "Email không hợp lệ.", 422, {
 			email: "Email không hợp lệ.",
 		});
 	}
-	const address = optionalText(value.address, "địa chỉ");
-	const note = optionalText(value.note, "ghi chú");
+	const address = optionalText(value.address, "địa chỉ", 2000, "address");
+	const note = optionalText(value.note, "ghi chú", 2000, "note");
 	return {
 		name,
 		phone: value.phone,

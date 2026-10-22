@@ -117,6 +117,12 @@ const Checkout: NextPageWithLayout = () => {
 	const methodChosen = useRef(false);
 	const measuredShipping = useRef("");
 	const measuredPayment = useRef<"cod" | "bank_transfer" | null>(null);
+	const quoteSource = useRef<{
+		quote: CreativaQuote;
+		items: typeof cart.items;
+		address: string;
+		payment: typeof payment;
+	} | null>(null);
 	const reportBegin = useCallback(
 		(currentQuote?: CreativaQuote) => {
 			if (began.current) return;
@@ -291,6 +297,12 @@ const Checkout: NextPageWithLayout = () => {
 				.quote(cart.items, customer.address || "", payment)
 				.then((next) => {
 					if (!current) return;
+					quoteSource.current = {
+						quote: next,
+						items: cart.items,
+						address: customer.address || "",
+						payment,
+					};
 					setQuote(next);
 					setError(null);
 					const shippingSignature = JSON.stringify([next.shipping.code, next.shippingFee]);
@@ -349,10 +361,19 @@ const Checkout: NextPageWithLayout = () => {
 			reportBegin();
 			if (!abandoned.current) {
 				abandoned.current = true;
+				const source = quoteSource.current;
+				const currentQuote =
+					source?.quote === quote &&
+					source.items === cart.items &&
+					source.address === (customer.address || "") &&
+					source.payment === payment
+						? quote
+						: null;
 				trackCreativa("abandoned_checkout", {
 					item_count: cart.items.length,
-					...(quote
-						? { value: quote.merchandiseTotal, price_basis: "current_quote" }
+					unit_count: cart.items.reduce((sum, item) => sum + item.quantity, 0),
+					...(currentQuote
+						? { value: currentQuote.merchandiseTotal, price_basis: "current_quote" }
 						: { price_basis: "unavailable" }),
 					phase: "form",
 				});
@@ -370,10 +391,12 @@ const Checkout: NextPageWithLayout = () => {
 		busy,
 		cart.hydrated,
 		cart.error,
-		cart.items.length,
+		cart.items,
 		attemptReady,
 		journalCorrupt,
 		quote,
+		customer.address,
+		payment,
 		reportBegin,
 		router.events,
 	]);

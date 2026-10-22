@@ -1,6 +1,6 @@
 # Creativa Staff Audit
 
-**Code re-audit:** Round 4 PASS for I-12/I-13; subsequent exact-contract findings I-14 through I-18 are reworked and await round 5.
+**Code re-audit:** Round 5 FAIL at `bb7676a`; I-14, I-17 and I-18 need connected-contract rework.
 **Overall acceptance:** FAIL / BLOCKED — E-01 through E-04 still lack their required external witnesses.
 **Phase:** Read-only audit rounds 1 and 2 completed; no code was changed by either audit.
 **Baseline:** `551ab8e`; implementation reviewed through `a98bb7e` on `feat/creativa`.
@@ -157,3 +157,29 @@ Re-reading the exact requirement/event catalog at `2eb5af0` found the following 
 **Files modified:** Creativa cart, checkout and catalog pages; existing analytics measurement type/allowlist; guide and plan/test/audit/routing records.
 
 **Stop gate:** Current lint without warnings, TypeScript, application build (229 pages) and postbuild SEO (221 URLs) pass. Previously passing SPX 42 and Studio builds cover unchanged SPX/loader/Studio/schema source. E-01 through E-04 remain; read-only audit of these changes is next.
+
+## Read-only audit round 5
+
+**Code result:** FAIL at `bb7676ab7f1a23ce626a04fa832e69300e90c987`, reviewing `2eb5af0..bb7676a` and connected providers. I-15/I-16 have no reported unresolved source defect; the following variants reopen their existing issue IDs. No code was changed by the audit.
+
+| Issue | Severity | Evidence | Recommendation |
+| --- | --- | --- | --- |
+| I-17 | Medium | Shared `requireText` rejects an empty name without `fieldErrors.name`; actual submit rejected but did not mark/focus the required name. Phone path did. CHECKOUT-07, UX-03. | Give shared customer-validation failures their localized field metadata; keep one parser/event, no competing native validator. |
+| I-14 | Medium | `quoteFromRecords` throws during the first unavailable mapping entry. Actual pure helper with one healthy/two unavailable identities returned only one error key. CART-06, AN-04. | Collect the complete unavailable-identity map before rejecting; preserve whole-order blocking and all healthy rows. |
+| I-18 | Medium | After a one-line quote, a changed two-line cart begins requoting but abandonment uses the previous quote's amount with the new count and `current_quote` basis. AN-01/04. | Associate quote and its input snapshot; omit money when they no longer match, retaining stable lifecycle/acceptance guards. |
+
+These remain Missing Implementation → Implement → Verify with continuation YES. E-01 through E-04 are still external prerequisites, not excuses to skip these concrete source fixes.
+
+## Rework round 5
+
+I-17 adds optional localized field metadata to the existing text helpers and supplies customer field keys; existing rules/code/status remain unchanged. Actual parser cases reject empty/whitespace/non-string/overlong name with `fieldErrors.name`, and oversized email/address/note with their own fields; valid trimmed name remains valid.
+
+I-14 resolves every requested record tuple first, collects the complete unavailable identity map and rejects before snapshot construction. Actual pure `quoteFromRecords` first reproduced one error for two unavailable lines, then reports exactly two while excluding the healthy line; the healthy-only quote retains 120,000₫ merchandise/final with configured zero shipping.
+
+I-18 associates a quote with its cart-array/address/payment inputs and checks that association before abandonment money is used. The new changed-cart/pending-quote probe first reproduced stale 200,000₫ with two new lines, then correctly omits value with unavailable basis. All 16 source-lifecycle groups pass, retaining all earlier passing assertions. No actual database/provider I/O was used.
+
+Files changed: `utils/creativa/{contracts,quote.server}.ts`, checkout snapshot association/dependencies, related plan/test/report records. Full required external witnesses remain E-01 through E-04; read-only re-audit follows the post-fix stop gate.
+
+**Post-fix stop gate:** Lint without warnings, TypeScript, all 16 source-lifecycle groups, application build (229 pages) and postbuild SEO (221 URLs) pass. Unchanged SPX/Studio source retains its prior passing checks. The dependency warning observed during rework was resolved by explicitly depending on the cart array used by the snapshot association.
+
+**Current browser witness:** Chromium 390×844 with local options/quote/collector stubs and aborted order endpoints: empty name plus a valid synthetic phone marks the name invalid, shows its localized helper, focuses `name`, emits one validation event per local destination and leaves submit count zero/journal absent. This supplements the earlier invalid-phone witness; it is not native or real-database proof.

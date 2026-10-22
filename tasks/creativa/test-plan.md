@@ -118,6 +118,8 @@ Also type and clear a catalog query before the debounce commits: continuously di
 
 Verify exact list/position/price-basis and `search_context=catalog` fields, affected-line (not whole-cart) revalidation counts, terminal/transient recovery errors and invalid-field submission through the shared validator. With a quote pending/failed, entered checkout and observable exit still have a truthful lifecycle without fabricated money. An in-flight or synchronously known accepted order must never produce abandonment, including before React state rerenders; quote rerenders cannot reset abandonment ownership. Browser-check affected-row labels/healthy-row preservation and first-invalid-field focus, not only source handlers.
 
+Include empty/whitespace/overlong required name as well as phone errors; native-validation bypass must not remove inline error/focus metadata. Use at least two unavailable identities beside a healthy line and verify the complete authoritative map/count in one response. Change cart/address/payment while a replacement quote is pending: old quote money must not be labeled current for the changed input snapshot.
+
 Do not expose a new public fault-injection/test endpoint to make these checks convenient.
 
 ## 6. Sanity integration and database scenarios
