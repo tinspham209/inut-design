@@ -23,10 +23,29 @@ Blog work: [blog contract](references/blog-contract.md) and
 New complete landing page: [automation](../inut-product-page-automation/SKILL.md).
 Existing content-to-code: [generator](../product-page-generator/SKILL.md).
 
+For product claims, read only the matching Fact Sheet:
+
+| Product/topic | Fact Sheet |
+| --- | --- |
+| Sticker (Diecut, Kisscut, Magnet, Sheet, Pack); general decal, excluding packaging labels | [Sticker & decal](references/fact-sheets/sticker-decal.md) |
+| Tem nhãn, nhãn chai, decal nhãn mác bao bì | [Tem nhãn & nhãn chai](references/fact-sheets/tem-nhan-nhan-chai.md) |
+| Thiệp cảm ơn, gift card, postcard, card visit | [Thiệp & card](references/fact-sheets/thiep-card.md) |
+| Skin laptop/MacBook, excluding keyboard/phone skins | [Skin laptop](references/fact-sheets/skin-laptop-macbook.md) |
+| Bật lửa in theo yêu cầu | [Bật lửa custom](references/fact-sheets/bat-lua-custom.md) |
+
+Match by actual product and target route, not a shared word such as "decal" or
+"card". For multi-product requests read each matching sheet. If ambiguous,
+check the supplied route/product source or ask. Sheets are drafts: pending
+claims are review leads, NOT approved copy. Use only per-product approved
+claims or explicitly approved user facts; code alone does not approve mutable
+prices, timing or marketing promises. For other products, request/verify
+approved facts and report missing sheets rather than transferring claims.
+
 ## Workflow
 
-1. Read authoritative `data/product-pages/`, route source under `pages/`, supplied
-   facts and existing articles. Resolve canonical routes using source/redirects.
+1. Read the matching Fact Sheet, relevant `data/product-pages/`, route source
+   under `pages/`, supplied facts and existing articles. Resolve canonical
+   routes using source/redirects; reconcile conflicting claims before use.
 2. Validate each group/product/route. Correct an unambiguous old route with a
    reported mapping; flag ambiguity rather than silently guessing.
 3. Plan distinct search intents/titles, checking existing slugs and articles.
