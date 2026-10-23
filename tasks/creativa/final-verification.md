@@ -1,17 +1,33 @@
-# Creativa Runtime / Orange-Light Final Verification
+# Creativa Compact-Client Final Verification
 
-## Compact-client continuation — verification pending
+## Compact-client continuation — verified code scope
 
-The current [UI-01..UI-07 amendment](./plan.md#compact-ui--form-and-request-amendment--2026-10-23) changes presentation/forms/API orchestration. Its implementation and local gates are recorded in the plan; read-only audit/routing/current final verification must complete before extending the older verdict below. The historical 116/52 table is retained as the unchanged business/AC inventory, not a fresh pass for unreviewed code. No real database/order/send/native/vendor proof has been added.
+The [UI-01..UI-07 amendment](./plan.md#compact-ui--form-and-request-amendment--2026-10-23) is implemented, audited, reworked and locally verified. The 116/52 inventory below is reconciled using current evidence for changed surfaces and explicitly retained evidence for unchanged contracts. No actual database/order/send/native/vendor proof has been added.
 
-**Audited application revision:** `5a8cff8` on `feat/creativa`.
-**Audit lineage:** Independent Staff PASS at `715aa79`, then final-verification finding R-01, rework and targeted read-only PASS through `5a8cff8`.
+**Audited application revision:** `7918095` on `feat/creativa`.
+**Audit lineage:** Earlier amended-runtime/R-01 closure at `5a8cff8`; compact-client independent audit FAIL at `f0a2aef` for C-01; explicit rework, unchanged red/green oracle and targeted read-only PASS through `7918095`.
 **Code result:** PASS within the recorded scope; no remaining actionable source finding.
 **Repository stop gate:** PASS.
 **Full acceptance / release:** FAIL / BLOCKED by E-01 through E-04.
 **Phase:** Read-only application verification; subsequent changes reconcile documents only.
 
 Authority: [specs](./specs.md), [plan](./plan.md), [test plan](./test-plan.md), [audit](./audit-report.md), [routing](./issue-routing.md). Earlier baseline results remain in Git/audit history; they are not substituted for the current amended contract.
+
+### All nine current owner requests
+
+| Request | Implementation result | Current evidence / limit |
+| --- | --- | --- |
+| 1 — cart image zero at left of name | PASS, asset access BLOCKED | Shared 64/76px thumbnail uses first authoritative quote/cart image; hydration/update no longer discard safe public metadata. Left slot/name layout and explicit failed/absent fallback observed. Actual CDN loading remains E-01, not a visual image-success claim. |
+| 2 — checkout image at left | PASS, asset access BLOCKED | Same shared thumbnail with quote/cart first-image metadata; compact desktop/mobile left/name alignment verified. CDN limit remains E-01. |
+| 3 — white contained-primary text | PASS | Owner explicitly approved `#ae3500` background/white 14px text (6.35:1) rather than compact white on low-contrast `#fd4d01`. Brand primary remains exact `#fd4d01`; hover/touch variants and root brand stay scoped. |
+| 4 — RHF + Yup form ownership | PASS | Checkout/customer/payment, product configuration/quantity, cart quantity, header/catalog search and tracking-reference inputs use RHF/Yup. Twenty-three customer variants agree with unchanged server parsing; quantity/reference bounds, invalid focus and no invalid journal/order pass. Only required Yup/resolver dependencies added; no new testing framework. |
+| 5 — SWR API hooks / thin pages | PASS | SWR public reads, SWRInfinite catalog, explicit SWRMutation quote/create/resolve/claim hooks; no raw page request chains. Private arguments are not mutation/cache keys; no automatic order retry/cache population. Fresh lost-response recovery uses original capability with no current options/quote. |
+| 6 — breadcrumb on every new page | PASS | All eight live routes render navigation/current markup in current production HTML; product-unavailable branch includes source-checked breadcrumb. Actual home/catalog/cart/checkout/guide/tracking journeys observed. |
+| 7 — clickable ancestors, last text | PASS | Shared Next/MUI anchors; real breadcrumb clicks and final `span[aria-current=page]` observed. Tracking current label is generic, with no reference in breadcrumb telemetry. Full native keyboard matrix remains E-04. |
+| 8 — smaller type / reduced spacing | PASS in Chromium | Body14/secondary13, mobile catalog heading24, product22/28, smaller hero/footer and gaps; actual inputs16px with 44px field height. No overflow at 390x844/1440x1000. Native Safari/owner final visual signoff remains E-04; no performance benchmark improvement claimed. |
+| 9 — handler ownership / fewer avoidable effects | PASS | Search commit/change/add/quantity/submit/retry/pagination API actions are handler-owned. One catalog presentation effect covers SSR/cached/fresh list/search results; retained hydration/router/view/exit effects synchronize genuine external lifecycles with cleanup. No render-time request/event dispatch or artificial zero-effect target. |
+
+C-01 is resolved: storage-denied retries are red before and green after rework with exactly one fresh quote, error cleared/action enabled and persistence warning retained. The complete source delta is code-audited; full release still requires E-01..E-04.
 
 ## Current requirements and boundaries
 
@@ -25,17 +41,18 @@ All 116 requirement IDs and 52 AC IDs have individual results below. PASS is lim
 
 | ID | Evidence / limits |
 | --- | --- |
-| V-01 | Current lint without warnings, TypeScript `--noEmit --incremental false`, production build: 229 pages; postbuild sitemap/SEO smoke: 221 URLs. Latest full build output is retained as a session artifact. |
-| V-02 | Existing SPX regression: 42 deterministic checks; current Studio build passes. Subsequent R-01 edits do not change SPX/loader/Studio/schema source. These gates do not prove real commerce persistence. |
-| V-03 | Seventeen isolated actual-source contract groups pass with dummy configuration: amended parsers, safe rich text/URI/image refs, fees/zero/errors, active-primary-only bank, exact prices/digests, private versus public snapshots, legacy staff format/recovery, actual order-service acceptance/replay with a fully fake SDK store, privacy-key and facade/PDP context checks. No new repository test suite, runner or dependency. |
-| V-04 | Actual read-only CMS/quote/API checks: one published active rich-text/path product; 16 slug-coded models, 15 active; four active coverages; one nationwide fee and one active primary bank. No detected old model/text-description/shipping-singleton/bank formats requiring migration in current published rows. No path/account values printed; no migration performed. |
-| V-05 | Chromium 390x844 / 1440x1000: actual catalog/product/search/no-match/mixed-case/defaults/four prices/model requirement/gallery/merge/edit/remove and live quote behavior. Existing populated lighter-cart fixture bytes remain unchanged during Creativa operations. Exact logo/CTA RGB is 253,77,1; normal CTA foreground RGB 32,19,12. Contrast pairs: 5.38 orange/dark, 6.35 dark-orange/white. Touch-hover guard is source-checked, not native Safari proof. |
-| V-06 | Explicit local interception only for accepted create/resolve/lookup and no-primary variants. All real order mutations/claims blocked. Mocked acceptance clears submitted cart/journal, saves one history ID, displays saved synthetic bank and emits no false abandonment; no-primary disables transfer and retains COD. Root history tag with Lighters selected opens Creativa once. Invalid name/phone focus emits one local event per destination and creates no journal/order request. Not actual persistence or collector delivery. |
-| V-07 | Production HTTP/security sweep at `715aa79`: registered home/catalog/product/cart/checkout/search/detail/guide HTML 200; unknown product/article 404; submit GET 405; malformed reference 400. Sensitive pages have no-store/noindex/no-referrer. Actual production quote POST with configured site origin returns 200 and path-free public data; no order POST is used. Product HTML/API/browser JS omit the actual production-path value; configured server Sanity token is absent from browser JS without printing it. Transaction sitemap exclusions pass. R-01 changes only client measurement context/PDP basis, not these API/header/SEO implementations; latest `5a8cff8` preview catalog HTTP 200 and settled-query layout behavior are reconfirmed. |
-| V-08 | Current-source/facade/bootstrap privacy checks, including new production/account fields, consent-denied suppression, public item projection, reference-free URL and legitimate index-zero/context preservation. R-01 was reproduced red, then both closure groups went green without weakening earlier assertions. Actual hosted containers/logs remain unverified. |
-| V-09 | Owner attestation: revised CMS authoring flow is accepted. Safe staff-readiness check: one configured sales destination, dedicated Creativa bot token absent. No message, production order, deployment or third-party settings change performed. Actual physical print/template/rights/handoff approval is not inferred. |
+| V-01 | Post-C-01 lint without warnings, TypeScript `--noEmit --incremental false`, current production build229 pages/postbuild SEO221 URLs PASS. Source formatter passes; output retained in session tool evidence. |
+| V-02 | Prior SPX42/Studio-build passes retained only for unchanged SPX/loader/Studio/schema mechanisms; not rerun for this UI-only delta. No actual commerce persistence proof. |
+| V-03 | Earlier 17 dummy-config groups retained for unchanged domain/server/snapshot/privacy/facade mechanisms, not represented as newly rerun client-hook tests. Current actual-source decoder hydration/update preserves first image and lighter-key bytes; 23 Yup/shared-customer variants, safe-quantity and trimmed case-sensitive-reference checks pass. No test suite/tooling/coverage target added. |
+| V-04 | Earlier CMS inventory found one active product, 16 slug models/15 active, four coverages, nationwide fee/primary bank and no detected format migration. Current read-only catalog/browser observed five published designs and valid current options/prices/quotes. Roster is mutable owner data, not frozen by this report. No path/account values printed, migration/seed performed. |
+| V-05 | Current Chromium390x844/1440x1000: actual catalog/product/model/quantity/live cart/checkout quotes, compact linked breadcrumbs/type/spacing, first-image identity/retention and honest CDN fallback. Body14/secondary13; inputs16px/44px; white CTA RGB255,255,255 on174,53,0; brand253,77,1; contrast6.35. Populated lighter fixture bytes preserved. Earlier gallery/merge/remove evidence is retained for unchanged underlying mechanisms; not native proof. |
+| V-06 | Current guarded/intercepted create/resolve/lookup/claim and missing-primary/quote/search/pagination fixtures: normal acceptance clears submitted cart/journal, appends one history ID and shows saved synthetic bank. Fresh response loss retains journal; same-capability resolve uses no options/quote, clears submitted content and appends its ID once, with zero false abandonment in the fresh action capture. No-primary defaults COD/disables transfer; invalid name/phone focus emits once/provider with no journal/create. Unchanged root-history shortcut retains earlier evidence. No actual persistence/collector proof. |
+| V-07 | Current `7918095` production HTTP: all eight live routes200 with breadcrumb/current markup; transactional no-store/no-referrer retained; unknown product404; actual catalog bounded to two images/card and path-free. Prior `715aa79` broader API/header/token/sitemap sweep remains scoped evidence for unchanged server/header/SEO implementations (including quote200 with configured Origin, submitGET405, malformed reference400); it is not a new actual order test. |
+| V-08 | Unchanged facade/bootstrap public projection, consent and reference-free URL evidence retained. Current local captures prove latest delayed quote wins/no stale shipping event, latest query wins after old response, 2/1/2 layout no extra API/impression, cached Hot/Country/Hot presentation one event/provider, and additional503 retains2 cards then explicit retry yields3 with only one new item at position2. Actual hosted containers/logs remain unverified. |
+| V-09 | Owner accepted revised CMS authoring only. Last safe staff-readiness check found one destination and no dedicated bot credential; no new private readiness claim. No message/production order/deployment/third-party settings change. Physical print/template/rights/handoff approval remains unverified. |
+| V-10 | C-01 current-client storage-denied browser oracle: both hydrate-only retries red before fix; both green afterward with exactly one new quote, cleared error/enabled action and persistence warning retained. Independent initial audit plus targeted complete two-hook re-audit PASS. No schema/financial/order protocol change. |
 
-Browser images loaded during live development-flow checks. A later production-preview headless session received CDN 403 for the same public image URLs, including after one reload; direct Node fetches returned 200, including browser-like Accept and both preview Referer headers. The page exposes its explicit image fallback. This external/browser-CDN access discrepancy remains E-01 evidence, not a claimed production-image pass or an excuse to alter the global image policy.
+Earlier development images loaded; subsequent headless CDN requests returned403 despite direct same-URL requests200. Current thumbnail metadata/left-slot/fallback checks do not resolve that access discrepancy. E-01 remains open; no global image policy/CDN authentication change or image-success claim.
 
 Browser synchronization limitations were kept separate from app defects: tab activation resolved a hidden automation target; a stale ref was refreshed; a layout assertion initially ran during pending search and was repeated only after a no-match-to-match transition. Settled-query toggles preserve query, exact loaded links/order and selected state with no overflow. No code was changed to satisfy those setup issues.
 
@@ -59,8 +76,8 @@ Browser synchronization limitations were kept separate from app defects: tab act
 | ROUTE-02 | FAIL | Current slug guards/unknown 404 pass; complete actual Studio uniqueness/publication negatives remain E-02. |
 | CAT-01 | PASS | Current active published Creativa roster count agrees with returned design cards; no legacy wholesale inclusion. V-04/V-05. |
 | CAT-02 | FAIL | Live card/name/minimum/hover behavior observed; later production-browser CDN discrepancy remains E-01. |
-| CAT-03 | FAIL | Current trim/case/no-match search works; full equal-date/multi-batch/rapid-response oracle not executed. E-02/E-04. |
-| CAT-04 | FAIL | Bounded query/generation/cursor source retained; complete additional-page/stale/error matrix remains E-04. |
+| CAT-03 | FAIL | Current trim/case/no-match/cached-query and delayed-response ownership pass locally; actual full equal-date/publication/multi-batch matrix remains E-02/E-04. |
+| CAT-04 | FAIL | Current SWRInfinite delayed-response and additional503/retained-page retry/dedup pass with controlled fixtures; complete actual cursor/network matrix remains E-04. |
 | CAT-05 | PASS | Current settled mixed-case query survives 2-to-1-to-2 toggles with identical loaded links/order and accessible state. V-05/V-07. |
 | CAT-06 | FAIL | No-match/loading/fallback paths covered partially; all empty/config/initial/additional error variants remain E-04. |
 | CAT-07 | PASS | No facets/tag filters/advanced sorting/inert controls added. Source. |
@@ -81,7 +98,7 @@ Browser synchronization limitations were kept separate from app defects: tab act
 | PRICE-05 | PASS | Explicit invalid/missing configuration, deliberate zero shipping valid, no free fallback. V-03. |
 | PRICE-06 | FAIL | v2 semantic changes/repricing comparison implemented; actual controlled edit/no-stale-acceptance witness remains E-02. |
 | CART-01 | PASS | Independent key/domain; populated lighter fixture bytes preserved through Creativa actions/accepted interception. V-05/V-06. |
-| CART-02 | PASS | Typed identity, configuration, quantities and reviewed display/price contract. V-03/V-05. |
+| CART-02 | PASS | Typed configuration/prices and first-image safe persistence/left-name display contract; real CDN access remains E-01. V-03/V-05. |
 | CART-03 | PASS | Actual same configuration 2+1 merges to 3; changed coverage adds a separate line. V-05. |
 | CART-04 | PASS | Actual edit/remove/badge/current total behavior observed. V-05. |
 | CART-05 | PASS | Valid cart survives navigation/reloads without initial empty overwrite; normal current flow observed. V-05/V-06/source. |
@@ -97,7 +114,7 @@ Browser synchronization limitations were kept separate from app defects: tab act
 | CHECKOUT-04 | PASS | Blank address allowed; private fixture snapshot/formatter honestly represents omission, no invented address. V-03/V-06. Actual operator handoff remains E-01. |
 | CHECKOUT-05 | PASS | One order-level fee, explicit missing/duplicate/unsafe/default errors and pre-submit amounts. V-03/V-05/V-07. |
 | CHECKOUT-06 | PASS | Sole active-primary bank, no account selector/nonprimary fallback; explicit unavailable transfer with COD, saved bank snapshot. V-03/V-06. |
-| CHECKOUT-07 | FAIL | Current validation focus/retention passes; full unknown-result/storage/native/error matrix remains E-04. |
+| CHECKOUT-07 | FAIL | Current RHF focus, delayed quotes, fresh lost-response recovery and C-01 storage-denied quote retries pass locally; full native/storage/error matrix remains E-04. |
 | ORDER-01 | FAIL | Actual service/fake SDK produces one complete order; actual persisted relation proof remains E-02. |
 | ORDER-02 | FAIL | Current direct evaluator is authoritative; complete actual configured acceptance witness remains E-02. |
 | ORDER-03 | FAIL | Invalid/changed conditions reject in code/probes; actual no-order delta cases remain E-02. |
@@ -158,7 +175,7 @@ Browser synchronization limitations were kept separate from app defects: tab act
 | AN-09 | FAIL | Local URL/title/referrer/header policy passes; actual collector/proxy/log chain remains E-03. |
 | AN-10 | FAIL | Local consent denial/intercepted blocked claims nonblocking; full delayed/hung/disabled tracker matrix remains E-03/E-04. |
 | AN-11 | FAIL | Local safe history/source/context guards pass; complete real custom/automatic telemetry remains E-03/E-04. |
-| UX-01 | PASS | Current exact-orange scoped light layout/control treatment and numeric contrast evidence. V-05/source. |
+| UX-01 | PASS | Brand exact-orange/light, owner-approved white-on-dark-orange contained buttons, smaller type/spacing and linked breadcrumbs; 16px/44px mobile inputs. V-05/V-07/source. |
 | UX-02 | FAIL | Chromium dimensions are not actual iPhone/Safari/other native touch proof. E-04. |
 | UX-03 | FAIL | Current labels/focus/gallery interactions observed; full keyboard/clipboard/accessibility matrix remains E-04. |
 | UX-04 | PASS | No account/review/currency/case/Shop Pay feature or fabricated commercial copy added; CMS content remains owner-provided. Source. |
@@ -177,8 +194,8 @@ Full applicable variants and their decisive oracle are retained. Partial local s
 | --- | --- | --- |
 | AC-01 | PASS | Registered direct routes/layout source and exercised SPA cart/checkout/tracking/root-shell journey. V-05/V-07. |
 | AC-02 | PASS | Settled nonempty query survives 2/1/2 with same exact card links/order, selected state and no overflow. V-05/V-07. |
-| AC-03 | FAIL | Actual trim/case/no-match works; full rapid-response/equal-date/multi-batch oracle remains E-02/E-04. |
-| AC-04 | FAIL | Partial distinct failure/no-match evidence; full empty/initial/additional retry variants remain E-04. |
+| AC-03 | FAIL | Actual trim/case/no-match, cached presentations and delayed-query ownership pass; full actual equal-date/multi-batch oracle remains E-02/E-04. |
+| AC-04 | FAIL | Current additional503 retains pages/retries/dedups with fixture; all actual empty/config/initial/additional variants remain E-04. |
 | AC-05 | PASS | Actual unselected model, quantity 1, top coverage 120k, card minimum 100k. V-05. |
 | AC-06 | PASS | Missing model disabled with explanation, valid configured addition succeeds once per action. V-05. |
 | AC-07 | PASS | Four actual coverage prices, unchanged model-based price source and linear quantity math agree with shared evaluator. V-03/V-05. |
@@ -217,7 +234,7 @@ Full applicable variants and their decisive oracle are retained. Partial local s
 | AC-40 | FAIL | Secure ID/key/ref and safe DTO construction reviewed; actual private access/persisted/host abuse chain remains E-02/E-03. |
 | AC-41 | FAIL | New/legacy formatter/multipart/claim mechanisms; actual allowed send/replay/operator evidence remains E-01/E-02. |
 | AC-42 | FAIL | New metadata/services source passes; complete owner content/image rights/offer/release evidence remains E-01. |
-| AC-43 | FAIL | Current exact-orange/light Chromium layouts and contrast pass; native Safari/all devices/owner final visual signoff remain E-04 plus CDN E-01. |
+| AC-43 | FAIL | Current compact exact-brand/light Chromium layouts, white contained buttons/contrast and breadcrumbs pass; native Safari/all devices/owner final visual signoff remain E-04 plus CDN E-01. |
 | AC-44 | FAIL | Actual read-only API/build/bounds/error evidence; hosted attribution/device reports/full network matrix remain E-03/E-04. |
 | AC-45 | FAIL | Bounded secure allocator retained; actual collision/exhaustion/concurrency application controls remain E-02. |
 | AC-46 | FAIL | Current intercepted save/no-validation-save and isolated accepted replay pass; complete real terminal-state/browser variants remain E-02/E-04. |
@@ -230,7 +247,7 @@ Full applicable variants and their decisive oracle are retained. Partial local s
 
 ## Current task / release disposition
 
-CM-01..CM-06 and CM-08 have their scoped implementation/inventory/UI evidence in the plan; CM-07 and CR-19/20 remain open for their required external/integration witnesses. No detected published-format migration was needed or performed. All six business outcomes remain blocked as **complete launch outcomes**, especially durable real ordering/recovery, actual staff production and hosted measurement/native acceptance.
+UI-01..UI-07 and resolved C-01 have current scoped implementation/audit/routing/verification evidence through `7918095`. CM-01..CM-06/CM-08 retain their earlier evidence; CM-07 and CR-19/20 remain open for required external/integration witnesses. No detected published-format migration was needed or performed. All six business outcomes remain blocked as **complete launch outcomes**, especially durable real ordering/recovery, actual staff production and hosted measurement/native acceptance.
 
 Next work is exactly the classified Clarify/Plan → Verify work in [issue-routing.md](./issue-routing.md), not blind code rework or weakening an AC. Provide the dedicated bot token through private server configuration, authorize an isolated real test target/handoff, resolve CDN access and obtain native/vendor evidence. No request for a secret in chat is implied.
 
