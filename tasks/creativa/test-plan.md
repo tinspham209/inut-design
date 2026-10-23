@@ -1,5 +1,15 @@
 # INUT Creativa — Test Plan
 
+## Compact-client amendment procedures
+
+The [UI-01..UI-07 exits](./plan.md#compact-ui--form-and-request-amendment--2026-10-23) add focused checks, not test tooling. Verify first-image identity and left/name alignment in cart/checkout before/after reload, merge/edit/remove and quote updates; absent/malformed/failed optional image metadata must give an honest fallback without losing healthy commerce rows.
+
+Check every live page's breadcrumb ancestors by click/keyboard, last item text/`aria-current`, generic tracking label and unavailable-product state. At mobile/desktop verify compact headings/spacing, no overflow, retained 16px mobile inputs and adequate controls; contained-primary text is white on owner-approved `#ae3500`, not low-contrast white on the brand accent.
+
+Compare RHF/Yup with shared parser for whitespace/200-char names, exactly ten ASCII digits (no trimming/+84/Unicode-digit acceptance), optional trimmed email/length limits, optional address/note, safe positive quantities and missing model. Verify first-invalid focus, one validation event, no journal/POST on invalid submit. SWR checks include bounded pagination/search races/cancelled debounce/no duplicate impressions, no obsolete options during accepted recovery, stale quote invalidation for rapid address/payment/cart changes, explicit retry, no auto create/resolve/claim retry/cache population, and no capability/customer data in keys. API wrappers remain the transport boundary; local interception remains mandatory for actual order actions.
+
+Effects are judged by ownership/correctness, not a numerical target: user actions belong in handlers, genuine hydration/route/view/unload subscriptions require cleanup. Re-run existing gates and browser evidence appropriate to the change; E-01..E-04 remain separate actual database/host/native/operator/CDN witnesses.
+
 **SDD gate:** Approved strategy/refinement; partial execution and final verification recorded.
 **Status:** Owner accepted CMS flow; amended runtime/orange-light code audit PASS through `5a8cff8`. [Current verification](./final-verification.md) records scoped execution and remaining E-01..E-04 witnesses. This document defines procedures, not an automatic pass.
 **Date:** 2026-10-23.

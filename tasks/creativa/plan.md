@@ -1,5 +1,31 @@
 # INUT Creativa — Implementation Plan
 
+## Compact UI / form-and-request amendment — 2026-10-23
+
+Current authorized continuation supersedes conflicting presentation/client-state details below, not financial, privacy, storage or order-acceptance contracts. Prior `5a8cff8` audit/report remains historical until this loop is verified.
+
+The owner requests first-product-image thumbnails to the left of cart/checkout names; compact image-first typography/spacing; linked ancestor breadcrumbs with a nonlink current item on every Creativa page; RHF + Yup form ownership; SWR reads/SWRMutation API actions in hooks; and fewer effects where explicit handlers own the trigger.
+
+**Confirmed button decision:** Keep brand primary `#fd4d01`, but contained-primary buttons use existing darker orange `#ae3500` and white compact text (6.35:1), including touch-hover handling. The owner selected this recommended treatment rather than low-contrast compact white text directly on `#fd4d01`. Root brand and other button variants remain scoped/unchanged.
+
+| Task | Exit / verification |
+| --- | --- |
+| [x] UI-01 | Shared safe first-image thumbnail for cart/checkout, persisted optional public image survives hydration/mutations; absent/failed imagery is explicit, never a fake design or changed order contract. |
+| [x] UI-02 | All live Creativa pages, including product unavailable/tracking-detail states, have keyboard-clickable ancestor links and final text `aria-current`; no order ID in breadcrumb telemetry/title. |
+| [x] UI-03 | Scoped 14px body/13px secondary type, smaller headings and tighter spacing; retain readable 16px mobile inputs/no iOS autozoom and adequate controls, image-first grid/gallery behavior and overflow safety. White-on-dark-orange contained buttons pass contrast. |
+| [x] UI-04 | RHF/Yup owns checkout and other Creativa form inputs; shared server parser remains authoritative and exact ASCII phone/email/length/quantity semantics/focus retained. Only address/payment affect quotes; no PII persistence. Existing RHF/SWR retained; only needed Yup/resolver dependencies added. |
+| [x] UI-05 | Public reads use SWR/SWRInfinite hooks; quotes/create/resolve/analytics claims use explicit SWRMutation hooks. Preserve transport wrappers, no automatic mutation retry, cached stale quote acceptance, capability/customer values in cache keys or duplicate conversion dispatch. Pages render state/handlers, not raw request chains. |
+| [x] UI-06 | Search/change/submit/retry/pagination measurement is handler/request-completion owned; retain genuine hydration/URL/external-state/page-view/exit-listener effects with cleanup. No render-time effect workaround. |
+| [ ] UI-07 | Reproduce current gaps, implement → audit → rework → re-audit → route → final-verify. Existing lint/types/build/SEO and scoped browser/contracts; no committed test suite/new coverage tooling or real orders/sends. Update all supplied documents/results; keep external E-01..E-04 open. |
+
+UI-01..UI-06 consume the approved contracts; UI-07 depends on them. Scaled order protocol, exact prices, contribution cleanup/history/accepted recovery, unique Sanity keys, dual analytics and lighter isolation do not change. Required API tests include rapid address/payment/cart/search changes, stale responses, same-capability recovery, no-active-primary COD, disabled tracking and no real mutation. No performance gain is claimed merely from using a library.
+
+**Implementation checkpoint:** First-image hydration was red (decoder discarded it), now green through hydration/quantity persistence with safe field projection. Twenty-three actual Yup/shared-parser variants plus quantity/reference bounds pass. Lint without warnings, types and production build (229 pages)/SEO smoke (221 URLs) pass. Chromium covers actual published catalog/prices/quotes, 16px/44px inputs and compact/mobile/desktop controls; synthetic quote races, additional-batch failure/retry/dedup, cached-query impressions, missing-primary COD, and response-loss/same-capability recovery pass. Recovery uses no current options/quote, clears submitted cart/journal and appends history once, without false abandonment in a fresh capture. All real order routes were blocked; response/claim fixtures are not Content Lake/collector proof.
+
+Read-only catalog currently exposed five published designs; this is an observation, not a data migration or frozen roster. CDN image failure/fallback persists in this headless environment (E-01). A temporary nonstandard preview origin correctly rejected quote POSTs; checks were moved to the existing allowed local origin without changing CORS. A replay fixture that restored already-completed storage was not counted as interrupted acceptance: the existing live checkpoint correctly prevented replay cleanup; a fresh capability/lost-response scenario supplied the actual recovery evidence.
+
+Next phase is read-only audit of this compact-client delta. All prior loop statuses below are historical unless explicitly reconciled by the current report.
+
 **SDD gate:** Approved plan/refinement; implementation, audit and issue routing executed; final acceptance remains blocked.
 **Status:** Owner-approved amended runtime and light theme/primary `#fd4d01` implemented. Independent audit at `715aa79`, R-01 rework and targeted PASS through `5a8cff8`, issue routing and scoped final verification are complete. Full release acceptance remains blocked by E-01..E-04; source completion is not launch approval.
 **Date:** 2026-10-22.

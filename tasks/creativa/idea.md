@@ -1,5 +1,9 @@
 # INUT Creativa — Product Idea
 
+## Current owner refinement — compact purchase journey
+
+Show the selected design's first image beside cart/checkout names; keep all live pages easy to backtrack through clickable breadcrumb ancestors/current text. Reduce type and whitespace to prioritize design images. White contained-primary text uses owner-approved dark orange `#ae3500` while brand primary stays `#fd4d01`. RHF/Yup and hook-owned SWR APIs streamline client ownership without changing prices, guest ordering, recovery or privacy. See [UI-01..UI-07](./plan.md#compact-ui--form-and-request-amendment--2026-10-23).
+
 **SDD phase:** Approved idea; implementation and verification status are tracked in the revised plan and final report.
 **Source:** [Original brief](./brief.md), owner clarification answers, and the supplied Uniqfind screenshots.
 **Status:** Approved by the owner for the specification gate on 2026-10-22. See [specs.md](./specs.md) for detailed requirements and the subsequent selection, price-display and checkout-field clarifications.

@@ -19,8 +19,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useHydratedCreativaCart } from "@/hooks/creativa/useBrowserState";
 import { trackCreativa } from "@/utils/creativa/analytics";
+import { creativaSearchSchema } from "@/utils/creativa/forms";
 
 export const CREATIVA_NAV = [
 	{ label: "Skin MacBook", href: "/creativa/skin-laptop" },
@@ -36,7 +39,11 @@ export const CREATIVA_FOOTER = [
 export function CreativaStoreHeader() {
 	const { items, hydrated, warning } = useHydratedCreativaCart();
 	const [open, setOpen] = useState(false);
-	const [query, setQuery] = useState("");
+	const form = useForm({
+		defaultValues: { query: "" },
+		resolver: yupResolver(creativaSearchSchema),
+	});
+	const { ref, ...queryField } = form.register("query");
 	const router = useRouter();
 	const navigation = (href: string) => {
 		setOpen(false);
@@ -55,7 +62,7 @@ export function CreativaStoreHeader() {
 				borderColor: "divider",
 			}}
 		>
-			<Toolbar sx={{ justifyContent: "space-between", minHeight: { xs: 64, md: 76 }, gap: 1 }}>
+			<Toolbar sx={{ justifyContent: "space-between", minHeight: { xs: 56, md: 64 }, gap: 1 }}>
 				<IconButton
 					aria-label="Mở danh mục"
 					onClick={() => setOpen(true)}
@@ -83,7 +90,7 @@ export function CreativaStoreHeader() {
 						sx={{
 							fontWeight: 800,
 							letterSpacing: "-.06em",
-							fontSize: { xs: 25, md: 30 },
+							fontSize: { xs: 22, md: 26 },
 							color: "primary.main",
 							textDecoration: "none",
 						}}
@@ -100,19 +107,21 @@ export function CreativaStoreHeader() {
 					<Box
 						component="form"
 						sx={{ display: { xs: "none", lg: "block" } }}
-						onSubmit={(event) => {
-							event.preventDefault();
+						noValidate
+						onSubmit={form.handleSubmit(({ query }) => {
 							void router.push({
 								pathname: "/creativa/skin-laptop",
 								query: query.trim() ? { q: query.trim() } : {},
 							});
-						}}
+						})}
 					>
 						<TextField
+							{...queryField}
+							inputRef={ref}
 							size="small"
 							label="Tìm mẫu skin"
-							value={query}
-							onChange={(event) => setQuery(event.target.value)}
+							error={!!form.formState.errors.query}
+							helperText={form.formState.errors.query?.message}
 							inputProps={{ maxLength: 80 }}
 						/>
 					</Box>
@@ -160,14 +169,14 @@ export function CreativaStoreFooter() {
 				bgcolor: "background.paper",
 				borderTop: "1px solid",
 				borderColor: "divider",
-				py: 4,
+				py: 2,
 				mt: "auto",
 			}}
 		>
 			<Container maxWidth="xl">
-				<Stack direction={{ xs: "column", sm: "row" }} justifyContent="space-between" gap={3}>
+				<Stack direction={{ xs: "column", sm: "row" }} justifyContent="space-between" gap={2}>
 					<Box>
-						<Typography fontSize={24} fontWeight={800} color="primary.main">
+						<Typography fontSize={20} fontWeight={800} color="primary.main">
 							inut.creativa
 						</Typography>
 						<Typography variant="body2">Một nhánh thương hiệu của INUT Design.</Typography>

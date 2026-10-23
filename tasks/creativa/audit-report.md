@@ -1,5 +1,12 @@
 # Creativa Staff Audit
 
+## Current compact-client audit
+
+**Phase:** Implementation and repository stop gate complete; read-only audit pending for the delta from `227a81f`.
+**Scope:** [UI-01..UI-07](./plan.md#compact-ui--form-and-request-amendment--2026-10-23), all nine owner requests, shared validation/checkout recovery/privacy/analytics invariants and browser expectations. No real order/send or schema/server acceptance change.
+
+Current supplied evidence includes red-to-green retained thumbnail metadata, 23 Yup/server variants, current lint/types/build/SEO and guarded browser quote/search races, cached presentation, pagination error/retry/dedup, validation focus, missing-primary COD and fresh lost-response recovery. The prior code PASS below is historical, not approval of this client refactor. E-01..E-04 remain release blockers.
+
 **Current code audit:** PASS through `5a8cff8`: independent runtime audit at `715aa79`, followed by R-01 rework and targeted read-only confirmation. Historical rounds remain below for their former contract.
 **Overall acceptance:** FAIL / BLOCKED — E-01 through E-04 still lack their required external witnesses.
 **Phase:** Seven historical rounds plus current independent amended-runtime audit and targeted R-01 confirmation completed; application changes occurred only in implementation/rework phases. Final verification and issue routing are recorded.

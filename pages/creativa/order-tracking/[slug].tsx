@@ -1,14 +1,13 @@
 /* eslint-disable camelcase */
 import { Alert, Box, Button, Container, Divider, Stack, Typography } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { CreativaLayout } from "@/components/layout";
 import { CreativaSeo } from "@/components/creativa/Seo";
-import { creativaApi, CreativaRequestError } from "@/api-client/creativa-checkout";
-import type { CreativaPublicOrder } from "@/models/creativa";
+import { CreativaBreadcrumbs } from "@/components/creativa/Breadcrumbs";
+import { useCreativaTracking } from "@/hooks/creativa/useTracking";
 import type { NextPageWithLayout } from "@/models/common";
-import { CREATIVA_PUBLIC_ID, formatCreativaPrice } from "@/utils/creativa/contracts";
+import { formatCreativaPrice } from "@/utils/creativa/contracts";
 import { trackCreativa } from "@/utils/creativa/analytics";
 import { CreativaBankInstructions } from "@/components/creativa/BankInstructions";
 
@@ -28,53 +27,8 @@ const paymentNames = {
 };
 
 const OrderDetail: NextPageWithLayout = () => {
-	const router = useRouter();
-	const id = typeof router.query.slug === "string" ? router.query.slug : "";
-	const [order, setOrder] = useState<CreativaPublicOrder | null>(null);
-	const [error, setError] = useState<string | null>(null);
+	const { id, order, error, retry } = useCreativaTracking();
 	const [notice, setNotice] = useState<string | null>(null);
-	const [retry, setRetry] = useState(0);
-	const previous = useRef("");
-	useEffect(() => {
-		if (!router.isReady) return;
-		if (!CREATIVA_PUBLIC_ID.test(id)) {
-			setError("Mã đơn hàng không hợp lệ.");
-			return;
-		}
-		let current = true;
-		setOrder(null);
-		setError(null);
-		void creativaApi
-			.order(id)
-			.then((result) => {
-				if (!current) return;
-				setOrder(result);
-				if (previous.current !== id) {
-					previous.current = id;
-					trackCreativa("order_tracking_result", {
-						entry_point: router.query.entry === "root" ? "root" : "creativa",
-						lookup_source: router.query.source === "history" ? "history" : "manual",
-						outcome: "found",
-					});
-				}
-			})
-			.catch((failure: Error) => {
-				if (current) {
-					setError(failure.message);
-					trackCreativa("order_tracking_result", {
-						entry_point: router.query.entry === "root" ? "root" : "creativa",
-						lookup_source: router.query.source === "history" ? "history" : "manual",
-						outcome:
-							failure instanceof CreativaRequestError && failure.status === 404
-								? "not_found"
-								: "error",
-					});
-				}
-			});
-		return () => {
-			current = false;
-		};
-	}, [id, router.isReady, retry, router.query.entry, router.query.source]);
 	async function copy(target: "id" | "url") {
 		try {
 			await navigator.clipboard.writeText(
@@ -90,28 +44,32 @@ const OrderDetail: NextPageWithLayout = () => {
 	return (
 		<>
 			<CreativaSeo title="Tra cứu đơn hàng" path="/creativa/order-tracking" noindex />
-			<Container maxWidth="md" sx={{ py: { xs: 4, md: 7 } }}>
-				<Stack gap={2.5}>
+			<Container maxWidth="md" sx={{ py: { xs: 2, md: 3 } }}>
+				<CreativaBreadcrumbs
+					ancestors={[
+						{ label: "Creativa", href: "/creativa" },
+						{ label: "Tra cứu đơn", href: "/creativa/order-tracking" },
+					]}
+					current="Thông tin đơn hàng"
+				/>
+				<Stack gap={1.5}>
 					<Typography variant="h3" component="h1">
 						Thông tin đơn hàng
 					</Typography>
 					{error && (
-						<Alert
-							severity="error"
-							action={<Button onClick={() => setRetry((value) => value + 1)}>Thử lại</Button>}
-						>
+						<Alert severity="error" action={<Button onClick={() => void retry()}>Thử lại</Button>}>
 							{error}
 						</Alert>
 					)}
 					{!order && !error && <Typography>Đang tra cứu…</Typography>}
 					{order && (
 						<>
-							<Box sx={{ p: 3, bgcolor: "white", border: "1px solid #eadfd8" }}>
+							<Box sx={{ p: 2, bgcolor: "white", border: "1px solid #eadfd8" }}>
 								<Typography variant="overline">MÃ ĐƠN HÀNG</Typography>
 								<Typography
 									component="p"
 									sx={{
-										fontSize: 27,
+										fontSize: 22,
 										fontFamily: "monospace",
 										userSelect: "all",
 										overflowWrap: "anywhere",
