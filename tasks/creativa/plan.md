@@ -1,5 +1,18 @@
 # INUT Creativa — Implementation Plan
 
+## Firefox checkout / Telegram configuration — 2026-10-23
+
+Observed Firefox + React18.2 event normalization error `correspondingUseElement` while opening a portaled MUI payment popup. Native select avoided it; owner requested Autocomplete. Final RHF `Autocomplete` uses `disablePortal`/`disableClearable`, stable enum options, native input ref and disabled-bank policy. Portaled Autocomplete reproduced the error for the owner; the same component with inline popup was explicitly confirmed working after full reload. Exact foreign event target was not independently identified; no global error suppression, React/package patch or security bypass.
+
+Telegram diagnosis is separate and concrete: supplied existing order saved `failed/TOKEN_MISSING`; published sales config active with one valid recipient/no draft. Local env had only legacy `NEXT_PUBLIC_TELEGRAM_BOT_TOKEN`, while sender requires server-only `CREATIVA_TELEGRAM_BOT_TOKEN`. Owner authorized adding an ignored local dotenv alias and restarting previews; no token printed/committed. Fresh `getMe/getChat` read-only checks authenticated the bot and confirmed a readable **private** recipient. Owner explicitly declined retry: no send, receipt mutation, new order or CMS recipient change. Existing failure stays until an authorized operator retry. Hosting must separately set the server-only key.
+
+- [x] Final inline Autocomplete passes owner Firefox retest and guarded Chromium all-field/enum quote/retained-value tests; fresh missing-bank fixture defaults COD and disables transfer.
+- [x] Local alias expansion/bot authentication/private-chat readability verified with no secrets or messages; actual transport under fake credentials proves missing server key sends nothing and configured key uses one intended request.
+- [x] Add visible CMS recipient-only/server-token/publish/private-vs-channel guidance and readable preview; operator docs explain the hosted server key. Concurrent user `.env.example` rearrangement is preserved unstaged.
+- [ ] Current lint/types/app/SEO/Studio, focused read-only audit/no-op rework/routing/final evidence, preview restart and feature-only publication.
+
+No business pricing/order identity/analytics/storage contract changes. Prior loop checkpoints below are historical.
+
 ## Transient feedback toasts — 2026-10-23
 
 Use existing `react-hot-toast` and the one global `_app` Toaster for Creativa's transient copy (ID/link/memo, success/denial) and product-add success feedback. Remove local notice state/inline notification banners, not persistent validation/service/storage warnings, payment instructions or accepted-order detail. Generic toast content must never include copied ID/URL/contact values. Shared copy toast ID replaces older copy feedback; success2500ms/error8000ms. Cart success keeps an accessible `Xem giỏ` CTA for5000ms.

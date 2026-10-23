@@ -1,5 +1,15 @@
 # Creativa Issue Routing
 
+## Current Firefox / Telegram diagnosis
+
+| Issue | Category | Evidence / disposition | Next phase | Files/data | Impact | Continue |
+| --- | --- | --- | --- | --- | --- | --- |
+| Firefox payment popup error | Missing Implementation → Implement → Verify | Final inline Autocomplete confirmed fixed by owner in Firefox; fresh Chrome policy/enum/focus checks and current gates pass. No generic suppression or speculative extension blame. | Complete focused audit PASS/no-op rework; final reconciliation. | Checkout render; no server/order payload change. | Medium browser journey defect resolved. | YES |
+| Telegram no message | Ambiguous Requirement / Configuration → Clarify → Verify | Published recipient valid; actual saved failure TOKEN_MISSING. Only legacy env key existed. Owner-approved ignored alias now authenticates bot/reads configured private chat. | Restart previews; configure actual server key separately in hosting. | Local ignored env, CMS guidance, operator evidence. | Local setup corrected; delivery unexecuted. | YES |
+| Existing failed order | Plan Gap → Plan → Verify | Owner explicitly declined retry; no message/receipt mutation permitted. Readiness does not send/relabel failure; recipient is private, not a Telegram channel. | Only later explicit operator retry/reconciliation; no auto retarget/resend. | Existing private delivery receipt, unchanged. | Existing delivery remains failed by instruction, not a code promise. | NO |
+
+Focused source audit PASS; rework no-op/unchanged confirmation. E-01..E-04 retained for actual private/host/native-wide/Studio/operator/delivery witnesses; no claim that bot read access proves a sent message.
+
 ## Current transient-toast refinement
 
 Owner's transient-feedback request is implemented/verified at `4bf42c0` with existing global react-hot-toast and current gates/browser evidence. Focused direct source audit PASS; rework no-op/unchanged confirmation, no actionable Missing Implementation issue. Final reconciliation and both preview restorations/HTTP200 are complete. Persistent actionable errors/payment/order states remain inline by scope; legacy main-brand behavior unchanged. E-01..E-04 release witnesses remain Clarify/Plan → Verify, not toast code findings. Current final report reconciles evidence; no new requirement ambiguity or tooling needed.

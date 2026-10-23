@@ -1,5 +1,11 @@
 # INUT Creativa — Technical Design
 
+## Latest Firefox focus / Telegram setup correction
+
+Use RHF Controller + MUI Autocomplete stable value objects, `isOptionEqualToValue`, disabled bank option, `disableClearable`, `disablePortal` and real TextField input ref. This removes custom SelectInput focus and keeps popup React events within checkout rather than a body portal. Native workaround and final inline Autocomplete were owner-confirmed in Firefox; portaled Autocomplete failed. No library edits/global catches/fake success.
+
+Keep notifier's server-only token contract unchanged. Local ignored config may explicitly alias the owner's existing bot token to `CREATIVA_TELEGRAM_BOT_TOKEN`; tracked code never falls back to a public key. Hosting needs its own real server variable. CMS provides published recipients, not credentials; private IDs are valid DM destinations if bot access exists, actual channels require actual channel ID/post permission. Existing receipt snapshots stay unchanged after config edits; no automatic failed-order resend. Current diagnosis/readiness uses sanitized booleans/statuses only.
+
 ## Latest transient-feedback amendment
 
 Reuse `_app`'s existing dynamically loaded Toaster; three Creativa action surfaces call existing `toast.success/error` directly from handlers. Remove order `notice`, bank `copyNotice`, product success `notice` state and their inline banners. Share static `creativa-copy` identity for copy-result replacement; never use copied values as toast identity/message. Keep MUI financial/validation/service/storage states inline.

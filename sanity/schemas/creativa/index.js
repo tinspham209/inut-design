@@ -310,13 +310,17 @@ export const creativaSalesSettings = doc(
 		array(
 			"destinations",
 			object("salesDestination", [
-				enumeration("channel", ["telegram"]),
+				enumeration("channel", ["telegram"], { title: "Delivery Service" }),
 				text("chatId", {
+					description:
+						"Recipient only, not a bot token. For a channel use its actual -100… chat ID and grant the bot posting permission. A positive ID normally targets a private chat; that user must start the bot.",
 					validation: (Rule) => Rule.required().regex(/^-?[0-9]{1,30}$/),
 				}),
 				active,
 			]),
 			{
+				description:
+					"These are recipient Chat IDs only. The web server also needs CREATIVA_TELEGRAM_BOT_TOKEN; never paste a token here. Publish changes for new orders; saved failed deliveries are not resent automatically.",
 				validation: (Rule) =>
 					Rule.required()
 						.max(5)
@@ -331,7 +335,20 @@ export const creativaSalesSettings = doc(
 			}
 		),
 	],
-	{ validation: singleton("creativa.settings.sales") }
+	{
+		description:
+			"Publish recipient settings here. Sending also requires CREATIVA_TELEGRAM_BOT_TOKEN in the web server environment; never store/paste the token in Studio. Restart the web server after changing its environment. Published recipient changes apply to new orders; existing delivery receipts keep their saved recipient and are not resent automatically.",
+		validation: singleton("creativa.settings.sales"),
+		preview: {
+			select: { active: "active", destinations: "destinations" },
+			prepare: ({ active, destinations }) => ({
+				title: "Sales Destinations",
+				subtitle: `${active ? "Active" : "Inactive"} · ${
+					(destinations || []).filter((item) => item.active).length
+				} active recipient(s) · server bot token required`,
+			}),
+		},
+	}
 );
 
 export const creativaCheckoutIntent = doc(

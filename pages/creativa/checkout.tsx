@@ -1,15 +1,12 @@
 /* eslint-disable camelcase */
 import {
 	Alert,
+	Autocomplete,
 	Box,
 	Button,
 	Container,
 	Divider,
-	FormControl,
 	Grid,
-	InputLabel,
-	MenuItem,
-	Select,
 	Stack,
 	TextField,
 	Typography,
@@ -24,6 +21,11 @@ import { useCreativaCheckout } from "@/hooks/creativa/useCheckout";
 import type { NextPageWithLayout } from "@/models/common";
 import { formatCreativaPrice } from "@/utils/creativa/contracts";
 import { trackCreativa } from "@/utils/creativa/analytics";
+
+const PAYMENT_METHODS = [
+	{ value: "bank_transfer", label: "Chuyển khoản ngân hàng" },
+	{ value: "cod", label: "Thanh toán khi nhận hàng (COD)" },
+] as const;
 
 const Checkout: NextPageWithLayout = () => {
 	const {
@@ -202,25 +204,33 @@ const Checkout: NextPageWithLayout = () => {
 											name="paymentMethod"
 											control={form.control}
 											render={({ field }) => (
-												<FormControl fullWidth>
-													<InputLabel id="creativa-payment">Phương thức thanh toán</InputLabel>
-													<Select
-														labelId="creativa-payment"
-														label="Phương thức thanh toán"
-														name={field.name}
-														value={field.value}
-														onBlur={field.onBlur}
-														inputRef={field.ref}
-														onChange={(event) =>
-															changePayment(event.target.value === "cod" ? "cod" : "bank_transfer")
-														}
-													>
-														<MenuItem value="bank_transfer" disabled={bankAvailable === false}>
-															Chuyển khoản ngân hàng
-														</MenuItem>
-														<MenuItem value="cod">Thanh toán khi nhận hàng (COD)</MenuItem>
-													</Select>
-												</FormControl>
+												<Autocomplete
+													id="creativa-payment"
+													fullWidth
+													disablePortal
+													disableClearable
+													options={PAYMENT_METHODS}
+													getOptionLabel={(option) => option.label}
+													isOptionEqualToValue={(option, value) => option.value === value.value}
+													getOptionDisabled={(option) =>
+														option.value === "bank_transfer" && bankAvailable === false
+													}
+													value={
+														PAYMENT_METHODS.find((option) => option.value === field.value) || null
+													}
+													onBlur={field.onBlur}
+													onChange={(_, option) => changePayment(option.value)}
+													renderInput={(params) => (
+														<TextField
+															{...params}
+															name={field.name}
+															inputRef={field.ref}
+															label="Phương thức thanh toán"
+															error={!!errors.paymentMethod}
+															helperText={errors.paymentMethod?.message}
+														/>
+													)}
+												/>
 											)}
 										/>
 										{bankAvailable === false && (

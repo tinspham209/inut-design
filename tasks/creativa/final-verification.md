@@ -1,5 +1,9 @@
 # Creativa Sales / Tracking Final Verification
 
+## Current Firefox / Telegram correction — verification pending
+
+Final requested Autocomplete with inline popup is owner-confirmed working in Firefox after the portaled version failed. Guarded Chromium preserves form/quote/disabled-option semantics. Supplied order failure was diagnosed TOKEN_MISSING with published active recipient; owner-authorized ignored local alias now authenticates bot/readable private chat in read-only checks. No actual send/retry/receipt mutation authorized. Current gates/direct audit/routing/preview reload reconciliation follows; readiness is not delivery.
+
 ## Current transient-toast refinement — verified
 
 **Source `4bf42c0`:** Focused direct read-only audit PASS for all three transient surfaces. Rework is no-op/unchanged confirmation; current lint without warnings/types/app229/SEO221 pass. No actionable code issue, new provider/dependency/API or legacy-flow change.

@@ -1,5 +1,13 @@
 # Creativa Staff Audit
 
+## Current Firefox / delivery setup correction — PASS
+
+**Focused direct read-only Staff audit PASS** for the complete checkout/CMS delta from `2333503`. Final requested RHF Autocomplete keeps popup inline, stable enum values/ref/disabled-option rules and current quote handlers; no error suppression/library patch. Visible CMS guidance distinguishes recipients/credentials/private/channel and non-retroactive receipt behavior; preview contains no secret.
+
+**Evidence:** Owner explicitly confirmed Firefox after final `disablePortal` change; Chrome all fields/payment enum/listbox ancestry/no-error plus fresh missing-primary COD/disabled option pass. Actual sender function in fake sandbox demonstrates TOKEN_MISSING/fetch0 with only legacy key, explicit server key sends exactly once to the intended fake recipient. Current lint/types/app229/SEO221 and Studio build pass. Real getMe/getChat authenticated local alias and readable private chat, no message.
+
+**Rework:** No actionable source finding; no-op/unchanged-code confirmation retains PASS. Local `.env` alias is explicit owner-approved/ignored, never printed/staged. Concurrent user `.env.example` rearrangement left unstaged. User declined existing-order retry; failed receipt not repaired/reset/sent. Exact foreign event target remains unproven, so only observed popup compatibility is claimed. E-01..E-04 actual delivery/host/private/native-wide/owner publication witnesses remain external.
+
 ## Current transient-toast refinement — PASS
 
 **Focused direct read-only Staff audit PASS at `4bf42c0`** for the complete three-source-file delta from `b5689c7`. Existing one global Toaster reused; transient local states/banners removed, success only after completed clipboard/cart action, generic content/static IDs, error/manual fallback and cart CTA preserved. Link copy prevents navigation but retains a real canonical href; persistent financial/validation/service/storage states remain. All event names/current action ownership retained, with one safe CTA event on the preserved toast link.

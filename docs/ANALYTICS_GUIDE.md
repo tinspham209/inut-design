@@ -174,6 +174,12 @@ trackEvent("custom_event_name", { category: "engagement", label: "button_label",
 
 ## INUT Creativa: isolated commerce measurement
 
+Firefox payment-control correction uses inline RHF Autocomplete without changing
+`add_payment_info` enum/action ownership or inventing default-selection events.
+Telegram token/recipient diagnosis is operational, not analytics: never capture
+bot tokens/chat IDs/message text or infer delivery from readiness. Current
+existing-order retry was explicitly declined; no new Sanity analytics writes.
+
 Transient toast refinement: copy ID/link/memo outcomes still emit exactly one
 `order_reference_copy` per enabled provider/action with target/outcome only,
 never copied values in toast or telemetry. Add-success moves to a toast without
