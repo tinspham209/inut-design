@@ -64,6 +64,13 @@ Actual read-only CMS/quote checks exercise the published product, 15 active mode
 
 Local SDK/collector/acceptance fixtures are not actual database/native/vendor/operator witnesses. CM-07, CR-19 and release gates remain open for those required cases. Formal read-only audit is the next phase; no acceptance signoff is claimed by this checkpoint.
 
+### R-01 final-verification rework checkpoint
+
+- [x] Actual facade single-item model/coverage/quantity/unit-price/variant context is retained in both intended destinations. Initial PDP coverage is explicit without a selected model.
+- [x] GA4 item projection excludes arbitrary extra properties while preserving index zero/list identity; unavailable price remains absent and denied consent emits nothing.
+
+The original source-facade parity probe was red at `715aa79`; the added closure group is green alongside the original 15 groups. Lint/TypeScript pass; the post-rework build and targeted read-only re-audit precede final verification restart. No business/order/theme behavior or event name is changed.
+
 ## 1. Delivery contract
 
 Deliver the approved MacBook-skin launch on a shared Creativa commerce foundation:

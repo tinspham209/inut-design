@@ -16,6 +16,8 @@ Verify new private production-path snapshots versus path-free product/quote/trac
 
 Browser-check `primary.main=#fd4d01`, light surfaces, dark readable text on orange fills, darker-orange text/hover variants, focus/selected states, mobile grid/gallery/quantity/add/cart/checkout and bank instructions from a saved snapshot. Keep old order states and root/lighter styling intact. Check the product unavailable/retry and missing-data cases, not only the happy path. Use authorized interception for acceptance/recovery and disabled/hung trackers; actual database/host/native evidence remains a separate gate.
 
+R-01 context closure: invoke the actual facade with a single configured measurement item and verify GA4/Umami both retain known model/coverage, quantity, variant and unit price once per destination. Keep index zero/list identity, omit unavailable price rather than inventing zero, reject private extra item properties through the public item projection, and emit nothing when consent denies analytics. Initial PDP coverage is known even before a model is selected; do not invent a model/default-selection action.
+
 The [amended plan](./plan.md#cms-first-amendment-and-required-next-actions) is authoritative. In this step verify:
 
 - Legacy registration/menu entries remain first and unchanged; all Creativa entries follow. Legacy document actions remain default.
