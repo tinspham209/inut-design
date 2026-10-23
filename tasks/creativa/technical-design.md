@@ -1,11 +1,19 @@
 # INUT Creativa — Technical Design
 
 **SDD gate:** Technical design.
-**Status:** Baseline approved by the owner on 2026-10-22; plan/test refinements were approved and feature-branch implementation performed. The [revised plan](./plan.md) remains the task/evidence source of truth; [final verification](./final-verification.md) records blocked full acceptance.
+**Status:** Owner-approved CMS-first amendment on 2026-10-23 supersedes the baseline schema details below. Studio is updated separately; application models/readers/quote/rendering still use the older contract and require the next integration step.
 **Date:** 2026-10-22.
 **Authority:** [Approved specification](./specs.md) and [approved idea](./idea.md).
 **Boundary:** Architecture, data ownership, interfaces, algorithms, failure behavior and verification design. Delivered paths are evidenced by source and the final report, not by this design's existence alone.
 **Refinement precedence:** Follow the plan's explicit Gap/Assumption/Over-engineering dispositions: canonical business-value digests, replay-safe local completion, nonblocking analytics, early evidence feasibility and an actual production handoff. These clarify implementation sufficiency without removing business requirements.
+
+## CMS-first amendment — staged architecture
+
+See [CM-03 through CM-07](./plan.md#cms-first-amendment-and-required-next-actions). This step changes only Studio schemas/navigation/actions/templates and related documents, not application code or stored records.
+
+Next integration must normalize model `code.current`, support Portable Text description rendering through existing tooling, remove obsolete product/model approval/artwork-field guards, and read fee/bank profiles by type rather than fixed singleton IDs. Production path metadata belongs in private staff snapshots/handoff, not public product/tracking/SEO/analytics projections; direct dataset permissions still need review. Existing stored artwork/fit/order snapshots must remain interpretable. A local path is neither an uploaded asset nor an immutable/versioned file.
+
+The schema contracts below describe the new target. Runtime algorithms elsewhere in this document remain a baseline until adapted; do not treat their old verified-fit, artwork-version or shipping/bank singleton assumptions as current authorization to write new-format orders.
 
 ## 1. Design decisions
 
@@ -91,8 +99,8 @@ Sanity's [document-ID rules](https://www.sanity.io/docs/content-lake/ids) state 
 | Data | ID convention | Access |
 | --- | --- | --- |
 | Published designs/models/coverages | Root IDs without dots. | Public projected commerce content. |
-| Shipping configuration | `creativa-shipping-settings`. | Public fees/rules only. |
-| Bank configuration | `creativa-bank-settings`. | Public customer payment instructions only. |
+| Shipping configuration | Normal per-fee Sanity IDs, type `creativaShippingSettings`; no fixed singleton. | Explicit public fee/slug fields only. |
+| Bank configuration | Normal per-profile Sanity IDs, type `creativaBankSettings`; no fixed singleton. | Explicit public payment fields only; internal notes excluded by the next adapter. |
 | Sales destinations | `creativa.settings.sales`. | Authenticated server/Studio only. |
 | Checkout intent | `creativa.intent.<sha256(capability)>`. | Authenticated server/Studio only. |
 | Accepted order | `creativa.order.<randomUUID>`. | Authenticated server/Studio only. |
@@ -104,15 +112,15 @@ Verify unauthenticated direct fetches/queries against all private namespaces in 
 
 ### 4.2 Schema contracts
 
-All new document/object schema titles use **`Creative - `**. Internal names are:
+Only root document titles use **`Creative - `**. Fields, nested objects, option labels and subordinate lists are human-readable without that prefix. All Creativa registration/navigation follows the untouched legacy entries. Internal names remain:
 
 | Schema | Key fields and constraints |
 | --- | --- |
-| `creativaSkinProduct` | `name`, unique nonreserved `slug`, `active`, immutable artwork identity/version, approved description, ordered `images` with alt/view metadata. Publish validation requires at least top/bottom/interior views. |
-| `creativaMacbookModel` | `name`, stable `code`, `sortOrder`, `active`, `fitVerified`, approved production-fit reference. Activation requires verified fit; no free-text customer model. |
+| `creativaSkinProduct` | Title `Creative - Skin laptop`; name, unique nonreserved slug, active default true, `blockContent` description, required absolute `printAssetPath`, ordered top/bottom/interior images with alt/view. Removed production/artwork/upload fields and their old root guards. |
+| `creativaMacbookModel` | Name, native slug `code` generated from name, sort order and active. No `fitVerified`/`fitReference` or fit-flag activation validator; manual owner fit approval remains outside the schema. |
 | `creativaSkinCoverage` | `code` in `top`, `bottom`, `interior`, `full`; `name`, `description`, `sortOrder`, `active`, safe integer VND `price`. Seed Lưng first; Full is independently priced. |
-| `creativaShippingSettings` | Singleton, `rules[]` with unique `_key`, stable `code`, label, active state, nonnegative safe integer `fee`, order and customer-visible note. Exactly one active default/nationwide rule for checkout launch. |
-| `creativaBankSettings` | Singleton with independently configured bank name, account holder/number and approved transfer-reference instructions; active state. No bot/API credentials. |
+| `creativaShippingSettings` | Ordinary fee documents reusing the `shippingFee` editor definition: name, generated slug, nonnegative fee, note and existing preview/orderings. No singleton/rules array. Runtime default/region handling must be adapted next. |
+| `creativaBankSettings` | Ordinary profiles reusing the `bankInfo` editor definition: name, image, bank name/short name, account number/holder, isActive/isPrimary/displayOrder, internal notes and createdAt. No singleton or shared main-brand records. |
 | `creativaSalesSettings` | Private singleton: active destinations/channel configuration; no browser projection. Bot credentials live in server environment. |
 | `creativaCheckoutIntent` | Private internal record: fingerprint, immutable canonical submitted request while pending, state, eventual order reference, revision-guarded transition/error summary. |
 | `creativaOrder` | Private accepted snapshot: public ID, analytics ID, timestamp, typed lines, customer/optional delivery data, money, operational/payment state, notification state and analytics-claim receipts. |
@@ -121,13 +129,13 @@ All new document/object schema titles use **`Creative - `**. Internal names are:
 
 The intent and lookup schemas are technical support records, not extra customer/order categories. Hide them from normal content creation and mark server-managed fields read-only. Orders are server-created; expose only operational/payment/manual tracking edits to staff. Hide create/duplicate/delete actions for orders/support records using Sanity v2 document-action configuration.
 
-Studio validation improves authoring but is not a server enforcement boundary. All API writes independently validate types, ownership, safe arithmetic and active/verified records.
+Studio validation improves authoring but is not a server enforcement boundary. Next API adaptation must independently validate the amended types/ownership/arithmetic/active records without requiring the removed fit/product flags. Shipping/bank have ordinary authoring actions; private sales/order/intent/lookup protections remain.
 
 ### 4.3 Historical meaning
 
-Order lines retain product ID/name/slug, artwork identity/version, immutable ordered-image asset references, model code/name/fit reference, coverage code/name/meaning, quantity and monetary values. Also retain relevant source revisions. CR-21/CR-22 in the revised plan must demonstrate that this identity actually resolves to the retained printable master and correct cut template; an image thumbnail/label alone is not production readiness. Use the owner's existing approved asset location/process, not a new asset-management service.
+Existing orders retain their original artwork/version/asset/fit snapshots without rewriting them. New-format snapshots must instead retain agreed product/model/coverage identity/display, the private production path, relevant source revisions, quantities and amounts. CM-05 must update quote/snapshot/Studio readback compatibly before acceptance of new-format records. CR-21/CR-22 still require staff to locate the correct physical files/template; the path field cannot prove existence or prevent file replacement.
 
-Use strong references to original products/options/assets where appropriate and snapshots for rendering/production meaning. Do not delete assets needed by orders or overwrite an artwork version in place; publish a new version and retain the old asset. Tracking never substitutes current labels/prices or a new design if old references are absent. Missing decorative media has an explicit unavailable-media state; it does not erase financial/configuration history.
+Preserve old references/assets and snapshots needed by accepted orders. For the new filesystem flow, document the operator's retained-file/version process rather than claiming Sanity copied/versioned the file. Tracking never substitutes current labels/prices/paths for an accepted snapshot. Private paths must not appear in public tracking.
 
 ## 5. Domain types and extension boundary
 
@@ -181,7 +189,7 @@ All amounts and quantities pass `Number.isSafeInteger` checks. Quantities are po
 
 ### Public queries
 
-Use explicit `creativaSkinProduct` projections, excluding drafts and inactive/unverified commerce data. List projection contains identity/name/slug, first two images and creation cursor; detail adds ordered gallery, approved description and artwork identity. Model/coverage reads project only public option data.
+The next adapter uses explicit product projections excluding drafts/inactive/invalid records, without obsolete approval/artwork-field predicates. List projects identity/name/slug/card images/cursor; detail adds gallery and Portable Text description, not `printAssetPath`. Normalize model slug codes for consumers and project only public options. The unchanged current reader does not yet implement this target.
 
 Order catalog results by `_createdAt desc, _id desc`. The first page has 24 records. Subsequent cursors encode the last timestamp/ID and normalized-query identity; validate the cursor server-side and fetch strictly after that pair. Bind cursors to the current search. This avoids offset drift from newly inserted designs and equal-date ties; live removal/activation still requires deduplication by product ID.
 
@@ -231,10 +239,10 @@ All checkout/order responses and tracking responses use `Cache-Control: no-store
 ### 7.2 Quote evaluation
 
 1. Parse/validate typed lines and merge identical configurations deterministically. Reject unknown types and empty orders.
-2. Read published product/model/coverage documents directly; verify `_type`, active state, verified model fit and membership in the Creativa domain.
+2. After CM adaptation, read published product/model/coverage records and validate type, active state, model slug and domain membership without removed approval/fit fields. Physical fit is an operator responsibility.
 3. Compute each skin line from the selected coverage's shared price. Full reads its own 310,000 VND seed value; it never sums the other prices.
-4. Read Creativa shipping/bank configuration directly. Normalize only the address for matching using existing diacritic/case handling.
-5. Prefer active `da-nang` for a matching Đà Nẵng address; otherwise use the single configured active default (`toan-quoc` seed). If a regional rule is absent, use the configured default; if no default can resolve, return configuration error. No arbitrary first-result fallback.
+4. Adapt reads to independent fee/bank profile records. Normalize only the address for matching; map fee slugs and bank active/primary/display-order fields explicitly. No fixed singleton read or main-brand fallback.
+5. Preserve regional/default behavior using the intended `da-nang`/`toan-quoc` fee slugs and deterministic selection. Verify the actual configured records during CM-04; missing valid default configuration is an error, not arbitrary query-order/free delivery. The CMS-only change does not seed these records.
 6. Optional blank address is valid and receives the displayed default fee. Do not claim shipping information is complete. Apply one fee to the combined order.
 7. Bank transfer is valid only with usable Creativa bank instructions. Missing bank configuration disables that method without disabling otherwise valid COD.
 8. Build an immutable quote with safe-integer totals and selected commercial/production meaning. Compute `digest = SHA256(canonicalQuote)` with CR-02's versioned field ordering; the digest is a change detector, not an authorization token. Store source revisions for audit separately. Exclude generated time, request IDs, analytics IDs and harmless display-only/revision changes from the digest.

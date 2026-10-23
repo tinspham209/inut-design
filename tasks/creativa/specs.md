@@ -1,12 +1,18 @@
 # INUT Creativa — Product Specification
 
 **SDD gate:** Specification.
-**Status:** Approved by the owner on 2026-10-22; subsequent design/plan/test/refinement gates were also approved and feature-branch implementation authorized. Current results are in [final-verification.md](./final-verification.md); production activation remains unapproved.
+**Status:** Baseline approved, followed by the owner-approved 2026-10-23 CMS-first amendment below. Studio changes are staged separately from the still-pending runtime adaptation. Earlier verification is historical; production activation remains unapproved.
 **Date:** 2026-10-22.
 **Latest amendment:** Prefix-free 10-character public order IDs and uncapped browser-local order-ID shortcuts on both tracking search pages.
 **Authority:** [Approved idea](./idea.md), subsequent owner answers recorded below, and [supplied references](#10-visual-and-interaction-requirements).
 **Implementation authority:** The [revised plan](./plan.md) is the task/dependency/evidence source of truth after cross-document refinement. All requirements and 52 ACs below remain in scope; the refinement does not turn a blocked witness into a pass.
 **Deliverable boundary:** Requirements, business/data contracts, analytics and acceptance criteria. No application implementation, final API/schema design or implementation task plan is included.
+
+## CMS-first amendment — 2026-10-23
+
+The owner explicitly selected **CMS only now; storefront/API next**. [The amended plan](./plan.md#cms-first-amendment-and-required-next-actions) defines the exact schema contract and CM-03 through CM-07 follow-ups. New Studio records are not compatible with the unchanged baseline runtime readers until those follow-ups are implemented.
+
+Root titles alone retain `Creative - `; all Creativa entries follow legacy content. Model code is a generated slug with no fit fields. Shipping/bank are independent per-record fee/profile editors, not singletons. Skin laptop is active by default, uses `blockContent` and an absolute `printAssetPath`; removed product approval/artwork/upload fields are not publication requirements. No existing data is migrated. Historical order snapshots remain intact; new snapshot/quote/path privacy integration is next, not completed here.
 
 ## 1. Objective and scope
 
@@ -82,7 +88,7 @@ The commerce boundary is **Creativa**, not Skin Laptop: one shared cart, checkou
 
 The initial model labels/grouping/order are the 16 entries in the approved idea's [MacBook support section](./idea.md#macbook-support), taken from the [model screenshot](./references/uniqfind-macbook-models.png). They are reference labels, not verified physical compatibility.
 
-- **MODEL-01:** CMS operators MUST be able to control model label, ordering and activation. Production-compatible identifiers/templates MUST be verified before activation, including the screenshot's questionable `MacBook Pro 12"` wording and grouped generations.
+- **MODEL-01:** CMS operators control model label, generated slug code, ordering and activation without `fitVerified` or `fitReference` fields. Physical compatibility remains a manual owner responsibility, including the screenshot's questionable `MacBook Pro 12"` wording/grouped generations; the schema does not certify fit.
 - **MODEL-02:** No Windows laptop or free-text custom model is orderable. Unsupported-model help may use existing support channels but MUST NOT bypass model validation.
 
 | Coverage | Initial price | Rule |
@@ -143,7 +149,7 @@ The initial model labels/grouping/order are the 16 entries in the approved idea'
 - **ORDER-05:** If the order was saved but the response was lost, retrying the original intent MUST recover the existing order, not create a second one. Later catalog/fee changes MUST NOT invalidate recovery of that already accepted order or rewrite its snapshot.
 - **ORDER-06:** Show confirmation only after durable order acceptance. Navigate to `/creativa/order-tracking/[slug]` and remove only the submitted items/quantities from the Creativa cart, preserving unrelated later additions and all lighter-cart contents.
 - **ORDER-07:** Creation starts with operational status `pending` and payment status `pending`. Staff use the existing vocabulary: operational `pending`, `confirmed`, `processing`, `in_transit`, `completed`, `cancelled`; payment `pending`, `paid`, `failed`, `refunded`. These are distinct states; an order or COD selection is not proof of payment.
-- **ORDER-08:** Persist a durable snapshot of each line's type, identity, display/production meaning, selections, quantity, unit price and subtotal, plus order totals and payment/shipping context. Changing/deactivating catalog data MUST NOT alter historical production meaning or financial values.
+- **ORDER-08:** Persist a durable snapshot of each line's type, identity, display/production path, selections, quantity, unit price and subtotal, plus order totals and payment/shipping context. Later CMS edits MUST NOT rewrite saved values/path. A path does not version/copy its local file; retained file contents and correct print/cut assets require the operator's process. Preserve existing older snapshots during integration.
 - **ORDER-09:** Sanity array items MUST have unique `_key` values; product/option references MUST target the correct Creativa documents. Deletion must not destroy the information needed to interpret a placed order.
 - **ORDER-10:** The public reference MUST be exactly 10 case-sensitive characters matching `^[A-Za-z0-9_-]{10}$`, generated server-side with cryptographically secure randomness. There is no product/brand prefix, timestamp or sequential component. The same format applies to skin-only and future mixed-product orders; the route/data source identifies Creativa.
 - **ORDER-11:** Keep the public reference distinct from Sanity's internal document ID, the analytics transaction identifier and the idempotency identity. Once accepted, it MUST remain unchanged through retries, recovery, status changes and later product edits. Product-type filtering MUST use stored line types, never infer them from this ID.
@@ -184,21 +190,21 @@ The initial model labels/grouping/order are the 16 entries in the approved idea'
 
 ## 7. CMS and logical data requirements
 
-All new Creativa schema display titles MUST use the exact prefix **`Creative - `**. The public brand is **INUT Creativa**. These are logical contracts; internal schema names, GROQ projections, API paths and component types are decided at technical design.
+Only root Creativa document titles MUST use **`Creative - `**; fields/nested objects/options/subordinate lists use human-readable unprefixed labels. All Creativa root entries follow legacy content without changing legacy sales defaults. The public brand is **INUT Creativa**.
 
 | Logical record | Minimum required business information |
 | --- | --- |
-| Skin design | Stable identity, unique readable slug, name, approved ordered images/descriptions, publish/availability state, creation ordering and a durable way to identify the ordered artwork for production. |
-| MacBook model | Stable identity, customer label/grouping, display order, active state and production-approved fit identification. |
+| Skin design | Stable document identity, unique readable slug, name, ordered images, `blockContent` description, active default true, creation ordering and absolute `printAssetPath` metadata. No production flag/artwork ID/version/upload field. |
+| MacBook model | Stable document identity, customer label, generated slug `code`, display order and active state; no fit fields. |
 | Skin coverage | Stable identity, label, coverage meaning, order, active state and integer VND price shared across skin designs/models. |
 | Creativa order | Separate internal identity and immutable unique prefix-free 10-character public reference, time, typed snapshot lines with unique keys, customer/optional delivery fields, merchandise/shipping/final totals, payment method/state and operational state. |
-| Creativa shipping | Separate rule identities, labels, integer nonnegative fees, matching/default information and deterministic precedence. |
-| Creativa bank information | Separate active bank-transfer instructions suitable for public customer display; never inherit another domain's configuration implicitly. |
+| Creativa shipping | Independent records like `shippingFee`: name, generated slug, nonnegative fee and optional note. Runtime regional/default selection must be adapted explicitly next. |
+| Creativa bank information | Independent profiles like `bankInfo`, with QR/logo, account/holder/bank fields, active/primary/display-order controls and internal notes. Never share legacy records or expose internal notes. |
 | Creativa sales configuration | Separate recipient/destination ownership; credentials and private configuration remain server-only. |
 
 - **CMS-01:** New Creativa documents MUST NOT reuse legacy product/order/shipping/bank/recipient documents as their business source of truth. Common infrastructure/utilities may be reused; configuration ownership may not.
 - **CMS-02:** Admin changes to Creativa records MUST NOT change lighter/main-brand data, or vice versa. Future Creativa categories share the Creativa order/shipping/bank/recipient domain, not separate order schemas per category.
-- **CMS-03:** Only published, active and valid commerce records are orderable. Admin validation MUST catch reserved/duplicate slugs, missing required imagery, invalid prices, invalid model activation and invalid shipping/bank configuration.
+- **CMS-03:** Admin validation catches required/readable product/model slugs, required imagery, absolute print-path syntax, prices and shipping/bank fields. Removed fit/product flags are not activation gates. Server orderability validation must be adapted to this contract before launch; a valid Studio form alone is not order acceptance.
 - **CMS-04:** Do not seed unverified models as supported or auto-migrate every legacy artwork. Screenshots and artwork are inputs, not authority to invent compatibility or commercial claims.
 - **CMS-05:** Historical orders MUST be interpreted using their snapshots, not only current dereferenced labels/prices. Missing old assets/options MUST NOT crash tracking or substitute a newer design.
 - **CMS-06:** No guide/article schema, new Sanity project/dataset, duplicated deployment or general-purpose product-builder framework is required.
@@ -338,7 +344,7 @@ These scenarios define acceptance, not automatic passing claims. Per-scenario re
 | AC-36 | Review the homepage, header/footer configuration and adapted commerce implementations. | Neutral positioning and working Skin Laptop entry; configurable Creativa shell built from existing patterns, with no main-brand commerce rewrite or framework migration. | BRAND-02, BRAND-03, NFR-01 |
 | AC-37 | Browse published/inactive/draft designs and open unknown/reserved slugs on desktop/touch. | Only eligible designs appear, once each; primary/hover images and names/from-prices work without touch-hover dependency; reserved/unknown slugs never expose drafts; no out-of-scope filter controls. | ROUTE-02, CAT-01, CAT-02, CAT-07 |
 | AC-38 | Enter blank, fractional, negative, non-finite or overflowing quantities through UI and direct submission. | Explicit validation, no coerced quantity, no unsafe arithmetic and no accepted invalid order. | PDP-06, PRICE-04 |
-| AC-39 | Configure models/content/prices with missing imagery, unverified fit, duplicate/reserved slug or invalid prices; attempt free-text/non-MacBook ordering. | Admin validation and activation controls prevent unsafe publication/orderability; model order/labels are CMS-owned; no legacy wholesale migration, guide CMS, new dataset or speculative category. | MODEL-01, MODEL-02, CMS-03, CMS-04, CMS-06 |
+| AC-39 | Configure required fields with missing imagery, invalid/missing print path, model slug, duplicate/reserved product slug or invalid prices; attempt free-text/non-MacBook ordering. | Studio validates the amended fields without removed approval flags; adapted runtime rejects invalid/unregistered inputs. Model order/labels remain CMS-owned, physical fit is manually approved; no legacy wholesale migration, guide CMS, new dataset or speculative category. | MODEL-01, MODEL-02, CMS-03, CMS-04, CMS-06 |
 | AC-40 | Inspect accepted orders, references and public create/lookup boundaries. | Unique array keys and valid case-sensitive 10-character prefix-free public references; cryptographically random identity and protected public projections; privileged fields cannot be client-set and documented abuse controls remain enforced. | ORDER-09, ORDER-10, NFR-02 |
 | AC-41 | Retry an accepted intent/notification failure and inspect production integration behavior. | No routine duplicate notification/conversion; failure is diagnosable; no automatic shipment, payment reconciliation, category split or unpromised email/SMS/recovery service. | OPS-03, OPS-04, OPS-05 |
 | AC-42 | Review legacy service URLs and new product metadata/offer output. | Separate service pages remain intact; new canonical/title/images/offers reflect current valid data with no fabricated prices, ratings or policies. | SEO-03, SEO-04 |

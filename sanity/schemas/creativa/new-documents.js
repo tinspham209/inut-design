@@ -4,8 +4,6 @@ const blocked = new Set([
 	"creativaOrder",
 	"creativaCheckoutIntent",
 	"creativaOrderLookup",
-	"creativaShippingSettings",
-	"creativaBankSettings",
 	"creativaSalesSettings",
 ]);
 export default S.defaultInitialValueTemplateItems().filter(

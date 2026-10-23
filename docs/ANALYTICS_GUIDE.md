@@ -224,3 +224,9 @@ release. Do not infer hosted privacy/deduplication from development logs.
 Owner-provided launch data, native Safari behavior, actual Sanity privacy and
 real GA4/GTM/Umami settings remain separate verification gates in
 `tasks/creativa/plan.md` and `tasks/creativa/test-plan.md`.
+
+The 2026-10-23 CMS-first amendment changes Studio schemas only. Existing runtime
+producers/readers are not yet adapted to those new records; follow
+[CM-03 through CM-07](../tasks/creativa/plan.md#cms-first-amendment-and-required-next-actions)
+next. Keep absolute print-file paths and internal bank notes out of public
+projections and telemetry; no new analytics event or collector is introduced.

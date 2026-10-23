@@ -1,13 +1,48 @@
 # INUT Creativa — Implementation Plan
 
 **SDD gate:** Approved plan/refinement; implementation, audit and issue routing executed; final acceptance remains blocked.
-**Status:** Owner-approved baseline and refinement. Application implementation is committed on `feat/creativa` through `7fedd01`; all recorded source findings are resolved. Required external/manual witnesses keep the applicable tasks, CR-19 and CR-20 incomplete. See [final-verification.md](./final-verification.md).
+**Status:** CMS-first amendment approved on 2026-10-23. This step changes Studio schemas/editor behavior and these documents only. The application/API still uses the prior contract and is not compatible with newly authored amended records. Earlier application audit/verification results are historical, not current integration approval.
 **Date:** 2026-10-22.
 **Refinement date:** 2026-10-23.
 **Source of truth:** This revised plan governs implementation scope, task dependencies, exit evidence and the dispositions below. [test-plan.md](./test-plan.md) supplies the linked procedures. Earlier documents supply the approved business requirements; an older implementation detail does not override an explicit refinement here. No acceptance criterion is silently removed or weakened.
 **Verification amendment:** The owner's next-gate instruction requires a test plan, not test code, without a new unit-test suite, tooling or invented coverage target. [test-plan.md](./test-plan.md) governs verification methods; earlier proposed test-script names are not required quality gates.
 **Authority:** [Approved technical design](./technical-design.md), [approved specification](./specs.md) and [approved idea](./idea.md).
 **Boundary:** Execution order, dependencies, completion criteria and verification/release gates. Creating this plan does not implement features, approve production deployment, authorize test orders or request a multi-agent workflow.
+
+## CMS-first amendment and required next actions
+
+The owner's 2026-10-23 decision supersedes conflicting schema/production-identity details in the baseline below. **Current scope is Sanity Studio only; storefront/API adaptation is the next step.** No production document is migrated, created or deleted by this code change.
+
+Do not use amended records as live commerce configuration until the adapters are complete. Old stored fields can remain after schema edits; they must not become an accidental fallback to stale fit/artwork/bank information. Inventory and authorize migration explicitly rather than assuming a new editor has converted existing data.
+
+| Surface | Current approved CMS contract |
+| --- | --- |
+| Studio order | Keep legacy document registration/navigation first, including existing sales behavior. Append all Creativa entries; retain private order/intent/lookup/sales protections. |
+| Labels | `Creative - ` only on root Creativa document titles. Fields, nested objects, option labels and subordinate order lists use readable wording without that prefix. Stored field names remain stable unless explicitly changed below. |
+| MacBook models | `name`, `code` as a native slug generated from `name`, `sortOrder`, `active`. Remove `fitVerified`/`fitReference` and their activation validation. Physical compatibility remains a manual owner responsibility. |
+| Shipping | Separate `creativaShippingSettings` documents modeled on `shippingFee`: name, generated slug, fee, note, previews/orderings. No singleton/rules array; no reuse of main-brand records. |
+| Bank | Separate `creativaBankSettings` profiles modeled on `bankInfo`: display name, QR/logo, bank/holder/account details, `isActive`, `isPrimary`, display order, notes and creation date. Ordinary create/edit actions; no singleton. |
+| Skin laptop | Root title `Creative - Skin laptop`; `active` defaults true. Description uses existing `blockContent`. Remove `productionVerified` (the requested `productVerified`), `artworkId`, `artworkVersion` and uploaded `printAsset`. Require `printAssetPath` as absolute filesystem/shared-drive text. |
+| Path limits | Path metadata is not browser localStorage, a file upload, file existence verification, automatic reading/serving or immutable asset versioning. A field in a public Sanity document is not inherently private; do not put secrets in it. |
+| Existing orders/data | Preserve existing stored documents and read-only historical order snapshots. Schema field removal does not delete stored values or migrate old formats. Legacy schemas/data remain untouched. |
+
+### Amendment task checklist
+
+- [x] CM-01 — Apply schema/navigation/action/template changes without modifying the legacy schema definitions or runtime consumers.
+- [x] CM-02 — Reconcile brief, idea, specs, design, plan, test plan and historical audit/routing/verification status with this staged contract.
+- [ ] CM-03 — **Next:** adapt `models/creativa.ts`, catalog GROQ/guards and product rendering for slug `code.current`, Portable Text and removed approval/artwork fields. Exclude filesystem paths from public projections, SEO and telemetry; review direct dataset access separately.
+- [ ] CM-04 — Adapt shipping/bank readers and checkout to per-record fees and active bank profiles, following the existing flows without shared business data. Resolve regional/default slugs and active/primary/display-order behavior explicitly; retain zero-fee, optional-address and missing-bank handling.
+- [ ] CM-05 — Update authoritative quote/digest, new accepted snapshots and staff handoff for the new model/print-path contract. Preserve old orders/recovery and keep private production paths out of public tracking. Snapshot a path, not a claim that its file contents were versioned or uploaded.
+- [ ] CM-06 — Inventory existing records and separately authorize any required string-code-to-slug, text-to-blocks, singleton-to-record and bank-field migration. Do not silently discard unknown fields or rewrite accepted orders.
+- [ ] CM-07 — Verify amended Studio authoring, complete API/quote/cart/checkout/recovery/tracking/history/analytics contracts and historical compatibility before release. Prior baseline passes cannot close these new integration checks.
+
+CM-03/CM-04 precede CM-05; CM-06 inventory informs any integration/migration; CM-07 depends on the completed adapters and any authorized migration. These follow-ups are deliberately **not implemented in this CMS-only step**. CR-03/05/06/07/12/14/15/17/21/22 and related ACs must consume the amendment, not obsolete fit/artwork/singleton assumptions. Original external gates E-01 through E-04 remain open.
+
+### CMS-only verification checkpoint
+
+Existing `pnpm --dir sanity build` passes. Isolated actual schema definitions verify all nine root schemas, legacy-first registration/navigation, readable unprefixed nested labels/options, slug configuration, product-only active default true, valid/invalid POSIX/Windows/shared-drive paths, exact legacy fee/bank editor reuse and native-versus-private action/template boundaries. No CMS API call or document mutation occurs in those checks.
+
+The Studio preview is responsive. The temporary nonstandard origin was CORS-blocked; the standard `http://localhost:3333` origin reaches **Please sign in**. No project/CORS/credential changes were made. Actual authenticated field controls, Generate interaction, profile creation and publication therefore remain unverified; do not treat the build/source checks as a connected authoring pass. Next review needs an authorized Studio session, followed by CM-03 through CM-07, not unapproved data writes.
 
 ## 1. Delivery contract
 
@@ -278,9 +313,9 @@ Coordinate any necessary cross-task edit through that owner. Do not parallelize 
 
 **Scope:** Add the nine document types and embedded objects in the design's [schema contracts](./technical-design.md#42-schema-contracts); register them in `sanity/schemas/schema.js`.
 
-**Completion:** All titles use `Creative - `. Catalog/options/shipping/bank are independent; sales/orders/intents/lookup records use the designed private namespaces. Add authoring validation, server-managed/read-only financial fields, protected support records and manual status/payment/tracking edits. Prevent deletion/duplication that would break order history.
+**Completion:** Root document titles alone use `Creative - `; nested labels are readable and unprefixed. Legacy entries/actions remain first/unchanged. Catalog/options and per-record fee/bank profiles are independent; private sales/order/intent/lookup protections remain. Preserve historical snapshots and server-managed financial fields; the CM checklist governs the amended Studio contract and pending runtime integration.
 
-**Verification:** Validate reserved/duplicate slugs, three required gallery views, safe prices, exactly one default shipping rule, verified model activation and unique array keys. Build the Studio after schema/action edits. Use fixtures, not automatic production seeding or active unverified screenshot models; actual access denial is proven in CR-19.
+**Verification:** Validate reserved/product/model slugs, three required gallery views, absolute print-path syntax, readable field labels, fee/bank record authoring and unique array keys. Legacy schemas/actions must remain first and unchanged. Fit approval is manual, not a removed CMS boolean. Build Studio; apply the CM integration/migration checks before claiming application compatibility. No automatic production seeding is authorized.
 
 ### CR-04 — Implement explicit adapters and API infrastructure
 
@@ -622,6 +657,6 @@ Do not blindly restore old manual-order CTAs or point legacy users at a broken n
 
 ## 9. Plan exit gate
 
-**Current state:** All SDD/refinement documents were approved and feature-branch implementation was authorized. Source findings I-01 through I-18 are resolved through code audit round 7 at `7fedd01`. [Final verification](./final-verification.md) records every requirement/AC, actual evidence and E-01 through E-04.
+**Current state:** Baseline application findings I-01 through I-18 were resolved at `7fedd01`; that is historical evidence. The later CMS-only amendment changes the target schema and reopens its application integration work (CM-03 through CM-07). [Final verification](./final-verification.md) retains both the baseline evidence and this staged limitation.
 
 CR-01, CR-02 and CR-23 have their recorded completion. Unchecked tasks retain missing required witnesses, not a false “not implemented” blanket status or a false completion. There is no “all tasks done, AC still blocked” success state. Next work is the classified owner/environment/device verification; production activation remains subject to CR-20 and explicit authorization.

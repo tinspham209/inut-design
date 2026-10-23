@@ -6,6 +6,12 @@
 **Latest revision:** Prefix-free 10-character public order IDs and uncapped browser-local saved-order tags, within the shared Creativa cart/checkout/order journey and independent of lighters.
 **Execution authority:** The [revised plan](./plan.md) is the implementation source of truth after reverse validation; the business goals and scope in this idea remain unchanged.
 
+## CMS-first amendment — 2026-10-23
+
+The owner approved a simpler Studio authoring workflow, implemented before adapting the storefront/API. Keep all legacy content first and Creativa last; prefix only root schema titles, not fields. Models use generated slug codes without fit fields. Creativa shipping and bank use independent records like the existing editors, including multiple bank profiles. Skin laptop uses a rich description, active default true and an absolute filesystem/shared-drive print path instead of approval/artwork-version/upload fields.
+
+The path is metadata only, not browser storage or an uploaded/versioned file. Existing documents and accepted order snapshots are not migrated. **Next action:** complete CM-03 through CM-07 in the [amended plan](./plan.md#cms-first-amendment-and-required-next-actions); current runtime readers still expect the older contract, so this CMS step is not an integrated commerce pass. Manual fit/asset ownership and production readiness remain owner responsibilities, not the removed CMS flags.
+
 ## 1. What we are building
 
 INUT Creativa is a subbrand storefront on `inutdesign.com/creativa`, starting with ecommerce for ready-made MacBook skin designs.
@@ -249,16 +255,16 @@ Staff confirm, print and fulfill orders manually. Follow the existing operationa
 
 Use new Sanity schemas rather than reusing legacy product or order schemas. Clone the relevant existing patterns and adapt them for this domain. Keep skin catalog/model/coverage data product-specific, but make Creativa cart, checkout and order records shared across its product types.
 
-All new Creativa schema display titles use the exact requested prefix **`Creative - `**. This spelling is intentional here; the public brand remains **INUT Creativa**. Internal schema identifiers will be defined during technical design against the specification's logical data requirements.
+Only root Creativa document titles use the exact requested prefix **`Creative - `**. Fields, nested objects and subordinate lists use readable unprefixed labels. The public brand remains **INUT Creativa**. The CMS-first amendment governs the current internal field/record shapes.
 
 | Separate Creativa data/configuration | Purpose |
 | --- | --- |
-| Laptop-skin products/designs | Name, slug, images and publish/availability control; a category-specific catalog rather than a requirement that every future product is an artwork. |
+| Laptop-skin products/designs | Name, slug, ordered images, rich description, active default true and absolute `printAssetPath` metadata; no production flag/artwork ID/version/upload field. |
 | Supported MacBook models | Skin-specific orderable model names/identifiers and activation. |
 | Skin coverage and shared prices | Initial four presets, VND prices and activation, shared across skin designs only. |
 | Creativa orders | One immutable prefix-free 10-character public reference, separate internal identity, typed product lines, selection snapshots, shared customer/delivery information, financial snapshots and operational/payment state. |
-| Shipping settings | Creativa-wide shipping rules/fees for the combined order. |
-| Bank information | Creativa's bank-transfer instructions. |
+| Shipping settings | Independent Creativa fee records with name, slug, fee and note, like the existing Shipping Fee editor. |
+| Bank information | Independent Creativa bank profiles with the legacy editor's active/primary/display-order controls. |
 | Sales-notification configuration | Creativa-specific notification destinations/recipients. |
 
 An admin change to Creativa's shipping, bank details or recipients must not change the main brand/lighter settings, or vice versa. The actual values may happen to match, but their configuration ownership is independent.

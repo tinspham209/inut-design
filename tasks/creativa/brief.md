@@ -1,5 +1,10 @@
 # New sub brand: INUT Creativa
 
+## Owner CMS-first amendment — 2026-10-23
+
+The original brief below is retained as historical input. The owner now requests Creativa schemas/navigation after all legacy content; readable field labels with `Creative - ` only on root titles; MacBook slug codes without fit fields; independent per-record shipping and multiple bank profiles like the legacy editors; and `Creative - Skin laptop` with active default true, block content description and absolute `printAssetPath` metadata instead of approval/artwork/upload fields.
+
+**Approved scope:** CMS only now, no document migration. **Next:** align storefront/API/quote/order consumers and verify the changed contract before launch. [The amended plan](./plan.md#cms-first-amendment-and-required-next-actions) is authoritative for exact fields, limits and follow-up tasks.
 
 /creativa
 for now just show some placeholder, because for now we just start the project skin-laptop, but later, we will sell another product type, so let think the logic so that we can extend/scale without any conflict.

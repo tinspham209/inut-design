@@ -1,9 +1,9 @@
 # Creativa Issue Routing
 
 **Phase:** Completed issue routing; final documentation reconciliation only, no application changes.
-**Code reviewed:** Cumulative audit closure through `7fedd01` on `feat/creativa`.
+**Code reviewed:** Historical application closure through `7fedd01`; later CMS-only amendment has a deliberately pending runtime handoff.
 **Inputs:** [Audit report](./audit-report.md), [revised plan](./plan.md), [specification](./specs.md) and [test plan](./test-plan.md).
-**Decision:** I-01 through I-18 are resolved through round 7, including reopened connected variants. Four external readiness findings remain; none may be removed by inventing inputs or silently changing requirements. Code verification results are recorded; full release acceptance remains blocked.
+**Decision:** Baseline I-01 through I-18 remain historically resolved. The owner's new CMS-first contract introduces CM-03 through CM-07 follow-up work, not implemented in this step. Four external readiness findings also remain. No current amended-contract integration pass is claimed.
 
 ## Classification rules
 
@@ -17,6 +17,7 @@
 
 | Issue | Category | Reason | Recommended next phase | Files/data affected | Estimated impact | Continue |
 | --- | --- | --- | --- | --- | --- | --- |
+| CM handoff — new Studio records versus old runtime | Missing Implementation → Implement → Verify (explicitly deferred scope) | Owner chose CMS-only now. Readers/guards still expect fit/product/artwork fields, text description, string code and singleton shipping/bank formats. | After CMS review, implement CM-03 through CM-07; separately authorize any actual data migration, then re-audit/reverify. | `models/creativa.ts`, catalog reader, quote/records/notifications, product rendering/checkout/tracking, amended Studio snapshot compatibility and SDD evidence. | High for launch: new CMS records are not currently compatible with commerce; do not deploy as an integrated release or fake removed fields. | NO in this CMS-only step |
 | I-01 — discarded pending capability | Missing Implementation → Implement → Verify | Client inferred terminal state from transient code/status; original server intent remained resumable. Fixed by confirmed-terminal protocol and retained-capability handling. | Final verification of the applied fix; no additional code currently requested. | `utils/creativa/{orders.server,api.server,contracts}.ts`, model/API wrapper, checkout page. | High integrity risk resolved in code; real target recovery still belongs to E-02. | YES |
 | I-02 — forgotten history resurrection | Missing Implementation → Implement → Verify | Stale independent callback trusted captured flags/recreated completed journal. Fresh ownership/checkpoints and persisted-cache semantics now suppress it. | Final verification; retain normal versus storage-failure evidence boundaries. | `utils/creativa/storage.ts`, checkout page. | Medium browser-state issue resolved; native/interruption matrix remains E-04. | YES |
 | I-03 — healthy cart entries lost with invalid sibling | Missing Implementation → Implement → Verify | Whole-cart decoding/reset could remove valid entries. Per-entry quarantine and explicit invalid-only repair now retain them and block submit until resolved. | Final verification of the repair/error path. | `store/cart/creativaCart.ts`, cart/checkout pages. | Medium data-loss risk resolved with isolated source/state evidence. | YES |
@@ -42,7 +43,7 @@
 
 ## Loop disposition
 
-The actionable cycle is complete for I-01 through I-18. Round 7 code audit is PASS at `7fedd01`; final verification records current local evidence and the still-unexecuted required witnesses. No currently identified actionable source finding requires another code loop.
+The baseline cycle completed at `7fedd01`; that result does not close the later amended-contract handoff. **Next action is CM-03 through CM-07**, after the current CMS-only step, plus the existing external verification work. No application code is changed during this routing/documentation update.
 
 E-01 through E-04 must not be sent through a blind code-rework loop: their approved prerequisite is Clarify/Plan → Verify. Full acceptance remains FAIL/BLOCKED until those witnesses exist. Feature-branch publication is not deployment and cannot be represented as launch approval.
 
