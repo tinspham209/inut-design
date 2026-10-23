@@ -2,13 +2,13 @@
 
 ## Current owner refinement — compact UI / forms / API hooks
 
-Add first-image thumbnails left of cart/checkout product names, linked ancestor breadcrumbs/current text across Creativa, smaller type/spacing, RHF + Yup forms, SWR/SWRMutation API hooks and handler-owned actions instead of avoidable effects. Owner confirmed white compact contained-primary buttons on darker orange `#ae3500`, retaining exact brand primary `#fd4d01`. [UI-01..UI-07](./plan.md#compact-ui--form-and-request-amendment--2026-10-23) governs the new loop; prior verification is historical until updated.
+Add first-image thumbnails left of cart/checkout product names, linked ancestor breadcrumbs/current text across Creativa, smaller type/spacing, RHF + Yup forms, SWR/SWRMutation API hooks and handler-owned actions instead of avoidable effects. Owner confirmed white compact contained-primary buttons on darker orange `#ae3500`, retaining exact brand primary `#fd4d01`. [UI-01..UI-07](./plan.md#compact-ui--form-and-request-amendment--2026-10-23) is implemented and code-audited through `7918095`, including C-01 rework. Current final verification retains E-01..E-04 release blockers.
 
 ## Owner storefront continuation — 2026-10-23
 
 The owner tested and accepted the revised CMS flow, then authorized connecting storefront/UI/runtime consumers. **Keep primary `#fd4d01` and a light theme.** Customer bank details must come from the active primary Creativa profile only; no active-account fallback or customer bank selector. Run implement → audit → rework → audit → issue routing → final verification, and reconcile related documents. The [runtime continuation](./plan.md#runtime-and-orange-light-continuation--2026-10-23) records exact contracts/evidence boundaries; no production write/migration/deployment is implied.
 
-**Current outcome:** Runtime/orange-light implementation and R-01 rework are code-audited through `5a8cff8`. [Final verification](./final-verification.md) records scoped passes and E-01..E-04 release blockers, including production-browser CDN access, real database/host/native/operator witnesses. Feature publication is not launch approval.
+**Current outcome:** Runtime/orange-light plus compact-client implementation is code-audited through `7918095`. [Final verification](./final-verification.md) records scoped passes and E-01..E-04 release blockers, including production-browser CDN access, real database/host/native/operator witnesses. Feature publication is not launch approval.
 
 ## Owner CMS-first amendment — 2026-10-23
 

@@ -7,7 +7,7 @@ The [UI-01..UI-07 amendment](./plan.md#compact-ui--form-and-request-amendment--2
 Creativa form ownership uses React Hook Form + Yup; API orchestration uses SWR/SWRMutation hooks, not request chains in render pages. Existing server validation, recovery/acceptance/storage/privacy/measurement semantics remain authoritative. Prefer event/request handlers to effects where a user action owns the trigger; genuine lifecycle/external synchronization remains allowed. This amends implementation/presentation of existing 116 requirements/52 ACs, not a new order flow or a weakened acceptance oracle.
 
 **SDD gate:** Specification.
-**Status:** Owner-approved CMS/runtime amendments are implemented; cumulative code audit PASS through `5a8cff8`. Current [final verification](./final-verification.md) records all 116 requirements/52 AC results and E-01..E-04 blockers; production activation remains unapproved.
+**Status:** Owner-approved CMS/runtime/compact-client amendments are implemented; cumulative code audit PASS through `7918095` after C-01 rework. [Final verification](./final-verification.md) records all nine current requests, 116 requirements/52 AC results and E-01..E-04 blockers; production activation remains unapproved.
 **Date:** 2026-10-22.
 **Latest amendment:** Exact orange/light UI, active-primary bank and amended CMS/runtime shapes, preserving prefix-free 10-character public IDs and browser-local shortcuts.
 **Authority:** [Approved idea](./idea.md), subsequent owner answers recorded below, and [supplied references](#10-visual-and-interaction-requirements).

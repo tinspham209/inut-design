@@ -238,9 +238,15 @@ metadata, internal bank notes and account details out of telemetry; current
 guards cover those keys. Only the active primary bank is used for new orders,
 and tracking uses its accepted snapshot. No new event or collector is added.
 
-Current code audit is PASS through `5a8cff8`, including R-01's public single-item
-context parity and known/unavailable PDP coverage cases. Seventeen isolated
-contract groups and local destination captures do not prove actual hosted
-delivery, container exclusions or host-log privacy. Their remaining witnesses
-and all requirement/AC results are recorded in the
+Current code audit is PASS through `7918095`, including the compact-client
+refactor and C-01 explicit memory-only quote retry. RHF handlers own validation
+and submit actions; SWR hooks own API completion, and one actual-presentation
+effect measures SSR/cached/fresh catalog results without duplicate impressions.
+Breadcrumb `cta_click` uses only static ancestor paths, never an order ID.
+Order/create/resolve/claim arguments are not cache keys; claims remain explicit
+and nonblocking. No event name or transport destination was added.
+
+Earlier seventeen contract groups, current parser parity and local destination
+captures do not prove hosted delivery, container exclusions or host-log privacy.
+Remaining witnesses and all requirement/AC results are recorded in the
 [final verification report](../tasks/creativa/final-verification.md).

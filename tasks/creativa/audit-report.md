@@ -2,7 +2,7 @@
 
 ## Current compact-client audit
 
-**Current result:** PASS within cumulative scope: independent audit at `f0a2aef` found C-01, now resolved and confirmed by targeted read-only review of its complete two-hook rework. Full acceptance remains blocked by E-01..E-04.
+**Current result:** PASS through `7918095` within cumulative scope: independent audit at `f0a2aef` found C-01, now resolved and confirmed by targeted read-only review of its complete two-hook rework. Full acceptance remains blocked by E-01..E-04.
 **Scope:** [UI-01..UI-07](./plan.md#compact-ui--form-and-request-amendment--2026-10-23), all nine owner requests, shared validation/checkout recovery/privacy/analytics invariants and browser expectations. No real order/send or schema/server acceptance change.
 
 Current supplied evidence includes red-to-green retained thumbnail metadata, 23 Yup/server variants, current lint/types/build/SEO and guarded browser quote/search races, cached presentation, pagination error/retry/dedup, validation focus, missing-primary COD and fresh lost-response recovery. The prior code PASS below is historical, not approval of this client refactor. E-01..E-04 remain release blockers.
@@ -25,7 +25,9 @@ Current supplied evidence includes red-to-green retained thumbnail metadata, 23 
 
 No remaining actionable source finding in the cumulative independent-plus-targeted scope. This review changes no application code. Route C-01 as resolved; E-01..E-04 require Clarify/Plan → Verify, not speculative code edits.
 
-**Current code audit:** PASS through `5a8cff8`: independent runtime audit at `715aa79`, followed by R-01 rework and targeted read-only confirmation. Historical rounds remain below for their former contract.
+## Previous runtime/orange-light loop — retained history
+
+**Code audit at that checkpoint:** PASS through `5a8cff8`: independent runtime audit at `715aa79`, followed by R-01 rework and targeted read-only confirmation. These rounds remain evidence for their stated former contract, not a replacement for the current compact-client audit.
 **Overall acceptance:** FAIL / BLOCKED — E-01 through E-04 still lack their required external witnesses.
 **Phase:** Seven historical rounds plus current independent amended-runtime audit and targeted R-01 confirmation completed; application changes occurred only in implementation/rework phases. Final verification and issue routing are recorded.
 **Baseline:** `551ab8e`; cumulative implementation/rework reviewed through `7fedd01` on `feat/creativa`. Exact per-round scope/revision is retained below.
