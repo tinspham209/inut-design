@@ -33,5 +33,6 @@ export function useCreativaTracking() {
 		order: valid && router.isReady && !request.error ? request.data : undefined,
 		error: router.isReady && !valid ? "Mã đơn hàng không hợp lệ." : request.error?.message,
 		retry: request.retry,
+		current: !request.isValidating && !request.error,
 	};
 }

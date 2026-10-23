@@ -6,7 +6,15 @@ import type {
 	CreativaQuote,
 } from "@/models/creativa";
 import { creativaServerClient } from "@/api-client/creativa-server";
-import { CreativaError, CREATIVA_PUBLIC_ID, lineIdentity, parseCheckout } from "./contracts";
+import {
+	CreativaError,
+	CREATIVA_PUBLIC_ID,
+	lineIdentity,
+	parseCheckout,
+	projectCreativaImage,
+	safeMoney,
+	safeQuantity,
+} from "./contracts";
 import { evaluateQuote } from "./quote.server";
 import {
 	conflict,
@@ -28,6 +36,22 @@ export class QuoteChanged extends CreativaError {
 }
 
 export function publicOrder(order: StoredOrder): CreativaPublicOrder {
+	for (const amount of [
+		order.merchandiseTotal,
+		order.shippingFee,
+		order.discount,
+		order.finalAmount,
+	])
+		safeMoney(amount);
+	for (const line of order.lines) safeQuantity(line.quantity);
+	const itemized =
+		order.lines.every(
+			(line) =>
+				Number.isSafeInteger(line.unitPrice) &&
+				line.unitPrice >= 0 &&
+				Number.isSafeInteger(line.subtotal) &&
+				line.subtotal === line.unitPrice * line.quantity
+		) && order.lines.reduce((sum, line) => sum + line.subtotal, 0) === order.merchandiseTotal;
 	const bankPrompt =
 		order.paymentMethod === "bank_transfer" &&
 		order.status !== "cancelled" &&
@@ -40,15 +64,14 @@ export function publicOrder(order: StoredOrder): CreativaPublicOrder {
 		paymentMethod: order.paymentMethod,
 		lines: order.lines.map((line) => ({
 			_key: line._key,
-			lineKey: line.lineKey,
-			productType: line.productType,
-			productId: line.productId,
+			lineKey: line.lineKey || sha256(`staff-row:${line._key}`).slice(0, 32),
+			productType: "skin-laptop",
+			productId: line.productId || `staff-${sha256(line._key).slice(0, 32)}`,
 			productName: line.productName,
-			productSlug: line.productSlug,
-			productImage: line.productImage,
+			productSlug: line.productSlug || "",
+			productImage: projectCreativaImage(line.productImage, line.productName),
 			quantity: line.quantity,
-			unitPrice: line.unitPrice,
-			subtotal: line.subtotal,
+			...(itemized && { unitPrice: line.unitPrice, subtotal: line.subtotal }),
 			selection: {
 				modelId: line.selection.modelId,
 				modelName: line.selection.modelName,
@@ -60,9 +83,9 @@ export function publicOrder(order: StoredOrder): CreativaPublicOrder {
 		currency: "VND",
 		merchandiseTotal: order.merchandiseTotal,
 		shippingFee: order.shippingFee,
-		discount: 0,
+		discount: order.discount,
 		finalAmount: order.finalAmount,
-		shipping: { code: order.shipping.code, name: order.shipping.name, fee: order.shipping.fee },
+		shipping: { code: order.shipping.code, name: order.shipping.name, fee: order.shippingFee },
 		bank:
 			bankPrompt && order.bank
 				? {
@@ -84,6 +107,17 @@ export function publicOrder(order: StoredOrder): CreativaPublicOrder {
 				  }
 				: null,
 		...(order.trackingNumber && { trackingNumber: order.trackingNumber }),
+		...(bankPrompt &&
+			order.bank && {
+				transferContextVersion: sha256(
+					JSON.stringify([
+						order._id,
+						order.customer.name,
+						order.customer.phone,
+						order.paymentMethod,
+					])
+				),
+			}),
 	};
 }
 
@@ -134,7 +168,28 @@ async function accepted(intent: StoredIntent, created: boolean): Promise<Creativ
 	} catch {
 		console.error("creativa_notification_state_unavailable", { orderId: order._id });
 	}
-	return { created, order: publicOrder(order) };
+	return acceptedOrderResponse(order, created);
+}
+
+export function acceptedOrderResponse(order: StoredOrder, created: boolean): CreativaAccepted {
+	const view = publicOrder(order);
+	const legacyIdentity =
+		typeof order.analyticsId === "string" &&
+		/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(order.analyticsId)
+			? order.analyticsId
+			: undefined;
+	if (order.analyticsId && !legacyIdentity)
+		console.warn("[Creativa] Invalid legacy measurement identity; deriving a safe identity.");
+	return {
+		created,
+		order: view,
+		...(view.bank && {
+			transferContent: `${order.customer.name.replace(/\s+/g, " ").trim()} - ${
+				order.customer.phone
+			}`,
+		}),
+		analyticsTransactionId: legacyIdentity || sha256(`creativa-purchase-v2:${order._id}`),
+	};
 }
 
 async function resume(
@@ -200,7 +255,6 @@ async function resume(
 			_id: orderId,
 			_type: "creativaOrder",
 			publicId,
-			analyticsId: randomUUID(),
 			orderDate: new Date().toISOString(),
 			status: "pending",
 			paymentStatus: "pending",
@@ -215,7 +269,6 @@ async function resume(
 			shipping: quote.shipping,
 			bank: evaluation.bank,
 			notifications: setup.receipts,
-			analyticsReceipts: [],
 			...(setup.issue && { handoffIssue: setup.issue }),
 			...(setup.sales && { salesSettings: reference(setup.sales) }),
 		};

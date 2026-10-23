@@ -9,6 +9,7 @@ import type {
 	CreativaQuote,
 } from "@/models/creativa";
 import { canonicalJson, CreativaError, CREATIVA_CAPABILITY } from "./contracts";
+import type { SanityImage } from "@/models/image";
 
 export type Ref = { _type: "reference"; _ref: string };
 export type NotificationPart = {
@@ -57,29 +58,54 @@ export type StoredLine = CreativaOrderLine & {
 				};
 		  }
 	);
+export type StaffProductionLine = {
+	_type: "acceptedLine";
+	_key: string;
+	productType?: "skin-laptop";
+	productId?: string;
+	lineKey?: string;
+	productName: string;
+	productSlug?: string;
+	productImage?: SanityImage & { alt?: string; view?: CreativaOrderLine["productImage"]["view"] };
+	selection: {
+		modelName: string;
+		coverageName: string;
+		modelId?: string;
+		modelCode?: string;
+		coverageId?: string;
+		coverageCode?: CreativaOrderLine["selection"]["coverageCode"];
+		coverageMeaning?: string;
+		fitReference?: string;
+	};
+	quantity: number;
+	unitPrice?: number;
+	subtotal?: number;
+	production: { printAssetPath: string };
+	artwork?: never;
+};
 export type StoredOrder = {
 	_id: string;
 	_type: "creativaOrder";
 	_rev: string;
 	publicId: string;
-	analyticsId: string;
+	analyticsId?: string;
 	orderDate: string;
 	status: CreativaOrderStatus;
 	paymentStatus: CreativaPaymentStatus;
 	paymentMethod: "cod" | "bank_transfer";
 	customer: CreativaCustomer;
-	lines: StoredLine[];
+	lines: Array<StoredLine | StaffProductionLine>;
 	currency: "VND";
 	merchandiseTotal: number;
 	shippingFee: number;
-	discount: 0;
+	discount: number;
 	finalAmount: number;
 	shipping: CreativaQuote["shipping"];
 	bank: CreativaBank | null;
 	trackingNumber?: string;
 	notifications: Receipt[];
 	handoffIssue?: string;
-	analyticsReceipts: Array<{
+	analyticsReceipts?: Array<{
 		_type: "analyticsReceipt";
 		_key: string;
 		destination: string;

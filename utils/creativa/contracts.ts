@@ -2,6 +2,7 @@ import type {
 	CreativaCheckoutRequest,
 	CreativaCustomer,
 	CreativaPurchaseLine,
+	CreativaImage,
 } from "@/models/creativa";
 
 export const CREATIVA_PUBLIC_ID = /^[A-Za-z0-9_-]{10}$/;
@@ -19,6 +20,20 @@ export function validCreativaImageRef(value: unknown): value is string {
 	return (
 		typeof value === "string" && /^image-[A-Za-z0-9]+-[1-9]\d*x[1-9]\d*-[a-z0-9]+$/.test(value)
 	);
+}
+
+export function projectCreativaImage(value: unknown, name: string): CreativaImage | undefined {
+	if (!isRecord(value) || !isRecord(value.asset) || !validCreativaImageRef(value.asset._ref))
+		return undefined;
+	return {
+		_type: "image",
+		asset: { _type: "reference", _ref: value.asset._ref },
+		alt: typeof value.alt === "string" ? value.alt : name,
+		view:
+			value.view === "top" || value.view === "bottom" || value.view === "interior"
+				? value.view
+				: "other",
+	};
 }
 
 export function validCreativaPrintPath(value: unknown): value is string {

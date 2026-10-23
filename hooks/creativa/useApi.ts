@@ -100,14 +100,3 @@ export function useCreativaResolve() {
 		mutationOptions
 	);
 }
-
-export function useCreativaClaim() {
-	return useSWRMutation(
-		"/api/creativa/orders/analytics-claim",
-		(
-			_key,
-			{ arg }: { arg: { capability: string; destination: "ga4" | "umami"; eventKey: string } }
-		) => creativaApi.claim(arg.capability, arg.destination, arg.eventKey),
-		mutationOptions
-	);
-}

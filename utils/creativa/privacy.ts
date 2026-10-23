@@ -3,7 +3,7 @@ export function isCreativaPath(path: string): boolean {
 }
 
 export const CREATIVA_PRIVATE_PROPERTY =
-	/customer|phone|email|address|note|capability|public.?id|order.?id|order.?number|search.?term|idempotency|print.?asset|production|fit.?reference|artwork|account.?number|account.?holder|account.?name/i;
+	/customer|phone|email|address|note|capability|public.?id|order.?id|order.?number|search.?term|idempotency|print.?asset|production|fit.?reference|artwork|account.?number|account.?holder|account.?name|transfer.?content|transfer.?context/i;
 
 export function safeCreativaUrl(input: string): string {
 	if (!input) return input;

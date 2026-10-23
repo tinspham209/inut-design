@@ -1,5 +1,9 @@
 # Creativa Issue Routing
 
+## Current sales / tracking refinement
+
+S-01..S-05 implementation/local evidence is complete; current read-only audit and final verification follow. Retired durable analytics-claim/immutable-original-copy expectations are intentional owner amendments, not missing implementation. Keep private identity/notification-safety and E-01..E-04 witnesses. Existing COD-to-bank orders without saved bank details show support guidance; no automatic bank reassignment is authorized. Prior routing below is historical until reconciled by the new report.
+
 ## Current compact-client loop
 
 UI-01..UI-07 implementation/local loop is complete through `7918095`. Independent audit at `f0a2aef` found C-01; explicit rework, unchanged browser red/green, stop gate and targeted confirmation PASS. Current read-only final verification includes all eight production-route breadcrumb/header checks and all nine new requests. No actionable source finding remains in cumulative scope. Prior findings below remain historical; E-01..E-04 still require actual CDN/operator, database, hosted and native/manual evidence. Source publication is not deployment/launch approval.

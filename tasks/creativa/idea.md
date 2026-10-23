@@ -1,5 +1,11 @@
 # INUT Creativa — Product Idea
 
+## Current sales / tracking refinement
+
+Make saved orders image-first with readable colored status chips and compact local shortcut chips. Simplify the sales editor without changing immutable order/production/financial data. Owner chose buyer-only saved `Name - Phone` bank-transfer copy; shared/fresh tracking remains reference-only. Remove the attention menu, not notification retry safety. GA4 + Umami use client/session best effort without new Sanity analytics storage. See [S-01..S-06](./plan.md#sales--tracking-refinement--2026-10-23).
+
+Subsequent explicit clarification supersedes that immutable-field wording: sales edits saved order/customer/date/production/totals/payment data directly, like Lighters, with no extra original copy. Private identities/recovery barriers remain protected; public tracking reflects saved working values and never invents unknown manual-row prices.
+
 ## Current owner refinement — compact purchase journey
 
 Show the selected design's first image beside cart/checkout names; keep all live pages easy to backtrack through clickable breadcrumb ancestors/current text. Reduce type and whitespace to prioritize design images. White contained-primary text uses owner-approved dark orange `#ae3500` while brand primary stays `#fd4d01`. RHF/Yup and hook-owned SWR APIs streamline client ownership without changing prices, guest ordering, recovery or privacy. See [UI-01..UI-07](./plan.md#compact-ui--form-and-request-amendment--2026-10-23).

@@ -1,6 +1,7 @@
 import client from "part:@sanity/base/client";
 import bankInfo from "../bankInfo";
 import shippingFee from "../shippingFee";
+import StatusSelectWithGuide from "../../components/StatusSelectWithGuide";
 
 const title = (value) => `Creative - ${value}`;
 const humanLabel = (value) =>
@@ -168,8 +169,8 @@ const customer = object("customer", [
 				(value) => !value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || "Invalid optional email"
 			),
 	}),
-	field("address", "text"),
-	field("note", "text"),
+	field("address", "text", { rows: 2 }),
+	field("note", "text", { title: "Order Notes", rows: 2 }),
 ]);
 const reviewed = object("reviewedQuote", [
 	text("digest"),
@@ -386,28 +387,128 @@ export const creativaOrderLookup = doc(
 	{ readOnly: true, validation: privateDocument("creativa.lookup.") }
 );
 
+const hiddenTechnical = (item) => ({
+	...item,
+	hidden: true,
+	readOnly: true,
+	validation: undefined,
+});
+const productionLineFields = [
+	text("productName", { title: "Product Name", validation: (Rule) => Rule.required().max(200) }),
+	field("productImage", "image", {
+		title: "Product Image",
+		fields: [hiddenTechnical(field("alt")), hiddenTechnical(field("view"))],
+	}),
+	object(
+		"selection",
+		[
+			text("modelName", { title: "Model Name", validation: (Rule) => Rule.required().max(200) }),
+			text("coverageName", {
+				title: "Skin Coverage",
+				validation: (Rule) => Rule.required().max(200),
+			}),
+			...selectionFields
+				.filter((item) => !["modelName", "coverageName"].includes(item.name))
+				.map(hiddenTechnical),
+		],
+		{ title: "Model and Coverage", options: { collapsible: false }, validation: required }
+	),
+	money("quantity", 1),
+	object("production", [printAssetPath()], {
+		title: "Print File",
+		options: { collapsible: false },
+		validation: (Rule) =>
+			Rule.custom((value, context) =>
+				context.parent?.artwork || value?.printAssetPath
+					? true
+					: "Enter the print asset path for this production item"
+			),
+	}),
+	...lineFields
+		.filter(
+			(item) =>
+				!["productName", "productImage", "selection", "production", "quantity"].includes(item.name)
+		)
+		.map(hiddenTechnical),
+];
+
 export const creativaOrder = doc(
 	"creativaOrder",
 	"Orders",
 	[
-		...readonly([
-			text("publicId", { validation: (Rule) => Rule.required().regex(/^[A-Za-z0-9_-]{10}$/) }),
-			text("analyticsId"),
-			field("orderDate", "datetime", { validation: required }),
-			enumeration("paymentMethod", ["cod", "bank_transfer"]),
-			customer,
-			array("lines", object("acceptedLine", lineFields), {
-				validation: (Rule) => Rule.required().min(1).custom(uniqueKeys),
+		text("publicId", {
+			title: "Order Number",
+			readOnly: true,
+			fieldset: "order",
+			validation: (Rule) => Rule.required().regex(/^[A-Za-z0-9_-]{10}$/),
+		}),
+		field("orderDate", "datetime", {
+			title: "Order Date",
+			validation: required,
+			fieldset: "order",
+		}),
+		enumeration(
+			"status",
+			["pending", "confirmed", "processing", "in_transit", "completed", "cancelled"],
+			{ title: "Order Status", inputComponent: StatusSelectWithGuide, fieldset: "order" }
+		),
+		array(
+			"lines",
+			object("acceptedLine", productionLineFields, {
+				title: "Production Item",
+				options: { collapsible: false },
+				preview: {
+					select: {
+						title: "productName",
+						model: "selection.modelName",
+						coverage: "selection.coverageName",
+						quantity: "quantity",
+						media: "productImage",
+					},
+					prepare: ({ title, model, coverage, quantity, media }) => ({
+						title: title || "Production item",
+						subtitle: [model, coverage, quantity !== undefined ? `Qty: ${quantity}` : null]
+							.filter(Boolean)
+							.join(" · "),
+						media,
+					}),
+				},
 			}),
-			text("currency"),
-			money("merchandiseTotal"),
-			money("shippingFee"),
-			money("discount"),
-			money("finalAmount"),
-			object("shipping", shippingFields),
-			object("bank", bankFields),
-			field("salesSettings", "reference", { to: [{ type: "creativaSalesSettings" }] }),
-			field("handoffIssue"),
+			{
+				title: "Order Items",
+				validation: (Rule) => Rule.required().min(1).custom(uniqueKeys),
+			}
+		),
+		{ ...customer, title: "Customer", options: { collapsible: false }, validation: required },
+		enumeration("paymentMethod", ["cod", "bank_transfer"], {
+			fieldset: "totals",
+			description:
+				"Changing the method retains saved bank details; it does not choose a new account. If no bank was saved, confirm transfer details with the customer.",
+		}),
+		enumeration("paymentStatus", ["pending", "paid", "failed", "refunded"], { fieldset: "totals" }),
+		{ ...money("merchandiseTotal"), title: "Total Amount", fieldset: "totals" },
+		{ ...money("shippingFee"), fieldset: "totals" },
+		{ ...money("discount"), fieldset: "totals" },
+		{
+			...money("finalAmount"),
+			fieldset: "totals",
+			description:
+				"(total_amount + shipping_fee - discount), If manual change any value of these 3 field above, please recalculate this field manually to avoid missing values.",
+		},
+		field("internalNotes", "text", { title: "Admin Notes", rows: 2 }),
+		field("trackingNumber", "string", {
+			title: "Tracking Number",
+			validation: (Rule) => Rule.max(200),
+		}),
+		hiddenTechnical(field("analyticsId")),
+		hiddenTechnical(text("currency")),
+		hiddenTechnical(object("shipping", shippingFields)),
+		hiddenTechnical(object("bank", bankFields)),
+		hiddenTechnical(
+			field("salesSettings", "reference", { to: [{ type: "creativaSalesSettings" }] })
+		),
+		hiddenTechnical(field("handoffIssue")),
+		hiddenTechnical(
 			array(
 				"notifications",
 				object("notificationReceipt", [
@@ -435,7 +536,9 @@ export const creativaOrder = doc(
 						])
 					),
 				])
-			),
+			)
+		),
+		hiddenTechnical(
 			array(
 				"analyticsReceipts",
 				object("analyticsReceipt", [
@@ -443,23 +546,32 @@ export const creativaOrder = doc(
 					text("eventKey"),
 					field("claimedAt", "datetime"),
 				])
-			),
-		]),
-		enumeration("status", [
-			"pending",
-			"confirmed",
-			"processing",
-			"in_transit",
-			"completed",
-			"cancelled",
-		]),
-		enumeration("paymentStatus", ["pending", "paid", "failed", "refunded"]),
-		field("trackingNumber", "string", { validation: (Rule) => Rule.max(200) }),
-		field("internalNotes", "text"),
+			)
+		),
 	],
 	{
 		validation: privateDocument("creativa.order."),
-		preview: { select: { title: "publicId", subtitle: "handoffIssue" } },
+		fieldsets: [
+			{ name: "order", title: "Order", options: { columns: 2 } },
+			{ name: "totals", title: "Payment and Totals", options: { columns: 2 } },
+		],
+		preview: {
+			select: {
+				publicId: "publicId",
+				status: "status",
+				customerName: "customer.name",
+				orderDate: "orderDate",
+				finalAmount: "finalAmount",
+			},
+			prepare: ({ publicId, status, customerName, orderDate, finalAmount }) => ({
+				title: `[${humanLabel(status || "pending")}] ${publicId || "Order"}`,
+				subtitle: [
+					customerName || "Customer",
+					orderDate ? new Date(orderDate).toLocaleString("vi-VN") : "No date",
+					typeof finalAmount === "number" ? `${finalAmount.toLocaleString("vi-VN")}₫` : "No amount",
+				].join(" - "),
+			}),
+		},
 		orderings: [
 			{
 				title: "Newest Orders",

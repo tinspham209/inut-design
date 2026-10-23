@@ -14,34 +14,15 @@ export default () => {
 		.title("Content")
 		.items([
 			...items.filter((item) => !isCreativa(item)),
-			...items.filter(isCreativa).map((item) =>
-				item.getId() === "creativaOrder"
-					? item.child(
-							S.list()
-								.title("Orders")
-								.items([
-									S.listItem()
-										.title("All Orders")
-										.child(
-											S.documentTypeList("creativaOrder")
-												.title("All Orders")
-												.initialValueTemplates([])
-										),
-									S.listItem()
-										.title("Handoff Requires Attention")
-										.child(
-											S.documentList()
-												.title("Handoff Requires Attention")
-												.schemaType("creativaOrder")
-												.initialValueTemplates([])
-												.filter(
-													'_type == "creativaOrder" && (defined(handoffIssue) || count(notifications[state in ["pending","failed","unknown","dispatching"]]) > 0)'
-												)
-										),
-								])
-					  )
-					: item
-			),
+			...items
+				.filter(isCreativa)
+				.map((item) =>
+					item.getId() === "creativaOrder"
+						? item.child(
+								S.documentTypeList("creativaOrder").title("Orders").initialValueTemplates([])
+						  )
+						: item
+				),
 			singleton("creativaSalesSettings", "creativa.settings.sales", "Sales destinations (private)"),
 		]);
 };

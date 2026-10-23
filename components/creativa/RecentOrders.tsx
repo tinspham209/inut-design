@@ -23,6 +23,7 @@ export function RecentCreativaOrders({
 	entryPoint?: "root" | "creativa";
 }) {
 	const history = useCreativaOrderHistory();
+	const compact = entryPoint === "creativa";
 	const router = useRouter();
 	const [visible, setVisible] = useState(20);
 	const [confirm, setConfirm] = useState(false);
@@ -42,25 +43,33 @@ export function RecentCreativaOrders({
 		}
 	}, [history.ready, history.error, entryPoint]);
 	if (!history.ready) return null;
+	if (compact && !history.value.length && !error && !history.error) return null;
 	return (
 		<Box>
 			{(error || history.error) && (
 				<Alert severity="warning" sx={{ mb: 2 }}>
-					{error || history.error}
+					{error ||
+						(compact
+							? "Không thể đọc mã đã lưu. Bạn vẫn có thể nhập mã đơn để tra cứu."
+							: history.error)}
 				</Alert>
 			)}
-			<Typography variant="subtitle2" gutterBottom>
-				Đơn Creativa đã lưu trên trình duyệt này
-			</Typography>
-			<Typography variant="caption" component="p" sx={{ mb: 1.5 }}>
-				Không đồng bộ giữa các thiết bị. Người dùng chung trình duyệt có thể xem các mã này.
-			</Typography>
-			{!history.value.length && (
+			{!compact && (
+				<>
+					<Typography variant="subtitle2" gutterBottom>
+						Đơn Creativa đã lưu trên trình duyệt này
+					</Typography>
+					<Typography variant="caption" component="p" sx={{ mb: 1.5 }}>
+						Không đồng bộ giữa các thiết bị. Người dùng chung trình duyệt có thể xem các mã này.
+					</Typography>
+				</>
+			)}
+			{!compact && !history.value.length && (
 				<Typography variant="body2">
 					Chưa có mã đã lưu. Bạn có thể nhập mã đơn hàng để tra cứu.
 				</Typography>
 			)}
-			<Stack direction="row" flexWrap="wrap" gap={1}>
+			<Stack direction="row" flexWrap="wrap" gap={1} role="group" aria-label="Đơn đã lưu">
 				{history.value.slice(0, visible).map((id) => (
 					<Chip
 						key={id}
@@ -104,44 +113,46 @@ export function RecentCreativaOrders({
 						Xem thêm
 					</Button>
 				)}
-				{(history.value.length > 0 || history.error) && (
+				{!compact && (history.value.length > 0 || history.error) && (
 					<Button size="small" onClick={() => setConfirm(true)}>
 						Xóa lịch sử cục bộ
 					</Button>
 				)}
 			</Stack>
-			<Dialog open={confirm} onClose={() => setConfirm(false)}>
-				<DialogTitle>Xóa lịch sử trên trình duyệt?</DialogTitle>
-				<DialogContent>
-					Thao tác này chỉ quên các mã đã lưu, không hủy đơn hàng hoặc thay đổi giỏ hàng.
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={() => setConfirm(false)}>Giữ lại</Button>
-					<Button
-						onClick={() => {
-							const result = clearHistory();
-							setError(result.error || null);
-							setConfirm(false);
-							if (result.error)
-								trackCreativa("order_history_storage_error", {
+			{!compact && (
+				<Dialog open={confirm} onClose={() => setConfirm(false)}>
+					<DialogTitle>Xóa lịch sử trên trình duyệt?</DialogTitle>
+					<DialogContent>
+						Thao tác này chỉ quên các mã đã lưu, không hủy đơn hàng hoặc thay đổi giỏ hàng.
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={() => setConfirm(false)}>Giữ lại</Button>
+						<Button
+							onClick={() => {
+								const result = clearHistory();
+								setError(result.error || null);
+								setConfirm(false);
+								if (result.error)
+									trackCreativa("order_history_storage_error", {
+										entry_point: entryPoint,
+										phase: "clear",
+										reason: "storage_failed",
+									});
+								trackCreativa("order_history_action", {
+									action: "clear",
 									entry_point: entryPoint,
-									phase: "clear",
-									reason: "storage_failed",
+									count_before: history.value.length,
+									count_after: result.value.length,
+									outcome: result.error ? "error" : "success",
 								});
-							trackCreativa("order_history_action", {
-								action: "clear",
-								entry_point: entryPoint,
-								count_before: history.value.length,
-								count_after: result.value.length,
-								outcome: result.error ? "error" : "success",
-							});
-							history.refresh();
-						}}
-					>
-						Xóa lịch sử
-					</Button>
-				</DialogActions>
-			</Dialog>
+								history.refresh();
+							}}
+						>
+							Xóa lịch sử
+						</Button>
+					</DialogActions>
+				</Dialog>
+			)}
 		</Box>
 	);
 }

@@ -1,5 +1,31 @@
 # INUT Creativa — Implementation Plan
 
+## Sales / tracking refinement — 2026-10-23
+
+Owner-confirmed decisions supersede conflicting earlier analytics/history/editor details without a data migration:
+
+**Latest editor clarification supersedes the immutable-field wording below:** The owner explicitly chose a Lighters-style editable saved sales record, not an additional immutable original-copy record. Order number/private identity/recovery barriers stay protected; order date, status/payment, production items, customer details, totals/discount, notes/tracking are staff-editable. Public tracking and private accepted recovery use saved staff values. Final Amount carries the Lighters manual-recalculation note; editing does not automatically resend Telegram.
+
+Item editor shows only product name/image, model name, coverage, quantity and absolute print-file path; identifiers/refs/revisions/internal financial fields remain hidden. Staff may add production rows without fabricating catalog references or per-item prices; tracking/analytics omit unavailable per-item money rather than invent zero. New customer quote/acceptance remains server-priced and fully typed. Editing production labels is a manual sales correction, not automatic catalog reconfiguration.
+
+- GA4 + Umami only. Stop new Sanity analytics IDs/receipts and analytics-claim writes; preserve old data read-only. Accepted/recovered responses provide a non-lookup opaque transaction identity; browser/session best-effort dedup replaces durable server permission. Cross-browser exactly-once is not promised; ordinary tracking never converts.
+- Full `Name - Phone` transfer content is restricted to accepted checkout/authorized recovery and same-SPA in-memory buyer context. Never put it in public tracking DTOs, URLs, local/session storage, analytics, SEO or logs. Fresh/shared/reloaded tracking uses public order ID. Copy only on explicit action with honest denied-clipboard feedback.
+- Remove the Handoff Requires Attention desk view and hide server delivery details. Keep notification receipts/retry safety; that view itself stores nothing and is not analytics.
+- Simplify sales editor/previews like lighter orders. Preserve private identities/recovery barriers and hidden technical/legacy data; expose staff-editable working production/customer/totals/date/status/notes/tracking fields as explicitly clarified above. No extra original-copy record or automatic catalog reconfiguration.
+
+| Task | Exit |
+| --- | --- |
+| [x] S-01 | Shared first-image metadata/fallback and labeled color chips implemented; provided order read safely, warning text darkened for normal-text contrast. Actual CDN403 remains E-01. |
+| [x] S-02 | Private accepted text/copy success/denial, current salted contact-version match and same-SPA memory implemented/tested. Reload/shared/changed-contact tracking uses ID; fixture contact absent from storage/URL/telemetry. |
+| [x] S-03 | Compact chips/individual forget/no navigation verified in Creativa; main root keeps disclosure/clear controls. Empty/error/expansion code retained without silent deletion. |
+| [x] S-04 | Exact editable fields, production-only rows/previews, reused guide and removed attention menu implemented; actual definitions and Studio build pass. Authenticated owner publish/review remains external, not claimed. |
+| [x] S-05 | Actual service/fake SDK creates no analytics fields/writes; direct GA4/Umami once/provider, client session reload/consent/storage-denied limits pass. Client claim requests0; old route explicitly retired. |
+| [ ] S-06 | Red/green contract/privacy/client/CMS/browser checks, current lint/types/build/SEO/Studio gates, audit → rework → re-audit → routing → final verification; update all related documents. No real order/send/private migration or deployment. |
+
+S-02/S-05 consume private accepted-response changes; S-04 includes explicitly approved editable-record/public-read compatibility; S-06 depends on S-01..S-05. All previous checkpoints below are historical unless reconciled. E-01..E-04 remain external release witnesses; obsolete analytics-claim/immutable-original-copy witnesses are retired by explicit owner decisions.
+
+Implementation evidence: order-construction no-new-analytics assertion was red before changes, green against actual service with a fully fake SDK.  Only a VM cross-realm equality setup needed serialization; the exact expected field list was unchanged. Studio build and lint/types pass; final app gate/audit follow the current source. No real order/send/private mutation or field migration performed. The supplied dev process was already gone by the approved stop/build step; port3000 is reserved for the requested restart.
+
 ## Compact UI / form-and-request amendment — 2026-10-23
 
 Current authorized continuation supersedes conflicting presentation/client-state details below, not financial, privacy, storage or order-acceptance contracts. Prior `5a8cff8` audit/report remains historical until this loop is verified.
@@ -498,15 +524,15 @@ Coordinate any necessary cross-task edit through that owner. Do not parallelize 
 
 **Refined exit:** Staff can discover pending/failed/unknown handoffs without relying on a browser that stayed open. CR-22 rehearses the operator procedure, including missing address and finding the retained production assets; this is not satisfied by setting a notification status manually.
 
-### CR-16 — Implement durable conversion dispatch permissions
+### CR-16 — Implement accepted-only client conversion dispatch
 
-**Scope:** Add `POST /api/creativa/orders/analytics-claim` and accepted-order payload/receipt helpers.
+**Scope:** Private accepted identity plus client payload/session dedup helpers; retire `POST /api/creativa/orders/analytics-claim` with HTTP410 and zero mutation.
 
-**Completion:** Only the checkout capability claims allowlisted destination/event keys. Build payloads from the accepted snapshot, not cart/live catalog; use the independent analytics transaction ID. One GA4 purchase, one Umami purchase and non-conversion Umami line companions. Claims are revision-guarded and checked only for enabled/allowed/representable destinations.
+**Completion:** Only private accepted/recovery responses supply safe identity. Build GA4 purchase/Umami purchase and non-conversion item companions from saved working values, not cart/live catalog; omit unknown line prices. No new Sanity analytics ID/receipt/claim write. Gate consent/transport/budgets and reserve opaque session/in-memory markers before dispatch.
 
-**Verification:** Concurrent claims, repeated recovery, disabled/blocked transports, provider payload limits and interruption after claim. Demonstrate the approved at-most-once permission/possible-undercount limit without asserting exactly-once provider delivery. Tracking/public lookup cannot claim or emit another purchase.
+**Verification:** Actual constructed order has no new analytics fields; deprecated route never reads/patches order. Repeated supported-session recovery, session reload, denied storage/consent and missing collectors obey the documented best-effort limits. Public tracking never converts. Actual hosted delivery remains E-03.
 
-**Refined exit:** A hung/failed claim or absent collector never holds required confirmation navigation/cart recovery open. No capability is kept indefinitely just to wait for future consent or receipt, and no retry silently unclaims an event. Preserve the documented undercount limit and make it visible to the acceptance reviewer.
+**Refined exit:** Analytics does not hold navigation/reconciliation open; no capability retained for future telemetry. Mark-before-send may undercount, blocked storage/restarted sessions/other browsers can duplicate. This intentionally replaces the former durable cross-browser permission requirement.
 
 ### CR-17 — Wire the complete guest checkout journey
 

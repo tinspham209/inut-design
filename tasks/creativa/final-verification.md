@@ -1,5 +1,9 @@
 # Creativa Compact-Client Final Verification
 
+## Sales / tracking continuation — current verification pending
+
+[S-01..S-06](./plan.md#sales--tracking-refinement--2026-10-23) changes tracking/transfer/history, the editable sales-record contract and analytics storage/dedup. Current implementation/probes/browser/Studio evidence is supplied; fresh audit/final verification must reconcile the older 116/52 matrix below. Durable analytics claims and immutable-original-copy promises are expressly retired, not unexecuted obligations to retain. No actual database/private permission/native/hosted/operator signoff is added by mocks.
+
 ## Compact-client continuation — verified code scope
 
 The [UI-01..UI-07 amendment](./plan.md#compact-ui--form-and-request-amendment--2026-10-23) is implemented, audited, reworked and locally verified. The 116/52 inventory below is reconciled using current evidence for changed surfaces and explicitly retained evidence for unchanged contracts. No actual database/order/send/native/vendor proof has been added.

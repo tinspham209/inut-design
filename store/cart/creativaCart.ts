@@ -8,7 +8,7 @@ import {
 	parsePurchaseLines,
 	safeMoney,
 	safeQuantity,
-	validCreativaImageRef,
+	projectCreativaImage,
 } from "@/utils/creativa/contracts";
 import { browserId, readAttempt, type SubmittedContribution } from "@/utils/creativa/storage";
 
@@ -68,19 +68,7 @@ function decodeEntry(item: unknown): CreativaCartLine {
 	}
 	const unitPrice = safeMoney(item.unitPrice);
 	safeMoney(unitPrice * purchase.quantity);
-	const image = item.productImage;
-	const productImage: CreativaImage | undefined =
-		isRecord(image) && isRecord(image.asset) && validCreativaImageRef(image.asset._ref)
-			? {
-					_type: "image",
-					asset: { _type: "reference", _ref: image.asset._ref },
-					alt: typeof image.alt === "string" ? image.alt : item.productName,
-					view:
-						image.view === "top" || image.view === "bottom" || image.view === "interior"
-							? image.view
-							: "other",
-			  }
-			: undefined;
+	const productImage = projectCreativaImage(item.productImage, item.productName);
 	return {
 		...purchase,
 		instanceId: item.instanceId,

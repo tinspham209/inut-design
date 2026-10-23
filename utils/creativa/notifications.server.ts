@@ -8,6 +8,7 @@ import {
 	Receipt,
 	sha256,
 	StoredLine,
+	StaffProductionLine,
 	StoredOrder,
 } from "./records.server";
 
@@ -67,7 +68,7 @@ export async function notificationSetup(): Promise<{
 export const escapeTelegram = (value: string) =>
 	value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-function productionDetails(line: StoredLine): string[] {
+function productionDetails(line: StoredLine | StaffProductionLine): string[] {
 	if (line.production) {
 		if (!validCreativaPrintPath(line.production.printAssetPath))
 			throw new CreativaError(
@@ -98,9 +99,17 @@ function notificationText(order: StoredOrder): string {
 			[
 				`${index + 1}. ${line.productName} [${line.productType}]`,
 				...productionDetails(line),
-				`Model: ${line.selection.modelName} (${line.selection.modelCode})`,
-				`Coverage: ${line.selection.coverageName} — ${line.selection.coverageMeaning}`,
-				`SL: ${line.quantity}; Đơn giá: ${line.unitPrice}; Thành tiền: ${line.subtotal} VND`,
+				`Model: ${line.selection.modelName}${
+					line.selection.modelCode ? ` (${line.selection.modelCode})` : ""
+				}`,
+				`Coverage: ${line.selection.coverageName}${
+					line.selection.coverageMeaning ? ` — ${line.selection.coverageMeaning}` : ""
+				}`,
+				`SL: ${line.quantity}${
+					line.unitPrice !== undefined && line.subtotal !== undefined
+						? `; Đơn giá: ${line.unitPrice}; Thành tiền: ${line.subtotal} VND`
+						: "; Giá theo tổng đơn đã lưu"
+				}`,
 			].join("\n")
 		),
 		`Khách: ${order.customer.name}`,
@@ -110,6 +119,7 @@ function notificationText(order: StoredOrder): string {
 		`Ghi chú: ${order.customer.note || "Không"}`,
 		`Thanh toán: ${order.paymentMethod}; trạng thái: ${order.paymentStatus}`,
 		`Hàng: ${order.merchandiseTotal}; Vận chuyển (${order.shipping.name}): ${order.shippingFee}`,
+		...(order.discount ? [`Giảm giá: ${order.discount}`] : []),
 		`Tổng: ${order.finalAmount} VND; Đơn: ${order.status}`,
 	];
 	return text.join("\n");

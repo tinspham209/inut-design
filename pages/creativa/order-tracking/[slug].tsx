@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { Alert, Box, Button, Container, Divider, Stack, Typography } from "@mui/material";
+import { Alert, Box, Button, Chip, Container, Divider, Stack, Typography } from "@mui/material";
 import Link from "next/link";
 import { useState } from "react";
 import { CreativaLayout } from "@/components/layout";
@@ -10,6 +10,9 @@ import type { NextPageWithLayout } from "@/models/common";
 import { formatCreativaPrice } from "@/utils/creativa/contracts";
 import { trackCreativa } from "@/utils/creativa/analytics";
 import { CreativaBankInstructions } from "@/components/creativa/BankInstructions";
+import { CreativaProductThumbnail } from "@/components/creativa/ProductThumbnail";
+import { useCreativaBuyer } from "@/components/creativa/BuyerContext";
+import type { CreativaOrderStatus, CreativaPaymentStatus } from "@/models/creativa";
 
 const statusNames = {
 	pending: "Chờ xác nhận",
@@ -25,9 +28,25 @@ const paymentNames = {
 	failed: "Thanh toán chưa thành công",
 	refunded: "Đã hoàn tiền",
 };
+type StatusColor = "warning" | "info" | "success" | "error";
+const orderColors: Record<CreativaOrderStatus, StatusColor> = {
+	pending: "warning",
+	confirmed: "info",
+	processing: "info",
+	in_transit: "info",
+	completed: "success",
+	cancelled: "error",
+};
+const paymentColors: Record<CreativaPaymentStatus, StatusColor> = {
+	pending: "warning",
+	paid: "success",
+	failed: "error",
+	refunded: "info",
+};
 
 const OrderDetail: NextPageWithLayout = () => {
-	const { id, order, error, retry } = useCreativaTracking();
+	const { id, order, error, retry, current } = useCreativaTracking();
+	const { transfer } = useCreativaBuyer();
 	const [notice, setNotice] = useState<string | null>(null);
 	async function copy(target: "id" | "url") {
 		try {
@@ -100,9 +119,29 @@ const OrderDetail: NextPageWithLayout = () => {
 									</Alert>
 								)}
 							</Box>
-							<Stack direction={{ xs: "column", sm: "row" }} gap={2}>
-								<Typography>Đơn hàng: {statusNames[order.status]}</Typography>
-								<Typography>Thanh toán: {paymentNames[order.paymentStatus]}</Typography>
+							<Stack direction="row" gap={1} flexWrap="wrap">
+								<Chip
+									label={`Đơn hàng: ${statusNames[order.status]}`}
+									variant="outlined"
+									color={orderColors[order.status]}
+									sx={(theme) => ({
+										color:
+											orderColors[order.status] === "warning"
+												? "#8a3600"
+												: theme.palette[orderColors[order.status]].dark,
+									})}
+								/>
+								<Chip
+									label={`Thanh toán: ${paymentNames[order.paymentStatus]}`}
+									variant="outlined"
+									color={paymentColors[order.paymentStatus]}
+									sx={(theme) => ({
+										color:
+											paymentColors[order.paymentStatus] === "warning"
+												? "#8a3600"
+												: theme.palette[paymentColors[order.paymentStatus]].dark,
+									})}
+								/>
 							</Stack>
 							{order.trackingNumber && (
 								<Typography>Mã vận chuyển: {order.trackingNumber}</Typography>
@@ -115,16 +154,23 @@ const OrderDetail: NextPageWithLayout = () => {
 									gap={2}
 									sx={{ py: 2, borderBottom: "1px solid #eadfd8" }}
 								>
-									<Box>
-										<Typography fontWeight={500}>{line.productName}</Typography>
-										<Typography variant="body2">
-											{line.selection.modelName} / {line.selection.coverageName}
-										</Typography>
-										<Typography variant="caption">
-											{line.quantity} × {formatCreativaPrice(line.unitPrice)}
-										</Typography>
-									</Box>
-									<Typography>{formatCreativaPrice(line.subtotal)}</Typography>
+									<Stack direction="row" gap={1.5} sx={{ minWidth: 0 }}>
+										<CreativaProductThumbnail image={line.productImage} name={line.productName} />
+										<Box sx={{ minWidth: 0, overflowWrap: "anywhere" }}>
+											<Typography fontWeight={500}>{line.productName}</Typography>
+											<Typography variant="body2">
+												{line.selection.modelName} / {line.selection.coverageName}
+											</Typography>
+											<Typography variant="caption">
+												{line.unitPrice !== undefined
+													? `${line.quantity} × ${formatCreativaPrice(line.unitPrice)}`
+													: `Số lượng: ${line.quantity}`}
+											</Typography>
+										</Box>
+									</Stack>
+									{line.subtotal !== undefined && (
+										<Typography>{formatCreativaPrice(line.subtotal)}</Typography>
+									)}
 								</Stack>
 							))}
 							<Stack gap={1}>
@@ -137,6 +183,12 @@ const OrderDetail: NextPageWithLayout = () => {
 									<Typography>{formatCreativaPrice(order.shippingFee)}</Typography>
 								</Stack>
 								<Divider />
+								{order.discount > 0 && (
+									<Stack direction="row" justifyContent="space-between">
+										<Typography>Giảm giá</Typography>
+										<Typography>−{formatCreativaPrice(order.discount)}</Typography>
+									</Stack>
+								)}
 								<Stack direction="row" justifyContent="space-between">
 									<Typography fontWeight={700}>Tổng thanh toán</Typography>
 									<Typography fontWeight={700}>{formatCreativaPrice(order.finalAmount)}</Typography>
@@ -147,10 +199,19 @@ const OrderDetail: NextPageWithLayout = () => {
 								(order.paymentStatus === "pending" || order.paymentStatus === "failed") &&
 								(order.bank ? (
 									<CreativaBankInstructions
-										key={order.publicId}
+										key={`${order.publicId}:${order.transferContextVersion || ""}:${!!(
+											current && transfer?.version === order.transferContextVersion
+										)}`}
 										bank={order.bank}
 										amount={order.finalAmount}
 										publicId={order.publicId}
+										transferContent={
+											current &&
+											transfer?.publicId === order.publicId &&
+											transfer.version === order.transferContextVersion
+												? transfer.content
+												: undefined
+										}
 									/>
 								) : (
 									<Alert severity="warning">

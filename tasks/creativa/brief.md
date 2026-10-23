@@ -1,5 +1,11 @@
 # New sub brand: INUT Creativa
 
+## Current sales / tracking refinement
+
+Owner approved tracking thumbnails/status chips, buyer-only `Name - Phone` transfer copy (public/reloaded tracking keeps order ID), compact Creativa saved chips, sales-first CMS hiding technical metadata and removal of the attention menu while preserving delivery retry safety. Analytics goes to GA4 + Umami only, with no new Sanity analytics IDs/receipts/claims and explicitly browser-best-effort dedup. [S-01..S-06](./plan.md#sales--tracking-refinement--2026-10-23) governs this loop; no data migration/real order/send/deployment is authorized.
+
+The later exact CMS clarification makes saved sales/date/customer/totals/production fields editable like Lighters, without an extra immutable original copy. Protect identities, hide technical data and show only human production details. Manual final-amount recalculation is the operator workflow.
+
 ## Current owner refinement — compact UI / forms / API hooks
 
 Add first-image thumbnails left of cart/checkout product names, linked ancestor breadcrumbs/current text across Creativa, smaller type/spacing, RHF + Yup forms, SWR/SWRMutation API hooks and handler-owned actions instead of avoidable effects. Owner confirmed white compact contained-primary buttons on darker orange `#ae3500`, retaining exact brand primary `#fd4d01`. [UI-01..UI-07](./plan.md#compact-ui--form-and-request-amendment--2026-10-23) is implemented and code-audited through `7918095`, including C-01 rework. Current final verification retains E-01..E-04 release blockers.
