@@ -2,7 +2,13 @@
 
 ## Direct tracking memo correction
 
-Owner explicitly approved the link-holder name/full-phone exposure needed for the reported direct/reload behavior. This is a clarified contract, not an accidental PII regression: implement canonical name-space-phone on eligible tracking and remove buyer-only/ID fallback. Keep analytics/log/storage exclusions and all earlier external release gates. Current focused audit/final verification follows; prior private-only findings/results are historical.
+Owner explicitly approved link-holder name/full-phone exposure for the reported direct/reload behavior. Canonical eligible tracking memo and all exclusions are implemented/verified at `589acbe`; direct read-only audit PASS and no-op rework/confirmation. Prior buyer-only expectations are historical.
+
+| Issue | Category | Reason | Next phase | Files affected | Impact | Continue |
+| --- | --- | --- | --- | --- | --- | --- |
+| Direct tracking still used ID memo | Ambiguous Requirement → Clarify → Verify | Previous approved buyer-only policy deliberately fell back to ID. Owner now explicitly approves direct/shared/reloaded link-holder contact visibility and name-space-phone. Canonical DTO/UI/copy replace fallback; unrelated customer fields/analytics/storage remain excluded. | Completed clarify → implement → focused audit → current final verification. | Order DTO/projection, removed BuyerContext/provider/hook plumbing, BankInstructions/tracking, related SDD. | Medium behavior/privacy-boundary change approved; no payment/order-data mutation. | YES |
+
+No remaining actionable code finding in this focused scope. E-01..E-04 below still require actual CDN/operator, private target, hosted/native/Studio witnesses; feature publication is not release approval. Both local previews restored as authorized.
 
 ## Current sales / tracking refinement
 

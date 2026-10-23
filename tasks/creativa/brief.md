@@ -18,7 +18,7 @@ Add first-image thumbnails left of cart/checkout product names, linked ancestor 
 
 The owner tested and accepted the revised CMS flow, then authorized connecting storefront/UI/runtime consumers. **Keep primary `#fd4d01` and a light theme.** Customer bank details must come from the active primary Creativa profile only; no active-account fallback or customer bank selector. Run implement → audit → rework → audit → issue routing → final verification, and reconcile related documents. The [runtime continuation](./plan.md#runtime-and-orange-light-continuation--2026-10-23) records exact contracts/evidence boundaries; no production write/migration/deployment is implied.
 
-**Current outcome:** Runtime/compact-client plus current sales/tracking implementation is code-audited through `21b7b06`. [Final verification](./final-verification.md) records scoped passes and E-01..E-04 release blockers, including production-browser CDN access, real database/host/native/operator witnesses. Feature publication is not launch approval.
+**Current outcome:** Canonical direct/reloaded tracking memo is code-audited through `589acbe`, following the prior sales scope at `21b7b06`. [Final verification](./final-verification.md) records scoped passes and E-01..E-04 release blockers, including production-browser CDN access, real database/host/native/operator witnesses. Feature publication is not launch approval.
 
 ## Owner CMS-first amendment — 2026-10-23
 

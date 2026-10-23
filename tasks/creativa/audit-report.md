@@ -1,8 +1,12 @@
 # Creativa Staff Audit
 
-## Direct tracking memo correction — current review pending
+## Direct tracking memo correction — PASS
 
-Latest confirmed owner contract replaces buyer-only fallback with eligible link-holder `{saved name} {phone}`. Source removes obsolete context/version state and order-ID memo fallback while keeping eligibility/privacy guards outside the approved display. Actual projection/purchase-payload unit checks and supplied-URL/reload/copy tests pass; final gate/direct read-only review follows. No real order/CMS mutation/send.
+**Current code PASS at `589acbe`:** Focused direct read-only Staff review of the complete seven-source-file delta from `d5e2a71`. Owner explicitly approves eligible link-holder name/full-phone visibility. Canonical shared DTO uses saved normalized name + one space + phone; no private context/version or order-ID memo fallback remains. All callers/types align; copied stale cache is disabled, memo changes reset feedback, other private fields/telemetry/persistent storage stay excluded.
+
+**Evidence:** Actual-source eligible/ineligible/saved-edit/invalid-contact/analytics-payload checks; exact supplied3001 direct/reload and copy success/denial without printing contacts; lint/types/app229/SEO221 pass. Current production public API/page200 preserves no-store/no-referrer and correct memo. Both approved previews restored on3000/3001 and HTTP200 verified.
+
+**Rework:** No actionable source finding, no-op; unchanged-source confirmation retains PASS. No Studio/server data mutation/send/migration. Earlier source audits below are historical; E-01..E-04 actual release witnesses remain open.
 
 ## Current sales / tracking refinement — PASS
 

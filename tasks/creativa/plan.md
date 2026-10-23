@@ -6,6 +6,11 @@ The owner explicitly approved replacing the previous buyer-only boundary: anyone
 
 Remove obsolete RAM buyer context/version plumbing; canonical memo belongs to the deliberate eligible tracking DTO and copy component. Invalidate stale copy feedback when memo changes; disable copying stale cached data while revalidating. Required evidence: eligibility matrix, normalized format, current saved edits, accepted/public response consistency, direct supplied-URL/reload/copy success/denial/privacy checks, lint/types/build, direct audit/routing/final report. Earlier buyer-only decisions below are historical and superseded.
 
+- [x] Implement canonical eligible saved memo, required copy prop/no ID fallback, remove obsolete buyer context/version imports.
+- [x] Actual-source format/eligibility/saved-edit/privacy and real supplied3001 direct/reload/copy success/denial checks pass without printing real contacts.
+- [x] Lint/types/build229/SEO221, focused direct audit/no-op rework/confirmation, current production privacy/memo read and routing/final verification PASS at `589acbe`.
+- [x] Approved previews restored on3000/3001 and HTTP200 verified; no real mutation/send/migration. Full release remains gated by E-01..E-04.
+
 ## Sales / tracking refinement — 2026-10-23
 
 Owner-confirmed decisions supersede conflicting earlier analytics/history/editor details without a data migration:
@@ -61,7 +66,7 @@ Independent read-only audit at `f0a2aef` found C-01: hydrate-only retry did noth
 - [x] C-01 rework — Both retry actions explicitly request the latest quote. Storage-denied browser cases were red before the fix, green afterward with exactly one extra request, cleared error and enabled Proceed/Submit; persistence warning remains. No automatic order mutation. Post-fix gates, targeted confirmation and current final verification recorded at `7918095`.
 
 **SDD gate:** Approved plan/refinement; implementation, audit and issue routing executed; final acceptance remains blocked.
-**Status:** Current sales/tracking/editable working record/private transfer/client-session analytics implemented and independently audited PASS at `21b7b06`. Current routing/final verification complete; CM-07/CR-19/release still require E-01..E-04. Earlier runtime/C-01 checkpoints are historical; source publication is not launch approval.
+**Status:** Current direct/shared tracking memo correction is directly audited PASS at `589acbe`; prior sales/client-session scope independently audited at `21b7b06`. Current routing/final verification complete; CM-07/CR-19/release still require E-01..E-04. Earlier runtime/C-01 checkpoints are historical; source publication is not launch approval.
 **Date:** 2026-10-22.
 **Refinement date:** 2026-10-23.
 **Source of truth:** This revised plan governs implementation scope, task dependencies, exit evidence and the dispositions below. [test-plan.md](./test-plan.md) supplies the linked procedures. Earlier documents supply the approved business requirements; an older implementation detail does not override an explicit refinement here. No acceptance criterion is silently removed or weakened.

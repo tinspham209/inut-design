@@ -25,7 +25,7 @@ RHF/Yup owns form values/errors/focus, with shared server parsing unchanged. Cre
 Density is scoped to Creativa, with smaller headings/body/spacing and readable mobile input sizing. Owner-confirmed white contained-primary text uses `#ae3500` background (6.35:1), while `primary.main` remains `#fd4d01`. This supersedes the former dark-text/orange-fill button detail below.
 
 **SDD gate:** Technical design.
-**Status:** Current sales-editable working record/private transfer/client-session analytics architecture implemented; independent code audit PASS through `21b7b06`. [Current verification](./final-verification.md) separates scoped passes from required E-01..E-04 release witnesses.
+**Status:** Current canonical eligible tracking memo/no-buyer-context architecture is implemented and focused-audited PASS at `589acbe`; prior sales scope independently audited at `21b7b06`. [Current verification](./final-verification.md) separates scoped passes from required E-01..E-04 release witnesses.
 **Date:** 2026-10-22.
 **Authority:** [Approved specification](./specs.md) and [approved idea](./idea.md).
 **Boundary:** Architecture, data ownership, interfaces, algorithms, failure behavior and verification design. Delivered paths are evidenced by source and the final report, not by this design's existence alone.
