@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { Alert, Box, Button, Chip, Container, Divider, Stack, Typography } from "@mui/material";
 import Link from "next/link";
-import { useState } from "react";
+import toast from "react-hot-toast";
 import { CreativaLayout } from "@/components/layout";
 import { CreativaSeo } from "@/components/creativa/Seo";
 import { CreativaBreadcrumbs } from "@/components/creativa/Breadcrumbs";
@@ -45,16 +45,23 @@ const paymentColors: Record<CreativaPaymentStatus, StatusColor> = {
 
 const OrderDetail: NextPageWithLayout = () => {
 	const { id, order, error, retry, current } = useCreativaTracking();
-	const [notice, setNotice] = useState<string | null>(null);
 	async function copy(target: "id" | "url") {
 		try {
 			await navigator.clipboard.writeText(
 				target === "id" ? id : `${window.location.origin}/creativa/order-tracking/${id}`
 			);
-			setNotice("Đã sao chép.");
+			toast.success(
+				target === "id" ? "Đã sao chép mã đơn hàng." : "Đã sao chép liên kết tra cứu.",
+				{ id: "creativa-copy", duration: 2500 }
+			);
 			trackCreativa("order_reference_copy", { target, outcome: "success" });
 		} catch {
-			setNotice("Không thể tự sao chép. Hãy chọn mã hoặc đường dẫn dưới đây để sao chép thủ công.");
+			toast.error(
+				target === "id"
+					? "Không thể tự sao chép. Hãy chọn mã đơn hàng để sao chép thủ công."
+					: "Không thể tự sao chép. Nhấn giữ hoặc dùng menu liên kết để sao chép thủ công.",
+				{ id: "creativa-copy", duration: 8000 }
+			);
 			trackCreativa("order_reference_copy", { target, outcome: "error" });
 		}
 	}
@@ -101,21 +108,19 @@ const OrderDetail: NextPageWithLayout = () => {
 									<Button variant="outlined" onClick={() => void copy("id")}>
 										Sao chép mã
 									</Button>
-									<Button variant="outlined" onClick={() => void copy("url")}>
-										Sao chép liên kết
-									</Button>
-								</Stack>
-								{notice && (
-									<Alert severity="info" sx={{ mt: 1 }}>
-										{notice}
-										<Box
-											component="span"
-											sx={{ display: "block", userSelect: "all", overflowWrap: "anywhere" }}
+									<Link href={`/creativa/order-tracking/${id}`} passHref>
+										<Button
+											component="a"
+											variant="outlined"
+											onClick={(event) => {
+												event.preventDefault();
+												void copy("url");
+											}}
 										>
-											/creativa/order-tracking/{id}
-										</Box>
-									</Alert>
-								)}
+											Sao chép liên kết
+										</Button>
+									</Link>
+								</Stack>
 							</Box>
 							<Stack direction="row" gap={1} flexWrap="wrap">
 								<Chip

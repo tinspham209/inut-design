@@ -26,6 +26,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import toast from "react-hot-toast";
 import "yet-another-react-lightbox/styles.css";
 import { CreativaLayout } from "@/components/layout";
 import { CreativaSeo } from "@/components/creativa/Seo";
@@ -87,7 +88,6 @@ function ProductContent(initial: Props) {
 	const verified = !!request.data?.verified && !request.isValidating && !request.error;
 	const [localError, setError] = useState<string | null>(null);
 	const error = localError || request.error?.message || null;
-	const [notice, setNotice] = useState<string | null>(null);
 	const cart = useHydratedCreativaCart();
 	const { product, options } = request.data || initial;
 	const coverageId = selectedCoverage || options.coverages[0]?._id || "";
@@ -305,11 +305,6 @@ function ProductContent(initial: Props) {
 									{error || cart.error}
 								</Alert>
 							)}
-							{notice && (
-								<Alert severity="success" action={<Link href="/creativa/cart">Xem giỏ</Link>}>
-									{notice}
-								</Alert>
-							)}
 							<FormControl fullWidth required>
 								<InputLabel id="creativa-model">Mẫu MacBook</InputLabel>
 								<Select
@@ -320,7 +315,6 @@ function ProductContent(initial: Props) {
 									value={model?._id || ""}
 									onChange={(event) => {
 										form.setValue("modelId", event.target.value);
-										setNotice(null);
 										trackCreativa("product_option_change", {
 											product_id: product._id,
 											model_id: event.target.value,
@@ -354,7 +348,6 @@ function ProductContent(initial: Props) {
 									value={coverageId}
 									onChange={(event) => {
 										form.setValue("coverageId", event.target.value);
-										setNotice(null);
 										trackCreativa("product_option_change", {
 											product_id: product._id,
 											coverage_id: event.target.value,
@@ -437,7 +430,27 @@ function ProductContent(initial: Props) {
 												coverageName: coverage.name,
 												unitPrice: coverage.price,
 											});
-											setNotice("Đã thêm vào giỏ hàng.");
+											toast.success(
+												(t) => (
+													<Stack direction="row" gap={1} alignItems="center">
+														<Typography variant="body2">Đã thêm vào giỏ hàng.</Typography>
+														<Link href="/creativa/cart">
+															<a
+																onClick={() => {
+																	toast.dismiss(t.id);
+																	trackCreativa("cta_click", {
+																		cta_name: "view_cart",
+																		surface: "product_toast",
+																	});
+																}}
+															>
+																Xem giỏ
+															</a>
+														</Link>
+													</Stack>
+												),
+												{ id: "creativa-cart-added", duration: 5000 }
+											);
 											setError(null);
 											trackCreativa(
 												"add_to_cart",

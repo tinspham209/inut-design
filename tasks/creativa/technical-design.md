@@ -1,5 +1,11 @@
 # INUT Creativa — Technical Design
 
+## Latest transient-feedback amendment
+
+Reuse `_app`'s existing dynamically loaded Toaster; three Creativa action surfaces call existing `toast.success/error` directly from handlers. Remove order `notice`, bank `copyNotice`, product success `notice` state and their inline banners. Share static `creativa-copy` identity for copy-result replacement; never use copied values as toast identity/message. Keep MUI financial/validation/service/storage states inline.
+
+Copy URL is a real canonical Next/MUI anchor with `preventDefault` on normal copy click, preserving native manual-link fallback when clipboard fails. ID/memo text remains selectable. Add-success toast preserves the cart link, dismisses on activation and tracks only `view_cart/product_toast` context through the current facade. No new effect, provider, dependency or endpoint.
+
 ## Latest direct-memo correction
 
 Owner explicitly approves full saved name/phone in eligible link-holder tracking. `publicOrder` validates saved name/phone with the shared parser and projects only `transferContent = normalizedName + " " + phone` when the existing bank prompt is eligible. Private accepted responses reuse the same nested order DTO. No extra customer object, new stored field or migration.

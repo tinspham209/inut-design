@@ -1,5 +1,9 @@
 # INUT Creativa — Product Idea
 
+## Latest transient-feedback refinement
+
+Use global toasts for copy and cart-add outcomes so confirmations do not expand/shift the image-first page. Keep copied data out of toast text, preserve cart navigation/manual clipboard fallback and retain persistent warnings/order information inline.
+
 ## Latest transfer-memo decision
 
 Direct/shared/reloaded eligible bank-transfer tracking now shows saved customer name + phone, separated by a space. Owner explicitly accepts link-holder visibility; the former buyer-only/ID-fallback choice is superseded. Copy matches displayed memo; no raw customer object, telemetry/URL/persistent storage copy or new payment/order behavior.

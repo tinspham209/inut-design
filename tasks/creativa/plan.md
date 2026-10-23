@@ -1,5 +1,16 @@
 # INUT Creativa — Implementation Plan
 
+## Transient feedback toasts — 2026-10-23
+
+Use existing `react-hot-toast` and the one global `_app` Toaster for Creativa's transient copy (ID/link/memo, success/denial) and product-add success feedback. Remove local notice state/inline notification banners, not persistent validation/service/storage warnings, payment instructions or accepted-order detail. Generic toast content must never include copied ID/URL/contact values. Shared copy toast ID replaces older copy feedback; success2500ms/error8000ms. Cart success keeps an accessible `Xem giỏ` CTA for5000ms.
+
+- [x] Copy ID/link/memo toasts and add-to-cart success toast implemented without another Toaster/provider/dependency; core action-source analytics unchanged.
+- [x] Manual ID/memo remains selectable; copy-link is a canonical anchor with click default prevented, enabling native context-menu/long-press manual fallback on denial. Toast cart CTA dismisses and navigates, emitting one safe CTA event/provider.
+- [x] Guarded browser success/denial checks show no inline banner/card layout shift, one shared fixed copy toast, exact copied values/no contact telemetry, one added item and working CTA. Validation errors remain inline.
+- [ ] Current lint/types/build/SEO, focused read-only audit/no-op rework, routing/final verification and approved-preview restoration; all related docs reconciled.
+
+All prior loop statuses below are historical. No real order/CMS mutation/send/deployment, new API or toast containing sensitive content is authorized.
+
 ## Direct tracking transfer memo correction — 2026-10-23
 
 The owner explicitly approved replacing the previous buyer-only boundary: anyone holding an eligible unpaid bank-transfer order link may see the saved customer name/full phone as its transfer memo. Canonical format is `{normalized customer name} {customer phone}` with one space, no hyphen. Direct links, manual search and reload must show/copy the same memo; no order-ID substitution. Restrict memo exposure to existing eligible bank prompts; paid/refunded/cancelled/COD/no-bank responses omit it. Do not expose a raw customer object/address/email/note, add PII to analytics/URL/logs/persistent browser storage, change order/payment state or migrate data.

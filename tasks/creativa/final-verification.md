@@ -1,5 +1,9 @@
 # Creativa Sales / Tracking Final Verification
 
+## Transient-toast continuation — current verification pending
+
+Copy ID/link/memo and add-to-cart success move to the existing global Toaster, with exact action/privacy/manual fallback/CTA preserved and no inline banner/card shift. Quantity validation/persistent warnings remain inline. Guarded browser checks pass; current lint/types/build/direct audit/final report follows. Previous source/audits below retain historical scope; no actual mutations or native/hosted acceptance is inferred.
+
 ## Current direct transfer memo correction — verified
 
 **Current source:** `589acbe`, focused direct read-only code audit PASS; no actionable findings and no-op rework/unchanged confirmation. Owner explicitly approved direct/shared/reloaded eligible link-holder tracking showing saved full name + phone, one-space/no-hyphen separator, never an order-ID memo fallback. Older buyer-only assurances below are historical.

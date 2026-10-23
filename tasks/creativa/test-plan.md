@@ -1,5 +1,11 @@
 # INUT Creativa — Test Plan
 
+## Transient-toast checks
+
+For copy ID/link/memo, mock clipboard success/denial and capture local collectors. Assert exact value, one generic shared fixed toast, no new inline Alert/card geometry change, no copied contents in toast/telemetry and one safe copy event/provider/action. Copy-link remains canonical href and does not navigate on ordinary click; ID/memo remain selectable.
+
+For PDP use invalid quantity0 then valid1: invalid remains actionable inline with no success; valid adds exactly one item, shows only success toast with `Xem giỏ`, and CTA dismisses/navigates once with one safe event/provider. No actual order POST/send. Reuse global Toaster; do not confuse its `role=status` inside the layout main with an inline banner—verify fixed ancestor/card geometry. Account for a closing model menu/hidden automation tab before interpreting a missed click. Existing persistent warnings remain; native clipboard/touch remains external.
+
 ## Direct-memo correction checks
 
 Confirmed owner boundary: eligible direct/manual/shared/reloaded tracking deliberately returns/displays saved full name + phone. Verify normalized whitespace/Unicode name and leading-zero ASCII phone, single-space/no-hyphen format, saved edits and accepted/public response consistency. Five ineligible cases (COD, paid, refunded, cancelled, missing bank) omit memo; invalid contact data fails explicitly. Other customer/private fields remain excluded.
