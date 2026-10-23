@@ -130,7 +130,7 @@ function ProductContent(initial: Props) {
 					value: initial.options.coverages[0].price,
 					coverage_id: initial.options.coverages[0]._id,
 				}),
-				price_basis: "selected_coverage",
+				price_basis: initial.options.coverages[0] ? "selected_coverage" : "unavailable",
 			},
 			[
 				{

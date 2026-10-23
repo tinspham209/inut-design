@@ -43,6 +43,10 @@ Resolved implementation: the facade projects only public item fields for GA4 and
 
 Actual facade checks are now green: one emission each, configured identifiers/price/variant retained, index zero preserved, injected private extra item properties absent, unknown price omitted and consent denial suppresses both calls. All original 15 amended groups remain green. Files changed: facade, PDP view and related guide/test/plan/report records. Post-rework build and read-only confirmation are required next; E-01 through E-04 are unchanged.
 
+Targeted read-only inspection of `0cd7414` confirms the facade fix but identifies one remaining R-01 edge: the PDP labels its price basis `selected_coverage` even when no coverage exists. Rework must use unavailable basis in that branch, without inventing price/coverage/model. This stays within the same context finding and returns to rework before final verification.
+
+The zero-coverage callback probe was red, then green after conditional unavailable-basis handling. All 17 groups now pass, including repeated actual view-callback invocation, known/no coverage and all prior groups. Current lint without warnings, TypeScript and production application/postbuild SEO gates pass. Unchanged Studio/SPX source retains its passing evidence. Targeted read-only confirmation follows the final correction; no order, bank, storage or theme behavior changed.
+
 ## CMS-first amendment — 2026-10-23
 
 The owner approved Studio-only schema/editor changes and explicitly deferred storefront/API adaptation. See [CM-03 through CM-07](./plan.md#cms-first-amendment-and-required-next-actions). Legacy order/actions, root-only title prefixes, model slug codes, independent fee/bank records and rich product description/absolute print path supersede the old schema details.

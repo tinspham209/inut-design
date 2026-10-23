@@ -18,6 +18,8 @@ Browser-check `primary.main=#fd4d01`, light surfaces, dark readable text on oran
 
 R-01 context closure: invoke the actual facade with a single configured measurement item and verify GA4/Umami both retain known model/coverage, quantity, variant and unit price once per destination. Keep index zero/list identity, omit unavailable price rather than inventing zero, reject private extra item properties through the public item projection, and emit nothing when consent denies analytics. Initial PDP coverage is known even before a model is selected; do not invent a model/default-selection action.
 
+Also invoke the actual PDP view callback with zero coverages: basis must be unavailable, price/coverage/model absent, and repeated effect invocation must not repeat the view. The known-coverage branch retains its actual selected-coverage basis and identifier.
+
 The [amended plan](./plan.md#cms-first-amendment-and-required-next-actions) is authoritative. In this step verify:
 
 - Legacy registration/menu entries remain first and unchanged; all Creativa entries follow. Legacy document actions remain default.

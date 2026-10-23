@@ -69,7 +69,7 @@ Local SDK/collector/acceptance fixtures are not actual database/native/vendor/op
 - [x] Actual facade single-item model/coverage/quantity/unit-price/variant context is retained in both intended destinations. Initial PDP coverage is explicit without a selected model.
 - [x] GA4 item projection excludes arbitrary extra properties while preserving index zero/list identity; unavailable price remains absent and denied consent emits nothing.
 
-The original source-facade parity probe was red at `715aa79`; the added closure group is green alongside the original 15 groups. Lint/TypeScript pass; the post-rework build and targeted read-only re-audit precede final verification restart. No business/order/theme behavior or event name is changed.
+The original source-facade parity probe was red at `715aa79`; a targeted inspection then found the no-coverage basis edge, also reproduced red. Both closure groups now pass alongside the original 15 (17 total). Lint/TypeScript and the post-rework build/SEO pass. Targeted read-only confirmation precedes final verification restart; no business/order/theme behavior or event name changed.
 
 ## 1. Delivery contract
 
