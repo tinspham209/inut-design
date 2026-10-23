@@ -1,5 +1,9 @@
 # Creativa Staff Audit
 
+## Current sales / tracking refinement — audit pending
+
+Current S-01..S-05 code and scoped probes/browser checks are supplied for read-only audit of the delta from `6e71574`. Latest owner decisions: editable saved working records/human-only production rows, no extra immutable original copy; buyer-only Name-Phone/current contact-version memory with public ID fallback; no new Sanity analytics writes and browser-best-effort dispatch; notification safety retained hidden, no attention menu. Older PASS below is historical, not current approval. No real mutation/send/deployment performed; E-01..E-04 remain external.
+
 ## Current compact-client audit
 
 **Current result:** PASS through `7918095` within cumulative scope: independent audit at `f0a2aef` found C-01, now resolved and confirmed by targeted read-only review of its complete two-hook rework. Full acceptance remains blocked by E-01..E-04.

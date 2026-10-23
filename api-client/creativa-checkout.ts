@@ -1,6 +1,5 @@
 import type {
 	CreativaAccepted,
-	CreativaAnalyticsClaim,
 	CreativaCatalogPage,
 	CreativaCheckoutRequest,
 	CreativaEnvelope,
@@ -89,6 +88,4 @@ export const creativaApi = {
 	resolve: (capability: string) => post<CreativaAccepted>("orders/resolve", { capability }),
 	order: (id: string) =>
 		request<CreativaPublicOrder>(`/api/creativa/orders/${encodeURIComponent(id)}`),
-	claim: (capability: string, destination: "ga4" | "umami", eventKey: string) =>
-		post<CreativaAnalyticsClaim>("orders/analytics-claim", { capability, destination, eventKey }),
 };

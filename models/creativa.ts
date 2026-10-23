@@ -145,13 +145,11 @@ export type CreativaPublicLine = Pick<
 	| "productSlug"
 	| "productImage"
 	| "quantity"
-	| "unitPrice"
-	| "subtotal"
 > & {
-	selection: Pick<
-		CreativaOrderLine["selection"],
-		"modelId" | "modelName" | "coverageId" | "coverageName" | "coverageCode"
-	>;
+	unitPrice?: number;
+	subtotal?: number;
+	selection: Pick<CreativaOrderLine["selection"], "modelName" | "coverageName"> &
+		Partial<Pick<CreativaOrderLine["selection"], "modelId" | "coverageId" | "coverageCode">>;
 };
 
 export type CreativaOrderStatus =
@@ -173,14 +171,20 @@ export type CreativaPublicOrder = {
 	currency: "VND";
 	merchandiseTotal: number;
 	shippingFee: number;
-	discount: 0;
+	discount: number;
 	finalAmount: number;
 	shipping: CreativaShipping;
 	bank: CreativaBank | null;
+	transferContextVersion?: string;
 	trackingNumber?: string;
 };
 
-export type CreativaAccepted = { created: boolean; order: CreativaPublicOrder };
+export type CreativaAccepted = {
+	created: boolean;
+	order: CreativaPublicOrder;
+	transferContent?: string;
+	analyticsTransactionId?: string;
+};
 export type CreativaApiError = {
 	code: string;
 	message: string;
@@ -191,10 +195,9 @@ export type CreativaApiError = {
 
 export type CreativaEnvelope<T> = { ok: true; data: T } | { ok: false; error: CreativaApiError };
 
-export type CreativaAnalyticsClaim = {
-	claimed: boolean;
+export type CreativaPurchaseEvent = {
 	event: string;
-	transactionId?: string;
+	transactionId: string;
 	data?: Record<string, string | number | boolean>;
 	items?: Array<Record<string, string | number>>;
 };

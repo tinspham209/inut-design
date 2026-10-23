@@ -5,12 +5,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CreativaRequestError } from "@/api-client/creativa-checkout";
 import { useHydratedCreativaCart } from "@/hooks/creativa/useBrowserState";
-import {
-	useCreativaClaim,
-	useCreativaCreate,
-	useCreativaOptions,
-	useCreativaResolve,
-} from "@/hooks/creativa/useApi";
+import { useCreativaCreate, useCreativaOptions, useCreativaResolve } from "@/hooks/creativa/useApi";
 import { useCreativaQuote } from "@/hooks/creativa/useQuote";
 import type { CreativaAccepted, CreativaPublicOrder, CreativaQuote } from "@/models/creativa";
 import { submittedContributions, useCreativaCart } from "@/store/cart/creativaCart";
@@ -24,14 +19,9 @@ import {
 	saveAttempt,
 	type CheckoutAttempt,
 } from "@/utils/creativa/storage";
-import {
-	creativaTrackingAllowed,
-	measureCreativaLine,
-	safeCreativaUrl,
-	trackCreativa,
-} from "@/utils/creativa/analytics";
-import { gtag } from "@/utils/analytics";
-import { trackUmamiEvent } from "@/utils/umamiAnalytics";
+import { measureCreativaLine, trackCreativa } from "@/utils/creativa/analytics";
+import { dispatchCreativaPurchase } from "@/utils/creativa/purchase";
+import { useCreativaBuyer } from "@/components/creativa/BuyerContext";
 
 type State = {
 	attempt: CheckoutAttempt | null;
@@ -49,48 +39,6 @@ const initialState: State = {
 	warning: null,
 	corrupt: false,
 };
-
-function usePurchaseDispatch() {
-	const { trigger } = useCreativaClaim();
-	return async (capability: string, order: CreativaPublicOrder) => {
-		if (!creativaTrackingAllowed()) return;
-		const context = {
-			page_location: safeCreativaUrl(window.location.href),
-			page_referrer: safeCreativaUrl(document.referrer || "/"),
-		};
-		const failures: string[] = [];
-		if (typeof window.gtag === "function") {
-			try {
-				const claim = await trigger({ capability, destination: "ga4", eventKey: "purchase" });
-				if (claim.claimed)
-					gtag("event", "purchase", { ...claim.data, ...context, items: claim.items });
-			} catch {
-				failures.push("ga4");
-			}
-		}
-		if (
-			process.env.NEXT_PUBLIC_ENABLE_UMAMI === "true" &&
-			typeof window.umami?.track === "function"
-		) {
-			for (const eventKey of [
-				"purchase",
-				...order.lines.map((line) => `purchase_item.${line._key}`),
-			]) {
-				try {
-					const claim = await trigger({ capability, destination: "umami", eventKey });
-					if (claim.claimed) trackUmamiEvent(claim.event, claim.data);
-				} catch {
-					failures.push("umami");
-					break;
-				}
-			}
-		}
-		if (failures.length)
-			console.warn("[Creativa] Measurement delivery incomplete; accepted order is unchanged.", {
-				destinations: [...new Set(failures)],
-			});
-	};
-}
 
 export function useCreativaCheckout() {
 	const router = useRouter();
@@ -116,7 +64,7 @@ export function useCreativaCheckout() {
 	const recovery = useCreativaResolve();
 	const request = useCreativaQuote();
 	const { refresh, invalidate } = request;
-	const dispatchPurchase = usePurchaseDispatch();
+	const buyer = useCreativaBuyer();
 	const lock = useRef(false);
 	const completed = useRef(new Set<string>());
 	const began = useRef(false);
@@ -211,6 +159,15 @@ export function useCreativaCheckout() {
 
 	function acceptedCompletion(result: CreativaAccepted, current: CheckoutAttempt) {
 		acceptanceKnown.current = true;
+		buyer.remember(
+			result.transferContent && result.order.transferContextVersion
+				? {
+						publicId: result.order.publicId,
+						content: result.transferContent,
+						version: result.order.transferContextVersion,
+				  }
+				: null
+		);
 		patch({ accepted: result.order, error: null });
 		if (completed.current.has(current.capability)) return;
 		const latest = readAttempt();
@@ -264,7 +221,7 @@ export function useCreativaCheckout() {
 			}
 		}
 		if (warnings.length) patch({ warning: [...new Set(warnings)].join(" ") });
-		void dispatchPurchase(progress.capability, result.order);
+		dispatchCreativaPurchase(result);
 		if (!warnings.length)
 			void router.push(`/creativa/order-tracking/${encodeURIComponent(result.order.publicId)}`);
 	}

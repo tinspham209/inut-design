@@ -1,5 +1,15 @@
 # INUT Creativa — Technical Design
 
+## Current sales / tracking amendment
+
+[S-01..S-06](./plan.md#sales--tracking-refinement--2026-10-23) supersedes durable analytics claims and the technical-heavy immutable-field editor. Preserve notification receipts and private identity/recovery barriers; hide technical/legacy fields and remove the filtered attention menu. Reuse the lighter status guide/previews and the owner's explicitly editable working-record semantics without changing existing field names or creating a second original-copy record.
+
+Private accepted/recovery responses add transfer content and an opaque analytics identity (reuse valid legacy identity, otherwise derive from high-entropy private order ID without a new stored field). Public tracking projection remains contact-/analytics-identity-free. Buyer transfer context is same-SPA memory only, cleared by reload/provider teardown; fallback is the public reference, never URL/storage contact data.
+
+Client-only conversion dispatch uses saved public order amounts/lines and the private response identity. Session markers and in-memory fallback contain only opaque transaction/destination/event identity, never customer text/capabilities/public lookup IDs. No claim endpoint/SDK mutation, no new Sanity analytics fields; old fields remain hidden for compatibility. Consent/collector guards and failure feedback do not delay accepted navigation. Cross-tab/browser/restarted-session exactly-once is intentionally not guaranteed.
+
+Owner subsequently chose editable saved sales values with no extra immutable copy. Keep strict customer-created quote lines, but read accepted server-created lines and staff-authored production rows compatibly. The sales editor exposes only human production fields and does not fabricate SKU/model/coverage refs for manual additions. Public projection supplies stable non-sensitive row identity, omits unknown/inconsistent per-item money and reflects saved order totals/discount. Legacy technical fields remain optional/hidden where needed for staff rows; private order/intent/index identities and create/recovery transaction protocol remain protected. Published staff edits do not automatically replay notifications.
+
 ## Current compact-client amendment
 
 Follow [UI-01..UI-07](./plan.md#compact-ui--form-and-request-amendment--2026-10-23). Small shared breadcrumb/thumbnail components own presentation. Public thumbnail metadata already exists in cart/order DTOs; preserve its safe optional form through cart decoding without persisting production fields. Cart/checkout use image zero from current quote or retained safe cart metadata.
@@ -40,7 +50,7 @@ The contracts/algorithms below describe the amended implementation. Removed fit/
 | Recovery | A browser-held random checkout capability resolves/resumes its server-stored intent without persisting customer fields in browser storage. |
 | Local shortcuts | Plain JSON string array at `inut-creativa-order-history`, no cap/TTL, independent of cart/recovery. |
 | Sales handoff | Server-owned notification state with revision-guarded claims; explicit manual retry/reconciliation, no new queue. |
-| Analytics | Creativa-specific sanitized event facade, explicit transport ownership and durable conversion claims with documented delivery limits. |
+| Analytics | Safe GA4/Umami facade plus accepted-only opaque identity, session/in-memory best-effort dedup; no new Sanity analytics writes. |
 
 ## 2. Existing foundations and change boundary
 
@@ -133,19 +143,19 @@ Only root document titles use **`Creative - `**. Fields, nested objects, option 
 | `creativaBankSettings` | Ordinary profiles based on `bankInfo`; exactly one profile may be both active and primary. Queries and independent server guards enforce that selection; duplicates/invalid/missing primary disable transfer, not COD. Internal notes never enter public DTOs. |
 | `creativaSalesSettings` | Private singleton: active destinations/channel configuration; no browser projection. Bot credentials live in server environment. |
 | `creativaCheckoutIntent` | Private internal record: fingerprint, immutable canonical submitted request while pending, state, eventual order reference, revision-guarded transition/error summary. |
-| `creativaOrder` | Private accepted snapshot: public ID, analytics ID, timestamp, typed lines, customer/optional delivery data, money, operational/payment state, notification state and analytics-claim receipts. |
+| `creativaOrder` | Private server-created, staff-editable working order: protected public identity, saved typed/manual production rows, customer/money/status and hidden notification state. Legacy analytics fields retained hidden; none added to new orders. |
 | `creativaOrderLookup` | Private, server-created mapping from public-ID digest to one strong order reference. |
-| Embedded typed objects | Skin selection/snapshot, image metadata, shipping rule/snapshot, notification receipt and analytics receipt. Every written array item has a unique `_key`. |
+| Embedded typed objects | Skin selection/production data, image metadata, shipping/bank and notification receipts. Legacy analytics receipt definitions are hidden compatibility only. Every array item has unique `_key`. |
 
-The intent and lookup schemas are technical support records, not extra customer/order categories. Hide them from normal content creation and mark server-managed fields read-only. Orders are server-created; expose only operational/payment/manual tracking edits to staff. Hide create/duplicate/delete actions for orders/support records using Sanity v2 document-action configuration.
+Intent/lookup schemas are hidden server-managed support records. Orders remain server-created with protected identity; expose the explicitly requested sales-editable fields and human-only production rows. Hidden IDs/revisions/notification/legacy metadata stay protected; existing create/delete/duplicate action protections remain.
 
 Studio validation improves authoring but is not a server enforcement boundary. Next API adaptation must independently validate the amended types/ownership/arithmetic/active records without requiring the removed fit/product flags. Shipping/bank have ordinary authoring actions; private sales/order/intent/lookup protections remain.
 
 ### 4.3 Historical meaning
 
-Existing orders retain their original artwork/version/asset/fit snapshots without rewriting them. New-format snapshots must instead retain agreed product/model/coverage identity/display, the private production path, relevant source revisions, quantities and amounts. CM-05 must update quote/snapshot/Studio readback compatibly before acceptance of new-format records. CR-21/CR-22 still require staff to locate the correct physical files/template; the path field cannot prove existence or prevent file replacement.
+No migration rewrites old artwork/version/asset/fit data. New checkout stores full validated source/production/money values; authorized staff may then directly correct working fields under the current owner decision. Hidden technical lineage is not automatically rebound when human production labels change. CR-21/CR-22 still require physical file/template access/retention; a path does not prove existence/version.
 
-Preserve old references/assets and snapshots needed by accepted orders. For the new filesystem flow, document the operator's retained-file/version process rather than claiming Sanity copied/versioned the file. Tracking never substitutes current labels/prices/paths for an accepted snapshot. Private paths must not appear in public tracking.
+Preserve old references/assets and snapshots needed by accepted orders. For the new filesystem flow, document the operator's retained-file/version process rather than claiming Sanity copied/versioned the file.  Private paths must not appear in public tracking.
 
 ## 5. Domain types and extension boundary
 
@@ -229,7 +239,7 @@ A Creativa-local catalog hook follows the existing observer/retry pattern but us
 | `POST /api/creativa/orders` | Canonical `CheckoutRequest`; `Idempotency-Key`. | Accepted checkout response, replay, actionable rejection or unresolved service error. |
 | `POST /api/creativa/orders/resolve` | The original random checkout capability in body. | Resolve/resume that intent only; never search by customer data. |
 | `GET /api/creativa/orders/[publicId]` | Valid public ID. | Minimal no-cache tracking view only. |
-| `POST /api/creativa/orders/analytics-claim` | Checkout capability, allowed destination/event key. | Atomic non-sensitive conversion payload claim, or already claimed/disabled outcome. |
+| `POST /api/creativa/orders/analytics-claim` | Deprecated compatibility route. | HTTP410; no accepted-order read or Sanity mutation. New clients never call it. |
 
 Keep wrappers in `api-client/*`; React code never imports the authenticated client. Validate Origin for mutation requests against configured site/development origins. Retain Next's bounded body handling and report oversized payloads explicitly.
 
@@ -273,7 +283,7 @@ Name and exactly 10 ASCII phone digits are required; email/address/note remain o
 | Internal order ID | Private namespace plus Node `randomUUID()`. | Server/Studio only. |
 | Checkout capability | Browser secure random 32-byte base64url value, exactly 43 characters; validate `^[A-Za-z0-9_-]{43}$` and use as idempotency key. | Request header/body and private local recovery journal only. |
 | Intent fingerprint | SHA-256 of a stable, versioned canonical submitted request. | Private server state; no analytics. |
-| Analytics transaction ID | Independent server random UUID. | Authorized conversion payload only; never usable for lookup. |
+| Analytics transaction ID | Reuse valid legacy UUID or derive SHA256 from namespaced private order ID; no new field/write. | Private accepted/recovery payload only; never public lookup identity. |
 
 Public characters can be produced uniformly from secure random bytes by indexing the 64-character alphabet with `byte & 63`; 256 divides evenly by 64. Do not use `Math.random`, timestamps or a base64 slice with undocumented entropy. The complete public ID is exactly ten characters, including any `_` or `-`, and is case-sensitive.
 
@@ -372,7 +382,7 @@ Each mutation reads current storage rather than a stale React snapshot. Observe 
 
 ### Public tracking projection
 
-Validate/trim without case-folding. Hash the public ID, read the private lookup document, then its order directly. Return only public ID/date, order/payment status, immutable display line snapshots, amounts, optional manual carrier reference, safe bank instructions and masked minimal customer context. Exclude internal IDs, customer note/address/email/phone values, admin notes, receipts, capabilities and sales configuration. The live checkout can display its own already-entered fields without widening the public response.
+Hash the case-sensitive trimmed public ID, read its private lookup/order and project current saved sales values. Normalize first-image metadata, derive stable identity for manual production rows, and omit unknown/inconsistent itemized money. Exclude customer/contact, private IDs/paths, notes, capabilities, analytics identity and receipts. A private accepted/recovery response alone adds transfer content and analytics identity. Buyer context stays in RAM; compare its contact-version token against the current public record before showing contact text. Token hashes private high-entropy order identity plus relevant contact/method, not unsalted phone data. Revalidation suppresses stale buyer text; reload/other-order/version mismatch falls back to ID.
 
 Use no-store responses, reference-free titles/metadata and `noindex`. Include copy-ID/copy-link controls with success only after clipboard confirmation and selectable fallback on failure. Fresh-checkout success styling is a transient client acceptance signal, not a query parameter that creates another purchase.
 
@@ -390,11 +400,11 @@ Persist sent/message identity on known success. Known rejection is failed; a net
 
 Valid input can exceed one provider message. Split complete escaped content into bounded Unicode/entity-safe parts and persist per-part progress within the destination receipt. Known sent parts are skipped on replay; failed/deferred parts can progress in another bounded invocation, and uncertain parts require explicit operator acknowledgment. Current send budget is at most four sends and 15 seconds per invocation; actual hosting duration remains a deployment verification prerequisite, not an assumed guarantee.
 
-Staff can filter failed/unknown/stale-dispatching states in authenticated Studio. A proposed `scripts/retry-creativa-notification.mjs` uses server credentials and the same claim routine; unknown delivery needs explicit operator reconciliation/confirmation before retry. No public “send arbitrary order notification” API, queue or new cron service is introduced.
+Remove the separate attention desk view; retain hidden failed/unknown dispatch metadata and the existing authenticated operator retry CLI. Unknown delivery requires reconciliation before retry. No public send API/new queue/cron is introduced. This menu removal alone changes no stored data; staff edits do not automatically resend a message, and already persisted delivery parts retain their known-delivery semantics.
 
-Retain manual operational/payment editing and optional carrier reference only. Do not promise customer email/SMS or abandoned-contact campaigns, and do not activate SPX synchronization for Creativa.
+Allow the owner's saved production/customer/totals/status/date/notes/tracking edits. Final Amount has the Lighters manual-recalculation note; absent per-line pricing stays unknown. No automatic email/SMS/reconciliation/SPX. If an original COD order is changed to bank without saved bank details, show support guidance rather than selecting an arbitrary live account.
 
-## 12. Analytics transport, conversion claims and privacy
+## 12. Client analytics transport and privacy
 
 ### 12.1 Event facade
 
@@ -404,17 +414,17 @@ For Creativa commerce/custom actions choose **one direct GA4 dispatch through th
 
 Preserve `view_item`/`product_view` and `select_item`/`product_click` mappings. Use user-action sources and stable lifecycle IDs: catalog query-generation/batch/product impressions, product route visit, hydrated cart view and checkout attempt. Layout rerenders, initial defaults, autoplay and fee rerenders do not create false actions.
 
-GA4 purchase `value` is merchandise total, with shipping separate. Umami receives merchandise/shipping/final fields, one aggregate `purchase` and non-conversion `purchase_item` companions. Provider payload limits are enforced through bounded scalar/item representations rather than silently dropping product-type context. Validate representability before a conversion claim; if a provider cannot represent the accepted payload under its verified limits, leave that destination unclaimed, record a safe diagnostic and keep the accepted checkout successful. Do not split one purchase into multiple revenue events merely to bypass a transport limit.
+GA4 value is saved merchandise total, shipping/discount separate; Umami also receives saved final amount, one purchase and non-conversion item companions. Omit unknown manual-row prices/configuration IDs rather than invent values. Validate payload budgets before reserving a browser marker; log safe delivery categories on inability to represent/send, without blocking commerce or splitting revenue events.
 
-### 12.2 Durable conversion claims
+### 12.2 Accepted identity and browser/session dedup
 
-Only the live accepted/recovered checkout capability may request conversion claims. Public tracking lookup never supplies the analytics ID or claims a conversion.
+Only accepted/recovered private responses supply analytics identity; public tracking never converts. Reuse a valid legacy UUID when present; otherwise derive SHA256 from namespaced private high-entropy order ID. No new analytics ID/receipt field or Sanity mutation. Deprecated claim route is HTTP410.
 
-Store per-destination/per-event receipts on the private accepted order. Claim with revision guards before dispatch: one GA4 purchase, one Umami purchase and each Umami item companion have stable event keys. Parallel effects/tabs/retries cannot acquire the same event twice.
+`utils/creativa/purchase.ts` dispatches GA4 purchase, Umami purchase/item companions from saved public values. SessionStorage markers include only opaque transaction/destination/event identity and `"1"`; a module Set provides same-tab fallback when storage is blocked. Do not store contact/capabilities/public IDs in markers. Check consent and transport before reservation.
 
-Claim only when the destination is enabled/allowed and its transport is available. Dispatch from the saved accepted snapshot, independently of required confirmation navigation/local reconciliation. A hung/failed claim never keeps the customer waiting on a known accepted order. Do not use the current cart or make an extra claim merely by opening history/tracking.
+Reserve before sending to suppress supported-session replay. This may undercount after interruption; blocked storage loses dedup on reload, and other browsers/restarted sessions can duplicate. No cross-browser exactly-once guarantee remains. Dispatch is independent of accepted navigation/reconciliation; no backend claim request remains.
 
-This is durable **at-most-once dispatch permission**, not exactly-once external delivery. A browser crash after claiming but before transmission can undercount; an interrupted provider response is not safely distinguishable from receipt. Do not silently unclaim/replay uncertain events. Document this limit alongside analytics diagnostics; there is no new analytics queue or server measurement service.
+Notification revision-guarded delivery state is separate and retained. No analytics queue/server measurement service is introduced.
 
 ### 12.3 Automatic URL capture
 
