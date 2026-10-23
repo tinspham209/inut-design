@@ -32,7 +32,7 @@ Show the selected design's first image beside cart/checkout names; keep all live
 
 The owner accepted the CMS authoring flow and authorized runtime/UI integration. Preserve a **light theme with primary `#fd4d01`**, using accessible text/hover variants without changing the root theme. Show the single **active primary** Creativa bank, never an arbitrary active account, and retain its accepted-order snapshot. Connect the new slug/rich-text/fee/profile/production-path shapes while preserving old orders and browser history. Follow the [plan's continuation](./plan.md#runtime-and-orange-light-continuation--2026-10-23) and requested audit/rework/routing/final-verification loop; real data mutation and launch approval remain separate.
 
-**Current result:** Current toast refinement focused source audit/verification PASS at `4bf42c0`, with earlier memo/sales scopes preserved historically. [Final verification](./final-verification.md) records current editable-record/direct-memo/session-only analytics decisions and keeps release blocked on E-01..E-04 rather than substituting fixtures for real deployment/owner/native evidence.
+**Current result:** Current Firefox/payment setup refinement focused audit/verification PASS at `fa13d7a`, with earlier scopes preserved historically. Existing Telegram retry remains declined. [Final verification](./final-verification.md) records current editable-record/direct-memo/session-only analytics decisions and keeps release blocked on E-01..E-04 rather than substituting fixtures for real deployment/owner/native evidence.
 
 ## CMS-first amendment — 2026-10-23
 

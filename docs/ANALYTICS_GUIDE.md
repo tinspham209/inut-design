@@ -266,7 +266,9 @@ metadata, internal bank notes and account details out of telemetry; current
 guards cover those keys. Only the active primary bank is used for new orders,
 and tracking uses its accepted snapshot. No new event or collector is added.
 
-Current focused code audit PASS is `4bf42c0` for transient toast feedback, following
+Current focused code audit PASS is `fa13d7a` for Firefox-safe payment/configuration
+guidance; token/chat diagnostics remain operational and secret-free, not events.
+Earlier `4bf42c0` transient toast feedback follows
 the direct-memo `589acbe` and sales-scope independent
 PASS at `21b7b06`. It includes the approved direct/shared transfer memo, not the
 superseded buyer-only boundary. RHF handlers own validation

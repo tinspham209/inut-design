@@ -8,7 +8,7 @@
 | Telegram no message | Ambiguous Requirement / Configuration → Clarify → Verify | Published recipient valid; actual saved failure TOKEN_MISSING. Only legacy env key existed. Owner-approved ignored alias now authenticates bot/reads configured private chat. | Restart previews; configure actual server key separately in hosting. | Local ignored env, CMS guidance, operator evidence. | Local setup corrected; delivery unexecuted. | YES |
 | Existing failed order | Plan Gap → Plan → Verify | Owner explicitly declined retry; no message/receipt mutation permitted. Readiness does not send/relabel failure; recipient is private, not a Telegram channel. | Only later explicit operator retry/reconciliation; no auto retarget/resend. | Existing private delivery receipt, unchanged. | Existing delivery remains failed by instruction, not a code promise. | NO |
 
-Focused source audit PASS; rework no-op/unchanged confirmation. E-01..E-04 retained for actual private/host/native-wide/Studio/operator/delivery witnesses; no claim that bot read access proves a sent message.
+Focused source audit PASS at `fa13d7a`; rework no-op/unchanged confirmation. Current final production assets, unchanged failed receipt and restored preview readiness verified. E-01..E-04 retained for actual private/host/native-wide/Studio/operator/delivery witnesses; no claim that bot read access proves a sent message.
 
 ## Current transient-toast refinement
 
