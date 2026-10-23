@@ -1,8 +1,18 @@
 # Creativa Sales / Tracking Final Verification
 
-## Transient-toast continuation — current verification pending
+## Current transient-toast refinement — verified
 
-Copy ID/link/memo and add-to-cart success move to the existing global Toaster, with exact action/privacy/manual fallback/CTA preserved and no inline banner/card shift. Quantity validation/persistent warnings remain inline. Guarded browser checks pass; current lint/types/build/direct audit/final report follows. Previous source/audits below retain historical scope; no actual mutations or native/hosted acceptance is inferred.
+**Source `4bf42c0`:** Focused direct read-only audit PASS for all three transient surfaces. Rework is no-op/unchanged confirmation; current lint without warnings/types/app229/SEO221 pass. No actionable code issue, new provider/dependency/API or legacy-flow change.
+
+| Current behavior | Result / evidence |
+| --- | --- |
+| ID/link/memo copy results | PASS in guarded Chromium: exact values, generic fixed success/error toast replacing previous copy toast, no extra inline Alert/card-height change, no copied ID/URL/contact in toast/metrics. Success only after clipboard resolves; denial honest. Clipboard mocked, native E-04 unchanged. |
+| Manual fallback / navigation | PASS: ID/memo remain selectable; copy-link real canonical href supports native menu/long press, normal click copies without navigation. Error guidance matches available fallback. |
+| Product add success / CTA | PASS: invalid quantity remains inline/no success; valid1 adds exactly1 with one add event/provider, toast keeps `Xem giỏ`, dismisses/navigates and emits one safe CTA/provider. No persistent error/financial/order state removed. |
+| Visual / privacy proof | Mobile header-only screenshot reviewed; toast fixed above header, no card/banner expansion and no contact/payment data captured. Closing-menu/hidden-tab automation interruptions resolved before assertions, not by source edits. |
+| Current gates / restoration | PASS: source formatting/lint/types/build229/SEO221, complete direct diff review/no-op rework/routing/final reconciliation. Both owned previews restored on3000/3001, HTTP200 verified. No real order/CMS mutation/send/deployment. External E-01..E-04 remain release gates. |
+
+Historical source/evidence matrices below retain unaffected behavior. Current TRACK-09/AC-51 are reconciled with toast feedback; no copy notice state/inline success banner remains in Creativa.
 
 ## Current direct transfer memo correction — verified
 
@@ -37,7 +47,7 @@ The older source/evidence matrices retain unaffected mechanisms and historical s
 
 The [UI-01..UI-07 amendment](./plan.md#compact-ui--form-and-request-amendment--2026-10-23) is implemented, audited, reworked and locally verified. The 116/52 inventory below is reconciled using current evidence for changed surfaces and explicitly retained evidence for unchanged contracts. No actual database/order/send/native/vendor proof has been added.
 
-**Audited application revision:** `589acbe` on `feat/creativa` for the current direct-memo correction; prior sales scope independently reviewed at `21b7b06`.
+**Audited application revision:** `4bf42c0` on `feat/creativa` for current toast refinement; prior direct memo `589acbe` and independent sales `21b7b06` retain historical scopes.
 **Audit lineage:** Earlier runtime/R-01/C-01 closures retained historically; independent current audit `6e71574..21b7b06` PASS, with isolated probe rerun. No actionable issue; no-op rework/unchanged-source confirmation.
 **Code result:** PASS within the recorded scope; no remaining actionable source finding.
 **Repository stop gate:** PASS.
@@ -177,7 +187,7 @@ Browser synchronization limitations were kept separate from app defects: tab act
 | TRACK-06 | PASS | Tracking/revisits do not create orders/conversions; intercepted acceptance produces no false abandonment. V-03/V-06/source. |
 | TRACK-07 | PASS | Distinct invalid/not-found/service behavior retained; actual malformed-ID and unknown route HTTP outcomes observed. V-07/source. |
 | TRACK-08 | FAIL | Current eligible lookup deliberately includes approved saved name/phone memo only, not raw customer/address/email/note/path/measurement identity. No-store/referrer/telemetry/storage guards pass; actual private dataset/host protections remain E-02/E-03. |
-| TRACK-09 | FAIL | Copy ID/link/fallback code retained; actual/native clipboard permission matrix remains E-04. |
+| TRACK-09 | FAIL | Current generic toast success/denial, exact copy, no banner/card shift and selectable ID/memo/canonical native-link fallback verified in Chromium mocks; actual/native clipboard/keyboard matrix remains E-04. |
 | HISTORY-01 | PASS | Separate plain ID-string array, no new customer/path/account/capability content. V-06/source. |
 | HISTORY-02 | PASS | Validation does not append; intercepted acceptance saves one, root tag does not append again; ownership/dedup retained. V-06/source. |
 | HISTORY-03 | FAIL | Existing uncapped/no-TTL helpers unchanged; complete >50 expanded-tag/revisit matrix not rerun. E-04. |
@@ -279,7 +289,7 @@ Full applicable variants and their decisive oracle are retained. Partial local s
 | AC-48 | FAIL | Actual root Lighters-selected chip bypass observed; full stale-ID/manual-lighter regression remains E-04. |
 | AC-49 | FAIL | Creator individual forget/root-only clear and existing checkpoint safety retained; actual accepted-record interruption matrix remains E-02/E-04. |
 | AC-50 | FAIL | Normal local warnings/quarantine source; full denial/quota/post-acceptance/native matrix remains E-02/E-04. |
-| AC-51 | FAIL | Current approved direct/reload memo and exact/denied copy/privacy checks pass in Chromium; root disclosure retained/Creator compact. Actual native clipboard/device proof remains E-04. |
+| AC-51 | FAIL | Current direct memo and ID/link/memo toast success/denial/privacy/manual fallback pass in Chromium; root disclosure retained/Creator compact. Actual native clipboard/device proof remains E-04. |
 | AC-52 | FAIL | Local source/context/history/privacy checks pass; complete actual custom/automatic destination catalog remains E-03/E-04. |
 
 ## Current task / release disposition

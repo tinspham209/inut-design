@@ -260,7 +260,8 @@ metadata, internal bank notes and account details out of telemetry; current
 guards cover those keys. Only the active primary bank is used for new orders,
 and tracking uses its accepted snapshot. No new event or collector is added.
 
-Current focused code audit PASS is `589acbe`, following the sales-scope independent
+Current focused code audit PASS is `4bf42c0` for transient toast feedback, following
+the direct-memo `589acbe` and sales-scope independent
 PASS at `21b7b06`. It includes the approved direct/shared transfer memo, not the
 superseded buyer-only boundary. RHF handlers own validation
 and submit actions; SWR hooks own API completion, and one actual-presentation

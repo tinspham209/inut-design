@@ -2,7 +2,7 @@
 
 ## Current transient-toast refinement — PASS
 
-**Focused direct read-only Staff audit PASS** for the complete three-source-file delta from `b5689c7`. Existing one global Toaster reused; transient local states/banners removed, success only after completed clipboard/cart action, generic content/static IDs, error/manual fallback and cart CTA preserved. Link copy prevents navigation but retains a real canonical href; persistent financial/validation/service/storage states remain. All event names/current action ownership retained, with one safe CTA event on the preserved toast link.
+**Focused direct read-only Staff audit PASS at `4bf42c0`** for the complete three-source-file delta from `b5689c7`. Existing one global Toaster reused; transient local states/banners removed, success only after completed clipboard/cart action, generic content/static IDs, error/manual fallback and cart CTA preserved. Link copy prevents navigation but retains a real canonical href; persistent financial/validation/service/storage states remain. All event names/current action ownership retained, with one safe CTA event on the preserved toast link.
 
 **Evidence:** Current lint without warnings/types/app229/SEO221 pass; guarded browser exact copy success/denial, no inline banner/card shift, one shared fixed toast/no copied contents, memo selection, invalid quantity stays inline, exactly one valid add and working dismiss/navigate cart CTA with one event/provider. Screenshot limited to header/copy feedback, excluding contact/payment details.
 

@@ -2,7 +2,7 @@
 
 ## Current transient-toast refinement
 
-Owner's transient-feedback request is implemented with existing global react-hot-toast and current gates/browser evidence. Focused direct source audit PASS; rework no-op/unchanged confirmation, no actionable Missing Implementation issue. Persistent actionable errors/payment/order states remain inline by scope; legacy main-brand behavior unchanged. E-01..E-04 release witnesses remain Clarify/Plan → Verify, not toast code findings. Current final report reconciles evidence; no new requirement ambiguity or tooling needed.
+Owner's transient-feedback request is implemented/verified at `4bf42c0` with existing global react-hot-toast and current gates/browser evidence. Focused direct source audit PASS; rework no-op/unchanged confirmation, no actionable Missing Implementation issue. Final reconciliation and both preview restorations/HTTP200 are complete. Persistent actionable errors/payment/order states remain inline by scope; legacy main-brand behavior unchanged. E-01..E-04 release witnesses remain Clarify/Plan → Verify, not toast code findings. Current final report reconciles evidence; no new requirement ambiguity or tooling needed.
 
 ## Direct tracking memo correction
 
