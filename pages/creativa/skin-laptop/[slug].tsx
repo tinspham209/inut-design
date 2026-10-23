@@ -126,7 +126,10 @@ function ProductContent(initial: Props) {
 				product_id: initial.product._id,
 				product_name: initial.product.name,
 				product_type: "skin-laptop",
-				...(initial.options.coverages[0] && { value: initial.options.coverages[0].price }),
+				...(initial.options.coverages[0] && {
+					value: initial.options.coverages[0].price,
+					coverage_id: initial.options.coverages[0]._id,
+				}),
 				price_basis: "selected_coverage",
 			},
 			[
@@ -138,6 +141,7 @@ function ProductContent(initial: Props) {
 					...(initial.options.coverages[0] && {
 						price: initial.options.coverages[0].price,
 						item_variant: initial.options.coverages[0].code,
+						coverage_id: initial.options.coverages[0]._id,
 					}),
 				},
 			]

@@ -1,6 +1,6 @@
 # Creativa Staff Audit
 
-**Historical application code re-audit:** PASS through round 7 at `7fedd01` for the former contract. The later CMS-only amendment is not covered by that integration verdict.
+**Current code audit:** PASS at `715aa79` for the amended runtime/orange-light storefront. Historical rounds through `7fedd01` remain below for their former contract.
 **Overall acceptance:** FAIL / BLOCKED — E-01 through E-04 still lack their required external witnesses.
 **Phase:** Seven read-only audit rounds completed; application changes occurred only in the intervening implementation/rework phases.
 **Baseline:** `551ab8e`; cumulative implementation/rework reviewed through `7fedd01` on `feat/creativa`. Exact per-round scope/revision is retained below.
@@ -9,13 +9,39 @@
 
 ## Current runtime/orange-light amendment — 2026-10-23
 
-Owner CMS-flow review is accepted. The next implementation connects amended records and exact `#fd4d01` primary in a light theme, with the clarified **active AND primary** bank rule (no arbitrary active-account fallback). Current code includes new/legacy snapshot compatibility and path-safe public projections; the fresh read-only audit is still pending. Do not apply the old round-7 PASS to this changed implementation.
+Owner CMS-flow review is accepted. The next implementation connects amended records and exact `#fd4d01` primary in a light theme, with the clarified **active AND primary** bank rule (no arbitrary active-account fallback). Current code includes new/legacy snapshot compatibility and path-safe public projections. Its own independent read-only audit is recorded below; the old round-7 PASS is not the authority for this changed implementation.
 
 Implementation evidence so far: four amended-contract baseline cases were red before changes, then green against actual read-only published CMS data; isolated new/legacy contract groups pass. No order/data/notification mutation was used. Record the upcoming audit findings, rework/resolution, routing and final result below rather than overwriting the historical rounds.
 
 Implementation/browser checks also exposed two connected producer gaps before audit: product views repeated during the development lifecycle, and lightbox arrow navigation was unmeasured/close used the old index. Per-component view ownership and guarded viewer-index events now yield one view and open/navigation/close per local destination, with the chosen image restored after closing. No existing passing repository test was rewritten.
 
-**Supplied stop-gate evidence:** current lint without warnings, TypeScript, 15 isolated contract groups, SPX 42, application build 229/postbuild SEO 221 and current Studio build pass. Browser findings are described in the plan's implementation checkpoint; source/SDK/interception proofs remain distinct from real database/native/hosted/operator evidence. Current audit verdict is pending.
+**Supplied stop-gate evidence:** current lint without warnings, TypeScript, 15 isolated contract groups, SPX 42, application build 229/postbuild SEO 221 and current Studio build pass. Browser findings are described in the plan's implementation checkpoint; source/SDK/interception proofs remain distinct from real database/native/hosted/operator evidence.
+
+### Runtime amendment read-only Staff audit
+
+**Code result:** PASS at `715aa79086863dd50275c55e5056ef2b121fc5e5`, reviewing `f4b7efa..715aa79` and connected contracts. The independent Staff reviewer found no significant actionable code issue. It independently reran all 15 supplied isolated contract groups using dummy configuration and TypeScript; both passed without mutations.
+
+**Rework:** No-op: there is no actionable finding to fix and no failing passing-test oracle to rewrite. The audited source revision is unchanged; its read-only confirmation retains the same PASS rather than manufacturing a code edit/review cycle.
+
+**Full acceptance:** FAIL/BLOCKED for actual retained print/template/operator/notification readiness, actual Sanity privacy/atomicity/collision/concurrency proof, hosted collectors/proxy/logs and native Safari/remaining manual cases. Raw Sanity metadata visibility is the acknowledged separate owner-review boundary, not a newly found application DTO leak.
+
+**Current readiness refinement:** Published amended catalog/options/fee/primary-bank records exist and were read successfully; the former empty-configuration/CDN failures are not current code findings. Sales has one configured destination, but the dedicated Creativa bot credential is absent. No message was sent and physical file/template/handoff signoff remains missing. Route these prerequisites through Clarify/Plan → Verify, not speculative code rework.
+
+### Final-verification interruption — R-01
+
+**Result:** FAIL for a connected analytics-context variant at `715aa79`; final verification stopped before application edits.
+
+| Issue | Severity | Evidence | Requirement / recommendation |
+| --- | --- | --- | --- |
+| R-01 — single-item context dropped in Umami | Medium | `utils/creativa/analytics.ts:116-119` copies only product identity/name/type from measurement items. Actual source facade invocation for a configured removal retained GA4 `model_id`/`coverage_id` but omitted both in Umami. PDP initial view also has the selected coverage available at `pages/creativa/skin-laptop/[slug].tsx:140`. | AN-02/04, AC-31, CT-14: retain known public model/coverage/quantity/unit-price/variant context for a single configured item in both destinations; include known initial coverage without inventing a selected model. Do not add events or bank/production fields. |
+
+Route: Missing Implementation → Implement → Verify, continuation YES. This does not invalidate the earlier independent review's stated scope, but it reopens the concrete source variant before final signoff.
+
+### R-01 rework
+
+Resolved implementation: the facade projects only public item fields for GA4 and carries known single-item model/coverage/variant/quantity/unit price into Umami without adding a destination call. Explicit caller quantity remains authoritative; unknown price is omitted. PDP view includes its known initial coverage, not a fabricated model choice.
+
+Actual facade checks are now green: one emission each, configured identifiers/price/variant retained, index zero preserved, injected private extra item properties absent, unknown price omitted and consent denial suppresses both calls. All original 15 amended groups remain green. Files changed: facade, PDP view and related guide/test/plan/report records. Post-rework build and read-only confirmation are required next; E-01 through E-04 are unchanged.
 
 ## CMS-first amendment — 2026-10-23
 

@@ -103,24 +103,42 @@ export function trackCreativa(
 		)
 			data[key] = value;
 	}
+	const publicItems = items?.map((item) => ({
+		item_id: item.item_id,
+		item_name: item.item_name,
+		item_category: item.item_category,
+		quantity: item.quantity,
+		...(item.item_variant && { item_variant: item.item_variant }),
+		...(item.model_id && { model_id: item.model_id }),
+		...(item.coverage_id && { coverage_id: item.coverage_id }),
+		...(item.item_list_id && { item_list_id: item.item_list_id }),
+		...(typeof item.index === "number" && Number.isFinite(item.index) && { index: item.index }),
+		...(typeof item.price === "number" && Number.isFinite(item.price) && { price: item.price }),
+	}));
 	gtag("event", event, {
 		...data,
-		...(items && { items }),
+		...(publicItems && { items: publicItems }),
 		page_location: safeCreativaUrl(window.location.href),
 		page_referrer: safeCreativaUrl(document.referrer || "/"),
 		page_title: document.title,
 	});
 	const umamiData: Parameters = { ...data };
-	if (items?.length) {
-		umamiData.item_count = items.length;
-		if (items.length === 1) {
-			umamiData.product_id = items[0].item_id;
-			umamiData.product_name = items[0].item_name;
-			umamiData.product_type = items[0].item_category;
+	if (publicItems?.length) {
+		umamiData.item_count = publicItems.length;
+		if (publicItems.length === 1) {
+			const item = publicItems[0];
+			umamiData.product_id = item.item_id;
+			umamiData.product_name = item.item_name;
+			umamiData.product_type = item.item_category;
+			if (item.model_id) umamiData.model_id = item.model_id;
+			if (item.coverage_id) umamiData.coverage_id = item.coverage_id;
+			if (item.item_variant) umamiData.item_variant = item.item_variant;
+			if (umamiData.quantity === undefined) umamiData.quantity = item.quantity;
+			if (item.price !== undefined) umamiData.unit_price = item.price;
 		} else {
-			const ids = items.map((item) => item.item_id).join(",");
+			const ids = publicItems.map((item) => item.item_id).join(",");
 			if (ids.length <= 500) umamiData.product_ids = ids;
-			else umamiData.items_omitted = items.length;
+			else umamiData.items_omitted = publicItems.length;
 		}
 	}
 	trackUmamiEvent(

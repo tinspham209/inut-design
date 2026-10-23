@@ -183,6 +183,10 @@ Common context is `storefront=creativa`, `currency=VND`, the journey surface and
 public catalog identifiers. Model/coverage identifiers belong to skin items.
 GA4 discovery/cart events include `items`; Umami receives bounded scalar context.
 `view_item` maps to Umami `product_view`, and `select_item` to `product_click`.
+For a single configured item, Umami retains known model/coverage identifiers,
+quantity, variant and unit price; GA4 receives an explicit public item projection
+rather than arbitrary extra properties. Unknown prices remain omitted. A product
+view includes its known initial coverage but no fabricated model choice.
 
 | Event | Producer and trigger | Safe context |
 | --- | --- | --- |
