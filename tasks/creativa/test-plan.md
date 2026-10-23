@@ -1,10 +1,27 @@
 # INUT Creativa — Test Plan
 
 **SDD gate:** Approved strategy/refinement; partial execution and final verification recorded.
-**Status:** Baseline and refinements approved by the owner. Current evidence, individual requirement/AC results and unexecuted required witnesses are recorded in [final-verification.md](./final-verification.md). Full integration/release acceptance remains blocked; this plan is not itself a passing result.
+**Status:** Amended for the owner-approved 2026-10-23 CMS-only step. Earlier application evidence in [final-verification.md](./final-verification.md) is historical; new-schema runtime integration and migration checks remain pending. This document is procedures, not an application pass.
 **Date:** 2026-10-23.
 **Authority:** The [revised plan](./plan.md) is the implementation/task/exit source of truth; this document supplies procedures for its reverse-validation matrix. The approved [specification](./specs.md) and [technical design](./technical-design.md) retain business context, subject to explicit refinement dispositions.
 **Constraint:** This is test documentation, not test code. Do not introduce a unit-test suite, runner, dependency, framework, CI job or coverage-percentage target. Existing focused assertions may be used where relevant; hypothetical Creativa test scripts are not existing quality gates.
+
+## CMS-first checks and next phase
+
+The [amended plan](./plan.md#cms-first-amendment-and-required-next-actions) is authoritative. In this step verify:
+
+- Legacy registration/menu entries remain first and unchanged; all Creativa entries follow. Legacy document actions remain default.
+- Only root Creativa titles carry the prefix. All field/nested/option/list labels are readable.
+- Model code uses native slug generation from name; removed fit fields/activation guard are absent.
+- Fee/bank editors mirror the legacy definitions but have independent Creativa types, normal creation/actions and multiple documents/profiles.
+- Skin laptop has active default true, existing `blockContent`, required absolute POSIX/Windows/shared-drive print-path syntax and no old approval/artwork/upload fields. No filesystem existence/read/upload is claimed.
+- Private order/intent/lookup/sales protections and existing historical snapshot definitions remain intact. No production record migration/write is performed.
+
+Use existing Studio build and isolated schema/action/structure checks. Browser form verification needs an authenticated Studio session; record a login/access blocker rather than creating data or claiming that compilation proves rendering.
+
+**Next, after CM-03..CM-06:** verify actual new-format product/model/configuration reads, Portable Text rendering, private path exclusion, shipping/default/zero fee, active bank profiles, quote/digest/repricing, staff production-path snapshots, old-order recovery, checkout/history/analytics and authorized migration. Retire obsolete fit-boolean/upload-asset expectations for new records, but retain manual compatibility/file-retention and historical-order tests. Baseline CT/DB/BDD passes must not be reused as proof of these changed contracts.
+
+**Current CMS-only evidence:** Studio build and isolated definition/order/label/default/path/editor/action/template checks pass. Browser reaches the standard-origin Studio sign-in screen; no authenticated form/create/publish/Generate interaction is claimed. CORS settings, credentials and stored records were not changed. See the plan's checkpoint for the required next review.
 
 ## 1. Objectives and expected coverage
 

@@ -4,8 +4,6 @@ const protectedRecords = new Set([
 	"creativaOrder",
 	"creativaCheckoutIntent",
 	"creativaOrderLookup",
-	"creativaShippingSettings",
-	"creativaBankSettings",
 	"creativaSalesSettings",
 ]);
 const technical = new Set(["creativaCheckoutIntent", "creativaOrderLookup"]);

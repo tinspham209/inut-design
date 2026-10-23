@@ -1,6 +1,17 @@
 import client from "part:@sanity/base/client";
+import bankInfo from "../bankInfo";
+import shippingFee from "../shippingFee";
 
 const title = (value) => `Creative - ${value}`;
+const humanLabel = (value) =>
+	value
+		.replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+		.replace(/[_-]+/g, " ")
+		.split(" ")
+		.map((word) =>
+			/^(id|url)$/i.test(word) ? word.toUpperCase() : word[0].toUpperCase() + word.slice(1)
+		)
+		.join(" ");
 const required = (Rule) => Rule.required();
 const integer =
 	(min = 0) =>
@@ -8,11 +19,16 @@ const integer =
 		Rule.required().custom((value) =>
 			Number.isSafeInteger(value) && value >= min ? true : `Expected a safe integer >= ${min}`
 		);
-const field = (name, type = "string", extra = {}) => ({ name, title: title(name), type, ...extra });
+const field = (name, type = "string", extra = {}) => ({
+	name,
+	title: humanLabel(name),
+	type,
+	...extra,
+});
 const text = (name, extra = {}) => field(name, "string", { validation: required, ...extra });
 const object = (name, fields, extra = {}) => ({
 	name,
-	title: title(name),
+	title: humanLabel(name),
 	type: "object",
 	fields,
 	...extra,
@@ -20,7 +36,20 @@ const object = (name, fields, extra = {}) => ({
 const ref = (name, type) => field(name, "reference", { to: [{ type }], validation: required });
 const money = (name, min = 0) => field(name, "number", { validation: integer(min) });
 const enumeration = (name, values, extra = {}) =>
-	text(name, { options: { list: values }, ...extra });
+	text(name, {
+		options: {
+			list: values.map((value) => ({
+				title:
+					{
+						cod: "Cash on Delivery (COD)",
+						ga4: "Google Analytics 4",
+						umami: "Umami",
+					}[value] || humanLabel(value),
+				value,
+			})),
+		},
+		...extra,
+	});
 const active = field("active", "boolean", { initialValue: false });
 const uniqueKeys = (items) =>
 	!items ||
@@ -57,7 +86,7 @@ const privateDocument = (prefix) => (Rule) =>
 
 const image = {
 	type: "image",
-	title: title("Gallery image"),
+	title: "Gallery Image",
 	options: { hotspot: true },
 	fields: [text("alt"), enumeration("view", ["top", "bottom", "interior", "other"])],
 	validation: (Rule) =>
@@ -92,7 +121,7 @@ const lineFields = [
 	text("lineKey"),
 	text("productName"),
 	text("productSlug"),
-	{ ...image, name: "productImage", title: title("Product image") },
+	{ ...image, name: "productImage", title: "Product Image" },
 	object("selection", selectionFields),
 	object("artwork", [
 		text("identity"),
@@ -135,7 +164,7 @@ const request = object("request", [
 
 export const creativaSkinProduct = doc(
 	"creativaSkinProduct",
-	"Skin products",
+	"Skin laptop",
 	[
 		text("name"),
 		field("slug", "slug", {
@@ -160,16 +189,22 @@ export const creativaSkinProduct = doc(
 						"Unique readable slug required; guide slug is reserved"
 				),
 		}),
-		active,
-		field("productionVerified", "boolean", {
-			initialValue: false,
+		{ ...active, initialValue: true },
+		field("description", "blockContent"),
+		text("printAssetPath", {
 			description:
-				"Approve licensed assets, retained printable master and production meaning before activation.",
+				"Absolute path on the printing computer or shared drive. Metadata only: no upload, browser storage or automatic file access. File existence is not checked; do not include secrets in a public dataset.",
+			validation: (Rule) =>
+				Rule.required().custom(
+					(value) =>
+						(typeof value === "string" &&
+							!/[\u0000-\u001f]/.test(value) &&
+							(/^\/.+/.test(value) ||
+								/^[A-Za-z]:[\\/].+/.test(value) ||
+								/^\\\\[^\\/]+[\\/][^\\/]+[\\/].+/.test(value))) ||
+						"Enter an absolute file path, such as /Volumes/PrintAssets/design.pdf or D:\\PrintAssets\\design.pdf"
+				),
 		}),
-		field("description", "text"),
-		text("artworkId"),
-		text("artworkVersion"),
-		field("printAsset", "file", { validation: required }),
 		array("images", image, {
 			validation: (Rule) =>
 				Rule.required()
@@ -187,56 +222,24 @@ export const creativaSkinProduct = doc(
 		}),
 	],
 	{
-		validation: (Rule) =>
-			Rule.custom(async (value) => {
-				if (value?.active && !value.productionVerified)
-					return "Production approval required before activation";
-				if (!value?._id) return true;
-				const published = await studioClient().getDocument(idWithoutDraft(value._id));
-				if (
-					published &&
-					["artworkId", "artworkVersion"].some(
-						(key) => published[key] && published[key] !== value[key]
-					)
-				) {
-					return "Published artwork identity/version is immutable. Create a new version document and retain the original.";
-				}
-				if (
-					published?.printAsset?.asset?._ref &&
-					published.printAsset.asset._ref !== value.printAsset?.asset?._ref
-				) {
-					return "Published print master is immutable; create a new artwork version.";
-				}
-				return true;
-			}),
 		preview: { select: { title: "name", media: "images.0" } },
 	}
 );
 
-export const creativaMacbookModel = doc(
-	"creativaMacbookModel",
-	"MacBook models",
-	[
-		text("name"),
-		text("code"),
-		field("sortOrder", "number", { validation: integer() }),
-		active,
-		field("fitVerified", "boolean", { initialValue: false }),
-		text("fitReference", {
-			description:
-				"Approved physical fit and retrievable retained cut-template reference, not a screenshot label.",
-		}),
-	],
-	{
+export const creativaMacbookModel = doc("creativaMacbookModel", "MacBook models", [
+	text("name"),
+	field("code", "slug", {
+		options: { source: "name", maxLength: 96 },
 		validation: (Rule) =>
-			Rule.custom(
+			Rule.required().custom(
 				(value) =>
-					!value?.active ||
-					(value.fitVerified === true && !!value.fitReference?.trim()) ||
-					"Verified fit/template required before activation"
+					(value?.current && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value.current)) ||
+					"Generate a readable code from the model name"
 			),
-	}
-);
+	}),
+	field("sortOrder", "number", { validation: integer() }),
+	active,
+]);
 
 export const creativaSkinCoverage = doc(
 	"creativaSkinCoverage",
@@ -263,40 +266,17 @@ export const creativaSkinCoverage = doc(
 	}
 );
 
-export const creativaShippingSettings = doc(
-	"creativaShippingSettings",
-	"Shipping settings",
-	[
-		array(
-			"rules",
-			object("shippingRule", [
-				...shippingFields,
-				active,
-				field("isDefault", "boolean"),
-				field("sortOrder", "number", { validation: integer() }),
-				field("note", "text"),
-			]),
-			{
-				validation: (Rule) =>
-					Rule.required().custom((rules) => {
-						if (!rules || rules.filter((rule) => rule.active && rule.isDefault).length !== 1)
-							return "Exactly one active default shipping rule required";
-						if (new Set(rules.map((rule) => rule.code)).size !== rules.length)
-							return "Shipping codes must be unique";
-						return uniqueKeys(rules);
-					}),
-			}
-		),
-	],
-	{ validation: singleton("creativa-shipping-settings") }
-);
+export const creativaShippingSettings = {
+	...shippingFee,
+	name: "creativaShippingSettings",
+	title: title("Shipping Fee"),
+};
 
-export const creativaBankSettings = doc(
-	"creativaBankSettings",
-	"Bank settings",
-	[active, ...bankFields],
-	{ validation: singleton("creativa-bank-settings") }
-);
+export const creativaBankSettings = {
+	...bankInfo,
+	name: "creativaBankSettings",
+	title: title("Bank Information"),
+};
 
 export const creativaSalesSettings = doc(
 	"creativaSalesSettings",
@@ -453,7 +433,7 @@ export const creativaOrder = doc(
 		preview: { select: { title: "publicId", subtitle: "handoffIssue" } },
 		orderings: [
 			{
-				title: title("Newest orders"),
+				title: "Newest Orders",
 				name: "newest",
 				by: [{ field: "orderDate", direction: "desc" }],
 			},

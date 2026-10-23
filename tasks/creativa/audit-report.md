@@ -1,11 +1,21 @@
 # Creativa Staff Audit
 
-**Code re-audit:** PASS through round 7 at `7fedd01`; all recorded actionable source findings I-01 through I-18 are resolved.
+**Historical application code re-audit:** PASS through round 7 at `7fedd01` for the former contract. The later CMS-only amendment is not covered by that integration verdict.
 **Overall acceptance:** FAIL / BLOCKED — E-01 through E-04 still lack their required external witnesses.
 **Phase:** Seven read-only audit rounds completed; application changes occurred only in the intervening implementation/rework phases.
 **Baseline:** `551ab8e`; cumulative implementation/rework reviewed through `7fedd01` on `feat/creativa`. Exact per-round scope/revision is retained below.
 **Scope:** Approved idea, specs, technical design, revised plan/test plan and repository rules.
 **Runtime boundary:** No production order, CMS mutation or notification was authorized/performed. Chromium response fixtures and mocked SDK probes are not real Sanity/native/hosted acceptance.
+
+## CMS-first amendment — 2026-10-23
+
+The owner approved Studio-only schema/editor changes and explicitly deferred storefront/API adaptation. See [CM-03 through CM-07](./plan.md#cms-first-amendment-and-required-next-actions). Legacy order/actions, root-only title prefixes, model slug codes, independent fee/bank records and rich product description/absolute print path supersede the old schema details.
+
+**Known staged gap:** current application guards/queries/snapshots still require removed fields and singleton formats. This is deliberately deferred scope, not a current end-to-end PASS. Do not “fix” it by inventing fit approvals/artwork versions or reading main-brand configuration. Preserve old snapshots/data; no migration is authorized here.
+
+**Next action:** integrate and verify the amended runtime contract, review existing-data migration and re-audit changed consumers. The rounds below remain historical evidence; E-01 through E-04 remain open.
+
+**CMS-only checks:** Studio build and isolated schema/navigation/action/template/label/path checks pass with zero CMS I/O. The standard local preview reaches sign-in, not authenticated editing; Generate/profile/publish interactions remain pending. No project CORS/credential/data changes were made, and no new end-to-end application verdict is issued.
 
 ## Round 1 findings
 

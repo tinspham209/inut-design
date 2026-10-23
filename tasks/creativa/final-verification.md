@@ -1,10 +1,20 @@
-# Creativa Final Verification
+# Creativa Verification Record
 
 **Implementation revision:** `7fedd0116edf5fbdaa1001c9577d068a199d2533` on `feat/creativa`.
-**Code audit:** PASS after seven recorded audit rounds and their rework.
-**Repository stop gate:** PASS within the scopes below.
+**Historical code audit:** PASS at the pinned revision after seven recorded rounds, before the CMS-first amendment.
+**Historical repository stop gate:** PASS within the baseline scopes below; not a new-schema runtime pass.
 **Full requirements / acceptance:** FAIL / BLOCKED. Launch is not approved.
-**Phase boundary:** Read-only application verification. Only SDD status/evidence documents were reconciled in this phase; no application code was changed.
+**Historical phase boundary:** The pinned application-verification phase was read-only. The later Studio-only amendment below is a separate, explicitly authorized schema/document change; application runtime code remains unchanged.
+
+## CMS-first amendment — current disposition (2026-10-23)
+
+The owner subsequently authorized **Studio schemas and related documents only**, not runtime changes or data migration. Creativa entries now follow legacy content; prefixes are root-only; models have slug codes/no fit fields; shipping/bank use independent fee/profile records; skin laptop uses active default true, Portable Text and absolute print-path metadata instead of the old approval/artwork/upload fields.
+
+**Current amended-contract application result: NOT VERIFIED / BLOCKED.** Existing readers, types, quote/snapshots and rendering still expect the former shapes. The 116-requirement/52-AC tables below describe the pinned historical baseline, not passing evidence for this changed contract. AC-39 and the affected requirements are now amended in the specification.
+
+**Next action:** complete [CM-03 through CM-07](./plan.md#cms-first-amendment-and-required-next-actions), inventory/authorize any existing-data migration, then run the amended contract/integration/browser checks and a fresh audit. Preserve historical orders and keep filesystem paths out of public projections/telemetry; path text does not upload/version a file or make a field private in a public dataset. Existing E-01 through E-04 remain open.
+
+**CMS-only evidence:** Existing Studio build and isolated schema/editor-definition/label/default/path/order/action/template checks pass without CMS calls. Browser reaches the standard local Studio sign-in screen; actual authenticated form controls, slug generation and create/publish are not verified. No CORS/credential changes, stored-document migration or application adaptation were performed.
 
 ## Result interpretation
 
