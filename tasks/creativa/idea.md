@@ -1,5 +1,9 @@
 # INUT Creativa — Product Idea
 
+## Latest transfer-memo decision
+
+Direct/shared/reloaded eligible bank-transfer tracking now shows saved customer name + phone, separated by a space. Owner explicitly accepts link-holder visibility; the former buyer-only/ID-fallback choice is superseded. Copy matches displayed memo; no raw customer object, telemetry/URL/persistent storage copy or new payment/order behavior.
+
 ## Current sales / tracking refinement
 
 Make saved orders image-first with readable colored status chips and compact local shortcut chips. Use the owner's sales-editable working order/production/financial fields while protecting private identity/recovery metadata. Owner chose buyer-only saved `Name - Phone` bank-transfer copy; shared/fresh tracking remains reference-only. Remove the attention menu, not notification retry safety. GA4 + Umami use client/session best effort without new Sanity analytics storage. See [S-01..S-06](./plan.md#sales--tracking-refinement--2026-10-23).

@@ -11,20 +11,19 @@ import { trackCreativa } from "@/utils/creativa/analytics";
 export function CreativaBankInstructions({
 	bank,
 	amount,
-	publicId,
 	transferContent,
+	disabled = false,
 }: {
 	bank: CreativaBank;
 	amount: number;
-	publicId: string;
-	transferContent?: string;
+	transferContent: string;
+	disabled?: boolean;
 }) {
 	const [imageFailed, setImageFailed] = useState(false);
 	const [copyNotice, setCopyNotice] = useState<string | null>(null);
-	const content = transferContent || publicId;
 	async function copyContent() {
 		try {
-			await navigator.clipboard.writeText(content);
+			await navigator.clipboard.writeText(transferContent);
 			setCopyNotice("Đã sao chép nội dung chuyển khoản.");
 			trackCreativa("order_reference_copy", { target: "transfer_content", outcome: "success" });
 		} catch {
@@ -53,11 +52,12 @@ export function CreativaBankInstructions({
 					<Typography variant="body2" sx={{ minWidth: 0, flex: 1, overflowWrap: "anywhere" }}>
 						Nội dung:{" "}
 						<Box component="span" sx={{ userSelect: "all" }}>
-							{content}
+							{transferContent}
 						</Box>
 					</Typography>
 					<Button
 						size="small"
+						disabled={disabled}
 						startIcon={<ContentCopyOutlinedIcon />}
 						onClick={() => void copyContent()}
 					>

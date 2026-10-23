@@ -174,6 +174,12 @@ trackEvent("custom_event_name", { category: "engagement", label: "button_label",
 
 ## INUT Creativa: isolated commerce measurement
 
+Latest confirmed transfer policy: saved name + phone is deliberately visible in
+eligible direct/shared/reloaded tracking instructions. It is still **never**
+measurement context: copy emits only target/outcome, not content. Do not put memo
+in URL/logs/localStorage/sessionStorage or send a raw customer object. The former
+buyer-only RAM context/version/ID fallback is removed by owner approval.
+
 Creativa uses `utils/creativa/analytics.ts` with the existing guarded GA4 and
 Umami primitives. Do not additionally call the legacy combined ecommerce helpers
 for the same Creativa action. Keep changes on `feat/creativa`; this feature's

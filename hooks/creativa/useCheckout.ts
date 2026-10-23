@@ -21,7 +21,6 @@ import {
 } from "@/utils/creativa/storage";
 import { measureCreativaLine, trackCreativa } from "@/utils/creativa/analytics";
 import { dispatchCreativaPurchase } from "@/utils/creativa/purchase";
-import { useCreativaBuyer } from "@/components/creativa/BuyerContext";
 
 type State = {
 	attempt: CheckoutAttempt | null;
@@ -64,7 +63,6 @@ export function useCreativaCheckout() {
 	const recovery = useCreativaResolve();
 	const request = useCreativaQuote();
 	const { refresh, invalidate } = request;
-	const buyer = useCreativaBuyer();
 	const lock = useRef(false);
 	const completed = useRef(new Set<string>());
 	const began = useRef(false);
@@ -159,15 +157,6 @@ export function useCreativaCheckout() {
 
 	function acceptedCompletion(result: CreativaAccepted, current: CheckoutAttempt) {
 		acceptanceKnown.current = true;
-		buyer.remember(
-			result.transferContent && result.order.transferContextVersion
-				? {
-						publicId: result.order.publicId,
-						content: result.transferContent,
-						version: result.order.transferContextVersion,
-				  }
-				: null
-		);
 		patch({ accepted: result.order, error: null });
 		if (completed.current.has(current.capability)) return;
 		const latest = readAttempt();

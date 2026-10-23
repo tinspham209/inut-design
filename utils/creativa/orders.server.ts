@@ -11,6 +11,7 @@ import {
 	CREATIVA_PUBLIC_ID,
 	lineIdentity,
 	parseCheckout,
+	parseCustomer,
 	projectCreativaImage,
 	safeMoney,
 	safeQuantity,
@@ -56,6 +57,10 @@ export function publicOrder(order: StoredOrder): CreativaPublicOrder {
 		order.paymentMethod === "bank_transfer" &&
 		order.status !== "cancelled" &&
 		(order.paymentStatus === "pending" || order.paymentStatus === "failed");
+	const transferCustomer =
+		bankPrompt && order.bank
+			? parseCustomer({ name: order.customer.name, phone: order.customer.phone })
+			: null;
 	return {
 		publicId: order.publicId,
 		orderDate: order.orderDate,
@@ -107,17 +112,9 @@ export function publicOrder(order: StoredOrder): CreativaPublicOrder {
 				  }
 				: null,
 		...(order.trackingNumber && { trackingNumber: order.trackingNumber }),
-		...(bankPrompt &&
-			order.bank && {
-				transferContextVersion: sha256(
-					JSON.stringify([
-						order._id,
-						order.customer.name,
-						order.customer.phone,
-						order.paymentMethod,
-					])
-				),
-			}),
+		...(transferCustomer && {
+			transferContent: `${transferCustomer.name.replace(/\s+/g, " ")} ${transferCustomer.phone}`,
+		}),
 	};
 }
 
@@ -183,11 +180,6 @@ export function acceptedOrderResponse(order: StoredOrder, created: boolean): Cre
 	return {
 		created,
 		order: view,
-		...(view.bank && {
-			transferContent: `${order.customer.name.replace(/\s+/g, " ").trim()} - ${
-				order.customer.phone
-			}`,
-		}),
 		analyticsTransactionId: legacyIdentity || sha256(`creativa-purchase-v2:${order._id}`),
 	};
 }

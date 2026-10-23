@@ -1,5 +1,9 @@
 # New sub brand: INUT Creativa
 
+## Latest transfer-memo correction
+
+Owner confirms direct/shared/reloaded eligible tracking must show/copy `{customer name} {customer phone}` with one space, not order ID or a hyphenated memo, and explicitly approves name/full-phone visibility to holders of that order link. Remove buyer-only context dependency; do not include raw customer object or persist/measure the memo. See the latest [plan amendment](./plan.md#direct-tracking-transfer-memo-correction--2026-10-23).
+
 ## Current sales / tracking refinement
 
 Owner approved tracking thumbnails/status chips, buyer-only `Name - Phone` transfer copy (public/reloaded tracking keeps order ID), compact Creativa saved chips, sales-first CMS hiding technical metadata and removal of the attention menu while preserving delivery retry safety. Analytics goes to GA4 + Umami only, with no new Sanity analytics IDs/receipts/claims and explicitly browser-best-effort dedup. [S-01..S-06](./plan.md#sales--tracking-refinement--2026-10-23) governs this loop; no data migration/real order/send/deployment is authorized.

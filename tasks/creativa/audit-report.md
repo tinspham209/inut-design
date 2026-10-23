@@ -1,5 +1,9 @@
 # Creativa Staff Audit
 
+## Direct tracking memo correction — current review pending
+
+Latest confirmed owner contract replaces buyer-only fallback with eligible link-holder `{saved name} {phone}`. Source removes obsolete context/version state and order-ID memo fallback while keeping eligibility/privacy guards outside the approved display. Actual projection/purchase-payload unit checks and supplied-URL/reload/copy tests pass; final gate/direct read-only review follows. No real order/CMS mutation/send.
+
 ## Current sales / tracking refinement — PASS
 
 **Code PASS:** Independent read-only review of `6e71574..21b7b06`, including current S-01..S-05 owner decisions, found no significant actionable issue. The reviewer reran the isolated actual-source SDK/purchase/CMS/privacy/contrast probe successfully. Current application lint/types/build229/SEO221 and Studio build pass.

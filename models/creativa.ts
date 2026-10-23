@@ -175,14 +175,13 @@ export type CreativaPublicOrder = {
 	finalAmount: number;
 	shipping: CreativaShipping;
 	bank: CreativaBank | null;
-	transferContextVersion?: string;
+	transferContent?: string;
 	trackingNumber?: string;
 };
 
 export type CreativaAccepted = {
 	created: boolean;
 	order: CreativaPublicOrder;
-	transferContent?: string;
 	analyticsTransactionId?: string;
 };
 export type CreativaApiError = {
