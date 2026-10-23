@@ -1,5 +1,9 @@
 # Creativa Runtime / Orange-Light Final Verification
 
+## Compact-client continuation — verification pending
+
+The current [UI-01..UI-07 amendment](./plan.md#compact-ui--form-and-request-amendment--2026-10-23) changes presentation/forms/API orchestration. Its implementation and local gates are recorded in the plan; read-only audit/routing/current final verification must complete before extending the older verdict below. The historical 116/52 table is retained as the unchanged business/AC inventory, not a fresh pass for unreviewed code. No real database/order/send/native/vendor proof has been added.
+
 **Audited application revision:** `5a8cff8` on `feat/creativa`.
 **Audit lineage:** Independent Staff PASS at `715aa79`, then final-verification finding R-01, rework and targeted read-only PASS through `5a8cff8`.
 **Code result:** PASS within the recorded scope; no remaining actionable source finding.

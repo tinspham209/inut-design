@@ -3,11 +3,19 @@ import Link from "next/link";
 import { CreativaLayout } from "@/components/layout";
 import { CreativaSeo } from "@/components/creativa/Seo";
 import type { NextPageWithLayout } from "@/models/common";
+import { CreativaBreadcrumbs } from "@/components/creativa/Breadcrumbs";
 
 const Guides: NextPageWithLayout = () => (
 	<>
 		<CreativaSeo title="Hướng dẫn sử dụng" path="/creativa/skin-laptop/huong-dan-su-dung" noindex />
-		<Container maxWidth="md" sx={{ py: 8 }}>
+		<Container maxWidth="md" sx={{ py: { xs: 2, md: 3 } }}>
+			<CreativaBreadcrumbs
+				ancestors={[
+					{ label: "Creativa", href: "/creativa" },
+					{ label: "Skin MacBook", href: "/creativa/skin-laptop" },
+				]}
+				current="Hướng dẫn sử dụng"
+			/>
 			<Stack gap={2} alignItems="flex-start">
 				<Typography variant="overline">INUT CREATIVA / HƯỚNG DẪN</Typography>
 				<Typography variant="h3" component="h1">

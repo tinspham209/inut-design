@@ -2,7 +2,6 @@
 import {
 	Alert,
 	Box,
-	Breadcrumbs,
 	Button,
 	Container,
 	FormControl,
@@ -25,10 +24,13 @@ import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import "yet-another-react-lightbox/styles.css";
 import { CreativaLayout } from "@/components/layout";
 import { CreativaSeo } from "@/components/creativa/Seo";
-import { creativaApi } from "@/api-client/creativa-checkout";
+import { CreativaBreadcrumbs } from "@/components/creativa/Breadcrumbs";
+import { useCreativaProduct, useCreativaProductRetry } from "@/hooks/creativa/useApi";
 import { sanityImageUrl } from "@/api-client/sanity-image";
 import type { CreativaImage, CreativaOptions, CreativaProduct } from "@/models/creativa";
 import type { NextPageWithLayout } from "@/models/common";
@@ -38,6 +40,7 @@ import { trackCreativa } from "@/utils/creativa/analytics";
 import { SITE_URL } from "@/utils/siteUrl";
 import BlockContentWrapper from "@/components/common/block-content";
 import { creativaDescriptionText } from "@/utils/creativa/content";
+import { creativaProductSchema } from "@/utils/creativa/forms";
 
 const Carousel = dynamic(() => import("react-material-ui-carousel"), { ssr: false });
 const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
@@ -69,54 +72,28 @@ function GalleryImage({ image, priority = false }: { image: CreativaImage; prior
 function ProductContent(initial: Props) {
 	const theme = useTheme();
 	const productSlug = initial.product.slug.current;
-	const [data, setData] = useState(initial);
-	const [modelId, setModelId] = useState("");
-	const [coverageId, setCoverageId] = useState(initial.options.coverages[0]?._id || "");
-	const [quantity, setQuantity] = useState("1");
+	const request = useCreativaProduct(productSlug, initial);
+	const form = useForm({
+		defaultValues: { modelId: "", coverageId: "", quantity: 1 },
+		resolver: yupResolver(creativaProductSchema),
+	});
+	const modelId = useWatch({ control: form.control, name: "modelId" });
+	const selectedCoverage = useWatch({ control: form.control, name: "coverageId" });
 	const measuredQuantity = useRef(1);
-	const coverageChosen = useRef(false);
 	const viewed = useRef(false);
 	const [index, setIndex] = useState(0);
 	const lightboxIndex = useRef(0);
 	const [lightbox, setLightbox] = useState(false);
-	const [verified, setVerified] = useState(false);
-	const [error, setError] = useState<string | null>(null);
+	const verified = !!request.data?.verified && !request.isValidating && !request.error;
+	const [localError, setError] = useState<string | null>(null);
+	const error = localError || request.error?.message || null;
 	const [notice, setNotice] = useState<string | null>(null);
-	const [retry, setRetry] = useState(0);
 	const cart = useHydratedCreativaCart();
-	const { product, options } = data;
+	const { product, options } = request.data || initial;
+	const coverageId = selectedCoverage || options.coverages[0]?._id || "";
 	const coverage = options.coverages.find((item) => item._id === coverageId);
 	const model = options.models.find((item) => item._id === modelId);
-	useEffect(() => {
-		let current = true;
-		void creativaApi
-			.product(productSlug)
-			.then((next) => {
-				if (!current) return;
-				setData(next);
-				setVerified(true);
-				setError(null);
-				setCoverageId((previous) =>
-					!coverageChosen.current
-						? next.options.coverages[0]?._id || ""
-						: next.options.coverages.some((item) => item._id === previous)
-						? previous
-						: ""
-				);
-				setModelId((previous) =>
-					next.options.models.some((item) => item._id === previous) ? previous : ""
-				);
-			})
-			.catch((failure: Error) => {
-				if (current) {
-					setVerified(false);
-					setError(failure.message);
-				}
-			});
-		return () => {
-			current = false;
-		};
-	}, [productSlug, retry]);
+	const { ref: quantityRef, ...quantityField } = form.register("quantity", { valueAsNumber: true });
 	useEffect(() => {
 		if (viewed.current) return;
 		viewed.current = true;
@@ -177,13 +154,15 @@ function ProductContent(initial: Props) {
 				structured={structured}
 				description={description || `Chọn mẫu MacBook và phạm vi dán cho thiết kế ${product.name}.`}
 			/>
-			<Container maxWidth="xl" sx={{ py: { xs: 2, md: 4 } }}>
-				<Breadcrumbs sx={{ mb: 2, fontSize: 13 }}>
-					<Link href="/creativa">Creativa</Link>
-					<Link href="/creativa/skin-laptop">Skin MacBook</Link>
-					<Typography variant="caption">{product.name}</Typography>
-				</Breadcrumbs>
-				<Grid container spacing={{ xs: 3, md: 6 }}>
+			<Container maxWidth="xl" sx={{ py: { xs: 2, md: 3 } }}>
+				<CreativaBreadcrumbs
+					ancestors={[
+						{ label: "Creativa", href: "/creativa" },
+						{ label: "Skin MacBook", href: "/creativa/skin-laptop" },
+					]}
+					current={product.name}
+				/>
+				<Grid container spacing={{ xs: 2, md: 3 }}>
 					<Grid item xs={12} md={7}>
 						<Carousel
 							autoPlay={false}
@@ -288,15 +267,15 @@ function ProductContent(initial: Props) {
 						/>
 					</Grid>
 					<Grid item xs={12} md={5}>
-						<Stack gap={2.5} sx={{ maxWidth: 510, mx: "auto", py: { md: 3 } }}>
+						<Stack gap={1.5} sx={{ maxWidth: 510, mx: "auto", py: { md: 1 } }}>
 							<Box>
 								<Typography
 									component="h1"
-									sx={{ fontSize: { xs: 28, md: 36 }, lineHeight: 1.2, fontWeight: 400 }}
+									sx={{ fontSize: { xs: 22, md: 28 }, lineHeight: 1.25, fontWeight: 400 }}
 								>
 									{product.name}
 								</Typography>
-								<Typography sx={{ fontSize: 23, mt: 2 }}>
+								<Typography sx={{ fontSize: 19, mt: 1 }}>
 									{coverage
 										? formatCreativaPrice(coverage.price)
 										: priceList.length
@@ -312,7 +291,14 @@ function ProductContent(initial: Props) {
 									severity="error"
 									action={
 										error ? (
-											<Button onClick={() => setRetry((value) => value + 1)}>Thử lại</Button>
+											<Button
+												onClick={() => {
+													setError(null);
+													void request.retry();
+												}}
+											>
+												Thử lại
+											</Button>
 										) : undefined
 									}
 								>
@@ -329,9 +315,11 @@ function ProductContent(initial: Props) {
 								<Select
 									labelId="creativa-model"
 									label="Mẫu MacBook"
-									value={modelId}
+									name="modelId"
+									inputRef={form.register("modelId").ref}
+									value={model?._id || ""}
 									onChange={(event) => {
-										setModelId(event.target.value);
+										form.setValue("modelId", event.target.value);
 										setNotice(null);
 										trackCreativa("product_option_change", {
 											product_id: product._id,
@@ -365,8 +353,7 @@ function ProductContent(initial: Props) {
 									aria-labelledby="creativa-coverage"
 									value={coverageId}
 									onChange={(event) => {
-										coverageChosen.current = true;
-										setCoverageId(event.target.value);
+										form.setValue("coverageId", event.target.value);
 										setNotice(null);
 										trackCreativa("product_option_change", {
 											product_id: product._id,
@@ -395,8 +382,8 @@ function ProductContent(initial: Props) {
 												borderColor: coverageId === item._id ? "primary.main" : "divider",
 												borderRadius: 1,
 												mx: 0,
-												mb: 1,
-												py: 1,
+												mb: 0.75,
+												py: 0.25,
 												pr: 1,
 											}}
 										/>
@@ -404,12 +391,16 @@ function ProductContent(initial: Props) {
 								</RadioGroup>
 							</FormControl>
 							<TextField
+								{...quantityField}
+								inputRef={quantityRef}
 								label="Số lượng"
 								type="number"
-								value={quantity}
+								error={!!form.formState.errors.quantity}
+								helperText={form.formState.errors.quantity?.message}
 								inputProps={{ min: 1, step: 1 }}
-								onChange={(event) => setQuantity(event.target.value)}
-								onBlur={() => {
+								onBlur={(event) => {
+									void quantityField.onBlur(event);
+									const quantity = form.getValues("quantity");
 									if (
 										Number.isSafeInteger(Number(quantity)) &&
 										Number(quantity) > 0 &&
@@ -427,58 +418,63 @@ function ProductContent(initial: Props) {
 							/>
 							<Button
 								variant="contained"
-								size="large"
 								startIcon={<AddShoppingCartOutlinedIcon />}
 								disabled={!verified || !model || !coverage || !cart.hydrated || !!cart.error}
-								sx={{ borderRadius: 20, py: 1.6 }}
-								onClick={() => {
-									try {
-										const count = safeQuantity(Number(quantity));
-										cart.add({
-											productType: "skin-laptop",
-											productId: product._id,
-											selection: { modelId: model._id, coverageId: coverage._id },
-											quantity: count,
-											productName: product.name,
-											productSlug: product.slug.current,
-											productImage: product.images[0],
-											modelName: model.name,
-											coverageName: coverage.name,
-											unitPrice: coverage.price,
-										});
-										setNotice("Đã thêm vào giỏ hàng.");
-										setError(null);
-										trackCreativa(
-											"add_to_cart",
-											{
-												product_id: product._id,
-												product_name: product.name,
-												product_type: "skin-laptop",
-												model_id: model._id,
-												coverage_id: coverage._id,
+								sx={{ borderRadius: 20, py: 1 }}
+								onClick={form.handleSubmit(
+									({ quantity }) => {
+										try {
+											const count = safeQuantity(Number(quantity));
+											cart.add({
+												productType: "skin-laptop",
+												productId: product._id,
+												selection: { modelId: model._id, coverageId: coverage._id },
 												quantity: count,
-												value: count * coverage.price,
-											},
-											[
+												productName: product.name,
+												productSlug: product.slug.current,
+												productImage: product.images[0],
+												modelName: model.name,
+												coverageName: coverage.name,
+												unitPrice: coverage.price,
+											});
+											setNotice("Đã thêm vào giỏ hàng.");
+											setError(null);
+											trackCreativa(
+												"add_to_cart",
 												{
-													item_id: product._id,
-													item_name: product.name,
-													item_category: "skin-laptop",
+													product_id: product._id,
+													product_name: product.name,
+													product_type: "skin-laptop",
 													model_id: model._id,
 													coverage_id: coverage._id,
-													item_variant: coverage.code,
 													quantity: count,
-													price: coverage.price,
+													value: count * coverage.price,
 												},
-											]
-										);
-									} catch (failure) {
-										setError(
-											failure instanceof Error ? failure.message : "Không thể thêm vào giỏ."
-										);
+												[
+													{
+														item_id: product._id,
+														item_name: product.name,
+														item_category: "skin-laptop",
+														model_id: model._id,
+														coverage_id: coverage._id,
+														item_variant: coverage.code,
+														quantity: count,
+														price: coverage.price,
+													},
+												]
+											);
+										} catch (failure) {
+											setError(
+												failure instanceof Error ? failure.message : "Không thể thêm vào giỏ."
+											);
+											trackCreativa("add_to_cart_error", { reason: "invalid_or_storage" });
+										}
+									},
+									() => {
+										setError("Vui lòng kiểm tra mẫu máy và số lượng.");
 										trackCreativa("add_to_cart_error", { reason: "invalid_or_storage" });
 									}
-								}}
+								)}
 							>
 								Thêm vào giỏ hàng
 							</Button>
@@ -502,9 +498,24 @@ function ProductContent(initial: Props) {
 									sx={{
 										borderTop: "1px solid",
 										borderColor: "divider",
-										pt: 3,
+										pt: 1.5,
 										"& #block-content-wrapper blockquote": { borderLeftColor: "primary.main" },
 										"& #block-content-wrapper a": { color: "primary.dark" },
+										"& #block-content-wrapper p, & #block-content-wrapper li": {
+											fontSize: 14,
+											lineHeight: 1.5,
+											marginBottom: 1,
+										},
+										"& #block-content-wrapper h1, & #block-content-wrapper h2": {
+											fontSize: 20,
+											marginTop: 2,
+											marginBottom: 1,
+										},
+										"& #block-content-wrapper h3, & #block-content-wrapper h4": {
+											fontSize: 18,
+											marginTop: 1.5,
+											marginBottom: 1,
+										},
 									}}
 								>
 									{typeof product.description === "string" ? (
@@ -525,10 +536,8 @@ function ProductContent(initial: Props) {
 	);
 }
 function UnavailableProduct({ slug, initialError }: UnavailableProps) {
-	const [result, setResult] = useState<Props | null>(null);
-	const [error, setError] = useState(initialError);
-	const [busy, setBusy] = useState(false);
-	if (result) return <ProductContent key={result.product._id} {...result} />;
+	const retry = useCreativaProductRetry();
+	if (retry.data) return <ProductContent key={retry.data.product._id} {...retry.data} />;
 	return (
 		<>
 			<CreativaSeo
@@ -536,27 +545,25 @@ function UnavailableProduct({ slug, initialError }: UnavailableProps) {
 				path={`/creativa/skin-laptop/${slug}`}
 				noindex
 			/>
-			<Container maxWidth="md" sx={{ py: 6 }}>
+			<Container maxWidth="md" sx={{ py: 2 }}>
+				<CreativaBreadcrumbs
+					ancestors={[
+						{ label: "Creativa", href: "/creativa" },
+						{ label: "Skin MacBook", href: "/creativa/skin-laptop" },
+					]}
+					current="Sản phẩm chưa sẵn sàng"
+				/>
 				<Stack gap={2}>
 					<Typography component="h1" variant="h4">
 						Sản phẩm tạm thời chưa sẵn sàng
 					</Typography>
-					<Alert severity="error">{error}</Alert>
+					<Alert severity="error">{retry.error?.message || initialError}</Alert>
 					<Button
 						variant="contained"
-						disabled={busy}
-						onClick={async () => {
-							setBusy(true);
-							try {
-								setResult(await creativaApi.product(slug));
-							} catch (failure) {
-								setError(failure instanceof Error ? failure.message : "Không thể tải sản phẩm.");
-							} finally {
-								setBusy(false);
-							}
-						}}
+						disabled={retry.isMutating}
+						onClick={() => void retry.trigger(slug, { throwOnError: false })}
 					>
-						{busy ? "Đang tải…" : "Thử lại"}
+						{retry.isMutating ? "Đang tải…" : "Thử lại"}
 					</Button>
 					<Link href="/creativa/skin-laptop">Về danh sách thiết kế</Link>
 				</Stack>

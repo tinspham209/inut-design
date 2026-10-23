@@ -1,23 +1,33 @@
 /* eslint-disable camelcase */
-import { Alert, Button, Container, Stack, TextField, Typography } from "@mui/material";
+import { Button, Container, Stack, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { CreativaLayout } from "@/components/layout";
 import { CreativaSeo } from "@/components/creativa/Seo";
 import { RecentCreativaOrders } from "@/components/creativa/RecentOrders";
 import type { NextPageWithLayout } from "@/models/common";
-import { CREATIVA_PUBLIC_ID } from "@/utils/creativa/contracts";
+import { creativaReferenceSchema } from "@/utils/creativa/forms";
+import { CreativaBreadcrumbs } from "@/components/creativa/Breadcrumbs";
 import { trackCreativa } from "@/utils/creativa/analytics";
 
 const TrackingSearch: NextPageWithLayout = () => {
-	const [reference, setReference] = useState("");
-	const [error, setError] = useState<string | null>(null);
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		defaultValues: { reference: "" },
+		resolver: yupResolver(creativaReferenceSchema),
+	});
+	const { ref, ...field } = register("reference");
 	const router = useRouter();
 	return (
 		<>
 			<CreativaSeo title="Tra cứu đơn hàng" path="/creativa/order-tracking" noindex />
-			<Container maxWidth="sm" sx={{ py: { xs: 5, md: 9 } }}>
-				<Stack gap={3}>
+			<Container maxWidth="sm" sx={{ py: { xs: 2, md: 3 } }}>
+				<CreativaBreadcrumbs current="Tra cứu đơn hàng" />
+				<Stack gap={1.5}>
 					<Typography variant="h3" component="h1">
 						Tra cứu đơn hàng
 					</Typography>
@@ -25,14 +35,9 @@ const TrackingSearch: NextPageWithLayout = () => {
 					<Stack
 						component="form"
 						gap={2}
-						onSubmit={(event) => {
-							event.preventDefault();
+						noValidate
+						onSubmit={handleSubmit(({ reference }) => {
 							const id = reference.trim();
-							if (!CREATIVA_PUBLIC_ID.test(id)) {
-								setError("Mã Creativa gồm đúng 10 ký tự chữ, số, dấu _ hoặc -.");
-								return;
-							}
-							setError(null);
 							trackCreativa("order_tracking_search", {
 								entry_point: "creativa",
 								lookup_source: "manual",
@@ -41,17 +46,18 @@ const TrackingSearch: NextPageWithLayout = () => {
 								pathname: `/creativa/order-tracking/${encodeURIComponent(id)}`,
 								query: { source: "manual", entry: "creativa" },
 							});
-						}}
+						})}
 					>
 						<TextField
+							{...field}
+							inputRef={ref}
 							fullWidth
 							label="Mã đơn hàng"
 							required
-							value={reference}
-							onChange={(event) => setReference(event.target.value)}
+							error={!!errors.reference}
+							helperText={errors.reference?.message}
 							inputProps={{ autoCapitalize: "none", autoCorrect: "off", spellCheck: false }}
 						/>
-						{error && <Alert severity="error">{error}</Alert>}
 						<RecentCreativaOrders />
 						<Button type="submit" variant="contained" size="large">
 							Tra cứu

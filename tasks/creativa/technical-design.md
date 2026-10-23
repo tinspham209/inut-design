@@ -1,5 +1,13 @@
 # INUT Creativa — Technical Design
 
+## Current compact-client amendment
+
+Follow [UI-01..UI-07](./plan.md#compact-ui--form-and-request-amendment--2026-10-23). Small shared breadcrumb/thumbnail components own presentation. Public thumbnail metadata already exists in cart/order DTOs; preserve its safe optional form through cart decoding without persisting production fields. Cart/checkout use image zero from current quote or retained safe cart metadata.
+
+RHF/Yup owns form values/errors/focus, with shared server parsing unchanged. Creativa hooks own SWR public reads/infinite catalog and explicit SWRMutation quotes/create/resolve/claim actions. Keep capability/customer data in arguments, not SWR keys; disable mutation-triggered cache population/revalidation/retries. Preserve synchronous submit lock, original journal capability, contribution-aware completion and nonblocking measurement. Quotes must invalidate immediately and reject stale results for changed cart/address/payment; accepted recovery must not require current options. Keep legitimate hydration, router/external-state, page-view and exit-listener effects with cleanup, not effect-driven action replay.
+
+Density is scoped to Creativa, with smaller headings/body/spacing and readable mobile input sizing. Owner-confirmed white contained-primary text uses `#ae3500` background (6.35:1), while `primary.main` remains `#fd4d01`. This supersedes the former dark-text/orange-fill button detail below.
+
 **SDD gate:** Technical design.
 **Status:** Amended CMS/runtime and light theme/primary `#fd4d01` implemented; code audit PASS through `5a8cff8`. [Current verification](./final-verification.md) separates scoped passes from required E-01..E-04 release witnesses.
 **Date:** 2026-10-22.
@@ -80,7 +88,7 @@ These are bounded module responsibilities, not a requirement to create one file 
 | Guide index | `pages/creativa/skin-laptop/huong-dan-su-dung/index.tsx`, honest coming-soon content. |
 | Reserved guide articles | If scaffolded now, an empty `getStaticPaths` with `fallback: false`; no published article URLs. Otherwise leave the family unimplemented and returning 404. |
 
-All Creativa pages set `Page.Layout = CreativaLayout`. The scoped MUI light theme uses `primary.main = #fd4d01`, dark readable foreground on orange fills, darker-orange normal text/hover variants and light surfaces. It must not replace the main-brand theme. Mobile/desktop headers retain Creativa constants, home/search/cart routes and unit badge. No account/currency/case controls are copied.
+All Creativa pages set `Page.Layout = CreativaLayout`. The scoped MUI light theme uses `primary.main = #fd4d01`, white contained-primary text on `#ae3500`, darker-orange normal text/hover variants and light surfaces. Compact type/spacing preserves 16px mobile inputs and adequate control targets; linked breadcrumbs use text for the current page and no tracking reference in their label/measurement. It must not replace the main-brand theme. Mobile/desktop headers retain Creativa constants, home/search/cart routes and unit badge. No account/currency/case controls are copied.
 
 The existing global [cart wrapper](../../components/cart/CartWrapper.tsx) only renders on lighter product routes; leave that condition intact. Creativa's badge belongs to its shell, not a second root floating cart.
 

@@ -16,11 +16,11 @@ import CropPortraitIcon from "@mui/icons-material/CropPortrait";
 import type { GetStaticProps } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { CreativaLayout } from "@/components/layout";
 import { CreativaSeo } from "@/components/creativa/Seo";
-import { creativaApi } from "@/api-client/creativa-checkout";
+import { CreativaBreadcrumbs } from "@/components/creativa/Breadcrumbs";
+import { useCreativaCatalog } from "@/hooks/creativa/useCatalog";
 import { sanityImageUrl } from "@/api-client/sanity-image";
 import type { CreativaCatalogPage, CreativaProduct } from "@/models/creativa";
 import type { NextPageWithLayout } from "@/models/common";
@@ -73,7 +73,7 @@ function DesignCard({
 				<Box
 					onMouseEnter={() => setHover(true)}
 					onMouseLeave={() => setHover(false)}
-					sx={{ bgcolor: "#fff", position: "relative", aspectRatio: "1", overflow: "hidden" }}
+					sx={{ bgcolor: "white", position: "relative", aspectRatio: "1", overflow: "hidden" }}
 				>
 					{image && !failed ? (
 						<Image
@@ -91,11 +91,11 @@ function DesignCard({
 				</Box>
 				<Typography
 					component="h2"
-					sx={{ fontSize: { xs: 15, md: 17 }, fontWeight: 400, mt: 1.5, lineHeight: 1.5 }}
+					sx={{ fontSize: { xs: 13, md: 14 }, fontWeight: 400, mt: 1, lineHeight: 1.4 }}
 				>
 					{product.name}
 				</Typography>
-				<Typography variant="body2" mt={0.5}>
+				<Typography variant="body2" mt={0.25}>
 					{fromPrice === null
 						? "Chưa có tùy chọn đang bán"
 						: `Từ ${formatCreativaPrice(fromPrice)}`}
@@ -109,163 +109,28 @@ const SkinCatalog: NextPageWithLayout<{
 	initial: CreativaCatalogPage | null;
 	initialError: string | null;
 }> = ({ initial, initialError }) => {
-	const router = useRouter();
-	const [query, setQuery] = useState("");
-	const [data, setData] = useState<CreativaCatalogPage>(
-		initial || { items: [], cursor: null, fromPrice: null }
-	);
-	const [columns, setColumns] = useState(2);
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<string | null>(initialError);
-	const [errorPhase, setErrorPhase] = useState<"initial" | "additional" | null>(
-		initialError ? "initial" : null
-	);
-	const [reload, setReload] = useState(0);
-	const sequence = useRef(0);
-	const activeQuery = useRef("");
-	const presented = useRef(new Set<string>());
-	const initialized = useRef(false);
-	const additionalRequest = useRef<string | null>(null);
-	const batch = useRef(1);
-	const currentColumns = useRef(columns);
-	const initialPage = useRef(initial);
-	const impressed = useRef(new Set<string>());
-	currentColumns.current = columns;
-	const reportList = useCallback(
-		(items: CreativaProduct[], fromPrice: number | null, page: number, offset = 0) => {
-			const unseen = items
-				.map((item, index) => ({ item, position: offset + index }))
-				.filter(({ item }) => !impressed.current.has(item._id));
-			if (!unseen.length) return;
-			unseen.forEach(({ item }) => impressed.current.add(item._id));
-			trackCreativa(
-				"view_item_list",
-				{
-					item_count: unseen.length,
-					page,
-					columns: currentColumns.current,
-					surface: "catalog",
-					item_list_id: "creativa_skin_laptop",
-					item_positions: unseen.map(({ position }) => position).join(","),
-					price_basis: fromPrice !== null ? "from_active_coverage" : "unavailable",
-				},
-				unseen.map(({ item, position }) => ({
-					item_id: item._id,
-					item_name: item.name,
-					item_category: "skin-laptop",
-					item_list_id: "creativa_skin_laptop",
-					index: position,
-					quantity: 1,
-					...(fromPrice !== null && { price: fromPrice }),
-				}))
-			);
-		},
-		[]
-	);
-	useEffect(() => {
-		if (initialPage.current)
-			reportList(initialPage.current.items, initialPage.current.fromPrice, 1);
-	}, [reportList]);
-	useEffect(() => {
-		if (router.isReady)
-			setQuery(typeof router.query.q === "string" ? router.query.q.slice(0, 80) : "");
-	}, [router.isReady, router.query.q]);
-	useEffect(() => {
-		const generation = ++sequence.current;
-		initialized.current = false;
-		setLoading(true);
-		const controller = new AbortController();
-		const normalized = query.trim();
-		const timer = window.setTimeout(() => {
-			const previousQuery = activeQuery.current;
-			if (activeQuery.current !== normalized) {
-				impressed.current.clear();
-				setData({ items: [], cursor: null, fromPrice: initial?.fromPrice ?? null });
-			}
-			activeQuery.current = normalized;
-			setLoading(true);
-			setError(null);
-			void creativaApi
-				.catalog(normalized, null, controller.signal)
-				.then((page) => {
-					if (generation !== sequence.current) return;
-					setData(page);
-					presented.current = new Set(page.items.map((item) => item._id));
-					batch.current = 1;
-					initialized.current = true;
-					reportList(page.items, page.fromPrice, 1);
-					if (normalized || previousQuery)
-						trackCreativa("search", {
-							query_length: normalized.length,
-							results_count: page.items.length,
-							surface: "catalog",
-							search_context: "catalog",
-						});
-				})
-				.catch((failure: Error) => {
-					if (controller.signal.aborted || generation !== sequence.current) return;
-					setError(failure.message);
-					setErrorPhase("initial");
-					trackCreativa("catalog_load_error", { phase: "initial", reason: "request_failed" });
-				})
-				.finally(() => {
-					if (generation === sequence.current) setLoading(false);
-				});
-		}, 250);
-		return () => {
-			window.clearTimeout(timer);
-			controller.abort();
-		};
-		// Layout changes deliberately do not reset the query lifecycle.
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [query, reload, reportList]);
-	async function loadMore() {
-		if (!data.cursor || loading || !initialized.current || query.trim() !== activeQuery.current)
-			return;
-		const generation = sequence.current;
-		const requestKey = `${generation}:${data.cursor}`;
-		if (additionalRequest.current === requestKey) return;
-		additionalRequest.current = requestKey;
-		setLoading(true);
-		setError(null);
-		try {
-			const next = await creativaApi.catalog(activeQuery.current, data.cursor);
-			if (generation !== sequence.current) return;
-			const added = next.items.filter((item) => !presented.current.has(item._id));
-			added.forEach((item) => presented.current.add(item._id));
-			const nextBatch = ++batch.current;
-			setData((current) => ({
-				...next,
-				items: [...current.items, ...added],
-			}));
-			trackCreativa("catalog_pagination", { item_count: added.length, page: nextBatch });
-			reportList(added, next.fromPrice, nextBatch, data.items.length);
-		} catch (failure) {
-			if (generation === sequence.current) {
-				setError(failure instanceof Error ? failure.message : "Không thể tải thêm sản phẩm.");
-				setErrorPhase("additional");
-				trackCreativa("catalog_load_error", { phase: "additional", reason: "request_failed" });
-			}
-		} finally {
-			if (additionalRequest.current === requestKey) additionalRequest.current = null;
-			if (generation === sequence.current) setLoading(false);
-		}
-	}
+	const { form, query, data, columns, loading, error, search, changeColumns, retry, loadMore } =
+		useCreativaCatalog(initial, initialError);
+	const { ref, ...queryField } = form.register("query", {
+		onChange: (event) => search(event.target.value),
+	});
 	return (
 		<>
 			<CreativaSeo title="Skin MacBook" path="/creativa/skin-laptop" />
-			<Container maxWidth="xl" sx={{ py: { xs: 3, md: 5 } }}>
-				<Stack gap={2}>
-					<Typography component="h1" sx={{ fontSize: { xs: 30, md: 42 }, fontWeight: 400 }}>
+			<Container maxWidth="xl" sx={{ py: { xs: 2, md: 3 } }}>
+				<CreativaBreadcrumbs current="Skin MacBook" />
+				<Stack gap={1.5}>
+					<Typography component="h1" sx={{ fontSize: { xs: 24, md: 28 }, fontWeight: 400 }}>
 						Skin MacBook
 					</Typography>
 					<Stack direction="row" alignItems="center" gap={1} justifyContent="space-between">
 						<TextField
-							size="small"
+							{...queryField}
+							inputRef={ref}
 							label="Tìm theo tên thiết kế"
-							value={query}
-							onChange={(event) => setQuery(event.target.value)}
 							inputProps={{ maxLength: 80 }}
+							error={!!form.formState.errors.query}
+							helperText={form.formState.errors.query?.message}
 							sx={{ maxWidth: 380, flex: 1 }}
 						/>
 						<Stack direction="row" sx={{ display: { md: "none" } }}>
@@ -275,13 +140,7 @@ const SkinCatalog: NextPageWithLayout<{
 									aria-label={`${value} cột`}
 									aria-pressed={columns === value}
 									sx={{ bgcolor: columns === value ? "action.selected" : undefined }}
-									onClick={() => {
-										trackCreativa("catalog_layout_change", {
-											previous_columns: columns,
-											columns: value,
-										});
-										setColumns(value);
-									}}
+									onClick={() => changeColumns(value)}
 								>
 									{value === 1 ? <CropPortraitIcon /> : <GridViewOutlinedIcon />}
 								</IconButton>
@@ -292,14 +151,7 @@ const SkinCatalog: NextPageWithLayout<{
 						<Alert
 							severity="error"
 							action={
-								<Button
-									color="inherit"
-									onClick={() =>
-										errorPhase === "additional" && data.cursor
-											? void loadMore()
-											: setReload((value) => value + 1)
-									}
-								>
+								<Button color="inherit" onClick={() => void retry()}>
 									Thử lại
 								</Button>
 							}
@@ -314,7 +166,7 @@ const SkinCatalog: NextPageWithLayout<{
 								: "Bộ sưu tập đang được chuẩn bị. Sản phẩm sẽ hiển thị khi được công bố."}
 						</Alert>
 					)}
-					<Grid container spacing={{ xs: 1.5, md: 2.5 }}>
+					<Grid container spacing={{ xs: 1, md: 2 }}>
 						{data.items.map((product, position) => (
 							<Grid item xs={columns === 1 ? 12 : 6} sm={6} md={4} lg={3} key={product._id}>
 								<DesignCard product={product} fromPrice={data.fromPrice} position={position} />
@@ -333,7 +185,7 @@ const SkinCatalog: NextPageWithLayout<{
 							disabled={loading}
 							variant="outlined"
 							onClick={() => void loadMore()}
-							sx={{ alignSelf: "center", minWidth: 180, mt: 3 }}
+							sx={{ alignSelf: "center", minWidth: 180, mt: 1.5 }}
 						>
 							{loading ? "Đang tải…" : "Xem thêm thiết kế"}
 						</Button>

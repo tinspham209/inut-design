@@ -1,5 +1,9 @@
 # Creativa Issue Routing
 
+## Current compact-client loop
+
+UI-01..UI-06 implementation/local gates are complete; read-only audit of the delta from `227a81f` is next. Any concrete new finding must be classified and reworked before final verification. The prior resolved findings below remain historical; E-01..E-04 remain open, including actual image CDN/operator readiness, database, hosted and native/manual evidence. New source completion is not deployment/launch approval.
+
 **Phase:** Current issue routing — no application code changes. Implementation/rework/audits and scoped read-only final verification complete; external release witnesses remain open.
 **Code reviewed:** Independent amended-contract audit at `715aa79`; R-01 targeted re-audit PASS at `5a8cff8`. Historical findings remain below.
 **Inputs:** [Audit report](./audit-report.md), [revised plan](./plan.md), [specification](./specs.md) and [test plan](./test-plan.md).

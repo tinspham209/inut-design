@@ -1,5 +1,11 @@
 # INUT Creativa — Product Specification
 
+## Current compact-client amendment
+
+The [UI-01..UI-07 amendment](./plan.md#compact-ui--form-and-request-amendment--2026-10-23) is approved implementation scope: cart/checkout display the first product image to the left of its name; every live Creativa page has linked ancestor breadcrumbs and a text-only current item; compact typography/spacing prioritizes imagery without reducing input readability or interaction targets. Owner-confirmed contained-primary buttons use white text on `#ae3500`, retaining brand primary `#fd4d01`.
+
+Creativa form ownership uses React Hook Form + Yup; API orchestration uses SWR/SWRMutation hooks, not request chains in render pages. Existing server validation, recovery/acceptance/storage/privacy/measurement semantics remain authoritative. Prefer event/request handlers to effects where a user action owns the trigger; genuine lifecycle/external synchronization remains allowed. This amends implementation/presentation of existing 116 requirements/52 ACs, not a new order flow or a weakened acceptance oracle.
+
 **SDD gate:** Specification.
 **Status:** Owner-approved CMS/runtime amendments are implemented; cumulative code audit PASS through `5a8cff8`. Current [final verification](./final-verification.md) records all 116 requirements/52 AC results and E-01..E-04 blockers; production activation remains unapproved.
 **Date:** 2026-10-22.
@@ -288,7 +294,7 @@ Only root Creativa document titles MUST use **`Creative - `**; fields/nested obj
 | [Mobile catalog](./references/uniqfind-catalog-mobile.png) | Two-column default and visible one/two-column control. |
 | [Model selector](./references/uniqfind-macbook-models.png) | Single-choice scrollable model list and CMS-controlled grouped labels. |
 
-- **UX-01:** Use a light, clean, professional INUT direction with primary exactly `#fd4d01`, light off-white/white surfaces and compact image-first spacing. Use readable dark foregrounds/darker orange text/hover variants where needed for contrast; do not change the root brand's theme.
+- **UX-01:** Use a light, clean, professional INUT direction with brand primary exactly `#fd4d01`, light off-white/white surfaces, compact image-first spacing and smaller readable typography. Contained-primary buttons MUST use white text on owner-approved `#ae3500`; retain accessible hover/touch/disabled contrast and readable text variants without changing the root brand's theme.
 - **UX-02:** Essential content/actions MUST work on iPhone/Safari and other touch devices without hover, horizontal page overflow or controls hidden behind the header/footer. Check layouts at representative mobile widths, tablet and desktop.
 - **UX-03:** Selectors, layout toggle, gallery, quantity controls and forms MUST have meaningful labels, visible focus, keyboard operation and perceivable selected/error states. A disabled action needs an understandable reason.
 - **UX-04:** Use original/approved assets and copy. Do not copy the reference's ratings, currency selector, account system, filter features, Shop Pay or case upsell into the product scope.

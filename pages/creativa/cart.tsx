@@ -12,46 +12,63 @@ import {
 } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { CreativaLayout } from "@/components/layout";
 import { CreativaSeo } from "@/components/creativa/Seo";
-import { useHydratedCreativaCart } from "@/hooks/creativa/useBrowserState";
+import { CreativaBreadcrumbs } from "@/components/creativa/Breadcrumbs";
+import { CreativaProductThumbnail } from "@/components/creativa/ProductThumbnail";
+import { useCreativaCartPage } from "@/hooks/creativa/useCart";
 import { isReserved, type CreativaCartLine } from "@/store/cart/creativaCart";
-import type { CreativaQuote } from "@/models/creativa";
+import type { CreativaImage } from "@/models/creativa";
 import type { NextPageWithLayout } from "@/models/common";
-import { creativaApi, CreativaRequestError } from "@/api-client/creativa-checkout";
-import { formatCreativaPrice, lineIdentity, safeQuantity } from "@/utils/creativa/contracts";
+import { formatCreativaPrice, lineIdentity } from "@/utils/creativa/contracts";
+import { creativaQuantitySchema } from "@/utils/creativa/forms";
 import { measureCreativaLine, trackCreativa } from "@/utils/creativa/analytics";
+
+const quantitySchema = yup.object({ quantity: creativaQuantitySchema });
 
 function CartLine({
 	item,
 	price,
+	image,
 	availabilityError,
 	update,
 	remove,
 }: {
 	item: CreativaCartLine;
 	price: number;
+	image?: CreativaImage;
 	availabilityError?: string;
 	update: (id: string, quantity: number) => void;
 	remove: (id: string) => void;
 }) {
-	const [quantity, setQuantity] = useState(String(item.quantity));
 	const [error, setError] = useState<string | null>(null);
-	useEffect(() => setQuantity(String(item.quantity)), [item.quantity]);
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		resolver: yupResolver(quantitySchema),
+		defaultValues: { quantity: item.quantity },
+	});
+	const { ref, ...quantityField } = register("quantity", { valueAsNumber: true });
 	return (
-		<Box sx={{ py: 2, borderBottom: "1px solid #e5d7ce" }}>
-			<Stack direction="row" justifyContent="space-between" gap={2}>
-				<Box>
-					<Link href={`/creativa/skin-laptop/${item.productSlug}`}>
-						<Typography component="span" fontWeight={500}>
+		<Box sx={{ py: 1.5, borderBottom: "1px solid", borderColor: "divider" }}>
+			<Stack direction="row" gap={1.5} alignItems="flex-start">
+				<CreativaProductThumbnail image={image} name={item.productName} />
+				<Box sx={{ flex: 1, minWidth: 0, overflowWrap: "anywhere" }}>
+					<Link href={`/creativa/skin-laptop/${item.productSlug}`} passHref>
+						<Typography component="a" fontWeight={500}>
 							{item.productName}
 						</Typography>
 					</Link>
 					<Typography variant="body2" color="text.secondary">
 						{item.modelName} / {item.coverageName}
 					</Typography>
-					<Typography variant="body2" mt={1}>
+					<Typography variant="body2" mt={0.5}>
 						{formatCreativaPrice(price)} / sản phẩm
 					</Typography>
 				</Box>
@@ -75,36 +92,38 @@ function CartLine({
 						}
 					}}
 				>
-					<DeleteOutlineIcon />
+					<DeleteOutlineIcon fontSize="small" />
 				</IconButton>
 			</Stack>
-			<Stack direction="row" justifyContent="space-between" alignItems="center" mt={2}>
+			<Stack direction="row" justifyContent="space-between" alignItems="center" mt={1.5} gap={1}>
 				<TextField
-					size="small"
+					{...quantityField}
+					inputRef={ref}
 					label="Số lượng"
 					type="number"
-					value={quantity}
 					disabled={isReserved(item)}
 					inputProps={{ min: 1, step: 1 }}
-					sx={{ width: 110 }}
-					onChange={(event) => setQuantity(event.target.value)}
-					onBlur={() => {
-						try {
-							const next = safeQuantity(Number(quantity));
-							if (next !== item.quantity) {
-								update(item.instanceId, next);
-								trackCreativa("quantity_change", {
-									product_id: item.productId,
-									previous_quantity: item.quantity,
-									quantity: next,
-									surface: "cart",
-								});
+					error={!!errors.quantity}
+					helperText={errors.quantity?.message}
+					sx={{ width: 120 }}
+					onBlur={(event) => {
+						void quantityField.onBlur(event);
+						void handleSubmit(({ quantity }) => {
+							try {
+								if (quantity !== item.quantity) {
+									update(item.instanceId, quantity);
+									trackCreativa("quantity_change", {
+										product_id: item.productId,
+										previous_quantity: item.quantity,
+										quantity,
+										surface: "cart",
+									});
+								}
+								setError(null);
+							} catch (failure) {
+								setError(failure instanceof Error ? failure.message : "Số lượng không hợp lệ.");
 							}
-							setError(null);
-						} catch (failure) {
-							setError(failure instanceof Error ? failure.message : "Số lượng không hợp lệ.");
-							setQuantity(String(item.quantity));
-						}
+						})();
 					}}
 				/>
 				<Typography>{formatCreativaPrice(price * item.quantity)}</Typography>
@@ -122,99 +141,14 @@ function CartLine({
 }
 
 const Cart: NextPageWithLayout = () => {
-	const cart = useHydratedCreativaCart();
-	const [quote, setQuote] = useState<CreativaQuote | null>(null);
-	const [error, setError] = useState<string | null>(null);
-	const [loading, setLoading] = useState(false);
-	const [reviewed, setReviewed] = useState("");
-	const [retry, setRetry] = useState(0);
-	const [lineErrors, setLineErrors] = useState<Record<string, string>>({});
-	const viewed = useRef(false);
-	useEffect(() => {
-		if (!cart.hydrated) return;
-		function reportView(currentQuote?: CreativaQuote, reason?: string) {
-			if (viewed.current) return;
-			viewed.current = true;
-			const empty = !cart.error && !cart.items.length;
-			trackCreativa(
-				"cart_view",
-				{
-					item_count: cart.items.length,
-					unit_count: cart.items.reduce((sum, item) => sum + item.quantity, 0),
-					price_basis: currentQuote ? "current_quote" : empty ? "empty" : "unavailable",
-					...(currentQuote ? { value: currentQuote.merchandiseTotal } : empty && { value: 0 }),
-					...(reason && { reason }),
-				},
-				currentQuote
-					? currentQuote.lines.map(measureCreativaLine)
-					: cart.items.map((item) => {
-							const measurement = measureCreativaLine(item);
-							delete measurement.price;
-							return measurement;
-					  })
-			);
-		}
-		if (cart.error || !cart.items.length) {
-			setQuote(null);
-			setLoading(false);
-			setError(null);
-			setLineErrors({});
-			reportView(undefined, cart.error ? "invalid_cart" : undefined);
-			return;
-		}
-		let current = true;
-		setLoading(true);
-		setError(null);
-		setLineErrors({});
-		void creativaApi
-			.quote(cart.items, "", "cod")
-			.then((next) => {
-				if (!current) return;
-				setQuote(next);
-				reportView(next);
-				const changedItems = cart.items.filter(
-					(item) =>
-						next.lines.find((line) => lineIdentity(line) === lineIdentity(item))?.unitPrice !==
-						item.unitPrice
-				);
-				if (changedItems.length) {
-					trackCreativa("cart_revalidation", {
-						reason: "price_changed",
-						item_count: changedItems.length,
-					});
-				}
-			})
-			.catch((failure: Error) => {
-				if (current) {
-					setQuote(null);
-					setError(failure.message);
-					const affected = failure instanceof CreativaRequestError ? failure.fieldErrors || {} : {};
-					setLineErrors(affected);
-					const count = cart.items.filter((item) => affected[lineIdentity(item)]).length;
-					if (count)
-						trackCreativa("cart_revalidation", { reason: "item_unavailable", item_count: count });
-					reportView(undefined, "quote_unavailable");
-				}
-			})
-			.finally(() => {
-				if (current) setLoading(false);
-			});
-		return () => {
-			current = false;
-		};
-	}, [cart.hydrated, cart.error, cart.items, retry]);
-	const changed =
-		quote &&
-		cart.items.some(
-			(item) =>
-				quote.lines.find((line) => lineIdentity(line) === lineIdentity(item))?.unitPrice !==
-				item.unitPrice
-		);
+	const { cart, quote, error, loading, reviewed, review, retry, lineErrors, changed } =
+		useCreativaCartPage();
 	return (
 		<>
 			<CreativaSeo title="Giỏ hàng" path="/creativa/cart" noindex />
-			<Container maxWidth="md" sx={{ py: { xs: 4, md: 7 } }}>
-				<Stack gap={2}>
+			<Container maxWidth="md" sx={{ py: { xs: 2, md: 3 } }}>
+				<CreativaBreadcrumbs current="Giỏ hàng" />
+				<Stack gap={1.5}>
 					<Typography variant="h3" component="h1">
 						Giỏ hàng Creativa
 					</Typography>
@@ -232,9 +166,7 @@ const Cart: NextPageWithLayout = () => {
 												)
 											)
 												cart.discardInvalid();
-											return;
-										}
-										if (
+										} else if (
 											window.confirm("Chỉ xóa giỏ Creativa lỗi? Đơn hàng và lịch sử không bị xóa.")
 										)
 											cart.resetCorrupt();
@@ -248,39 +180,34 @@ const Cart: NextPageWithLayout = () => {
 						</Alert>
 					)}
 					{error && (
-						<Alert
-							severity="error"
-							action={<Button onClick={() => setRetry((value) => value + 1)}>Thử lại</Button>}
-						>
+						<Alert severity="error" action={<Button onClick={retry}>Thử lại</Button>}>
 							{error} Vui lòng kiểm tra lựa chọn hoặc xóa sản phẩm không còn hỗ trợ.
 						</Alert>
 					)}
 					{cart.hydrated && !cart.error && !cart.items.length && (
 						<Alert severity="info">Giỏ hàng chưa có sản phẩm.</Alert>
 					)}
-					{cart.items.map((item) => (
-						<CartLine
-							key={item.instanceId}
-							item={item}
-							availabilityError={lineErrors[lineIdentity(item)]}
-							price={
-								quote?.lines.find((line) => lineIdentity(line) === lineIdentity(item))?.unitPrice ??
-								item.unitPrice
-							}
-							update={cart.update}
-							remove={cart.remove}
-						/>
-					))}
+					{cart.items.map((item) => {
+						const current = quote?.lines.find((line) => lineIdentity(line) === lineIdentity(item));
+						return (
+							<CartLine
+								key={`${item.instanceId}:${item.quantity}`}
+								item={item}
+								image={current?.productImage || item.productImage}
+								availabilityError={lineErrors[lineIdentity(item)]}
+								price={current?.unitPrice ?? item.unitPrice}
+								update={cart.update}
+								remove={cart.remove}
+							/>
+						);
+					})}
 					{changed && reviewed !== quote.digest && (
-						<Alert
-							severity="warning"
-							action={<Button onClick={() => setReviewed(quote.digest)}>Đã kiểm tra</Button>}
-						>
+						<Alert severity="warning" action={<Button onClick={review}>Đã kiểm tra</Button>}>
 							Giá đã được cập nhật. Vui lòng kiểm tra các giá mới trước khi tiếp tục.
 						</Alert>
 					)}
 					{quote && (
-						<Stack gap={1} py={2}>
+						<Stack gap={1} py={1}>
 							<Stack direction="row" justifyContent="space-between">
 								<Typography>Tổng sản phẩm</Typography>
 								<Typography>{formatCreativaPrice(quote.merchandiseTotal)}</Typography>
@@ -288,12 +215,11 @@ const Cart: NextPageWithLayout = () => {
 							<Typography variant="caption" color="text.secondary">
 								Phí vận chuyển được xác nhận ở bước thanh toán.
 							</Typography>
-							<Divider sx={{ my: 1 }} />
+							<Divider sx={{ my: 0.5 }} />
 							<Link href="/creativa/checkout" passHref>
 								<Button
 									component="a"
 									variant="contained"
-									size="large"
 									disabled={
 										loading || !!cart.error || !!error || (!!changed && reviewed !== quote.digest)
 									}
@@ -307,7 +233,7 @@ const Cart: NextPageWithLayout = () => {
 						<Typography variant="body2">Đang kiểm tra giá và lựa chọn hiện tại…</Typography>
 					)}
 					<Link href="/creativa/skin-laptop" passHref>
-						<Button component="a" variant="text" sx={{ alignSelf: "flex-start" }}>
+						<Button component="a" sx={{ alignSelf: "flex-start" }}>
 							Tiếp tục xem thiết kế
 						</Button>
 					</Link>
