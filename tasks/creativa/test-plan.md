@@ -1,5 +1,11 @@
 # INUT Creativa — Test Plan
 
+## Direct-memo correction checks
+
+Confirmed owner boundary: eligible direct/manual/shared/reloaded tracking deliberately returns/displays saved full name + phone. Verify normalized whitespace/Unicode name and leading-zero ASCII phone, single-space/no-hyphen format, saved edits and accepted/public response consistency. Five ineligible cases (COD, paid, refunded, cancelled, missing bank) omit memo; invalid contact data fails explicitly. Other customer/private fields remain excluded.
+
+Use the supplied URL read-only to verify memo differs from order ID, matches the API and survives reload without buyer context. Mock clipboard/collectors: success copies exact memo, denial is honest/selectable, exactly one event/provider/action with no content, no persistent storage/URL memo. Disable stale copying while revalidating. Keep all real order writes/notifications blocked; do not print real contact values or capture them unnecessarily. Earlier buyer-only/fallback oracles are explicitly retired.
+
 ## Sales / tracking amendment procedures
 
 [S-01..S-06](./plan.md#sales--tracking-refinement--2026-10-23) adds tracking thumbnail identity/fallback, every status/payment chip's visible label/color/contrast, compact saved-chip navigation/forget/empty/error/expansion and unchanged main-root history controls. No native/actual CDN pass is inferred from fixtures.

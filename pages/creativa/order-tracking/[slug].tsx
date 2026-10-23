@@ -11,7 +11,6 @@ import { formatCreativaPrice } from "@/utils/creativa/contracts";
 import { trackCreativa } from "@/utils/creativa/analytics";
 import { CreativaBankInstructions } from "@/components/creativa/BankInstructions";
 import { CreativaProductThumbnail } from "@/components/creativa/ProductThumbnail";
-import { useCreativaBuyer } from "@/components/creativa/BuyerContext";
 import type { CreativaOrderStatus, CreativaPaymentStatus } from "@/models/creativa";
 
 const statusNames = {
@@ -46,7 +45,6 @@ const paymentColors: Record<CreativaPaymentStatus, StatusColor> = {
 
 const OrderDetail: NextPageWithLayout = () => {
 	const { id, order, error, retry, current } = useCreativaTracking();
-	const { transfer } = useCreativaBuyer();
 	const [notice, setNotice] = useState<string | null>(null);
 	async function copy(target: "id" | "url") {
 		try {
@@ -197,25 +195,17 @@ const OrderDetail: NextPageWithLayout = () => {
 							{order.paymentMethod === "bank_transfer" &&
 								order.status !== "cancelled" &&
 								(order.paymentStatus === "pending" || order.paymentStatus === "failed") &&
-								(order.bank ? (
+								(order.bank && order.transferContent ? (
 									<CreativaBankInstructions
-										key={`${order.publicId}:${order.transferContextVersion || ""}:${!!(
-											current && transfer?.version === order.transferContextVersion
-										)}`}
+										key={`${order.publicId}:${order.transferContent}`}
 										bank={order.bank}
 										amount={order.finalAmount}
-										publicId={order.publicId}
-										transferContent={
-											current &&
-											transfer?.publicId === order.publicId &&
-											transfer.version === order.transferContextVersion
-												? transfer.content
-												: undefined
-										}
+										transferContent={order.transferContent}
+										disabled={!current}
 									/>
 								) : (
 									<Alert severity="warning">
-										Thông tin ngân hàng tạm thời chưa sẵn sàng. Vui lòng liên hệ hỗ trợ trước khi
+										Thông tin chuyển khoản tạm thời chưa sẵn sàng. Vui lòng liên hệ hỗ trợ trước khi
 										chuyển khoản.
 									</Alert>
 								))}

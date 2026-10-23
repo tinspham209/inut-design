@@ -1,5 +1,11 @@
 # INUT Creativa — Implementation Plan
 
+## Direct tracking transfer memo correction — 2026-10-23
+
+The owner explicitly approved replacing the previous buyer-only boundary: anyone holding an eligible unpaid bank-transfer order link may see the saved customer name/full phone as its transfer memo. Canonical format is `{normalized customer name} {customer phone}` with one space, no hyphen. Direct links, manual search and reload must show/copy the same memo; no order-ID substitution. Restrict memo exposure to existing eligible bank prompts; paid/refunded/cancelled/COD/no-bank responses omit it. Do not expose a raw customer object/address/email/note, add PII to analytics/URL/logs/persistent browser storage, change order/payment state or migrate data.
+
+Remove obsolete RAM buyer context/version plumbing; canonical memo belongs to the deliberate eligible tracking DTO and copy component. Invalidate stale copy feedback when memo changes; disable copying stale cached data while revalidating. Required evidence: eligibility matrix, normalized format, current saved edits, accepted/public response consistency, direct supplied-URL/reload/copy success/denial/privacy checks, lint/types/build, direct audit/routing/final report. Earlier buyer-only decisions below are historical and superseded.
+
 ## Sales / tracking refinement — 2026-10-23
 
 Owner-confirmed decisions supersede conflicting earlier analytics/history/editor details without a data migration:

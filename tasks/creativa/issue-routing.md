@@ -1,5 +1,9 @@
 # Creativa Issue Routing
 
+## Direct tracking memo correction
+
+Owner explicitly approved the link-holder name/full-phone exposure needed for the reported direct/reload behavior. This is a clarified contract, not an accidental PII regression: implement canonical name-space-phone on eligible tracking and remove buyer-only/ID fallback. Keep analytics/log/storage exclusions and all earlier external release gates. Current focused audit/final verification follows; prior private-only findings/results are historical.
+
 ## Current sales / tracking refinement
 
 Independent source audit PASS at `21b7b06`; rework is a justified no-op, with unchanged-code confirmation retaining PASS. No current actionable Missing Implementation issue remains. Retired durable analytics-claim/immutable-original-copy expectations are intentional owner amendments, not missing work. Current read-only final verification follows.

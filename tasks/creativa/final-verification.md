@@ -1,5 +1,9 @@
 # Creativa Sales / Tracking Final Verification
 
+## Current direct transfer memo correction — verification pending
+
+Owner explicitly approved direct/shared/reloaded eligible tracking showing saved full name + phone, one space/no hyphen, not an order-ID fallback. Current code replaces buyer-only context/version plumbing and retains other private-field/telemetry/storage exclusions. Exact format/eligibility/current saved edits and actual supplied URL/reload/clipboard checks pass; current gate/direct audit/routing reconciliation follows. Older buyer-only assurances below are superseded, not the current privacy boundary.
+
 ## Sales / tracking continuation — verified code scope
 
 [S-01..S-06](./plan.md#sales--tracking-refinement--2026-10-23) is implemented and independently code-audited through `21b7b06`. Rework is a justified no-op; unchanged-code confirmation retains PASS. Current read-only final verification reconciles the 116/52 matrix against explicitly approved editable sales records, buyer-only contact copy and client/session analytics limits. Durable analytics claims/immutable-original-copy promises are retired, not missing implementation. Real database/private permission/native/hosted/operator evidence stays blocked where unexecuted.

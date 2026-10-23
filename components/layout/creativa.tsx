@@ -1,7 +1,6 @@
 import { LayoutProps } from "@/models";
 import { Box, ThemeProvider, createTheme } from "@mui/material";
 import { CreativaStoreHeader, CreativaStoreFooter } from "@/components/creativa/Shell";
-import { CreativaBuyerProvider } from "@/components/creativa/BuyerContext";
 
 const creativaTheme = createTheme({
 	palette: {
@@ -67,36 +66,34 @@ const creativaTheme = createTheme({
 
 export function CreativaLayout({ children }: LayoutProps) {
 	return (
-		<CreativaBuyerProvider>
-			<ThemeProvider theme={creativaTheme}>
+		<ThemeProvider theme={creativaTheme}>
+			<Box
+				sx={{
+					bgcolor: "background.default",
+					color: "text.primary",
+					minHeight: "100vh",
+					fontSize: 14,
+					fontFamily: "Roboto, Arial, sans-serif",
+					lineHeight: 1.5,
+					display: "flex",
+					flexDirection: "column",
+				}}
+			>
+				<CreativaStoreHeader />
 				<Box
+					component="main"
 					sx={{
-						bgcolor: "background.default",
-						color: "text.primary",
-						minHeight: "100vh",
-						fontSize: 14,
-						fontFamily: "Roboto, Arial, sans-serif",
-						lineHeight: 1.5,
-						display: "flex",
-						flexDirection: "column",
+						flex: 1,
+						"& a:not(.MuiButton-root)": {
+							color: "primary.dark",
+							textDecorationColor: "primary.main",
+						},
 					}}
 				>
-					<CreativaStoreHeader />
-					<Box
-						component="main"
-						sx={{
-							flex: 1,
-							"& a:not(.MuiButton-root)": {
-								color: "primary.dark",
-								textDecorationColor: "primary.main",
-							},
-						}}
-					>
-						{children}
-					</Box>
-					<CreativaStoreFooter />
+					{children}
 				</Box>
-			</ThemeProvider>
-		</CreativaBuyerProvider>
+				<CreativaStoreFooter />
+			</Box>
+		</ThemeProvider>
 	);
 }

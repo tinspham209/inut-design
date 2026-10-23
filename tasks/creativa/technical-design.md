@@ -1,5 +1,11 @@
 # INUT Creativa — Technical Design
 
+## Latest direct-memo correction
+
+Owner explicitly approves full saved name/phone in eligible link-holder tracking. `publicOrder` validates saved name/phone with the shared parser and projects only `transferContent = normalizedName + " " + phone` when the existing bank prompt is eligible. Private accepted responses reuse the same nested order DTO. No extra customer object, new stored field or migration.
+
+Remove obsolete buyer Provider/RAM/version-token plumbing and the component's order-ID fallback. Bank instructions require a memo; missing details give support guidance. Copy is disabled during revalidation, copies the displayed memo and resets feedback when memo changes. Keep contact-free analytics/URL/log/persistent-storage guards and no-store/noindex/no-referrer boundaries. Prior buyer-only statements below are historical and superseded.
+
 ## Current sales / tracking amendment
 
 [S-01..S-06](./plan.md#sales--tracking-refinement--2026-10-23) supersedes durable analytics claims and the technical-heavy immutable-field editor. Preserve notification receipts and private identity/recovery barriers; hide technical/legacy fields and remove the filtered attention menu. Reuse the lighter status guide/previews and the owner's explicitly editable working-record semantics without changing existing field names or creating a second original-copy record.
