@@ -1,8 +1,19 @@
 # Creativa Sales / Tracking Final Verification
 
-## Current Firefox / Telegram correction — verification pending
+## Current Firefox / Telegram correction — verified
 
-Final requested Autocomplete with inline popup is owner-confirmed working in Firefox after the portaled version failed. Guarded Chromium preserves form/quote/disabled-option semantics. Supplied order failure was diagnosed TOKEN_MISSING with published active recipient; owner-authorized ignored local alias now authenticates bot/readable private chat in read-only checks. No actual send/retry/receipt mutation authorized. Current gates/direct audit/routing/preview reload reconciliation follows; readiness is not delivery.
+**Current source `fa13d7a`:** Focused direct read-only Staff audit PASS; no-op rework/unchanged-source confirmation. Lint without warnings/types/app229/SEO221 and Studio build pass. Final production checkout200/no-store and every referenced local script200; approved server alias resolves with no value output. Both previews restarted on3000/3001 with current environment and HTTP200 verified. User `.env.example` rearrangement is preserved unstaged, and local `.env` remains ignored.
+
+| Current issue | Result / evidence |
+| --- | --- |
+| Firefox checkout popup | PASS in owner Firefox: portaled Select/Autocomplete failed, native workaround worked, requested final inline Autocomplete explicitly confirmed fixed after full reload. Exact foreign event target is unproven; no extension blame/global suppression/package patch. |
+| Form/payment regression | PASS guarded Chromium: all text fields retained, RHF real input ref/enum quote change, inline listbox/clear disabled. Fresh coherent missing-primary fixture defaults COD/disables transfer. No actual submit; viewport proof reviewed. |
+| Notification cause | CONFIRMED: published sales active/valid1/no draft; existing receipt failed TOKEN_MISSING with attempts1. Local env had only legacy NEXT_PUBLIC token; sender deliberately requires server-only CREATIVA key. CMS recipient configuration alone was not sufficient. |
+| Approved local correction | PASS readiness: ignored alias explicitly authorized, resolves and Telegram getMe authenticates; getChat confirms readable **private** recipient, not a Telegram channel. No token/chat ID/message body printed. Tracked code never falls back to public key; hosting must set its own server key. |
+| Actual existing delivery | NOT SENT / RETRY DECLINED: final read confirms failed TOKEN_MISSING/attempts1 unchanged. No real send/retarget/reset/CMS mutation/new order; actual sender with fake credentials/network proves missing key/fetch0 and explicit key/one request. Bot/chat reads do not prove actual message delivery. |
+| CMS/ops clarity | PASS source/Studio build: visible credential-versus-recipient/private-versus-channel/publish guidance, readable safe Sales Destinations preview, saved receipt semantics. Actual operator publishing/delivery remains external. |
+
+Current source issue is resolved; configuration readiness is corrected locally while existing delivery intentionally remains failed. Earlier evidence below is retained for its stated scopes; E-01..E-04 actual private/host/native-wide/operator witnesses are not closed.
 
 ## Current transient-toast refinement — verified
 
@@ -51,7 +62,7 @@ The older source/evidence matrices retain unaffected mechanisms and historical s
 
 The [UI-01..UI-07 amendment](./plan.md#compact-ui--form-and-request-amendment--2026-10-23) is implemented, audited, reworked and locally verified. The 116/52 inventory below is reconciled using current evidence for changed surfaces and explicitly retained evidence for unchanged contracts. No actual database/order/send/native/vendor proof has been added.
 
-**Audited application revision:** `4bf42c0` on `feat/creativa` for current toast refinement; prior direct memo `589acbe` and independent sales `21b7b06` retain historical scopes.
+**Audited application revision:** `fa13d7a` on `feat/creativa` for current Firefox/setup correction. Prior toast/memo/sales scopes retain historical evidence.
 **Audit lineage:** Earlier runtime/R-01/C-01 closures retained historically; independent current audit `6e71574..21b7b06` PASS, with isolated probe rerun. No actionable issue; no-op rework/unchanged-source confirmation.
 **Code result:** PASS within the recorded scope; no remaining actionable source finding.
 **Repository stop gate:** PASS.
@@ -111,7 +122,7 @@ Browser synchronization limitations were kept separate from app defects: tab act
 
 | ID | Current missing witness / next work |
 | --- | --- |
-| E-01 | Confirm dedicated server bot/destination configuration and authorize actual handoff rehearsal; verify retained print/cut-template access, physical fit/rights/retention/operator handling. Resolve production-browser CDN access. Earlier credential inventory is not a fresh claim that configuration is absent; actual delivery remains unverified. |
+| E-01 | Local server-key alias/bot authentication/private-recipient readability now verified, but existing retry explicitly declined and actual delivery unexecuted. Hosting must set its own server key. Physical files/fit/rights/operator/CDN witnesses remain open; readiness is not delivery. |
 | E-02 | Authorized isolated actual Sanity private-access denial, record/ref integrity, transaction atomicity, collision/exhaustion, concurrent acceptance/recovery and retention evidence. Fake SDK state is not Content Lake proof. Review direct dataset metadata access separately. |
 | E-03 | Authorized actual collector/container/root exclusions and proxy/cache/referrer/log/abuse controls. Local stubs/canaries do not prove hosted effective delivery or privacy. |
 | E-04 | Real iPhone/Safari and remaining complete interruption/storage/keyboard/clipboard/lighter-regression/operator/device matrix. Chromium viewport and owner CMS review are not these witnesses. |
@@ -165,7 +176,7 @@ Browser synchronization limitations were kept separate from app defects: tab act
 | CHECKOUT-04 | PASS | Blank address allowed; private fixture snapshot/formatter honestly represents omission, no invented address. V-03/V-06. Actual operator handoff remains E-01. |
 | CHECKOUT-05 | PASS | One order-level fee, explicit missing/duplicate/unsafe/default errors and pre-submit amounts. V-03/V-05/V-07. |
 | CHECKOUT-06 | PASS | Sole active-primary bank, no account selector/nonprimary fallback; explicit unavailable transfer with COD, saved bank snapshot. V-03/V-06. |
-| CHECKOUT-07 | FAIL | Current RHF focus, delayed quotes, fresh lost-response recovery and C-01 storage-denied quote retries pass locally; full native/storage/error matrix remains E-04. |
+| CHECKOUT-07 | FAIL | Current owner-confirmed Firefox inline Autocomplete plus Chrome fields/enum/disabled-bank cases pass; prior quote/recovery/C-01 evidence retained. Full native/storage/error matrix remains E-04. |
 | ORDER-01 | FAIL | Actual service/fake SDK produces one complete order; actual persisted relation proof remains E-02. |
 | ORDER-02 | FAIL | Current direct evaluator is authoritative; complete actual configured acceptance witness remains E-02. |
 | ORDER-03 | FAIL | Invalid/changed conditions reject in code/probes; actual no-order delta cases remain E-02. |
@@ -178,8 +189,8 @@ Browser synchronization limitations were kept separate from app defects: tab act
 | ORDER-10 | PASS | Unchanged uniform cryptographic 10-character case-sensitive URL-safe allocator, no prefix/time/sequence. Source. |
 | ORDER-11 | FAIL | Separate identity roles/source invariance; permanence through actual recovery/edits remains E-02. |
 | ORDER-12 | FAIL | Atomic bounded allocator code retained; actual collision/exhaustion target/control remains E-02. |
-| OPS-01 | FAIL | Path-aware staff formatter/CMS data implemented; dedicated bot token and actual handoff missing. E-01. |
-| OPS-02 | FAIL | Accepted-preserving failure state/CLI/multipart mechanism retained; real operator delivery/failure rehearsal remains E-01/E-02. |
+| OPS-01 | FAIL | Current local server-key mismatch corrected; bot authenticated/private chat readable, CMS guidance/build pass. Actual send/operator handoff not performed (retry declined), so E-01 remains. |
+| OPS-02 | FAIL | Actual supplied failure diagnosed TOKEN_MISSING and preserved; fake transport tests verify explicit key/no public fallback. Actual operator delivery/retry rehearsal declined/unexecuted, E-01/E-02. |
 | OPS-03 | FAIL | Receipt/claim dedup semantics retained; real race/uncertain receipt evidence remains E-02/E-03. |
 | OPS-04 | PASS | Manual fulfillment, no automatic shipment/bank reconciliation/order splitting. Source. |
 | OPS-05 | PASS | No unapproved email/SMS/recovery campaign/material/stock/delivery promises. Source. |

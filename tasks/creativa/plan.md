@@ -9,7 +9,7 @@ Telegram diagnosis is separate and concrete: supplied existing order saved `fail
 - [x] Final inline Autocomplete passes owner Firefox retest and guarded Chromium all-field/enum quote/retained-value tests; fresh missing-bank fixture defaults COD and disables transfer.
 - [x] Local alias expansion/bot authentication/private-chat readability verified with no secrets or messages; actual transport under fake credentials proves missing server key sends nothing and configured key uses one intended request.
 - [x] Add visible CMS recipient-only/server-token/publish/private-vs-channel guidance and readable preview; operator docs explain the hosted server key. Concurrent user `.env.example` rearrangement is preserved unstaged.
-- [ ] Current lint/types/app/SEO/Studio, focused read-only audit/no-op rework/routing/final evidence, preview restart and feature-only publication.
+- [x] Current lint/types/app229/SEO221/Studio, focused direct audit PASS `fa13d7a`/no-op rework/unchanged confirmation, production checkout/current assets200, unchanged failed receipt and routing/final evidence verified. Both previews restarted with current local config/HTTP200; no retry/send/CMS mutation.
 
 No business pricing/order identity/analytics/storage contract changes. Prior loop checkpoints below are historical.
 
@@ -90,7 +90,7 @@ Independent read-only audit at `f0a2aef` found C-01: hydrate-only retry did noth
 - [x] C-01 rework — Both retry actions explicitly request the latest quote. Storage-denied browser cases were red before the fix, green afterward with exactly one extra request, cleared error and enabled Proceed/Submit; persistence warning remains. No automatic order mutation. Post-fix gates, targeted confirmation and current final verification recorded at `7918095`.
 
 **SDD gate:** Approved plan/refinement; implementation, audit and issue routing executed; final acceptance remains blocked.
-**Status:** Current transient-toast refinement is directly audited/verified PASS at `4bf42c0`; prior memo `589acbe` and independent sales `21b7b06` retain historical scopes. Current routing/final verification complete; CM-07/CR-19/release still require E-01..E-04. Earlier runtime/C-01 checkpoints are historical; source publication is not launch approval.
+**Status:** Current Firefox inline-Autocomplete/configuration correction is directly audited/verified PASS at `fa13d7a`; earlier feature scopes retain historical evidence. Current routing/final verification complete; CM-07/CR-19/release still require E-01..E-04. Earlier runtime/C-01 checkpoints are historical; source publication is not launch approval.
 **Date:** 2026-10-22.
 **Refinement date:** 2026-10-23.
 **Source of truth:** This revised plan governs implementation scope, task dependencies, exit evidence and the dispositions below. [test-plan.md](./test-plan.md) supplies the linked procedures. Earlier documents supply the approved business requirements; an older implementation detail does not override an explicit refinement here. No acceptance criterion is silently removed or weakened.
