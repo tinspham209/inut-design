@@ -7,7 +7,7 @@ Use existing `react-hot-toast` and the one global `_app` Toaster for Creativa's 
 - [x] Copy ID/link/memo toasts and add-to-cart success toast implemented without another Toaster/provider/dependency; core action-source analytics unchanged.
 - [x] Manual ID/memo remains selectable; copy-link is a canonical anchor with click default prevented, enabling native context-menu/long-press manual fallback on denial. Toast cart CTA dismisses and navigates, emitting one safe CTA event/provider.
 - [x] Guarded browser success/denial checks show no inline banner/card layout shift, one shared fixed copy toast, exact copied values/no contact telemetry, one added item and working CTA. Validation errors remain inline.
-- [ ] Current lint/types/build/SEO, focused read-only audit/no-op rework, routing/final verification and approved-preview restoration; all related docs reconciled.
+- [x] Current lint/types/build229/SEO221, complete focused direct audit PASS `4bf42c0`, no-op rework/unchanged confirmation, routing/final verification and both preview restorations/HTTP200 complete; related docs reconciled. Native/hosted/operator release witnesses remain E-01..E-04.
 
 All prior loop statuses below are historical. No real order/CMS mutation/send/deployment, new API or toast containing sensitive content is authorized.
 
@@ -77,7 +77,7 @@ Independent read-only audit at `f0a2aef` found C-01: hydrate-only retry did noth
 - [x] C-01 rework — Both retry actions explicitly request the latest quote. Storage-denied browser cases were red before the fix, green afterward with exactly one extra request, cleared error and enabled Proceed/Submit; persistence warning remains. No automatic order mutation. Post-fix gates, targeted confirmation and current final verification recorded at `7918095`.
 
 **SDD gate:** Approved plan/refinement; implementation, audit and issue routing executed; final acceptance remains blocked.
-**Status:** Current direct/shared tracking memo correction is directly audited PASS at `589acbe`; prior sales/client-session scope independently audited at `21b7b06`. Current routing/final verification complete; CM-07/CR-19/release still require E-01..E-04. Earlier runtime/C-01 checkpoints are historical; source publication is not launch approval.
+**Status:** Current transient-toast refinement is directly audited/verified PASS at `4bf42c0`; prior memo `589acbe` and independent sales `21b7b06` retain historical scopes. Current routing/final verification complete; CM-07/CR-19/release still require E-01..E-04. Earlier runtime/C-01 checkpoints are historical; source publication is not launch approval.
 **Date:** 2026-10-22.
 **Refinement date:** 2026-10-23.
 **Source of truth:** This revised plan governs implementation scope, task dependencies, exit evidence and the dispositions below. [test-plan.md](./test-plan.md) supplies the linked procedures. Earlier documents supply the approved business requirements; an older implementation detail does not override an explicit refinement here. No acceptance criterion is silently removed or weakened.
