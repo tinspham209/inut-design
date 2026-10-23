@@ -10,6 +10,8 @@ Compare RHF/Yup with shared parser for whitespace/200-char names, exactly ten AS
 
 Effects are judged by ownership/correctness, not a numerical target: user actions belong in handlers, genuine hydration/route/view/unload subscriptions require cleanup. Re-run existing gates and browser evidence appropriate to the change; E-01..E-04 remain separate actual database/host/native/operator/CDN witnesses.
 
+C-01 regression: after hydration, deny cart storage through an authorized browser fixture and force one transient quote error. Restore quote service, not storage; click retry in both cart and checkout. Each must issue a fresh quote despite unchanged cart dependencies, clear the API error, restore the appropriate action and keep the memory-only warning. Do not restore already-completed journal/storage snapshots and call that a new unknown-outcome test. No real order action is needed for this case.
+
 **SDD gate:** Approved strategy/refinement; partial execution and final verification recorded.
 **Status:** Owner accepted CMS flow; amended runtime/orange-light code audit PASS through `5a8cff8`. [Current verification](./final-verification.md) records scoped execution and remaining E-01..E-04 witnesses. This document defines procedures, not an automatic pass.
 **Date:** 2026-10-23.

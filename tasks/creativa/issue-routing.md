@@ -2,7 +2,11 @@
 
 ## Current compact-client loop
 
-UI-01..UI-06 implementation/local gates are complete; read-only audit of the delta from `227a81f` is next. Any concrete new finding must be classified and reworked before final verification. The prior resolved findings below remain historical; E-01..E-04 remain open, including actual image CDN/operator readiness, database, hosted and native/manual evidence. New source completion is not deployment/launch approval.
+UI-01..UI-06 implementation/local gates are complete. Independent audit at `f0a2aef` found C-01; its explicit rework, browser red/green, stop gate and targeted read-only confirmation now PASS. No actionable source finding remains in that cumulative scope. The prior findings below remain historical; E-01..E-04 remain open, including actual image CDN/operator readiness, database, hosted and native/manual evidence. Source publication is not deployment/launch approval.
+
+| Issue | Category | Reason | Next phase | Files affected | Impact | Continue |
+| --- | --- | --- | --- | --- | --- | --- |
+| C-01 — memory-only quote retry | Missing Implementation → Implement → Verify | Resolved: both handlers explicitly request current quotes independently of hydrate, with latest snapshots/guards. Same storage-denied browser oracle is red before and green afterward with one fresh request, error cleared and action restored. | Read-only final verification; stop gate and targeted confirmation PASS. | `hooks/creativa/useCart.ts`, `hooks/creativa/useCheckout.ts`, plan/test/evidence. | Medium availability regression resolved; no financial/server contract or automatic order retry change. | YES |
 
 **Phase:** Current issue routing — no application code changes. Implementation/rework/audits and scoped read-only final verification complete; external release witnesses remain open.
 **Code reviewed:** Independent amended-contract audit at `715aa79`; R-01 targeted re-audit PASS at `5a8cff8`. Historical findings remain below.
