@@ -1,10 +1,21 @@
 # Creativa Sales / Tracking Final Verification
 
-## Current direct transfer memo correction — verification pending
+## Current direct transfer memo correction — verified
 
-Owner explicitly approved direct/shared/reloaded eligible tracking showing saved full name + phone, one space/no hyphen, not an order-ID fallback. Current code replaces buyer-only context/version plumbing and retains other private-field/telemetry/storage exclusions. Exact format/eligibility/current saved edits and actual supplied URL/reload/clipboard checks pass; current gate/direct audit/routing reconciliation follows. Older buyer-only assurances below are superseded, not the current privacy boundary.
+**Current source:** `589acbe`, focused direct read-only code audit PASS; no actionable findings and no-op rework/unchanged confirmation. Owner explicitly approved direct/shared/reloaded eligible link-holder tracking showing saved full name + phone, one-space/no-hyphen separator, never an order-ID memo fallback. Older buyer-only assurances below are historical.
 
-## Sales / tracking continuation — verified code scope
+| Current correction | Result / evidence |
+| --- | --- |
+| Canonical memo / eligibility | PASS: actual projection normalizes saved Unicode name whitespace, preserves leading-zero phone, reflects edits and matches accepted nested order DTO. COD/paid/refunded/cancelled/no-bank cases omit it; invalid contact fails explicitly. |
+| Supplied direct URL / reload | PASS in Chromium: actual3001 URL renders memo matching API rather than ID; reload still correct, no buyer-session dependency or overflow. Actual contacts were not printed/captured unnecessarily. |
+| Copy / telemetry / storage | PASS: mocked clipboard copies exact memo and denial stays honest/selectable; one event/provider/action, no memo in telemetry/storage/URL. All GA4/Umami purchase payload branches omit memo/contact. |
+| Removed obsolete plumbing | PASS: buyer Provider/RAM/version token removed with all imports/callers aligned; component requires memo/no ID fallback; stale copying disabled. Other customer/private fields remain excluded; name/phone memo visibility is the explicit approved exception. |
+| Current stop gate / production | PASS: lint no warnings, types, app build229/SEO221; production public API/page200 with no-store/no-referrer and correct memo, raw customer/path/measurement identity excluded. Studio/schema unchanged, so no Studio rebuild required for this correction. |
+| Audit / routing / previews | PASS focused source scope; prior policy mismatch clarified/implemented/verified. Both approved previews restored on3000/3001, HTTP200 verified. No real order/CMS mutation/send/migration/deployment. E-01..E-04 remain external release gates. |
+
+The older source/evidence matrices retain unaffected mechanisms and historical scope. Current TRACK-05/TRACK-08/AC-51 rows below are reconciled with this explicit privacy amendment; no private-context guarantee remains.
+
+## Sales / tracking continuation — earlier verified scope
 
 [S-01..S-06](./plan.md#sales--tracking-refinement--2026-10-23) is implemented and independently code-audited through `21b7b06`. Rework is a justified no-op; unchanged-code confirmation retains PASS. Current read-only final verification reconciles the 116/52 matrix against explicitly approved editable sales records, buyer-only contact copy and client/session analytics limits. Durable analytics claims/immutable-original-copy promises are retired, not missing implementation. Real database/private permission/native/hosted/operator evidence stays blocked where unexecuted.
 
@@ -22,7 +33,7 @@ Owner explicitly approved direct/shared/reloaded eligible tracking showing saved
 
 The [UI-01..UI-07 amendment](./plan.md#compact-ui--form-and-request-amendment--2026-10-23) is implemented, audited, reworked and locally verified. The 116/52 inventory below is reconciled using current evidence for changed surfaces and explicitly retained evidence for unchanged contracts. No actual database/order/send/native/vendor proof has been added.
 
-**Audited application revision:** `21b7b06` on `feat/creativa`.
+**Audited application revision:** `589acbe` on `feat/creativa` for the current direct-memo correction; prior sales scope independently reviewed at `21b7b06`.
 **Audit lineage:** Earlier runtime/R-01/C-01 closures retained historically; independent current audit `6e71574..21b7b06` PASS, with isolated probe rerun. No actionable issue; no-op rework/unchanged-source confirmation.
 **Code result:** PASS within the recorded scope; no remaining actionable source finding.
 **Repository stop gate:** PASS.
@@ -158,10 +169,10 @@ Browser synchronization limitations were kept separate from app defects: tab act
 | TRACK-02 | PASS | Root dropdown and Lighters-selected saved-tag journey reach generic Creativa domain. V-06. |
 | TRACK-03 | FAIL | Shared route/data source works locally; complete real-record/manual-entry comparison remains E-02/E-04. |
 | TRACK-04 | FAIL | Supplied real public order, thumbnails/chips and fake saved sales edits/discount/manual prices pass. Full authenticated staff/carrier/status matrix remains E-02/E-04. |
-| TRACK-05 | FAIL | Buyer private copy/current contact-version/reload fallback/paid suppression pass locally; actual staff bank/status/clipboard publication variants remain E-02/E-04. COD→bank without saved account is explicit support guidance, not account reassignment. |
+| TRACK-05 | PASS | Current approved direct/manual/shared/reloaded eligible memo format, saved edits, copy success/denial, payment-state/no-bank suppression and no-ID fallback pass in actual source/browser/production checks. Native clipboard/vendor/operator delivery remains external, not claimed. |
 | TRACK-06 | PASS | Tracking/revisits do not create orders/conversions; intercepted acceptance produces no false abandonment. V-03/V-06/source. |
 | TRACK-07 | PASS | Distinct invalid/not-found/service behavior retained; actual malformed-ID and unknown route HTTP outcomes observed. V-07/source. |
-| TRACK-08 | FAIL | Current production public lookup excludes contact/path/measurement identity; private transfer/version isolation and storage/telemetry canaries pass. Actual private dataset/host protections remain E-02/E-03. |
+| TRACK-08 | FAIL | Current eligible lookup deliberately includes approved saved name/phone memo only, not raw customer/address/email/note/path/measurement identity. No-store/referrer/telemetry/storage guards pass; actual private dataset/host protections remain E-02/E-03. |
 | TRACK-09 | FAIL | Copy ID/link/fallback code retained; actual/native clipboard permission matrix remains E-04. |
 | HISTORY-01 | PASS | Separate plain ID-string array, no new customer/path/account/capability content. V-06/source. |
 | HISTORY-02 | PASS | Validation does not append; intercepted acceptance saves one, root tag does not append again; ownership/dedup retained. V-06/source. |
@@ -264,7 +275,7 @@ Full applicable variants and their decisive oracle are retained. Partial local s
 | AC-48 | FAIL | Actual root Lighters-selected chip bypass observed; full stale-ID/manual-lighter regression remains E-04. |
 | AC-49 | FAIL | Creator individual forget/root-only clear and existing checkpoint safety retained; actual accepted-record interruption matrix remains E-02/E-04. |
 | AC-50 | FAIL | Normal local warnings/quarantine source; full denial/quota/post-acceptance/native matrix remains E-02/E-04. |
-| AC-51 | FAIL | Public ID/link and buyer-transfer mock copy/failure/reload boundaries verified; root disclosure retained/Creator intentionally compact. Actual native clipboard/device proof remains E-04. |
+| AC-51 | FAIL | Current approved direct/reload memo and exact/denied copy/privacy checks pass in Chromium; root disclosure retained/Creator compact. Actual native clipboard/device proof remains E-04. |
 | AC-52 | FAIL | Local source/context/history/privacy checks pass; complete actual custom/automatic destination catalog remains E-03/E-04. |
 
 ## Current task / release disposition
@@ -273,4 +284,4 @@ S-01..S-06 have current scoped implementation/audit/routing/verification at `21b
 
 Next work is exactly the classified Clarify/Plan → Verify work in [issue-routing.md](./issue-routing.md), not blind code rework or weakening an AC. Provide the dedicated bot token through private server configuration, authorize an isolated real test target/handoff, resolve CDN access and obtain native/vendor evidence. No request for a secret in chat is implied.
 
-Known limits remain: localStorage is finite/browser-local/nontransactional; analytics mark-before-send may undercount and unsupported session/browser contexts may duplicate, with no Sanity claim barrier. Buyer full transfer text is RAM-only and unavailable after reload/shared access; changed contact/version falls back to ID. Staff working edits require manual final-total recalculation and do not automatically resend notifications. COD→bank without saved bank details gives support guidance. Uncertain notification receipts still require reconciliation; private namespace/host controls and real asset/version/fit are external witnesses. Only `feat/creativa` publication is authorized, not main merge/push, deployment or real data mutation.
+Known limits remain: localStorage is finite/browser-local/nontransactional; analytics mark-before-send may undercount and unsupported session/browser contexts may duplicate, with no Sanity claim barrier. Eligible link holders now deliberately see saved name/phone memo per owner approval; there is no buyer-context/reload restriction or ID substitution. Other customer details and telemetry/storage remain excluded. Staff working edits require manual final-total recalculation and do not automatically resend notifications. COD→bank without saved bank details gives support guidance. Uncertain notification receipts still require reconciliation; private namespace/host controls and real asset/version/fit are external witnesses. Only `feat/creativa` publication is authorized, not main merge/push, deployment or real data mutation.

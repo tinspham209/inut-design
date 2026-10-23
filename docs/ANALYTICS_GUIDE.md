@@ -254,16 +254,19 @@ metadata, internal bank notes and account details out of telemetry; current
 guards cover those keys. Only the active primary bank is used for new orders,
 and tracking uses its accepted snapshot. No new event or collector is added.
 
-Current independent code audit PASS is `21b7b06`, including the sales-editable
-working record, buyer-only private transfer and no-Sanity-analytics refinement. RHF handlers own validation
+Current focused code audit PASS is `589acbe`, following the sales-scope independent
+PASS at `21b7b06`. It includes the approved direct/shared transfer memo, not the
+superseded buyer-only boundary. RHF handlers own validation
 and submit actions; SWR hooks own API completion, and one actual-presentation
 effect measures SSR/cached/fresh catalog results without duplicate impressions.
 Breadcrumb `cta_click` uses only static ancestor paths, never an order ID.
 Order/create/resolve arguments are not cache keys; no claim hook/request remains.
 No event name or transport destination was added. Transfer clipboard handlers
-send only target/outcome, never copied content. Buyer Name-Phone lives only in
-same-SPA RAM matching the current opaque contact version; public/reloaded/shared
-tracking uses the order ID.
+send only target/outcome, never copied content. Saved Name-Phone is deliberately
+present in eligible tracking DTOs as approved by the owner; direct/shared/reloaded
+instructions use saved name + space + phone, never ID substitution. Buyer RAM
+provider/version plumbing is retired. Memo still never enters analytics/URL/logs
+or persistent browser storage.
 
 Earlier seventeen contract groups, current parser parity and local destination
 captures do not prove hosted delivery, container exclusions or host-log privacy.
