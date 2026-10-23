@@ -263,6 +263,7 @@ const Checkout: NextPageWithLayout = () => {
 	}, []);
 
 	useEffect(() => {
+		if (!attemptReady || attempt || accepted || journalCorrupt) return;
 		let current = true;
 		void creativaApi
 			.options()
@@ -277,7 +278,7 @@ const Checkout: NextPageWithLayout = () => {
 		return () => {
 			current = false;
 		};
-	}, []);
+	}, [attemptReady, attempt, accepted, journalCorrupt, quoteRetry]);
 
 	useEffect(() => {
 		if (
@@ -304,6 +305,7 @@ const Checkout: NextPageWithLayout = () => {
 						payment,
 					};
 					setQuote(next);
+					setBankAvailable(next.bankAvailable);
 					setError(null);
 					const shippingSignature = JSON.stringify([next.shipping.code, next.shippingFee]);
 					if (measuredShipping.current !== shippingSignature) {
@@ -640,8 +642,8 @@ const Checkout: NextPageWithLayout = () => {
 										</FormControl>
 										{bankAvailable === false && (
 											<Alert severity="info">
-												Thông tin chuyển khoản chưa sẵn sàng. Bạn có thể chọn COD khi cấu hình vận
-												chuyển hợp lệ.
+												Chuyển khoản cần đúng một tài khoản Creativa hợp lệ đang bật và được đặt làm
+												tài khoản chính. Hiện chưa có thông tin sẵn sàng; bạn có thể chọn COD.
 											</Alert>
 										)}
 										<TextField

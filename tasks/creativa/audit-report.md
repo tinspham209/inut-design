@@ -7,6 +7,16 @@
 **Scope:** Approved idea, specs, technical design, revised plan/test plan and repository rules.
 **Runtime boundary:** No production order, CMS mutation or notification was authorized/performed. Chromium response fixtures and mocked SDK probes are not real Sanity/native/hosted acceptance.
 
+## Current runtime/orange-light amendment — 2026-10-23
+
+Owner CMS-flow review is accepted. The next implementation connects amended records and exact `#fd4d01` primary in a light theme, with the clarified **active AND primary** bank rule (no arbitrary active-account fallback). Current code includes new/legacy snapshot compatibility and path-safe public projections; the fresh read-only audit is still pending. Do not apply the old round-7 PASS to this changed implementation.
+
+Implementation evidence so far: four amended-contract baseline cases were red before changes, then green against actual read-only published CMS data; isolated new/legacy contract groups pass. No order/data/notification mutation was used. Record the upcoming audit findings, rework/resolution, routing and final result below rather than overwriting the historical rounds.
+
+Implementation/browser checks also exposed two connected producer gaps before audit: product views repeated during the development lifecycle, and lightbox arrow navigation was unmeasured/close used the old index. Per-component view ownership and guarded viewer-index events now yield one view and open/navigation/close per local destination, with the chosen image restored after closing. No existing passing repository test was rewritten.
+
+**Supplied stop-gate evidence:** current lint without warnings, TypeScript, 15 isolated contract groups, SPX 42, application build 229/postbuild SEO 221 and current Studio build pass. Browser findings are described in the plan's implementation checkpoint; source/SDK/interception proofs remain distinct from real database/native/hosted/operator evidence. Current audit verdict is pending.
+
 ## CMS-first amendment — 2026-10-23
 
 The owner approved Studio-only schema/editor changes and explicitly deferred storefront/API adaptation. See [CM-03 through CM-07](./plan.md#cms-first-amendment-and-required-next-actions). Legacy order/actions, root-only title prefixes, model slug codes, independent fee/bank records and rich product description/absolute print path supersede the old schema details.

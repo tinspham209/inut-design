@@ -48,7 +48,12 @@ export function CreativaStoreHeader() {
 			position="sticky"
 			color="transparent"
 			elevation={0}
-			sx={{ bgcolor: "#fbf8f5", color: "#52281f", borderBottom: "1px solid #eadfd8" }}
+			sx={{
+				bgcolor: "background.default",
+				color: "text.primary",
+				borderBottom: "1px solid",
+				borderColor: "divider",
+			}}
 		>
 			<Toolbar sx={{ justifyContent: "space-between", minHeight: { xs: 64, md: 76 }, gap: 1 }}>
 				<IconButton
@@ -79,7 +84,7 @@ export function CreativaStoreHeader() {
 							fontWeight: 800,
 							letterSpacing: "-.06em",
 							fontSize: { xs: 25, md: 30 },
-							color: "inherit",
+							color: "primary.main",
 							textDecoration: "none",
 						}}
 					>
@@ -151,12 +156,18 @@ export function CreativaStoreFooter() {
 	return (
 		<Box
 			component="footer"
-			sx={{ bgcolor: "#f2ebe6", borderTop: "1px solid #e5d7ce", py: 4, mt: "auto" }}
+			sx={{
+				bgcolor: "background.paper",
+				borderTop: "1px solid",
+				borderColor: "divider",
+				py: 4,
+				mt: "auto",
+			}}
 		>
 			<Container maxWidth="xl">
 				<Stack direction={{ xs: "column", sm: "row" }} justifyContent="space-between" gap={3}>
 					<Box>
-						<Typography fontSize={24} fontWeight={800}>
+						<Typography fontSize={24} fontWeight={800} color="primary.main">
 							inut.creativa
 						</Typography>
 						<Typography variant="body2">Một nhánh thương hiệu của INUT Design.</Typography>

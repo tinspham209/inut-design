@@ -10,6 +10,7 @@ import type { CreativaPublicOrder } from "@/models/creativa";
 import type { NextPageWithLayout } from "@/models/common";
 import { CREATIVA_PUBLIC_ID, formatCreativaPrice } from "@/utils/creativa/contracts";
 import { trackCreativa } from "@/utils/creativa/analytics";
+import { CreativaBankInstructions } from "@/components/creativa/BankInstructions";
 
 const statusNames = {
 	pending: "Chờ xác nhận",
@@ -187,20 +188,12 @@ const OrderDetail: NextPageWithLayout = () => {
 								order.status !== "cancelled" &&
 								(order.paymentStatus === "pending" || order.paymentStatus === "failed") &&
 								(order.bank ? (
-									<Alert severity="info">
-										<Typography fontWeight={500}>Thông tin chuyển khoản</Typography>
-										{order.bank.bankName}
-										<br />
-										{order.bank.accountName}
-										<br />
-										{order.bank.accountNumber}
-										<br />
-										Nội dung: {order.publicId}
-										<br />
-										{order.bank.transferInstructions}
-										<br />
-										Số tiền: {formatCreativaPrice(order.finalAmount)}
-									</Alert>
+									<CreativaBankInstructions
+										key={order.publicId}
+										bank={order.bank}
+										amount={order.finalAmount}
+										publicId={order.publicId}
+									/>
 								) : (
 									<Alert severity="warning">
 										Thông tin ngân hàng tạm thời chưa sẵn sàng. Vui lòng liên hệ hỗ trợ trước khi

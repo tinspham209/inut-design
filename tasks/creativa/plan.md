@@ -1,7 +1,7 @@
 # INUT Creativa — Implementation Plan
 
 **SDD gate:** Approved plan/refinement; implementation, audit and issue routing executed; final acceptance remains blocked.
-**Status:** CMS-first amendment approved on 2026-10-23. This step changes Studio schemas/editor behavior and these documents only. The application/API still uses the prior contract and is not compatible with newly authored amended records. Earlier application audit/verification results are historical, not current integration approval.
+**Status:** The owner accepted the CMS flow and authorized storefront/runtime integration on 2026-10-23. Implementation is in progress against the amended schemas with a light theme and primary `#fd4d01`; current audit/routing/final verification follow this work. Earlier results remain historical until the new loop completes.
 **Date:** 2026-10-22.
 **Refinement date:** 2026-10-23.
 **Source of truth:** This revised plan governs implementation scope, task dependencies, exit evidence and the dispositions below. [test-plan.md](./test-plan.md) supplies the linked procedures. Earlier documents supply the approved business requirements; an older implementation detail does not override an explicit refinement here. No acceptance criterion is silently removed or weakened.
@@ -11,9 +11,20 @@
 
 ## CMS-first amendment and required next actions
 
-The owner's 2026-10-23 decision supersedes conflicting schema/production-identity details in the baseline below. **Current scope is Sanity Studio only; storefront/API adaptation is the next step.** No production document is migrated, created or deleted by this code change.
+The initial 2026-10-23 CMS-only step superseded conflicting schema details in the baseline. The owner subsequently tested/accepted that flow and authorized the runtime/UI continuation below. No production document migration, real order or notification is authorized merely by this implementation request.
 
 Do not use amended records as live commerce configuration until the adapters are complete. Old stored fields can remain after schema edits; they must not become an accidental fallback to stale fit/artwork/bank information. Inventory and authorize migration explicitly rather than assuming a new editor has converted existing data.
+
+### Runtime and orange-light continuation — 2026-10-23
+
+- Primary is exactly `#fd4d01` in a scoped Creativa light theme. Use readable dark text on orange fills and darker orange for normal-sized text/hover states; do not change the root brand's theme. Preserve the image-first responsive layout, gallery, grid toggle, cart and tracking behavior.
+- Owner-confirmed bank policy is **`isActive == true && isPrimary == true`**, with exactly one eligible profile. Do not choose an arbitrary active/nonprimary account or add a customer bank selector. Missing, invalid or multiple primary accounts disable bank transfer explicitly while valid COD remains available. Save the selected payment details with the accepted order; tracking/recovery uses that snapshot, not today's replacement account.
+- Normalize slug `code.current`, render/validate Portable Text with a plain-text SEO summary, and ignore removed fit/product/artwork flags. Validate the production path as metadata; never upload/read/serve that local file or put its path in public API/Next-data/SEO/analytics/localStorage.
+- Shipping reads independent Creativa fee records; `da-nang` matches the region, `toan-quoc` is the required default, zero is valid and duplicate/missing/invalid fees are explicit errors. No main-brand fallback.
+- New private lines use `production.printAssetPath`; older artwork/fit snapshots remain readable without migration. Public quote lines contain neither production paths nor legacy print-master fields. The new semantic digest is `creativa-quote-v2`; old pending reviewed quotes require review, but accepted recovery never revalidates current catalog/configuration.
+- Read-only inventory found one published active product with path/rich description, 16 slug-coded models (15 active), four active coverages, one nationwide fee and one active primary bank. No old shipping/bank singleton format was found. No source path/account value is printed and no data migration is performed.
+
+Implementation → read-only Audit → Rework → Audit repeats for actionable defects, then Issue routing → read-only Final verification. Update this checklist only with actual scoped evidence. Owner CMS approval does not prove real transaction races, hosted collectors, native Safari or physical print-file access.
 
 | Surface | Current approved CMS contract |
 | --- | --- |
@@ -30,19 +41,28 @@ Do not use amended records as live commerce configuration until the adapters are
 
 - [x] CM-01 — Apply schema/navigation/action/template changes without modifying the legacy schema definitions or runtime consumers.
 - [x] CM-02 — Reconcile brief, idea, specs, design, plan, test plan and historical audit/routing/verification status with this staged contract.
-- [ ] CM-03 — **Next:** adapt `models/creativa.ts`, catalog GROQ/guards and product rendering for slug `code.current`, Portable Text and removed approval/artwork fields. Exclude filesystem paths from public projections, SEO and telemetry; review direct dataset access separately.
-- [ ] CM-04 — Adapt shipping/bank readers and checkout to per-record fees and active bank profiles, following the existing flows without shared business data. Resolve regional/default slugs and active/primary/display-order behavior explicitly; retain zero-fee, optional-address and missing-bank handling.
-- [ ] CM-05 — Update authoritative quote/digest, new accepted snapshots and staff handoff for the new model/print-path contract. Preserve old orders/recovery and keep private production paths out of public tracking. Snapshot a path, not a claim that its file contents were versioned or uploaded.
-- [ ] CM-06 — Inventory existing records and separately authorize any required string-code-to-slug, text-to-blocks, singleton-to-record and bank-field migration. Do not silently discard unknown fields or rewrite accepted orders.
+- [x] CM-03 — Amended models/catalog/guards and rich-text/SEO rendering implemented; actual published reads and browser product/search/coverage/galleries exercised. Public DTOs omit production metadata. Direct dataset visibility remains a separate boundary.
+- [x] CM-04 — Per-record fees and sole active-primary bank selection implemented; pure missing/invalid/duplicate/default/zero variants and browser COD/unavailable-transfer states exercised. No active/nonprimary/main-brand fallback.
+- [x] CM-05 — `creativa-quote-v2`, private production-path snapshots, new/legacy staff formatting and historical projection/recovery implemented. Actual order-service acceptance/replay/recovery exercised with a fully isolated SDK store, not a real database write.
+- [x] CM-06 — Read-only format inventory completed: current published catalog/options/settings need no detected format migration. No migration or accepted-order rewrite performed; compatibility retains old snapshots.
 - [ ] CM-07 — Verify amended Studio authoring, complete API/quote/cart/checkout/recovery/tracking/history/analytics contracts and historical compatibility before release. Prior baseline passes cannot close these new integration checks.
+- [x] CM-08 — Scoped orange/light theme implemented and observed at 390x844/1440x1000; exact main/CTA RGB, selected states and overflow checks recorded. Normal orange-fill/dark-text contrast is 5.38, dark-orange/white 6.35; touch-hover styles retain readable contrast. This is not native Safari signoff.
 
-CM-03/CM-04 precede CM-05; CM-06 inventory informs any integration/migration; CM-07 depends on the completed adapters and any authorized migration. These follow-ups are deliberately **not implemented in this CMS-only step**. CR-03/05/06/07/12/14/15/17/21/22 and related ACs must consume the amendment, not obsolete fit/artwork/singleton assumptions. Original external gates E-01 through E-04 remain open.
+CM-03/CM-04 precede CM-05; CM-06 inventory informs integration/migration; CM-07 depends on the adapters and any authorized migration; CM-08 runs with the UI work. These tasks are now authorized for implementation/verification, not implicitly passed. Original external gates remain where their actual witnesses are still missing.
 
 ### CMS-only verification checkpoint
 
 Existing `pnpm --dir sanity build` passes. Isolated actual schema definitions verify all nine root schemas, legacy-first registration/navigation, readable unprefixed nested labels/options, slug configuration, product-only active default true, valid/invalid POSIX/Windows/shared-drive paths, exact legacy fee/bank editor reuse and native-versus-private action/template boundaries. No CMS API call or document mutation occurs in those checks.
 
 The Studio preview is responsive. The temporary nonstandard origin was CORS-blocked; the standard `http://localhost:3333` origin reaches **Please sign in**. No project/CORS/credential changes were made. Actual authenticated field controls, Generate interaction, profile creation and publication therefore remain unverified; do not treat the build/source checks as a connected authoring pass. Next review needs an authorized Studio session, followed by CM-03 through CM-07, not unapproved data writes.
+
+### Runtime implementation checkpoint
+
+The owner subsequently accepted the CMS authoring flow. Current implementation checks pass: lint without warnings, TypeScript, 15 isolated amended-contract groups, existing SPX 42, application build (229 pages)/SEO smoke (221 sitemap URLs) and current Studio build. Probe setup initially let a public quote overwrite a private fixture's lines; correcting fixture construction preserved the path-safety assertions and did not require a source change.
+
+Actual read-only CMS/quote checks exercise the published product, 15 active models/four coverages, per-record nationwide fee and active-primary account. Browser checks cover live images/rich description, no-match/mixed-case search, grid toggle, four prices, model requirement, gallery independence/lightbox navigation, merge/edit/remove and legacy-cart storage preservation. Invalid name/phone focus and default shipping events pass; accepted response interception clears submitted content/journal, saves one ID, shows the saved bank and does not emit false abandonment. Missing-primary interception disables transfer and retains COD. Root Lighters-selected history tag opens Creativa directly.
+
+Local SDK/collector/acceptance fixtures are not actual database/native/vendor/operator witnesses. CM-07, CR-19 and release gates remain open for those required cases. Formal read-only audit is the next phase; no acceptance signoff is claimed by this checkpoint.
 
 ## 1. Delivery contract
 

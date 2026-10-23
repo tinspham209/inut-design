@@ -180,7 +180,7 @@ export const CREATIVA_TELEMETRY_BOOTSTRAP = `
       if (/^\\/creativa\\/order-tracking\\//.test(location.pathname)) payload.title = 'Tra cứu đơn hàng — INUT Creativa';
       if (payload.data) {
         Object.keys(payload.data).forEach(function (key) {
-          if (/customer|phone|email|address|note|capability|public.?id|order.?id|search.?term|idempotency/i.test(key)) delete payload.data[key];
+          if (/customer|phone|email|address|note|capability|public.?id|order.?id|order.?number|search.?term|idempotency|print.?asset|production|fit.?reference|artwork|account.?number|account.?holder|account.?name/i.test(key)) delete payload.data[key];
         });
       }
     }

@@ -1,12 +1,20 @@
 # INUT Creativa — Test Plan
 
 **SDD gate:** Approved strategy/refinement; partial execution and final verification recorded.
-**Status:** Amended for the owner-approved 2026-10-23 CMS-only step. Earlier application evidence in [final-verification.md](./final-verification.md) is historical; new-schema runtime integration and migration checks remain pending. This document is procedures, not an application pass.
+**Status:** Owner accepted the CMS flow and authorized runtime/orange-light UI integration. The current loop verifies that amended contract; earlier evidence remains historical until fresh checks/audit complete. This document defines procedures, not an automatic pass.
 **Date:** 2026-10-23.
 **Authority:** The [revised plan](./plan.md) is the implementation/task/exit source of truth; this document supplies procedures for its reverse-validation matrix. The approved [specification](./specs.md) and [technical design](./technical-design.md) retain business context, subject to explicit refinement dispositions.
 **Constraint:** This is test documentation, not test code. Do not introduce a unit-test suite, runner, dependency, framework, CI job or coverage-percentage target. Existing focused assertions may be used where relevant; hypothetical Creativa test scripts are not existing quality gates.
 
 ## CMS-first checks and next phase
+
+### Runtime/orange-light continuation checks
+
+Owner CMS-flow acceptance is recorded separately from agent evidence. Runtime tests now cover normalized slug codes without removed flags, rich text plus safe plain-text SEO, bounded two-image catalog payloads, per-record fees/default/region/zero/invalid variants, and the single active-primary bank. Verify missing/nonprimary/inactive/duplicate/invalid primary profiles explicitly; never select another active account.
+
+Verify new private production-path snapshots versus path-free product/quote/tracking/analytics responses and new/legacy staff handoff. Changing a production path or payment destination must change the semantic quote; revision/cosmetic description alone must not. Accepted old-order recovery is independent of current options/settings. Do not migrate real data or send notifications for a test.
+
+Browser-check `primary.main=#fd4d01`, light surfaces, dark readable text on orange fills, darker-orange text/hover variants, focus/selected states, mobile grid/gallery/quantity/add/cart/checkout and bank instructions from a saved snapshot. Keep old order states and root/lighter styling intact. Check the product unavailable/retry and missing-data cases, not only the happy path. Use authorized interception for acceptance/recovery and disabled/hung trackers; actual database/host/native evidence remains a separate gate.
 
 The [amended plan](./plan.md#cms-first-amendment-and-required-next-actions) is authoritative. In this step verify:
 
@@ -21,7 +29,7 @@ Use existing Studio build and isolated schema/action/structure checks. Browser f
 
 **Next, after CM-03..CM-06:** verify actual new-format product/model/configuration reads, Portable Text rendering, private path exclusion, shipping/default/zero fee, active bank profiles, quote/digest/repricing, staff production-path snapshots, old-order recovery, checkout/history/analytics and authorized migration. Retire obsolete fit-boolean/upload-asset expectations for new records, but retain manual compatibility/file-retention and historical-order tests. Baseline CT/DB/BDD passes must not be reused as proof of these changed contracts.
 
-**Current CMS-only evidence:** Studio build and isolated definition/order/label/default/path/editor/action/template checks pass. Browser reaches the standard-origin Studio sign-in screen; no authenticated form/create/publish/Generate interaction is claimed. CORS settings, credentials and stored records were not changed. See the plan's checkpoint for the required next review.
+**Historical CMS-only evidence:** Studio build/isolated definitions passed; agent browser reached sign-in. The owner subsequently tested/accepted the CMS flow. That attestation does not stand in for runtime, private-namespace, race, native-device or hosted-vendor checks. Current read-only inventory shows amended published records; no migration or production mutation has been performed.
 
 ## 1. Objectives and expected coverage
 

@@ -1,9 +1,9 @@
 # Creativa Issue Routing
 
-**Phase:** Completed issue routing; final documentation reconciliation only, no application changes.
+**Phase:** Current runtime implementation authorized; new audit/routing follows. Historical routing below is retained.
 **Code reviewed:** Historical application closure through `7fedd01`; later CMS-only amendment has a deliberately pending runtime handoff.
 **Inputs:** [Audit report](./audit-report.md), [revised plan](./plan.md), [specification](./specs.md) and [test plan](./test-plan.md).
-**Decision:** Baseline I-01 through I-18 remain historically resolved. The owner's new CMS-first contract introduces CM-03 through CM-07 follow-up work, not implemented in this step. Four external readiness findings also remain. No current amended-contract integration pass is claimed.
+**Decision:** Owner accepted the CMS flow and authorized CM runtime/UI work, including exact orange primary and active-primary bank selection. Implementation is underway; route fresh audit findings after re-audit. Historical external witnesses are not automatically closed by this approval.
 
 ## Classification rules
 
@@ -17,7 +17,7 @@
 
 | Issue | Category | Reason | Recommended next phase | Files/data affected | Estimated impact | Continue |
 | --- | --- | --- | --- | --- | --- | --- |
-| CM handoff — new Studio records versus old runtime | Missing Implementation → Implement → Verify (explicitly deferred scope) | Owner chose CMS-only now. Readers/guards still expect fit/product/artwork fields, text description, string code and singleton shipping/bank formats. | After CMS review, implement CM-03 through CM-07; separately authorize any actual data migration, then re-audit/reverify. | `models/creativa.ts`, catalog reader, quote/records/notifications, product rendering/checkout/tracking, amended Studio snapshot compatibility and SDD evidence. | High for launch: new CMS records are not currently compatible with commerce; do not deploy as an integrated release or fake removed fields. | NO in this CMS-only step |
+| CM handoff — new Studio records versus old runtime | Missing Implementation → Implement → Verify | Owner now authorized the follow-up after testing CMS. Amended readers/quotes/snapshots/rendering and orange/light UI are being implemented without fake removed fields. | Complete CM-03 through CM-08, audit/rework, then classify and verify actual remaining findings. Any data migration still needs separate authorization. | Domain model, catalog/quote/records/notifications, product/checkout/tracking UI, staff snapshot schema, SDD evidence. | High launch compatibility issue; implementation is permitted, release evidence is not presumed. | YES |
 | I-01 — discarded pending capability | Missing Implementation → Implement → Verify | Client inferred terminal state from transient code/status; original server intent remained resumable. Fixed by confirmed-terminal protocol and retained-capability handling. | Final verification of the applied fix; no additional code currently requested. | `utils/creativa/{orders.server,api.server,contracts}.ts`, model/API wrapper, checkout page. | High integrity risk resolved in code; real target recovery still belongs to E-02. | YES |
 | I-02 — forgotten history resurrection | Missing Implementation → Implement → Verify | Stale independent callback trusted captured flags/recreated completed journal. Fresh ownership/checkpoints and persisted-cache semantics now suppress it. | Final verification; retain normal versus storage-failure evidence boundaries. | `utils/creativa/storage.ts`, checkout page. | Medium browser-state issue resolved; native/interruption matrix remains E-04. | YES |
 | I-03 — healthy cart entries lost with invalid sibling | Missing Implementation → Implement → Verify | Whole-cart decoding/reset could remove valid entries. Per-entry quarantine and explicit invalid-only repair now retain them and block submit until resolved. | Final verification of the repair/error path. | `store/cart/creativaCart.ts`, cart/checkout pages. | Medium data-loss risk resolved with isolated source/state evidence. | YES |

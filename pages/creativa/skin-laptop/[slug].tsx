@@ -17,6 +17,7 @@ import {
 	Stack,
 	TextField,
 	Typography,
+	useTheme,
 } from "@mui/material";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import type { GetStaticPaths, GetStaticProps } from "next";
@@ -32,13 +33,16 @@ import { sanityImageUrl } from "@/api-client/sanity-image";
 import type { CreativaImage, CreativaOptions, CreativaProduct } from "@/models/creativa";
 import type { NextPageWithLayout } from "@/models/common";
 import { useHydratedCreativaCart } from "@/hooks/creativa/useBrowserState";
-import { formatCreativaPrice, safeQuantity } from "@/utils/creativa/contracts";
+import { CreativaError, formatCreativaPrice, safeQuantity } from "@/utils/creativa/contracts";
 import { trackCreativa } from "@/utils/creativa/analytics";
 import { SITE_URL } from "@/utils/siteUrl";
+import BlockContentWrapper from "@/components/common/block-content";
+import { creativaDescriptionText } from "@/utils/creativa/content";
 
 const Carousel = dynamic(() => import("react-material-ui-carousel"), { ssr: false });
 const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
 type Props = { product: CreativaProduct; options: CreativaOptions };
+type UnavailableProps = { slug: string; initialError: string };
 
 function GalleryImage({ image, priority = false }: { image: CreativaImage; priority?: boolean }) {
 	const [failed, setFailed] = useState(false);
@@ -63,6 +67,7 @@ function GalleryImage({ image, priority = false }: { image: CreativaImage; prior
 }
 
 function ProductContent(initial: Props) {
+	const theme = useTheme();
 	const productSlug = initial.product.slug.current;
 	const [data, setData] = useState(initial);
 	const [modelId, setModelId] = useState("");
@@ -70,7 +75,9 @@ function ProductContent(initial: Props) {
 	const [quantity, setQuantity] = useState("1");
 	const measuredQuantity = useRef(1);
 	const coverageChosen = useRef(false);
+	const viewed = useRef(false);
 	const [index, setIndex] = useState(0);
+	const lightboxIndex = useRef(0);
 	const [lightbox, setLightbox] = useState(false);
 	const [verified, setVerified] = useState(false);
 	const [error, setError] = useState<string | null>(null);
@@ -111,6 +118,8 @@ function ProductContent(initial: Props) {
 		};
 	}, [productSlug, retry]);
 	useEffect(() => {
+		if (viewed.current) return;
+		viewed.current = true;
 		trackCreativa(
 			"view_item",
 			{
@@ -135,24 +144,26 @@ function ProductContent(initial: Props) {
 		);
 	}, [initial.product._id, initial.product.name, initial.options.coverages]);
 	const priceList = options.coverages.map((item) => item.price);
+	const description = creativaDescriptionText(product.description);
 	const structured = JSON.stringify({
 		"@context": "https://schema.org",
 		"@type": "Product",
 		name: product.name,
 		image: product.images.map((image) => sanityImageUrl(image, "structured")),
-		description: product.description || `Skin MacBook ${product.name}.`,
+		description: description || `Skin MacBook ${product.name}.`,
 		brand: { "@type": "Brand", name: "INUT Creativa" },
-		...(priceList.length > 0 && {
-			offers: {
-				"@type": "AggregateOffer",
-				priceCurrency: "VND",
-				lowPrice: Math.min(...priceList),
-				highPrice: Math.max(...priceList),
-				offerCount: priceList.length,
-				url: `${SITE_URL}/creativa/skin-laptop/${product.slug.current}`,
-			},
-		}),
-	});
+		...(priceList.length > 0 &&
+			options.models.length > 0 && {
+				offers: {
+					"@type": "AggregateOffer",
+					priceCurrency: "VND",
+					lowPrice: Math.min(...priceList),
+					highPrice: Math.max(...priceList),
+					offerCount: priceList.length,
+					url: `${SITE_URL}/creativa/skin-laptop/${product.slug.current}`,
+				},
+			}),
+	}).replace(/</g, "\\u003c");
 	return (
 		<>
 			<CreativaSeo
@@ -160,9 +171,7 @@ function ProductContent(initial: Props) {
 				path={`/creativa/skin-laptop/${product.slug.current}`}
 				image={product.images[0] ? sanityImageUrl(product.images[0], "seo") : undefined}
 				structured={structured}
-				description={
-					product.description || `Chọn mẫu MacBook và phạm vi dán cho thiết kế ${product.name}.`
-				}
+				description={description || `Chọn mẫu MacBook và phạm vi dán cho thiết kế ${product.name}.`}
 			/>
 			<Container maxWidth="xl" sx={{ py: { xs: 2, md: 4 } }}>
 				<Breadcrumbs sx={{ mb: 2, fontSize: 13 }}>
@@ -176,6 +185,7 @@ function ProductContent(initial: Props) {
 							autoPlay={false}
 							indicators
 							navButtonsAlwaysVisible
+							activeIndicatorIconButtonProps={{ style: { color: theme.palette.primary.main } }}
 							index={index}
 							onChange={(next) => {
 								if (typeof next === "number") {
@@ -195,9 +205,12 @@ function ProductContent(initial: Props) {
 									aria-label={`Phóng to ảnh ${imageIndex + 1}`}
 									key={image._key || image.asset._ref}
 									onClick={() => {
+										lightboxIndex.current = imageIndex;
+										setIndex(imageIndex);
 										setLightbox(true);
 										trackCreativa("gallery_interaction", {
 											action: "open",
+											surface: "lightbox",
 											image_index: imageIndex,
 										});
 									}}
@@ -227,7 +240,8 @@ function ProductContent(initial: Props) {
 										height: 70,
 										position: "relative",
 										bgcolor: "white",
-										border: index === imageIndex ? "2px solid #713d2c" : "1px solid #eadfd8",
+										border: "2px solid",
+										borderColor: index === imageIndex ? "primary.main" : "divider",
 										cursor: "pointer",
 									}}
 								>
@@ -244,7 +258,23 @@ function ProductContent(initial: Props) {
 							open={lightbox}
 							close={() => {
 								setLightbox(false);
-								trackCreativa("gallery_interaction", { action: "close", image_index: index });
+								setIndex(lightboxIndex.current);
+								trackCreativa("gallery_interaction", {
+									action: "close",
+									surface: "lightbox",
+									image_index: lightboxIndex.current,
+								});
+							}}
+							on={{
+								view: ({ index: next }) => {
+									if (!lightbox || next === lightboxIndex.current) return;
+									lightboxIndex.current = next;
+									trackCreativa("gallery_interaction", {
+										action: "navigate",
+										surface: "lightbox",
+										image_index: next,
+									});
+								},
 							}}
 							index={index}
 							slides={product.images.map((image) => ({
@@ -315,7 +345,7 @@ function ProductContent(initial: Props) {
 								<FormHelperText>
 									{options.models.length
 										? "Vui lòng chọn đúng mẫu máy trước khi thêm vào giỏ."
-										: "Chưa có mẫu máy được xác nhận để đặt hàng."}
+										: "Chưa có mẫu MacBook đang mở bán."}
 								</FormHelperText>
 							</FormControl>
 							{!coverage && (
@@ -358,7 +388,7 @@ function ProductContent(initial: Props) {
 											}
 											sx={{
 												border: "1px solid",
-												borderColor: coverageId === item._id ? "primary.main" : "#d7c2b7",
+												borderColor: coverageId === item._id ? "primary.main" : "divider",
 												borderRadius: 1,
 												mx: 0,
 												mb: 1,
@@ -392,7 +422,7 @@ function ProductContent(initial: Props) {
 								sx={{ width: 130 }}
 							/>
 							<Button
-								variant="outlined"
+								variant="contained"
 								size="large"
 								startIcon={<AddShoppingCartOutlinedIcon />}
 								disabled={!verified || !model || !coverage || !cart.hydrated || !!cart.error}
@@ -448,18 +478,39 @@ function ProductContent(initial: Props) {
 							>
 								Thêm vào giỏ hàng
 							</Button>
+							{!verified && !error && (
+								<Typography variant="caption" color="text.secondary">
+									Đang xác nhận thông tin đặt hàng…
+								</Typography>
+							)}
+							{!cart.hydrated && (
+								<Typography variant="caption" color="text.secondary">
+									Đang khôi phục giỏ hàng trên trình duyệt…
+								</Typography>
+							)}
 							{!model && (
 								<Typography variant="caption" color="text.secondary">
 									Chọn mẫu MacBook để tiếp tục.
 								</Typography>
 							)}
-							{product.description && (
-								<Typography
-									variant="body2"
-									sx={{ borderTop: "1px solid #dfcfc6", pt: 3, whiteSpace: "pre-line" }}
+							{!!product.description?.length && (
+								<Box
+									sx={{
+										borderTop: "1px solid",
+										borderColor: "divider",
+										pt: 3,
+										"& #block-content-wrapper blockquote": { borderLeftColor: "primary.main" },
+										"& #block-content-wrapper a": { color: "primary.dark" },
+									}}
 								>
-									{product.description}
-								</Typography>
+									{typeof product.description === "string" ? (
+										<Typography variant="body2" sx={{ whiteSpace: "pre-line" }}>
+											{product.description}
+										</Typography>
+									) : (
+										<BlockContentWrapper blocks={product.description} />
+									)}
+								</Box>
 							)}
 							<Link href="/creativa/skin-laptop/huong-dan-su-dung">Hướng dẫn sử dụng</Link>
 						</Stack>
@@ -469,20 +520,75 @@ function ProductContent(initial: Props) {
 		</>
 	);
 }
-const ProductDetail: NextPageWithLayout<Props> = (props) => (
-	<ProductContent key={props.product._id} {...props} />
-);
+function UnavailableProduct({ slug, initialError }: UnavailableProps) {
+	const [result, setResult] = useState<Props | null>(null);
+	const [error, setError] = useState(initialError);
+	const [busy, setBusy] = useState(false);
+	if (result) return <ProductContent key={result.product._id} {...result} />;
+	return (
+		<>
+			<CreativaSeo
+				title="Sản phẩm tạm thời chưa sẵn sàng"
+				path={`/creativa/skin-laptop/${slug}`}
+				noindex
+			/>
+			<Container maxWidth="md" sx={{ py: 6 }}>
+				<Stack gap={2}>
+					<Typography component="h1" variant="h4">
+						Sản phẩm tạm thời chưa sẵn sàng
+					</Typography>
+					<Alert severity="error">{error}</Alert>
+					<Button
+						variant="contained"
+						disabled={busy}
+						onClick={async () => {
+							setBusy(true);
+							try {
+								setResult(await creativaApi.product(slug));
+							} catch (failure) {
+								setError(failure instanceof Error ? failure.message : "Không thể tải sản phẩm.");
+							} finally {
+								setBusy(false);
+							}
+						}}
+					>
+						{busy ? "Đang tải…" : "Thử lại"}
+					</Button>
+					<Link href="/creativa/skin-laptop">Về danh sách thiết kế</Link>
+				</Stack>
+			</Container>
+		</>
+	);
+}
+const ProductDetail: NextPageWithLayout<Props | UnavailableProps> = (props) =>
+	"initialError" in props ? (
+		<UnavailableProduct key={props.slug} {...props} />
+	) : (
+		<ProductContent key={props.product._id} {...props} />
+	);
 ProductDetail.Layout = CreativaLayout;
 export const getStaticPaths: GetStaticPaths = async () => ({ paths: [], fallback: "blocking" });
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const slug = typeof params?.slug === "string" ? params.slug : "";
-	const { creativaCatalogApi } = await import("@/api-client/creativa-catalog");
-	const [product, options] = await Promise.all([
-		creativaCatalogApi.getProductBySlug(slug),
-		creativaCatalogApi.getOptions(),
-	]);
-	return product
-		? { props: { product, options }, revalidate: 60 }
-		: { notFound: true, revalidate: 60 };
+	const { getCreativaProduct } = await import("@/api-client/creativa-catalog");
+	try {
+		return { props: await getCreativaProduct(slug), revalidate: 60 };
+	} catch (failure) {
+		if (failure instanceof CreativaError && failure.code === "PRODUCT_NOT_FOUND")
+			return { notFound: true, revalidate: 60 };
+		console.error("[Creativa product] Rendering unavailable state.", {
+			code: failure instanceof CreativaError ? failure.code : "PRODUCT_UNAVAILABLE",
+		});
+		return {
+			props: {
+				slug,
+				initialError:
+					failure instanceof CreativaError
+						? failure.message
+						: "Không thể tải sản phẩm. Vui lòng thử lại.",
+			},
+			revalidate: 60,
+		};
+	}
 };
 export default ProductDetail;

@@ -6,6 +6,19 @@ export type CreativaImage = SanityImage & {
 	view: "top" | "bottom" | "interior" | "other";
 };
 
+export type CreativaTextBlock = {
+	_type: "block";
+	_key?: string;
+	style?: string;
+	listItem?: "bullet" | "number";
+	level?: number;
+	children: Array<{ _type: "span"; _key?: string; text: string; marks?: string[] }>;
+	markDefs?: Array<{ _key: string; _type: "link"; href: string }>;
+};
+export type CreativaDescription =
+	| string
+	| Array<CreativaTextBlock | (SanityImage & { _type: "image"; alt?: string })>;
+
 export type CreativaProduct = {
 	_id: string;
 	_rev?: string;
@@ -13,10 +26,7 @@ export type CreativaProduct = {
 	name: string;
 	slug: { current: string };
 	active: boolean;
-	description?: string;
-	artworkId: string;
-	artworkVersion: string;
-	printAsset?: { _type: "file"; asset: { _type: "reference"; _ref: string } };
+	description?: CreativaDescription;
 	images: CreativaImage[];
 };
 
@@ -26,8 +36,6 @@ export type CreativaModel = {
 	code: string;
 	sortOrder: number;
 	active: boolean;
-	fitVerified: boolean;
-	fitReference: string;
 };
 
 export type CreativaCoverage = {
@@ -41,27 +49,30 @@ export type CreativaCoverage = {
 };
 
 export type CreativaBank = {
+	profileId?: string;
+	name?: string;
 	bankName: string;
+	bankShortName?: string;
 	accountName: string;
 	accountNumber: string;
+	image?: SanityImage;
 	transferInstructions?: string;
 };
 
 export type CreativaShippingRule = {
-	_key: string;
+	_id: string;
 	code: string;
 	name: string;
-	active: boolean;
-	isDefault: boolean;
-	sortOrder: number;
 	fee: number;
 	note?: string;
 };
 
+export type CreativaBankIssue = "missing_primary" | "multiple_primary" | "invalid_primary";
 export type CreativaOptions = {
 	models: CreativaModel[];
 	coverages: CreativaCoverage[];
 	bankAvailable: boolean;
+	bankIssue?: CreativaBankIssue;
 };
 
 export type CreativaCatalogPage = {
@@ -86,15 +97,9 @@ export type CreativaOrderLine = CreativaPurchaseLine & {
 	selection: CreativaPurchaseLine["selection"] & {
 		modelName: string;
 		modelCode: string;
-		fitReference: string;
 		coverageName: string;
 		coverageCode: CoverageCode;
 		coverageMeaning: string;
-	};
-	artwork: {
-		identity: string;
-		version: string;
-		printAsset?: CreativaProduct["printAsset"];
 	};
 	unitPrice: number;
 	subtotal: number;

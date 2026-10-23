@@ -1,5 +1,9 @@
 # New sub brand: INUT Creativa
 
+## Owner storefront continuation — 2026-10-23
+
+The owner tested and accepted the revised CMS flow, then authorized connecting storefront/UI/runtime consumers. **Keep primary `#fd4d01` and a light theme.** Customer bank details must come from the active primary Creativa profile only; no active-account fallback or customer bank selector. Run implement → audit → rework → audit → issue routing → final verification, and reconcile related documents. The [runtime continuation](./plan.md#runtime-and-orange-light-continuation--2026-10-23) records exact contracts/evidence boundaries; no production write/migration/deployment is implied.
+
 ## Owner CMS-first amendment — 2026-10-23
 
 The original brief below is retained as historical input. The owner now requests Creativa schemas/navigation after all legacy content; readable field labels with `Creative - ` only on root titles; MacBook slug codes without fit fields; independent per-record shipping and multiple bank profiles like the legacy editors; and `Creative - Skin laptop` with active default true, block content description and absolute `printAssetPath` metadata instead of approval/artwork/upload fields.

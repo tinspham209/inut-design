@@ -26,6 +26,21 @@ const field = (name, type = "string", extra = {}) => ({
 	...extra,
 });
 const text = (name, extra = {}) => field(name, "string", { validation: required, ...extra });
+const printAssetPath = () =>
+	text("printAssetPath", {
+		description:
+			"Absolute path on the printing computer or shared drive. Metadata only: no upload, browser storage or automatic file access. File existence is not checked; do not include secrets in a public dataset.",
+		validation: (Rule) =>
+			Rule.required().custom(
+				(value) =>
+					(typeof value === "string" &&
+						!/[\u0000-\u001f]/.test(value) &&
+						(/^\/.+/.test(value) ||
+							/^[A-Za-z]:[\\/].+/.test(value) ||
+							/^\\\\[^\\/]+[\\/][^\\/]+[\\/].+/.test(value))) ||
+					"Enter an absolute file path, such as /Volumes/PrintAssets/design.pdf or D:\\PrintAssets\\design.pdf"
+			),
+	});
 const object = (name, fields, extra = {}) => ({
 	name,
 	title: humanLabel(name),
@@ -93,9 +108,13 @@ const image = {
 		Rule.required().custom((value) => (value?.asset?._ref ? true : "Image asset required")),
 };
 const bankFields = [
+	field("profileId"),
+	field("name"),
 	text("bankName"),
+	field("bankShortName"),
 	text("accountName"),
 	text("accountNumber"),
+	field("image", "image"),
 	field("transferInstructions", "text"),
 ];
 const shippingFields = [text("code"), text("name"), money("fee")];
@@ -103,7 +122,9 @@ const selectionFields = [
 	text("modelId"),
 	text("modelName"),
 	text("modelCode"),
-	text("fitReference"),
+	field("fitReference", "string", {
+		description: "Retained legacy order data; not required for new orders.",
+	}),
 	text("coverageId"),
 	text("coverageName"),
 	enumeration("coverageCode", ["top", "bottom", "interior", "full"]),
@@ -123,6 +144,7 @@ const lineFields = [
 	text("productSlug"),
 	{ ...image, name: "productImage", title: "Product Image" },
 	object("selection", selectionFields),
+	object("production", [printAssetPath()]),
 	object("artwork", [
 		text("identity"),
 		text("version"),
@@ -191,20 +213,7 @@ export const creativaSkinProduct = doc(
 		}),
 		{ ...active, initialValue: true },
 		field("description", "blockContent"),
-		text("printAssetPath", {
-			description:
-				"Absolute path on the printing computer or shared drive. Metadata only: no upload, browser storage or automatic file access. File existence is not checked; do not include secrets in a public dataset.",
-			validation: (Rule) =>
-				Rule.required().custom(
-					(value) =>
-						(typeof value === "string" &&
-							!/[\u0000-\u001f]/.test(value) &&
-							(/^\/.+/.test(value) ||
-								/^[A-Za-z]:[\\/].+/.test(value) ||
-								/^\\\\[^\\/]+[\\/][^\\/]+[\\/].+/.test(value))) ||
-						"Enter an absolute file path, such as /Volumes/PrintAssets/design.pdf or D:\\PrintAssets\\design.pdf"
-				),
-		}),
+		printAssetPath(),
 		array("images", image, {
 			validation: (Rule) =>
 				Rule.required()
@@ -270,12 +279,26 @@ export const creativaShippingSettings = {
 	...shippingFee,
 	name: "creativaShippingSettings",
 	title: title("Shipping Fee"),
+	fields: shippingFee.fields.map((item) =>
+		item.name === "fee" ? { ...item, validation: integer() } : item
+	),
 };
 
 export const creativaBankSettings = {
 	...bankInfo,
 	name: "creativaBankSettings",
 	title: title("Bank Information"),
+	validation: (Rule) =>
+		Rule.custom(async (value) => {
+			if (!value?.isActive || !value.isPrimary) return true;
+			const id = idWithoutDraft(value._id);
+			const count = await studioClient().fetch(
+				`count(*[_type == "creativaBankSettings" && isActive == true && isPrimary == true &&
+					!(_id in [$id,$draft]) && !(_id in path("drafts.**")) && !(_id in path("versions.**"))])`,
+				{ id, draft: `drafts.${id}` }
+			);
+			return count === 0 || "Only one active primary Creativa bank account is allowed";
+		}),
 };
 
 export const creativaSalesSettings = doc(
@@ -329,9 +352,15 @@ export const creativaCheckoutIntent = doc(
 						"quoteLine",
 						lineFields.filter(
 							(item) =>
-								!["product", "model", "coverage", "retainedImages", "sourceRevisions"].includes(
-									item.name
-								)
+								![
+									"product",
+									"model",
+									"coverage",
+									"retainedImages",
+									"sourceRevisions",
+									"production",
+									"artwork",
+								].includes(item.name)
 						)
 					)
 				),
