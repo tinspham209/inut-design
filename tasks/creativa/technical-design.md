@@ -1,7 +1,7 @@
 # INUT Creativa — Technical Design
 
 **SDD gate:** Technical design.
-**Status:** Owner accepted the CMS flow and authorized runtime/UI integration with light theme/primary `#fd4d01` on 2026-10-23. The target mechanisms below now govern the implementation and its fresh audit; older verification is historical.
+**Status:** Amended CMS/runtime and light theme/primary `#fd4d01` implemented; code audit PASS through `5a8cff8`. [Current verification](./final-verification.md) separates scoped passes from required E-01..E-04 release witnesses.
 **Date:** 2026-10-22.
 **Authority:** [Approved specification](./specs.md) and [approved idea](./idea.md).
 **Boundary:** Architecture, data ownership, interfaces, algorithms, failure behavior and verification design. Delivered paths are evidenced by source and the final report, not by this design's existence alone.
@@ -11,11 +11,11 @@
 
 The earlier Studio-only stage is complete and accepted by the owner. [CM-03 through CM-08](./plan.md#cms-first-amendment-and-required-next-actions) now cover application integration and orange/light UI. No stored records or accepted orders are automatically migrated.
 
-Current target: normalize model `code.current`; validate/render Portable Text and derive text SEO; fetch per-record fee settings and the sole active-primary bank; generate `creativa-quote-v2` with private production-path meaning but path-free public lines; retain old artwork/fit snapshots. Bank absence/ambiguity is a transfer-unavailable state, not permission to choose another account. Payment instructions are snapshotted, not reloaded from current configuration during accepted recovery.
+Implemented contract: normalize model `code.current`; validate/render Portable Text and derive text SEO; fetch per-record fee settings and the sole active-primary bank; generate `creativa-quote-v2` with private production-path meaning but path-free public lines; retain old artwork/fit snapshots. Bank absence/ambiguity is a transfer-unavailable state, not permission to choose another account. Payment instructions are snapshotted, not reloaded from current configuration during accepted recovery.
 
-Next integration must normalize model `code.current`, support Portable Text description rendering through existing tooling, remove obsolete product/model approval/artwork-field guards, and read fee/bank profiles by type rather than fixed singleton IDs. Production path metadata belongs in private staff snapshots/handoff, not public product/tracking/SEO/analytics projections; direct dataset permissions still need review. Existing stored artwork/fit/order snapshots must remain interpretable. A local path is neither an uploaded asset nor an immutable/versioned file.
+Production path metadata belongs in private staff snapshots/handoff, not public product/tracking/SEO/analytics projections; direct dataset permissions still need review. Existing stored artwork/fit/order snapshots remain interpretable through explicit legacy compatibility. A local path is neither an uploaded asset nor an immutable/versioned file.
 
-The schema contracts below describe the new target. Runtime algorithms elsewhere in this document remain a baseline until adapted; do not treat their old verified-fit, artwork-version or shipping/bank singleton assumptions as current authorization to write new-format orders.
+The contracts/algorithms below describe the amended implementation. Removed fit/product flags, artwork versions and fixed fee/bank singletons are not new-order requirements; retained historical snapshot fields are compatibility only. Actual database/host/native/operator proof is not supplied by the design or isolated fixtures.
 
 ## 1. Design decisions
 

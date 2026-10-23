@@ -1,7 +1,7 @@
 # INUT Creativa — Implementation Plan
 
 **SDD gate:** Approved plan/refinement; implementation, audit and issue routing executed; final acceptance remains blocked.
-**Status:** The owner accepted the CMS flow and authorized storefront/runtime integration on 2026-10-23. Implementation is in progress against the amended schemas with a light theme and primary `#fd4d01`; current audit/routing/final verification follow this work. Earlier results remain historical until the new loop completes.
+**Status:** Owner-approved amended runtime and light theme/primary `#fd4d01` implemented. Independent audit at `715aa79`, R-01 rework and targeted PASS through `5a8cff8`, issue routing and scoped final verification are complete. Full release acceptance remains blocked by E-01..E-04; source completion is not launch approval.
 **Date:** 2026-10-22.
 **Refinement date:** 2026-10-23.
 **Source of truth:** This revised plan governs implementation scope, task dependencies, exit evidence and the dispositions below. [test-plan.md](./test-plan.md) supplies the linked procedures. Earlier documents supply the approved business requirements; an older implementation detail does not override an explicit refinement here. No acceptance criterion is silently removed or weakened.
@@ -13,7 +13,7 @@
 
 The initial 2026-10-23 CMS-only step superseded conflicting schema details in the baseline. The owner subsequently tested/accepted that flow and authorized the runtime/UI continuation below. No production document migration, real order or notification is authorized merely by this implementation request.
 
-Do not use amended records as live commerce configuration until the adapters are complete. Old stored fields can remain after schema edits; they must not become an accidental fallback to stale fit/artwork/bank information. Inventory and authorize migration explicitly rather than assuming a new editor has converted existing data.
+Adapters are now complete within the recorded code scope; activation still needs the external release gates. Old stored fields can remain after schema edits; they must not become an accidental fallback to stale fit/artwork/bank information. Read-only inventory found no current published-format migration need; any later migration requires explicit authorization.
 
 ### Runtime and orange-light continuation — 2026-10-23
 
@@ -54,7 +54,7 @@ CM-03/CM-04 precede CM-05; CM-06 inventory informs integration/migration; CM-07 
 
 Existing `pnpm --dir sanity build` passes. Isolated actual schema definitions verify all nine root schemas, legacy-first registration/navigation, readable unprefixed nested labels/options, slug configuration, product-only active default true, valid/invalid POSIX/Windows/shared-drive paths, exact legacy fee/bank editor reuse and native-versus-private action/template boundaries. No CMS API call or document mutation occurs in those checks.
 
-The Studio preview is responsive. The temporary nonstandard origin was CORS-blocked; the standard `http://localhost:3333` origin reaches **Please sign in**. No project/CORS/credential changes were made. Actual authenticated field controls, Generate interaction, profile creation and publication therefore remain unverified; do not treat the build/source checks as a connected authoring pass. Next review needs an authorized Studio session, followed by CM-03 through CM-07, not unapproved data writes.
+At that historical CMS-only checkpoint, the temporary nonstandard origin was CORS-blocked; the standard `http://localhost:3333` origin reached **Please sign in**. No project/CORS/credential changes were made. The agent did not observe authenticated field controls/Generate/profile/publish; the owner subsequently tested and accepted the flow. Keep that attestation distinct from source/build checks and actual private-namespace/database witnesses.
 
 ### Runtime implementation checkpoint
 
@@ -62,14 +62,20 @@ The owner subsequently accepted the CMS authoring flow. Current implementation c
 
 Actual read-only CMS/quote checks exercise the published product, 15 active models/four coverages, per-record nationwide fee and active-primary account. Browser checks cover live images/rich description, no-match/mixed-case search, grid toggle, four prices, model requirement, gallery independence/lightbox navigation, merge/edit/remove and legacy-cart storage preservation. Invalid name/phone focus and default shipping events pass; accepted response interception clears submitted content/journal, saves one ID, shows the saved bank and does not emit false abandonment. Missing-primary interception disables transfer and retains COD. Root Lighters-selected history tag opens Creativa directly.
 
-Local SDK/collector/acceptance fixtures are not actual database/native/vendor/operator witnesses. CM-07, CR-19 and release gates remain open for those required cases. Formal read-only audit is the next phase; no acceptance signoff is claimed by this checkpoint.
+Local SDK/collector/acceptance fixtures are not actual database/native/vendor/operator witnesses. CM-07, CR-19 and release gates remain open for those required cases. The independent audit and later R-01 confirmation below complete code review, not launch acceptance.
 
 ### R-01 final-verification rework checkpoint
 
 - [x] Actual facade single-item model/coverage/quantity/unit-price/variant context is retained in both intended destinations. Initial PDP coverage is explicit without a selected model.
 - [x] GA4 item projection excludes arbitrary extra properties while preserving index zero/list identity; unavailable price remains absent and denied consent emits nothing.
 
-The original source-facade parity probe was red at `715aa79`; a targeted inspection then found the no-coverage basis edge, also reproduced red. Both closure groups now pass alongside the original 15 (17 total). Lint/TypeScript and the post-rework build/SEO pass. Targeted read-only confirmation precedes final verification restart; no business/order/theme behavior or event name changed.
+The original source-facade parity probe was red at `715aa79`; a targeted inspection then found the no-coverage basis edge, also reproduced red. Both closure groups now pass alongside the original 15 (17 total). Lint/TypeScript and the post-rework build/SEO pass. Targeted read-only confirmation is PASS at `5a8cff8`; no business/order/theme behavior or event name changed.
+
+### Current final-verification checkpoint
+
+[Final verification](./final-verification.md) records each of 116 requirements and 52 ACs. Production HTTP/security checks at `715aa79` remain applicable to the unchanged API/SEO contracts; latest-source catalog HTTP/layout checks also pass. Settled mixed-case search survives 2/1/2 with exact loaded links/order preserved. Development images loaded, but a later production headless preview received CDN 403 while direct same-URL requests returned 200. The explicit fallback works; production/browser CDN access remains E-01, not a claimed image pass or an unapproved global image-policy fix.
+
+No actionable source issue remains after R-01. E-01..E-04 are routed to Clarify/Plan → Verify for dedicated bot/physical asset/operator/CDN readiness, actual Sanity privacy/transactions, hosted telemetry/host controls and native/remaining manual evidence. Do not check CM-07, CR-19/20 or dependent full-acceptance tasks merely because feature publication is allowed.
 
 ## 1. Delivery contract
 
@@ -214,25 +220,25 @@ Checked means the task's scoped witness is available, not merely that files were
 
 - [x] CR-01 — Read supplied documents/local rules; existing lint baseline passed; isolated local port and browser-only response fixtures used; no production mutations/sends.
 - [x] CR-02 — Typed contracts, canonical ordering, exact phone/optional fields, merge identity and safe arithmetic exercised with the existing Node loader; TypeScript passes.
-- [ ] CR-03 — Schemas/actions implemented; current Studio build passes. Actual authoring/permission witnesses remain pending.
+- [ ] CR-03 — Schemas/actions implemented; current Studio build passes and owner accepted authoring flow. Full actual negative-publication/private-permission witnesses remain pending.
 - [ ] CR-04 — API adapters/guards implemented and read-only HTTP integration exercised; actual private-target evidence pending.
-- [ ] CR-05 — Cursor/public reads implemented. The configured dataset returns no active Creativa options; catalog explicitly reports missing configuration, not invented products.
-- [ ] CR-06 — Authoritative quote/semantic digest implemented; synthetic-record calculation and malformed configuration checks exercised. Real approved configuration pending.
+- [ ] CR-05 — Amended bounded public reads work against actual published product, 15 active models/four coverages. Full multi-batch/tie/publication-negative matrix remains pending.
+- [ ] CR-06 — v2 quote/digest implemented; actual published pricing/fee/primary-bank quotes and malformed/zero/duplicate helper cases pass. Actual controlled-edit/stale-acceptance witness remains pending.
 - [ ] CR-07 — Atomic service/recovery implemented; in-memory SDK acceptance/claim race checks reported by implementation worker. Actual Sanity transaction/anonymous-access witnesses not executed.
 - [ ] CR-08 — Cart/journal implemented; repeated contribution cleanup preserves later additions in local checks; quota failure keeps an explicitly warned live-tab cart. Exact interruption/native witnesses pending.
 - [ ] CR-09 — Plain uncapped history implemented; 61 IDs/dedup/forget and one accepted browser-only fixture exercised. Full browser failure/device matrix pending.
 - [ ] CR-10 — Facade/bootstrap and documentation implemented; Node VM verifies page/API/data URL policy parity. Hosted collector/container/log evidence pending.
-- [ ] CR-11 — Dedicated shell/home/guide implemented and mobile Chromium development rendering exercised; owner/native visual acceptance pending.
-- [ ] CR-12 — Catalog/detail implemented; browser-only fixtures exercised columns, explicit model, coverage defaults and addition. Browser CDN requests returned 403; actual asset/fit evidence is not claimed.
-- [ ] CR-13 — Shared cart implemented; browser-only quote fixture reviewed at selected quantity/price. Full real configuration/error matrix pending.
+- [ ] CR-11 — Scoped exact-orange/light shell/home/guide observed at mobile/desktop Chromium; final owner/native visual acceptance pending.
+- [ ] CR-12 — Actual catalog/product/search/defaults/four prices/gallery/add exercised. Development images loaded; later production-headless CDN 403 versus direct 200 remains unresolved. Actual asset/fit/native matrix is not claimed.
+- [ ] CR-13 — Actual cart merge/edit/remove and live authoritative quote/proceed exercised. Full configured-error/unavailable-line/persistence matrix remains pending.
 - [ ] CR-14 — Tracking implemented; root history tag reached Creativa with Lighters selected. Public lookup was browser-intercepted for the synthetic order; no actual private read is claimed.
-- [ ] CR-15 — Server handoff/operator retry implemented. No dedicated credential/approved destination supplied; no real send performed.
+- [ ] CR-15 — Server handoff/operator retry implemented. One sales destination is configured; dedicated bot credential and actual authorized delivery/operator witness are missing. No send performed.
 - [ ] CR-16 — Durable claims implemented and bounded payloads exercised in isolated worker checks; actual hosted delivery/interruption evidence pending.
 - [ ] CR-17 — Guest form/browser-only accepted response exercised with blank optional fields; cart became empty, history stayed one entry and journal cleared. No real order was created.
 - [ ] CR-18 — Legacy ordering destinations and SEO exclusions implemented; production build/postbuild SEO smoke pass. Complete browser/owner crawl pending.
 - [ ] CR-19 — Final verification executed and recorded per requirement/AC; full integrated acceptance remains blocked by E-01 through E-04.
 - [ ] CR-20 — No deployment, activation, real order or main-branch operation authorized/performed.
-- [ ] CR-21 — Blocked on approved new catalog/model/print/fee/bank/recipient content; legacy artwork was read only for a clearly labeled local UI fixture.
+- [ ] CR-21 — Published amended catalog/models/coverages/fee/primary bank exist and read successfully. Remaining physical fit/print-template/rights/retention/support/operator/credential signoff and production-browser CDN readiness block completion.
 - [ ] CR-22 — Blocked on actual operator/production-fit/asset handoff authorization and inputs.
 - [x] CR-23 — Evidence feasibility recorded below; discovery completion does not discharge its downstream blockers.
 
@@ -242,13 +248,13 @@ Checked means the task's scoped witness is available, not merely that files were
 | --- | --- |
 | Pure request/quote/state contracts | Existing Node + repository TS loader used; no new unit runner or test files added. Root loader extended for `.server.ts` imports; existing 42-check SPX regression passes. |
 | Application race/collision/claim control | In-memory SDK controls used by the implementation worker, not a real Sanity transaction. Actual target/authorization and deterministic database witness remain unverified. |
-| Browser integration | Chromium at 390×844, local-only intercepted CMS/quote/order responses; accepted UI/history/cart cleanup observed. This is not a database/production-order test. |
-| Actual Creativa configuration | Read-only options response has empty model/coverage lists; catalog returns explicit configuration error. No production data was seeded. |
-| Asset access | Existing public legacy image references were used only in a local fixture. Browser CDN responses were 403; cause/real publication readiness unverified. |
+| Browser integration | Chromium at 390x844/1440x1000 with actual published catalog/quote reads; explicitly intercepted acceptance/resolve/lookup/missing-bank variants. No real order POST/send; actual persistence and native devices unverified. |
+| Actual Creativa configuration | One published active rich-text/path product, 15 active slug-coded models, four coverages, one nationwide fee and one active primary bank read successfully. No detected format migration or data seeding performed. |
+| Asset access | Current published images loaded in development Chromium; later production-headless CDN 403 versus direct same-URL 200 remains an access discrepancy. Physical file/template/rights/fit/retention readiness unverified. |
 | Local storage | Manual Node state checks included 61 IDs and quota failure; exact browser crash windows/multiple-device/native behavior remain unexecuted. |
 | Telemetry policy | Runtime/static bootstrap URL and property guards checked with harmless canaries in Node VM; actual GA4/GTM/Umami/Vercel container/network/log gate remains open. |
-| Staff delivery | Dedicated bot credential/approved recipients absent; no external notifications sent. |
-| Native/owner acceptance | No actual iPhone/Safari or owner/operator signoff performed. |
+| Staff delivery | One configured destination, no dedicated bot credential; no external notification sent or operator receipt proven. |
+| Native/owner acceptance | Owner accepted revised CMS authoring only. No actual iPhone/Safari or final storefront/operator signoff performed. |
 | Repository stop gates | Lint and TypeScript pass; SPX 42 checks pass; application production build, postbuild SEO smoke and Studio build pass. Browserslist/formatter deprecation notices are pre-existing tooling warnings. |
 
 ### Rework checkpoint — audit round 1
@@ -340,7 +346,7 @@ Coordinate any necessary cross-task edit through that owner. Do not parallelize 
 
 **Scope:** Add the nine document types and embedded objects in the design's [schema contracts](./technical-design.md#42-schema-contracts); register them in `sanity/schemas/schema.js`.
 
-**Completion:** Root document titles alone use `Creative - `; nested labels are readable and unprefixed. Legacy entries/actions remain first/unchanged. Catalog/options and per-record fee/bank profiles are independent; private sales/order/intent/lookup protections remain. Preserve historical snapshots and server-managed financial fields; the CM checklist governs the amended Studio contract and pending runtime integration.
+**Completion:** Root document titles alone use `Creative - `; nested labels are readable and unprefixed. Legacy entries/actions remain first/unchanged. Catalog/options and per-record fee/bank profiles are independent; private sales/order/intent/lookup protections remain. Preserve historical snapshots and server-managed financial fields; the CM checklist governs the amended Studio/runtime contract and remaining actual release witnesses.
 
 **Verification:** Validate reserved/product/model slugs, three required gallery views, absolute print-path syntax, readable field labels, fee/bank record authoring and unique array keys. Legacy schemas/actions must remain first and unchanged. Fit approval is manual, not a removed CMS boolean. Build Studio; apply the CM integration/migration checks before claiming application compatibility. No automatic production seeding is authorized.
 

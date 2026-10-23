@@ -3,18 +3,20 @@
 **SDD phase:** Approved idea; implementation and verification status are tracked in the revised plan and final report.
 **Source:** [Original brief](./brief.md), owner clarification answers, and the supplied Uniqfind screenshots.
 **Status:** Approved by the owner for the specification gate on 2026-10-22. See [specs.md](./specs.md) for detailed requirements and the subsequent selection, price-display and checkout-field clarifications.
-**Latest revision:** Prefix-free 10-character public order IDs and uncapped browser-local saved-order tags, within the shared Creativa cart/checkout/order journey and independent of lighters.
+**Latest revision:** Owner-approved amended CMS, exact orange/light UI and active-primary-only bank, preserving prefix-free 10-character IDs, browser-local history and the shared Creativa journey independent of lighters.
 **Execution authority:** The [revised plan](./plan.md) is the implementation source of truth after reverse validation; the business goals and scope in this idea remain unchanged.
 
 ## Storefront continuation — 2026-10-23
 
 The owner accepted the CMS authoring flow and authorized runtime/UI integration. Preserve a **light theme with primary `#fd4d01`**, using accessible text/hover variants without changing the root theme. Show the single **active primary** Creativa bank, never an arbitrary active account, and retain its accepted-order snapshot. Connect the new slug/rich-text/fee/profile/production-path shapes while preserving old orders and browser history. Follow the [plan's continuation](./plan.md#runtime-and-orange-light-continuation--2026-10-23) and requested audit/rework/routing/final-verification loop; real data mutation and launch approval remain separate.
 
+**Current result:** Implementation/rework and code audit PASS through `5a8cff8`; [final verification](./final-verification.md) keeps full acceptance blocked on E-01..E-04 rather than treating local evidence as actual database/host/native/operator approval.
+
 ## CMS-first amendment — 2026-10-23
 
 The owner approved a simpler Studio authoring workflow, implemented before adapting the storefront/API. Keep all legacy content first and Creativa last; prefix only root schema titles, not fields. Models use generated slug codes without fit fields. Creativa shipping and bank use independent records like the existing editors, including multiple bank profiles. Skin laptop uses a rich description, active default true and an absolute filesystem/shared-drive print path instead of approval/artwork-version/upload fields.
 
-The path is metadata only, not browser storage or an uploaded/versioned file. Existing documents and accepted order snapshots are not migrated. The later storefront continuation now implements CM-03 through CM-08; completion still requires their actual audit/verification witnesses. Manual fit/asset ownership and production readiness remain owner responsibilities, not the removed CMS flags.
+The path is metadata only, not browser storage or an uploaded/versioned file. Existing documents and accepted order snapshots are not migrated. Scoped CM-03..CM-06/CM-08 implementation and evidence are complete; CM-07 retains required external integration witnesses. Manual fit/asset ownership and production readiness remain owner responsibilities, not the removed CMS flags.
 
 ## 1. What we are building
 
