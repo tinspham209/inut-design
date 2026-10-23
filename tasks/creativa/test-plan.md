@@ -1,5 +1,11 @@
 # INUT Creativa — Test Plan
 
+## Firefox popup / Telegram readiness checks
+
+Owner Firefox red evidence: custom MUI Select and then portaled Autocomplete fail at React event normalization; native and final inline Autocomplete work after full reload. Record this attestation separately from automated Chromium. Verify all input values retained, enum-only quote methods, real input ref/label, inline listbox/no custom SelectInput, no clear control, and fresh missing-primary COD/disabled transfer. Do not suppress global errors or assert an unproven extension cause.
+
+Read only published/draft sales config and supplied-order receipt outcomes; print no tokens/contacts/message bodies/chat IDs. Test actual sendPart source in a fake sandbox: legacy public token alone → TOKEN_MISSING/fetch0; explicit server token → one simulated request to intended recipient. Real `getMe/getChat` are readiness reads, not sends. Owner-approved ignored local alias must remain untracked. Owner declined retry: no mutation/send of existing failed receipt. Actual hosted/private/channel delivery remains external.
+
 ## Transient-toast checks
 
 For copy ID/link/memo, mock clipboard success/denial and capture local collectors. Assert exact value, one generic shared fixed toast, no new inline Alert/card geometry change, no copied contents in toast/telemetry and one safe copy event/provider/action. Copy-link remains canonical href and does not navigate on ordinary click; ID/memo remain selectable.

@@ -1,5 +1,9 @@
 # INUT Creativa — Product Idea
 
+## Latest checkout / delivery correction
+
+Retain searchable payment selection through Firefox-safe inline Autocomplete, not error suppression. Clarify setup: published Sales Destination chooses recipients while a server-only token authenticates the bot. Local setup is corrected/readiness-verified with owner approval; existing failed order remains unresent by instruction.
+
 ## Latest transient-feedback refinement
 
 Use global toasts for copy and cart-add outcomes so confirmations do not expand/shift the image-first page. Keep copied data out of toast text, preserve cart navigation/manual clipboard fallback and retain persistent warnings/order information inline.

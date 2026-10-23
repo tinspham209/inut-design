@@ -1,5 +1,11 @@
 # INUT Creativa — Product Specification
 
+## Latest checkout focus / delivery setup clarification
+
+Checkout payment remains RHF/Yup-backed enum `bank_transfer|cod`, rendered by non-clearable MUI Autocomplete with an inline (`disablePortal`) popup for the owner-confirmed Firefox compatibility case. Preserve quote/action/disabled-bank/focus semantics; no global permission-error suppression.
+
+Sales Destination config defines recipient chat IDs only. Web server also needs `CREATIVA_TELEGRAM_BOT_TOKEN`; a published active destination alone cannot deliver. Visible CMS guidance must distinguish private chats/channels, publish/new-order effects and saved failed deliveries. Current local key mismatch was corrected with an explicitly authorized ignored alias; bot/recipient reads pass, but no send/old-order retry was authorized. Do not change stored delivery outcomes or claim actual delivery from readiness.
+
 ## Latest transient-feedback amendment
 
 Creativa copy ID/link/memo outcomes and product add-success use the existing global `react-hot-toast` Toaster, not inline notice banners. Toasts are generic and omit copied values; keep exact copy/one-event ownership and manual selectable/native-link fallback. Cart success retains `Xem giỏ` navigation. Validation/service/storage warnings and financial/order states remain persistent inline. No second provider, dependency, API or analytics event name.

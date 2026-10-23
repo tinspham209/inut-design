@@ -1,5 +1,9 @@
 # New sub brand: INUT Creativa
 
+## Latest checkout / delivery correction
+
+Owner-confirmed Firefox focus fix uses RHF Autocomplete with its popup kept inside checkout. Telegram destination was published correctly but the supplied order failed TOKEN_MISSING because only the legacy public env key existed. Owner authorized a private local server-key alias; bot/private-recipient readiness reads passed, but explicitly declined an existing-order retry. No token or delivery data committed/sent.
+
 ## Latest transient-feedback refinement
 
 Move Creativa temporary copy/add-success notices into the existing `react-hot-toast` setup. No inline copied-path banner or duplicate provider; keep generic/privacy-safe messages, manual copy fallback/cart CTA and persistent actionable validation/service/storage/financial states.
