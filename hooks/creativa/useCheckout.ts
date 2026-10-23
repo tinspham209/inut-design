@@ -13,7 +13,7 @@ import {
 } from "@/hooks/creativa/useApi";
 import { useCreativaQuote } from "@/hooks/creativa/useQuote";
 import type { CreativaAccepted, CreativaPublicOrder, CreativaQuote } from "@/models/creativa";
-import { submittedContributions } from "@/store/cart/creativaCart";
+import { submittedContributions, useCreativaCart } from "@/store/cart/creativaCart";
 import { parseCheckout } from "@/utils/creativa/contracts";
 import { creativaCheckoutSchema, type CreativaCheckoutForm } from "@/utils/creativa/forms";
 import {
@@ -153,11 +153,12 @@ export function useCreativaCheckout() {
 
 	const requestQuote = useCallback(
 		(nextAddress: string, nextPayment: typeof payment) => {
+			const currentCart = useCreativaCart.getState();
 			if (
-				!cart.hydrated ||
+				!currentCart.hydrated ||
 				!state.ready ||
-				cart.error ||
-				!cart.items.length ||
+				currentCart.error ||
+				!currentCart.items.length ||
 				state.attempt ||
 				state.accepted ||
 				state.corrupt
@@ -166,7 +167,7 @@ export function useCreativaCheckout() {
 				return;
 			}
 			refresh(
-				{ lines: cart.items, address: nextAddress, payment: nextPayment },
+				{ lines: currentCart.items, address: nextAddress, payment: nextPayment },
 				{
 					success: (next) => {
 						patch({ error: null });
@@ -184,24 +185,17 @@ export function useCreativaCheckout() {
 				}
 			);
 		},
-		[
-			cart.hydrated,
-			cart.items,
-			cart.error,
-			state.ready,
-			state.attempt,
-			state.accepted,
-			state.corrupt,
-			refresh,
-			invalidate,
-			reportBegin,
-		]
+		[state.ready, state.attempt, state.accepted, state.corrupt, refresh, invalidate, reportBegin]
 	);
 
 	const options = useCreativaOptions(
 		state.ready && !state.attempt && !state.accepted && !state.corrupt,
 		(next) => {
-			if (!methodChosen.current && !next.bankAvailable) {
+			if (
+				!methodChosen.current &&
+				!next.bankAvailable &&
+				form.getValues("paymentMethod") !== "cod"
+			) {
 				form.setValue("paymentMethod", "cod");
 				requestQuote(form.getValues("address"), "cod");
 			}
@@ -321,7 +315,7 @@ export function useCreativaCheckout() {
 	useEffect(() => {
 		requestQuote(form.getValues("address"), form.getValues("paymentMethod"));
 		return invalidate;
-	}, [requestQuote, form.getValues, invalidate]);
+	}, [cart.hydrated, cart.items, cart.error, requestQuote, form.getValues, invalidate]);
 
 	useEffect(() => {
 		if (
@@ -494,6 +488,7 @@ export function useCreativaCheckout() {
 		retry: () => {
 			patch({ error: null });
 			cart.hydrate();
+			requestQuote(form.getValues("address"), form.getValues("paymentMethod"));
 			void options.mutate(undefined, { revalidate: true, throwOnError: false });
 		},
 	};

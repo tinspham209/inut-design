@@ -2,10 +2,28 @@
 
 ## Current compact-client audit
 
-**Phase:** Implementation and repository stop gate complete; read-only audit pending for the delta from `227a81f`.
+**Current result:** PASS within cumulative scope: independent audit at `f0a2aef` found C-01, now resolved and confirmed by targeted read-only review of its complete two-hook rework. Full acceptance remains blocked by E-01..E-04.
 **Scope:** [UI-01..UI-07](./plan.md#compact-ui--form-and-request-amendment--2026-10-23), all nine owner requests, shared validation/checkout recovery/privacy/analytics invariants and browser expectations. No real order/send or schema/server acceptance change.
 
 Current supplied evidence includes red-to-green retained thumbnail metadata, 23 Yup/server variants, current lint/types/build/SEO and guarded browser quote/search races, cached presentation, pagination error/retry/dedup, validation focus, missing-primary COD and fresh lost-response recovery. The prior code PASS below is historical, not approval of this client refactor. E-01..E-04 remain release blockers.
+
+| Issue | Severity | Evidence | Recommendation / resolution |
+| --- | --- | --- | --- |
+| C-01 — memory-only quote retry is inert | Medium | `hooks/creativa/useCart.ts:92`, `hooks/creativa/useCheckout.ts:494-497` at `f0a2aef`: cart retry only hydrates, checkout hydrates/refreshes options. Actual store with `SecurityError` keeps the same hydrated/error/items dependencies because memory-only hydration returns early (`store/cart/creativaCart.ts:187-189`). Ordinary options success does not refresh quotes, so supported storage-denied checkout can remain disabled after transient quote recovery. | Missing Implementation → Implement → Verify. Both retry actions must explicitly request current quotes independent of hydration, retaining latest-response guards and no automatic order retry. No other actionable source finding from this bounded audit. |
+
+### C-01 rework evidence
+
+**Resolved:** Cart and checkout retry explicitly request a quote independently of hydration, using the latest store snapshot. Cart shares the same action between external-state synchronization and retry. Existing quote generation/source guards remain unchanged; bank-default refresh does not schedule redundant already-selected COD work.
+
+**Red → green:** Before changes, actual browser storage-denied cart retry kept quote-call count 1 and its error; checkout kept count 2 and submit disabled. With the same fixture and current active/reloaded client, each retry adds exactly one quote, clears its error and restores Proceed/Submit while retaining the storage warning. No order action or data mutation was used. After a server restart, a stale/background automation tab required reload/activation before current-client assertions; that was not a source fix.
+
+**Remaining:** E-01..E-04 only. **Files modified:** `hooks/creativa/useCart.ts`, `hooks/creativa/useCheckout.ts`, plan/audit/routing/test evidence. No passing test oracle was rewritten.
+
+### Targeted C-01 read-only confirmation
+
+**PASS:** Reviewed the complete two-hook delta from `f0a2aef` after rework. Explicit retry reaches the shared SWRMutation quote coordinator even with unchanged memory-only state; latest cart snapshots and existing generation/matching guards are retained. External cart state still drives synchronization; no form-input effect or new order/resolve/claim retry was added. View/shipping signatures continue to deduplicate telemetry. Current lint without warnings, TypeScript and production build/postbuild SEO pass (229 pages, 221 URLs).
+
+No remaining actionable source finding in the cumulative independent-plus-targeted scope. This review changes no application code. Route C-01 as resolved; E-01..E-04 require Clarify/Plan → Verify, not speculative code edits.
 
 **Current code audit:** PASS through `5a8cff8`: independent runtime audit at `715aa79`, followed by R-01 rework and targeted read-only confirmation. Historical rounds remain below for their former contract.
 **Overall acceptance:** FAIL / BLOCKED — E-01 through E-04 still lack their required external witnesses.

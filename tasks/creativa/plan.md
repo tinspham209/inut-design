@@ -24,7 +24,9 @@ UI-01..UI-06 consume the approved contracts; UI-07 depends on them. Scaled order
 
 Read-only catalog currently exposed five published designs; this is an observation, not a data migration or frozen roster. CDN image failure/fallback persists in this headless environment (E-01). A temporary nonstandard preview origin correctly rejected quote POSTs; checks were moved to the existing allowed local origin without changing CORS. A replay fixture that restored already-completed storage was not counted as interrupted acceptance: the existing live checkpoint correctly prevented replay cleanup; a fresh capability/lost-response scenario supplied the actual recovery evidence.
 
-Next phase is read-only audit of this compact-client delta. All prior loop statuses below are historical unless explicitly reconciled by the current report.
+Independent read-only audit at `f0a2aef` is FAIL for C-01: hydrate-only retry does nothing in supported memory-only mode. Rework must explicitly request a current quote in cart and checkout independently of hydration, prove storage-denial retry red/green and retain all earlier guards. UI-07 stays open until targeted confirmation/routing/final verification. All prior loop statuses below are historical unless explicitly reconciled by the current report.
+
+- [x] C-01 rework — Both retry actions explicitly request the latest quote. Storage-denied browser cases were red before the fix, green afterward with exactly one extra request, cleared error and enabled Proceed/Submit; persistence warning remains. No order retry/automatic mutation added. Post-fix lint/types/build/SEO and targeted read-only confirmation PASS; current final verification follows.
 
 **SDD gate:** Approved plan/refinement; implementation, audit and issue routing executed; final acceptance remains blocked.
 **Status:** Owner-approved amended runtime and light theme/primary `#fd4d01` implemented. Independent audit at `715aa79`, R-01 rework and targeted PASS through `5a8cff8`, issue routing and scoped final verification are complete. Full release acceptance remains blocked by E-01..E-04; source completion is not launch approval.
