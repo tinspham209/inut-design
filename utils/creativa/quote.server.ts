@@ -10,11 +10,12 @@ import type {
 import { creativaServerClient } from "@/api-client/creativa-server";
 import {
 	commerceConfigurationError,
+	CREATIVA_PRIMARY_BANK_QUERY,
 	configuredText,
 	parseCreativaCoverage,
 	parseCreativaModel,
-	readBank,
-	validImage,
+	parseCreativaProduct,
+	readPrimaryBank,
 } from "@/api-client/creativa-catalog";
 import {
 	CreativaError,
@@ -22,16 +23,16 @@ import {
 	lineIdentity,
 	parsePayment,
 	parsePurchaseLines,
-	RESERVED_SKIN_SLUGS,
 	safeMoney,
+	validCreativaDocumentId,
+	validCreativaPrintPath,
 } from "./contracts";
 import { reference, semanticDigest, sha256, StoredLine } from "./records.server";
 
 type ProductDocument = CreativaProduct & {
 	_type: "creativaSkinProduct";
 	_rev: string;
-	productionVerified: true;
-	printAsset: NonNullable<CreativaProduct["printAsset"]>;
+	printAssetPath: string;
 };
 type ModelDocument = CreativaModel & { _type: "creativaMacbookModel"; _rev: string };
 type CoverageDocument = CreativaCoverage & { _type: "creativaSkinCoverage"; _rev: string };
@@ -44,65 +45,21 @@ export type QuoteRecords = {
 };
 export type Evaluation = { quote: CreativaQuote; lines: StoredLine[]; bank: CreativaBank | null };
 
-const publishedId = (id: string) => /^[A-Za-z0-9_-]{1,128}$/.test(id);
+const publishedId = validCreativaDocumentId;
 function add(a: number, b: number): number {
 	return safeMoney(a + b);
 }
 
 function parseProductDocument(value: unknown): ProductDocument | null {
 	if (!isRecord(value) || value._type !== "creativaSkinProduct") throw commerceConfigurationError();
-	if (value.active === false || value.productionVerified === false) return null;
-	if (value.active !== true || value.productionVerified !== true)
-		throw commerceConfigurationError();
-	const slug = value.slug;
-	const master = value.printAsset;
-	const images: unknown[] = Array.isArray(value.images) ? value.images : [];
-	if (
-		!isRecord(slug) ||
-		typeof slug.current !== "string" ||
-		!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug.current) ||
-		RESERVED_SKIN_SLUGS.includes(slug.current) ||
-		!isRecord(master) ||
-		master._type !== "file" ||
-		!isRecord(master.asset) ||
-		master.asset._type !== "reference" ||
-		typeof master.asset._ref !== "string" ||
-		!master.asset._ref.startsWith("file-") ||
-		images.length < 3 ||
-		!images.every(validImage) ||
-		!["top", "bottom", "interior"].every((view) => images.some((image) => image.view === view))
-	) {
-		throw commerceConfigurationError();
-	}
-	const createdAt = configuredText(value._createdAt);
-	if (!Number.isFinite(Date.parse(createdAt))) throw commerceConfigurationError();
-	if (
-		value.description !== undefined &&
-		value.description !== null &&
-		typeof value.description !== "string"
-	) {
-		throw commerceConfigurationError();
-	}
+	if (value.active === false) return null;
+	const path = value.printAssetPath;
+	if (!validCreativaPrintPath(path)) throw commerceConfigurationError();
 	return {
-		_id: configuredText(value._id),
+		...parseCreativaProduct(value),
 		_type: "creativaSkinProduct",
 		_rev: configuredText(value._rev),
-		_createdAt: createdAt,
-		name: configuredText(value.name),
-		slug: { current: slug.current },
-		active: true,
-		productionVerified: true,
-		artworkId: configuredText(value.artworkId),
-		artworkVersion: configuredText(value.artworkVersion),
-		printAsset: { _type: "file", asset: reference(master.asset._ref) },
-		images: images.map((image) => ({
-			_type: "image",
-			asset: reference(image.asset._ref),
-			alt: image.alt,
-			view: image.view,
-			...(image._key && { _key: image._key }),
-		})),
-		...(typeof value.description === "string" && { description: value.description }),
+		printAssetPath: path,
 	};
 }
 
@@ -125,45 +82,37 @@ function parseCoverageDocument(value: unknown): CoverageDocument | null {
 }
 
 export function selectShipping(value: unknown, address = ""): CreativaShippingRule {
-	if (
-		!isRecord(value) ||
-		value._type !== "creativaShippingSettings" ||
-		!Array.isArray(value.rules)
-	) {
+	if (!Array.isArray(value) || !value.length) {
 		throw new CreativaError("CONFIGURATION_ERROR", "Chưa có cấu hình vận chuyển Creativa.", 503);
 	}
 	const rules: CreativaShippingRule[] = [];
-	for (const rule of value.rules) {
-		if (!isRecord(rule)) throw commerceConfigurationError();
-		if (rule.active === false) continue;
+	for (const rule of value) {
 		if (
-			rule.active !== true ||
-			typeof rule.isDefault !== "boolean" ||
-			typeof rule.sortOrder !== "number" ||
-			!Number.isSafeInteger(rule.sortOrder) ||
-			rule.sortOrder < 0 ||
+			!isRecord(rule) ||
+			rule._type !== "creativaShippingSettings" ||
+			!validCreativaDocumentId(rule._id) ||
+			!isRecord(rule.slug) ||
+			typeof rule.slug.current !== "string" ||
+			!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(rule.slug.current) ||
 			(rule.note !== undefined && rule.note !== null && typeof rule.note !== "string")
 		) {
 			throw commerceConfigurationError();
 		}
 		rules.push({
-			_key: configuredText(rule._key),
-			code: configuredText(rule.code),
+			_id: rule._id,
+			code: rule.slug.current,
 			name: configuredText(rule.name),
-			active: true,
-			isDefault: rule.isDefault,
-			sortOrder: rule.sortOrder,
 			fee: safeMoney(rule.fee),
 			...(typeof rule.note === "string" && { note: rule.note }),
 		});
 	}
 	if (
-		new Set(rules.map((rule) => rule._key)).size !== rules.length ||
+		new Set(rules.map((rule) => rule._id)).size !== rules.length ||
 		new Set(rules.map((rule) => rule.code)).size !== rules.length
 	) {
 		throw new CreativaError("CONFIGURATION_ERROR", "Cấu hình vận chuyển bị trùng.", 503);
 	}
-	const defaults = rules.filter((rule) => rule.isDefault === true);
+	const defaults = rules.filter((rule) => rule.code === "toan-quoc");
 	if (defaults.length !== 1)
 		throw new CreativaError("CONFIGURATION_ERROR", "Cần một phí vận chuyển mặc định.", 503);
 	const normalized = address
@@ -172,7 +121,7 @@ export function selectShipping(value: unknown, address = ""): CreativaShippingRu
 		.replace(/[đĐ]/g, "d")
 		.toLowerCase();
 	const regional = rules.find((rule) => rule.code === "da-nang");
-	return /(^|[^a-z])da\s+nang([^a-z]|$)/.test(normalized) && regional ? regional : defaults[0];
+	return /(^|[^a-z])da\s*nang([^a-z]|$)/.test(normalized) && regional ? regional : defaults[0];
 }
 
 export function quoteFromRecords(
@@ -213,7 +162,7 @@ export function quoteFromRecords(
 		records.shipping,
 		typeof input.address === "string" ? input.address.trim() : ""
 	);
-	const bank = readBank(records.bank);
+	const { bank } = readPrimaryBank(records.bank);
 	if (paymentMethod === "bank_transfer" && !bank) {
 		throw new CreativaError(
 			"BANK_UNAVAILABLE",
@@ -271,16 +220,11 @@ export function quoteFromRecords(
 				...purchase.selection,
 				modelName: model.name,
 				modelCode: model.code,
-				fitReference: model.fitReference,
 				coverageName: coverage.name,
 				coverageCode: coverage.code,
 				coverageMeaning: coverage.description,
 			},
-			artwork: {
-				identity: product.artworkId,
-				version: product.artworkVersion,
-				printAsset: { _type: "file", asset: reference(product.printAsset.asset._ref) },
-			},
+			production: { printAssetPath: product.printAssetPath },
 			unitPrice,
 			subtotal: safeMoney(unitPrice * purchase.quantity),
 			product: reference(product._id),
@@ -302,29 +246,23 @@ export function quoteFromRecords(
 		productSlug: line.productSlug,
 		productImage: line.productImage,
 		selection: line.selection,
-		artwork: { identity: line.artwork.identity, version: line.artwork.version },
 		unitPrice: line.unitPrice,
 		subtotal: line.subtotal,
 	}));
 	const semantic = {
-		version: "creativa-quote-v1",
+		version: "creativa-quote-v2",
 		lines: lines.map((line) => ({
 			productType: line.productType,
 			productId: line.productId,
 			selection: {
 				modelId: line.selection.modelId,
 				modelCode: line.selection.modelCode,
-				fitReference: line.selection.fitReference,
 				coverageId: line.selection.coverageId,
 				coverageCode: line.selection.coverageCode,
 				coverageMeaning: line.selection.coverageMeaning,
 			},
 			quantity: line.quantity,
-			artwork: {
-				identity: line.artwork.identity,
-				version: line.artwork.version,
-				printAssetRef: line.artwork.printAsset?.asset._ref,
-			},
+			production: line.production,
 			unitPrice: line.unitPrice,
 			subtotal: line.subtotal,
 		})),
@@ -334,11 +272,19 @@ export function quoteFromRecords(
 		discount: 0,
 		finalAmount: add(merchandiseTotal, shipping.fee),
 		paymentMethod,
-		...(paymentMethod === "bank_transfer" && { bank }),
+		...(paymentMethod === "bank_transfer" &&
+			bank && {
+				bank: {
+					bankName: bank.bankName,
+					accountName: bank.accountName,
+					accountNumber: bank.accountNumber,
+					qrAsset: bank.image?.asset._ref,
+				},
+			}),
 	};
 	return {
 		lines,
-		bank,
+		bank: paymentMethod === "bank_transfer" ? bank : null,
 		quote: {
 			lines: quoteLines,
 			currency: "VND",
@@ -369,17 +315,25 @@ export async function evaluateQuote(input: {
 			])
 		),
 	].filter(publishedId);
-	const documents = await creativaServerClient().getDocuments<Record<string, unknown>>([
-		...ids,
-		"creativa-shipping-settings",
-		"creativa-bank-settings",
+	const client = creativaServerClient();
+	const [documents, settings] = await Promise.all([
+		client.getDocuments<Record<string, unknown>>(ids),
+		client.fetch<unknown>(`{
+			"shipping": *[_type == "creativaShippingSettings" &&
+				!(_id in path("drafts.**")) && !(_id in path("versions.**")) &&
+				slug.current in ["da-nang","toan-quoc"]][0...3]{
+				_id,_type,name,slug{current},fee,note
+			},
+			"bank": ${CREATIVA_PRIMARY_BANK_QUERY}
+		}`),
 	]);
+	if (!isRecord(settings) || !Array.isArray(documents)) throw commerceConfigurationError();
 	const records: QuoteRecords = {
 		products: [],
 		models: [],
 		coverages: [],
-		shipping: null,
-		bank: null,
+		shipping: settings.shipping,
+		bank: settings.bank,
 	};
 	// Documents are private validation inputs; only explicitly rebuilt quote fields leave this module.
 	for (const document of documents) {
@@ -388,8 +342,6 @@ export async function evaluateQuote(input: {
 		if (document._type === "creativaSkinProduct") records.products.push(document);
 		if (document._type === "creativaMacbookModel") records.models.push(document);
 		if (document._type === "creativaSkinCoverage") records.coverages.push(document);
-		if (document._id === "creativa-shipping-settings") records.shipping = document;
-		if (document._id === "creativa-bank-settings") records.bank = document;
 	}
 	return quoteFromRecords(input, records);
 }

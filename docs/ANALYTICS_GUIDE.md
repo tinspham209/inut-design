@@ -225,8 +225,11 @@ Owner-provided launch data, native Safari behavior, actual Sanity privacy and
 real GA4/GTM/Umami settings remain separate verification gates in
 `tasks/creativa/plan.md` and `tasks/creativa/test-plan.md`.
 
-The 2026-10-23 CMS-first amendment changes Studio schemas only. Existing runtime
-producers/readers are not yet adapted to those new records; follow
+The 2026-10-23 CMS-first flow was accepted by the owner, who then authorized
+runtime/orange-light integration. Follow
 [CM-03 through CM-07](../tasks/creativa/plan.md#cms-first-amendment-and-required-next-actions)
-next. Keep absolute print-file paths and internal bank notes out of public
-projections and telemetry; no new analytics event or collector is introduced.
+and CM-08's light theme with exact `#fd4d01` primary. Existing event names and
+dispatch ownership remain unchanged. Keep absolute print-file paths, production
+metadata, internal bank notes and account details out of telemetry; current
+guards cover those keys. Only the active primary bank is used for new orders,
+and tracking uses its accepted snapshot. No new event or collector is added.

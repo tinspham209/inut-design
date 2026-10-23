@@ -6,6 +6,12 @@
 **Full requirements / acceptance:** FAIL / BLOCKED. Launch is not approved.
 **Historical phase boundary:** The pinned application-verification phase was read-only. The later Studio-only amendment below is a separate, explicitly authorized schema/document change; application runtime code remains unchanged.
 
+## Current runtime/orange-light continuation — 2026-10-23
+
+The owner accepted the CMS flow and authorized application integration with **primary `#fd4d01` and light theme**. Bank selection is exactly one active-primary profile, not an arbitrary active profile. The implementation/audit/rework/routing loop is now running; **final verification for this new revision is pending**. The old pinned result tables below remain historical and must not be promoted to a fresh pass.
+
+Read-only inventory confirms amended published catalog/options/fee/bank shapes; no record migration/write is performed. Current implementation removes obsolete guards, preserves legacy accepted snapshots and keeps production paths/internal notes out of public application payloads. Direct Sanity document visibility, actual transactions, hosted collectors, native Safari and operator file access still require their own evidence.
+
 ## CMS-first amendment — current disposition (2026-10-23)
 
 The owner subsequently authorized **Studio schemas and related documents only**, not runtime changes or data migration. Creativa entries now follow legacy content; prefixes are root-only; models have slug codes/no fit fields; shipping/bank use independent fee/profile records; skin laptop uses active default true, Portable Text and absolute print-path metadata instead of the old approval/artwork/upload fields.

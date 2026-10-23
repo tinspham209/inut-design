@@ -1,8 +1,15 @@
 /* eslint-disable camelcase -- Telegram uses snake_case request fields. */
 import { randomUUID } from "crypto";
 import { creativaServerClient } from "@/api-client/creativa-server";
-import { CreativaError } from "./contracts";
-import { conflict, NotificationPart, Receipt, sha256, StoredOrder } from "./records.server";
+import { CreativaError, validCreativaPrintPath } from "./contracts";
+import {
+	conflict,
+	NotificationPart,
+	Receipt,
+	sha256,
+	StoredLine,
+	StoredOrder,
+} from "./records.server";
 
 type Sales = {
 	_id: string;
@@ -60,6 +67,29 @@ export async function notificationSetup(): Promise<{
 export const escapeTelegram = (value: string) =>
 	value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+function productionDetails(line: StoredLine): string[] {
+	if (line.production) {
+		if (!validCreativaPrintPath(line.production.printAssetPath))
+			throw new CreativaError(
+				"ORDER_SNAPSHOT_INVALID",
+				"Thiếu đường dẫn in trong đơn đã lưu.",
+				500
+			);
+		return [`Print file: ${line.production.printAssetPath}`];
+	}
+	if (!line.artwork?.identity || !line.artwork.version)
+		throw new CreativaError(
+			"ORDER_SNAPSHOT_INVALID",
+			"Thiếu thông tin sản xuất trong đơn đã lưu.",
+			500
+		);
+	return [
+		`Artwork: ${line.artwork.identity} / ${line.artwork.version}`,
+		`Master: ${line.artwork.printAsset?.asset._ref || "Không có — kiểm tra CMS"}`,
+		`Fit/template: ${line.selection.fitReference || "Không lưu — kiểm tra CMS"}`,
+	];
+}
+
 function notificationText(order: StoredOrder): string {
 	const text = [
 		`INUT Creativa — ${order.publicId}`,
@@ -67,10 +97,8 @@ function notificationText(order: StoredOrder): string {
 		...order.lines.map((line, index) =>
 			[
 				`${index + 1}. ${line.productName} [${line.productType}]`,
-				`Artwork: ${line.artwork.identity} / ${line.artwork.version}`,
-				`Master: ${line.artwork.printAsset?.asset._ref || "Không có — kiểm tra CMS"}`,
+				...productionDetails(line),
 				`Model: ${line.selection.modelName} (${line.selection.modelCode})`,
-				`Fit/template: ${line.selection.fitReference}`,
 				`Coverage: ${line.selection.coverageName} — ${line.selection.coverageMeaning}`,
 				`SL: ${line.quantity}; Đơn giá: ${line.unitPrice}; Thành tiền: ${line.subtotal} VND`,
 			].join("\n")

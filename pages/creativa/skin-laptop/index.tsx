@@ -274,7 +274,7 @@ const SkinCatalog: NextPageWithLayout<{
 									key={value}
 									aria-label={`${value} cột`}
 									aria-pressed={columns === value}
-									sx={{ bgcolor: columns === value ? "#eee1d9" : undefined }}
+									sx={{ bgcolor: columns === value ? "action.selected" : undefined }}
 									onClick={() => {
 										trackCreativa("catalog_layout_change", {
 											previous_columns: columns,

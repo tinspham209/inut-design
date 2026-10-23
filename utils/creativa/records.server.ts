@@ -45,7 +45,18 @@ export type StoredLine = CreativaOrderLine & {
 	coverage: Ref;
 	retainedImages: Array<CreativaOrderLine["productImage"] & { _key: string }>;
 	sourceRevisions: { product: string; model: string; coverage: string };
-};
+	selection: CreativaOrderLine["selection"] & { fitReference?: string };
+} & (
+		| { production: { printAssetPath: string }; artwork?: never }
+		| {
+				production?: never;
+				artwork: {
+					identity: string;
+					version: string;
+					printAsset?: { _type: "file"; asset: Ref };
+				};
+		  }
+	);
 export type StoredOrder = {
 	_id: string;
 	_type: "creativaOrder";

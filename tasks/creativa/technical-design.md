@@ -1,7 +1,7 @@
 # INUT Creativa — Technical Design
 
 **SDD gate:** Technical design.
-**Status:** Owner-approved CMS-first amendment on 2026-10-23 supersedes the baseline schema details below. Studio is updated separately; application models/readers/quote/rendering still use the older contract and require the next integration step.
+**Status:** Owner accepted the CMS flow and authorized runtime/UI integration with light theme/primary `#fd4d01` on 2026-10-23. The target mechanisms below now govern the implementation and its fresh audit; older verification is historical.
 **Date:** 2026-10-22.
 **Authority:** [Approved specification](./specs.md) and [approved idea](./idea.md).
 **Boundary:** Architecture, data ownership, interfaces, algorithms, failure behavior and verification design. Delivered paths are evidenced by source and the final report, not by this design's existence alone.
@@ -9,7 +9,9 @@
 
 ## CMS-first amendment — staged architecture
 
-See [CM-03 through CM-07](./plan.md#cms-first-amendment-and-required-next-actions). This step changes only Studio schemas/navigation/actions/templates and related documents, not application code or stored records.
+The earlier Studio-only stage is complete and accepted by the owner. [CM-03 through CM-08](./plan.md#cms-first-amendment-and-required-next-actions) now cover application integration and orange/light UI. No stored records or accepted orders are automatically migrated.
+
+Current target: normalize model `code.current`; validate/render Portable Text and derive text SEO; fetch per-record fee settings and the sole active-primary bank; generate `creativa-quote-v2` with private production-path meaning but path-free public lines; retain old artwork/fit snapshots. Bank absence/ambiguity is a transfer-unavailable state, not permission to choose another account. Payment instructions are snapshotted, not reloaded from current configuration during accepted recovery.
 
 Next integration must normalize model `code.current`, support Portable Text description rendering through existing tooling, remove obsolete product/model approval/artwork-field guards, and read fee/bank profiles by type rather than fixed singleton IDs. Production path metadata belongs in private staff snapshots/handoff, not public product/tracking/SEO/analytics projections; direct dataset permissions still need review. Existing stored artwork/fit/order snapshots must remain interpretable. A local path is neither an uploaded asset nor an immutable/versioned file.
 
@@ -78,7 +80,7 @@ These are bounded module responsibilities, not a requirement to create one file 
 | Guide index | `pages/creativa/skin-laptop/huong-dan-su-dung/index.tsx`, honest coming-soon content. |
 | Reserved guide articles | If scaffolded now, an empty `getStaticPaths` with `fallback: false`; no published article URLs. Otherwise leave the family unimplemented and returning 404. |
 
-All Creativa pages set `Page.Layout = CreativaLayout`. The layout owns a scoped MUI light `ThemeProvider`, full-height light surfaces and a dedicated copied footer. It must not replace the global dark theme. Copied mobile/desktop headers use Creativa constants, `/creativa` logo destination, catalog search and `/creativa/cart` unit badge. No account/currency/case controls are copied from Uniqfind.
+All Creativa pages set `Page.Layout = CreativaLayout`. The scoped MUI light theme uses `primary.main = #fd4d01`, dark readable foreground on orange fills, darker-orange normal text/hover variants and light surfaces. It must not replace the main-brand theme. Mobile/desktop headers retain Creativa constants, home/search/cart routes and unit badge. No account/currency/case controls are copied.
 
 The existing global [cart wrapper](../../components/cart/CartWrapper.tsx) only renders on lighter product routes; leave that condition intact. Creativa's badge belongs to its shell, not a second root floating cart.
 
@@ -120,7 +122,7 @@ Only root document titles use **`Creative - `**. Fields, nested objects, option 
 | `creativaMacbookModel` | Name, native slug `code` generated from name, sort order and active. No `fitVerified`/`fitReference` or fit-flag activation validator; manual owner fit approval remains outside the schema. |
 | `creativaSkinCoverage` | `code` in `top`, `bottom`, `interior`, `full`; `name`, `description`, `sortOrder`, `active`, safe integer VND `price`. Seed Lưng first; Full is independently priced. |
 | `creativaShippingSettings` | Ordinary fee documents reusing the `shippingFee` editor definition: name, generated slug, nonnegative fee, note and existing preview/orderings. No singleton/rules array. Runtime default/region handling must be adapted next. |
-| `creativaBankSettings` | Ordinary profiles reusing the `bankInfo` editor definition: name, image, bank name/short name, account number/holder, isActive/isPrimary/displayOrder, internal notes and createdAt. No singleton or shared main-brand records. |
+| `creativaBankSettings` | Ordinary profiles based on `bankInfo`; exactly one profile may be both active and primary. Queries and independent server guards enforce that selection; duplicates/invalid/missing primary disable transfer, not COD. Internal notes never enter public DTOs. |
 | `creativaSalesSettings` | Private singleton: active destinations/channel configuration; no browser projection. Bot credentials live in server environment. |
 | `creativaCheckoutIntent` | Private internal record: fingerprint, immutable canonical submitted request while pending, state, eventual order reference, revision-guarded transition/error summary. |
 | `creativaOrder` | Private accepted snapshot: public ID, analytics ID, timestamp, typed lines, customer/optional delivery data, money, operational/payment state, notification state and analytics-claim receipts. |
@@ -189,7 +191,7 @@ All amounts and quantities pass `Number.isSafeInteger` checks. Quantities are po
 
 ### Public queries
 
-The next adapter uses explicit product projections excluding drafts/inactive/invalid records, without obsolete approval/artwork-field predicates. List projects identity/name/slug/card images/cursor; detail adds gallery and Portable Text description, not `printAssetPath`. Normalize model slug codes for consumers and project only public options. The unchanged current reader does not yet implement this target.
+The adapter uses explicit server-side source reads excluding drafts/inactive records and obsolete approval/artwork predicates. It validates path metadata internally, then builds public product DTOs without that field. List responses retain only two card images/identity/cursor; detail adds gallery/validated Portable Text. Normalize model slug codes for public options. Internal source reads are not browser DTOs and do not make a public Sanity field private; direct dataset visibility still needs its separate review.
 
 Order catalog results by `_createdAt desc, _id desc`. The first page has 24 records. Subsequent cursors encode the last timestamp/ID and normalized-query identity; validate the cursor server-side and fetch strictly after that pair. Bind cursors to the current search. This avoids offset drift from newly inserted designs and equal-date ties; live removal/activation still requires deduplication by product ID.
 
@@ -244,7 +246,7 @@ All checkout/order responses and tracking responses use `Cache-Control: no-store
 4. Adapt reads to independent fee/bank profile records. Normalize only the address for matching; map fee slugs and bank active/primary/display-order fields explicitly. No fixed singleton read or main-brand fallback.
 5. Preserve regional/default behavior using the intended `da-nang`/`toan-quoc` fee slugs and deterministic selection. Verify the actual configured records during CM-04; missing valid default configuration is an error, not arbitrary query-order/free delivery. The CMS-only change does not seed these records.
 6. Optional blank address is valid and receives the displayed default fee. Do not claim shipping information is complete. Apply one fee to the combined order.
-7. Bank transfer is valid only with usable Creativa bank instructions. Missing bank configuration disables that method without disabling otherwise valid COD.
+7. Bank transfer requires the sole valid active-primary Creativa profile. Normalize its holder to the stable accepted `accountName` field and retain optional QR/logo/public bank metadata; never substitute another active profile or internal notes. Save the accepted snapshot and suppress instructions for paid/refunded/cancelled orders.
 8. Build an immutable quote with safe-integer totals and selected commercial/production meaning. Compute `digest = SHA256(canonicalQuote)` with CR-02's versioned field ordering; the digest is a change detector, not an authorization token. Store source revisions for audit separately. Exclude generated time, request IDs, analytics IDs and harmless display-only/revision changes from the digest.
 
 On submit, independently repeat evaluation and compare the reviewed digest/amounts. A changed price, fee, selected-payment availability or production meaning requires review before a new submission. A harmless cosmetic/source-revision edit alone must not create a false quote conflict. Audit revisions do not replace validation of current business values.

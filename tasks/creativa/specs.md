@@ -1,7 +1,7 @@
 # INUT Creativa — Product Specification
 
 **SDD gate:** Specification.
-**Status:** Baseline approved, followed by the owner-approved 2026-10-23 CMS-first amendment below. Studio changes are staged separately from the still-pending runtime adaptation. Earlier verification is historical; production activation remains unapproved.
+**Status:** The owner approved/tested the CMS flow and authorized runtime/UI continuation on 2026-10-23, including exact orange primary and active-primary-bank selection. Current implementation must pass its fresh audit/verification loop; production activation remains unapproved.
 **Date:** 2026-10-22.
 **Latest amendment:** Prefix-free 10-character public order IDs and uncapped browser-local order-ID shortcuts on both tracking search pages.
 **Authority:** [Approved idea](./idea.md), subsequent owner answers recorded below, and [supplied references](#10-visual-and-interaction-requirements).
@@ -10,9 +10,11 @@
 
 ## CMS-first amendment — 2026-10-23
 
-The owner explicitly selected **CMS only now; storefront/API next**. [The amended plan](./plan.md#cms-first-amendment-and-required-next-actions) defines the exact schema contract and CM-03 through CM-07 follow-ups. New Studio records are not compatible with the unchanged baseline runtime readers until those follow-ups are implemented.
+The owner initially selected CMS-only, then accepted that flow and authorized storefront/API integration. [The amended plan](./plan.md#cms-first-amendment-and-required-next-actions) defines the schema contract and CM-03 through CM-08 integration/evidence tasks.
 
-Root titles alone retain `Creative - `; all Creativa entries follow legacy content. Model code is a generated slug with no fit fields. Shipping/bank are independent per-record fee/profile editors, not singletons. Skin laptop is active by default, uses `blockContent` and an absolute `printAssetPath`; removed product approval/artwork/upload fields are not publication requirements. No existing data is migrated. Historical order snapshots remain intact; new snapshot/quote/path privacy integration is next, not completed here.
+Root titles alone retain `Creative - `; all Creativa entries follow legacy content. Model code is a generated slug with no fit fields. Shipping/bank are independent per-record fee/profile editors, not singletons. Skin laptop is active by default, uses `blockContent` and an absolute `printAssetPath`; removed product approval/artwork/upload fields are not publication requirements. The authorized runtime continuation implements those readers/snapshots without migrating existing data; historical orders remain intact and fresh audit/verification governs completion.
+
+**Runtime/color decisions:** Creativa remains light with exact primary `#fd4d01`; accessible darker text/hover variants are allowed. The customer bank is the sole profile matching both active and primary flags, with no fallback to another active profile. New accepted orders snapshot those payment details; old orders/recovery retain their original values. Production paths remain internal staff metadata, excluded from public application responses and telemetry; direct CMS dataset visibility is a separate known boundary.
 
 ## 1. Objective and scope
 
@@ -137,7 +139,7 @@ The initial model labels/grouping/order are the 16 entries in the approved idea'
 - **CHECKOUT-03:** Preserve the existing shipping detection/default behavior using **only Creativa shipping data**: prefer the configured Đà Nẵng rule for matching addresses; otherwise the configured nationwide/default rule. With no address, use the valid configured default and display the selected fee. The technical design MUST make fallback ordering deterministic, not depend on an accidental query order.
 - **CHECKOUT-04:** No address is a valid checkout condition. The order/staff summary MUST represent it honestly as not supplied; do not fabricate an address or claim delivery details are complete.
 - **CHECKOUT-05:** Apply shipping once to the combined order, not once per product category. Show the selected shipping rule, amount, merchandise total and final amount before submission. If no valid shipping configuration can be resolved, explain the issue and block submission rather than defaulting to free delivery.
-- **CHECKOUT-06:** COD and bank transfer MUST be supported. Bank transfer requires valid Creativa bank instructions; if unavailable, explain/disable that method without substituting main-brand bank details. COD can remain available when its other requirements are met.
+- **CHECKOUT-06:** COD and bank transfer MUST be supported. Use exactly one valid Creativa profile with `isActive == true` and `isPrimary == true`. No arbitrary active/nonprimary or main-brand fallback and no customer profile selector. Missing/invalid/multiple primary profiles explicitly disable transfer; valid COD remains available. Accepted orders retain their selected bank snapshot.
 - **CHECKOUT-07:** Retain entered fields and the cart on validation, availability, repricing or order-creation errors. Keep the submit state/focus/error messaging understandable and prevent competing submit actions while a request is unresolved.
 
 ### 5.2 Authoritative order transaction
@@ -286,7 +288,7 @@ Only root Creativa document titles MUST use **`Creative - `**; fields/nested obj
 | [Mobile catalog](./references/uniqfind-catalog-mobile.png) | Two-column default and visible one/two-column control. |
 | [Model selector](./references/uniqfind-macbook-models.png) | Single-choice scrollable model list and CMS-controlled grouped labels. |
 
-- **UX-01:** Use a light, clean, clear and professional direction: warm off-white surfaces, white image areas, restrained dark reddish-brown reference accents and compact purposeful spacing, adapted to INUT identity.
+- **UX-01:** Use a light, clean, professional INUT direction with primary exactly `#fd4d01`, light off-white/white surfaces and compact image-first spacing. Use readable dark foregrounds/darker orange text/hover variants where needed for contrast; do not change the root brand's theme.
 - **UX-02:** Essential content/actions MUST work on iPhone/Safari and other touch devices without hover, horizontal page overflow or controls hidden behind the header/footer. Check layouts at representative mobile widths, tablet and desktop.
 - **UX-03:** Selectors, layout toggle, gallery, quantity controls and forms MUST have meaningful labels, visible focus, keyboard operation and perceivable selected/error states. A disabled action needs an understandable reason.
 - **UX-04:** Use original/approved assets and copy. Do not copy the reference's ratings, currency selector, account system, filter features, Shop Pay or case upsell into the product scope.
@@ -348,7 +350,7 @@ These scenarios define acceptance, not automatic passing claims. Per-scenario re
 | AC-40 | Inspect accepted orders, references and public create/lookup boundaries. | Unique array keys and valid case-sensitive 10-character prefix-free public references; cryptographically random identity and protected public projections; privileged fields cannot be client-set and documented abuse controls remain enforced. | ORDER-09, ORDER-10, NFR-02 |
 | AC-41 | Retry an accepted intent/notification failure and inspect production integration behavior. | No routine duplicate notification/conversion; failure is diagnosable; no automatic shipment, payment reconciliation, category split or unpromised email/SMS/recovery service. | OPS-03, OPS-04, OPS-05 |
 | AC-42 | Review legacy service URLs and new product metadata/offer output. | Separate service pages remain intact; new canonical/title/images/offers reflect current valid data with no fabricated prices, ratings or policies. | SEO-03, SEO-04 |
-| AC-43 | Compare representative iPhone/Safari, other mobile, tablet and desktop layouts with supplied references. | Clean image-first INUT treatment, usable gallery/controls without page overflow or obscured actions; no copied accounts/reviews/Shop Pay/case features. | UX-01, UX-02, UX-04 |
+| AC-43 | Compare representative iPhone/Safari, other mobile, tablet and desktop layouts with supplied references. | Light image-first INUT treatment with exact `#fd4d01` primary and readable control/text contrast; usable gallery/controls without overflow or obscured actions; no copied account/review/Shop Pay/case features. | UX-01, UX-02, UX-04 |
 | AC-44 | Inspect attribution/device reports, bounded catalog/network reads and simulated configuration/network failures; review release evidence. | Existing attribution/device context works without fingerprinting; bounded image/catalog loading and explicit errors; required targeted/lint/build/browser evidence uses authorized data, not production orders. | AN-03, NFR-03, NFR-04, NFR-06 |
 | AC-45 | Force an ID collision, concurrent acceptance, exhausted allocation and replay of an accepted checkout; later change status/catalog data. | Collision never overwrites another order; allocation failure is explicit; accepted intent always retains the original public ID, separate from internal/analytics/idempotency identities; no product type is inferred from it. | ORDER-10, ORDER-11, ORDER-12 |
 | AC-46 | Accept/recover checkout, repeat recovery, fail a fresh checkout, manually search and visit a shared link. | Only confirmed checkout creation/recovery inserts an unseen ID first; repeated ID stays once/in place; other flows do not add entries; storage contains public-ID strings only under the history key. | HISTORY-01, HISTORY-02 |
@@ -377,7 +379,7 @@ No extra product type, stock promise, material statement, MOQ, shipping SLA or l
 
 ## 14. Specification exit gate
 
-**Gate outcome:** The specification and subsequent design/plan/test/refinement gates are approved. Implementation is recorded in the revised plan and final report; full acceptance/deployment still require the outstanding authorized witnesses. The requirements and all 52 ACs above remain unchanged.
+**Gate outcome:** The specification and subsequent refinements are approved, including the documented CMS/color/bank amendments. All 116 requirement IDs and 52 AC IDs remain in scope. Full acceptance/deployment still require their actual authorized witnesses; earlier wording/results do not override the amendments.
 
 Technical design must resolve the implementation of these requirements: internal schema/types and safe product-type extension, explicit public/server projections, configuration/cache freshness and quote review, idempotent write/recovery semantics, cryptographic short-ID allocation/uniqueness, snapshot/reference retention, deterministic shipping fallback, safe public order access, browser-history validation/storage failure and cross-tab mutation limitations, notification failure/retry visibility, cart hydration/cleanup and actual GA4/GTM/Umami dispatch/deduplication/privacy behavior.
 

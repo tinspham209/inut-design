@@ -69,6 +69,15 @@ export function publicOrder(order: StoredOrder): CreativaPublicOrder {
 						bankName: order.bank.bankName,
 						accountName: order.bank.accountName,
 						accountNumber: order.bank.accountNumber,
+						...(order.bank.profileId && { profileId: order.bank.profileId }),
+						...(order.bank.name && { name: order.bank.name }),
+						...(order.bank.bankShortName && { bankShortName: order.bank.bankShortName }),
+						...(order.bank.image?.asset?._ref && {
+							image: {
+								_type: "image",
+								asset: { _type: "reference", _ref: order.bank.image.asset._ref },
+							},
+						}),
 						...(order.bank.transferInstructions && {
 							transferInstructions: order.bank.transferInstructions,
 						}),

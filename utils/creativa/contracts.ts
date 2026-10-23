@@ -11,6 +11,26 @@ export const CREATIVA_HISTORY_KEY = "inut-creativa-order-history";
 export const CREATIVA_ATTEMPT_KEY = "inut-creativa-checkout-attempt";
 export const RESERVED_SKIN_SLUGS = ["huong-dan-su-dung"];
 
+export function validCreativaDocumentId(value: unknown): value is string {
+	return typeof value === "string" && /^[A-Za-z0-9_-]{1,128}$/.test(value);
+}
+
+export function validCreativaImageRef(value: unknown): value is string {
+	return (
+		typeof value === "string" && /^image-[A-Za-z0-9]+-[1-9]\d*x[1-9]\d*-[a-z0-9]+$/.test(value)
+	);
+}
+
+export function validCreativaPrintPath(value: unknown): value is string {
+	return (
+		typeof value === "string" &&
+		!/[\u0000-\u001f]/.test(value) &&
+		(/^\/.+/.test(value) ||
+			/^[A-Za-z]:[\\/].+/.test(value) ||
+			/^\\\\[^\\/]+[\\/][^\\/]+[\\/].+/.test(value))
+	);
+}
+
 export class CreativaError extends Error {
 	terminal = false;
 	constructor(

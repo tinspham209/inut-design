@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import BlockContent from "@sanity/block-content-to-react";
 import { Box } from "@mui/material";
-import envConst from "@/utils/env-const";
 
 type Props = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -87,8 +86,8 @@ const BlockContentWrapper: FC<Props> = ({ blocks }) => {
 		>
 			<BlockContent
 				blocks={blocks}
-				projectId={envConst.SANITY_PROJECT_ID}
-				dataset={envConst.SANITY_DATASET}
+				projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
+				dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
 			/>
 		</Box>
 	);
