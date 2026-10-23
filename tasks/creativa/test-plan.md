@@ -1,7 +1,7 @@
 # INUT Creativa — Test Plan
 
 **SDD gate:** Approved strategy/refinement; partial execution and final verification recorded.
-**Status:** Owner accepted the CMS flow and authorized runtime/orange-light UI integration. The current loop verifies that amended contract; earlier evidence remains historical until fresh checks/audit complete. This document defines procedures, not an automatic pass.
+**Status:** Owner accepted CMS flow; amended runtime/orange-light code audit PASS through `5a8cff8`. [Current verification](./final-verification.md) records scoped execution and remaining E-01..E-04 witnesses. This document defines procedures, not an automatic pass.
 **Date:** 2026-10-23.
 **Authority:** The [revised plan](./plan.md) is the implementation/task/exit source of truth; this document supplies procedures for its reverse-validation matrix. The approved [specification](./specs.md) and [technical design](./technical-design.md) retain business context, subject to explicit refinement dispositions.
 **Constraint:** This is test documentation, not test code. Do not introduce a unit-test suite, runner, dependency, framework, CI job or coverage-percentage target. Existing focused assertions may be used where relevant; hypothetical Creativa test scripts are not existing quality gates.
@@ -20,6 +20,8 @@ R-01 context closure: invoke the actual facade with a single configured measurem
 
 Also invoke the actual PDP view callback with zero coverages: basis must be unavailable, price/coverage/model absent, and repeated effect invocation must not repeat the view. The known-coverage branch retains its actual selected-coverage basis and identifier.
 
+**Execution checkpoint:** All 17 isolated amended-contract/context groups, lint/types/build/SEO and relevant existing SPX/Studio gates pass within their recorded scope. Current live Chromium exercises actual published catalog/quotes and isolated accepted-response variants. Development images loaded, but a later production-preview headless session received CDN 403 while same-URL direct requests returned 200; verify deployment/browser CDN access before release, without mistaking explicit fallback rendering for asset success. Real Sanity mutations/anonymous denial, hosted collectors/logs, native devices and operator handoff remain unexecuted.
+
 The [amended plan](./plan.md#cms-first-amendment-and-required-next-actions) is authoritative. In this step verify:
 
 - Legacy registration/menu entries remain first and unchanged; all Creativa entries follow. Legacy document actions remain default.
@@ -31,7 +33,7 @@ The [amended plan](./plan.md#cms-first-amendment-and-required-next-actions) is a
 
 Use existing Studio build and isolated schema/action/structure checks. Browser form verification needs an authenticated Studio session; record a login/access blocker rather than creating data or claiming that compilation proves rendering.
 
-**Next, after CM-03..CM-06:** verify actual new-format product/model/configuration reads, Portable Text rendering, private path exclusion, shipping/default/zero fee, active bank profiles, quote/digest/repricing, staff production-path snapshots, old-order recovery, checkout/history/analytics and authorized migration. Retire obsolete fit-boolean/upload-asset expectations for new records, but retain manual compatibility/file-retention and historical-order tests. Baseline CT/DB/BDD passes must not be reused as proof of these changed contracts.
+**CM-07 remaining exit:** Complete the actual database/historical-record/native/hosted/operator witnesses after the scoped new-format reads/rendering/quote/path/bank checks. No detected published-format migration was needed or performed. Retire obsolete fit-boolean/upload-asset expectations for new records, but retain manual compatibility/file-retention and historical-order tests. Baseline CT/DB/BDD passes must not be reused as proof of these changed contracts.
 
 **Historical CMS-only evidence:** Studio build/isolated definitions passed; agent browser reached sign-in. The owner subsequently tested/accepted the CMS flow. That attestation does not stand in for runtime, private-namespace, race, native-device or hosted-vendor checks. Current read-only inventory shows amended published records; no migration or production mutation has been performed.
 
@@ -106,7 +108,7 @@ The [Sanity deployment workflow](../../.github/workflows/deploy-sanity.yml) is a
 | Fixture | Required variation |
 | --- | --- |
 | Catalog | Multiple approved-looking synthetic designs, more than one 24-card batch, equal creation timestamps, inactive/draft records, unknown/reserved slugs and missing/invalid imagery. |
-| Models/coverage | At least two verified synthetic models; all four initial coverages; inactive/reordered entries and invalid/unverified options. No claim that screenshot labels prove real hardware fit. |
+| Models/coverage | At least two well-formed synthetic slug-coded models; all four initial coverages; inactive/reordered/malformed entries. Removed fit flags are not activation gates; real physical fit needs separate owner evidence. |
 | Shipping/payment | Independent regional/default rules, deliberate zero fee, missing/ambiguous default and separate fake bank/sales settings. |
 | Cart/browser | Both cart domains populated; identical/different skin selections; pending submitted quantities plus later additions; empty/corrupt/unknown-type data. |
 | Orders | Pending/paid/failed/refunded/cancelled examples, manual carrier reference, retained snapshots and independent internal/public/analytics/capability identities. |

@@ -1,9 +1,9 @@
 # INUT Creativa — Product Specification
 
 **SDD gate:** Specification.
-**Status:** The owner approved/tested the CMS flow and authorized runtime/UI continuation on 2026-10-23, including exact orange primary and active-primary-bank selection. Current implementation must pass its fresh audit/verification loop; production activation remains unapproved.
+**Status:** Owner-approved CMS/runtime amendments are implemented; cumulative code audit PASS through `5a8cff8`. Current [final verification](./final-verification.md) records all 116 requirements/52 AC results and E-01..E-04 blockers; production activation remains unapproved.
 **Date:** 2026-10-22.
-**Latest amendment:** Prefix-free 10-character public order IDs and uncapped browser-local order-ID shortcuts on both tracking search pages.
+**Latest amendment:** Exact orange/light UI, active-primary bank and amended CMS/runtime shapes, preserving prefix-free 10-character public IDs and browser-local shortcuts.
 **Authority:** [Approved idea](./idea.md), subsequent owner answers recorded below, and [supplied references](#10-visual-and-interaction-requirements).
 **Implementation authority:** The [revised plan](./plan.md) is the task/dependency/evidence source of truth after cross-document refinement. All requirements and 52 ACs below remain in scope; the refinement does not turn a blocked witness into a pass.
 **Deliverable boundary:** Requirements, business/data contracts, analytics and acceptance criteria. No application implementation, final API/schema design or implementation task plan is included.
@@ -12,7 +12,7 @@
 
 The owner initially selected CMS-only, then accepted that flow and authorized storefront/API integration. [The amended plan](./plan.md#cms-first-amendment-and-required-next-actions) defines the schema contract and CM-03 through CM-08 integration/evidence tasks.
 
-Root titles alone retain `Creative - `; all Creativa entries follow legacy content. Model code is a generated slug with no fit fields. Shipping/bank are independent per-record fee/profile editors, not singletons. Skin laptop is active by default, uses `blockContent` and an absolute `printAssetPath`; removed product approval/artwork/upload fields are not publication requirements. The authorized runtime continuation implements those readers/snapshots without migrating existing data; historical orders remain intact and fresh audit/verification governs completion.
+Root titles alone retain `Creative - `; all Creativa entries follow legacy content. Model code is a generated slug with no fit fields. Shipping/bank are independent per-record fee/profile editors, not singletons. Skin laptop is active by default, uses `blockContent` and an absolute `printAssetPath`; removed product approval/artwork/upload fields are not publication requirements. The authorized runtime continuation implements those readers/snapshots without migrating existing data; historical compatibility is retained in code/probes, with actual historical-record witnesses still required before release.
 
 **Runtime/color decisions:** Creativa remains light with exact primary `#fd4d01`; accessible darker text/hover variants are allowed. The customer bank is the sole profile matching both active and primary flags, with no fallback to another active profile. New accepted orders snapshot those payment details; old orders/recovery retain their original values. Production paths remain internal staff metadata, excluded from public application responses and telemetry; direct CMS dataset visibility is a separate known boundary.
 

@@ -237,3 +237,10 @@ dispatch ownership remain unchanged. Keep absolute print-file paths, production
 metadata, internal bank notes and account details out of telemetry; current
 guards cover those keys. Only the active primary bank is used for new orders,
 and tracking uses its accepted snapshot. No new event or collector is added.
+
+Current code audit is PASS through `5a8cff8`, including R-01's public single-item
+context parity and known/unavailable PDP coverage cases. Seventeen isolated
+contract groups and local destination captures do not prove actual hosted
+delivery, container exclusions or host-log privacy. Their remaining witnesses
+and all requirement/AC results are recorded in the
+[final verification report](../tasks/creativa/final-verification.md).

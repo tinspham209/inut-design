@@ -1,17 +1,17 @@
 # Creativa Staff Audit
 
-**Current code audit:** PASS at `715aa79` for the amended runtime/orange-light storefront. Historical rounds through `7fedd01` remain below for their former contract.
+**Current code audit:** PASS through `5a8cff8`: independent runtime audit at `715aa79`, followed by R-01 rework and targeted read-only confirmation. Historical rounds remain below for their former contract.
 **Overall acceptance:** FAIL / BLOCKED — E-01 through E-04 still lack their required external witnesses.
-**Phase:** Seven read-only audit rounds completed; application changes occurred only in the intervening implementation/rework phases.
+**Phase:** Seven historical rounds plus current independent amended-runtime audit and targeted R-01 confirmation completed; application changes occurred only in implementation/rework phases. Final verification and issue routing are recorded.
 **Baseline:** `551ab8e`; cumulative implementation/rework reviewed through `7fedd01` on `feat/creativa`. Exact per-round scope/revision is retained below.
 **Scope:** Approved idea, specs, technical design, revised plan/test plan and repository rules.
 **Runtime boundary:** No production order, CMS mutation or notification was authorized/performed. Chromium response fixtures and mocked SDK probes are not real Sanity/native/hosted acceptance.
 
 ## Current runtime/orange-light amendment — 2026-10-23
 
-Owner CMS-flow review is accepted. The next implementation connects amended records and exact `#fd4d01` primary in a light theme, with the clarified **active AND primary** bank rule (no arbitrary active-account fallback). Current code includes new/legacy snapshot compatibility and path-safe public projections. Its own independent read-only audit is recorded below; the old round-7 PASS is not the authority for this changed implementation.
+Owner CMS-flow review is accepted. The current implementation connects amended records and exact `#fd4d01` primary in a light theme, with the clarified **active AND primary** bank rule (no arbitrary active-account fallback). Current code includes new/legacy snapshot compatibility and path-safe public projections. Its independent audit and R-01 confirmation are recorded below; the old round-7 PASS is not the authority for this changed implementation.
 
-Implementation evidence so far: four amended-contract baseline cases were red before changes, then green against actual read-only published CMS data; isolated new/legacy contract groups pass. No order/data/notification mutation was used. Record the upcoming audit findings, rework/resolution, routing and final result below rather than overwriting the historical rounds.
+Implementation evidence: four amended-contract baseline cases were red before changes, then green against actual read-only published CMS data; isolated new/legacy contract groups pass. No order/data/notification mutation was used. The current audit, R-01 rework and final result are recorded without overwriting historical rounds.
 
 Implementation/browser checks also exposed two connected producer gaps before audit: product views repeated during the development lifecycle, and lightbox arrow navigation was unmeasured/close used the old index. Per-component view ownership and guarded viewer-index events now yield one view and open/navigation/close per local destination, with the chosen image restored after closing. No existing passing repository test was rewritten.
 
@@ -25,7 +25,7 @@ Implementation/browser checks also exposed two connected producer gaps before au
 
 **Full acceptance:** FAIL/BLOCKED for actual retained print/template/operator/notification readiness, actual Sanity privacy/atomicity/collision/concurrency proof, hosted collectors/proxy/logs and native Safari/remaining manual cases. Raw Sanity metadata visibility is the acknowledged separate owner-review boundary, not a newly found application DTO leak.
 
-**Current readiness refinement:** Published amended catalog/options/fee/primary-bank records exist and were read successfully; the former empty-configuration/CDN failures are not current code findings. Sales has one configured destination, but the dedicated Creativa bot credential is absent. No message was sent and physical file/template/handoff signoff remains missing. Route these prerequisites through Clarify/Plan → Verify, not speculative code rework.
+**Current readiness refinement:** Published amended catalog/options/fee/primary-bank records exist and read successfully. Development browser images loaded, but later production-headless image requests returned CDN 403 while direct same-URL requests returned 200; the explicit fallback works. This access discrepancy remains E-01, not a proven code defect or production-image pass. Sales has one configured destination, but no dedicated Creativa bot credential. No message was sent and physical file/template/handoff signoff remains missing. Route these prerequisites through Clarify/Plan → Verify, not speculative code rework.
 
 ### Final-verification interruption — R-01
 
@@ -41,21 +41,27 @@ Route: Missing Implementation → Implement → Verify, continuation YES. This d
 
 Resolved implementation: the facade projects only public item fields for GA4 and carries known single-item model/coverage/variant/quantity/unit price into Umami without adding a destination call. Explicit caller quantity remains authoritative; unknown price is omitted. PDP view includes its known initial coverage, not a fabricated model choice.
 
-Actual facade checks are now green: one emission each, configured identifiers/price/variant retained, index zero preserved, injected private extra item properties absent, unknown price omitted and consent denial suppresses both calls. All original 15 amended groups remain green. Files changed: facade, PDP view and related guide/test/plan/report records. Post-rework build and read-only confirmation are required next; E-01 through E-04 are unchanged.
+Actual facade checks are now green: one emission each, configured identifiers/price/variant retained, index zero preserved, injected private extra item properties absent, unknown price omitted and consent denial suppresses both calls. All original 15 amended groups remain green. Files changed: facade, PDP view and related guide/test/plan/report records. Post-rework build and read-only confirmation are recorded below; E-01 through E-04 are unchanged.
 
 Targeted read-only inspection of `0cd7414` confirms the facade fix but identifies one remaining R-01 edge: the PDP labels its price basis `selected_coverage` even when no coverage exists. Rework must use unavailable basis in that branch, without inventing price/coverage/model. This stays within the same context finding and returns to rework before final verification.
 
 The zero-coverage callback probe was red, then green after conditional unavailable-basis handling. All 17 groups now pass, including repeated actual view-callback invocation, known/no coverage and all prior groups. Current lint without warnings, TypeScript and production application/postbuild SEO gates pass. Unchanged Studio/SPX source retains its passing evidence. Targeted read-only confirmation follows the final correction; no order, bank, storage or theme behavior changed.
 
+### Targeted R-01 read-only confirmation
+
+**Code result:** PASS at `5a8cff8`, reviewing the complete `715aa79..5a8cff8` source delta and connected facade/PDP context. Public item projection preserves legitimate identifiers/index/price, excludes unknown private extras, emits once per destination and respects consent. Known coverage is explicit; empty coverage reports unavailable basis with no invented model/price. No remaining actionable finding in this bounded confirmation.
+
+R-01 is resolved. No source was changed by this confirmation. [Final verification](./final-verification.md) records current per-requirement/AC evidence at `5a8cff8`; external E-01 through E-04 remain open. Latest production search/layout checks preserve query/cards/order without overflow; image fallback plus CDN discrepancy are recorded explicitly, not hidden by the earlier development image pass.
+
 ## CMS-first amendment — 2026-10-23
 
 The owner approved Studio-only schema/editor changes and explicitly deferred storefront/API adaptation. See [CM-03 through CM-07](./plan.md#cms-first-amendment-and-required-next-actions). Legacy order/actions, root-only title prefixes, model slug codes, independent fee/bank records and rich product description/absolute print path supersede the old schema details.
 
-**Known staged gap:** current application guards/queries/snapshots still require removed fields and singleton formats. This is deliberately deferred scope, not a current end-to-end PASS. Do not “fix” it by inventing fit approvals/artwork versions or reading main-brand configuration. Preserve old snapshots/data; no migration is authorized here.
+**Historical staged gap:** At the CMS-only checkpoint application guards/queries/snapshots still required removed fields/singletons. The subsequent authorized runtime integration at `715aa79` resolves that code gap without invented fit approvals/artwork versions/main-brand fallback or data migration.
 
-**Next action:** integrate and verify the amended runtime contract, review existing-data migration and re-audit changed consumers. The rounds below remain historical evidence; E-01 through E-04 remain open.
+**Current disposition:** Amended integration/inventory/re-audit is complete within its scoped evidence; CM-07/E-01..E-04 actual release witnesses remain open. The rounds below are historical evidence.
 
-**CMS-only checks:** Studio build and isolated schema/navigation/action/template/label/path checks pass with zero CMS I/O. The standard local preview reaches sign-in, not authenticated editing; Generate/profile/publish interactions remain pending. No project CORS/credential/data changes were made, and no new end-to-end application verdict is issued.
+**CMS-only checks:** Studio build and isolated schema/navigation/action/template/label/path checks passed with zero CMS I/O. The agent preview reached sign-in, not authenticated editing. The owner subsequently accepted the CMS flow; no agent CORS/credential/data changes were made. That attestation does not close actual private-access/transaction gates.
 
 ## Round 1 findings
 
@@ -70,7 +76,7 @@ The owner approved Studio-only schema/editor changes and explicitly deferred sto
 
 The reviewer reproduced I-01, I-02, I-03, I-04 and I-05 through actual source functions with in-memory inputs and inspected/invoked the additional-page producer for I-06. These reproductions do not establish actual external delivery/permissions.
 
-## External blockers
+## External blockers — historical baseline
 
 | ID | Severity | Evidence / affected gates | Required next input |
 | --- | --- | --- | --- |

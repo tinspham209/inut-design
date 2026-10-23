@@ -4,11 +4,13 @@
 
 The owner tested and accepted the revised CMS flow, then authorized connecting storefront/UI/runtime consumers. **Keep primary `#fd4d01` and a light theme.** Customer bank details must come from the active primary Creativa profile only; no active-account fallback or customer bank selector. Run implement → audit → rework → audit → issue routing → final verification, and reconcile related documents. The [runtime continuation](./plan.md#runtime-and-orange-light-continuation--2026-10-23) records exact contracts/evidence boundaries; no production write/migration/deployment is implied.
 
+**Current outcome:** Runtime/orange-light implementation and R-01 rework are code-audited through `5a8cff8`. [Final verification](./final-verification.md) records scoped passes and E-01..E-04 release blockers, including production-browser CDN access, real database/host/native/operator witnesses. Feature publication is not launch approval.
+
 ## Owner CMS-first amendment — 2026-10-23
 
 The original brief below is retained as historical input. The owner now requests Creativa schemas/navigation after all legacy content; readable field labels with `Creative - ` only on root titles; MacBook slug codes without fit fields; independent per-record shipping and multiple bank profiles like the legacy editors; and `Creative - Skin laptop` with active default true, block content description and absolute `printAssetPath` metadata instead of approval/artwork/upload fields.
 
-**Approved scope:** CMS only now, no document migration. **Next:** align storefront/API/quote/order consumers and verify the changed contract before launch. [The amended plan](./plan.md#cms-first-amendment-and-required-next-actions) is authoritative for exact fields, limits and follow-up tasks.
+**Historical first scope:** CMS only, no document migration. The subsequent authorized runtime integration is now implemented; remaining release verification follows [the amended plan](./plan.md#cms-first-amendment-and-required-next-actions). The original route suggestions below are historical inputs, not the current approved shared-commerce routes.
 
 /creativa
 for now just show some placeholder, because for now we just start the project skin-laptop, but later, we will sell another product type, so let think the logic so that we can extend/scale without any conflict.
