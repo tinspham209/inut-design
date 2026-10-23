@@ -1,5 +1,9 @@
 # INUT Creativa — Product Specification
 
+## Latest transient-feedback amendment
+
+Creativa copy ID/link/memo outcomes and product add-success use the existing global `react-hot-toast` Toaster, not inline notice banners. Toasts are generic and omit copied values; keep exact copy/one-event ownership and manual selectable/native-link fallback. Cart success retains `Xem giỏ` navigation. Validation/service/storage warnings and financial/order states remain persistent inline. No second provider, dependency, API or analytics event name.
+
 ## Direct tracking memo — latest owner-approved privacy change
 
 The owner explicitly approves saved full customer name/phone visibility to anyone holding an eligible unpaid bank-transfer order URL. Canonical memo is `{normalized name} {phone}`, separated by one space, no hyphen. It must display/copy on direct/manual/shared links and reload, without buyer-session context or order-ID substitution. Only the memo is added to the tracking DTO; raw customer/address/email/notes stay excluded. Paid/refunded/cancelled/COD/missing-bank responses omit it. Memo stays out of analytics, URLs, logs and persistent browser storage. This supersedes earlier buyer-only/private-context requirements below.
@@ -193,7 +197,7 @@ The initial model labels/grouping/order are the 16 entries in the approved idea'
 - **TRACK-06:** Fresh acceptance may show a success message; later direct visits/searches MUST NOT claim a new order was just created. Neither case creates another order or conversion.
 - **TRACK-07:** Distinguish loading, invalid/not-found and service-error states with an appropriate recovery action. Lighter references MUST NOT resolve through the Creativa data source or vice versa.
 - **TRACK-08:** Public lookup responses MUST exclude internal notes, recipients, credentials and unnecessary customer data. Use a deliberate masked/minimal customer-information projection; do not expose raw CMS order documents. Reference-only access and abuse protections must be addressed in technical design without adding a customer account requirement.
-- **TRACK-09:** Confirmation/detail MUST show the full 10-character public ID and separate actions to copy the ID or its tracking URL. Confirm successful copying only when the operation succeeds; otherwise keep the ID/selectable link available with an actionable explanation. Never copy an internal ID or analytics identifier in place of the public reference.
+- **TRACK-09:** Show full public ID and separate copy ID/URL actions. Success only after actual clipboard resolution; generic `react-hot-toast` success/error, no copied value or inline success banner. ID stays selectable; copy-link keeps canonical href for native context-menu/long-press fallback without navigation on ordinary click. Memo remains selectable with equivalent toast feedback. Never copy internal/analytics identity instead of reference.
 
 ### 6.1 Browser-local order-ID history
 

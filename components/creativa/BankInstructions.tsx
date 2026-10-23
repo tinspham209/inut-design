@@ -3,6 +3,7 @@ import { Alert, Box, Button, Stack, Typography } from "@mui/material";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import Image from "next/image";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { sanityImageUrl } from "@/api-client/sanity-image";
 import type { CreativaBank } from "@/models/creativa";
 import { formatCreativaPrice } from "@/utils/creativa/contracts";
@@ -20,14 +21,16 @@ export function CreativaBankInstructions({
 	disabled?: boolean;
 }) {
 	const [imageFailed, setImageFailed] = useState(false);
-	const [copyNotice, setCopyNotice] = useState<string | null>(null);
 	async function copyContent() {
 		try {
 			await navigator.clipboard.writeText(transferContent);
-			setCopyNotice("Đã sao chép nội dung chuyển khoản.");
+			toast.success("Đã sao chép nội dung chuyển khoản.", { id: "creativa-copy", duration: 2500 });
 			trackCreativa("order_reference_copy", { target: "transfer_content", outcome: "success" });
 		} catch {
-			setCopyNotice("Không thể tự sao chép. Hãy chọn nội dung bên trên để sao chép thủ công.");
+			toast.error("Không thể tự sao chép. Hãy chọn nội dung chuyển khoản để sao chép thủ công.", {
+				id: "creativa-copy",
+				duration: 8000,
+			});
 			trackCreativa("order_reference_copy", { target: "transfer_content", outcome: "error" });
 		}
 	}
@@ -64,11 +67,6 @@ export function CreativaBankInstructions({
 						Sao chép nội dung
 					</Button>
 				</Stack>
-				{copyNotice && (
-					<Typography variant="caption" role="status">
-						{copyNotice}
-					</Typography>
-				)}
 				{bank.image && !imageFailed && (
 					<Box sx={{ maxWidth: 240, bgcolor: "white", p: 1 }}>
 						<Image

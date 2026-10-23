@@ -1,5 +1,9 @@
 # New sub brand: INUT Creativa
 
+## Latest transient-feedback refinement
+
+Move Creativa temporary copy/add-success notices into the existing `react-hot-toast` setup. No inline copied-path banner or duplicate provider; keep generic/privacy-safe messages, manual copy fallback/cart CTA and persistent actionable validation/service/storage/financial states.
+
 ## Latest transfer-memo correction
 
 Owner confirms direct/shared/reloaded eligible tracking must show/copy `{customer name} {customer phone}` with one space, not order ID or a hyphenated memo, and explicitly approves name/full-phone visibility to holders of that order link. Remove buyer-only context dependency; do not include raw customer object or persist/measure the memo. See the latest [plan amendment](./plan.md#direct-tracking-transfer-memo-correction--2026-10-23).

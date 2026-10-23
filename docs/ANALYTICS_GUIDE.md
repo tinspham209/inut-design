@@ -174,6 +174,12 @@ trackEvent("custom_event_name", { category: "engagement", label: "button_label",
 
 ## INUT Creativa: isolated commerce measurement
 
+Transient toast refinement: copy ID/link/memo outcomes still emit exactly one
+`order_reference_copy` per enabled provider/action with target/outcome only,
+never copied values in toast or telemetry. Add-success moves to a toast without
+another `add_to_cart`; its preserved `Xem giỏ` CTA emits `cta_click` with
+`cta_name=view_cart`, `surface=product_toast`. No event name/destination added.
+
 Latest confirmed transfer policy: saved name + phone is deliberately visible in
 eligible direct/shared/reloaded tracking instructions. It is still **never**
 measurement context: copy emits only target/outcome, not content. Do not put memo

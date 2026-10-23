@@ -1,5 +1,9 @@
 # Creativa Issue Routing
 
+## Current transient-toast refinement
+
+Owner's transient-feedback request is implemented with existing global react-hot-toast and current gates/browser evidence. Focused direct source audit PASS; rework no-op/unchanged confirmation, no actionable Missing Implementation issue. Persistent actionable errors/payment/order states remain inline by scope; legacy main-brand behavior unchanged. E-01..E-04 release witnesses remain Clarify/Plan → Verify, not toast code findings. Current final report reconciles evidence; no new requirement ambiguity or tooling needed.
+
 ## Direct tracking memo correction
 
 Owner explicitly approved link-holder name/full-phone exposure for the reported direct/reload behavior. Canonical eligible tracking memo and all exclusions are implemented/verified at `589acbe`; direct read-only audit PASS and no-op rework/confirmation. Prior buyer-only expectations are historical.
