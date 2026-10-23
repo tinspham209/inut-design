@@ -19,7 +19,7 @@ RHF/Yup owns form values/errors/focus, with shared server parsing unchanged. Cre
 Density is scoped to Creativa, with smaller headings/body/spacing and readable mobile input sizing. Owner-confirmed white contained-primary text uses `#ae3500` background (6.35:1), while `primary.main` remains `#fd4d01`. This supersedes the former dark-text/orange-fill button detail below.
 
 **SDD gate:** Technical design.
-**Status:** Amended CMS/runtime/compact-client architecture implemented; code audit PASS through `7918095` after C-01 explicit-retry rework. [Current verification](./final-verification.md) separates scoped passes from required E-01..E-04 release witnesses.
+**Status:** Current sales-editable working record/private transfer/client-session analytics architecture implemented; independent code audit PASS through `21b7b06`. [Current verification](./final-verification.md) separates scoped passes from required E-01..E-04 release witnesses.
 **Date:** 2026-10-22.
 **Authority:** [Approved specification](./specs.md) and [approved idea](./idea.md).
 **Boundary:** Architecture, data ownership, interfaces, algorithms, failure behavior and verification design. Delivered paths are evidenced by source and the final report, not by this design's existence alone.
@@ -373,7 +373,7 @@ Each mutation reads current storage rather than a stale React snapshot. Observe 
 ### Presentation
 
 - Reuse one `RecentCreativaOrders` component below the input on both search pages.
-- Label it as saved orders in this browser; show IDs as accessible tags, with individual forget controls and clear-history confirmation.
+- Creator entry shows accessible compact chips/individual forget only, no visible heading/disclaimer/clear-all. Main-root keeps its disclosure and clear-history confirmation.
 - Render an initial batch of 20 tags with accessible “show more” increments. This is a rendering batch only: every saved ID remains reachable and storage has no cap.
 - One tag activation emits one lookup-intent event with `lookup_source=history`, then opens `/creativa/order-tracking/<id>`. On root search, no extra dropdown/submit step is required.
 - Remove-button events stop propagation so forgetting an ID does not open it.
@@ -475,7 +475,7 @@ Use the approved [acceptance scenarios](./specs.md#12-acceptance-scenarios) as t
 | Independent schemas/private namespace and historical retention | CMS-01, CMS-02, CMS-03, CMS-04, CMS-05, CMS-06 |
 | Metadata, sitemap, CTA continuity and honest placeholders | SEO-01, SEO-02, SEO-03, SEO-04, SEO-05, GUIDE-01, GUIDE-02 |
 | Facade, payload/context mappings and transport ownership | AN-01, AN-02, AN-03, AN-04, AN-05 |
-| Durable conversion claims and URL/history privacy policy | AN-06, AN-07, AN-08, AN-09, AN-10, AN-11 |
+| Accepted-only session/memory conversion and URL/history privacy | AN-06, AN-07, AN-08, AN-09, AN-10, AN-11 |
 | Existing stack/domain isolation, explicit errors and safe release checks | NFR-01, NFR-02, NFR-03, NFR-04, NFR-05, NFR-06 |
 
 Verification layers:
@@ -494,7 +494,7 @@ Verification layers:
 | Shipping/bank/recipient values and brand wording | Independent owner configuration before production acceptance. |
 | Private namespace enforcement | Verify against actual project permissions and Studio before customer data is written. |
 | External tracker/container behavior | Required real-container/version/network review before declaring telemetry safe; no credentials/container access was assumed here. |
-| Conversion delivery | At-most-once permission can undercount after interruption; no exactly-once external guarantee. |
+| Conversion delivery | Browser/session mark-before-send may undercount; denied storage/restarted sessions/other browsers may duplicate. No Sanity claim or exactly-once guarantee. |
 | Notification ambiguity | Unknown external delivery needs reconciliation; no blind repeated send. |
 | Browser history | No application cap/TTL; finite quota and cross-tab races remain browser limitations. |
 | Storage-disabled checkout | Live-tab fallback works; persistent recovery/history cannot be promised. |

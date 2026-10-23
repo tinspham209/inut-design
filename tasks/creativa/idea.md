@@ -2,7 +2,7 @@
 
 ## Current sales / tracking refinement
 
-Make saved orders image-first with readable colored status chips and compact local shortcut chips. Simplify the sales editor without changing immutable order/production/financial data. Owner chose buyer-only saved `Name - Phone` bank-transfer copy; shared/fresh tracking remains reference-only. Remove the attention menu, not notification retry safety. GA4 + Umami use client/session best effort without new Sanity analytics storage. See [S-01..S-06](./plan.md#sales--tracking-refinement--2026-10-23).
+Make saved orders image-first with readable colored status chips and compact local shortcut chips. Use the owner's sales-editable working order/production/financial fields while protecting private identity/recovery metadata. Owner chose buyer-only saved `Name - Phone` bank-transfer copy; shared/fresh tracking remains reference-only. Remove the attention menu, not notification retry safety. GA4 + Umami use client/session best effort without new Sanity analytics storage. See [S-01..S-06](./plan.md#sales--tracking-refinement--2026-10-23).
 
 Subsequent explicit clarification supersedes that immutable-field wording: sales edits saved order/customer/date/production/totals/payment data directly, like Lighters, with no extra original copy. Private identities/recovery barriers remain protected; public tracking reflects saved working values and never invents unknown manual-row prices.
 
@@ -13,14 +13,14 @@ Show the selected design's first image beside cart/checkout names; keep all live
 **SDD phase:** Approved idea; implementation and verification status are tracked in the revised plan and final report.
 **Source:** [Original brief](./brief.md), owner clarification answers, and the supplied Uniqfind screenshots.
 **Status:** Approved by the owner for the specification gate on 2026-10-22. See [specs.md](./specs.md) for detailed requirements and the subsequent selection, price-display and checkout-field clarifications.
-**Latest revision:** Owner-approved amended CMS, exact orange/light UI and active-primary-only bank, preserving prefix-free 10-character IDs, browser-local history and the shared Creativa journey independent of lighters.
+**Latest revision:** Sales-editable human production records, buyer-only transfer copy, tracking/status/history refinements and no-Sanity-analytics session measurement, preserving the shared Creativa/ID/lighter boundary and orange/light style.
 **Execution authority:** The [revised plan](./plan.md) is the implementation source of truth after reverse validation; the business goals and scope in this idea remain unchanged.
 
 ## Storefront continuation — 2026-10-23
 
 The owner accepted the CMS authoring flow and authorized runtime/UI integration. Preserve a **light theme with primary `#fd4d01`**, using accessible text/hover variants without changing the root theme. Show the single **active primary** Creativa bank, never an arbitrary active account, and retain its accepted-order snapshot. Connect the new slug/rich-text/fee/profile/production-path shapes while preserving old orders and browser history. Follow the [plan's continuation](./plan.md#runtime-and-orange-light-continuation--2026-10-23) and requested audit/rework/routing/final-verification loop; real data mutation and launch approval remain separate.
 
-**Current result:** Runtime and compact-client implementation/rework/code audit PASS through `7918095`; [final verification](./final-verification.md) records all nine current requests and keeps full acceptance blocked on E-01..E-04 rather than treating local evidence as actual database/host/native/operator approval.
+**Current result:** Runtime/compact-client and sales/tracking source audit PASS through `21b7b06`. [Final verification](./final-verification.md) records current editable-record/private-copy/session-only analytics decisions and keeps release blocked on E-01..E-04 rather than substituting fixtures for real deployment/owner/native evidence.
 
 ## CMS-first amendment — 2026-10-23
 

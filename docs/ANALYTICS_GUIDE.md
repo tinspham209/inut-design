@@ -201,24 +201,34 @@ view includes its known initial coverage but no fabricated model choice.
 | `add_shipping_info`, `add_payment_info` | Current quote rule/fee signature changes / explicit method selection or unchanged default committed at valid submit | Rule and fee / method, never address/account input; unchanged commits deduplicated |
 | `checkout_validation_error`, `checkout_submit`, `checkout_error` | Shared-validator rejection / reviewed submit / one classified submit or resolve failure | Field/reason/phase categories and reviewed totals |
 | `abandoned_checkout` | Once per observed entered lifecycle, not once per effect/quote | Stage/count/known value only; unknown money omitted; synchronous in-flight/accepted guards prevent false abandonment |
-| `purchase`, `purchase_item` | Checkout-capability-authorized claim after acceptance/recovery | Separate opaque analytics transaction ID; saved amounts and typed lines |
+| `purchase`, `purchase_item` | Private accepted/recovered response; client-only session/memory reservation | Opaque derived/legacy transaction ID, saved working amounts and typed/manual production lines; omit unknown line prices |
 | `order_tracking_search`, `order_tracking_result` | Manual submission/tag click / resolved lookup | `entry_point`, `lookup_source`, found/not_found/error outcome; never lookup reference |
 | `order_history_action`, `order_history_storage_error` | Explicit forget/clear / read, parse, save, remove or clear failure | Entry/action/count/outcome or safe operation/category; unchanged read failure deduplicated, no stored array |
-| `order_reference_copy` | Confirmed/failed ID or URL copy | Target kind/outcome only; never copied content |
+| `order_reference_copy` | Confirmed/failed ID, URL or transfer-content copy | Target kind/outcome only (`transfer_content`), never content/name/phone |
 | `cta_click`, `contact_click` | Creativa navigation / actual support action | Named CTA, surface and method |
 
 Purchase is **order placed**, not payment received. GA4 `value` is merchandise
-total excluding shipping; shipping is separate. Umami also receives merchandise,
-shipping and final payable values. Its `purchase_item` companions are not extra
+total excluding shipping; shipping/discount are separate. Umami also receives merchandise,
+shipping and saved final payable values. Staff edits use saved working values;
+unknown/inconsistent manual-row prices are omitted, not zero. `purchase_item` companions are not extra
 conversions. Public tracking visits never create purchase events.
 
-`POST /api/creativa/orders/analytics-claim` uses a private checkout capability
-and revision-guarded receipts. Claims grant at-most-once dispatch permission,
-not exactly-once external delivery: interruption after a claim can undercount.
-Disabled/unavailable collectors or failed claims must not block confirmation.
+No new Sanity analytics IDs, receipts or claim writes. Private accepted/recovery
+responses reuse a valid legacy UUID or derive an opaque identity from high-entropy
+private order identity without persisting another field. Public lookup receives
+no measurement identity and never converts. Legacy analytics fields stay hidden
+for compatibility; the former claim route returns HTTP410 without an SDK read/write.
+
+`utils/creativa/purchase.ts` dispatches directly through existing GA4/Umami
+primitives. SessionStorage markers contain opaque transaction/destination/event
+identity only; a module Set is the nonfatal denied-storage fallback. Consent and
+transport availability precede reservation. Mark-before-send can undercount;
+denied storage on reload/restarted sessions/other browsers may duplicate. No
+durable cross-browser/exactly-once promise remains. Measurement never holds
+accepted navigation/cart/history recovery open.
 
 Never send customer names/contact/address/notes, public order IDs, recovery
-capabilities, history arrays or raw exception payloads. The pre-bootstrap
+capabilities, history arrays, full transfer content/context or raw exception payloads. The pre-bootstrap
 `creativaBeforeSend` hook also sanitizes automatic Umami URL/referrer context.
 Vercel analytics is suppressed for Creativa routes. GTM is not newly bootstrapped
 on direct Creativa entry; an already loaded root container's automatic tags still
@@ -238,13 +248,16 @@ metadata, internal bank notes and account details out of telemetry; current
 guards cover those keys. Only the active primary bank is used for new orders,
 and tracking uses its accepted snapshot. No new event or collector is added.
 
-Current code audit is PASS through `7918095`, including the compact-client
-refactor and C-01 explicit memory-only quote retry. RHF handlers own validation
+Current independent code audit PASS is `21b7b06`, including the sales-editable
+working record, buyer-only private transfer and no-Sanity-analytics refinement. RHF handlers own validation
 and submit actions; SWR hooks own API completion, and one actual-presentation
 effect measures SSR/cached/fresh catalog results without duplicate impressions.
 Breadcrumb `cta_click` uses only static ancestor paths, never an order ID.
-Order/create/resolve/claim arguments are not cache keys; claims remain explicit
-and nonblocking. No event name or transport destination was added.
+Order/create/resolve arguments are not cache keys; no claim hook/request remains.
+No event name or transport destination was added. Transfer clipboard handlers
+send only target/outcome, never copied content. Buyer Name-Phone lives only in
+same-SPA RAM matching the current opaque contact version; public/reloaded/shared
+tracking uses the order ID.
 
 Earlier seventeen contract groups, current parser parity and local destination
 captures do not prove hosted delivery, container exclusions or host-log privacy.

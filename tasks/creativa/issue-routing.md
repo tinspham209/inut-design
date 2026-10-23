@@ -2,7 +2,16 @@
 
 ## Current sales / tracking refinement
 
-S-01..S-05 implementation/local evidence is complete; current read-only audit and final verification follow. Retired durable analytics-claim/immutable-original-copy expectations are intentional owner amendments, not missing implementation. Keep private identity/notification-safety and E-01..E-04 witnesses. Existing COD-to-bank orders without saved bank details show support guidance; no automatic bank reassignment is authorized. Prior routing below is historical until reconciled by the new report.
+Independent source audit PASS at `21b7b06`; rework is a justified no-op, with unchanged-code confirmation retaining PASS. No current actionable Missing Implementation issue remains. Retired durable analytics-claim/immutable-original-copy expectations are intentional owner amendments, not missing work. Current read-only final verification follows.
+
+| Issue | Category | Reason | Next phase | Files/data | Impact | Continue |
+| --- | --- | --- | --- | --- | --- | --- |
+| E-01 — CDN / production / notification readiness | Ambiguous Requirement → Clarify → Verify | Headless image403 persists; actual file/fit/rights/operator/dedicated delivery readiness not supplied by source/fixtures. Removing the attention menu stores/deletes nothing; notification safety remains. | Authorized operator/CDN/notification rehearsal, not speculative code edits. | Deployment/assets/private recipient configuration, operator evidence. | High release readiness, timing depends on owner access. | NO |
+| E-02 — actual private Sanity / transaction proof | Plan Gap → Plan → Verify | Fake SDK verifies current construction/replay and no analytics fields, not real anonymous denial/atomicity/collision/concurrency or publication. | Authorized isolated target and actual privacy/order/identity tests; no analytics-claim or immutable-original-copy oracle remains. | Server order/intent/index, permission and Studio witnesses. | High deployment integrity/privacy. | NO |
+| E-03 — hosted measurement / logs | Plan Gap → Plan → Verify | Client/session dispatch and privacy probes do not establish actual GA4/Umami/container/proxy/log controls or delivery. | Authorized host/container/canary checks under documented session/best-effort limits. | Hosted collectors, proxy/cache/referrer/log configuration. | High privacy/delivery evidence. | NO |
+| E-04 — owner/native/manual matrix | Plan Gap → Plan → Verify | Chromium/clipboard mocks/schema definitions do not prove native Safari, actual clipboard, authenticated sales editing/publishing and full regression. | Owner Studio review plus authorized native/manual procedures. | Studio/browser/device/operator evidence. | Medium acceptance variants unexecuted. | NO |
+
+Known approved limits are not new source defects: shared/reloaded tracking uses ID; session analytics can undercount/duplicate across unsupported contexts; direct sales edits require manual final-total recalculation; COD→bank without a saved account shows support guidance, with no automatic account reassignment. Feature publication is allowed; release remains blocked. Prior routing below is historical.
 
 ## Current compact-client loop
 
