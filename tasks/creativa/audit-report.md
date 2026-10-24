@@ -1,5 +1,11 @@
 # Creativa Staff Audit
 
+## Latest tracking / bank-transfer QR implementation note — 2026-10-24
+
+The accepted implementation is recorded in code commit `ce24aee`. It includes the compact Creativa order-detail layout/loading skeleton, copy-by-order-ID URL behavior, CMS bank dropdown data and `bankCode` propagation, read-only legacy code recovery for matching accounts, generated VietQR with CMS fallback, and the explicit switch button. Manual bank details retain the responsive accordion defaults.
+
+The latest scoped checks were `pnpm lint` and a browser interaction using a synthetic order fixture. The generated image request used fake data; clicking the switch changed the selected image source to the placeholder CMS URL. The placeholder asset was invalid, so this is not an independent code audit or proof that a real CMS QR renders. No customer order, real bank account or CMS mutation was used. Existing E-01..E-04 findings remain open.
+
 ## Current Firefox / delivery setup correction — PASS
 
 **Focused direct read-only Staff audit PASS at `fa13d7a`** for the complete checkout/CMS delta from `2333503`. Final requested RHF Autocomplete keeps popup inline, stable enum values/ref/disabled-option rules and current quote handlers; no error suppression/library patch. Visible CMS guidance distinguishes recipients/credentials/private/channel and non-retroactive receipt behavior; preview contains no secret.

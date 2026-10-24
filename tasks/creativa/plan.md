@@ -1,5 +1,18 @@
 # INUT Creativa — Implementation Plan
 
+## Order-tracking and VietQR refinement — 2026-10-24
+
+**Implementation commit:** `ce24aee` (`feat(creativa): add VietQR bank transfer order tracking`).
+
+- [x] Compact `/creativa/order-tracking/[slug]` order presentation, retained breadcrumb, full-page loading skeleton, reduced spacing and responsive manual-transfer accordion.
+- [x] Copy control beside the order ID copies `window.location.origin + window.location.pathname`; no separate copy-link CTA/warning.
+- [x] CMS bank-name/short-name/code dropdown options come from the supplied bank list; `bankCode` travels through quote digest and accepted bank snapshots.
+- [x] Generate the displayed VietQR from the order bank snapshot, payable amount and transfer memo; preserve CMS QR fallback for missing/failed generated QR and allow an explicit user switch to the CMS QR.
+- [x] Legacy bank snapshots without `bankCode` can use the current published primary bank's code in the read response only if account identity matches. The stored order is not changed.
+- [x] `pnpm lint` passed. Synthetic browser verification displayed the switch button and observed the QR source change from VietQR to the CMS image URL. It used fake order/account/customer values; the placeholder CMS image was not a valid asset, so rendering of a real CMS QR remains unverified.
+
+This refinement does not close the existing E-01..E-04 production/CDN, database, hosting, native-device or operator evidence gates, and it does not authorize a real order, data mutation, send or deployment.
+
 ## Firefox checkout / Telegram configuration — 2026-10-23
 
 Observed Firefox + React18.2 event normalization error `correspondingUseElement` while opening a portaled MUI payment popup. Native select avoided it; owner requested Autocomplete. Final RHF `Autocomplete` uses `disablePortal`/`disableClearable`, stable enum options, native input ref and disabled-bank policy. Portaled Autocomplete reproduced the error for the owner; the same component with inline popup was explicitly confirmed working after full reload. Exact foreign event target was not independently identified; no global error suppression, React/package patch or security bypass.

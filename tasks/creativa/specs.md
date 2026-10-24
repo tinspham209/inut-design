@@ -1,5 +1,14 @@
 # INUT Creativa — Product Specification
 
+## Latest order-tracking / bank-transfer QR addendum — 2026-10-24
+
+- `/creativa/order-tracking/[slug]` presents the order, customer, payment, items and totals in a compact layout. Keep the breadcrumb and show a full-page skeleton while the first order request is pending.
+- The copy icon beside “Mã đơn hàng” copies the canonical current URL (`origin + pathname`). Do not add a second copy-link callout or link-sharing warning.
+- Bank name, bank short name and bank code are CMS dropdowns sourced from [`danh-sach-ma-ngan-hang.md`](./danh-sach-ma-ngan-hang.md). New accepted bank snapshots include `bankCode`.
+- Generate a VietQR image from the order's bank code/account/account name, payable total and saved transfer memo. If a usable VietQR image is unavailable or fails to load, use the saved CMS QR. When a generated QR is active and a CMS QR exists, show “Không quét được mã này? Thử quét mã chuyển thủ công nhé”; clicking it switches to the CMS QR.
+- Manual transfer details are an accordion, closed initially on mobile and open on desktop. Do not change bank-account/payment snapshots or create an order from tracking.
+- For existing snapshots without `bankCode`, only enrich the response from the current published primary bank when the saved account identity matches; never rewrite the accepted order or apply a different destination.
+
 ## Latest checkout focus / delivery setup clarification
 
 Checkout payment remains RHF/Yup-backed enum `bank_transfer|cod`, rendered by non-clearable MUI Autocomplete with an inline (`disablePortal`) popup for the owner-confirmed Firefox compatibility case. Preserve quote/action/disabled-bank/focus semantics; no global permission-error suppression.

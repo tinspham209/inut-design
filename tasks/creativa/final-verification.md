@@ -1,5 +1,18 @@
 # Creativa Sales / Tracking Final Verification
 
+## Latest order-tracking / VietQR verification — 2026-10-24
+
+**Code revision:** `ce24aee` (`feat(creativa): add VietQR bank transfer order tracking`).
+
+| Check | Result |
+| --- | --- |
+| Lint | PASS — `pnpm lint`. |
+| Synthetic browser flow | PASS for the visible switch control and source transition: the generated VietQR image loaded, then clicking the requested button selected the CMS image URL. The fixture used fake order/account/customer values. |
+| CMS QR asset rendering | NOT VERIFIED — fixture deliberately used a placeholder asset reference, not a valid account QR. |
+| Real payment data | NOT USED — no real order/account/customer values were sent to VietQR. |
+| Order-ID URL copy | Implemented as origin plus pathname; not clicked in this latest browser run. |
+| Release readiness | Existing E-01..E-04 external evidence remains open; this change does not authorize production orders, CMS writes, sends or deployment. |
+
 ## Current Firefox / Telegram correction — verified
 
 **Current source `fa13d7a`:** Focused direct read-only Staff audit PASS; no-op rework/unchanged-source confirmation. Lint without warnings/types/app229/SEO221 and Studio build pass. Final production checkout200/no-store and every referenced local script200; approved server alias resolves with no value output. Both previews restarted on3000/3001 with current environment and HTTP200 verified. User `.env.example` rearrangement is preserved unstaged, and local `.env` remains ignored.

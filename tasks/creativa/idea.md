@@ -1,5 +1,11 @@
 # INUT Creativa — Product Idea
 
+## Latest order-tracking and payment implementation — 2026-10-24
+
+The current tracking detail is a compact, loading-skeleton-backed order view with its breadcrumb retained. The copy icon beside the order ID copies the full current URL (origin and pathname); no separate share-link callout remains. Manual transfer details are in a responsive accordion, closed by default on mobile and open on desktop.
+
+Bank name, bank short name and bank code are selected from CMS dropdowns populated from [the supplied bank list](./danh-sach-ma-ngan-hang.md). New order snapshots retain `bankCode`; matching legacy snapshots may obtain the current published primary bank code in the read response without mutating the saved order. VietQR is generated from the saved account, order amount and transfer memo, with the CMS QR retained as a failure fallback and an explicit switch button for customers who cannot scan the generated code. The latest browser check used synthetic order/account data only; it did not validate a real CMS QR asset or real customer data.
+
 ## Latest checkout / delivery correction
 
 Retain searchable payment selection through Firefox-safe inline Autocomplete, not error suppression. Clarify setup: published Sales Destination chooses recipients while a server-only token authenticates the bot. Local setup is corrected/readiness-verified with owner approval; existing failed order remains unresent by instruction.
