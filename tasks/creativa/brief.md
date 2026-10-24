@@ -1,5 +1,13 @@
 # New sub brand: INUT Creativa
 
+## Latest order-tracking and bank-transfer QR implementation — 2026-10-24
+
+The accepted implementation for `/creativa/order-tracking/[slug]` uses a compact order/customer/items layout, keeps the breadcrumb, and renders a whole-page skeleton while the order is loading. The copy control beside the order ID copies the current origin plus pathname; there is no separate share-link callout or privacy warning. Manual bank-transfer details use an accordion that starts closed on mobile and open on desktop.
+
+Creativa bank CMS fields now use the supplied bank-code list for the bank name, short name and `bankCode` options. New order snapshots carry the code. For matching legacy snapshots that lack it, the public response may use the current published primary bank's code only when the account identity still matches; stored orders are not rewritten. VietQR uses the saved bank details, payable amount and transfer memo. If generation or image loading fails, the CMS QR remains available, including the customer control “Không quét được mã này? Thử quét mã chuyển thủ công nhé” to switch to it.
+
+## Historical brief
+
 ## Latest checkout / delivery correction
 
 Owner-confirmed Firefox focus fix uses RHF Autocomplete with its popup kept inside checkout. Telegram destination was published correctly but the supplied order failed TOKEN_MISSING because only the legacy public env key existed. Owner authorized a private local server-key alias; bot/private-recipient readiness reads passed, but explicitly declined an existing-order retry. No token or delivery data committed/sent.

@@ -1,5 +1,13 @@
 # INUT Creativa — Test Plan
 
+## Order-tracking / VietQR refinement — execution record (2026-10-24)
+
+**Scope:** tracking detail loading/layout/copy behavior, responsive manual-transfer accordion, bank-code propagation, generated QR and explicit CMS QR switch.
+
+**Executed:** `pnpm lint` passed. A local browser session intercepted the order API with synthetic data (fake customer, phone, account number and amount). The generated VietQR image loaded; the requested switch control was present; clicking it removed the switch and issued the image request to the CMS image URL. No real order/customer/account data was sent to VietQR. Browser session used a placeholder CMS image reference, so actual rendering of a valid CMS QR was not tested. The URL-copy behavior was source-checked, not clicked in this run.
+
+**Still required for a production witness:** verify a valid CMS QR asset using an authorized non-sensitive fixture, confirm mobile/desktop accordion defaults in the browser, and verify the legacy code recovery against a safe matching/mismatching synthetic order. Do not send a real order's account/customer values to the external QR image service.
+
 ## Firefox popup / Telegram readiness checks
 
 Owner Firefox red evidence: custom MUI Select and then portaled Autocomplete fail at React event normalization; native and final inline Autocomplete work after full reload. Record this attestation separately from automated Chromium. Verify all input values retained, enum-only quote methods, real input ref/label, inline listbox/no custom SelectInput, no clear control, and fresh missing-primary COD/disabled transfer. Do not suppress global errors or assert an unproven extension cause.

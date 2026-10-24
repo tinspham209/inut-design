@@ -1,5 +1,13 @@
 # Creativa Issue Routing
 
+## Current order-tracking / VietQR refinement — 2026-10-24
+
+| Issue | Category | Evidence / disposition | Next phase | Files/data | Impact | Continue |
+| --- | --- | --- | --- | --- | --- | --- |
+| Creativa tracking and bank-transfer QR update | Implement → Verify | Code is committed as `ce24aee`. Lint passed; a synthetic browser order showed the requested switch and changed the image source from VietQR to the CMS URL. The fake CMS asset was not valid, so only source selection—not real asset rendering—is verified. | Keep production payment/CDN and real CMS asset checks under existing E-01..E-04 gates. | Tracking page, bank schema/options, order/catalog adapters and bank instructions. | User-facing layout and QR behavior implemented; no real order/data/send performed. | YES |
+
+This local feature verification does not close the previously recorded deployment, actual Sanity, hosted telemetry, native-device or operator findings below.
+
 ## Current Firefox / Telegram diagnosis
 
 | Issue | Category | Evidence / disposition | Next phase | Files/data | Impact | Continue |

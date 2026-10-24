@@ -1,5 +1,15 @@
 # INUT Creativa — Technical Design
 
+## Current tracking and VietQR implementation — 2026-10-24
+
+`pages/creativa/order-tracking/[slug].tsx` renders the compact order detail, breadcrumb and full-page loading skeleton. The copy icon beside the public order ID uses the current `window.location.origin` and `window.location.pathname`; no separate share-link CTA is used. `components/creativa/BankInstructions.tsx` keeps the manual details in a responsive MUI accordion (mobile initially collapsed, desktop initially expanded).
+
+`sanity/schemas/creativa/bankOptions.js` supplies the bank dropdown options from the task's bank list. The catalog parser, quote digest and order snapshot carry the selected `bankCode`. `lib/vietqr.ts` builds the VietQR image URL; the bank-instructions component supplies the saved bank code/account number/account name, current order payable amount and saved transfer content. Generated-image failure and unavailable generation resolve to the CMS image when available. A user-facing button explicitly switches from an active generated image to that CMS image.
+
+Legacy orders may not contain a code because it was not previously saved. `api-client/creativa-catalog.ts` reads the current published primary bank, and `utils/creativa/orders.server.ts` adds its code to the response only when the stored account identity matches. This is a read compatibility path, not an order mutation or permission to redirect payment to a changed account. The CMS QR remains the fallback.
+
+Verification used a synthetic intercepted order with fake account/customer values. The generated QR URL loaded from VietQR and the click changed the image source to the placeholder CMS URL; the placeholder asset was not valid, so real CMS QR rendering and a real payment destination were not exercised.
+
 ## Latest Firefox focus / Telegram setup correction
 
 Use RHF Controller + MUI Autocomplete stable value objects, `isOptionEqualToValue`, disabled bank option, `disableClearable`, `disablePortal` and real TextField input ref. This removes custom SelectInput focus and keeps popup React events within checkout rather than a body portal. Native workaround and final inline Autocomplete were owner-confirmed in Firefox; portaled Autocomplete failed. No library edits/global catches/fake success.
