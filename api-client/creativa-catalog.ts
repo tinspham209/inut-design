@@ -34,7 +34,7 @@ export const CREATIVA_PRIMARY_BANK_QUERY = `*[
 	_type == "creativaBankSettings" && isActive == true && isPrimary == true &&
 	!(_id in path("drafts.**")) && !(_id in path("versions.**"))
 ][0...2]{
-	_id,_type,name,isActive,isPrimary,bankName,bankShortName,accountNumber,accountHolderName,
+	_id,_type,name,isActive,isPrimary,bankName,bankShortName,bankCode,accountNumber,accountHolderName,
 	image{_type,asset{_type,_ref}}
 }`;
 const ELIGIBLE = `_type == "creativaSkinProduct" && !(_id in path("drafts.**")) &&
@@ -191,6 +191,12 @@ export function readPrimaryBank(value: unknown): {
 		if (typeof profile[key] !== "string" || !profile[key].trim() || profile[key].length > 200)
 			return { bank: null, issue: "invalid_primary" };
 	}
+	if (
+		profile.bankCode !== undefined &&
+		(typeof profile.bankCode !== "string" ||
+			!/^[A-Za-z0-9]{1,32}$/.test(profile.bankCode))
+	)
+		return { bank: null, issue: "invalid_primary" };
 	const image = profile.image;
 	if (
 		image !== undefined &&
@@ -208,6 +214,7 @@ export function readPrimaryBank(value: unknown): {
 			name: profile.name,
 			bankName: profile.bankName,
 			bankShortName: profile.bankShortName,
+			...(typeof profile.bankCode === "string" && { bankCode: profile.bankCode }),
 			accountName: profile.accountHolderName,
 			accountNumber: profile.accountNumber,
 			...(isRecord(image) &&
@@ -216,6 +223,11 @@ export function readPrimaryBank(value: unknown): {
 				}),
 		},
 	};
+}
+
+export async function getCreativaPrimaryBank(): Promise<CreativaBank | null> {
+	const result = await publicClient().fetch<unknown>(CREATIVA_PRIMARY_BANK_QUERY);
+	return readPrimaryBank(result).bank;
 }
 
 function ordered<T extends { _id: string; sortOrder: number }>(items: T[]): T[] {

@@ -1,4 +1,5 @@
 import { randomUUID } from "crypto";
+import { getCreativaPrimaryBank } from "@/api-client/creativa-catalog";
 import type {
 	CreativaAccepted,
 	CreativaCheckoutRequest,
@@ -36,6 +37,55 @@ export class QuoteChanged extends CreativaError {
 	}
 }
 
+function shouldShowBankInstructions(
+	order: Pick<StoredOrder, "paymentMethod" | "status" | "paymentStatus">
+): boolean {
+	return (
+		order.paymentMethod === "bank_transfer" &&
+		order.status !== "cancelled" &&
+		(order.paymentStatus === "pending" || order.paymentStatus === "failed")
+	);
+}
+
+function sameBankAccount(
+	saved: NonNullable<StoredOrder["bank"]>,
+	current: NonNullable<StoredOrder["bank"]>
+): boolean {
+	const sameAccount =
+		saved.accountName.trim() === current.accountName.trim() &&
+		saved.accountNumber.trim() === current.accountNumber.trim();
+	const sameProfile =
+		Boolean(saved.profileId) && Boolean(current.profileId) && saved.profileId === current.profileId;
+
+	return (
+		sameAccount &&
+		(sameProfile || saved.bankName.trim() === current.bankName.trim())
+	);
+}
+
+async function resolveLegacyBankCode(order: StoredOrder): Promise<StoredOrder> {
+	const savedBank = order.bank;
+	if (!shouldShowBankInstructions(order) || !savedBank || savedBank.bankCode) return order;
+
+	try {
+		const currentBank = await getCreativaPrimaryBank();
+		if (!currentBank?.bankCode) return order;
+		if (!sameBankAccount(savedBank, currentBank)) {
+			console.warn("[Creativa] Skipped legacy bank-code fallback because the primary account changed.", {
+				orderId: order.publicId,
+			});
+			return order;
+		}
+		return { ...order, bank: { ...savedBank, bankCode: currentBank.bankCode } };
+	} catch (error) {
+		console.error("[Creativa] Could not resolve a bank code for a legacy order.", {
+			orderId: order.publicId,
+			error: error instanceof Error ? error.message : "Unknown error",
+		});
+		return order;
+	}
+}
+
 export function publicOrder(order: StoredOrder): CreativaPublicOrder {
 	for (const amount of [
 		order.merchandiseTotal,
@@ -53,20 +103,21 @@ export function publicOrder(order: StoredOrder): CreativaPublicOrder {
 				Number.isSafeInteger(line.subtotal) &&
 				line.subtotal === line.unitPrice * line.quantity
 		) && order.lines.reduce((sum, line) => sum + line.subtotal, 0) === order.merchandiseTotal;
-	const bankPrompt =
-		order.paymentMethod === "bank_transfer" &&
-		order.status !== "cancelled" &&
-		(order.paymentStatus === "pending" || order.paymentStatus === "failed");
-	const transferCustomer =
-		bankPrompt && order.bank
-			? parseCustomer({ name: order.customer.name, phone: order.customer.phone })
-			: null;
+	const bankPrompt = shouldShowBankInstructions(order);
+	const customer = parseCustomer(order.customer);
+	const transferCustomer = bankPrompt && order.bank ? customer : null;
 	return {
 		publicId: order.publicId,
 		orderDate: order.orderDate,
 		status: order.status,
 		paymentStatus: order.paymentStatus,
 		paymentMethod: order.paymentMethod,
+		customer: {
+			name: customer.name,
+			phone: customer.phone,
+			...(customer.email && { email: customer.email }),
+			...(customer.address && { address: customer.address }),
+		},
 		lines: order.lines.map((line) => ({
 			_key: line._key,
 			lineKey: line.lineKey || sha256(`staff-row:${line._key}`).slice(0, 32),
@@ -95,6 +146,7 @@ export function publicOrder(order: StoredOrder): CreativaPublicOrder {
 			bankPrompt && order.bank
 				? {
 						bankName: order.bank.bankName,
+						...(order.bank.bankCode && { bankCode: order.bank.bankCode }),
 						accountName: order.bank.accountName,
 						accountNumber: order.bank.accountNumber,
 						...(order.bank.profileId && { profileId: order.bank.profileId }),
@@ -360,5 +412,5 @@ export async function getCreativaOrder(value: string): Promise<CreativaPublicOrd
 		throw unavailable();
 	const order = await creativaServerClient().getDocument<StoredOrder>(lookup.order._ref);
 	if (!order || order._type !== "creativaOrder" || order.publicId !== publicId) throw unavailable();
-	return publicOrder(order);
+	return publicOrder(await resolveLegacyBankCode(order));
 }

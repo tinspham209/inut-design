@@ -276,6 +276,7 @@ export function quoteFromRecords(
 			bank && {
 				bank: {
 					bankName: bank.bankName,
+					...(bank.bankCode && { bankCode: bank.bankCode }),
 					accountName: bank.accountName,
 					accountNumber: bank.accountNumber,
 					qrAsset: bank.image?.asset._ref,
