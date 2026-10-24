@@ -1,5 +1,9 @@
 # INUT Creativa — Product Specification
 
+## Latest checkout submission wait-state addendum — 2026-10-24
+
+This refines CHECKOUT-07 and AC-20 only; pricing, payment, acceptance, recovery and order contracts are unchanged. While create or resolve is pending, retain the checkout form and order summary behind a non-dismissible progress dialog, disable editable customer/payment controls and submission, and do not display line prices without a matching current quote. If a transient failure leaves the outcome unresolved, retain the attempt and allow resolution of that same capability without enabling a new order submission.
+
 ## Latest order-tracking / bank-transfer QR addendum — 2026-10-24
 
 - `/creativa/order-tracking/[slug]` presents the order, customer, payment, items and totals in a compact layout. Keep the breadcrumb and show a full-page skeleton while the first order request is pending.
@@ -177,7 +181,7 @@ The initial model labels/grouping/order are the 16 entries in the approved idea'
 - **CHECKOUT-04:** No address is a valid checkout condition. The order/staff summary MUST represent it honestly as not supplied; do not fabricate an address or claim delivery details are complete.
 - **CHECKOUT-05:** Apply shipping once to the combined order, not once per product category. Show the selected shipping rule, amount, merchandise total and final amount before submission. If no valid shipping configuration can be resolved, explain the issue and block submission rather than defaulting to free delivery.
 - **CHECKOUT-06:** COD and bank transfer MUST be supported. Use exactly one valid Creativa profile with `isActive == true` and `isPrimary == true`. No arbitrary active/nonprimary or main-brand fallback and no customer profile selector. Missing/invalid/multiple primary profiles explicitly disable transfer; valid COD remains available. Accepted orders retain their selected bank snapshot.
-- **CHECKOUT-07:** Retain entered fields and the cart on validation, availability, repricing or order-creation errors. Keep the submit state/focus/error messaging understandable and prevent competing submit actions while a request is unresolved.
+- **CHECKOUT-07:** Retain entered fields and the cart on validation, availability, repricing or order-creation errors. While create/resolve is pending, keep the form and order summary mounted behind a non-dismissible progress dialog; disable editable customer/payment controls and submit. If an outcome remains unresolved after a transient failure, retain the original attempt and allow resolution of that capability without starting a new order. Do not display line prices without a matching current quote.
 
 ### 5.2 Authoritative order transaction
 
@@ -364,7 +368,7 @@ These scenarios define acceptance, not automatic passing claims. Per-scenario re
 | AC-17 | Detect Đà Nẵng/default shipping, use configured zero fee, or remove all valid fee configuration. | Correct domain-specific rule; deliberate zero accepted; missing configuration blocks rather than becoming free shipping. | CHECKOUT-03, CHECKOUT-05, PRICE-05 |
 | AC-18 | Bank config is absent or user chooses COD/bank transfer. | No main-brand fallback; bank-transfer method explains unavailability; valid COD can proceed. | CHECKOUT-06 |
 | AC-19 | CMS price/fee changes between review and submission, or client tampers with totals. | Server recomputes; changed quote requires review; no stale/forged-price order is accepted. | PRICE-06, ORDER-02, ORDER-03 |
-| AC-20 | Double-click, concurrent submit, lost response, retry or reuse key with altered intent. | One accepted order for the same intent; recovery returns its snapshot; altered-intent reuse conflicts. | ORDER-04, ORDER-05 |
+| AC-20 | Double-click, concurrent submit, lost response, retry or reuse key with altered intent. | One accepted order for the same intent; recovery returns its snapshot; altered-intent reuse conflicts. During an outstanding request, checkout stays visible under a blocking progress dialog with editable controls and submit disabled; an unresolved result can only retry the original capability. | CHECKOUT-07, ORDER-04, ORDER-05 |
 | AC-21 | Order write fails, versus succeeds but staff notification fails. | Write failure preserves checkout/cart; accepted order remains accepted despite notification failure and is operationally discoverable. | CHECKOUT-07, OPS-02 |
 | AC-22 | Checkout succeeds while unrelated new cart items were added during the request. | One combined accepted order; only submitted quantities removed; later additions and lighter items preserved. | ORDER-01, ORDER-06 |
 | AC-23 | Change/deactivate a catalog design/option after purchase. | Order history retains agreed artwork/configuration and amounts; tracking does not crash or reinterpret it. | ORDER-08, CMS-05 |

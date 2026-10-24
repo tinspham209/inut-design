@@ -1,5 +1,13 @@
 # INUT Creativa — Implementation Plan
 
+## Checkout submission wait-state — 2026-10-24
+
+- [x] Set synchronous busy state before create/resolve and reset it in `finally`.
+- [x] Keep the checkout form and order summary mounted under a blocking progress dialog; disable customer/payment controls and submit.
+- [x] Preserve the unresolved attempt after transient failures and offer same-capability resolution without enabling another order submission.
+- [x] Hide itemized prices unless the quote matches the current cart/address/payment state.
+- [x] `pnpm lint`, Prettier check and production build pass. A synthetic local browser fixture verified the pending dialog, disabled fields, retained form and retry state after a mocked 503; no real order was created.
+
 ## Order-tracking and VietQR refinement — 2026-10-24
 
 **Implementation commit:** `ce24aee` (`feat(creativa): add VietQR bank transfer order tracking`).
@@ -588,7 +596,7 @@ Coordinate any necessary cross-task edit through that owner. Do not parallelize 
 
 **Completion:** Name/10-digit phone required, address/email/note optional; bank transfer defaults only when valid. Submit the reviewed server quote with a stable capability and preserve original intent during uncertainty. Acceptance displays the ID, remembers history once, reconciles only submitted quantities, requests eligible conversion claims and navigates to the generic tracking detail. Sales handoff stays server-owned.
 
-**Refined exit:** Lock the submitted customer/payment/configuration intent while its result is unknown; later browsing additions are not mutations of that submitted request. Resolve a recognized existing attempt before replacing its journal. After known acceptance, show/navigate to the order promptly, checkpoint replay-safe cart/history handling and handle metrics separately. Repeated completion after reload cannot subtract twice or resurrect a shortcut forgotten after history handling finished. When storage refuses a checkpoint, preserve acceptance and show an explicit recovery/copy limitation rather than manufacture a guarantee.
+**Refined exit:** Lock the submitted customer/payment/configuration intent while its result is unknown; later browsing additions are not mutations of that submitted request. Keep the form and summary mounted beneath a non-dismissible progress dialog while create/resolve is pending, disabling editable fields and submit. Resolve a recognized existing attempt before replacing its journal. After known acceptance, show/navigate to the order promptly, checkpoint replay-safe cart/history handling and handle metrics separately. Repeated completion after reload cannot subtract twice or resurrect a shortcut forgotten after history handling finished. When storage refuses a checkpoint, preserve acceptance and show an explicit recovery/copy limitation rather than manufacture a guarantee.
 
 **Instrumentation:** Bind begin-checkout once per attempt, committed shipping/payment choices, validation/submit/error outcomes and observable abandonment using the CR-10 contract. Accepted-order conversion uses CR-16; no purchase comes from the tracking render or from merely saving local history.
 

@@ -1,5 +1,9 @@
 # INUT Creativa — Technical Design
 
+## Current checkout submit wait-state — 2026-10-24
+
+`hooks/creativa/useCheckout.ts` sets a synchronous `processing` flag before create/resolve and clears it in `finally`; `busy` combines it with mutation state. `pages/creativa/checkout.tsx` keeps the form and order summary mounted while busy, overlays a non-dismissible progress dialog and disables customer fields, payment selection and submit. An unresolved attempt remains locked after a transient failure and exposes only same-capability resolution. Itemized prices render only from a matching current quote. No order API or server acceptance behavior changed.
+
 ## Current tracking and VietQR implementation — 2026-10-24
 
 `pages/creativa/order-tracking/[slug].tsx` renders the compact order detail, breadcrumb and full-page loading skeleton. The copy icon beside the public order ID uses the current `window.location.origin` and `window.location.pathname`; no separate share-link CTA is used. `components/creativa/BankInstructions.tsx` keeps the manual details in a responsive MUI accordion (mobile initially collapsed, desktop initially expanded).
@@ -383,6 +387,10 @@ An accepted callback first checks the current shared attempt rather than trustin
 Local-storage failure must not reclassify a server-accepted order. Fall back to in-memory capability during the live tab, show a storage/recovery limitation and keep copy actions available. Do not promise reload/tab-close recovery when the browser refused to retain the capability.
 
 A journal without a bound server intent uses the tombstone resolution in section 8. Once that terminal rejection is confirmed, preserve cart contents, explain that no order was accepted and let the customer re-enter/review checkout. If resolution itself is unavailable, retain the journal and offer retry; do not silently start another intent.
+
+### Pending-request presentation
+
+Set the client processing state synchronously before awaiting either create or resolve, then clear it in `finally`. While busy, keep customer inputs and the quote summary mounted under a non-dismissible modal progress dialog, and disable editable fields, payment selection and submit. When the request settles with an unresolved attempt, leave editing/submission locked and show a clear action that resolves the existing capability; never replace it with a new create. Show line prices only when the quote matches the current cart/address/payment tuple.
 
 ## 10. Local order history and tracking UX
 
