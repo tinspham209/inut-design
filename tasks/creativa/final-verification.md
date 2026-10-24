@@ -1,5 +1,14 @@
 # Creativa Sales / Tracking Final Verification
 
+## Checkout submit wait-state — verified 2026-10-24
+
+| Check | Result |
+| --- | --- |
+| Pending-state browser fixture | PASS — synthetic cart/quote and a held browser `fetch` stub showed the progress dialog while the form remained mounted; name, phone, note, payment and submit were disabled. |
+| Transient failure recovery | PASS — mocked 503 closed the dialog, preserved entered values and retained the same-capability “Kiểm tra lại trạng thái” action. |
+| Order safety | PASS — create was intercepted in the browser and never reached the API; no real order or customer data was submitted. Fixture storage was cleared. |
+| Gates | PASS — lint, Prettier check, production build (229 pages), SEO smoke and local checkout HTTP 200. Mobile/native verification remains open; E-01..E-04 are unchanged. |
+
 ## Latest order-tracking / VietQR verification — 2026-10-24
 
 **Code revision:** `ce24aee` (`feat(creativa): add VietQR bank transfer order tracking`).
@@ -189,7 +198,7 @@ Browser synchronization limitations were kept separate from app defects: tab act
 | CHECKOUT-04 | PASS | Blank address allowed; private fixture snapshot/formatter honestly represents omission, no invented address. V-03/V-06. Actual operator handoff remains E-01. |
 | CHECKOUT-05 | PASS | One order-level fee, explicit missing/duplicate/unsafe/default errors and pre-submit amounts. V-03/V-05/V-07. |
 | CHECKOUT-06 | PASS | Sole active-primary bank, no account selector/nonprimary fallback; explicit unavailable transfer with COD, saved bank snapshot. V-03/V-06. |
-| CHECKOUT-07 | FAIL | Current owner-confirmed Firefox inline Autocomplete plus Chrome fields/enum/disabled-bank cases pass; prior quote/recovery/C-01 evidence retained. Full native/storage/error matrix remains E-04. |
+| CHECKOUT-07 | FAIL (overall) | New desktop pending-submit sub-scope PASS: modal blocks the pending state, form/summary stay mounted, controls are disabled, and mocked transient failure retains same-capability recovery. Earlier Firefox/Chrome evidence remains; the complete native/storage/error matrix still requires E-04. |
 | ORDER-01 | FAIL | Actual service/fake SDK produces one complete order; actual persisted relation proof remains E-02. |
 | ORDER-02 | FAIL | Current direct evaluator is authoritative; complete actual configured acceptance witness remains E-02. |
 | ORDER-03 | FAIL | Invalid/changed conditions reject in code/probes; actual no-order delta cases remain E-02. |

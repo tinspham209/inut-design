@@ -8,6 +8,12 @@
 
 **Still required for a production witness:** verify a valid CMS QR asset using an authorized non-sensitive fixture, confirm mobile/desktop accordion defaults in the browser, and verify the legacy code recovery against a safe matching/mismatching synthetic order. Do not send a real order's account/customer values to the external QR image service.
 
+## Checkout pending-submit UX — execution record (2026-10-24)
+
+**Executed:** Local desktop browser test used a synthetic cart and intercepted options/quote responses. A browser `fetch` stub held the create request pending, then returned a synthetic 503 without reaching the API. The progress dialog appeared while the form remained mounted; name, phone, note, payment and submit controls were disabled. After the mock failure, the dialog closed, entered values remained and the same-attempt “Kiểm tra lại trạng thái” action appeared. The fixture was cleared afterward; no order was created.
+
+**Gates:** `pnpm lint`, Prettier check, `pnpm build` (229 pages plus SEO smoke) passed. Native/mobile checkout behavior was not tested in this run; the existing E-01..E-04 external release gates remain open.
+
 ## Firefox popup / Telegram readiness checks
 
 Owner Firefox red evidence: custom MUI Select and then portaled Autocomplete fail at React event normalization; native and final inline Autocomplete work after full reload. Record this attestation separately from automated Chromium. Verify all input values retained, enum-only quote methods, real input ref/label, inline listbox/no custom SelectInput, no clear control, and fresh missing-primary COD/disabled transfer. Do not suppress global errors or assert an unproven extension cause.
@@ -282,6 +288,7 @@ Execute these as human-readable **Given / When / Then** checks, not a generated 
 | BDD-27 | Synthetic canary reference/customer values and actual permitted collectors/hosting observations are available. | Direct-load, SPA-enter/exit, trigger an error, follow/copy links and inspect response/referrer/cache plus automatic/custom telemetry. | Protected canaries are absent from those transmissions/captures; no private response is reused for another reference. Page metadata/noindex alone cannot pass this scenario. |
 | BDD-28 | Staff have an authorized synthetic order using CR-21's approved launch assets/configuration. | Read every selection/quantity, open the retained printable master and correct model/coverage template, inspect payment/notification and handle an omitted address. | Operator can perform the intended manual handoff without guessing design/fit or negotiating the configured price; missing-address/reconciliation steps are owned. Record asset readback and signoff, not unapproved manufacture/customer contact. |
 | BDD-29 | An authorized accepted order exists in a staging release candidate. | Rehearse pausing fresh purchases through availability controls and the documented corrective-release continuity path. | Fresh purchasing is unavailable honestly while accepted lookup/recovery still works; no order/index/terminal barrier is deleted, no public ID reset and no forced rollback to missing tracking routes. |
+| BDD-30 | A synthetic cart and current quote are loaded; the create request is held by a browser mock. | Submit valid synthetic customer details, inspect the pending state, then return a mocked transient failure. | Form and order summary remain mounted behind a blocking dialog; fields/payment/submit stay disabled; failure preserves values and the attempt, then offers same-capability recovery. No create request reaches the API and no real order is created. |
 
 ### Device and execution matrix
 
@@ -315,7 +322,7 @@ The following maps **planned evidence**, not completed automated coverage. CT/DB
 | PRICE-01, PRICE-02, PRICE-03, PRICE-04, PRICE-05, PRICE-06 | CT-02, CT-03, CT-04, CT-05; DB-01; BDD-03, BDD-10. |
 | CART-01, CART-02, CART-03, CART-04, CART-05, CART-06, CART-07, CART-08 | NE-02, NE-06, NE-07; BDD-04, BDD-05, BDD-06, BDD-13, BDD-17; RG-02. |
 | EXT-01, EXT-02, EXT-03 | CT-04; DB-07; typed-contract review and synthetic fixture inspection. Reject unregistered production types; do not build an extra category to claim this coverage. |
-| CHECKOUT-01, CHECKOUT-02, CHECKOUT-03, CHECKOUT-04, CHECKOUT-05, CHECKOUT-06, CHECKOUT-07 | CT-03, CT-04, CT-05; NE-01, NE-03; BDD-07, BDD-08, BDD-09, BDD-10, BDD-17. |
+| CHECKOUT-01, CHECKOUT-02, CHECKOUT-03, CHECKOUT-04, CHECKOUT-05, CHECKOUT-06, CHECKOUT-07 | CT-03, CT-04, CT-05; NE-01, NE-03; BDD-07, BDD-08, BDD-09, BDD-10, BDD-17, BDD-30. |
 | ORDER-01, ORDER-02, ORDER-03, ORDER-04, ORDER-05, ORDER-06, ORDER-07, ORDER-08, ORDER-09 | CT-04, CT-05, CT-06; DB-01, DB-02, DB-05, DB-06, DB-09, DB-10; BDD-11, BDD-12, BDD-13. |
 | ORDER-10, ORDER-11, ORDER-12 | DB-01, DB-04, DB-10; NE-05; BDD-11; secure-random source review plus controlled collision evidence where available. |
 | OPS-01, OPS-02, OPS-03, OPS-04, OPS-05 | CT-10; DB-08; NE-10; BDD-21; RG-03. |
@@ -351,7 +358,7 @@ Use the detailed [approved AC definitions](./specs.md#12-acceptance-scenarios) a
 | AC-05, AC-06, AC-07, AC-08, AC-09 | CT-02; NE-03; BDD-03, BDD-04. |
 | AC-10, AC-11, AC-12, AC-13, AC-14 | NE-02, NE-06; BDD-04, BDD-05, BDD-06; RG-02. |
 | AC-15, AC-16, AC-17, AC-18, AC-19, AC-38 | CT-02, CT-03, CT-04, CT-05; NE-01, NE-02; BDD-07, BDD-08, BDD-09, BDD-10. |
-| AC-20, AC-22, AC-23, AC-45 | CT-06; DB-02, DB-04, DB-05, DB-06, DB-09; NE-07; BDD-11, BDD-12, BDD-13. |
+| AC-20, AC-22, AC-23, AC-45 | CT-06; DB-02, DB-04, DB-05, DB-06, DB-09; NE-07; BDD-11, BDD-12, BDD-13, BDD-30. |
 | AC-21, AC-24, AC-41 | CT-10; DB-01, DB-08; BDD-21; authorized staff observation. |
 | AC-25, AC-26, AC-27, AC-48, AC-51 | CT-07; NE-05, NE-08; BDD-08, BDD-16, BDD-18. |
 | AC-28, AC-39, AC-40 | CT-04, CT-08; DB-01, DB-03, DB-07, DB-10; Studio/source review; RG-03. |

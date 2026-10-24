@@ -6,6 +6,10 @@ The accepted implementation for `/creativa/order-tracking/[slug]` uses a compact
 
 Creativa bank CMS fields now use the supplied bank-code list for the bank name, short name and `bankCode` options. New order snapshots carry the code. For matching legacy snapshots that lack it, the public response may use the current published primary bank's code only when the account identity still matches; stored orders are not rewritten. VietQR uses the saved bank details, payable amount and transfer memo. If generation or image loading fails, the CMS QR remains available, including the customer control “Không quét được mã này? Thử quét mã chuyển thủ công nhé” to switch to it.
 
+## Latest checkout submission wait-state — 2026-10-24
+
+During Creativa order submission or recovery, keep the checkout form and order summary mounted behind a blocking progress dialog; disable customer/payment controls and submit to prevent duplicate attempts. If the outcome remains unresolved after a transient failure, retain the original attempt and offer status recovery rather than a new submission. Do not show item prices without a matching current quote. A synthetic local browser run confirmed the pending dialog, disabled fields, retained form and recovery state after a mocked failure; the create request never reached the API. No real order was created. Mobile/native behavior remains unverified.
+
 ## Historical brief
 
 ## Latest checkout / delivery correction
