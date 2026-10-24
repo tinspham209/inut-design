@@ -2,6 +2,7 @@ import client from "part:@sanity/base/client";
 import bankInfo from "../bankInfo";
 import shippingFee from "../shippingFee";
 import StatusSelectWithGuide from "../../components/StatusSelectWithGuide";
+import { bankCodeOptions, bankNameOptions, bankShortNameOptions } from "./bankOptions";
 
 const title = (value) => `Creative - ${value}`;
 const humanLabel = (value) =>
@@ -113,6 +114,7 @@ const bankFields = [
 	field("name"),
 	text("bankName"),
 	field("bankShortName"),
+	field("bankCode"),
 	text("accountName"),
 	text("accountNumber"),
 	field("image", "image"),
@@ -289,6 +291,31 @@ export const creativaBankSettings = {
 	...bankInfo,
 	name: "creativaBankSettings",
 	title: title("Bank Information"),
+	fields: bankInfo.fields.flatMap((item) => {
+		if (item.name === "bankName")
+			return [
+				{
+					...item,
+					description: "Full bank name from the VietQR bank list",
+					options: { list: bankNameOptions },
+				},
+			];
+		if (item.name === "bankShortName")
+			return [
+				{
+					...item,
+					description: "Bank short name from the VietQR bank list",
+					options: { list: bankShortNameOptions },
+				},
+				field("bankCode", "string", {
+					title: "VietQR Bank Code",
+					description: "Bank code used to generate the dynamic VietQR payment QR.",
+					options: { list: bankCodeOptions },
+					validation: required,
+				}),
+			];
+		return [item];
+	}),
 	validation: (Rule) =>
 		Rule.custom(async (value) => {
 			if (!value?.isActive || !value.isPrimary) return true;

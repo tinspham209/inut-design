@@ -53,6 +53,7 @@ export type CreativaBank = {
 	name?: string;
 	bankName: string;
 	bankShortName?: string;
+	bankCode?: string;
 	accountName: string;
 	accountNumber: string;
 	image?: SanityImage;
@@ -167,6 +168,7 @@ export type CreativaPublicOrder = {
 	status: CreativaOrderStatus;
 	paymentStatus: CreativaPaymentStatus;
 	paymentMethod: "cod" | "bank_transfer";
+	customer: Pick<CreativaCustomer, "name" | "phone" | "email" | "address">;
 	lines: CreativaPublicLine[];
 	currency: "VND";
 	merchandiseTotal: number;
