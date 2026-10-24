@@ -149,40 +149,30 @@ function notificationText(order: StoredOrder): string {
 	return [
 		`✨ <b>ĐƠN HÀNG CREATIVA MỚI</b>`,
 		"━━━━━━━━━━━━━━━━━━",
-		"",
 		`<b>Mã đơn hàng:</b> <code>${escapeTelegram(order.publicId)}</code>`,
-		"<b>Loại:</b> Sản phẩm Creativa ✨",
 		`<b>Thời gian:</b> ${formatOrderDate(order.orderDate)}`,
-		"",
-		`👤 <b>THÔNG TIN KHÁCH HÀNG</b>`,
 		"━━━━━━━━━━━━━━━━━━",
+		`👤 <b>THÔNG TIN KHÁCH HÀNG</b>`,
 		`• 🧑 <b>Họ tên:</b> ${escapeTelegram(order.customer.name)}`,
 		`• 📱 <b>Điện thoại:</b> <code>${escapeTelegram(order.customer.phone)}</code>`,
-		...(order.customer.email
-			? [`• 📧 <b>Email:</b> ${escapeTelegram(order.customer.email)}`]
-			: []),
+		...(order.customer.email ? [`• 📧 <b>Email:</b> ${escapeTelegram(order.customer.email)}`] : []),
 		`• 🏠 <b>Địa chỉ:</b> ${escapeTelegram(
 			order.customer.address || "Chưa cung cấp — cần liên hệ bổ sung"
 		)}`,
-		...(order.customer.note
-			? [`• 📝 <b>Ghi chú:</b> ${escapeTelegram(order.customer.note)}`]
-			: []),
-		"",
+		...(order.customer.note ? [`• 📝 <b>Ghi chú:</b> ${escapeTelegram(order.customer.note)}`] : []),
+		"━━━━━━━━━━━━━━━━━━",
 		`📦 <b>CHI TIẾT ĐƠN HÀNG</b>`,
-		"━━━━━━━━━━━━━━━━━━",
 		items,
-		"",
-		`💰 <b>TỔNG KẾT</b>`,
 		"━━━━━━━━━━━━━━━━━━",
+		`💰 <b>TỔNG KẾT</b>`,
 		`• Tạm tính: ${formatNotificationPrice(order.merchandiseTotal)}`,
 		`• Phí ship (${escapeTelegram(order.shipping.name)}): ${formatNotificationPrice(
 			order.shippingFee
 		)}`,
 		`• Giảm giá: ${formatNotificationPrice(order.discount)}`,
 		`• <b>Thành tiền: ${formatNotificationPrice(order.finalAmount)}</b>`,
-		"",
-		`💳 <b>Thanh toán:</b> ${paymentMethod}`,
-		"",
+		`• <b>Thanh toán:</b> ${paymentMethod}`,
+		"━━━━━━━━━━━━━━━━━━",
 		`🔗 Xem trong Sanity Studio: ${escapeTelegram(sanityStudioUrl)}`,
 		`🔗 Xem trong INUT Order Tracking: ${escapeTelegram(orderTrackingUrl)}`,
 	].join("\n");

@@ -86,7 +86,6 @@ export function CreativaBankInstructions({
 }) {
 	const [imageFailed, setImageFailed] = useState(false);
 	const [vietQrUrl, setVietQrUrl] = useState<string | null>(null);
-	console.log("🫁 ~ CreativaBankInstructions ~ vietQrUrl:", vietQrUrl);
 	const [vietQrImageFailed, setVietQrImageFailed] = useState(false);
 	const [showCmsQr, setShowCmsQr] = useState(false);
 	const theme = useTheme();
@@ -262,7 +261,7 @@ export function CreativaBankInstructions({
 										color="text.secondary"
 										sx={{ mt: 0.5, display: "block" }}
 									>
-										Đang sử dụng mã QR dự phòng từ CMS.
+										Quét QR & chuyển khoản với nội dung
 									</Typography>
 								)}
 							</Paper>
@@ -357,7 +356,7 @@ export function CreativaBankInstructions({
 										disabled={disabled}
 										onCopy={copyValue}
 									/>
-									<Typography variant="caption" color="error.main">
+									<Typography variant="caption" color="info.main">
 										Vui lòng ghi đúng nội dung chuyển khoản để chúng tôi xác nhận nhanh nhất.
 									</Typography>
 								</Stack>
