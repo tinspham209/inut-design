@@ -352,10 +352,6 @@ const Checkout: NextPageWithLayout = () => {
 										>
 											Đặt hàng
 										</Button>
-										<Typography variant="caption">
-											Bạn đặt một đơn Creativa cho toàn bộ sản phẩm trong giỏ. Đặt hàng không đồng
-											nghĩa thanh toán đã được xác nhận.
-										</Typography>
 									</Stack>
 								</Grid>
 							</Grid>

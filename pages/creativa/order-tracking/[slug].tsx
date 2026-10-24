@@ -229,9 +229,7 @@ const OrderDetail: NextPageWithLayout = () => {
 		try {
 			await navigator.clipboard.writeText(value);
 			toast.success(
-				target === "tracking"
-					? "Đã sao chép mã vận đơn."
-					: "Đã sao chép liên kết tra cứu.",
+				target === "tracking" ? "Đã sao chép mã vận đơn." : "Đã sao chép liên kết tra cứu.",
 				{ id: "creativa-copy", duration: 2500 }
 			);
 			trackCreativa("order_reference_copy", { target, outcome: "success" });
@@ -257,9 +255,7 @@ const OrderDetail: NextPageWithLayout = () => {
 					]}
 					current="Thông tin đơn hàng"
 				/>
-				<Typography variant="h3" component="h1" sx={{ mb: 1.5 }}>
-					Thông tin đơn hàng
-				</Typography>
+
 				<Stack gap={1.5}>
 					{error && (
 						<Alert severity="error" action={<Button onClick={() => void retry()}>Thử lại</Button>}>
