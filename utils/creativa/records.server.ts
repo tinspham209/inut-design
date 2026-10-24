@@ -35,7 +35,7 @@ export type Receipt = {
 	attemptedAt?: string;
 	outcome?: string;
 	messageId?: string;
-	formatVersion?: 1;
+	formatVersion?: 1 | 2;
 	parts?: NotificationPart[];
 	legacyUnknownAcknowledgedAt?: string;
 };
