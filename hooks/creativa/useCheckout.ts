@@ -29,6 +29,7 @@ type State = {
 	error: string | null;
 	warning: string | null;
 	corrupt: boolean;
+	processing: boolean;
 };
 const initialState: State = {
 	attempt: null,
@@ -37,6 +38,7 @@ const initialState: State = {
 	error: null,
 	warning: null,
 	corrupt: false,
+	processing: false,
 };
 
 export function useCreativaCheckout() {
@@ -71,7 +73,7 @@ export function useCreativaCheckout() {
 	const methodChosen = useRef(false);
 	const measuredShipping = useRef("");
 	const measuredPayment = useRef<"cod" | "bank_transfer" | null>(null);
-	const busy = create.isMutating || recovery.isMutating;
+	const busy = state.processing || create.isMutating || recovery.isMutating;
 	const quote = request.matches(cart.items, address, payment) ? request.data : null;
 	const reportBegin = useCallback(
 		(currentQuote?: CreativaQuote) => {
@@ -218,7 +220,7 @@ export function useCreativaCheckout() {
 	async function resolve(current: CheckoutAttempt) {
 		if (lock.current) return;
 		lock.current = true;
-		patch({ error: null });
+		patch({ error: null, processing: true });
 		try {
 			acceptedCompletion(await recovery.trigger(current.capability), current);
 		} catch (failure) {
@@ -243,6 +245,7 @@ export function useCreativaCheckout() {
 			});
 		} finally {
 			lock.current = false;
+			patch({ processing: false });
 		}
 	}
 
@@ -354,7 +357,7 @@ export function useCreativaCheckout() {
 					}
 					patch({ warning: storageWarning });
 				}
-				patch({ attempt: current, error: null });
+				patch({ attempt: current, error: null, processing: true });
 				lock.current = true;
 				reportPayment(values.paymentMethod);
 				trackCreativa("checkout_submit", {
@@ -393,6 +396,7 @@ export function useCreativaCheckout() {
 				});
 			} finally {
 				lock.current = false;
+				patch({ processing: false });
 			}
 		},
 		() => {
