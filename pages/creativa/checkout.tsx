@@ -4,7 +4,12 @@ import {
 	Autocomplete,
 	Box,
 	Button,
+	CircularProgress,
 	Container,
+	Dialog,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
 	Divider,
 	Grid,
 	Stack,
@@ -49,6 +54,7 @@ const Checkout: NextPageWithLayout = () => {
 		retry,
 	} = useCreativaCheckout();
 	const { errors } = form.formState;
+	const interactionLocked = busy || !!attempt || !!accepted || corrupt;
 	return (
 		<>
 			<CreativaSeo title="Thanh toán" path="/creativa/checkout" noindex />
@@ -74,7 +80,9 @@ const Checkout: NextPageWithLayout = () => {
 						</Alert>
 					)}
 					{!cart.hydrated || !ready ? (
-						<Typography>Đang khôi phục tiến trình…</Typography>
+						<Typography role="status" aria-live="polite">
+							INUT đang chuẩn bị trang thanh toán cho bạn…
+						</Typography>
 					) : accepted ? (
 						<Box sx={{ p: 2, bgcolor: "background.paper" }}>
 							<Typography component="h2" variant="h5">
@@ -99,25 +107,41 @@ const Checkout: NextPageWithLayout = () => {
 								</Button>
 							)}
 						</Box>
-					) : attempt ? (
-						<Alert
-							severity="info"
-							action={
-								<Button disabled={busy} onClick={() => void resolve(attempt)}>
-									Khôi phục kết quả
-								</Button>
-							}
-						>
-							{busy
-								? "Đang xác nhận kết quả của lần đặt hàng này…"
-								: "Lần đặt hàng trước chưa được xác định. Khôi phục cùng tiến trình trước khi đặt tiếp."}
-						</Alert>
 					) : !cart.items.length ? (
-						<Alert severity="info">
-							Giỏ hàng chưa có sản phẩm. <Link href="/creativa/skin-laptop">Khám phá thiết kế</Link>
-						</Alert>
+						attempt ? (
+							<Alert
+								severity={busy ? "info" : "warning"}
+								action={
+									!busy && (
+										<Button onClick={() => void resolve(attempt)}>Kiểm tra lại trạng thái</Button>
+									)
+								}
+							>
+								{busy
+									? "INUT đang kiểm tra kết quả đơn hàng của bạn. Vui lòng chờ trong giây lát."
+									: "Đơn hàng chưa có kết quả cuối cùng. Hãy kiểm tra lại trạng thái để tránh tạo đơn trùng."}
+							</Alert>
+						) : (
+							<Alert severity="info">
+								Giỏ hàng chưa có sản phẩm.{" "}
+								<Link href="/creativa/skin-laptop">Khám phá thiết kế</Link>
+							</Alert>
+						)
 					) : (
-						<Box component="form" onSubmit={submit} noValidate>
+						<Box component="form" onSubmit={submit} noValidate aria-busy={busy}>
+							{attempt && !busy && (
+								<Alert
+									severity="warning"
+									action={
+										<Button type="button" onClick={() => void resolve(attempt)}>
+											Kiểm tra lại trạng thái
+										</Button>
+									}
+								>
+									INUT chưa nhận được kết quả cuối cùng cho đơn hàng này. Đơn có thể đã được ghi
+									nhận; hãy kiểm tra lại trạng thái trước khi đặt tiếp để tránh tạo đơn trùng.
+								</Alert>
+							)}
 							<Grid container spacing={{ xs: 2, md: 3 }}>
 								<Grid item xs={12} md={7}>
 									<Stack gap={1.5}>
@@ -179,6 +203,7 @@ const Checkout: NextPageWithLayout = () => {
 													}
 													multiline={input.name === "address"}
 													rows={input.name === "address" ? 2 : undefined}
+													disabled={interactionLocked}
 													error={!!errors[input.name]}
 													helperText={
 														errors[input.name]?.message ||
@@ -209,6 +234,7 @@ const Checkout: NextPageWithLayout = () => {
 													fullWidth
 													disablePortal
 													disableClearable
+													disabled={interactionLocked}
 													options={PAYMENT_METHODS}
 													getOptionLabel={(option) => option.label}
 													isOptionEqualToValue={(option, value) => option.value === value.value}
@@ -248,6 +274,7 @@ const Checkout: NextPageWithLayout = () => {
 													label="Ghi chú (không bắt buộc)"
 													multiline
 													rows={2}
+													disabled={interactionLocked}
 													error={!!errors.note}
 													helperText={errors.note?.message}
 													inputProps={{ maxLength: 2000 }}
@@ -291,9 +318,11 @@ const Checkout: NextPageWithLayout = () => {
 															: line.selection.coverageName}{" "}
 														× {line.quantity}
 													</Typography>
-													<Typography variant="body2">
-														{formatCreativaPrice(line.unitPrice * line.quantity)}
-													</Typography>
+													{quote && (
+														<Typography variant="body2">
+															{formatCreativaPrice(line.unitPrice * line.quantity)}
+														</Typography>
+													)}
 												</Stack>
 											</Stack>
 										))}
@@ -319,7 +348,7 @@ const Checkout: NextPageWithLayout = () => {
 										<Button
 											type="submit"
 											variant="contained"
-											disabled={busy || quoteLoading || !quote || !!cart.error || corrupt}
+											disabled={interactionLocked || quoteLoading || !quote || !!cart.error}
 										>
 											Đặt hàng
 										</Button>
@@ -347,6 +376,27 @@ const Checkout: NextPageWithLayout = () => {
 					</Stack>
 				</Stack>
 			</Container>
+			<Dialog
+				open={busy}
+				onClose={() => undefined}
+				disableEscapeKeyDown
+				fullWidth
+				maxWidth="xs"
+				aria-labelledby="creativa-checkout-progress-title"
+				aria-describedby="creativa-checkout-progress-description"
+			>
+				<DialogTitle id="creativa-checkout-progress-title">
+					INUT đang xác nhận đơn hàng của bạn
+				</DialogTitle>
+				<DialogContent>
+					<Stack direction="row" spacing={2} alignItems="center" sx={{ pb: 2 }}>
+						<CircularProgress size={28} aria-label="Đang xử lý đơn hàng" />
+						<DialogContentText id="creativa-checkout-progress-description">
+							Bạn vui lòng chờ trong giây lát và đừng gửi lại đơn hàng để tránh tạo đơn trùng nhé.
+						</DialogContentText>
+					</Stack>
+				</DialogContent>
+			</Dialog>
 		</>
 	);
 };
