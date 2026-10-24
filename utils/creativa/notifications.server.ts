@@ -68,6 +68,25 @@ export async function notificationSetup(): Promise<{
 export const escapeTelegram = (value: string) =>
 	value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+const TELEGRAM_PART_LIMIT = 3600;
+const TELEGRAM_TIME_ZONE = "Asia/Ho_Chi_Minh";
+
+function formatNotificationPrice(amount: number): string {
+	return `${amount.toLocaleString("vi-VN")}₫`;
+}
+
+function formatOrderDate(value: string): string {
+	return new Date(value).toLocaleString("vi-VN", {
+		timeZone: TELEGRAM_TIME_ZONE,
+		year: "numeric",
+		month: "2-digit",
+		day: "2-digit",
+		hour: "2-digit",
+		minute: "2-digit",
+		hourCycle: "h23",
+	});
+}
+
 function productionDetails(line: StoredLine | StaffProductionLine): string[] {
 	if (line.production) {
 		if (!validCreativaPrintPath(line.production.printAssetPath))
@@ -76,7 +95,7 @@ function productionDetails(line: StoredLine | StaffProductionLine): string[] {
 				"Thiếu đường dẫn in trong đơn đã lưu.",
 				500
 			);
-		return [`Print file: ${line.production.printAssetPath}`];
+		return [`   • File in: ${escapeTelegram(line.production.printAssetPath)}`];
 	}
 	if (!line.artwork?.identity || !line.artwork.version)
 		throw new CreativaError(
@@ -85,80 +104,164 @@ function productionDetails(line: StoredLine | StaffProductionLine): string[] {
 			500
 		);
 	return [
-		`Artwork: ${line.artwork.identity} / ${line.artwork.version}`,
-		`Master: ${line.artwork.printAsset?.asset._ref || "Không có — kiểm tra CMS"}`,
-		`Fit/template: ${line.selection.fitReference || "Không lưu — kiểm tra CMS"}`,
+		`   • Artwork: ${escapeTelegram(`${line.artwork.identity} / ${line.artwork.version}`)}`,
+		`   • Master: ${escapeTelegram(
+			line.artwork.printAsset?.asset._ref || "Không có — kiểm tra CMS"
+		)}`,
+		`   • Fit/template: ${escapeTelegram(
+			line.selection.fitReference || "Không lưu — kiểm tra CMS"
+		)}`,
 	];
 }
 
 function notificationText(order: StoredOrder): string {
-	const text = [
-		`INUT Creativa — ${order.publicId}`,
-		`Ngày: ${order.orderDate}`,
-		...order.lines.map((line, index) =>
-			[
-				`${index + 1}. ${line.productName} [${line.productType}]`,
+	const paymentMethod =
+		order.paymentMethod === "cod" ? "COD (Thanh toán khi nhận hàng)" : "Chuyển khoản ngân hàng";
+	const items = order.lines
+		.map((line, index) => {
+			const price =
+				line.unitPrice !== undefined && line.subtotal !== undefined
+					? `   • SL: ${line.quantity} × ${formatNotificationPrice(
+							line.unitPrice
+					  )} = ${formatNotificationPrice(line.subtotal)}`
+					: `   • SL: ${line.quantity} (giá theo tổng đơn đã lưu)`;
+			return [
+				`${index + 1}. <b>${escapeTelegram(line.productName)}</b>`,
+				...(line.productType === "skin-laptop" ? ["   • Loại: Skin laptop"] : []),
+				`   • Mẫu: ${escapeTelegram(line.selection.modelName)}`,
+				`   • Phạm vi: ${escapeTelegram(line.selection.coverageName)}${
+					line.selection.coverageMeaning
+						? ` — ${escapeTelegram(line.selection.coverageMeaning)}`
+						: ""
+				}`,
 				...productionDetails(line),
-				`Model: ${line.selection.modelName}${
-					line.selection.modelCode ? ` (${line.selection.modelCode})` : ""
-				}`,
-				`Coverage: ${line.selection.coverageName}${
-					line.selection.coverageMeaning ? ` — ${line.selection.coverageMeaning}` : ""
-				}`,
-				`SL: ${line.quantity}${
-					line.unitPrice !== undefined && line.subtotal !== undefined
-						? `; Đơn giá: ${line.unitPrice}; Thành tiền: ${line.subtotal} VND`
-						: "; Giá theo tổng đơn đã lưu"
-				}`,
-			].join("\n")
-		),
-		`Khách: ${order.customer.name}`,
-		`Điện thoại: ${order.customer.phone}`,
-		`Email: ${order.customer.email || "Không cung cấp"}`,
-		`Địa chỉ: ${order.customer.address || "Chưa cung cấp — cần liên hệ bổ sung"}`,
-		`Ghi chú: ${order.customer.note || "Không"}`,
-		`Thanh toán: ${order.paymentMethod}; trạng thái: ${order.paymentStatus}`,
-		`Hàng: ${order.merchandiseTotal}; Vận chuyển (${order.shipping.name}): ${order.shippingFee}`,
-		...(order.discount ? [`Giảm giá: ${order.discount}`] : []),
-		`Tổng: ${order.finalAmount} VND; Đơn: ${order.status}`,
-	];
-	return text.join("\n");
+				price,
+			].join("\n");
+		})
+		.join("\n\n");
+	const sanityStudioUrl = `https://inut-design.sanity.studio/desk/creativaOrder;${encodeURIComponent(
+		order._id
+	)}`;
+	const orderTrackingUrl = `https://inutdesign.com/creativa/order-tracking/${encodeURIComponent(
+		order.publicId
+	)}`;
+
+	return [
+		`✨ <b>ĐƠN HÀNG CREATIVA MỚI</b>`,
+		"━━━━━━━━━━━━━━━━━━",
+		"",
+		`<b>Mã đơn hàng:</b> <code>${escapeTelegram(order.publicId)}</code>`,
+		"<b>Loại:</b> Sản phẩm Creativa ✨",
+		`<b>Thời gian:</b> ${formatOrderDate(order.orderDate)}`,
+		"",
+		`👤 <b>THÔNG TIN KHÁCH HÀNG</b>`,
+		"━━━━━━━━━━━━━━━━━━",
+		`• 🧑 <b>Họ tên:</b> ${escapeTelegram(order.customer.name)}`,
+		`• 📱 <b>Điện thoại:</b> <code>${escapeTelegram(order.customer.phone)}</code>`,
+		...(order.customer.email
+			? [`• 📧 <b>Email:</b> ${escapeTelegram(order.customer.email)}`]
+			: []),
+		`• 🏠 <b>Địa chỉ:</b> ${escapeTelegram(
+			order.customer.address || "Chưa cung cấp — cần liên hệ bổ sung"
+		)}`,
+		...(order.customer.note
+			? [`• 📝 <b>Ghi chú:</b> ${escapeTelegram(order.customer.note)}`]
+			: []),
+		"",
+		`📦 <b>CHI TIẾT ĐƠN HÀNG</b>`,
+		"━━━━━━━━━━━━━━━━━━",
+		items,
+		"",
+		`💰 <b>TỔNG KẾT</b>`,
+		"━━━━━━━━━━━━━━━━━━",
+		`• Tạm tính: ${formatNotificationPrice(order.merchandiseTotal)}`,
+		`• Phí ship (${escapeTelegram(order.shipping.name)}): ${formatNotificationPrice(
+			order.shippingFee
+		)}`,
+		`• Giảm giá: ${formatNotificationPrice(order.discount)}`,
+		`• <b>Thành tiền: ${formatNotificationPrice(order.finalAmount)}</b>`,
+		"",
+		`💳 <b>Thanh toán:</b> ${paymentMethod}`,
+		"",
+		`🔗 Xem trong Sanity Studio: ${escapeTelegram(sanityStudioUrl)}`,
+		`🔗 Xem trong INUT Order Tracking: ${escapeTelegram(orderTrackingUrl)}`,
+	].join("\n");
 }
 
 export function formatNotification(order: StoredOrder): string {
-	return escapeTelegram(notificationText(order));
+	return notificationText(order);
 }
 
-function notificationParts(order: StoredOrder): NotificationPart[] {
+function splitTelegramHtml(value: string): string[] {
 	const chunks: string[] = [];
+	const openTags: string[] = [];
 	let chunk = "";
-	const append = (value: string) => {
-		const escaped = escapeTelegram(value);
-		if (chunk.length + escaped.length > 3600) {
-			chunks.push(chunk);
-			chunk = "";
-		}
-		chunk += escaped;
+	const openingTags = () => openTags.map((tag) => `<${tag}>`).join("");
+	const closingTags = () =>
+		openTags
+			.slice()
+			.reverse()
+			.map((tag) => `</${tag}>`)
+			.join("");
+	const segmenter = new Intl.Segmenter("vi", { granularity: "grapheme" });
+	const flush = () => {
+		if (!chunk || chunk === openingTags()) return;
+		chunks.push(chunk + closingTags());
+		chunk = openingTags();
 	};
-	for (const { segment } of new Intl.Segmenter("vi", { granularity: "grapheme" }).segment(
-		notificationText(order)
-	)) {
-		// Pathologically long combining clusters still split only between complete Unicode code points.
-		if (escapeTelegram(segment).length > 3600) {
-			for (const character of segment) append(character);
-		} else append(segment);
+	const appendText = (text: string) => {
+		const appendPiece = (piece: string) => {
+			if (chunk.length + piece.length + closingTags().length > TELEGRAM_PART_LIMIT) flush();
+			if (chunk.length + piece.length + closingTags().length > TELEGRAM_PART_LIMIT) {
+				for (const character of piece) appendPiece(character);
+				return;
+			}
+			chunk += piece;
+		};
+		if (/^&(?:amp|lt|gt);$/.test(text)) {
+			appendPiece(text);
+			return;
+		}
+		for (const { segment } of segmenter.segment(text)) appendPiece(segment);
+	};
+
+	for (const token of value.split(/(<\/?(?:b|code)>|&(?:amp|lt|gt);)/g)) {
+		if (!token) continue;
+		const openTag = /^<(b|code)>$/.exec(token);
+		if (openTag) {
+			const closingLength = closingTags().length + `</${openTag[1]}>`.length;
+			if (chunk.length + token.length + closingLength > TELEGRAM_PART_LIMIT) flush();
+			chunk += token;
+			openTags.push(openTag[1]);
+			continue;
+		}
+		const closeTag = /^<\/(b|code)>$/.exec(token);
+		if (closeTag) {
+			if (openTags[openTags.length - 1] !== closeTag[1])
+				throw new Error("Notification HTML tags are not balanced.");
+			chunk += token;
+			openTags.pop();
+			continue;
+		}
+		appendText(token);
 	}
+	if (openTags.length) throw new Error("Notification HTML tags are not balanced.");
 	if (chunk) chunks.push(chunk);
+	return chunks;
+}
+
+export function formatNotificationParts(order: StoredOrder): NotificationPart[] {
+	const chunks = splitTelegramHtml(notificationText(order));
 	return chunks.map((body, index) => {
 		const text =
 			chunks.length === 1
 				? body
-				: `INUT Creativa — ${escapeTelegram(order.publicId)} [${index + 1}/${
+				: `✨ INUT Creativa — ${escapeTelegram(order.publicId)} [${index + 1}/${
 						chunks.length
 				  }]\n${body}`;
 		return {
 			_type: "notificationPart",
-			_key: sha256(`v1:${index}:${text}`).slice(0, 32),
+			_key: sha256(`v2:${index}:${text}`).slice(0, 32),
 			position: index + 1,
 			text,
 			state: "pending",
@@ -204,7 +307,7 @@ function aggregateReceipt(
 	return {
 		...receipt,
 		parts,
-		formatVersion: 1,
+		formatVersion: receipt.formatVersion ?? 2,
 		state: incomplete?.state || "sent",
 		outcome: incomplete
 			? incomplete.state === "pending"
@@ -332,9 +435,10 @@ async function dispatchOne(
 			const initialized = aggregateReceipt(
 				{
 					...receipt,
+					formatVersion: 2,
 					...(legacyUnknown && { legacyUnknownAcknowledgedAt: new Date().toISOString() }),
 				},
-				notificationParts(order)
+				formatNotificationParts(order)
 			);
 			try {
 				await patchReceipt(client, order, initialized);
