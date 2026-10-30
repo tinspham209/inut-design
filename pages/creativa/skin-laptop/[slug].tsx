@@ -282,9 +282,6 @@ function ProductContent(initial: Props) {
 										? `Từ ${formatCreativaPrice(Math.min(...priceList))}`
 										: "Tạm chưa có giá"}
 								</Typography>
-								<Typography variant="body2" color="text.secondary">
-									Phí vận chuyển hiển thị khi thanh toán.
-								</Typography>
 							</Box>
 							{(error || cart.error) && (
 								<Alert
