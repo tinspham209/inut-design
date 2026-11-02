@@ -1,66 +1,54 @@
-/* eslint-disable camelcase */
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
-import Link from "next/link";
+import type { GetStaticProps } from "next";
 import { CreativaLayout } from "@/components/layout";
+import { CreativaHomepage } from "@/components/creativa/Homepage";
 import { CreativaSeo } from "@/components/creativa/Seo";
+import { CREATIVA_HOME_STYLES } from "@/data/creativa/homepage";
 import type { NextPageWithLayout } from "@/models/common";
-import { trackCreativa } from "@/utils/creativa/analytics";
-import { CreativaBreadcrumbs } from "@/components/creativa/Breadcrumbs";
+import type { CreativaCatalogPage } from "@/models/creativa";
+import { CreativaError } from "@/utils/creativa/contracts";
 
-const CreativaHome: NextPageWithLayout = () => (
+type HomeProps = {
+	catalog: CreativaCatalogPage | null;
+	catalogError: string | null;
+};
+
+const CreativaHome: NextPageWithLayout<HomeProps> = ({ catalog, catalogError }) => (
 	<>
-		<CreativaSeo title="Thiết kế cho dấu ấn riêng" path="/creativa" />
-		<Container maxWidth="xl" sx={{ py: { xs: 2, md: 3 } }}>
-			<CreativaBreadcrumbs ancestors={[{ label: "INUT Design", href: "/" }]} current="Creativa" />
-			<Stack gap={2} maxWidth={860}>
-				<Typography variant="overline">INUT DESIGN / CREATIVA</Typography>
-				<Typography
-					component="h1"
-					sx={{
-						fontSize: { xs: 28, md: 40 },
-						fontWeight: 500,
-						lineHeight: 1.05,
-						letterSpacing: "-.055em",
-					}}
-				>
-					Thiết kế cho
-					<br />
-					dấu ấn riêng.
-				</Typography>
-				<Typography sx={{ maxWidth: 520, mt: 1, color: "text.secondary" }}>
-					Không gian mới dành cho các sản phẩm của INUT Creativa. Bắt đầu với những mẫu skin MacBook
-					— chọn thiết kế, mẫu máy và phạm vi dán theo cách của bạn.
-				</Typography>
-				<Box mt={2}>
-					<Link href="/creativa/skin-laptop" passHref>
-						<Button
-							component="a"
-							size="large"
-							variant="outlined"
-							sx={{ borderRadius: 20, px: 4 }}
-							onClick={() => trackCreativa("cta_click", { cta_name: "shop_skin", surface: "home" })}
-						>
-							Khám phá skin MacBook
-						</Button>
-					</Link>
-				</Box>
-			</Stack>
-			<Box sx={{ borderTop: "1px solid #dfcfc6", mt: { xs: 3, md: 4 }, pt: 2 }}>
-				<Typography variant="overline">DANH MỤC ĐẦU TIÊN</Typography>
-				<Link href="/creativa/skin-laptop" passHref>
-					<Typography
-						component="a"
-						sx={{ display: "block", color: "inherit", fontSize: 22, my: 1 }}
-					>
-						Skin MacBook →
-					</Typography>
-				</Link>
-				<Typography variant="body2" color="text.secondary">
-					Những danh mục tiếp theo sẽ được giới thiệu khi sẵn sàng.
-				</Typography>
-			</Box>
-		</Container>
+		<CreativaSeo
+			title="Skin MacBook — Một diện mạo mới, một dấu ấn riêng"
+			path="/creativa"
+			description="Khám phá skin MacBook INUT Creativa: từ gam màu tinh tế đến họa tiết nổi bật. Chọn thiết kế hợp gu, đúng dòng máy và phạm vi dán dành cho bạn."
+		/>
+		<CreativaHomepage styles={CREATIVA_HOME_STYLES} catalog={catalog} catalogError={catalogError} />
 	</>
 );
+
 CreativaHome.Layout = CreativaLayout;
+
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+	const { creativaCatalogApi } = await import("@/api-client/creativa-catalog");
+	try {
+		const catalog = await creativaCatalogApi.getPage();
+		return {
+			props: {
+				catalog: { ...catalog, items: catalog.items.slice(0, 4), cursor: null },
+				catalogError: null,
+			},
+			revalidate: 60,
+		};
+	} catch (failure) {
+		console.error("[Creativa homepage] Rendering unavailable catalog.", {
+			code: failure instanceof CreativaError ? failure.code : "CATALOG_UNAVAILABLE",
+		});
+		return {
+			props: {
+				catalog: null,
+				catalogError:
+					failure instanceof CreativaError ? failure.message : "Không thể tải bộ sưu tập lúc này.",
+			},
+			revalidate: 60,
+		};
+	}
+};
+
 export default CreativaHome;

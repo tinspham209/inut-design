@@ -224,6 +224,14 @@ view includes its known initial coverage but no fabricated model choice.
 | `order_history_action`, `order_history_storage_error` | Explicit forget/clear / read, parse, save, remove or clear failure | Entry/action/count/outcome or safe operation/category; unchanged read failure deduplicated, no stored array |
 | `order_reference_copy` | Confirmed/failed ID, URL or transfer-content copy | Target kind/outcome only (`transfer_content`), never content/name/phone |
 | `cta_click`, `contact_click` | Creativa navigation / actual support action | Named CTA, surface and method |
+| `social_click` | Configured homepage-footer social link click; unconfigured channels are disabled | `surface=home_footer`, `method` is the configured channel ID; no URL or contact data |
+
+Homepage discovery reuses `view_item_list` / `select_item` with `surface=home`
+and `item_list_id=creativa_home_skin_laptop`; only real published CMS designs and
+the current active-coverage from-price are measured. Editorial concept/style
+tiles are not product impressions or catalog filters. Style reveals and detail
+accordions emit `cta_click` once at the action source, with named CTA,
+target and expand/collapse action. No new homepage page-view producer is added.
 
 Purchase is **order placed**, not payment received. GA4 `value` is merchandise
 total excluding shipping; shipping/discount are separate. Umami also receives merchandise,

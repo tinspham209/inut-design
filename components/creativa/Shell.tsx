@@ -24,6 +24,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useHydratedCreativaCart } from "@/hooks/creativa/useBrowserState";
 import { trackCreativa } from "@/utils/creativa/analytics";
 import { creativaSearchSchema } from "@/utils/creativa/forms";
+import { CreativaHomeFooter } from "@/components/creativa/HomeFooter";
+import { CREATIVA_HOME_SOCIALS } from "@/data/creativa/homepage";
 
 export const CREATIVA_NAV = [
 	{ label: "Skin MacBook", href: "/creativa/skin-laptop" },
@@ -45,6 +47,7 @@ export function CreativaStoreHeader() {
 	});
 	const { ref, ...queryField } = form.register("query");
 	const router = useRouter();
+	const homepage = router.pathname === "/creativa";
 	const navigation = (href: string) => {
 		setOpen(false);
 		trackCreativa("cta_click", { cta_name: "navigation", surface: "header" });
@@ -52,13 +55,13 @@ export function CreativaStoreHeader() {
 	};
 	return (
 		<AppBar
-			position="sticky"
+			position={homepage ? "absolute" : "sticky"}
 			color="transparent"
 			elevation={0}
 			sx={{
-				bgcolor: "background.default",
+				bgcolor: homepage ? "transparent" : "background.default",
 				color: "text.primary",
-				borderBottom: "1px solid",
+				borderBottom: homepage ? "none" : "1px solid",
 				borderColor: "divider",
 			}}
 		>
@@ -162,6 +165,8 @@ export function CreativaStoreHeader() {
 }
 
 export function CreativaStoreFooter() {
+	const homepage = useRouter().pathname === "/creativa";
+	if (homepage) return <CreativaHomeFooter socials={CREATIVA_HOME_SOCIALS} />;
 	return (
 		<Box
 			component="footer"
