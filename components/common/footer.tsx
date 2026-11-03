@@ -54,6 +54,10 @@ const policyLinks = [
 		label: "Chính sách bảo mật thông tin",
 		url: "/policies-terms/chinh-sach-bao-ve-thong-tin-khach-hang",
 	},
+	{
+		label: "Chính sách duyệt in và sản xuất",
+		url: "/policies-terms/chinh-sach-duyet-in-va-san-xuat",
+	},
 	{ label: "Chính sách bảo hành và đổi trả", url: "/policies-terms/chinh-sach-bao-hanh-doi-tra" },
 	{ label: "FAQs - Câu hỏi thường gặp", url: "/policies-terms/faqs" },
 ];

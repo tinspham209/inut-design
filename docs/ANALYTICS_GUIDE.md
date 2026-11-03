@@ -46,6 +46,7 @@ A single, comprehensive reference for Google Analytics 4 (GA4), Google Tag Manag
   - **Conversion**: `order_button_click`, `contact_click`, `phone_click`, `zalo_click`, `form_submit`, `social_click`, `cta_click`
   - **Engagement**: `page_view`, `search`, `outbound_click`, `download`, `video_engagement`, `time_on_page`, `scroll_depth`, `cart_view`
   - **Content**: `service_click`, `blog_post_click`, `blog_post_view`
+  - **Policy**: `print_approval_policy_view`
 
 ---
 
@@ -100,6 +101,12 @@ trackEvent("blog_post_click", { post_title: post.title, post_slug: post.slug });
 import { trackEvent } from "@/utils";
 trackEvent("custom_event_name", { category: "engagement", label: "button_label", value: 1 });
 ```
+
+#### Print Approval Policy
+
+`/policies-terms/chinh-sach-duyet-in-va-san-xuat` emits `print_approval_policy_view` once per page mount through both `trackEvent` (GA4) and `trackUmamiEvent` (Umami). GA4 receives `category`, `label`, `page_path`, and `page_title`; Umami receives `pagePath`. The existing app-level lifecycle handles general page views.
+
+The policy index card reuses `policies_terms_card_click` in both trackers with the new route and title.
 
 #### See `/docs/ANALYTICS_QUICK_REFERENCE.md` for more code patterns (now merged here).
 

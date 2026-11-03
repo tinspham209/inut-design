@@ -8,6 +8,7 @@ import {
 	GavelOutlined,
 	HelpOutlineOutlined,
 	PaymentOutlined,
+	PrintOutlined,
 	SecurityOutlined,
 } from "@mui/icons-material";
 import {
@@ -51,6 +52,12 @@ const policyPages = [
 		description: "Bảo vệ thông tin cá nhân khách hàng",
 		url: "/policies-terms/chinh-sach-bao-ve-thong-tin-khach-hang",
 		icon: SecurityOutlined,
+	},
+	{
+		title: "Chính sách duyệt in và sản xuất",
+		description: "Xác nhận duyệt in, màu sắc & trách nhiệm sản xuất",
+		url: "/policies-terms/chinh-sach-duyet-in-va-san-xuat",
+		icon: PrintOutlined,
 	},
 	{
 		title: "Chính sách bảo hành và đổi trả",

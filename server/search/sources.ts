@@ -196,7 +196,7 @@ const staticPageDocuments = (): SearchDocument[] => {
 			title: "Chính sách và Điều khoản",
 			description:
 				"Chính sách, điều khoản sử dụng, thông tin doanh nghiệp và câu hỏi thường gặp tại INUT Design.",
-			body: "Thông tin doanh nghiệp, thanh toán, bảo mật, bảo hành, đổi trả và FAQ.",
+			body: "Thông tin doanh nghiệp, thanh toán, bảo mật, duyệt in và sản xuất, bảo hành, đổi trả và FAQ.",
 		},
 		{
 			url: "/policies-terms/thong-tin-doanh-nghiep",
@@ -221,6 +221,13 @@ const staticPageDocuments = (): SearchDocument[] => {
 			title: "Chính sách bảo vệ thông tin cá nhân khách hàng",
 			description: "Chính sách bảo vệ thông tin cá nhân khách hàng của INUT DESIGN.",
 			body: "Mục đích thu thập, phạm vi sử dụng, thời gian lưu trữ, chỉnh sửa dữ liệu cá nhân và giải quyết khiếu nại.",
+		},
+		{
+			url: "/policies-terms/chinh-sach-duyet-in-va-san-xuat",
+			title: "Chính sách duyệt in và sản xuất",
+			description:
+				"Quy định xác nhận duyệt in, sai lệch màu sắc, trách nhiệm sản xuất và khiếu nại tại INUT Design.",
+			body: "Khách hàng kiểm tra thiết kế, nội dung, kích thước, số lượng, chất liệu, màu sắc và quy cách gia công trước khi duyệt in. Độ tương đồng màu sắc khoảng 90–95%. Sản xuất theo lệnh in hoặc mẫu đã xác nhận. Kiểm tra và phản hồi kèm hình ảnh/video trong vòng 03 ngày kể từ khi nhận hàng.",
 		},
 		{
 			url: "/policies-terms/chinh-sach-bao-hanh-doi-tra",
