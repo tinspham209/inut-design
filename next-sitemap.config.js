@@ -9,8 +9,6 @@ const nextSitemapConfig = {
 		"/creativa/checkout",
 		"/creativa/order-tracking",
 		"/creativa/order-tracking/*",
-		"/creativa/skin-laptop/huong-dan-su-dung",
-		"/creativa/skin-laptop/huong-dan-su-dung/*",
 	],
 
 	generateRobotsTxt: true,
