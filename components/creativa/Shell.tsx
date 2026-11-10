@@ -24,6 +24,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useHydratedCreativaCart } from "@/hooks/creativa/useBrowserState";
 import { trackCreativa } from "@/utils/creativa/analytics";
 import { creativaSearchSchema } from "@/utils/creativa/forms";
+import { CreativaHomepageFooter } from "@/components/creativa/HomepageFooter";
 
 export const CREATIVA_NAV = [
 	{ label: "Skin MacBook", href: "/creativa/skin-laptop" },
@@ -45,6 +46,14 @@ export function CreativaStoreHeader() {
 	});
 	const { ref, ...queryField } = form.register("query");
 	const router = useRouter();
+	const homepage = router.pathname === "/creativa";
+	const navItems = homepage
+		? [
+				{ label: "Skin MacBook", href: "/creativa/skin-laptop" },
+				{ label: "Hướng dẫn", href: "/creativa/skin-laptop/huong-dan-su-dung" },
+				{ label: "Mua sắm theo bộ sưu tập", href: "/creativa/skin-laptop" },
+		  ]
+		: CREATIVA_NAV;
 	const navigation = (href: string) => {
 		setOpen(false);
 		trackCreativa("cta_click", { cta_name: "navigation", surface: "header" });
@@ -56,7 +65,7 @@ export function CreativaStoreHeader() {
 			color="transparent"
 			elevation={0}
 			sx={{
-				bgcolor: "background.default",
+				bgcolor: homepage ? "#fffcf2" : "background.default",
 				color: "text.primary",
 				borderBottom: "1px solid",
 				borderColor: "divider",
@@ -71,9 +80,9 @@ export function CreativaStoreHeader() {
 					<MenuIcon />
 				</IconButton>
 				<Stack direction="row" gap={2} sx={{ display: { xs: "none", md: "flex" }, flex: 1 }}>
-					{CREATIVA_NAV.map((item) => (
+					{navItems.map((item) => (
 						<Button
-							key={item.href}
+							key={item.label}
 							onClick={() => navigation(item.href)}
 							sx={{ textTransform: "none" }}
 						>
@@ -150,8 +159,8 @@ export function CreativaStoreHeader() {
 						<CloseIcon />
 					</IconButton>
 					<Typography fontWeight={800}>INUT Creativa</Typography>
-					{CREATIVA_NAV.map((item) => (
-						<Button key={item.href} onClick={() => navigation(item.href)}>
+					{navItems.map((item) => (
+						<Button key={item.label} onClick={() => navigation(item.href)}>
 							{item.label}
 						</Button>
 					))}
@@ -162,6 +171,8 @@ export function CreativaStoreHeader() {
 }
 
 export function CreativaStoreFooter() {
+	const homepage = useRouter().pathname === "/creativa";
+	if (homepage) return <CreativaHomepageFooter />;
 	return (
 		<Box
 			component="footer"

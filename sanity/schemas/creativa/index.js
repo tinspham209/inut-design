@@ -627,6 +627,7 @@ export const creativaOrder = doc(
 );
 
 export default [
+	creativaOrder,
 	creativaSkinProduct,
 	creativaMacbookModel,
 	creativaSkinCoverage,
@@ -634,6 +635,5 @@ export default [
 	creativaBankSettings,
 	creativaSalesSettings,
 	creativaCheckoutIntent,
-	creativaOrder,
 	creativaOrderLookup,
 ];
