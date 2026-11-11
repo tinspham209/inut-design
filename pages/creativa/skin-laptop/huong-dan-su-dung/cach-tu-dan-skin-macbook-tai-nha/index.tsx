@@ -1,5 +1,21 @@
 /* eslint-disable camelcase */
-import { Alert, Box, Button, Container, Divider, Stack, Typography } from "@mui/material";
+import {
+	Accordion,
+	AccordionDetails,
+	AccordionSummary,
+	Alert,
+	Box,
+	Button,
+	Checkbox,
+	Container,
+	Divider,
+	FormControlLabel,
+	FormGroup,
+	Link as MuiLink,
+	Stack,
+	Typography,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Image from "next/image";
 import Link from "next/link";
 import { CreativaBreadcrumbs } from "@/components/creativa/Breadcrumbs";
@@ -78,9 +94,14 @@ const steps = [
 		title: "Hoàn thiện và kiểm tra thành phẩm",
 		image: "step-8.avif",
 		imageAlt: "MacBook đã dán skin hoàn thiện",
-		paragraphs: [
-			"Chúc mừng! Chiếc MacBook của bạn đã có diện mạo mới.",
-			"Kiểm tra skin có đúng vị trí không; bề mặt có phẳng, không nếp gấp hay bọt khí lớn không; cạnh và góc có bám chắc không; có miếng nào che cổng, khe thông gió hoặc phần chức năng không. Kiểm tra hoạt động của máy và các bộ phận liên quan trước khi dùng bình thường.",
+		paragraphs: ["Chúc mừng! Chiếc MacBook của bạn đã có diện mạo mới."],
+		checklist: [
+			"Skin được dán đúng vị trí, cân đối và không lệch.",
+			"Bề mặt skin phẳng, không có nếp gấp hoặc bọt khí lớn.",
+			"Các cạnh và góc được dán chắc chắn, không bong tróc hay hở mép.",
+			"Không có phần skin nào che khuất cổng kết nối, khe thông gió hoặc các bộ phận chức năng.",
+			"Kiểm tra khả năng hoạt động của máy và các bộ phận liên quan.",
+			"Đảm bảo thiết bị hoạt động bình thường trước khi đưa vào sử dụng.",
 		],
 	},
 ];
@@ -143,7 +164,7 @@ const Guide: NextPageWithLayout = () => (
 					</Typography>
 				</Stack>
 
-				<Box component="section" sx={{ mt: 5 }}>
+				<Box component="section" id="video-huong-dan" sx={{ mt: 5, scrollMarginTop: "88px" }}>
 					<Typography component="h2" variant="h5" gutterBottom>
 						Xem video hướng dẫn
 					</Typography>
@@ -153,13 +174,91 @@ const Guide: NextPageWithLayout = () => (
 					</Alert>
 				</Box>
 
-				<Box component="section" sx={{ mt: 5 }}>
+				<Box
+					component="nav"
+					aria-labelledby="muc-luc"
+					sx={{ mt: 5, p: { xs: 2, md: 3 }, bgcolor: "action.hover", borderRadius: 2 }}
+				>
+					<Typography component="h2" variant="h5" id="muc-luc">
+						Mục lục
+					</Typography>
+					<Stack component="ul" spacing={1} sx={{ mb: 0, pl: 2.5 }}>
+						<Box component="li">
+							<MuiLink
+								href="#video-huong-dan"
+								onClick={() =>
+									trackCreativa("cta_click", { surface: "guide_toc", cta_name: "video-huong-dan" })
+								}
+							>
+								Xem video hướng dẫn
+							</MuiLink>
+						</Box>
+						<Box component="li">
+							<MuiLink
+								href="#cac-buoc"
+								onClick={() =>
+									trackCreativa("cta_click", { surface: "guide_toc", cta_name: "cac-buoc" })
+								}
+							>
+								Các bước tự dán skin MacBook
+							</MuiLink>
+							<Stack component="ol" spacing={1} sx={{ mt: 1, pl: 3 }}>
+								{steps.map((step, index) => (
+									<Box component="li" key={step.title}>
+										<MuiLink
+											href={`#buoc-${index + 1}`}
+											onClick={() =>
+												trackCreativa("cta_click", {
+													surface: "guide_toc",
+													cta_name: "step",
+													item_position: index + 1,
+												})
+											}
+										>
+											{step.title}
+										</MuiLink>
+									</Box>
+								))}
+							</Stack>
+						</Box>
+						<Box component="li">
+							<MuiLink
+								href="#cau-hoi-thuong-gap"
+								onClick={() =>
+									trackCreativa("cta_click", {
+										surface: "guide_toc",
+										cta_name: "cau-hoi-thuong-gap",
+									})
+								}
+							>
+								Câu hỏi thường gặp
+							</MuiLink>
+						</Box>
+						<Box component="li">
+							<MuiLink
+								href="#ho-tro"
+								onClick={() =>
+									trackCreativa("cta_click", { surface: "guide_toc", cta_name: "ho-tro" })
+								}
+							>
+								Liên hệ hỗ trợ
+							</MuiLink>
+						</Box>
+					</Stack>
+				</Box>
+
+				<Box component="section" id="cac-buoc" sx={{ mt: 5, scrollMarginTop: "88px" }}>
 					<Typography component="h2" variant="h4" sx={{ fontSize: { xs: 26, md: 32 } }}>
 						Các bước tự dán skin MacBook
 					</Typography>
 					<Stack component="ol" spacing={4} sx={{ listStyle: "none", p: 0, mt: 3 }}>
 						{steps.map((step, index) => (
-							<Box component="li" key={step.title}>
+							<Box
+								component="li"
+								key={step.title}
+								id={`buoc-${index + 1}`}
+								sx={{ scrollMarginTop: "88px" }}
+							>
 								<Typography variant="overline" color="primary.main">
 									BƯỚC {index + 1}
 								</Typography>
@@ -173,6 +272,43 @@ const Guide: NextPageWithLayout = () => (
 										</Typography>
 									))}
 								</Stack>
+								{step.checklist && (
+									<Box sx={{ mt: 2 }}>
+										<Typography
+											component="h4"
+											variant="subtitle1"
+											fontWeight={600}
+											id="guide-checklist"
+										>
+											CHECKLIST KIỂM TRA SAU KHI DÁN SKIN
+										</Typography>
+										<FormGroup role="group" aria-labelledby="guide-checklist" sx={{ mt: 1 }}>
+											{step.checklist.map((item, itemIndex) => (
+												<FormControlLabel
+													key={item}
+													sx={{
+														alignItems: "flex-start",
+														ml: -1,
+														"& .MuiFormControlLabel-label": { pt: "9px" },
+													}}
+													control={
+														<Checkbox
+															onChange={(_, checked) =>
+																trackCreativa("cta_click", {
+																	surface: "guide_checklist",
+																	cta_name: "inspection_item",
+																	item_position: itemIndex + 1,
+																	action: checked ? "check" : "uncheck",
+																})
+															}
+														/>
+													}
+													label={item}
+												/>
+											))}
+										</FormGroup>
+									</Box>
+								)}
 								<Box component="figure" sx={{ m: 0, mt: 2.5, borderRadius: 2, overflow: "hidden" }}>
 									<Image
 										src={`/creativa/huong-dan-su-dung/cach-tu-dan-skin-macbook-tai-nha/${step.image}`}
@@ -188,25 +324,50 @@ const Guide: NextPageWithLayout = () => (
 				</Box>
 
 				<Divider sx={{ my: 5 }} />
-				<Box component="section">
+				<Box component="section" id="cau-hoi-thuong-gap" sx={{ scrollMarginTop: "88px" }}>
 					<Typography component="h2" variant="h4" sx={{ fontSize: { xs: 26, md: 32 } }}>
 						Câu hỏi thường gặp
 					</Typography>
-					<Stack spacing={3} sx={{ mt: 3 }}>
-						{questions.map(({ question, answer }) => (
-							<Box key={question}>
-								<Typography component="h3" variant="h6" gutterBottom>
-									{question}
-								</Typography>
-								<Typography sx={{ lineHeight: 1.8 }}>{answer}</Typography>
-							</Box>
+					<Stack sx={{ mt: 3 }}>
+						{questions.map(({ question, answer }, index) => (
+							<Accordion
+								key={question}
+								onChange={(_, expanded) =>
+									trackCreativa("cta_click", {
+										surface: "guide_faq",
+										cta_name: "question",
+										item_position: index + 1,
+										action: expanded ? "expand" : "collapse",
+									})
+								}
+							>
+								<AccordionSummary
+									expandIcon={<ExpandMoreIcon />}
+									id={`faq-question-${index + 1}`}
+									aria-controls={`faq-answer-${index + 1}`}
+								>
+									<Typography component="span" variant="h6">
+										{question}
+									</Typography>
+								</AccordionSummary>
+								<AccordionDetails>
+									<Typography sx={{ lineHeight: 1.8 }}>{answer}</Typography>
+								</AccordionDetails>
+							</Accordion>
 						))}
 					</Stack>
 				</Box>
 
 				<Box
 					component="section"
-					sx={{ mt: 5, p: { xs: 2.5, md: 4 }, bgcolor: "action.hover", borderRadius: 2 }}
+					id="ho-tro"
+					sx={{
+						mt: 5,
+						p: { xs: 2.5, md: 4 },
+						bgcolor: "action.hover",
+						borderRadius: 2,
+						scrollMarginTop: "88px",
+					}}
 				>
 					<Stack spacing={2} alignItems="flex-start">
 						<Typography component="h2" variant="h5">

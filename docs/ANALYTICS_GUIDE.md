@@ -238,6 +238,13 @@ Homepage V2 uses `view_item_list` / `select_item` for real CMS designs with
 link to the general catalog and are tracked as `cta_click`, not product
 impressions or actual filters. Detail accordion actions emit one `cta_click`
 per expand/collapse; configured social links emit `social_click` once.
+The MacBook guide checklist emits `cta_click` per check/uncheck with
+`surface=guide_checklist`, `cta_name=inspection_item`, one-based `item_position`
+and `action=check` or `uncheck`; no checklist state is stored.
+Guide table-of-contents links emit `cta_click` with `surface=guide_toc` and a
+static target or one-based step position. FAQ accordions emit `cta_click` with
+`surface=guide_faq`, one-based question position and `action=expand` or
+`collapse`.
 
 Purchase is **order placed**, not payment received. GA4 `value` is merchandise
 total excluding shipping; shipping/discount are separate. Umami also receives merchandise,
