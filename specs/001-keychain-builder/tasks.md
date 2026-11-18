@@ -112,14 +112,14 @@ description: "Implementation tasks for the Keychain Builder feature"
 
 ### Implementation for User Story 3
 
-- [ ] T041 [P] [US3] Create the dynamic no-SSR 3D entry component and lazy-load Three/R3F/Drei only when requested in `components/keychain-builder/preview/Preview3D.tsx`
-- [ ] T042 [P] [US3] Build a millimeter-scaled extruded charm mesh, bevel/edge material, and correctly subtracted 4 mm hole in `components/keychain-builder/preview/KeychainMesh.tsx`
-- [ ] T043 [US3] Create 2D-compatible front/back textures from the shared render model for the 3D mesh in `components/keychain-builder/render/render3dTexture.ts`
-- [ ] T044 [US3] Attach the selected ring PNG to a flat plane with the catalog anchor and fixed demo metadata in `components/keychain-builder/preview/RingPlane.tsx`
-- [ ] T045 [US3] Add orbit, zoom, Fit/Reset, reduced-motion, and demand-render controls that never modify design transforms in `components/keychain-builder/preview/Preview3D.tsx`
-- [ ] T046 [US3] Add WebGL/context-creation and runtime error fallback that preserves state and returns to 2D in `components/keychain-builder/preview/Preview3DFallback.tsx`
-- [ ] T047 [US3] Add the 2D/3D toggle, lazy-load loading status, and one-shot view-change analytics in `components/keychain-builder/KeychainBuilder.tsx`
-- [ ] T048 [US3] Dispose geometries, textures, canvas resources, and lazy 3D listeners on close/unmount in `components/keychain-builder/preview/Preview3D.tsx`
+- [X] T041 [P] [US3] Create the dynamic no-SSR 3D entry component and lazy-load Three/R3F/Drei only when requested in `components/keychain-builder/preview/Preview3D.tsx`
+- [X] T042 [P] [US3] Build a millimeter-scaled extruded charm mesh, bevel/edge material, and correctly subtracted 4 mm hole in `components/keychain-builder/preview/KeychainMesh.tsx`
+- [X] T043 [US3] Create 2D-compatible front/back textures from the shared render model for the 3D mesh in `components/keychain-builder/render/render3dTexture.ts`
+- [X] T044 [US3] Attach the selected ring PNG to a flat plane with the catalog anchor and fixed demo metadata in `components/keychain-builder/preview/RingPlane.tsx`
+- [X] T045 [US3] Add orbit, zoom, Fit/Reset, reduced-motion, and demand-render controls that never modify design transforms in `components/keychain-builder/preview/Preview3D.tsx`
+- [X] T046 [US3] Add WebGL/context-creation and runtime error fallback that preserves state and returns to 2D in `components/keychain-builder/preview/Preview3DFallback.tsx`
+- [X] T047 [US3] Add the 2D/3D toggle, lazy-load loading status, and one-shot view-change analytics in `components/keychain-builder/KeychainBuilder.tsx`
+- [X] T048 [US3] Dispose geometries, textures, canvas resources, and lazy 3D listeners on close/unmount in `components/keychain-builder/preview/Preview3D.tsx`
 
 **Checkpoint**: The 3D preview is consistent with 2D/PNG and degrades cleanly without changing the edited design.
 

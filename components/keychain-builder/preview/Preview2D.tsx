@@ -6,14 +6,14 @@ import { loadFrameSvg, type FrameSvgData } from "../geometry/frameSvg";
 import { loadSanityImage } from "../image/loadSanityImage";
 import { renderKeychain2d } from "../render/render2d";
 
-type Props = { config: KeychainConfig; view: "front" | "back"; dispatch: (action: KeychainAction) => void };
+type Props = { config: KeychainConfig; view: "front" | "back"; dispatch: (action: KeychainAction) => void; on3D?: () => void };
 const demoImages = new Map<string, Promise<HTMLImageElement>>();
 function loadDemoImage(src: string) {
 	let pending = demoImages.get(src);
 	if (!pending) { pending = new Promise((resolve, reject) => { const image = new Image(); image.onload = () => resolve(image); image.onerror = () => reject(new Error("Không tải được hình móc demo")); image.src = src; }); demoImages.set(src, pending); }
 	return pending;
 }
-export function Preview2D({ config, view, dispatch }: Props) {
+export function Preview2D({ config, view, dispatch, on3D }: Props) {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const dragRef = useRef<{ x: number; y: number } | null>(null);
 	const [frame, setFrame] = useState<FrameSvgData | null>(null);
@@ -59,6 +59,7 @@ export function Preview2D({ config, view, dispatch }: Props) {
 		<Stack direction="row" spacing={1} alignItems="center">
 			<Button variant={view === "front" ? "contained" : "outlined"} onClick={() => dispatch({ type: "set-view", view: "front" })}>Mặt trước</Button>
 			<Button variant={view === "back" ? "contained" : "outlined"} onClick={() => dispatch({ type: "set-view", view: "back" })}>Mặt sau</Button>
+			{on3D && <Button onClick={on3D}>Xem 3D</Button>}
 			<Typography variant="body2" color="grey.400">2D · Kéo để căn ảnh</Typography>
 		</Stack>
 		<Box sx={{ position: "relative", width: "100%", maxWidth: 520, mx: "auto" }}>

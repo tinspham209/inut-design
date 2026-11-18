@@ -18,6 +18,9 @@ import { renderShowcasePng, type PngScale, type PngScope } from "@/components/ke
 import { useLoadDesign } from "@/components/keychain-builder/hooks/useLoadDesign";
 import { trackKeychainAction } from "@/utils/keychainAnalytics";
 import { BackImageEditor } from "@/components/keychain-builder/controls/BackImageEditor";
+import dynamic from "next/dynamic";
+
+const LazyPreview3D = dynamic(() => import("@/components/keychain-builder/preview/Preview3D").then((module) => module.Preview3D), { ssr: false, loading: () => <Typography role="status">Đang tải bộ dựng 3D…</Typography> });
 
 export function KeychainBuilder() {
 	const [config, dispatch, session] = useKeychainState();
@@ -74,7 +77,7 @@ export function KeychainBuilder() {
 					</Box>
 					<Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "minmax(0, 1.3fr) minmax(340px, .9fr)" }, gap: 2, alignItems: "start" }}>
 						<Paper aria-label="Bản xem trước móc khóa" sx={{ position: { md: "sticky" }, top: 88, minHeight: 380, bgcolor: "#1b1c23", color: "inherit", p: 3 }}>
-							<Preview2D config={config} view={session.view} dispatch={(action) => { dispatch(action); if (action.type === "set-view") trackKeychainAction("keychain_view_change", { mode: "2d" }); }} />
+							{session.preview === "2d" ? <Preview2D config={config} view={session.view} on3D={() => { dispatch({ type: "set-preview", preview: "3d" }); trackKeychainAction("keychain_view_change", { mode: "3d" }); }} dispatch={(action) => { dispatch(action); if (action.type === "set-view") trackKeychainAction("keychain_view_change", { mode: "2d" }); }} /> : <LazyPreview3D config={config} onBack={() => { dispatch({ type: "set-preview", preview: "2d" }); trackKeychainAction("keychain_view_change", { mode: "2d" }); }} />}
 							<Button sx={{ mt: 1 }} onClick={() => dispatch({ type: "reset" })}>Đặt lại toàn bộ</Button>
 						</Paper>
 						<Stack spacing={2}>
