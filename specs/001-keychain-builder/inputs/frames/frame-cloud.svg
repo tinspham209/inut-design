@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="3 0 94 69" width="30mm" height="22.0212766mm">
+  <title>Cloud</title>
+  <path id="cut" d="M38 23 V12 A12 12 0 0 1 62 12 V23 C68 16 80 22 82 34 C92 34 97 41 97 51 C97 62 90 69 80 69 H20 C10 69 3 62 3 51 C3 41 9 34 18 34 C21 22 32 17 38 23 Z" fill="#b9c9d5"/>
+  <path id="print" d="M50 29 C56 26 63 26 68 29 C74 32 76 37 77 41 C85 40 91 45 91 52 C91 59 86 63 79 63 H21 C14 63 9 59 9 52 C9 45 15 40 23 41 C24 35 28 31 33 29 C38 27 44 27 50 29 Z" fill="#ffffff"/>
+  <circle id="hole" cx="50" cy="12" r="6.2666667" data-diameter-mm="4" fill="#253544"/>
+</svg>
