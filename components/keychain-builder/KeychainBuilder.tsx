@@ -5,6 +5,7 @@ import { FRAMES } from "@/data/keychain/catalog";
 import { Preview2D } from "@/components/keychain-builder/preview/Preview2D";
 import { useKeychainState } from "@/components/keychain-builder/hooks/useKeychainState";
 import { useImageUpload } from "@/components/keychain-builder/hooks/useImageUpload";
+import { useBackImage } from "@/components/keychain-builder/hooks/useBackImage";
 import { BackControls } from "@/components/keychain-builder/controls/BackControls";
 import { OpaqueAcrylicDialog } from "@/components/keychain-builder/controls/OpaqueAcrylicDialog";
 import { AppearanceControls } from "@/components/keychain-builder/controls/AppearanceControls";
@@ -16,6 +17,7 @@ import { loadSanityImage } from "@/components/keychain-builder/image/loadSanityI
 import { renderShowcasePng, type PngScale, type PngScope } from "@/components/keychain-builder/render/renderPng";
 import { useLoadDesign } from "@/components/keychain-builder/hooks/useLoadDesign";
 import { trackKeychainAction } from "@/utils/keychainAnalytics";
+import { BackImageEditor } from "@/components/keychain-builder/controls/BackImageEditor";
 
 export function KeychainBuilder() {
 	const [config, dispatch, session] = useKeychainState();
@@ -24,6 +26,7 @@ export function KeychainBuilder() {
 	const { status: loadStatus, error: loadError, load } = useLoadDesign(designId);
 	const [pendingAcrylic, setPendingAcrylic] = useState<Exclude<typeof config.acrylicId, "clear"> | null>(null);
 	const { upload, status: uploadStatus, error: uploadError } = useImageUpload();
+	const backUpload = useBackImage();
 	const [exportOpen, setExportOpen] = useState(false);
 	const { exportDesign, status: exportStatus, error: exportError, link: exportLink } = useExportDesign();
 	const imageUrl = config.front.url || null;
@@ -39,6 +42,10 @@ export function KeychainBuilder() {
 		}
 		void upload(file).then((face) => { if (face) { dispatch({ type: "set-face", face: "front", value: face }); trackKeychainAction("keychain_image_upload", { result: "success" }); } else trackKeychainAction("keychain_image_upload", { result: "error" }); });
 	};
+	const updateBackTransform = (transform: NonNullable<typeof config.backCustom>["transform"]) => {
+		if (config.backCustom) dispatch({ type: "set-face", face: "backCustom", value: { ...config.backCustom, transform } });
+	};
+	const resetBackTransform = () => updateBackTransform({ xMm: 0, yMm: 0, scale: 1, rotation: 0, flipX: false });
 	const onExport = async (scope: PngScope, scale: PngScale) => {
 		if (uploadStatus === "uploading") return;
 		const frameId = config.shape.type === "frame" ? config.shape.frameId : "heart";
@@ -60,7 +67,7 @@ export function KeychainBuilder() {
 		</Container>;
 	}
 	return (
-		<Box sx={{ minHeight: "calc(100vh - 72px)", bgcolor: "#101116", color: "#fff", py: { xs: 3, md: 5 } }}>
+		<Box sx={{ minHeight: "calc(100vh - 72px)", bgcolor: "#101116", color: "#fff", py: { xs: 3, md: 5 }, pb: "calc(24px + env(safe-area-inset-bottom))", overflowX: "hidden", "& button": { minHeight: 44 }, "& input": { fontSize: 16 } }}>
 			<Container maxWidth="xl">
 				<Stack spacing={2}>
 					<Box><Typography variant="overline" sx={{ color: "#ff9a44", fontWeight: 700 }}>DEMO • CHƯA PHẢI FILE SẢN XUẤT</Typography><Typography variant="h4" component="h1" fontWeight={700}>Thiết kế móc khóa mica</Typography><Typography color="grey.400">Khung và móc là hình minh họa; chưa được duyệt cho gia công thực tế.</Typography>
@@ -73,7 +80,7 @@ export function KeychainBuilder() {
 						<Stack spacing={2}>
 							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">01 · Hình dáng & móc</Typography><AppearanceControls section="shape" config={config} onRing={onRing} onFrame={onFrame} onSize={(sizeCm) => dispatch({ type: "set-size", sizeCm })} onAcrylic={onAcrylic} onOpaque={setPendingAcrylic} onMaterial={(material) => dispatch({ type: "set-material", material })} /></Paper>
 							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">02 · Ảnh mặt trước</Typography><ImageUpload status={uploadStatus} error={uploadError} hasImage={Boolean(imageUrl)} onSelect={onImage} onRemove={() => dispatch({ type: "set-face", face: "front", value: { transform: config.front.transform } })} /></Paper>
-							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">03 · Mặt sau</Typography><BackControls acrylicId={config.acrylicId} backMode={config.backMode} hasCustomImage={Boolean(config.backCustom?.url)} onModeChange={(backMode) => { dispatch({ type: "set-back-mode", backMode }); trackKeychainAction("keychain_back_mode", { mode: backMode }); }} onUpload={(file) => { if (file) void upload(file).then((face) => { if (face) { dispatch({ type: "set-face", face: "backCustom", value: face }); trackKeychainAction("keychain_custom_back", { result: "success" }); } }); }} /></Paper>
+							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">03 · Mặt sau</Typography><BackControls acrylicId={config.acrylicId} backMode={config.backMode} hasCustomImage={Boolean(config.backCustom?.url)} uploading={backUpload.status === "uploading"} error={backUpload.error} onModeChange={(backMode) => { dispatch({ type: "set-back-mode", backMode }); trackKeychainAction("keychain_back_mode", { mode: backMode, print_sides: backMode === "mirror-front" || backMode === "custom" ? 2 : 1 }); }} onUpload={(file) => { if (file) void backUpload.upload(file).then((face) => { if (face) { dispatch({ type: "set-face", face: "backCustom", value: face }); trackKeychainAction("keychain_custom_back", { result: "success" }); } }); }} />{config.backCustom?.url && config.acrylicId === "clear" && <BackImageEditor transform={config.backCustom.transform} onChange={updateBackTransform} onReset={resetBackTransform} />}</Paper>
 							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">04 · Màu mica</Typography><AppearanceControls section="material" config={config} onRing={onRing} onFrame={onFrame} onSize={(sizeCm) => dispatch({ type: "set-size", sizeCm })} onAcrylic={onAcrylic} onOpaque={setPendingAcrylic} onMaterial={(material) => dispatch({ type: "set-material", material })} /></Paper>
 							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">05 · Xuất PNG</Typography><Typography color="grey.400" sx={{ mt: 1 }}>PNG dùng để giới thiệu ý tưởng, không phải file sản xuất.</Typography><Button variant="contained" disabled={typeof designId === "string" && loadStatus !== "loaded"} onClick={() => setExportOpen(true)} sx={{ mt: 2, minHeight: 48 }}>Xuất PNG</Button></Paper>
 						</Stack>

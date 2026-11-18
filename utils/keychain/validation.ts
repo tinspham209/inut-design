@@ -11,12 +11,14 @@ export function validateKeychainConfig(value: unknown): value is KeychainConfig 
 	if (config.version !== 1 || !RINGS.some((item) => item.id === config.ringId)) return false;
 	if (!SIZES_CM.includes(config.sizeCm as (typeof SIZES_CM)[number])) return false;
 	if (!ACRYLICS.some((item) => item.id === config.acrylicId)) return false;
+	if (config.printSides !== 1 && config.printSides !== 2) return false;
 	if (!config.shape) return false;
 	if (config.shape.type === "frame") {
 		const frameId = config.shape.frameId;
 		if (!FRAMES.some((item) => item.id === frameId)) return false;
 	}
 	if (config.shape.type === "die-cut" && (!isFiniteIn(config.shape.paddingMm, 1, 20) || !isFiniteIn(config.shape.smoothness, 0, 10))) return false;
+	if (config.shape.type !== "frame" && config.shape.type !== "die-cut") return false;
 	if (config.acrylicId === "clear") {
 		if (config.printSides === 1 && !["through-acrylic", "white"].includes(config.backMode || "")) return false;
 		if (config.printSides === 2 && !["mirror-front", "custom"].includes(config.backMode || "")) return false;

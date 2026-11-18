@@ -6,7 +6,7 @@ export type RenderSide = "front" | "back";
 /** Render the source SVG coordinate system through a uniform mm transform.
  * The hole is always reconstructed to 4 mm after scaling the supplied outline.
  */
-export async function renderKeychain2d(canvas: HTMLCanvasElement, frame: FrameSvgData, config: KeychainConfig, image?: CanvasImageSource, side: RenderSide = "front") {
+export async function renderKeychain2d(canvas: HTMLCanvasElement, frame: FrameSvgData, config: KeychainConfig, image?: CanvasImageSource, side: RenderSide = "front", ring?: CanvasImageSource) {
 	const ctx = canvas.getContext("2d");
 	if (!ctx) throw new Error("Thiết bị không hỗ trợ Canvas 2D");
 	const [minX, minY, sourceWidth, sourceHeight] = frame.viewBox;
@@ -15,12 +15,17 @@ export async function renderKeychain2d(canvas: HTMLCanvasElement, frame: FrameSv
 	const pxPerMm = canvas.width / sizeMm;
 	const pxPerUnit = mmPerUnit * pxPerMm;
 	const toCanvasX = (x: number) => (x - minX) * pxPerUnit + (canvas.width - sourceWidth * pxPerUnit) / 2;
-	const toCanvasY = (y: number) => (y - minY) * pxPerUnit + (canvas.height - sourceHeight * pxPerUnit) / 2;
+	const ringHeight = ring ? canvas.width * 0.34 : 0;
+	const charmHeight = canvas.height - ringHeight;
 	const cut = new Path2D(frame.cutPath);
 	const print = new Path2D(frame.printPath);
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	if (ring) {
+		const ringWidth = canvas.width * 0.38;
+		ctx.drawImage(ring, (canvas.width - ringWidth) / 2, 0, ringWidth, ringHeight);
+	}
 	ctx.save();
-	ctx.translate((canvas.width - sourceWidth * pxPerUnit) / 2 - minX * pxPerUnit, (canvas.height - sourceHeight * pxPerUnit) / 2 - minY * pxPerUnit);
+	ctx.translate((canvas.width - sourceWidth * pxPerUnit) / 2 - minX * pxPerUnit, ringHeight + (charmHeight - sourceHeight * pxPerUnit) / 2 - minY * pxPerUnit);
 	ctx.scale(pxPerUnit, pxPerUnit);
 	const acrylicColor = config.acrylicId === "clear" ? "rgba(183,220,240,0.28)" : config.acrylicId;
 	ctx.fillStyle = acrylicColor;
@@ -59,6 +64,6 @@ export async function renderKeychain2d(canvas: HTMLCanvasElement, frame: FrameSv
 	ctx.lineWidth = 0.35 / mmPerUnit;
 	ctx.stroke(cut);
 	ctx.restore();
-	void toCanvasX; void toCanvasY;
+	void toCanvasX;
 	return canvas;
 }

@@ -1,12 +1,18 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import { FRAMES } from "@/data/keychain/catalog";
+import { FRAMES, RINGS } from "@/data/keychain/catalog";
 import type { KeychainAction, KeychainConfig } from "../types";
 import { loadFrameSvg, type FrameSvgData } from "../geometry/frameSvg";
 import { loadSanityImage } from "../image/loadSanityImage";
 import { renderKeychain2d } from "../render/render2d";
 
 type Props = { config: KeychainConfig; view: "front" | "back"; dispatch: (action: KeychainAction) => void };
+const demoImages = new Map<string, Promise<HTMLImageElement>>();
+function loadDemoImage(src: string) {
+	let pending = demoImages.get(src);
+	if (!pending) { pending = new Promise((resolve, reject) => { const image = new Image(); image.onload = () => resolve(image); image.onerror = () => reject(new Error("Không tải được hình móc demo")); image.src = src; }); demoImages.set(src, pending); }
+	return pending;
+}
 export function Preview2D({ config, view, dispatch }: Props) {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const dragRef = useRef<{ x: number; y: number } | null>(null);
@@ -30,10 +36,12 @@ export function Preview2D({ config, view, dispatch }: Props) {
 		const width = Math.max(1, canvas.clientWidth);
 		const dpr = Math.min(2, window.devicePixelRatio || 1);
 		canvas.width = Math.round(width * dpr);
-		canvas.height = Math.round(width * frame.viewBox[3] / frame.viewBox[2] * dpr);
+		canvas.height = Math.round(width * (frame.viewBox[3] / frame.viewBox[2] + 0.34) * dpr);
 		const url = view === "back" && config.backMode === "custom" ? config.backCustom?.url : config.front.url;
 		const load = url ? loadSanityImage(url) : Promise.resolve(undefined);
-		void load.then((image) => { if (active) return renderKeychain2d(canvas, frame, config, image, view); }).catch((reason) => { if (active) setError(reason instanceof Error ? reason.message : "Không thể dựng bản xem trước"); });
+		const ringSrc = RINGS.find((item) => item.id === config.ringId)?.src;
+		const ring = ringSrc ? loadDemoImage(ringSrc) : Promise.reject(new Error("Không tìm thấy móc demo"));
+		void Promise.all([load, ring]).then(([image, ringImage]) => { if (active) return renderKeychain2d(canvas, frame, config, image, view, ringImage); }).catch((reason) => { if (active) setError(reason instanceof Error ? reason.message : "Không thể dựng bản xem trước"); });
 		return () => { active = false; };
 	}, [frame, config, view]);
 
