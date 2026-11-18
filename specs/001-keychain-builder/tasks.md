@@ -133,9 +133,9 @@ description: "Implementation tasks for the Keychain Builder feature"
 
 ### Implementation for User Story 4
 
-- [ ] T049 [P] [US4] Implement bounded image alpha extraction and decoded-image/CORS failure handling in `components/keychain-builder/geometry/imageAlpha.ts`
-- [ ] T050 [P] [US4] Implement contour simplification, signed-area checks, disjoint/empty rejection, and physical size normalization in `components/keychain-builder/geometry/dieCut.ts`
-- [ ] T051 [US4] Implement polygon union for the image silhouette plus ear and fixed 4 mm hole in `components/keychain-builder/geometry/dieCut.ts`
+- [X] T049 [P] [US4] Implement bounded image alpha extraction and decoded-image/CORS failure handling in `components/keychain-builder/geometry/imageAlpha.ts`
+- [X] T050 [P] [US4] Implement contour simplification, signed-area checks, disjoint/empty rejection, and physical size normalization in `components/keychain-builder/geometry/dieCut.ts`
+- [X] T051 [US4] Implement polygon union for the image silhouette plus ear and fixed 4 mm hole in `components/keychain-builder/geometry/dieCut.ts`
 - [ ] T052 [US4] Move contour extraction to an isolated revision-aware Web Worker entry in `components/keychain-builder/geometry/dieCut.worker.ts`
 - [ ] T053 [US4] Implement worker startup, cancellation, timeout, old-result rejection, and geometry-revision publication in `components/keychain-builder/hooks/useDieCutGeometry.ts`
 - [ ] T054 [US4] Add frame/die-cut shape controls, transparent-image guidance, and invalid-contour recovery actions in `components/keychain-builder/controls/ShapeControls.tsx`
