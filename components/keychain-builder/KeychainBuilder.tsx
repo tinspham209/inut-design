@@ -1,11 +1,13 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Box, Button, Container, FormControl, InputLabel, MenuItem, Paper, Select, Stack, Typography } from "@mui/material";
 import { ACRYLICS, FRAMES, RINGS, SIZES_CM } from "@/data/keychain/catalog";
 import { useKeychainState } from "@/components/keychain-builder/hooks/useKeychainState";
+import { useImageUpload } from "@/components/keychain-builder/hooks/useImageUpload";
 
 export function KeychainBuilder() {
 	const [config, dispatch] = useKeychainState();
-	const [imageUrl, setImageUrl] = useState<string | null>(null);
+	const { upload, status: uploadStatus, error: uploadError } = useImageUpload();
+	const imageUrl = config.front.url || null;
 	const selectedFrame = useMemo(() => FRAMES.find((frame) => frame.id === (config.shape.type === "frame" ? config.shape.frameId : "heart")), [config.shape]);
 	const selectedAcrylic = ACRYLICS.find((item) => item.id === config.acrylicId)!;
 	const onImage = (file?: File) => {
@@ -14,7 +16,7 @@ export function KeychainBuilder() {
 			window.alert("Chọn ảnh PNG, JPEG hoặc WebP tối đa 10 MB.");
 			return;
 		}
-		setImageUrl((previous) => { if (previous) URL.revokeObjectURL(previous); return URL.createObjectURL(file); });
+		void upload(file).then((face) => { if (face) dispatch({ type: "set-face", face: "front", value: face }); });
 	};
 	return (
 		<Box sx={{ minHeight: "calc(100vh - 72px)", bgcolor: "#101116", color: "#fff", py: { xs: 3, md: 5 } }}>
@@ -37,9 +39,9 @@ export function KeychainBuilder() {
 								<FormControl fullWidth><InputLabel id="ring-label" sx={{ color: "grey.400" }}>Móc khóa</InputLabel><Select labelId="ring-label" label="Móc khóa" value={config.ringId} onChange={(e) => dispatch({ type: "select-ring", ringId: e.target.value })} sx={{ color: "white" }}>{RINGS.map((ring) => <MenuItem key={ring.id} value={ring.id}>{ring.label} · demo</MenuItem>)}</Select></FormControl>
 								<FormControl fullWidth><InputLabel id="size-label" sx={{ color: "grey.400" }}>Kích thước</InputLabel><Select labelId="size-label" label="Kích thước" value={config.sizeCm} onChange={(e) => dispatch({ type: "set-size", sizeCm: Number(e.target.value) })} sx={{ color: "white" }}>{SIZES_CM.map((size) => <MenuItem key={size} value={size}>{size} cm</MenuItem>)}</Select></FormControl>
 							</Stack></Paper>
-							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">02 · Ảnh mặt trước</Typography><Button component="label" variant="outlined" sx={{ mt: 2 }}>Chọn ảnh<input hidden type="file" accept="image/png,image/jpeg,image/webp" onChange={(event) => onImage(event.target.files?.[0])} /></Button>{imageUrl && <Button sx={{ mt: 2, ml: 1 }} onClick={() => setImageUrl(null)}>Xóa ảnh</Button>}<Typography variant="body2" color="grey.400" sx={{ mt: 1 }}>PNG, JPEG hoặc WebP · tối đa 10 MB</Typography></Paper>
+							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">02 · Ảnh mặt trước</Typography><Button component="label" variant="outlined" sx={{ mt: 2 }} disabled={uploadStatus === "uploading"}>{uploadStatus === "uploading" ? "Đang tải ảnh…" : "Chọn ảnh"}<input hidden type="file" accept="image/png,image/jpeg,image/webp" onChange={(event) => onImage(event.target.files?.[0])} /></Button>{imageUrl && <Button sx={{ mt: 2, ml: 1 }} onClick={() => dispatch({ type: "set-face", face: "front", value: { transform: config.front.transform } })}>Xóa ảnh</Button>}<Typography variant="body2" color={uploadError ? "error" : "grey.400"} sx={{ mt: 1 }}>{uploadError || "PNG, JPEG hoặc WebP · tối đa 10 MB"}</Typography></Paper>
 							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">03 · Mặt sau</Typography><Typography color="grey.400" sx={{ mt: 1 }}>Điều khiển mặt sau sẽ khả dụng khi có ảnh và logic xuất.</Typography></Paper>
-							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">04 · Màu mica</Typography><Stack direction="row" flexWrap="wrap" gap={1} sx={{ mt: 2 }}>{ACRYLICS.map((item) => <Button key={item.id} aria-pressed={config.acrylicId === item.id} onClick={() => item.opaque && config.acrylicId === "clear" ? window.confirm("Chuyển sang mica đục và chỉ in một mặt?") && dispatch({ type: "confirm-opaque", acrylicId: item.id }) : dispatch({ type: "select-acrylic", acrylicId: item.id })} variant={config.acrylicId === item.id ? "contained" : "outlined"}>{item.label}</Button>)}</Stack></Paper>
+							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">04 · Màu mica</Typography><Stack direction="row" flexWrap="wrap" gap={1} sx={{ mt: 2 }}>{ACRYLICS.map((item) => <Button key={item.id} aria-pressed={config.acrylicId === item.id} onClick={() => item.opaque && config.acrylicId === "clear" ? window.confirm("Chuyển sang mica đục và chỉ in một mặt?") && dispatch({ type: "confirm-opaque", acrylicId: item.id as Exclude<typeof item.id, "clear"> }) : dispatch({ type: "select-acrylic", acrylicId: item.id })} variant={config.acrylicId === item.id ? "contained" : "outlined"}>{item.label}</Button>)}</Stack></Paper>
 							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">05 · Xuất PNG</Typography><Typography color="grey.400" sx={{ mt: 1 }}>Bản xem trước chưa thể xuất cho đến khi hoàn thiện kết xuất.</Typography><Button variant="contained" disabled sx={{ mt: 2 }}>Xuất PNG</Button></Paper>
 						</Stack>
 					</Box>

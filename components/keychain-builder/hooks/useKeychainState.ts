@@ -18,6 +18,7 @@ export function keychainReducer(state: KeychainConfig, action: KeychainAction): 
 		case "set-back-mode": return { ...state, backMode: action.backMode, printSides: action.backMode === "mirror-front" || action.backMode === "custom" ? 2 : 1 };
 		case "set-print-sides": return { ...state, printSides: action.printSides, backMode: action.printSides === 1 ? "through-acrylic" : "mirror-front" };
 		case "set-face": return action.face === "front" ? { ...state, front: action.value } : { ...state, backCustom: action.value };
+		case "load": return action.config;
 		case "reset": return initialKeychainConfig;
 		default: return state;
 	}

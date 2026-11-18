@@ -17,6 +17,7 @@ import shippingFee from "./shippingFee";
 import staticContentEachPage from "./staticContentEachPage";
 import formNhanBaoGia from "./formNhanBaoGia";
 import creativaSchemas from "./creativa";
+import keychainDesign from "./keychainDesign";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -41,5 +42,6 @@ export default createSchema({
 		banner,
 		blockContent,
 		...creativaSchemas,
+		keychainDesign,
 	]),
 });

@@ -17,4 +17,5 @@ export type KeychainAction =
 	| { type: "set-back-mode"; backMode: Exclude<BackMode, "material"> }
 	| { type: "set-print-sides"; printSides: 1 | 2 }
 	| { type: "set-face"; face: "front" | "backCustom"; value: ImageFace }
+	| { type: "load"; config: KeychainConfig }
 	| { type: "reset" };
