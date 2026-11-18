@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import type { AcrylicId, KeychainAction, KeychainConfig } from "@/components/keychain-builder/types";
+import type { AcrylicId, KeychainAction, KeychainConfig, KeychainSession } from "@/components/keychain-builder/types";
 
 export const initialKeychainConfig: KeychainConfig = {
 	version: 1, ringId: "ring-01", shape: { type: "frame", frameId: "heart" }, sizeCm: 5,
@@ -22,13 +22,35 @@ export function keychainReducer(state: KeychainConfig, action: KeychainAction): 
 		case "set-print-sides": return { ...state, printSides: action.printSides, backMode: action.printSides === 1 ? "through-acrylic" : "mirror-front" };
 		case "set-face": return action.face === "front" ? { ...state, front: action.value } : { ...state, backCustom: action.value };
 		case "load": return action.config;
+		case "set-view":
+		case "set-preview": return state;
 		case "reset": return initialKeychainConfig;
 		default: return state;
 	}
 }
 
+const initialSession: KeychainSession = { config: initialKeychainConfig, view: "front", preview: "2d", revisions: { config: 0, frontImage: 0, backImage: 0, geometry: 0 } };
+function sessionReducer(state: KeychainSession, action: KeychainAction): KeychainSession {
+	if (action.type === "set-view") return { ...state, view: action.view };
+	if (action.type === "set-preview") return { ...state, preview: action.preview };
+	const config = keychainReducer(state.config, action);
+	const isFront = action.type === "set-face" && action.face === "front";
+	const isBack = action.type === "set-face" && action.face === "backCustom";
+	const changesGeometry = action.type !== "set-face";
+	return {
+		...state, config,
+		revisions: {
+			config: state.revisions.config + 1,
+			frontImage: state.revisions.frontImage + Number(isFront),
+			backImage: state.revisions.backImage + Number(isBack),
+			geometry: state.revisions.geometry + Number(changesGeometry || isFront),
+		},
+	};
+}
+
 export function useKeychainState() {
-	return useReducer(keychainReducer, initialKeychainConfig);
+	const [session, dispatch] = useReducer(sessionReducer, initialSession);
+	return [session.config, dispatch, session] as const;
 }
 
 export function isOpaqueAcrylic(id: AcrylicId) { return id !== "clear"; }

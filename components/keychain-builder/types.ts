@@ -23,4 +23,7 @@ export type KeychainAction =
 	| { type: "set-print-sides"; printSides: 1 | 2 }
 	| { type: "set-face"; face: "front" | "backCustom"; value: ImageFace }
 	| { type: "load"; config: KeychainConfig }
+	| { type: "set-view"; view: "front" | "back" }
+	| { type: "set-preview"; preview: "2d" | "3d" }
 	| { type: "reset" };
+export type KeychainSession = { config: KeychainConfig; view: "front" | "back"; preview: "2d" | "3d"; revisions: { config: number; frontImage: number; backImage: number; geometry: number } };
