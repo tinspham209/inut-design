@@ -70,7 +70,7 @@ description: "Implementation tasks for the Keychain Builder feature"
 - [ ] T022 [US1] Clip the transformed front image to the print region and composit the ring outside the charm without distorting the 4 mm hole in `components/keychain-builder/render/render2d.ts`
 - [ ] T023 [US1] Implement a shared anonymous-CORS Sanity image loader with negotiated-format fallback for iOS and rejection of tainted canvases in `components/keychain-builder/image/loadSanityImage.ts`, then reuse it from `components/keychain-builder/hooks/useImageUpload.ts`
 - [ ] T024 [US1] Implement `POST /api/keychain/uploads` with 10 MB/body limits, real image validation, process rate limiting, no sensitive logging, and a `200` response containing the Sanity image object plus an immediately usable public preview URL in `pages/api/keychain/uploads.ts`
-- [ ] T025 [US1] Add typed upload calls, the `{ image, url }` response shape, and safe response/error mapping in `api-client/keychain.ts`
+- [X] T025 [US1] Add typed upload calls, the `{ image, url }` response shape, and safe response/error mapping in `api-client/keychain.ts`
 - [ ] T026 [US1] Render a viewport-independent PNG with transparent exterior, 100 px/cm baseline, 1x/2x/3x scaling, and full-keychain/charm-only scopes in `components/keychain-builder/render/renderPng.ts`
 - [ ] T027 [US1] Add PNG scope/scale selection, download state, and resource-limit fallback messaging in `components/keychain-builder/ExportDialog.tsx`
 - [ ] T028 [US1] Wire selection, upload, transform, view, and PNG-download actions to the reducer and safe analytics without duplicate events in `components/keychain-builder/KeychainBuilder.tsx`
@@ -158,7 +158,7 @@ description: "Implementation tasks for the Keychain Builder feature"
 
 ### Implementation for User Story 5
 
-- [ ] T061 [P] [US5] Define the Sanity v2 `keychainDesign` document with immutable config, image references, request ID/fingerprint, and timestamp in `sanity/schemas/keychainDesign.js`
+- [X] T061 [P] [US5] Define the Sanity v2 `keychainDesign` document with immutable config, image references, request ID/fingerprint, and timestamp in `sanity/schemas/keychainDesign.js`
 - [ ] T062 [US5] Register `keychainDesign` without altering existing lighter schemas in `sanity/schemas/schema.js`
 - [ ] T063 [US5] Implement strict server config, UUID, image-reference, finite-bound, and 4 mm-hole validation using shared catalog/version rules in `utils/keychain/serverValidation.ts`
 - [ ] T064 [US5] Implement deterministic request fingerprinting that excludes transient view/camera state in `utils/keychain/requestFingerprint.ts`
