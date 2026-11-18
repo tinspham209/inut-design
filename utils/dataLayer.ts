@@ -6,6 +6,7 @@
 
 import envConst from "./env-const";
 import { CREATIVA_PRIVATE_PROPERTY, isCreativaPath, safeCreativaUrl } from "./creativa/privacy";
+import { isKeychainPath, safeKeychainUrl, sanitizeKeychainProperties } from "./keychain/privacy";
 
 // Type definitions for data layer events
 export interface DataLayerEvent {
@@ -96,6 +97,13 @@ export const pushToDataLayer = (event: DataLayerEvent): void => {
 			sanitized.page_path = safeCreativaUrl(window.location.pathname);
 			sanitized.page_location = safeCreativaUrl(window.location.href);
 			sanitized.page_referrer = safeCreativaUrl(document.referrer || "");
+		} else if (isKeychainPath(window.location.pathname)) {
+			const allowed = sanitizeKeychainProperties(sanitized as Record<string, unknown>);
+			Object.keys(sanitized).forEach((key) => { if (key !== "event") delete sanitized[key]; });
+			Object.assign(sanitized, allowed);
+			sanitized.page_path = safeKeychainUrl(window.location.pathname);
+			sanitized.page_location = safeKeychainUrl(window.location.href);
+			sanitized.page_referrer = safeKeychainUrl(document.referrer || "");
 		}
 		window.dataLayer.push(sanitized);
 		if (envConst.NODE_ENV === "development") {

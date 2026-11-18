@@ -15,6 +15,7 @@ import { loadFrameSvg } from "@/components/keychain-builder/geometry/frameSvg";
 import { loadSanityImage } from "@/components/keychain-builder/image/loadSanityImage";
 import { renderShowcasePng, type PngScale, type PngScope } from "@/components/keychain-builder/render/renderPng";
 import { useLoadDesign } from "@/components/keychain-builder/hooks/useLoadDesign";
+import { trackKeychainAction } from "@/utils/keychainAnalytics";
 
 export function KeychainBuilder() {
 	const [config, dispatch, session] = useKeychainState();
@@ -26,6 +27,9 @@ export function KeychainBuilder() {
 	const [exportOpen, setExportOpen] = useState(false);
 	const { exportDesign, status: exportStatus, error: exportError, link: exportLink } = useExportDesign();
 	const imageUrl = config.front.url || null;
+	const onRing = (ringId: string) => { dispatch({ type: "select-ring", ringId }); trackKeychainAction("keychain_ring_selected", { ring_id: ringId }); };
+	const onFrame = (frameId: string) => { dispatch({ type: "select-frame", frameId }); trackKeychainAction("keychain_shape_selected", { shape_type: "frame" }); };
+	const onAcrylic = (acrylicId: typeof config.acrylicId) => { dispatch({ type: "select-acrylic", acrylicId }); trackKeychainAction("keychain_acrylic_selected", { acrylic_id: acrylicId }); };
 	useEffect(() => { if (router.isReady && typeof designId === "string") void load(designId, dispatch); }, [designId, dispatch, load, router.isReady]);
 	const onImage = (file?: File) => {
 		if (!file) return;
@@ -33,7 +37,7 @@ export function KeychainBuilder() {
 			window.alert("Chọn ảnh PNG, JPEG hoặc WebP tối đa 10 MB.");
 			return;
 		}
-		void upload(file).then((face) => { if (face) dispatch({ type: "set-face", face: "front", value: face }); });
+		void upload(file).then((face) => { if (face) { dispatch({ type: "set-face", face: "front", value: face }); trackKeychainAction("keychain_image_upload", { result: "success" }); } else trackKeychainAction("keychain_image_upload", { result: "error" }); });
 	};
 	const onExport = async (scope: PngScope, scale: PngScale) => {
 		if (uploadStatus === "uploading") return;
@@ -47,7 +51,8 @@ export function KeychainBuilder() {
 				const image = url ? await loadSanityImage(url) : undefined;
 				return renderShowcasePng(frame, config, image, scale, scope, session.view);
 			});
-		} catch { /* error is surfaced by the export status hook */ }
+			trackKeychainAction("keychain_export", { variant: scope, scale, result: "success" });
+		} catch { trackKeychainAction("keychain_export", { variant: scope, scale, result: "error" }); }
 	};
 	if (typeof designId === "string" && loadStatus !== "loaded") {
 		return <Container maxWidth="md" sx={{ py: 6, minHeight: "50vh" }}>
@@ -62,19 +67,19 @@ export function KeychainBuilder() {
 					</Box>
 					<Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "minmax(0, 1.3fr) minmax(340px, .9fr)" }, gap: 2, alignItems: "start" }}>
 						<Paper aria-label="Bản xem trước móc khóa" sx={{ position: { md: "sticky" }, top: 88, minHeight: 380, bgcolor: "#1b1c23", color: "inherit", p: 3 }}>
-							<Preview2D config={config} view={session.view} dispatch={dispatch} />
+							<Preview2D config={config} view={session.view} dispatch={(action) => { dispatch(action); if (action.type === "set-view") trackKeychainAction("keychain_view_change", { mode: "2d" }); }} />
 							<Button sx={{ mt: 1 }} onClick={() => dispatch({ type: "reset" })}>Đặt lại toàn bộ</Button>
 						</Paper>
 						<Stack spacing={2}>
-							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">01 · Hình dáng & móc</Typography><AppearanceControls section="shape" config={config} onRing={(ringId) => dispatch({ type: "select-ring", ringId })} onFrame={(frameId) => dispatch({ type: "select-frame", frameId })} onSize={(sizeCm) => dispatch({ type: "set-size", sizeCm })} onAcrylic={(acrylicId) => dispatch({ type: "select-acrylic", acrylicId })} onOpaque={setPendingAcrylic} onMaterial={(material) => dispatch({ type: "set-material", material })} /></Paper>
+							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">01 · Hình dáng & móc</Typography><AppearanceControls section="shape" config={config} onRing={onRing} onFrame={onFrame} onSize={(sizeCm) => dispatch({ type: "set-size", sizeCm })} onAcrylic={onAcrylic} onOpaque={setPendingAcrylic} onMaterial={(material) => dispatch({ type: "set-material", material })} /></Paper>
 							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">02 · Ảnh mặt trước</Typography><ImageUpload status={uploadStatus} error={uploadError} hasImage={Boolean(imageUrl)} onSelect={onImage} onRemove={() => dispatch({ type: "set-face", face: "front", value: { transform: config.front.transform } })} /></Paper>
-							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">03 · Mặt sau</Typography><BackControls acrylicId={config.acrylicId} backMode={config.backMode} hasCustomImage={Boolean(config.backCustom?.url)} onModeChange={(backMode) => dispatch({ type: "set-back-mode", backMode })} onUpload={(file) => { if (file) void upload(file).then((face) => { if (face) dispatch({ type: "set-face", face: "backCustom", value: face }); }); }} /></Paper>
-							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">04 · Màu mica</Typography><AppearanceControls section="material" config={config} onRing={(ringId) => dispatch({ type: "select-ring", ringId })} onFrame={(frameId) => dispatch({ type: "select-frame", frameId })} onSize={(sizeCm) => dispatch({ type: "set-size", sizeCm })} onAcrylic={(acrylicId) => dispatch({ type: "select-acrylic", acrylicId })} onOpaque={setPendingAcrylic} onMaterial={(material) => dispatch({ type: "set-material", material })} /></Paper>
+							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">03 · Mặt sau</Typography><BackControls acrylicId={config.acrylicId} backMode={config.backMode} hasCustomImage={Boolean(config.backCustom?.url)} onModeChange={(backMode) => { dispatch({ type: "set-back-mode", backMode }); trackKeychainAction("keychain_back_mode", { mode: backMode }); }} onUpload={(file) => { if (file) void upload(file).then((face) => { if (face) { dispatch({ type: "set-face", face: "backCustom", value: face }); trackKeychainAction("keychain_custom_back", { result: "success" }); } }); }} /></Paper>
+							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">04 · Màu mica</Typography><AppearanceControls section="material" config={config} onRing={onRing} onFrame={onFrame} onSize={(sizeCm) => dispatch({ type: "set-size", sizeCm })} onAcrylic={onAcrylic} onOpaque={setPendingAcrylic} onMaterial={(material) => dispatch({ type: "set-material", material })} /></Paper>
 							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">05 · Xuất PNG</Typography><Typography color="grey.400" sx={{ mt: 1 }}>PNG dùng để giới thiệu ý tưởng, không phải file sản xuất.</Typography><Button variant="contained" disabled={typeof designId === "string" && loadStatus !== "loaded"} onClick={() => setExportOpen(true)} sx={{ mt: 2, minHeight: 48 }}>Xuất PNG</Button></Paper>
 						</Stack>
 					</Box>
 				</Stack>
-				<OpaqueAcrylicDialog acrylicId={pendingAcrylic} onCancel={() => setPendingAcrylic(null)} onConfirm={(acrylicId) => { dispatch({ type: "confirm-opaque", acrylicId }); setPendingAcrylic(null); }} />
+				<OpaqueAcrylicDialog acrylicId={pendingAcrylic} onCancel={() => setPendingAcrylic(null)} onConfirm={(acrylicId) => { dispatch({ type: "confirm-opaque", acrylicId }); trackKeychainAction("keychain_acrylic_transition", { acrylic_id: acrylicId, print_sides: 1, result: "confirmed" }); setPendingAcrylic(null); }} />
 				<ExportDialog open={exportOpen} busy={exportStatus === "pending" || uploadStatus === "uploading"} error={uploadStatus === "uploading" ? "Đợi tải ảnh lên hoàn tất trước khi xuất." : exportError} link={exportLink} onClose={() => setExportOpen(false)} onExport={(scope, scale) => void onExport(scope, scale)} />
 			</Container>
 		</Box>

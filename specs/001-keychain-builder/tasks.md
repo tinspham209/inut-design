@@ -98,7 +98,7 @@ description: "Implementation tasks for the Keychain Builder feature"
 - [ ] T037 [US2] Add front/back preview switching while keeping the custom back at the user-authored orientation in `components/keychain-builder/preview/Preview2D.tsx`
 - [X] T038 [US2] Apply the selected back mode and opaque material to PNG output without rendering hidden custom-back art for opaque acrylic in `components/keychain-builder/render/renderPng.ts`
 - [ ] T039 [US2] Enforce every acrylic/print-side/back-mode pair and custom-back requirements before UI transitions and submission in `utils/keychain/validation.ts`
-- [ ] T040 [US2] Track back-mode, print-side, custom-back, and acrylic-transition actions exactly once with allow-listed parameters in `utils/keychainAnalytics.ts`
+- [X] T040 [US2] Track back-mode, print-side, custom-back, and acrylic-transition actions exactly once with allow-listed parameters in `utils/keychainAnalytics.ts`
 
 **Checkpoint**: US2 satisfies all clear/opaque state transitions and preserves hidden custom-back edits for reuse.
 
@@ -173,9 +173,9 @@ description: "Implementation tasks for the Keychain Builder feature"
 - [X] T073 [US5] Restore front, custom back, acrylic/material, shape, transforms, and image references from a valid snapshot without patching the source document in `components/keychain-builder/hooks/useLoadDesign.ts`
 - [X] T074 [US5] Keep editing session-only: remove all design/link/image persistence from browser storage while allowing an explicit exported URL to hydrate once in `components/keychain-builder/hooks/useKeychainState.ts`
 - [X] T075 [US5] Show unavailable/deleted/invalid link errors and a clear “start new design” path without rendering stale or partial configuration in `components/keychain-builder/KeychainBuilder.tsx`
-- [ ] T076 [US5] Sanitize keychain page paths, query strings, referrers, asset URLs, design IDs, and request/link identifiers in `utils/keychain/privacy.ts`
-- [ ] T077 [US5] Integrate keychain-safe URLs into initial and SPA GA4/GTM page views without adding duplicate page-view events in `pages/_app.tsx` and `components/scripts/google-tag-manager.tsx`
-- [ ] T078 [US5] Integrate keychain-safe Umami and Vercel page/location behavior while preserving analytics-disabled operation in `pages/_app.tsx` and `pages/_document.tsx`
+- [X] T076 [US5] Sanitize keychain page paths, query strings, referrers, asset URLs, design IDs, and request/link identifiers in `utils/keychain/privacy.ts`
+- [X] T077 [US5] Integrate keychain-safe URLs into initial and SPA GA4/GTM page views without adding duplicate page-view events in `pages/_app.tsx` and `components/scripts/google-tag-manager.tsx`
+- [X] T078 [US5] Integrate keychain-safe Umami and Vercel page/location behavior while preserving analytics-disabled operation in `pages/_app.tsx` and `pages/_document.tsx`
 
 **Checkpoint**: Export creates immutable, retry-safe snapshots; links restore clean sessions; analytics never emit images, URLs, links, design IDs, or query data.
 

@@ -165,11 +165,17 @@ export const CREATIVA_TELEMETRY_BOOTSTRAP = `
     try { return /^(?:\\/(?:api\\/)?creativa(?:\\/|$)|\\/_next\\/data\\/[^/]+\\/creativa(?:\\/|$))/.test(new URL(url, location.origin).pathname); }
     catch (_) { return false; }
   }
+  function keychain(url) {
+    try { return /^\/builder\/keychain(?:\/|$)/.test(new URL(url, location.origin).pathname); }
+    catch (_) { return false; }
+  }
   function safe(url) {
     if (!url) return url;
     try {
       var parsed = new URL(url, location.origin);
-      if (creator(url)) {
+      if (keychain(location.pathname) || keychain(url)) {
+        parsed.search = ''; parsed.hash = '';
+      } else if (creator(url)) {
         parsed.pathname = parsed.pathname.replace(/^(\\/creativa\\/order-tracking)\\/[^/]+\\/?$/, '$1/[id]');
         parsed.pathname = parsed.pathname.replace(/^(\\/api\\/creativa\\/orders)\\/[A-Za-z0-9_-]{10}\\/?$/, '$1/[id]');
         parsed.pathname = parsed.pathname.replace(/^(\\/_next\\/data\\/[^/]+\\/creativa\\/order-tracking)\\/[^/]+\\.json$/, '$1/[id].json');
@@ -179,7 +185,7 @@ export const CREATIVA_TELEMETRY_BOOTSTRAP = `
     } catch (_) { return '/creativa'; }
   }
   window.creativaSafeUrl = safe;
-  if (creator(location.pathname) && window.creativaGoogleId && typeof window.gtag !== 'function') {
+  if ((creator(location.pathname) || keychain(location.pathname)) && window.creativaGoogleId && typeof window.gtag !== 'function') {
     window.dataLayer = window.dataLayer || [];
     window.gtag = function () { window.dataLayer.push(arguments); };
     window.gtag('consent', 'default', {analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
@@ -187,7 +193,7 @@ export const CREATIVA_TELEMETRY_BOOTSTRAP = `
     window.gtag('config', window.creativaGoogleId, {send_page_view:false,page_location:safe(location.href),page_referrer:safe(document.referrer)});
   }
   window.creativaBeforeSend = function (type, payload) {
-    var own = creator(location.pathname) || creator(payload.url || '');
+    var own = creator(location.pathname) || creator(payload.url || '') || keychain(location.pathname) || keychain(payload.url || '');
     if (own) {
       if (window.creativaUmamiEnabled === false) return false;
       try {
@@ -199,6 +205,7 @@ export const CREATIVA_TELEMETRY_BOOTSTRAP = `
       if (payload.data) {
         Object.keys(payload.data).forEach(function (key) {
           if (/customer|phone|email|address|note|capability|public.?id|order.?id|order.?number|search.?term|idempotency|print.?asset|production|fit.?reference|artwork|account.?number|account.?holder|account.?name|transfer.?content|transfer.?context/i.test(key)) delete payload.data[key];
+          if (keychain(location.pathname) && !/^(ring_id|shape_type|acrylic_id|print_sides|mode|variant|scale|result)$/.test(key)) delete payload.data[key];
         });
       }
     }

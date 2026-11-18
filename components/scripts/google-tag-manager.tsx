@@ -31,7 +31,7 @@ export function GoogleTagSchema() {
 									page_path: window.creativaSafeUrl ? window.creativaSafeUrl(window.location.pathname) : window.location.pathname,
 									page_location: window.creativaSafeUrl ? window.creativaSafeUrl(window.location.href) : window.location.href,
 									page_referrer: window.creativaSafeUrl ? window.creativaSafeUrl(document.referrer) : document.referrer,
-									send_page_view: !/^\\/creativa(?:\\/|$)/.test(window.location.pathname),
+									send_page_view: !/^\\/creativa(?:\\/|$)/.test(window.location.pathname) && !/^\\/builder\\/keychain(?:\\/|$)/.test(window.location.pathname),
 								});
 							`,
 						}}

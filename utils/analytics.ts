@@ -26,6 +26,7 @@ import {
 } from "./engagementScore";
 import envConst from "./env-const";
 import { CREATIVA_PRIVATE_PROPERTY, isCreativaPath, safeCreativaUrl } from "./creativa/privacy";
+import { isKeychainPath, safeKeychainUrl, sanitizeKeychainProperties } from "./keychain/privacy";
 import {
 	trackUmamiAbandonedCheckout,
 	trackUmamiAddToCart,
@@ -94,6 +95,12 @@ export const gtag = (...args: any[]): void => {
 				parameters.page_title = "Tra cứu đơn hàng — INUT Creativa";
 			}
 			args[2] = parameters;
+		} else if (args[0] === "event" && isKeychainPath(window.location.pathname)) {
+			const parameters: GAEventParams = sanitizeKeychainProperties({ ...(args[2] || {}) }) as GAEventParams;
+			parameters.page_path = safeKeychainUrl(window.location.pathname);
+			parameters.page_location = safeKeychainUrl(window.location.href);
+			parameters.page_referrer = safeKeychainUrl(document.referrer || "");
+			args[2] = parameters;
 		}
 	}
 	if (isGtagAvailable()) {
@@ -109,18 +116,19 @@ export const gtag = (...args: any[]): void => {
  * @param title - Optional page title
  */
 export const trackPageView = (url: string, title?: string): void => {
+	const safeUrl = isKeychainPath(url) ? safeKeychainUrl(url) : url;
 	gtag("event", "page_view", {
-		page_path: url,
+		page_path: safeUrl,
 		page_title: title || document.title,
-		page_location: window.location.href,
+		page_location: isKeychainPath(url) ? safeKeychainUrl(window.location.href) : window.location.href,
 	});
 
 	// Track to Umami
-	trackUmamiPageView(url, title);
+	trackUmamiPageView(safeUrl, title);
 
 	// Track to DataLayer with enhanced data
 	pushCustomEvent("page_view", {
-		page_path: url,
+		page_path: safeUrl,
 		page_title: title || document.title,
 		user_type: getUserType(),
 		device_type: getDeviceType(),

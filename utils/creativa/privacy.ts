@@ -12,7 +12,11 @@ export function safeCreativaUrl(input: string): string {
 		const creator =
 			/^\/(?:api\/)?creativa(?:\/|$)/.test(url.pathname) ||
 			/^\/_next\/data\/[^/]+\/creativa(?:\/|$)/.test(url.pathname);
-		if (creator) {
+		const keychain = /^\/builder\/keychain(?:\/|$)/.test(url.pathname);
+		if (keychain) {
+			url.search = "";
+			url.hash = "";
+		} else if (creator) {
 			url.pathname = url.pathname
 				.replace(/^(\/creativa\/order-tracking)\/[^/]+\/?$/, "$1/[id]")
 				.replace(/^(\/api\/creativa\/orders)\/[A-Za-z0-9_-]{10}\/?$/, "$1/[id]")

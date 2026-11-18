@@ -308,3 +308,24 @@ Earlier seventeen contract groups, current parser parity and local destination
 captures do not prove hosted delivery, container exclusions or host-log privacy.
 Remaining witnesses and all requirement/AC results are recorded in the
 [final verification report](../tasks/creativa/final-verification.md).
+# Keychain Builder privacy checks
+
+Keychain route analytics must use the query-free `/builder/keychain` URL. The
+`design` query, Sanity asset URL, design ID, uploaded image, and request ID are
+never event properties. Keychain action properties are restricted to the
+catalog/mode fields in `utils/keychain/privacy.ts`; GA4 and Umami use the
+existing wrappers, while Vercel URL reporting is sanitized through the shared
+URL policy. The Umami before-send bootstrap runs before the deferred analytics
+script.
+
+Run focused static checks with:
+
+```sh
+rtk proxy node --test --import ./scripts/register-typescript-loader.mjs ./scripts/tests/keychain-privacy.test.mjs
+```
+
+Before release, capture GA4/GTM, Umami, and Vercel requests on initial load and
+SPA navigation with a synthetic `?design=<uuid>` value. Confirm the outbound
+payload contains only the path and no query, referrer query, Sanity URL, design
+ID, request ID, or image bytes. Repeat with analytics disabled. A static test
+does not replace this browser network verification.
