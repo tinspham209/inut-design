@@ -12,7 +12,6 @@ export function KeychainBuilder() {
 	const { upload, status: uploadStatus, error: uploadError } = useImageUpload();
 	const imageUrl = config.front.url || null;
 	const selectedFrame = useMemo(() => FRAMES.find((frame) => frame.id === (config.shape.type === "frame" ? config.shape.frameId : "heart")), [config.shape]);
-	const selectedAcrylic = ACRYLICS.find((item) => item.id === config.acrylicId)!;
 	const onImage = (file?: File) => {
 		if (!file) return;
 		if (!/^image\/(png|jpeg|webp)$/.test(file.type) || file.size > 10 * 1024 * 1024) {
@@ -31,10 +30,9 @@ export function KeychainBuilder() {
 							<Box sx={{ position: "relative", width: "min(68vw, 320px)", aspectRatio: "1 / 1.12", display: "grid", placeItems: "center" }}>
 								{selectedFrame && <img src={selectedFrame.src} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", filter: "drop-shadow(0 16px 24px #0008)" }} />}
 								{imageUrl && <img src={imageUrl} alt="Ảnh thiết kế xem trước" style={{ position: "absolute", width: "56%", height: "62%", objectFit: "cover", borderRadius: 24, mixBlendMode: "multiply" }} />}
-								<div aria-hidden="true" style={{ position: "absolute", inset: "4%", background: selectedAcrylic.color, borderRadius: 40, pointerEvents: "none" }} />
 								<img src={RINGS.find((item) => item.id === config.ringId)?.src} alt="" style={{ position: "absolute", width: "24%", height: "24%", objectFit: "contain", top: "-8%", left: "38%" }} />
 							</Box>
-							<Stack direction="row" spacing={1} sx={{ position: "absolute", left: 16, bottom: 16 }}><Button size="small" variant="contained">Mặt trước</Button><Button size="small" disabled>Mặt sau</Button><Button size="small" disabled>2D</Button><Button size="small" disabled>Fit</Button><Button size="small" onClick={() => dispatch({ type: "reset" })}>Reset</Button></Stack>
+							<Stack direction="row" spacing={1} sx={{ position: "absolute", left: 16, bottom: 16 }}><Button size="small" variant="contained">Mặt trước</Button><Button size="small" disabled sx={{ color: "grey.500" }}>Mặt sau</Button><Button size="small" disabled sx={{ color: "grey.500" }}>2D</Button><Button size="small" disabled sx={{ color: "grey.500" }}>Fit</Button><Button size="small" sx={{ color: "white" }} onClick={() => dispatch({ type: "reset" })}>Reset</Button></Stack>
 						</Paper>
 						<Stack spacing={2}>
 							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">01 · Hình dáng & móc</Typography><Stack spacing={2} sx={{ mt: 2 }}>
