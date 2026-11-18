@@ -38,8 +38,8 @@ description: "Implementation tasks for the Keychain Builder feature"
 
 **CRITICAL**: Complete this phase before beginning any user-story phase.
 
-- [ ] T006 Define `KeychainConfig`, face, transform, material, shape, geometry, revision, and API response types in `components/keychain-builder/types.ts`
-- [ ] T007 [P] Define the 18 frame records, demo metadata, estimated anchors, and 30–100 mm constraints in `data/keychain/frames.ts`
+- [X] T006 Define `KeychainConfig`, face, transform, material, shape, geometry, revision, and API response types in `components/keychain-builder/types.ts`
+- [X] T007 [P] Define the 18 frame records, demo metadata, estimated anchors, and 30–100 mm constraints in `data/keychain/frames.ts`
 - [X] T008 [P] Define the 10 ring records, eight acrylic options, size catalog, and public asset paths in `data/keychain/catalog.ts`
 - [ ] T009 [P] Implement finite-number bounds, catalog lookups, transform limits, and legal acrylic/side/back-mode validation in `utils/keychain/validation.ts`
 - [ ] T010 Implement the in-memory reducer with initial clear acrylic, one-sided front design, view selection, and revision counters in `components/keychain-builder/hooks/useKeychainState.ts`

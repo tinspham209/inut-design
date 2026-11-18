@@ -8,6 +8,10 @@ export type KeychainConfig = {
 	printSides: 1 | 2; backMode: BackMode; front: ImageFace; backCustom?: ImageFace;
 	material: { edge: string; thicknessMm: number; sheen: number };
 };
+export type KeychainGeometry = { cutPath: string; printPath: string; viewBox: [number, number, number, number]; hole: { cx: number; cy: number; radiusMm: 2 }; anchor: { x: number; y: number }; revision: number };
+export type KeychainApiError = { error: string };
+export type KeychainDesignResponse = { id: string; url: string };
+export type OperationRevision = { config: number; frontImage: number; backImage: number; geometry: number };
 export type KeychainAction =
 	| { type: "select-ring"; ringId: string }
 	| { type: "select-frame"; frameId: string }
