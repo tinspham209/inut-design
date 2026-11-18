@@ -13,7 +13,9 @@ export function keychainReducer(state: KeychainConfig, action: KeychainAction): 
 		case "select-ring": return { ...state, ringId: action.ringId };
 		case "select-frame": return { ...state, shape: { type: "frame", frameId: action.frameId } };
 		case "set-size": return { ...state, sizeCm: action.sizeCm };
-		case "select-acrylic": return { ...state, acrylicId: action.acrylicId };
+		case "select-acrylic": return action.acrylicId === "clear"
+			? { ...state, acrylicId: "clear", printSides: 1, backMode: "through-acrylic" }
+			: { ...state, acrylicId: action.acrylicId, printSides: 1, backMode: "material" };
 		case "confirm-opaque": return { ...state, acrylicId: action.acrylicId, printSides: 1, backMode: "material" };
 		case "set-back-mode": return { ...state, backMode: action.backMode, printSides: action.backMode === "mirror-front" || action.backMode === "custom" ? 2 : 1 };
 		case "set-print-sides": return { ...state, printSides: action.printSides, backMode: action.printSides === 1 ? "through-acrylic" : "mirror-front" };
