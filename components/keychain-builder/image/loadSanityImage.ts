@@ -1,5 +1,14 @@
+const imageCache = new Map<string, Promise<HTMLImageElement>>();
 export async function loadSanityImage(url: string): Promise<HTMLImageElement> {
 	if (typeof window === "undefined") throw new Error("Ảnh chỉ tải được trong trình duyệt");
+	const cached = imageCache.get(url);
+	if (cached) return cached;
+	const pending = load(url);
+	imageCache.set(url, pending);
+	try { return await pending; } catch (error) { imageCache.delete(url); throw error; }
+}
+
+async function load(url: string): Promise<HTMLImageElement> {
 	const candidates = [url, url.includes("?") ? `${url}&fm=jpg` : `${url}?fm=jpg`];
 	let lastError: unknown;
 	for (const candidate of candidates) {

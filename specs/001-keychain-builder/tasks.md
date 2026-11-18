@@ -65,14 +65,14 @@ description: "Implementation tasks for the Keychain Builder feature"
 - [X] T017 [P] [US1] Build five numbered control groups in mockup order—shape/ring, front image, back, acrylic, Export—and expose ring, frame, size, eight acrylic options, edge, thickness, and sheen in `components/keychain-builder/controls/AppearanceControls.tsx`
 - [X] T018 [P] [US1] Build a validated client upload input and progress/error presentation for PNG, JPEG, and WebP in `components/keychain-builder/controls/ImageUpload.tsx`
 - [X] T019 [US1] Implement bounded 2D image pan, scale, rotate, flip controls, Fit, and Reset in `components/keychain-builder/hooks/useImageTransform.ts`
-- [ ] T020 [US1] Create the mockup-style canvas editor with front/back and 2D/3D toolbar slots, left-side edit tools, Fit/Reset controls, touch pointer capture isolated from page scrolling, and keyboard alternatives in `components/keychain-builder/preview/Preview2D.tsx`
+- [X] T020 [US1] Create the mockup-style canvas editor with front/back and 2D/3D toolbar slots, left-side edit tools, Fit/Reset controls, touch pointer capture isolated from page scrolling, and keyboard alternatives in `components/keychain-builder/preview/Preview2D.tsx`
 - [X] T021 [US1] Render frame cut/print/hole geometry at physical proportions with the selected acrylic material in `components/keychain-builder/render/render2d.ts`
 - [ ] T022 [US1] Clip the transformed front image to the print region and composit the ring outside the charm without distorting the 4 mm hole in `components/keychain-builder/render/render2d.ts`
 - [X] T023 [US1] Implement a shared anonymous-CORS Sanity image loader with negotiated-format fallback for iOS and rejection of tainted canvases in `components/keychain-builder/image/loadSanityImage.ts`, then reuse it from `components/keychain-builder/hooks/useImageUpload.ts`
 - [ ] T024 [US1] Implement `POST /api/keychain/uploads` with 10 MB/body limits, real image validation, process rate limiting, no sensitive logging, and a `200` response containing the Sanity image object plus an immediately usable public preview URL in `pages/api/keychain/uploads.ts`
 - [X] T025 [US1] Add typed upload calls, the `{ image, url }` response shape, and safe response/error mapping in `api-client/keychain.ts`
 - [X] T026 [US1] Render a viewport-independent PNG with transparent exterior, 100 px/cm baseline, 1x/2x/3x scaling, and full-keychain/charm-only scopes in `components/keychain-builder/render/renderPng.ts`
-- [ ] T027 [US1] Add PNG scope/scale selection, download state, and resource-limit fallback messaging in `components/keychain-builder/ExportDialog.tsx`
+- [X] T027 [US1] Add PNG scope/scale selection, download state, and resource-limit fallback messaging in `components/keychain-builder/ExportDialog.tsx`
 - [ ] T028 [US1] Wire selection, upload, transform, view, and PNG-download actions to the reducer and safe analytics without duplicate events in `components/keychain-builder/KeychainBuilder.tsx`
 - [ ] T029 [US1] Adapt the mockup to mobile-safe stacked flow with preview first, ordered controls second, an accessible non-obscuring Export action, 44 px targets, 16 px inputs, safe-area spacing, and explicit illustration/non-production notices in `components/keychain-builder/KeychainBuilder.tsx`
 
@@ -162,13 +162,13 @@ description: "Implementation tasks for the Keychain Builder feature"
 - [ ] T062 [US5] Register `keychainDesign` without altering existing lighter schemas in `sanity/schemas/schema.js`
 - [ ] T063 [US5] Implement strict server config, UUID, image-reference, finite-bound, and 4 mm-hole validation using shared catalog/version rules in `utils/keychain/serverValidation.ts`
 - [ ] T064 [US5] Implement deterministic request fingerprinting that excludes transient view/camera state in `utils/keychain/requestFingerprint.ts`
-- [ ] T065 [US5] Add server-only immutable create-if-absent, request replay comparison, and direct-read helpers in `api-client/keychain-server.ts`
-- [ ] T066 [US5] Implement `POST /api/keychain/designs` with `201`, `400`, `409`, `413`, `429`, and `500` contracts plus retry idempotency in `pages/api/keychain/designs/index.ts`
-- [ ] T067 [US5] Implement `GET /api/keychain/designs/[id]` with direct Sanity reads, `Cache-Control: no-store`, `400`, `404`, and `500` behavior in `pages/api/keychain/designs/[id].ts`
-- [ ] T068 [US5] Add typed snapshot create/read methods and Vietnamese retryable error mapping in `api-client/keychain.ts`
-- [ ] T069 [US5] Implement one Export action that waits for uploads and latest geometry, saves the snapshot before returning a link, and downloads the already-rendered PNG only after success in `components/keychain-builder/hooks/useExportDesign.ts`
-- [ ] T070 [US5] Generate one random request UUID per Export action and reuse it only for retries of that unchanged fingerprint in `components/keychain-builder/hooks/useExportDesign.ts`
-- [ ] T071 [US5] Add copy/open link controls and never show a link as successful before the POST snapshot response in `components/keychain-builder/ExportDialog.tsx`
+- [X] T065 [US5] Add server-only immutable create-if-absent, request replay comparison, and direct-read helpers in `api-client/keychain-server.ts`
+- [X] T066 [US5] Implement `POST /api/keychain/designs` with `201`, `400`, `409`, `413`, `429`, and `500` contracts plus retry idempotency in `pages/api/keychain/designs/index.ts`
+- [X] T067 [US5] Implement `GET /api/keychain/designs/[id]` with direct Sanity reads, `Cache-Control: no-store`, `400`, `404`, and `500` behavior in `pages/api/keychain/designs/[id].ts`
+- [X] T068 [US5] Add typed snapshot create/read methods and Vietnamese retryable error mapping in `api-client/keychain.ts`
+- [X] T069 [US5] Implement one Export action that waits for uploads and latest geometry, saves the snapshot before returning a link, and downloads the already-rendered PNG only after success in `components/keychain-builder/hooks/useExportDesign.ts`
+- [X] T070 [US5] Generate one random request UUID per Export action and reuse it only for retries of that unchanged fingerprint in `components/keychain-builder/hooks/useExportDesign.ts`
+- [X] T071 [US5] Add copy/open link controls and never show a link as successful before the POST snapshot response in `components/keychain-builder/ExportDialog.tsx`
 - [ ] T072 [US5] Read `?design=<id>` on route entry and load snapshot data into a new session with 2D selected by default in `components/keychain-builder/hooks/useLoadDesign.ts`
 - [ ] T073 [US5] Restore front, custom back, acrylic/material, shape, transforms, and image references from a valid snapshot without patching the source document in `components/keychain-builder/hooks/useLoadDesign.ts`
 - [ ] T074 [US5] Keep editing session-only: remove all design/link/image persistence from browser storage while allowing an explicit exported URL to hydrate once in `components/keychain-builder/hooks/useKeychainState.ts`
