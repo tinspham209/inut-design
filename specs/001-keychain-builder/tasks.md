@@ -89,8 +89,8 @@ description: "Implementation tasks for the Keychain Builder feature"
 ### Implementation for User Story 2
 
 - [X] T030 [US2] Add print-side and acrylic-transition reducer actions that preserve front and custom-back image state in `components/keychain-builder/hooks/useKeychainState.ts`
-- [ ] T031 [P] [US2] Build the clear-acrylic side/back-mode controls and disable invalid opaque options in `components/keychain-builder/controls/BackControls.tsx`
-- [ ] T032 [P] [US2] Implement the exact warning copy, cancel, close, and confirm behavior for clear-to-opaque transitions in `components/keychain-builder/controls/OpaqueAcrylicDialog.tsx`
+- [X] T031 [P] [US2] Build the clear-acrylic side/back-mode controls and disable invalid opaque options in `components/keychain-builder/controls/BackControls.tsx`
+- [X] T032 [P] [US2] Implement the exact warning copy, cancel, close, and confirm behavior for clear-to-opaque transitions in `components/keychain-builder/controls/OpaqueAcrylicDialog.tsx`
 - [ ] T033 [US2] Render through-acrylic and mirrored two-sided front art exactly once from the rear in `components/keychain-builder/render/renderModel.ts`
 - [ ] T034 [US2] Render the one-sided white back as a clipped, hole-excluding mask in `components/keychain-builder/render/render2d.ts`
 - [ ] T035 [US2] Add independent back-image upload, source/processed references, transform state, and stale-upload cancellation in `components/keychain-builder/hooks/useBackImage.ts`
