@@ -68,7 +68,7 @@ description: "Implementation tasks for the Keychain Builder feature"
 - [ ] T020 [US1] Create the mockup-style canvas editor with front/back and 2D/3D toolbar slots, left-side edit tools, Fit/Reset controls, touch pointer capture isolated from page scrolling, and keyboard alternatives in `components/keychain-builder/preview/Preview2D.tsx`
 - [ ] T021 [US1] Render frame cut/print/hole geometry at physical proportions with the selected acrylic material in `components/keychain-builder/render/render2d.ts`
 - [ ] T022 [US1] Clip the transformed front image to the print region and composit the ring outside the charm without distorting the 4 mm hole in `components/keychain-builder/render/render2d.ts`
-- [ ] T023 [US1] Implement a shared anonymous-CORS Sanity image loader with negotiated-format fallback for iOS and rejection of tainted canvases in `components/keychain-builder/image/loadSanityImage.ts`, then reuse it from `components/keychain-builder/hooks/useImageUpload.ts`
+- [X] T023 [US1] Implement a shared anonymous-CORS Sanity image loader with negotiated-format fallback for iOS and rejection of tainted canvases in `components/keychain-builder/image/loadSanityImage.ts`, then reuse it from `components/keychain-builder/hooks/useImageUpload.ts`
 - [ ] T024 [US1] Implement `POST /api/keychain/uploads` with 10 MB/body limits, real image validation, process rate limiting, no sensitive logging, and a `200` response containing the Sanity image object plus an immediately usable public preview URL in `pages/api/keychain/uploads.ts`
 - [X] T025 [US1] Add typed upload calls, the `{ image, url }` response shape, and safe response/error mapping in `api-client/keychain.ts`
 - [ ] T026 [US1] Render a viewport-independent PNG with transparent exterior, 100 px/cm baseline, 1x/2x/3x scaling, and full-keychain/charm-only scopes in `components/keychain-builder/render/renderPng.ts`
@@ -91,7 +91,7 @@ description: "Implementation tasks for the Keychain Builder feature"
 - [X] T030 [US2] Add print-side and acrylic-transition reducer actions that preserve front and custom-back image state in `components/keychain-builder/hooks/useKeychainState.ts`
 - [X] T031 [P] [US2] Build the clear-acrylic side/back-mode controls and disable invalid opaque options in `components/keychain-builder/controls/BackControls.tsx`
 - [X] T032 [P] [US2] Implement the exact warning copy, cancel, close, and confirm behavior for clear-to-opaque transitions in `components/keychain-builder/controls/OpaqueAcrylicDialog.tsx`
-- [ ] T033 [US2] Render through-acrylic and mirrored two-sided front art exactly once from the rear in `components/keychain-builder/render/renderModel.ts`
+- [X] T033 [US2] Render through-acrylic and mirrored two-sided front art exactly once from the rear in `components/keychain-builder/render/renderModel.ts`
 - [ ] T034 [US2] Render the one-sided white back as a clipped, hole-excluding mask in `components/keychain-builder/render/render2d.ts`
 - [ ] T035 [US2] Add independent back-image upload, source/processed references, transform state, and stale-upload cancellation in `components/keychain-builder/hooks/useBackImage.ts`
 - [ ] T036 [US2] Build back-image cropping controls, crop warning, and separate edit/reset actions in `components/keychain-builder/controls/BackImageEditor.tsx`

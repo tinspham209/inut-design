@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { uploadKeychainImage } from "@/api-client/keychain";
 import type { ImageFace } from "../types";
+import { loadSanityImage } from "../image/loadSanityImage";
 
 export function useImageUpload() {
 	const [status, setStatus] = useState<"idle" | "uploading" | "error">("idle");
@@ -9,6 +10,7 @@ export function useImageUpload() {
 		setStatus("uploading"); setError(null);
 		try {
 			const result = await uploadKeychainImage(file);
+			await loadSanityImage(result.url);
 			setStatus("idle");
 			return { image: result.image, url: result.url, transform: { xMm: 0, yMm: 0, scale: 1, rotation: 0, flipX: false } };
 		} catch (reason) {
