@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { loadSanityImage } from "@/components/keychain-builder/image/loadSanityImage";
 import { extractImageAlpha } from "@/components/keychain-builder/geometry/imageAlpha";
-import type { DieCutGeometry } from "@/components/keychain-builder/geometry/dieCut";
+import { isLatestGeometryRevision, type DieCutGeometry } from "@/components/keychain-builder/geometry/dieCut";
 import type { KeychainConfig } from "@/components/keychain-builder/types";
 
 export type DieCutStatus = "idle" | "processing" | "ready" | "error";
@@ -24,7 +24,7 @@ export function useDieCutGeometry(config: KeychainConfig, revision: number) {
 			const mask = extractImageAlpha(image, 2048, 16, { rotation: transform.rotation, flipX: transform.flipX });
 			worker = new Worker(new URL("../geometry/dieCut.worker.ts", import.meta.url), { type: "module" });
 			worker.onmessage = (event: MessageEvent<{ revision: number; geometry?: DieCutGeometry; error?: string }>) => {
-				if (!active || event.data.revision !== current || current !== latest.current) return;
+				if (!active || !isLatestGeometryRevision(event.data.revision, current) || !isLatestGeometryRevision(current, latest.current)) return;
 				if (timeout) clearTimeout(timeout);
 				worker?.terminate();
 				setResult(event.data.geometry ? { status: "ready", revision, geometry: event.data.geometry } : { status: "error", revision, error: event.data.error || "Không thể tạo đường cắt." });

@@ -5,6 +5,9 @@ export type ContourResult = { points: Point[]; areaPx: number; bounds: { minX: n
 export type DieCutGeometry = ContourResult & { hole: { cx: number; cy: number; radiusMm: 2 }; outerPath: string; path: string };
 
 const key = (point: Point) => `${point.x},${point.y}`;
+export function isLatestGeometryRevision(resultRevision: number, currentRevision: number) {
+	return Number.isInteger(resultRevision) && resultRevision >= 0 && resultRevision === currentRevision;
+}
 function signedArea(points: Point[]) { let area = 0; for (let i = 0; i < points.length; i += 1) { const a = points[i]; const b = points[(i + 1) % points.length]; area += a.x * b.y - b.x * a.y; } return area / 2; }
 
 function countComponents(mask: AlphaMask) {

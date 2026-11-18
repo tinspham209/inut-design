@@ -1,0 +1,42 @@
+{
+  "generated": "synthetic RGBA; no personal imagery",
+  "width": 64,
+  "height": 64,
+  "images": {
+    "opaque-square": "one opaque component",
+    "transparent-blob": "one transparent-background component",
+    "empty-alpha": "fully transparent; reject",
+    "multi-island": "two disconnected islands; reject",
+    "asymmetric-arrow": "asymmetric silhouette for orientation checks"
+  },
+  "acrylicIds": [
+    "clear",
+    "red",
+    "yellow",
+    "orange",
+    "green",
+    "blue",
+    "white",
+    "black"
+  ],
+  "sizesCm": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "retryFingerprints": [
+    {
+      "requestId": "bf9ab3f4-64b2-4f1c-b66d-0a272c7cce6d",
+      "configVariant": "same retry"
+    },
+    {
+      "requestId": "bf9ab3f4-64b2-4f1c-b66d-0a272c7cce6d",
+      "configVariant": "changed payload conflict"
+    }
+  ]
+}

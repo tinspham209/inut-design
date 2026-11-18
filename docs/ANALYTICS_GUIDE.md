@@ -2,6 +2,38 @@
 
 A single, comprehensive reference for Google Analytics 4 (GA4), Google Tag Manager (GTM), and Umami.js setup, architecture, implementation, and troubleshooting for the Inut Design e-commerce platform.
 
+## Keychain Builder verification
+
+Keychain tracking is deliberately allow-listed and query-free. Local checks prove
+helper and wrapper behavior only; they do not prove hosted GA4/GTM, Umami or
+Vercel configuration.
+
+Run the focused checks:
+
+```sh
+rtk proxy node --test --import ./scripts/register-typescript-loader.mjs ./scripts/tests/keychain-privacy.test.mjs
+```
+
+For a browser release check, open `/builder/keychain?design=<synthetic-uuid>`
+with DevTools Network capture enabled, then trigger one shape selection, one
+acrylic change, and one export action. Inspect GA4 collect requests, GTM data
+layer requests, Umami requests, and Vercel analytics requests. Confirm each
+action appears no more than once per configured provider and that page location,
+referrer, event parameters, image contents, request ID, design ID, and Sanity
+asset URL are absent. Repeat on initial load and after SPA navigation.
+
+Repeat with GA4/GTM and Umami disabled in the test environment: the page and
+actions must continue to work without a tracker global. Confirm no analytics
+request is sent. For public asset access, upload only a synthetic image in a
+non-production dataset, copy the returned CDN URL, and run
+`curl -I '<asset-url>'` without cookies or authorization headers; record the
+HTTP status and confirm the same URL renders in a clean browser profile. Do not
+paste the URL, query, or image data into analytics evidence.
+
+Evidence status: the local privacy suite passes, but no hosted analytics network
+capture or unauthenticated test-asset request has been recorded. Those checks
+remain pending before public release.
+
 ---
 
 ## 🚀 Quick Start

@@ -7,7 +7,8 @@ import { FRAME_IDS, SIZES_CM } from "../../data/keychain/catalog.ts";
 import { frameScale, holeAtMm, reconstructHole, scaleEnvelope } from "../../components/keychain-builder/geometry/mm.ts";
 import { initialKeychainConfig, keychainReducer } from "../../components/keychain-builder/hooks/useKeychainState.ts";
 import { validateKeychainConfig } from "../../utils/keychain/validation.ts";
-import { createDieCutGeometry, traceDieCut } from "../../components/keychain-builder/geometry/dieCut.ts";
+import { createDieCutGeometry, isLatestGeometryRevision, traceDieCut } from "../../components/keychain-builder/geometry/dieCut.ts";
+import sharp from "sharp";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -21,7 +22,8 @@ test("all 18 demo frames include cut, print, hole, and mm source dimensions", as
 });
 
 test("all supported sizes keep the frame envelope and reconstructed hole physical", () => {
-	for (const sizeCm of SIZES_CM) {
+	for (const frameId of FRAME_IDS) for (const sizeCm of SIZES_CM) {
+		assert.ok(FRAME_IDS.includes(frameId));
 		const scale = frameScale(82, 97, sizeCm);
 		assert.ok(Math.max(82, 97) * scale <= sizeCm * 10 + 1e-9);
 		assert.equal(reconstructHole(10, 12).radiusMm, 2);
@@ -54,12 +56,34 @@ test("die-cut geometry unions a 10 mm ear and keeps the attachment hole at 4 mm"
 	assert.ok(geometry.heightMm > 24 && Math.max(geometry.widthMm, geometry.heightMm) <= 50.01);
 });
 
+test("synthetic alpha fixtures distinguish transparent, empty, multi-island, and asymmetric images", async () => {
+	const fixture = async (name) => {
+		const { data, info } = await sharp(path.join(root, "public/keychain/fixtures", `${name}.png`)).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+		const alpha = new Uint8Array(info.width * info.height);
+		for (let i = 0; i < alpha.length; i += 1) alpha[i] = data[i * info.channels + 3] ? 1 : 0;
+		return { width: info.width, height: info.height, alpha };
+	};
+	const empty = await fixture("empty-alpha"); const multiIsland = await fixture("multi-island");
+	assert.throws(() => traceDieCut(empty, 5), /rỗng/);
+	assert.throws(() => traceDieCut(multiIsland, 5), /nhiều mảnh/);
+	for (const name of ["opaque-square", "transparent-blob", "asymmetric-arrow"]) assert.ok(createDieCutGeometry(await fixture(name), 5).points.length >= 4);
+});
+
 test("config validation rejects unsupported acrylic/back combinations and bad transforms", () => {
 	assert.equal(validateKeychainConfig(initialKeychainConfig), true);
 	assert.equal(validateKeychainConfig({ ...initialKeychainConfig, printSides: 0 }), false);
 	assert.equal(validateKeychainConfig({ ...initialKeychainConfig, backMode: "custom", printSides: 2 }), false);
+	assert.equal(validateKeychainConfig({ ...initialKeychainConfig, backMode: "white", printSides: 1 }), true);
+	assert.equal(validateKeychainConfig({ ...initialKeychainConfig, backMode: "mirror-front", printSides: 2 }), true);
+	for (const acrylicId of ["red", "yellow", "orange", "green", "blue", "white", "black"]) assert.equal(validateKeychainConfig({ ...initialKeychainConfig, acrylicId, backMode: "material", printSides: 1 }), true);
 	assert.equal(validateKeychainConfig({ ...initialKeychainConfig, front: { transform: { xMm: Infinity, yMm: 0, scale: 1, rotation: 0, flipX: false } } }), false);
 	const customBack = { image: { _type: "image", asset: { _ref: "image-demo-200x200-png", _type: "reference" } }, url: "https://cdn.sanity.io/images/p/d/image-demo.png", transform: initialKeychainConfig.front.transform };
 	const clearTwoSide = keychainReducer(initialKeychainConfig, { type: "set-face", face: "backCustom", value: customBack });
 	assert.equal(validateKeychainConfig({ ...clearTwoSide, printSides: 2, backMode: "custom" }), true);
+});
+
+test("worker results publish only for the latest geometry revision", () => {
+	assert.equal(isLatestGeometryRevision(8, 8), true);
+	assert.equal(isLatestGeometryRevision(7, 8), false);
+	assert.equal(isLatestGeometryRevision(-1, 8), false);
 });
