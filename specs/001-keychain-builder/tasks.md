@@ -69,7 +69,7 @@ description: "Implementation tasks for the Keychain Builder feature"
 - [X] T021 [US1] Render frame cut/print/hole geometry at physical proportions with the selected acrylic material in `components/keychain-builder/render/render2d.ts`
 - [ ] T022 [US1] Clip the transformed front image to the print region and composit the ring outside the charm without distorting the 4 mm hole in `components/keychain-builder/render/render2d.ts`
 - [X] T023 [US1] Implement a shared anonymous-CORS Sanity image loader with negotiated-format fallback for iOS and rejection of tainted canvases in `components/keychain-builder/image/loadSanityImage.ts`, then reuse it from `components/keychain-builder/hooks/useImageUpload.ts`
-- [ ] T024 [US1] Implement `POST /api/keychain/uploads` with 10 MB/body limits, real image validation, process rate limiting, no sensitive logging, and a `200` response containing the Sanity image object plus an immediately usable public preview URL in `pages/api/keychain/uploads.ts`
+- [X] T024 [US1] Implement `POST /api/keychain/uploads` with 10 MB/body limits, real image validation, process rate limiting, no sensitive logging, and a `200` response containing the Sanity image object plus an immediately usable public preview URL in `pages/api/keychain/uploads.ts`
 - [X] T025 [US1] Add typed upload calls, the `{ image, url }` response shape, and safe response/error mapping in `api-client/keychain.ts`
 - [X] T026 [US1] Render a viewport-independent PNG with transparent exterior, 100 px/cm baseline, 1x/2x/3x scaling, and full-keychain/charm-only scopes in `components/keychain-builder/render/renderPng.ts`
 - [X] T027 [US1] Add PNG scope/scale selection, download state, and resource-limit fallback messaging in `components/keychain-builder/ExportDialog.tsx`

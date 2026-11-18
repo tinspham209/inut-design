@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { uploadImageAssetToSanity } from "@/api-client/sanity-server";
 import { sanityImageUrl } from "@/api-client/sanity-image";
 import rateLimit, { getRequestRateLimitToken } from "@/utils/rateLimit";
+import { normalizeKeychainImage } from "@/utils/keychain/imageValidation";
 
 export const config = { api: { bodyParser: { sizeLimit: "14mb" } } };
 const MAX_BYTES = 10 * 1024 * 1024;
@@ -26,9 +27,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 	if (bytes.byteLength > MAX_BYTES) return res.status(413).json({ error: "Ảnh không được vượt quá 10 MB." });
 	if (!matchesImageSignature(bytes, contentType)) return res.status(400).json({ error: "Dữ liệu ảnh không hợp lệ." });
 	try {
-		const image = await uploadImageAssetToSanity(bytes, { filename: typeof filename === "string" ? filename.slice(0, 120) : "keychain-design", contentType });
+		const normalized = await normalizeKeychainImage(bytes, contentType);
+		const safeFilename = typeof filename === "string" ? filename.slice(0, 100).replace(/[^a-zA-Z0-9._-]/g, "_") : "keychain-design.webp";
+		const image = await uploadImageAssetToSanity(normalized, { filename: safeFilename, contentType: "image/webp" });
 		return res.status(200).json({ image, url: sanityImageUrl(image, "design") });
-	} catch {
+	} catch (error) {
+		if (error instanceof Error && ["INVALID_SIZE", "UNSUPPORTED_FORMAT", "INVALID_IMAGE"].includes(error.message)) return res.status(400).json({ error: "Dữ liệu ảnh không hợp lệ hoặc vượt kích thước hỗ trợ." });
 		return res.status(500).json({ error: "Không tải được ảnh. Vui lòng thử lại." });
 	}
 }

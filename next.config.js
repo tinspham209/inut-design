@@ -94,6 +94,8 @@ const nextConfig = {
 	webpack: (config, { isServer }) => {
 		if (!isServer) {
 			config.resolve.fallback.fs = false;
+		} else {
+			config.externals = [...(config.externals || []), "sharp"];
 		}
 
 		return config;
