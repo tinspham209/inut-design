@@ -35,7 +35,7 @@ function isSanityAssetUrl(value: string, image?: KeychainImage) {
 		if (url.protocol !== "https:" || url.hostname !== "cdn.sanity.io" || url.username || url.password) return false;
 		if (!/^\/images\/[a-z0-9]+\/[a-z0-9-]+\//i.test(url.pathname)) return false;
 		const assetId = image?.asset?._ref;
-	const assetHash = assetId?.match(/^image-([a-f0-9]+)-/i)?.[1];
+		const assetHash = assetId?.match(/^image-([a-f0-9]+)-/i)?.[1];
 		return Boolean(assetHash && new RegExp(`/${assetHash}-[^/]+\\.[a-z0-9]+$`, "i").test(url.pathname));
 	} catch { return false; }
 }
