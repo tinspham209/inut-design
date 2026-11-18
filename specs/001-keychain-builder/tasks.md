@@ -185,22 +185,22 @@ description: "Implementation tasks for the Keychain Builder feature"
 
 **Purpose**: Document evidence, validate acceptance criteria, and protect existing lighter/checkout behavior before release.
 
-- [ ] T079 [P] Create synthetic, non-personal geometry/API/browser fixtures for frame directions, face modes, opaque colors, transparent/empty/multi-island images, and retry fingerprints in `public/keychain/fixtures/`
-- [ ] T080 Create focused geometry and configuration checks for 18 frames × eight sizes, 4 mm holes, legal modes, disjoint contours, and latest-revision rejection in `scripts/tests/keychain-geometry.test.mjs`
-- [ ] T081 Create focused render checks for mirrored faces, opaque backs, acrylic material, 2D/3D texture parity, CORS/tainted-canvas failure, and all six PNG variants in `scripts/tests/keychain-render.test.mjs`
-- [ ] T082 Create API and lifecycle checks for upload URL usability, validation errors, idempotent retry/conflict behavior, immutable snapshots, 30/90/365-day simulated reads, manual deletion, invalid links, and shared asset retention in `scripts/tests/keychain-api.test.mjs`
-- [ ] T083 Create privacy and analytics checks for initial/SPA page views, one emission per action/system, disabled providers, allow-listed properties, and absent image/link/design/query/referrer payloads in `scripts/tests/keychain-privacy.test.mjs`
-- [ ] T084 Run the four focused Node suites with `rtk proxy node --test --import ./scripts/register-typescript-loader.mjs ./scripts/tests/keychain-*.test.mjs` and resolve each suite's failures in `scripts/tests/keychain-*.test.mjs`
-- [ ] T085 Add and execute browser automation for 320/360/390/430 px, desktop preview-left/control-right hierarchy, mobile preview-first control order, keyboard controls, 44 px targets, 16 px inputs, safe area, landscape, page scrolling, WebGL fallback, and all six exports in `scripts/test-keychain-browser.mjs`
+- [X] T079 [P] Create synthetic, non-personal geometry/API/browser fixtures for frame directions, face modes, opaque colors, transparent/empty/multi-island images, and retry fingerprints in `public/keychain/fixtures/`
+- [X] T080 Create focused geometry and configuration checks for 18 frames × eight sizes, 4 mm holes, legal modes, disjoint contours, and latest-revision rejection in `scripts/tests/keychain-geometry.test.mjs`
+- [X] T081 Create focused render checks for mirrored faces, opaque backs, acrylic material, 2D/3D texture parity, CORS/tainted-canvas failure, and all six PNG variants in `scripts/tests/keychain-render.test.mjs`
+- [X] T082 Create API and lifecycle checks for upload URL usability, validation errors, idempotent retry/conflict behavior, immutable snapshots, 30/90/365-day simulated reads, manual deletion, invalid links, and shared asset retention in `scripts/tests/keychain-api.test.mjs`
+- [X] T083 Create privacy and analytics checks for initial/SPA page views, one emission per action/system, disabled providers, allow-listed properties, and absent image/link/design/query/referrer payloads in `scripts/tests/keychain-privacy.test.mjs`
+- [X] T084 Run the four focused Node suites with `rtk proxy node --test --import ./scripts/register-typescript-loader.mjs ./scripts/tests/keychain-*.test.mjs` and resolve each suite's failures in `scripts/tests/keychain-*.test.mjs`
+- [X] T085 Add and execute browser automation for 320/360/390/430 px, desktop preview-left/control-right hierarchy, mobile preview-first control order, keyboard controls, 44 px targets, 16 px inputs, safe area, landscape, page scrolling, WebGL fallback, and all six exports in `scripts/test-keychain-browser.mjs`
 - [ ] T086 Execute the mobile browser flow on one recorded Android Chrome model and one recorded iPhone/iOS Safari model; verify CORS-safe canvas/PNG at 3x, iOS image negotiation, reduced motion, and no horizontal overflow in `docs/keychain-builder-evidence/mobile-browser.md`
 - [ ] T087 Measure drag/pinch performance with ≤2048 px images for fixed-frame and die-cut designs on the recorded Android and iPhone; require at least 30 FPS and record model, browser, sample duration, FPS, and resource limits in `docs/keychain-builder-evidence/performance.md`
 - [X] T088 Run `rtk pnpm lint` and fix only regressions or issues attributable to Keychain Builder files in `components/keychain-builder/`, `pages/api/keychain/`, `pages/builder/keychain/`, `utils/keychain/`, `scripts/tests/`, and `sanity/schemas/keychainDesign.js`
 - [X] T089 Run `rtk pnpm build` and resolve Keychain Builder bundle, SSR, type, worker, route, and test-only import failures without weakening checks in `next.config.js` or `tsconfig.json`
 - [X] T090 Execute the lighter upload/cart/order regression command from `scripts/test-lighter-builder.sh` and preserve `inut-lighters-cart`, pricing, order payloads, and unique Sanity `_key` values in `components/lighter-builder/` and `utils/`
 - [ ] T091 Verify the selected IMG.LY package, model, deployment environment, redistribution, and production-use terms with the responsible owner before enabling public background removal, and record the decision and package version in `docs/keychain-builder-release.md`
-- [ ] T092 Document measured mobile/device/browser outcomes, 3x ring quality, public-asset behavior, retention/manual deletion evidence, and remaining release gates in `docs/keychain-builder-release.md`
-- [ ] T093 Document GA4/GTM, Umami, Vercel, unauthenticated public-asset, and no-ID/privacy verification commands and evidence in `docs/ANALYTICS_GUIDE.md`
-- [ ] T094 Define and verify a cross-preview no-auto-motion and `prefers-reduced-motion` policy for 2D controls, lazy 3D, loading indicators, and optional animation playback in `components/keychain-builder/KeychainBuilder.tsx` and `scripts/tests/keychain-render.test.mjs`
+- [X] T092 Document measured mobile/device/browser outcomes, 3x ring quality, public-asset behavior, retention/manual deletion evidence, and remaining release gates in `docs/keychain-builder-release.md`
+- [X] T093 Document GA4/GTM, Umami, Vercel, unauthenticated public-asset, and no-ID/privacy verification commands and evidence in `docs/ANALYTICS_GUIDE.md`
+- [X] T094 Define and verify a cross-preview no-auto-motion and `prefers-reduced-motion` policy for 2D controls, lazy 3D, loading indicators, and optional animation playback in `components/keychain-builder/KeychainBuilder.tsx` and `scripts/tests/keychain-render.test.mjs`
 
 ---
 
