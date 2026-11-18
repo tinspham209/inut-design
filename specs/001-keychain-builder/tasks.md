@@ -41,9 +41,9 @@ description: "Implementation tasks for the Keychain Builder feature"
 - [X] T006 Define `KeychainConfig`, face, transform, material, shape, geometry, revision, and API response types in `components/keychain-builder/types.ts`
 - [X] T007 [P] Define the 18 frame records, demo metadata, estimated anchors, and 30–100 mm constraints in `data/keychain/frames.ts`
 - [X] T008 [P] Define the 10 ring records, eight acrylic options, size catalog, and public asset paths in `data/keychain/catalog.ts`
-- [ ] T009 [P] Implement finite-number bounds, catalog lookups, transform limits, and legal acrylic/side/back-mode validation in `utils/keychain/validation.ts`
+- [X] T009 [P] Implement finite-number bounds, catalog lookups, transform limits, and legal acrylic/side/back-mode validation in `utils/keychain/validation.ts`
 - [ ] T010 Implement the in-memory reducer with initial clear acrylic, one-sided front design, view selection, and revision counters in `components/keychain-builder/hooks/useKeychainState.ts`
-- [ ] T011 Implement millimeter-space conversion, 4 mm hole reconstruction, frame scaling, and size-envelope checks in `components/keychain-builder/geometry/mm.ts`
+- [X] T011 Implement millimeter-space conversion, 4 mm hole reconstruction, frame scaling, and size-envelope checks in `components/keychain-builder/geometry/mm.ts`
 - [X] T012 Implement SVG loading and normalization of `#cut`, `#print`, and `#hole` data into shared geometry inputs in `components/keychain-builder/geometry/frameSvg.ts`
 - [X] T013 Define the shared front/back render-source model and one-time mirror direction rules in `components/keychain-builder/render/renderModel.ts`
 - [X] T014 Implement retryable operation status, user-facing error messages, and stale-operation guards in `components/keychain-builder/hooks/useOperationStatus.ts`
@@ -62,8 +62,8 @@ description: "Implementation tasks for the Keychain Builder feature"
 
 ### Implementation for User Story 1
 
-- [ ] T017 [P] [US1] Build five numbered control groups in mockup order—shape/ring, front image, back, acrylic, Export—and expose ring, frame, size, eight acrylic options, edge, thickness, and sheen in `components/keychain-builder/controls/AppearanceControls.tsx`
-- [ ] T018 [P] [US1] Build a validated client upload input and progress/error presentation for PNG, JPEG, and WebP in `components/keychain-builder/controls/ImageUpload.tsx`
+- [X] T017 [P] [US1] Build five numbered control groups in mockup order—shape/ring, front image, back, acrylic, Export—and expose ring, frame, size, eight acrylic options, edge, thickness, and sheen in `components/keychain-builder/controls/AppearanceControls.tsx`
+- [X] T018 [P] [US1] Build a validated client upload input and progress/error presentation for PNG, JPEG, and WebP in `components/keychain-builder/controls/ImageUpload.tsx`
 - [X] T019 [US1] Implement bounded 2D image pan, scale, rotate, flip controls, Fit, and Reset in `components/keychain-builder/hooks/useImageTransform.ts`
 - [ ] T020 [US1] Create the mockup-style canvas editor with front/back and 2D/3D toolbar slots, left-side edit tools, Fit/Reset controls, touch pointer capture isolated from page scrolling, and keyboard alternatives in `components/keychain-builder/preview/Preview2D.tsx`
 - [ ] T021 [US1] Render frame cut/print/hole geometry at physical proportions with the selected acrylic material in `components/keychain-builder/render/render2d.ts`

@@ -16,6 +16,7 @@ export type KeychainAction =
 	| { type: "select-ring"; ringId: string }
 	| { type: "select-frame"; frameId: string }
 	| { type: "set-size"; sizeCm: number }
+	| { type: "set-material"; material: Partial<KeychainConfig["material"]> }
 	| { type: "select-acrylic"; acrylicId: AcrylicId }
 	| { type: "confirm-opaque"; acrylicId: Exclude<AcrylicId, "clear"> }
 	| { type: "set-back-mode"; backMode: Exclude<BackMode, "material"> }

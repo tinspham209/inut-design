@@ -13,6 +13,7 @@ export function keychainReducer(state: KeychainConfig, action: KeychainAction): 
 		case "select-ring": return { ...state, ringId: action.ringId };
 		case "select-frame": return { ...state, shape: { type: "frame", frameId: action.frameId } };
 		case "set-size": return { ...state, sizeCm: action.sizeCm };
+		case "set-material": return { ...state, material: { ...state.material, ...action.material } };
 		case "select-acrylic": return action.acrylicId === "clear"
 			? { ...state, acrylicId: "clear", printSides: 1, backMode: "through-acrylic" }
 			: { ...state, acrylicId: action.acrylicId, printSides: 1, backMode: "material" };
