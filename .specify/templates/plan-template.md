@@ -40,7 +40,13 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- Evidence-bounded requirements and product claims
+- Server-only secrets and validated Sanity/reference integrity
+- Protected cart, pricing, checkout, order, contact, and confirmation contracts
+- Privacy-safe, de-duplicated GA4/GTM and Umami observability
+- Independent increments with measurable executable validation and evidence
+- Existing Next.js 12, TypeScript, Sanity v2, pnpm, accessibility, and dependency
+  constraints
 
 ## Project Structure
 

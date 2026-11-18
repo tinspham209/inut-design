@@ -11,6 +11,11 @@ description: "Task list template for feature implementation"
 
 **Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
 
+**Constitution Gates**: Include executable tasks for every introduced privacy,
+security, accessibility, persistence, analytics, performance, and protected
+commerce contract. Static parsing alone MUST NOT be used as browser or device
+evidence.
+
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
 ## Format: `[ID] [P?] [Story] Description`
@@ -157,6 +162,10 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
 - [ ] TXXX Security hardening
 - [ ] TXXX Run quickstart.md validation
+- [ ] TXXX Run focused regressions and preserve protected commerce contracts
+- [ ] TXXX Run lint and production build for runtime/routing changes
+- [ ] TXXX Collect browser/device evidence for visual, touch, responsive, or
+      accessibility claims
 
 ---
 
@@ -250,3 +259,5 @@ With multiple developers:
 - Commit after each task or logical group
 - Stop at any checkpoint to validate story independently
 - Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence
+- Verify measurable criteria rather than relying on static parsing or success-shaped fallbacks
+- Keep analytics de-duplicated and exclude sensitive URLs, identifiers, and customer data

@@ -103,6 +103,19 @@
 - **[Entity 1]**: [What it represents, key attributes without implementation]
 - **[Entity 2]**: [What it represents, relationships to other entities]
 
+### Cross-Cutting Constraints
+
+- **Privacy and data**: [What data is collected, stored, shared, retained, or
+  deleted; identify sensitive or public URLs]
+- **Security and validation**: [API trust boundaries, allowed formats/limits,
+  authorization, idempotency, and server-only secrets]
+- **Accessibility and motion**: [Keyboard, touch, responsive, non-color cues,
+  reduced motion, and relevant viewport constraints]
+- **Observability**: [GA4/GTM and Umami events, de-duplication, and prohibited
+  properties]
+- **Compatibility**: [Protected routes, persisted state, pricing, order/contact
+  payloads, or other existing contracts that must remain stable]
+
 ## Success Criteria *(mandatory)*
 
 <!--
@@ -116,6 +129,10 @@
 - **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
 - **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
 - **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
+
+At least one measurable criterion MUST cover each security, privacy,
+accessibility, persistence, analytics, or performance risk introduced by the
+feature. Post-launch business KPIs are not substitutes for executable validation.
 
 ## Assumptions
 

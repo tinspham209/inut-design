@@ -103,6 +103,8 @@ sanity deploy
 - [Analytics Guide](./docs/ANALYTICS_GUIDE.md) - All-in-one setup, implementation, and troubleshooting
 
 ### Project Documentation
+- [Project Constitution](./.specify/memory/constitution.md) - Governing engineering
+  principles, protected contracts, privacy rules, and quality gates
 - [AGENTS Playbook](./AGENTS.md) - AI Agent baseline for multi-editor support
 - [App Routing](./APP_ROUTING.md) - Application route structure
 - [Analytics Guide](./docs/ANALYTICS_GUIDE.md) - Tracking setup and troubleshooting
