@@ -26,7 +26,7 @@ description: "Implementation tasks for the Keychain Builder feature"
 - [X] T002 [P] Copy the 18 supplied, unapproved demo/draft SVG inputs from `specs/001-keychain-builder/inputs/frames/` into `public/keychain/frames/` with stable filenames and no production approval metadata
 - [X] T003 [P] Copy the 10 supplied PNG inputs from `specs/001-keychain-builder/inputs/ring/` into `public/keychain/rings/` with stable filenames
 - [X] T004 Create the SEO page entry, MainLayout assignment, and no-SSR builder loading state in `pages/builder/keychain/index.tsx`
-- [ ] T005 Create the responsive dark-theme shell from `specs/001-keychain-builder/inputs/mockup-preview.png`, with desktop preview-left/control-right composition, mobile preview-before-controls flow, DEMO/disclaimer hierarchy, and site layout integration in `components/keychain-builder/KeychainBuilder.tsx`
+- [X] T005 Create the responsive dark-theme shell from `specs/001-keychain-builder/inputs/mockup-preview.png`, with desktop preview-left/control-right composition, mobile preview-before-controls flow, DEMO/disclaimer hierarchy, and site layout integration in `components/keychain-builder/KeychainBuilder.tsx`
 
 **Checkpoint**: `/builder/keychain` renders through the existing layout without changing lighter-builder behavior.
 
@@ -40,15 +40,15 @@ description: "Implementation tasks for the Keychain Builder feature"
 
 - [ ] T006 Define `KeychainConfig`, face, transform, material, shape, geometry, revision, and API response types in `components/keychain-builder/types.ts`
 - [ ] T007 [P] Define the 18 frame records, demo metadata, estimated anchors, and 30–100 mm constraints in `data/keychain/frames.ts`
-- [ ] T008 [P] Define the 10 ring records, eight acrylic options, size catalog, and public asset paths in `data/keychain/catalog.ts`
+- [X] T008 [P] Define the 10 ring records, eight acrylic options, size catalog, and public asset paths in `data/keychain/catalog.ts`
 - [ ] T009 [P] Implement finite-number bounds, catalog lookups, transform limits, and legal acrylic/side/back-mode validation in `utils/keychain/validation.ts`
 - [ ] T010 Implement the in-memory reducer with initial clear acrylic, one-sided front design, view selection, and revision counters in `components/keychain-builder/hooks/useKeychainState.ts`
 - [ ] T011 Implement millimeter-space conversion, 4 mm hole reconstruction, frame scaling, and size-envelope checks in `components/keychain-builder/geometry/mm.ts`
-- [ ] T012 Implement SVG loading and normalization of `#cut`, `#print`, and `#hole` data into shared geometry inputs in `components/keychain-builder/geometry/frameSvg.ts`
-- [ ] T013 Define the shared front/back render-source model and one-time mirror direction rules in `components/keychain-builder/render/renderModel.ts`
+- [X] T012 Implement SVG loading and normalization of `#cut`, `#print`, and `#hole` data into shared geometry inputs in `components/keychain-builder/geometry/frameSvg.ts`
+- [X] T013 Define the shared front/back render-source model and one-time mirror direction rules in `components/keychain-builder/render/renderModel.ts`
 - [ ] T014 Implement retryable operation status, user-facing error messages, and stale-operation guards in `components/keychain-builder/hooks/useOperationStatus.ts`
 - [ ] T015 Implement allow-listed, privacy-safe keychain action tracking for GA4 and Umami in `utils/keychainAnalytics.ts`
-- [ ] T016 Establish the no-storage session boundary and reject localStorage, sessionStorage, IndexedDB, cookie, cache API, and persistent-worker restoration of design state in `components/keychain-builder/hooks/useKeychainState.ts`
+- [X] T016 Establish the no-storage session boundary and reject localStorage, sessionStorage, IndexedDB, cookie, cache API, and persistent-worker restoration of design state in `components/keychain-builder/hooks/useKeychainState.ts`
 
 **Checkpoint**: The shared catalogs and geometry/state contracts are complete, and all user stories can consume the same configuration without persistent browser storage.
 
