@@ -46,8 +46,8 @@ description: "Implementation tasks for the Keychain Builder feature"
 - [ ] T011 Implement millimeter-space conversion, 4 mm hole reconstruction, frame scaling, and size-envelope checks in `components/keychain-builder/geometry/mm.ts`
 - [X] T012 Implement SVG loading and normalization of `#cut`, `#print`, and `#hole` data into shared geometry inputs in `components/keychain-builder/geometry/frameSvg.ts`
 - [X] T013 Define the shared front/back render-source model and one-time mirror direction rules in `components/keychain-builder/render/renderModel.ts`
-- [ ] T014 Implement retryable operation status, user-facing error messages, and stale-operation guards in `components/keychain-builder/hooks/useOperationStatus.ts`
-- [ ] T015 Implement allow-listed, privacy-safe keychain action tracking for GA4 and Umami in `utils/keychainAnalytics.ts`
+- [X] T014 Implement retryable operation status, user-facing error messages, and stale-operation guards in `components/keychain-builder/hooks/useOperationStatus.ts`
+- [X] T015 Implement allow-listed, privacy-safe keychain action tracking for GA4 and Umami in `utils/keychainAnalytics.ts`
 - [X] T016 Establish the no-storage session boundary and reject localStorage, sessionStorage, IndexedDB, cookie, cache API, and persistent-worker restoration of design state in `components/keychain-builder/hooks/useKeychainState.ts`
 
 **Checkpoint**: The shared catalogs and geometry/state contracts are complete, and all user stories can consume the same configuration without persistent browser storage.
@@ -64,7 +64,7 @@ description: "Implementation tasks for the Keychain Builder feature"
 
 - [ ] T017 [P] [US1] Build five numbered control groups in mockup order—shape/ring, front image, back, acrylic, Export—and expose ring, frame, size, eight acrylic options, edge, thickness, and sheen in `components/keychain-builder/controls/AppearanceControls.tsx`
 - [ ] T018 [P] [US1] Build a validated client upload input and progress/error presentation for PNG, JPEG, and WebP in `components/keychain-builder/controls/ImageUpload.tsx`
-- [ ] T019 [US1] Implement bounded 2D image pan, scale, rotate, flip controls, Fit, and Reset in `components/keychain-builder/hooks/useImageTransform.ts`
+- [X] T019 [US1] Implement bounded 2D image pan, scale, rotate, flip controls, Fit, and Reset in `components/keychain-builder/hooks/useImageTransform.ts`
 - [ ] T020 [US1] Create the mockup-style canvas editor with front/back and 2D/3D toolbar slots, left-side edit tools, Fit/Reset controls, touch pointer capture isolated from page scrolling, and keyboard alternatives in `components/keychain-builder/preview/Preview2D.tsx`
 - [ ] T021 [US1] Render frame cut/print/hole geometry at physical proportions with the selected acrylic material in `components/keychain-builder/render/render2d.ts`
 - [ ] T022 [US1] Clip the transformed front image to the print region and composit the ring outside the charm without distorting the 4 mm hole in `components/keychain-builder/render/render2d.ts`
