@@ -2,7 +2,7 @@ import type { AlphaMask } from "./imageAlpha";
 
 export type Point = { x: number; y: number };
 export type ContourResult = { points: Point[]; areaPx: number; bounds: { minX: number; minY: number; maxX: number; maxY: number }; widthMm: number; heightMm: number; scale: number };
-export type DieCutGeometry = ContourResult & { hole: { cx: number; cy: number; radiusMm: 2 }; path: string };
+export type DieCutGeometry = ContourResult & { hole: { cx: number; cy: number; radiusMm: 2 }; outerPath: string; path: string };
 
 const key = (point: Point) => `${point.x},${point.y}`;
 function signedArea(points: Point[]) { let area = 0; for (let i = 0; i < points.length; i += 1) { const a = points[i]; const b = points[(i + 1) % points.length]; area += a.x * b.y - b.x * a.y; } return area / 2; }
@@ -129,6 +129,7 @@ export function createDieCutGeometry(mask: AlphaMask, sizeCm: number, toleranceP
 	const contour = traceDieCut({ width, height, alpha }, sizeCm, tolerancePx);
 	const points = contour.points;
 	const cx = centerX * contour.scale; const cy = centerY * contour.scale;
-	const path = `M ${points.map(({ x, y }) => `${x.toFixed(3)} ${y.toFixed(3)}`).join(" L ")} Z M ${(cx + 2).toFixed(3)} ${cy.toFixed(3)} A 2 2 0 1 0 ${(cx - 2).toFixed(3)} ${cy.toFixed(3)} A 2 2 0 1 0 ${(cx + 2).toFixed(3)} ${cy.toFixed(3)} Z`;
-	return { ...contour, points, hole: { cx, cy, radiusMm: 2 }, path };
+	const outerPath = `M ${points.map(({ x, y }) => `${x.toFixed(3)} ${y.toFixed(3)}`).join(" L ")} Z`;
+	const path = `${outerPath} M ${(cx + 2).toFixed(3)} ${cy.toFixed(3)} A 2 2 0 1 0 ${(cx - 2).toFixed(3)} ${cy.toFixed(3)} A 2 2 0 1 0 ${(cx + 2).toFixed(3)} ${cy.toFixed(3)} Z`;
+	return { ...contour, points, hole: { cx, cy, radiusMm: 2 }, outerPath, path };
 }

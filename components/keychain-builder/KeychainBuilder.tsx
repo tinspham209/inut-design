@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Alert, Box, Button, Container, Paper, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { FRAMES } from "@/data/keychain/catalog";
@@ -12,18 +12,23 @@ import { AppearanceControls } from "@/components/keychain-builder/controls/Appea
 import { ImageUpload } from "@/components/keychain-builder/controls/ImageUpload";
 import { ExportDialog } from "@/components/keychain-builder/ExportDialog";
 import { useExportDesign } from "@/components/keychain-builder/hooks/useExportDesign";
-import { loadFrameSvg } from "@/components/keychain-builder/geometry/frameSvg";
+import { dieCutFrameSvg, loadFrameSvg } from "@/components/keychain-builder/geometry/frameSvg";
 import { loadSanityImage } from "@/components/keychain-builder/image/loadSanityImage";
 import { renderShowcasePng, type PngScale, type PngScope } from "@/components/keychain-builder/render/renderPng";
 import { useLoadDesign } from "@/components/keychain-builder/hooks/useLoadDesign";
 import { trackKeychainAction } from "@/utils/keychainAnalytics";
 import { BackImageEditor } from "@/components/keychain-builder/controls/BackImageEditor";
+import { ShapeControls } from "@/components/keychain-builder/controls/ShapeControls";
+import { useDieCutGeometry } from "@/components/keychain-builder/hooks/useDieCutGeometry";
 import dynamic from "next/dynamic";
 
 const LazyPreview3D = dynamic(() => import("@/components/keychain-builder/preview/Preview3D").then((module) => module.Preview3D), { ssr: false, loading: () => <Typography role="status">Đang tải bộ dựng 3D…</Typography> });
 
 export function KeychainBuilder() {
 	const [config, dispatch, session] = useKeychainState();
+	const dieCut = useDieCutGeometry(config, session.revisions.geometry);
+	const dieCutReady = config.shape.type === "frame" || (dieCut.status === "ready" && dieCut.revision === session.revisions.geometry);
+	const frameOverride = useMemo(() => config.shape.type === "die-cut" && dieCutReady && dieCut.geometry ? dieCutFrameSvg(dieCut.geometry) : undefined, [config.shape.type, dieCutReady, dieCut.geometry]);
 	const router = useRouter();
 	const designId = router.query.design;
 	const { status: loadStatus, error: loadError, load } = useLoadDesign(designId);
@@ -51,12 +56,15 @@ export function KeychainBuilder() {
 	const resetBackTransform = () => updateBackTransform({ xMm: 0, yMm: 0, scale: 1, rotation: 0, flipX: false });
 	const onExport = async (scope: PngScope, scale: PngScale) => {
 		if (uploadStatus === "uploading") return;
-		const frameId = config.shape.type === "frame" ? config.shape.frameId : "heart";
-		const frameRecord = FRAMES.find((item) => item.id === frameId);
-		if (!frameRecord) return;
+		if (!dieCutReady) return;
+		const selectedFrameId = config.shape.type === "frame" ? config.shape.frameId : undefined;
+		const frameRecord = selectedFrameId ? FRAMES.find((item) => item.id === selectedFrameId) : undefined;
+		if (selectedFrameId && !frameRecord) return;
+		const fallbackFrameSource = frameRecord?.src;
+		if (!frameOverride && !fallbackFrameSource) return;
 		try {
 			await exportDesign(config, async () => {
-				const frame = await loadFrameSvg(frameRecord.src);
+				const frame = frameOverride || await loadFrameSvg(fallbackFrameSource as string);
 				const url = session.view === "back" && config.backMode === "custom" ? config.backCustom?.url : config.front.url;
 				const image = url ? await loadSanityImage(url) : undefined;
 				return renderShowcasePng(frame, config, image, scale, scope, session.view);
@@ -77,15 +85,15 @@ export function KeychainBuilder() {
 					</Box>
 					<Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "minmax(0, 1.3fr) minmax(340px, .9fr)" }, gap: 2, alignItems: "start" }}>
 						<Paper aria-label="Bản xem trước móc khóa" sx={{ position: { md: "sticky" }, top: 88, minHeight: 380, bgcolor: "#1b1c23", color: "inherit", p: 3 }}>
-							{session.preview === "2d" ? <Preview2D config={config} view={session.view} on3D={() => { dispatch({ type: "set-preview", preview: "3d" }); trackKeychainAction("keychain_view_change", { mode: "3d" }); }} dispatch={(action) => { dispatch(action); if (action.type === "set-view") trackKeychainAction("keychain_view_change", { mode: "2d" }); }} /> : <LazyPreview3D config={config} onBack={() => { dispatch({ type: "set-preview", preview: "2d" }); trackKeychainAction("keychain_view_change", { mode: "2d" }); }} />}
+			{session.preview === "2d" ? <Preview2D config={config} view={session.view} frameOverride={frameOverride} geometryStatus={dieCut.status} geometryError={dieCut.error} on3D={() => { dispatch({ type: "set-preview", preview: "3d" }); trackKeychainAction("keychain_view_change", { mode: "3d" }); }} dispatch={(action) => { dispatch(action); if (action.type === "set-view") trackKeychainAction("keychain_view_change", { mode: "2d" }); }} /> : <LazyPreview3D config={config} frameOverride={frameOverride} geometryStatus={dieCut.status} geometryError={dieCut.error} onBack={() => { dispatch({ type: "set-preview", preview: "2d" }); trackKeychainAction("keychain_view_change", { mode: "2d" }); }} />}
 							<Button sx={{ mt: 1 }} onClick={() => dispatch({ type: "reset" })}>Đặt lại toàn bộ</Button>
 						</Paper>
 						<Stack spacing={2}>
-							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">01 · Hình dáng & móc</Typography><AppearanceControls section="shape" config={config} onRing={onRing} onFrame={onFrame} onSize={(sizeCm) => dispatch({ type: "set-size", sizeCm })} onAcrylic={onAcrylic} onOpaque={setPendingAcrylic} onMaterial={(material) => dispatch({ type: "set-material", material })} /></Paper>
+							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">01 · Hình dáng & móc</Typography><ShapeControls config={config} status={dieCut.status} error={dieCut.error} onChange={dispatch} /><AppearanceControls section="shape" config={config} onRing={onRing} onFrame={onFrame} onSize={(sizeCm) => dispatch({ type: "set-size", sizeCm })} onAcrylic={onAcrylic} onOpaque={setPendingAcrylic} onMaterial={(material) => dispatch({ type: "set-material", material })} /></Paper>
 							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">02 · Ảnh mặt trước</Typography><ImageUpload status={uploadStatus} error={uploadError} hasImage={Boolean(imageUrl)} onSelect={onImage} onRemove={() => dispatch({ type: "set-face", face: "front", value: { transform: config.front.transform } })} /></Paper>
 							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">03 · Mặt sau</Typography><BackControls acrylicId={config.acrylicId} backMode={config.backMode} hasCustomImage={Boolean(config.backCustom?.url)} uploading={backUpload.status === "uploading"} error={backUpload.error} onModeChange={(backMode) => { dispatch({ type: "set-back-mode", backMode }); trackKeychainAction("keychain_back_mode", { mode: backMode, print_sides: backMode === "mirror-front" || backMode === "custom" ? 2 : 1 }); }} onUpload={(file) => { if (file) void backUpload.upload(file).then((face) => { if (face) { dispatch({ type: "set-face", face: "backCustom", value: face }); trackKeychainAction("keychain_custom_back", { result: "success" }); } }); }} />{config.backCustom?.url && config.acrylicId === "clear" && <BackImageEditor transform={config.backCustom.transform} onChange={updateBackTransform} onReset={resetBackTransform} />}</Paper>
 							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">04 · Màu mica</Typography><AppearanceControls section="material" config={config} onRing={onRing} onFrame={onFrame} onSize={(sizeCm) => dispatch({ type: "set-size", sizeCm })} onAcrylic={onAcrylic} onOpaque={setPendingAcrylic} onMaterial={(material) => dispatch({ type: "set-material", material })} /></Paper>
-							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">05 · Xuất PNG</Typography><Typography color="grey.400" sx={{ mt: 1 }}>PNG dùng để giới thiệu ý tưởng, không phải file sản xuất.</Typography><Button variant="contained" disabled={typeof designId === "string" && loadStatus !== "loaded"} onClick={() => setExportOpen(true)} sx={{ mt: 2, minHeight: 48 }}>Xuất PNG</Button></Paper>
+							<Paper sx={{ p: 2.5, bgcolor: "#1b1c23", color: "inherit" }}><Typography variant="h6">05 · Xuất PNG</Typography><Typography color="grey.400" sx={{ mt: 1 }}>PNG dùng để giới thiệu ý tưởng, không phải file sản xuất.</Typography><Button variant="contained" disabled={(typeof designId === "string" && loadStatus !== "loaded") || !dieCutReady} onClick={() => setExportOpen(true)} sx={{ mt: 2, minHeight: 48 }}>Xuất PNG</Button></Paper>
 						</Stack>
 					</Box>
 				</Stack>

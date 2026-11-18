@@ -136,15 +136,15 @@ description: "Implementation tasks for the Keychain Builder feature"
 - [X] T049 [P] [US4] Implement bounded image alpha extraction and decoded-image/CORS failure handling in `components/keychain-builder/geometry/imageAlpha.ts`
 - [X] T050 [P] [US4] Implement contour simplification, signed-area checks, disjoint/empty rejection, and physical size normalization in `components/keychain-builder/geometry/dieCut.ts`
 - [X] T051 [US4] Implement polygon union for the image silhouette plus ear and fixed 4 mm hole in `components/keychain-builder/geometry/dieCut.ts`
-- [ ] T052 [US4] Move contour extraction to an isolated revision-aware Web Worker entry in `components/keychain-builder/geometry/dieCut.worker.ts`
-- [ ] T053 [US4] Implement worker startup, cancellation, timeout, old-result rejection, and geometry-revision publication in `components/keychain-builder/hooks/useDieCutGeometry.ts`
-- [ ] T054 [US4] Add frame/die-cut shape controls, transparent-image guidance, and invalid-contour recovery actions in `components/keychain-builder/controls/ShapeControls.tsx`
-- [ ] T055 [US4] Recompute back-image crop after every front image/transform geometry change without using the back image to derive the cut in `components/keychain-builder/geometry/dieCut.ts`
+- [X] T052 [US4] Move contour extraction to an isolated revision-aware Web Worker entry in `components/keychain-builder/geometry/dieCut.worker.ts`
+- [X] T053 [US4] Implement worker startup, cancellation, timeout, old-result rejection, and geometry-revision publication in `components/keychain-builder/hooks/useDieCutGeometry.ts`
+- [X] T054 [US4] Add frame/die-cut shape controls, transparent-image guidance, and invalid-contour recovery actions in `components/keychain-builder/controls/ShapeControls.tsx`
+- [X] T055 [US4] Recompute back-image crop after every front image/transform geometry change without using the back image to derive the cut in `components/keychain-builder/geometry/dieCut.ts`
 - [ ] T056 [US4] Dynamically import `@imgly/background-removal` only on demand and keep processing local in `components/keychain-builder/image/removeBackground.ts`
 - [ ] T057 [US4] Preserve original/processed image references, expose Use Original/Use Processed, and discard stale results in `components/keychain-builder/hooks/useBackgroundRemoval.ts`
 - [ ] T058 [US4] Add front/back background-removal status, retry, reuse-original, and unsupported-device guidance in `components/keychain-builder/controls/RemoveBackground.tsx`
-- [ ] T059 [US4] Block 2D/3D/PNG export until the latest valid die-cut geometry revision is ready and surface worker/processing errors without losing state in `components/keychain-builder/KeychainBuilder.tsx`
-- [ ] T060 [US4] Feed valid die-cut geometry into 2D, 3D, and PNG renderers through the shared millimeter model in `components/keychain-builder/render/renderModel.ts`
+- [X] T059 [US4] Block 2D/3D/PNG export until the latest valid die-cut geometry revision is ready and surface worker/processing errors without losing state in `components/keychain-builder/KeychainBuilder.tsx`
+- [X] T060 [US4] Feed valid die-cut geometry into 2D, 3D, and PNG renderers through the shared millimeter model in `components/keychain-builder/render/renderModel.ts`
 
 **Checkpoint**: Die-cut produces validated, latest-revision geometry across all renderers, with optional recoverable local background removal.
 

@@ -15,6 +15,7 @@ export type OperationRevision = { config: number; frontImage: number; backImage:
 export type KeychainAction =
 	| { type: "select-ring"; ringId: string }
 	| { type: "select-frame"; frameId: string }
+	| { type: "select-die-cut" }
 	| { type: "set-size"; sizeCm: number }
 	| { type: "set-material"; material: Partial<KeychainConfig["material"]> }
 	| { type: "select-acrylic"; acrylicId: AcrylicId }

@@ -14,9 +14,11 @@ export function KeychainMesh({ frame, config, frontTexture, backTexture }: Props
 		const shape = parsed[0] as Shape | undefined;
 		if (!shape) throw new Error("Không dựng được biên dạng 3D");
 		const scale = (config.sizeCm * 10) / Math.max(frame.viewBox[2], frame.viewBox[3]);
-		const hole = new Path();
-		hole.absellipse(frame.hole.cx, frame.hole.cy, 2 / scale, 2 / scale, 0, Math.PI * 2, false, 0);
-		shape.holes.push(hole);
+		if (!frame.holeAlreadyInPath) {
+			const hole = new Path();
+			hole.absellipse(frame.hole.cx, frame.hole.cy, 2 / scale, 2 / scale, 0, Math.PI * 2, false, 0);
+			shape.holes.push(hole);
+		}
 		const geometry = new ExtrudeGeometry(shape, { depth: config.material.thicknessMm / scale, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.25 / scale, bevelThickness: 0.25 / scale, curveSegments: 12 });
 		geometry.scale(scale, -scale, scale); geometry.center();
 		geometry.computeVertexNormals();

@@ -12,6 +12,7 @@ import { createDesignTexture } from "../render/render3dTexture";
 import { KeychainMesh } from "./KeychainMesh";
 import { RingPlane } from "./RingPlane";
 import { Preview3DFallback } from "./Preview3DFallback";
+import type { DieCutStatus } from "../hooks/useDieCutGeometry";
 
 class SceneBoundary extends Component<{ onError: (error: string) => void; children: ReactNode }, { failed: boolean }> {
 	state = { failed: false };
@@ -20,7 +21,7 @@ class SceneBoundary extends Component<{ onError: (error: string) => void; childr
 	render() { return this.state.failed ? null : this.props.children; }
 }
 
-export function Preview3D({ config, onBack }: { config: KeychainConfig; onBack: () => void }) {
+export function Preview3D({ config, onBack, frameOverride, geometryStatus, geometryError }: { config: KeychainConfig; onBack: () => void; frameOverride?: FrameSvgData; geometryStatus?: DieCutStatus; geometryError?: string }) {
 	const [frame, setFrame] = useState<FrameSvgData | null>(null);
 	const [textures, setTextures] = useState<[CanvasTexture, CanvasTexture] | null>(null);
 	const [error, setError] = useState<string | null>(null);
@@ -29,10 +30,11 @@ export function Preview3D({ config, onBack }: { config: KeychainConfig; onBack: 
 	const source = FRAMES.find((item) => item.id === frameId)?.src;
 	useEffect(() => {
 		let active = true;
+		if (config.shape.type === "die-cut") { setFrame(frameOverride || null); return; }
 		if (!source) { setError("Không tìm thấy khung 3D."); return; }
 		void loadFrameSvg(source).then((value) => { if (active) { setFrame(value); setError(null); } }).catch((reason) => { if (active) setError(reason instanceof Error ? reason.message : "Không tải được hình học"); });
 		return () => { active = false; };
-	}, [source]);
+	}, [source, config.shape.type, frameOverride]);
 	useEffect(() => {
 		let active = true;
 		let created: CanvasTexture[] = [];
@@ -50,7 +52,7 @@ export function Preview3D({ config, onBack }: { config: KeychainConfig; onBack: 
 	}, [frame, config]);
 	const onError = (message: string) => setError(message || "Thiết bị không hỗ trợ WebGL");
 	if (error) return <Preview3DFallback error={error} onBack={onBack} />;
-	if (!frame || !textures) return <Alert severity="info" role="status">Đang dựng bản xem trước 3D…</Alert>;
+	if (!frame || !textures) return <Alert severity={geometryStatus === "error" ? "warning" : "info"} role="status">{geometryError || "Đang dựng bản xem trước 3D…"}</Alert>;
 	return <Stack spacing={1}>
 		<Stack direction="row" spacing={1}><Button onClick={onBack}>Quay lại 2D</Button><Button onClick={() => controls.current?.reset()}>Fit / Reset camera</Button><Typography variant="body2" color="grey.400">Xoay và phóng to không làm thay đổi thiết kế</Typography></Stack>
 		<SceneBoundary onError={onError}>
