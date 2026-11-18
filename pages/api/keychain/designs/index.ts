@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { createKeychainSnapshot, fingerprint, getKeychainSnapshot } from "@/api-client/keychain-server";
-import { validateKeychainConfig } from "@/utils/keychain/validation";
+import { isKeychainRequestId, validateKeychainServerConfig } from "@/utils/keychain/serverValidation";
 import rateLimit, { getRequestRateLimitToken } from "@/utils/rateLimit";
 
 const limiter = rateLimit({ interval: 60_000, uniqueTokenPerInterval: 1000 });
@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	try { await limiter.check(res as unknown as Response, 12, getRequestRateLimitToken(req)); }
 	catch { return res.status(429).json({ error: "Quá nhiều lượt xuất. Vui lòng thử lại sau." }); }
 	const { requestId, config } = req.body || {};
-	if (typeof requestId !== "string" || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(requestId) || !validateKeychainConfig(config)) return res.status(400).json({ error: "Cấu hình thiết kế không hợp lệ." });
+	if (!isKeychainRequestId(requestId) || !validateKeychainServerConfig(config)) return res.status(400).json({ error: "Cấu hình thiết kế không hợp lệ." });
 	const digest = fingerprint(config);
 	try {
 		const id = `keychainDesign.${requestId}`;

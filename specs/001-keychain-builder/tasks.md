@@ -159,9 +159,9 @@ description: "Implementation tasks for the Keychain Builder feature"
 ### Implementation for User Story 5
 
 - [X] T061 [P] [US5] Define the Sanity v2 `keychainDesign` document with immutable config, image references, request ID/fingerprint, and timestamp in `sanity/schemas/keychainDesign.js`
-- [ ] T062 [US5] Register `keychainDesign` without altering existing lighter schemas in `sanity/schemas/schema.js`
-- [ ] T063 [US5] Implement strict server config, UUID, image-reference, finite-bound, and 4 mm-hole validation using shared catalog/version rules in `utils/keychain/serverValidation.ts`
-- [ ] T064 [US5] Implement deterministic request fingerprinting that excludes transient view/camera state in `utils/keychain/requestFingerprint.ts`
+- [X] T062 [US5] Register `keychainDesign` without altering existing lighter schemas in `sanity/schemas/schema.js`
+- [X] T063 [US5] Implement strict server config, UUID, image-reference, finite-bound, and 4 mm-hole validation using shared catalog/version rules in `utils/keychain/serverValidation.ts`
+- [X] T064 [US5] Implement deterministic request fingerprinting that excludes transient view/camera state in `utils/keychain/requestFingerprint.ts`
 - [X] T065 [US5] Add server-only immutable create-if-absent, request replay comparison, and direct-read helpers in `api-client/keychain-server.ts`
 - [X] T066 [US5] Implement `POST /api/keychain/designs` with `201`, `400`, `409`, `413`, `429`, and `500` contracts plus retry idempotency in `pages/api/keychain/designs/index.ts`
 - [X] T067 [US5] Implement `GET /api/keychain/designs/[id]` with direct Sanity reads, `Cache-Control: no-store`, `400`, `404`, and `500` behavior in `pages/api/keychain/designs/[id].ts`

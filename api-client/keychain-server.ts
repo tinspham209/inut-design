@@ -1,5 +1,5 @@
-import crypto from "crypto";
 import sanityClient from "@sanity/client";
+import { createKeychainRequestFingerprint } from "@/utils/keychain/requestFingerprint";
 
 const client = sanityClient({
 	projectId: process.env.SANITY_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
@@ -8,7 +8,7 @@ const client = sanityClient({
 });
 
 export function fingerprint(value: unknown) {
-	return crypto.createHash("sha256").update(JSON.stringify(value)).digest("hex");
+	return createKeychainRequestFingerprint(value);
 }
 export async function getKeychainSnapshot(id: string) {
 	return client.getDocument(id);
