@@ -6,6 +6,7 @@ import { loadFrameSvg, type FrameSvgData } from "../geometry/frameSvg";
 import { loadSanityImage } from "../image/loadSanityImage";
 import { renderKeychain2d } from "../render/render2d";
 import type { DieCutStatus } from "../hooks/useDieCutGeometry";
+import { getFaceImageUrl } from "../image/imageFace";
 
 type Props = { config: KeychainConfig; view: "front" | "back"; dispatch: (action: KeychainAction) => void; on3D?: () => void; frameOverride?: FrameSvgData; geometryStatus?: DieCutStatus; geometryError?: string };
 const demoImages = new Map<string, Promise<HTMLImageElement>>();
@@ -41,7 +42,7 @@ export function Preview2D({ config, view, dispatch, on3D, frameOverride, geometr
 		const dpr = Math.min(2, window.devicePixelRatio || 1);
 		canvas.width = Math.round(width * dpr);
 		canvas.height = Math.round(width * (frame.viewBox[3] / frame.viewBox[2] + 0.34) * dpr);
-		const url = view === "back" && config.backMode === "custom" ? config.backCustom?.url : config.front.url;
+		const url = getFaceImageUrl(view === "back" && config.backMode === "custom" ? config.backCustom : config.front);
 		const load = url ? loadSanityImage(url) : Promise.resolve(undefined);
 		const ringSrc = RINGS.find((item) => item.id === config.ringId)?.src;
 		const ring = ringSrc ? loadDemoImage(ringSrc) : Promise.reject(new Error("Không tìm thấy móc demo"));

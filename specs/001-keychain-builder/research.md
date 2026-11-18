@@ -34,11 +34,11 @@
 
 ## 4. 3D, xóa nền và ngân sách mobile
 
-**Decision:** 2D mặc định; lazy-load Three/R3F khi mở 3D và dùng ring PNG trên plane gắn với charm. Chỉ tải xóa nền khi khách yêu cầu; dùng `@imgly/background-removal` nếu license user đã xác nhận bao phủ gói, model và môi trường triển khai; kiểm tra điều kiện thực tế trước public. Ưu tiên chạy cục bộ, không gửi ảnh sang dịch vụ xóa nền bên thứ ba.
+**Decision:** 2D mặc định; lazy-load Three/R3F khi mở 3D và dùng ring PNG trên plane gắn với charm. Xóa nền tải `@imgly/background-removal@1.7.0` theo yêu cầu, xử lý ảnh trong trình duyệt bằng model `isnet_quint8` và giữ asset gốc. Dependency là AGPL-3.0; upstream hiện chỉ ghi nhận Next.js 15, còn repo dùng Next.js 12. Tính năng mặc định tắt cho tới khi owner xác nhận package/model/triển khai theo T091. Xem [đánh giá dependency](../../docs/keychain-builder-release.md#local-background-removal-dependency-assessment-2026-11-18).
 
-**Rationale:** Three/R3F đã có trong `package.json`. Giới hạn 2D preview DPR, demand rendering, worker và giải phóng tài nguyên giúp mobile; 30 FPS chỉ là mục tiêu phải đo. Nếu thiết bị không xử lý được, báo lỗi và giữ config thay vì hứa mọi máy đều chạy.
+**Rationale:** Three/R3F đã có trong `package.json`. Giới hạn 2D preview DPR, demand rendering, worker và giải phóng tài nguyên giúp mobile; 30 FPS chỉ là mục tiêu phải đo. Việc chạy trên Next 12 phải được xác nhận bằng build/runtime vì vendor chỉ ghi hỗ trợ Next 15. Nếu thiết bị không xử lý được, báo lỗi và giữ config thay vì hứa mọi máy đều chạy.
 
-**Alternatives considered:** Tải 3D/model ngay hoặc gọi dịch vụ xử lý ảnh bên ngoài tăng chi phí/tải và đưa dữ liệu cá nhân ra bên thứ ba. License IMG.LY là xác nhận từ người dùng, chưa kiểm tra chứng từ.
+**Alternatives considered:** Tải 3D/model ngay hoặc gọi dịch vụ xử lý ảnh bên ngoài tăng chi phí/tải và đưa dữ liệu cá nhân ra bên thứ ba. Upstream xác nhận AGPL-3.0; owner chưa xác nhận quyền dùng package, model và phương án triển khai của INUT.
 
 ## 5. Độ phân giải Export và tính nhất quán
 
@@ -60,5 +60,5 @@
 
 - Xác minh nghĩa vụ bảo vệ dữ liệu áp dụng trước public; chính sách đã được người dùng duyệt nhưng chưa chứng minh tuân thủ.
 - Team sản xuất duyệt 18 frame, lỗ/tai, safe area, màu và tổ hợp size/móc **sau demo**; không coi output là production.
-- Xác minh license IMG.LY đã được người dùng xác nhận; xác nhận anchor/kích thước thực và độ nét 10 ảnh móc.
+- Owner xác minh license IMG.LY, model, quyền tái phân phối và môi trường deploy trước public; xác nhận anchor/kích thước thực và độ nét 10 ảnh móc.
 - Constitution hiện là template trống; owner cần quyết định thiết lập constitution trước khi áp dụng gate chính thức.

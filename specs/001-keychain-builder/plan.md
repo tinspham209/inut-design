@@ -14,7 +14,7 @@ Xây builder mobile-first cho acrylic trong và bảy màu đục, khung cố đ
 
 **Language/Version**: TypeScript `strict: false`; Node theo `package.json` (`>=20 <26`), pnpm 10.32.1; Sanity Studio v2 schemas bằng JavaScript.
 
-**Primary Dependencies**: Next.js 12 pages router, React 18, MUI 5, Three.js/R3F/Drei có sẵn; dùng Canvas 2D và Web Worker. Dự kiến thêm thư viện contour/union và `@imgly/background-removal` theo [research.md](./research.md), sau khi kiểm tra tương thích Next 12, bundle và license. Pin `@imgly/background-removal` và ghi quyết định owner về package/model/deployment trước khi bật public; không thêm state library.
+**Primary Dependencies**: Next.js 12 pages router, React 18, MUI 5, Three.js/R3F/Drei có sẵn; dùng Canvas 2D và Web Worker. Contour/union dùng alpha-mask + worker sẵn có, không thêm dependency. Pin `@imgly/background-removal@1.7.0` và peer `onnxruntime-web@1.21.0`; package AGPL-3.0, upstream chỉ ghi supported Next.js 15, nên giữ feature off mặc định và chờ owner xác nhận package/model/deployment trước khi bật public. Không thêm state library.
 
 **Storage**: Sanity image assets thông thường và `keychainDesign` snapshot; URL asset công khai với bất kỳ ai có URL. Trạng thái chỉnh chỉ ở bộ nhớ phiên; không dùng `localStorage`, `sessionStorage`, IndexedDB hoặc cookie để khôi phục thiết kế.
 
@@ -34,7 +34,7 @@ Xây builder mobile-first cho acrylic trong và bảy màu đục, khung cố đ
 
 **Trước và sau thiết kế:** `.specify/memory/constitution.md` vẫn là template chưa điền, nên không có nguyên tắc dự án được phê duyệt để đánh giá; không tuyên bố constitution gate đã pass. Các ràng buộc hiện hành trong repository vẫn áp dụng: token Sanity chỉ ở server; dùng `api-client/*`, `@/`, pnpm; dual GA4 + Umami không duplicate; không đổi `inut-lighters-cart`, pricing, order payload hay `_key` của lighter.
 
-Không có vi phạm constitution được xác định vì chưa có constitution thực tế. Owner cần thiết lập/duyệt constitution nếu muốn áp dụng gate chính thức; không tự tạo nguyên tắc giả. Quyền dùng 10 ảnh móc và license IMG.LY là xác nhận của người dùng, không phải bằng chứng license đã kiểm tra.
+Không có vi phạm constitution được xác định vì chưa có constitution thực tế. Owner cần thiết lập/duyệt constitution nếu muốn áp dụng gate chính thức; không tự tạo nguyên tắc giả. AGPL-3.0 của IMG.LY đã được xác minh từ upstream, nhưng phạm vi giấy phép cho package, model và môi trường triển khai của INUT vẫn chờ owner xác nhận theo T091.
 
 ## Project Structure
 

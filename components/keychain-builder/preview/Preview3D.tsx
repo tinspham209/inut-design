@@ -13,6 +13,7 @@ import { KeychainMesh } from "./KeychainMesh";
 import { RingPlane } from "./RingPlane";
 import { Preview3DFallback } from "./Preview3DFallback";
 import type { DieCutStatus } from "../hooks/useDieCutGeometry";
+import { getFaceImageUrl } from "../image/imageFace";
 
 class SceneBoundary extends Component<{ onError: (error: string) => void; children: ReactNode }, { failed: boolean }> {
 	state = { failed: false };
@@ -39,8 +40,8 @@ export function Preview3D({ config, onBack, frameOverride, geometryStatus, geome
 		let active = true;
 		let created: CanvasTexture[] = [];
 		if (!frame) return;
-		const frontUrl = config.front.url;
-		const backUrl = config.backMode === "custom" ? config.backCustom?.url : frontUrl;
+		const frontUrl = getFaceImageUrl(config.front);
+		const backUrl = config.backMode === "custom" ? getFaceImageUrl(config.backCustom) : frontUrl;
 		void Promise.all([frontUrl ? loadSanityImage(frontUrl) : Promise.resolve(undefined), backUrl ? loadSanityImage(backUrl) : Promise.resolve(undefined)])
 			.then(async ([frontImage, backImage]) => {
 				const front = await createDesignTexture(frame, config, frontImage, "front");

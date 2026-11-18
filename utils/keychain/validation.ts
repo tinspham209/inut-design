@@ -34,6 +34,11 @@ function validImageFace(face: unknown): face is NonNullable<KeychainConfig["fron
 	if (!validTransform(value.transform)) return false;
 	if (value.url !== undefined && (typeof value.url !== "string" || !value.url.startsWith("https://cdn.sanity.io/images/"))) return false;
 	if (value.image !== undefined && (value.image._type !== "image" || value.image.asset?._type !== "reference" || !/^image-[a-zA-Z0-9-]+$/.test(value.image.asset._ref))) return false;
+	if (value.processedUrl !== undefined && (typeof value.processedUrl !== "string" || !value.processedUrl.startsWith("https://cdn.sanity.io/images/"))) return false;
+	if (value.processedImage !== undefined && (value.processedImage._type !== "image" || value.processedImage.asset?._type !== "reference" || !/^image-[a-zA-Z0-9-]+$/.test(value.processedImage.asset._ref))) return false;
+	if (Boolean(value.processedUrl) !== Boolean(value.processedImage)) return false;
+	if (value.useProcessed !== undefined && typeof value.useProcessed !== "boolean") return false;
+	if (value.useProcessed && !value.processedUrl) return false;
 	return !value.url || Boolean(value.image);
 }
 

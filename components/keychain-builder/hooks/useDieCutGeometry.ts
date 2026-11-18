@@ -3,23 +3,25 @@ import { loadSanityImage } from "@/components/keychain-builder/image/loadSanityI
 import { extractImageAlpha } from "@/components/keychain-builder/geometry/imageAlpha";
 import { isLatestGeometryRevision, type DieCutGeometry } from "@/components/keychain-builder/geometry/dieCut";
 import type { KeychainConfig } from "@/components/keychain-builder/types";
+import { getFaceImageUrl } from "@/components/keychain-builder/image/imageFace";
 
 export type DieCutStatus = "idle" | "processing" | "ready" | "error";
 export function useDieCutGeometry(config: KeychainConfig, revision: number) {
 	const [result, setResult] = useState<{ status: DieCutStatus; revision: number; geometry?: DieCutGeometry; error?: string }>({ status: "idle", revision });
 	const latest = useRef(0);
 	const face = config.front;
+	const faceUrl = getFaceImageUrl(face);
 	const transform = face.transform;
 	const smoothness = config.shape.type === "die-cut" ? config.shape.smoothness : 4;
 	useEffect(() => {
 		const current = ++latest.current;
 		if (config.shape.type !== "die-cut") { setResult({ status: "idle", revision }); return; }
-		if (!face.url) { setResult({ status: "error", revision, error: "Tải ảnh mặt trước để tạo đường cắt theo viền ảnh." }); return; }
+		if (!faceUrl) { setResult({ status: "error", revision, error: "Tải ảnh mặt trước để tạo đường cắt theo viền ảnh." }); return; }
 		let worker: Worker | undefined;
 		let timeout: ReturnType<typeof setTimeout> | undefined;
 		let active = true;
 		setResult({ status: "processing", revision });
-		void loadSanityImage(face.url).then((image) => {
+		void loadSanityImage(faceUrl).then((image) => {
 			if (!active) return;
 			const mask = extractImageAlpha(image, 2048, 16, { rotation: transform.rotation, flipX: transform.flipX });
 			worker = new Worker(new URL("../geometry/dieCut.worker.ts", import.meta.url), { type: "module" });
@@ -45,6 +47,6 @@ export function useDieCutGeometry(config: KeychainConfig, revision: number) {
 			if (active && current === latest.current) setResult({ status: "error", revision, error: error instanceof Error ? error.message : "Không tải được ảnh để tạo đường cắt." });
 		});
 		return () => { active = false; if (timeout) clearTimeout(timeout); worker?.terminate(); };
-	}, [config.shape.type, config.sizeCm, smoothness, face.url, transform.xMm, transform.yMm, transform.scale, transform.rotation, transform.flipX, revision]);
+	}, [config.shape.type, config.sizeCm, smoothness, faceUrl, transform.xMm, transform.yMm, transform.scale, transform.rotation, transform.flipX, revision]);
 	return result;
 }

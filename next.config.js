@@ -1,8 +1,10 @@
 import BundleAnalyzer from "@next/bundle-analyzer";
+import path from "path";
 
 const withBundleAnalyzer = BundleAnalyzer({
 	enabled: process.env.ANALYZE === "true",
 });
+const backgroundRemovalEnabled = process.env.NEXT_PUBLIC_KEYCHAIN_BACKGROUND_REMOVAL_ENABLED === "true";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -92,6 +94,12 @@ const nextConfig = {
 		];
 	},
 	webpack: (config, { isServer }) => {
+		if (!backgroundRemovalEnabled) {
+			config.resolve.alias = {
+				...config.resolve.alias,
+				"@imgly/background-removal": path.resolve(process.cwd(), "components/keychain-builder/image/backgroundRemovalDisabled.ts"),
+			};
+		}
 		if (!isServer) {
 			config.resolve.fallback.fs = false;
 		} else {

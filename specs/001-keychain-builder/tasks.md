@@ -22,7 +22,7 @@ description: "Implementation tasks for the Keychain Builder feature"
 
 **Purpose**: Install compatible dependencies and establish the route, UI shell, and supplied demo/draft assets.
 
-- [ ] T001 Evaluate contour/union options, evaluate and pin `@imgly/background-removal`, and update `package.json` and `pnpm-lock.yaml` only with Next.js 12-compatible dependencies whose license terms are recorded in `docs/keychain-builder-release.md`
+- [X] T001 Evaluate contour/union options, evaluate and pin `@imgly/background-removal`, and update `package.json` and `pnpm-lock.yaml` only with Next.js 12-compatible dependencies whose license terms are recorded in `docs/keychain-builder-release.md`
 - [X] T002 [P] Copy the 18 supplied, unapproved demo/draft SVG inputs from `specs/001-keychain-builder/inputs/frames/` into `public/keychain/frames/` with stable filenames and no production approval metadata
 - [X] T003 [P] Copy the 10 supplied PNG inputs from `specs/001-keychain-builder/inputs/ring/` into `public/keychain/rings/` with stable filenames
 - [X] T004 Create the SEO page entry, MainLayout assignment, and no-SSR builder loading state in `pages/builder/keychain/index.tsx`
@@ -140,9 +140,9 @@ description: "Implementation tasks for the Keychain Builder feature"
 - [X] T053 [US4] Implement worker startup, cancellation, timeout, old-result rejection, and geometry-revision publication in `components/keychain-builder/hooks/useDieCutGeometry.ts`
 - [X] T054 [US4] Add frame/die-cut shape controls, transparent-image guidance, and invalid-contour recovery actions in `components/keychain-builder/controls/ShapeControls.tsx`
 - [X] T055 [US4] Recompute back-image crop after every front image/transform geometry change without using the back image to derive the cut in `components/keychain-builder/geometry/dieCut.ts`
-- [ ] T056 [US4] Dynamically import `@imgly/background-removal` only on demand and keep processing local in `components/keychain-builder/image/removeBackground.ts`
-- [ ] T057 [US4] Preserve original/processed image references, expose Use Original/Use Processed, and discard stale results in `components/keychain-builder/hooks/useBackgroundRemoval.ts`
-- [ ] T058 [US4] Add front/back background-removal status, retry, reuse-original, and unsupported-device guidance in `components/keychain-builder/controls/RemoveBackground.tsx`
+- [X] T056 [US4] Dynamically import `@imgly/background-removal` only on demand and keep processing local in `components/keychain-builder/image/removeBackground.ts`
+- [X] T057 [US4] Preserve original/processed image references, expose Use Original/Use Processed, and discard stale results in `components/keychain-builder/hooks/useBackgroundRemoval.ts`
+- [X] T058 [US4] Add front/back background-removal status, retry, reuse-original, and unsupported-device guidance in `components/keychain-builder/controls/RemoveBackground.tsx`
 - [X] T059 [US4] Block 2D/3D/PNG export until the latest valid die-cut geometry revision is ready and surface worker/processing errors without losing state in `components/keychain-builder/KeychainBuilder.tsx`
 - [X] T060 [US4] Feed valid die-cut geometry into 2D, 3D, and PNG renderers through the shared millimeter model in `components/keychain-builder/render/renderModel.ts`
 
