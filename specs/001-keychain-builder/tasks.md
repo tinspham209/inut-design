@@ -169,10 +169,10 @@ description: "Implementation tasks for the Keychain Builder feature"
 - [X] T069 [US5] Implement one Export action that waits for uploads and latest geometry, saves the snapshot before returning a link, and downloads the already-rendered PNG only after success in `components/keychain-builder/hooks/useExportDesign.ts`
 - [X] T070 [US5] Generate one random request UUID per Export action and reuse it only for retries of that unchanged fingerprint in `components/keychain-builder/hooks/useExportDesign.ts`
 - [X] T071 [US5] Add copy/open link controls and never show a link as successful before the POST snapshot response in `components/keychain-builder/ExportDialog.tsx`
-- [ ] T072 [US5] Read `?design=<id>` on route entry and load snapshot data into a new session with 2D selected by default in `components/keychain-builder/hooks/useLoadDesign.ts`
-- [ ] T073 [US5] Restore front, custom back, acrylic/material, shape, transforms, and image references from a valid snapshot without patching the source document in `components/keychain-builder/hooks/useLoadDesign.ts`
-- [ ] T074 [US5] Keep editing session-only: remove all design/link/image persistence from browser storage while allowing an explicit exported URL to hydrate once in `components/keychain-builder/hooks/useKeychainState.ts`
-- [ ] T075 [US5] Show unavailable/deleted/invalid link errors and a clear “start new design” path without rendering stale or partial configuration in `components/keychain-builder/KeychainBuilder.tsx`
+- [X] T072 [US5] Read `?design=<id>` on route entry and load snapshot data into a new session with 2D selected by default in `components/keychain-builder/hooks/useLoadDesign.ts`
+- [X] T073 [US5] Restore front, custom back, acrylic/material, shape, transforms, and image references from a valid snapshot without patching the source document in `components/keychain-builder/hooks/useLoadDesign.ts`
+- [X] T074 [US5] Keep editing session-only: remove all design/link/image persistence from browser storage while allowing an explicit exported URL to hydrate once in `components/keychain-builder/hooks/useKeychainState.ts`
+- [X] T075 [US5] Show unavailable/deleted/invalid link errors and a clear “start new design” path without rendering stale or partial configuration in `components/keychain-builder/KeychainBuilder.tsx`
 - [ ] T076 [US5] Sanitize keychain page paths, query strings, referrers, asset URLs, design IDs, and request/link identifiers in `utils/keychain/privacy.ts`
 - [ ] T077 [US5] Integrate keychain-safe URLs into initial and SPA GA4/GTM page views without adding duplicate page-view events in `pages/_app.tsx` and `components/scripts/google-tag-manager.tsx`
 - [ ] T078 [US5] Integrate keychain-safe Umami and Vercel page/location behavior while preserving analytics-disabled operation in `pages/_app.tsx` and `pages/_document.tsx`
