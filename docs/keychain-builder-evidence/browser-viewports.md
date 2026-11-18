@@ -21,3 +21,12 @@ against a mocked snapshot response, and forces WebGL context creation to fail to
 check the 2D fallback. Export clicks were captured in-page rather than saved as
 files. This Chrome viewport smoke does not substitute for physical Android/iOS
 QA or hosted asset access verification.
+
+## Device simulator availability check
+
+An iPhone 17 / iOS 26.5 Simulator was listed, but `agent-browser -p ios --device
+"iPhone 17" open http://localhost:3000/builder/keychain` failed with
+`Auto-launch failed: No sessionId in response`; no iOS Safari page was driven.
+No Android Chrome emulator/device was connected for this pass. These failures
+are not device QA evidence and leave the Android/iOS flow and physical FPS gates
+open.
