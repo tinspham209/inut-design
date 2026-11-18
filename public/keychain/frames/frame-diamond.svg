@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="7.5 0 85 97.5" width="26.1538462mm" height="30mm">
+  <title>Diamond</title>
+  <path id="cut" d="M38 19 V12 A12 12 0 0 1 62 12 V19 L91 55 Q94 58 91 61 L53 96 Q50 99 47 96 L9 61 Q6 58 9 55 Z" fill="#b9c9d5"/>
+  <path id="print" d="M50 25 L84 58 L50 90 L16 58 Z" fill="#ffffff"/>
+  <circle id="hole" cx="50" cy="12" r="6.5" data-diameter-mm="4" fill="#253544"/>
+</svg>

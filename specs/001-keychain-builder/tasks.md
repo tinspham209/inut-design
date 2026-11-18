@@ -23,9 +23,9 @@ description: "Implementation tasks for the Keychain Builder feature"
 **Purpose**: Install compatible dependencies and establish the route, UI shell, and supplied demo/draft assets.
 
 - [ ] T001 Evaluate contour/union options, evaluate and pin `@imgly/background-removal`, and update `package.json` and `pnpm-lock.yaml` only with Next.js 12-compatible dependencies whose license terms are recorded in `docs/keychain-builder-release.md`
-- [ ] T002 [P] Copy the 18 supplied, unapproved demo/draft SVG inputs from `specs/001-keychain-builder/inputs/frames/` into `public/keychain/frames/` with stable filenames and no production approval metadata
-- [ ] T003 [P] Copy the 10 supplied PNG inputs from `specs/001-keychain-builder/inputs/ring/` into `public/keychain/rings/` with stable filenames
-- [ ] T004 Create the SEO page entry, MainLayout assignment, and no-SSR builder loading state in `pages/builder/keychain/index.tsx`
+- [X] T002 [P] Copy the 18 supplied, unapproved demo/draft SVG inputs from `specs/001-keychain-builder/inputs/frames/` into `public/keychain/frames/` with stable filenames and no production approval metadata
+- [X] T003 [P] Copy the 10 supplied PNG inputs from `specs/001-keychain-builder/inputs/ring/` into `public/keychain/rings/` with stable filenames
+- [X] T004 Create the SEO page entry, MainLayout assignment, and no-SSR builder loading state in `pages/builder/keychain/index.tsx`
 - [ ] T005 Create the responsive dark-theme shell from `specs/001-keychain-builder/inputs/mockup-preview.png`, with desktop preview-left/control-right composition, mobile preview-before-controls flow, DEMO/disclaimer hierarchy, and site layout integration in `components/keychain-builder/KeychainBuilder.tsx`
 
 **Checkpoint**: `/builder/keychain` renders through the existing layout without changing lighter-builder behavior.

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="7 0 86 95" width="27.1578947mm" height="30mm">
+  <title>Cat head</title>
+  <path id="cut" d="M38 26 V12 A12 12 0 0 1 62 12 V26 L66 28 L80 15 Q83 13 84 18 L86 39 C91 46 93 53 93 61 C93 82 76 95 50 95 C24 95 7 82 7 61 C7 53 9 46 14 39 L16 18 Q17 13 20 15 L34 28 Z" fill="#b9c9d5"/>
+  <path id="print" d="M20 41 L21 25 L34 35 Q50 31 66 35 L79 25 L80 41 C85 47 87 53 87 61 C87 78 72 89 50 89 C28 89 13 78 13 61 C13 53 15 47 20 41 Z" fill="#ffffff"/>
+  <circle id="hole" cx="50" cy="12" r="6.3333333" data-diameter-mm="4" fill="#253544"/>
+</svg>

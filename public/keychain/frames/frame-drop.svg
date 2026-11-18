@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="14 0 72 98" width="22.0408163mm" height="30mm">
+  <title>Drop</title>
+  <path id="cut" d="M38 21 V12 A12 12 0 0 1 62 12 V21 C68 34 86 53 86 68 C86 86 70 98 50 98 C30 98 14 86 14 68 C14 53 32 34 38 21 Z" fill="#b9c9d5"/>
+  <path id="print" d="M50 29 C61 42 79 56 79 69 C79 82 66 91 50 91 C34 91 21 82 21 69 C21 56 39 42 50 29 Z" fill="#ffffff"/>
+  <circle id="hole" cx="50" cy="12" r="6.5333333" data-diameter-mm="4" fill="#253544"/>
+</svg>
