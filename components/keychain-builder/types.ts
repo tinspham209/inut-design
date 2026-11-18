@@ -1,0 +1,20 @@
+export type AcrylicId = "clear" | "red" | "yellow" | "orange" | "green" | "blue" | "white" | "black";
+export type BackMode = "through-acrylic" | "white" | "mirror-front" | "custom" | "material";
+export type ShapeConfig = { type: "frame"; frameId: string } | { type: "die-cut"; paddingMm: number; smoothness: number };
+export type ImageTransform = { xMm: number; yMm: number; scale: number; rotation: number; flipX: boolean };
+export type ImageFace = { image?: { _type: "image"; asset: { _ref: string; _type: "reference" } }; url?: string; transform: ImageTransform; useProcessed?: boolean };
+export type KeychainConfig = {
+	version: 1; ringId: string; shape: ShapeConfig; sizeCm: number; acrylicId: AcrylicId;
+	printSides: 1 | 2; backMode: BackMode; front: ImageFace; backCustom?: ImageFace;
+	material: { edge: string; thicknessMm: number; sheen: number };
+};
+export type KeychainAction =
+	| { type: "select-ring"; ringId: string }
+	| { type: "select-frame"; frameId: string }
+	| { type: "set-size"; sizeCm: number }
+	| { type: "select-acrylic"; acrylicId: AcrylicId }
+	| { type: "confirm-opaque"; acrylicId: Exclude<AcrylicId, "clear"> }
+	| { type: "set-back-mode"; backMode: Exclude<BackMode, "material"> }
+	| { type: "set-print-sides"; printSides: 1 | 2 }
+	| { type: "set-face"; face: "front" | "backCustom"; value: ImageFace }
+	| { type: "reset" };
