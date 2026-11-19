@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { FRAMES, RINGS } from "@/data/keychain/catalog";
 import type { KeychainAction, KeychainConfig } from "../types";
@@ -48,6 +48,7 @@ export function Preview2D({
 	const [frame, setFrame] = useState<FrameSvgData | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [fullScreen, setFullScreen] = useState(false);
+	const [keychainZoom, setKeychainZoom] = useState(1);
 	const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
 	const frameId = config.shape.type === "frame" ? config.shape.frameId : "heart";
 	const frameRecord = FRAMES.find((record) => record.id === frameId);
@@ -164,7 +165,7 @@ export function Preview2D({
 			const canvas = canvasRef.current;
 			const width = canvas?.clientWidth || 1;
 			const framePixels = Number(canvas?.dataset.frameMaxSize) || width;
-			const deltaMm = (config.sizeCm * 10) / framePixels;
+			const deltaMm = (config.sizeCm * 10) / (framePixels * keychainZoom);
 			dispatch({
 				type: "set-face",
 				face,
@@ -178,7 +179,7 @@ export function Preview2D({
 				},
 			});
 		},
-		[config, dispatch, view]
+		[config, dispatch, keychainZoom, view]
 	);
 
 	const updateTransform = (
@@ -335,6 +336,17 @@ export function Preview2D({
 							action: () => updateTransform((t) => ({ ...t, scale: Math.min(12, t.scale * 1.1) })),
 						},
 						{
+							label: "Thu nhỏ toàn bộ keychain",
+							icon: "⊖",
+							separatorBefore: true,
+							action: () => setKeychainZoom((zoom) => Math.max(0.5, zoom / 1.1)),
+						},
+						{
+							label: "Phóng to toàn bộ keychain",
+							icon: "⊕",
+							action: () => setKeychainZoom((zoom) => Math.min(2.5, zoom * 1.1)),
+						},
+						{
 							label: "Đặt lại ảnh",
 							icon: "⟲",
 							action: () =>
@@ -346,28 +358,42 @@ export function Preview2D({
 							action: () => setFullScreen((current) => !current),
 						},
 					].map((tool) => (
-						<Button
-							key={tool.label}
-							title={tool.label}
-							aria-label={tool.label}
-							onClick={tool.action}
-							sx={{
-								width: 32,
-								minWidth: 32,
-								height: 32,
-								minHeight: 32,
-								p: 0,
-								color: "#c5c6ce",
-								border: "1px solid #34353d",
-								bgcolor: "#22232a",
-								borderRadius: 1,
-								fontSize: 14,
-							}}
-						>
-							<Box component="span" sx={{ display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 20, lineHeight: 1 }}>
-								{tool.icon}
-							</Box>
-						</Button>
+						<Fragment key={tool.label}>
+							{"separatorBefore" in tool && tool.separatorBefore && (
+								<Box
+									key={`${tool.label}-separator`}
+									aria-hidden="true"
+									sx={{
+										width: { xs: "1px", md: 22 },
+										height: { xs: 28, md: "1px" },
+										alignSelf: "center",
+										flexShrink: 0,
+										bgcolor: "#45464e",
+									}}
+								/>
+							)}
+							<Button
+								title={tool.label}
+								aria-label={tool.label}
+								onClick={tool.action}
+								sx={{
+									width: 32,
+									minWidth: 32,
+									height: 32,
+									minHeight: 32,
+									p: 0,
+									color: "#c5c6ce",
+									border: "1px solid #34353d",
+									bgcolor: "#22232a",
+									borderRadius: 1,
+									fontSize: 14,
+								}}
+							>
+								<Box component="span" sx={{ display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 20, lineHeight: 1 }}>
+									{tool.icon}
+								</Box>
+							</Button>
+						</Fragment>
 					))}
 				</Stack>
 				<Box
@@ -379,6 +405,7 @@ export function Preview2D({
 						minWidth: 0,
 						minHeight: { xs: 260, md: 0 },
 						height: { xs: "auto", md: "100%" },
+						overflow: "hidden",
 						position: "relative",
 						border: "1px solid #2d2e35",
 						borderRadius: 1.5,
@@ -441,6 +468,9 @@ export function Preview2D({
 									touchAction: "none",
 									cursor: "grab",
 									outline: "none",
+									transform: `scale(${keychainZoom})`,
+									transformOrigin: "center",
+									transition: "transform 140ms ease-out",
 								}}
 							/>
 						</Box>
