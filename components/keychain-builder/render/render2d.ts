@@ -81,6 +81,7 @@ export async function renderKeychain2d(
 	ctx.translate(frameX, frameY);
 	ctx.scale(pxPerUnit, pxPerUnit);
 	const cut = new Path2D(frame.cutPath);
+	const print = new Path2D(frame.printPath);
 	const acrylicColor = config.acrylicId === "clear" ? "rgba(183,220,240,0.28)" : config.acrylicId;
 	ctx.fillStyle = acrylicColor;
 	ctx.fill(cut);
@@ -94,22 +95,33 @@ export async function renderKeychain2d(
 		if (config.backMode === "material") renderImage = undefined;
 	}
 	const canRenderImage = side === "front" || config.backMode === "through-acrylic" || config.backMode === "mirror-front" || config.backMode === "custom";
-	if (showImageCoverage && canRenderImage) { ctx.fillStyle = "#fff"; ctx.fill(cut); }
-	if (renderImage && canRenderImage) {
+	if (canRenderImage && (renderImage || showImageCoverage)) {
 		ctx.save();
 		ctx.clip(cut);
 		const borderPx = Math.max(0, Math.min(80, config.cutBorderPx ?? 20));
-		const imageScale = Math.max(0.68, 1 - borderPx * 0.004);
-		const face = side === "back" && config.backMode === "custom" ? config.backCustom : config.front;
-		const transform = face?.transform || config.front.transform;
-		const art = renderImage as CanvasImageSource & { width: number; height: number };
-		const centerX = minX + sourceWidth / 2 + transform.xMm / mmPerUnit;
-		const centerY = minY + sourceHeight / 2 + transform.yMm / mmPerUnit;
-		ctx.translate(centerX, centerY);
-		ctx.rotate((transform.rotation * Math.PI) / 180);
-		const fit = Math.max(sourceWidth / art.width, sourceHeight / art.height);
-		ctx.scale(transform.scale * imageScale * (transform.flipX ? -1 : 1) * (mirror ? -1 : 1), transform.scale * imageScale);
-		ctx.drawImage(art, -art.width * fit / 2, -art.height * fit / 2, art.width * fit, art.height * fit);
+		const printScale = 1 + (20 - borderPx) * 0.004;
+		const printCenterX = minX + sourceWidth / 2;
+		const printCenterY = minY + sourceHeight / 2;
+		ctx.translate(printCenterX, printCenterY);
+		ctx.scale(printScale, printScale);
+		ctx.translate(-printCenterX, -printCenterY);
+		ctx.clip(print);
+		ctx.translate(printCenterX, printCenterY);
+		ctx.scale(1 / printScale, 1 / printScale);
+		ctx.translate(-printCenterX, -printCenterY);
+		if (showImageCoverage) { ctx.fillStyle = "#fff"; ctx.fillRect(minX, minY, sourceWidth, sourceHeight); }
+		if (renderImage) {
+			const face = side === "back" && config.backMode === "custom" ? config.backCustom : config.front;
+			const transform = face?.transform || config.front.transform;
+			const art = renderImage as CanvasImageSource & { width: number; height: number };
+			const centerX = minX + sourceWidth / 2 + transform.xMm / mmPerUnit;
+			const centerY = minY + sourceHeight / 2 + transform.yMm / mmPerUnit;
+			ctx.translate(centerX, centerY);
+			ctx.rotate((transform.rotation * Math.PI) / 180);
+			ctx.scale(transform.scale * (transform.flipX ? -1 : 1) * (mirror ? -1 : 1), transform.scale);
+			const fit = Math.max(sourceWidth * 0.72 / art.width, sourceHeight * 0.72 / art.height);
+			ctx.drawImage(art, -art.width * fit / 2, -art.height * fit / 2, art.width * fit, art.height * fit);
+		}
 		ctx.restore();
 	}
 	ctx.globalCompositeOperation = "destination-out";
