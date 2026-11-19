@@ -1,10 +1,9 @@
-import { Alert, Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { FRAMES } from "@/data/keychain/catalog";
 import type { KeychainAction, KeychainConfig } from "../types";
-import type { DieCutStatus } from "../hooks/useDieCutGeometry";
 
-export function ShapeControls({ config, status, error, onChange }: { config: KeychainConfig; status: DieCutStatus; error?: string; onChange: (action: KeychainAction) => void }) {
+export function ShapeControls({ config, onChange }: { config: KeychainConfig; onChange: (action: KeychainAction) => void }) {
 	return <Stack spacing={{ xs: 1.25, md: 0.4 }}>
 		<Typography variant="caption" color="grey.400">Kiểu tạo hình</Typography>
 		<Stack direction="row" spacing={{ xs: 1, md: 0.5 }}>
@@ -19,8 +18,6 @@ export function ShapeControls({ config, status, error, onChange }: { config: Key
 		</>}
 		{config.shape.type === "die-cut" && <>
 			<Typography variant="caption" color="grey.400">Dùng ảnh PNG/WebP có nền trong suốt, một silhouette liền khối. Tai treo minh họa, lỗ giữ đường kính 4 mm.</Typography>
-			{status === "processing" && <Alert severity="info" role="status">Đang tính đường cắt từ ảnh mặt trước…</Alert>}
-			{status === "error" && <Alert severity="warning" action={<Button size="small" onClick={() => onChange({ type: "select-die-cut" })}>Thử lại</Button>}>{error || "Không tạo được đường cắt. Chọn ảnh khác hoặc dùng khung cố định."}</Alert>}
 		</>}
 	</Stack>;
 }

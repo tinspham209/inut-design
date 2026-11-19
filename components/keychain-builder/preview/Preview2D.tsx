@@ -8,14 +8,14 @@ import { renderKeychain2d, type ConnectorAssets } from "../render/render2d";
 import type { DieCutStatus } from "../hooks/useDieCutGeometry";
 import { getFaceImageUrl } from "../image/imageFace";
 
-type Props = { config: KeychainConfig; view: "front" | "back"; dispatch: (action: KeychainAction) => void; on3D?: () => void; frameOverride?: FrameSvgData; geometryStatus?: DieCutStatus; geometryError?: string };
+type Props = { config: KeychainConfig; view: "front" | "back"; dispatch: (action: KeychainAction) => void; on3D?: () => void; onNotify?: (message: string) => void; frameOverride?: FrameSvgData; geometryStatus?: DieCutStatus; geometryError?: string };
 const demoImages = new Map<string, Promise<HTMLImageElement>>();
 function loadDemoImage(src: string) {
 	let pending = demoImages.get(src);
 	if (!pending) { pending = new Promise((resolve, reject) => { const image = new Image(); image.onload = () => resolve(image); image.onerror = () => reject(new Error("Không tải được hình móc demo")); image.src = src; }); demoImages.set(src, pending); }
 	return pending;
 }
-export function Preview2D({ config, view, dispatch, on3D, frameOverride, geometryStatus, geometryError }: Props) {
+export function Preview2D({ config, view, dispatch, on3D, onNotify, frameOverride, geometryStatus, geometryError }: Props) {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const stageRef = useRef<HTMLDivElement>(null);
 	const dragRef = useRef<{ x: number; y: number } | null>(null);
@@ -23,10 +23,8 @@ export function Preview2D({ config, view, dispatch, on3D, frameOverride, geometr
 	const [error, setError] = useState<string | null>(null);
 	const [fullScreen, setFullScreen] = useState(false);
 	const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
-	const previewRef = useRef<HTMLDivElement>(null);
 	const frameId = config.shape.type === "frame" ? config.shape.frameId : "heart";
 	const frameRecord = FRAMES.find((record) => record.id === frameId);
-	const currentFace = view === "back" && config.backMode === "custom" ? config.backCustom : config.front;
 	useEffect(() => {
 		const stage = stageRef.current;
 		if (!stage || typeof ResizeObserver === "undefined") return;
@@ -65,6 +63,7 @@ export function Preview2D({ config, view, dispatch, on3D, frameOverride, geometr
 		void Promise.all([load, ring, connectorAssets]).then(([image, ringImage, connectors]) => { if (active) return renderKeychain2d(canvas, frame, config, image, view, ringImage, connectors); }).catch((reason) => { if (active) setError(reason instanceof Error ? reason.message : "Không thể dựng bản xem trước"); });
 		return () => { active = false; };
 	}, [frame, config, view, stageSize]);
+	useEffect(() => { if (error) onNotify?.(error); }, [error, onNotify]);
 
 	const updatePan = useCallback((dx: number, dy: number) => {
 		const face = view === "back" && config.backMode === "custom" ? "backCustom" : "front";
@@ -82,20 +81,26 @@ export function Preview2D({ config, view, dispatch, on3D, frameOverride, geometr
 		const value = face === "backCustom" ? config.backCustom : config.front;
 		if (value) dispatch({ type: "set-face", face, value: { ...value, transform: update(value.transform) } });
 	};
-	return <Stack ref={previewRef} spacing={{ xs: 1.25, md: 0.5 }} sx={{ width: "100%", height: { md: "100%" }, flex: { md: 1 }, minHeight: 0, ...(fullScreen ? { position: "fixed", zIndex: 1400, inset: 0, p: { xs: 1.5, md: 3 }, bgcolor: "#15161b", overflow: "auto" } : {}) }}>
-		<Stack direction="row" spacing={1} alignItems="center" justifyContent="space-between" flexWrap="wrap">
+	return <Stack spacing={{ xs: 0.75, md: 0.35 }} sx={{ width: "100%", height: { md: "100%" }, flex: { md: 1 }, minHeight: 0, ...(fullScreen ? { position: "fixed", zIndex: 1400, inset: 0, p: { xs: 1, md: 2 }, bgcolor: "#15161b", overflow: "auto" } : {}) }}>
+		<Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" flexWrap="nowrap" sx={{ height: 32, minHeight: 32 }}>
 			<Stack direction="row" spacing={0.5} sx={{ p: 0.35, bgcolor: "#22232a", border: "1px solid #36373e", borderRadius: 1.25 }}>
-				{(["front", "back"] as const).map((face) => <Button key={face} size="small" aria-pressed={view === face} variant={view === face ? "contained" : "text"} onClick={() => dispatch({ type: "set-view", view: face })} sx={{ minHeight: { xs: 34, md: 28 }, px: { xs: 1.5, md: 1 }, bgcolor: view === face ? "#f47a28" : "transparent", color: "white", "&:hover": { bgcolor: view === face ? "#ff8a36" : "#303139" } }}>{face === "front" ? "Mặt trước" : "Mặt sau"}</Button>)}
+				{(["front", "back"] as const).map((face) => <Button key={face} size="small" aria-pressed={view === face} variant={view === face ? "contained" : "text"} onClick={() => dispatch({ type: "set-view", view: face })} sx={{ height: 28, minHeight: 28, px: { xs: 1, md: 1 }, lineHeight: 1, bgcolor: view === face ? "#f47a28" : "transparent", color: "white", "&:hover": { bgcolor: view === face ? "#ff8a36" : "#303139" } }}>{face === "front" ? "Mặt trước" : "Mặt sau"}</Button>)}
 			</Stack>
-			<Stack direction="row" spacing={0.5}>
-				<Button size="small" variant="outlined" aria-pressed sx={{ minHeight: { xs: 34, md: 28 }, minWidth: { md: 32 }, borderColor: "#45464e", color: "#c5c6ce" }}>2D</Button>
-				{on3D && <Button size="small" onClick={on3D} disabled={config.shape.type === "die-cut" && !frameOverride} sx={{ minHeight: { xs: 34, md: 28 }, minWidth: { md: 32 }, color: "#c5c6ce" }}>3D</Button>}
-				<Button size="small" onClick={() => setFullScreen((current) => !current)} aria-label={fullScreen ? "Thoát toàn màn hình" : "Toàn màn hình"} sx={{ minHeight: { xs: 34, md: 28 }, minWidth: { md: 32 }, color: "#c5c6ce" }}>{fullScreen ? "Thu nhỏ" : "⛶"}</Button>
+			<Stack direction="row" spacing={0.25}>
+				<Button size="small" variant="outlined" aria-current="true" sx={{ height: 28, minHeight: 28, minWidth: 36, borderColor: "#45464e", color: "#c5c6ce" }}>2D</Button>
+				{on3D && <Button size="small" onClick={on3D} disabled={config.shape.type === "die-cut" && !frameOverride} sx={{ height: 28, minHeight: 28, minWidth: 36, color: "#c5c6ce" }}>3D</Button>}
 			</Stack>
 		</Stack>
-		<Stack direction="row" spacing={{ xs: 1, md: 0.5 }} alignItems="stretch" sx={{ minHeight: { xs: 260, md: 0 }, flex: { md: 1 } }}>
-			<Stack spacing={0.35} sx={{ display: { xs: "none", sm: "flex" }, py: 0.5 }}>
-				{[{ label: "Di chuyển", icon: "✥", action: () => updatePan(4, 0) }, { label: "Xoay ảnh", icon: "↻", action: () => updateTransform((t) => ({ ...t, rotation: t.rotation + 15 })) }, { label: "Thu nhỏ", icon: "−", action: () => updateTransform((t) => ({ ...t, scale: Math.max(0.25, t.scale - 0.1) })) }, { label: "Phóng to", icon: "+", action: () => updateTransform((t) => ({ ...t, scale: Math.min(4, t.scale + 0.1) })) }].map((tool) => <Button key={tool.label} title={tool.label} aria-label={tool.label} onClick={tool.action} sx={{ minWidth: { md: 30 }, width: { md: 30 }, minHeight: { md: 30 }, p: 0, color: "#c5c6ce", border: "1px solid #34353d", bgcolor: "#22232a", borderRadius: 1, fontSize: 14 }}>{tool.icon}</Button>)}
+		<Stack direction="row" spacing={{ xs: 0.5, md: 0.5 }} alignItems="stretch" sx={{ minHeight: { xs: 260, md: 0 }, flex: { md: 1 } }}>
+			<Stack direction={{ xs: "column" }} spacing={0.35} sx={{ width: 32, flex: "0 0 32px", py: 0.25 }}>
+				{[
+					{ label: "Xoay ảnh 90°", icon: "↻", action: () => updateTransform((t) => ({ ...t, rotation: (t.rotation + 90) % 360 })) },
+					{ label: "Lật ngang", icon: "⇋", action: () => updateTransform((t) => ({ ...t, flipX: !t.flipX })) },
+					{ label: "Thu nhỏ ảnh", icon: "−", action: () => updateTransform((t) => ({ ...t, scale: Math.max(0.25, t.scale / 1.1) })) },
+					{ label: "Phóng to ảnh", icon: "+", action: () => updateTransform((t) => ({ ...t, scale: Math.min(12, t.scale * 1.1) })) },
+					{ label: "Đặt lại ảnh", icon: "⟲", action: () => updateTransform(() => ({ xMm: 0, yMm: 0, scale: 1, rotation: 0, flipX: false })) },
+					{ label: fullScreen ? "Thoát toàn màn hình" : "Toàn màn hình", icon: fullScreen ? "⊡" : "⛶", action: () => setFullScreen((current) => !current) },
+				].map((tool) => <Button key={tool.label} title={tool.label} aria-label={tool.label} onClick={tool.action} sx={{ width: 32, minWidth: 32, height: 32, minHeight: 32, p: 0, color: "#c5c6ce", border: "1px solid #34353d", bgcolor: "#22232a", borderRadius: 1, fontSize: 14 }}>{tool.icon}</Button>)}
 			</Stack>
 			<Box ref={stageRef} sx={{ display: "grid", flex: 1, placeItems: "center", minWidth: 0, minHeight: 0, height: "100%", position: "relative", border: "1px solid #2d2e35", borderRadius: 1.5, bgcolor: "#17181e", backgroundImage: "linear-gradient(#ffffff05 1px, transparent 1px), linear-gradient(90deg, #ffffff05 1px, transparent 1px)", backgroundSize: "24px 24px" }}>
 		{config.shape.type === "die-cut" && !frameOverride ? <Typography role="status" color={geometryStatus === "error" ? "error" : "grey.300"}>{geometryError || (geometryStatus === "processing" ? "Đang tạo đường cắt…" : "Chọn ảnh mặt trước để tạo đường cắt.")}</Typography> : <Box sx={{ position: "relative", width: "100%", height: "100%", maxWidth: { xs: 520, md: 440 }, mx: "auto" }}>
@@ -106,18 +111,9 @@ export function Preview2D({ config, view, dispatch, on3D, frameOverride, geometr
 				onPointerCancel={() => { dragRef.current = null; }}
 				onKeyDown={(event) => { const step = event.shiftKey ? 5 : 1; if (event.key === "ArrowLeft") updatePan(-step, 0); if (event.key === "ArrowRight") updatePan(step, 0); if (event.key === "ArrowUp") updatePan(0, -step); if (event.key === "ArrowDown") updatePan(0, step); }}
 				style={{ width: "100%", height: "100%", maxHeight: "100%", display: "block", touchAction: "none", cursor: "grab", outline: "none" }} />
-			{error && <Typography role="alert" color="error">{error}</Typography>}
 		</Box>}
 			</Box>
 		</Stack>
-		<Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={{ xs: 1, md: 0.5 }}>
-			<Typography variant="caption" color="grey.500" sx={{ fontSize: { md: 10 } }}>Kéo ảnh để căn vị trí</Typography>
-			<Stack direction="row" spacing={{ xs: 0.5, md: 0.25 }}>
-				<Button size="small" onClick={() => updateTransform((t) => ({ ...t, scale: Math.max(0.25, t.scale - 0.1) }))} aria-label="Thu nhỏ ảnh">−</Button>
-				<Button size="small" onClick={() => updateTransform((t) => ({ ...t, scale: Math.min(4, t.scale + 0.1) }))} aria-label="Phóng to ảnh">＋</Button>
-				<Button size="small" onClick={() => { if (currentFace) dispatch({ type: "set-face", face: view === "back" && config.backMode === "custom" ? "backCustom" : "front", value: { ...currentFace, transform: { ...currentFace.transform, scale: 1 } } }); }}>Fit</Button>
-				<Button size="small" onClick={() => { if (currentFace) dispatch({ type: "set-face", face: view === "back" && config.backMode === "custom" ? "backCustom" : "front", value: { ...currentFace, transform: { xMm: 0, yMm: 0, scale: 1, rotation: 0, flipX: false } } }); }}>Đặt lại ảnh</Button>
-			</Stack>
-		</Stack>
+		<Typography variant="caption" color="grey.500" sx={{ fontSize: { md: 10 }, minHeight: 14 }}>Kéo ảnh để căn vị trí</Typography>
 	</Stack>;
 }

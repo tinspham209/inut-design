@@ -1,4 +1,4 @@
-import { Alert, Button, LinearProgress, Stack, Typography } from "@mui/material";
+import { Button, LinearProgress, Stack, Typography } from "@mui/material";
 import type { BackgroundRemovalState } from "../hooks/useBackgroundRemoval";
 
 type Props = { label: string; hasImage: boolean; hasProcessed: boolean; useProcessed?: boolean; enabled: boolean; state: BackgroundRemovalState; onRemove: () => void; onUseOriginal: () => void; onUseProcessed: () => void };
@@ -8,7 +8,7 @@ export function RemoveBackground({ label, hasImage, hasProcessed, useProcessed =
 	if (!enabled && !hasProcessed) return null;
 	return <Stack spacing={0.75} sx={{ mt: 1 }}>
 		<Typography variant="caption" color="grey.400">Xóa nền · {label}</Typography>
-		{!enabled ? <Alert severity="info" sx={{ py: 0 }}>Đang tắt đến khi hoàn tất duyệt license, model và triển khai.</Alert> : <>
+		{enabled && <>
 			<Stack direction="row" flexWrap="wrap" gap={0.75}>
 				<Button size="small" variant="outlined" disabled={!hasImage || busy} onClick={onRemove} sx={{ borderColor: "#55565f" }}>{busy ? state.status === "uploading" ? "Đang lưu ảnh…" : "Đang tách nền…" : state.status === "error" ? "Thử tách lại" : "Tách nền"}</Button>
 				{hasProcessed && <>
@@ -18,7 +18,6 @@ export function RemoveBackground({ label, hasImage, hasProcessed, useProcessed =
 			</Stack>
 			{busy && <Stack spacing={0.25}><LinearProgress variant="determinate" value={state.progress} sx={{ bgcolor: "#303139", "& .MuiLinearProgress-bar": { bgcolor: "#f47a28" } }} /><Typography role="status" variant="caption" color="grey.500">{state.status === "uploading" ? "Đang lưu bản đã tách nền…" : state.progress > 0 ? `Đang xử lý trên thiết bị · ${state.progress}%` : "Đang tải công cụ và chuẩn bị xử lý…"}</Typography></Stack>}
 			{state.status === "complete" && <Typography role="status" variant="caption" color="success.light">Đã lưu ảnh đã tách nền. Ảnh gốc vẫn còn để khôi phục.</Typography>}
-			{(state.status === "error" || state.status === "unsupported") && <Alert severity={state.status === "unsupported" ? "info" : "error"} sx={{ py: 0 }}>{state.error}</Alert>}
 			{!hasImage && <Typography variant="caption" color="grey.500">Tải ảnh lên để bật chức năng tách nền.</Typography>}
 		</>}
 	</Stack>;

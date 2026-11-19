@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import { Component, useEffect, useRef, useState, type ReactNode } from "react";
-import { Alert, Button, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import type { CanvasTexture } from "three";
@@ -22,13 +22,14 @@ class SceneBoundary extends Component<{ onError: (error: string) => void; childr
 	render() { return this.state.failed ? null : this.props.children; }
 }
 
-export function Preview3D({ config, onBack, frameOverride, geometryStatus, geometryError }: { config: KeychainConfig; onBack: () => void; frameOverride?: FrameSvgData; geometryStatus?: DieCutStatus; geometryError?: string }) {
+export function Preview3D({ config, onBack, onNotify, frameOverride, geometryStatus, geometryError }: { config: KeychainConfig; onBack: () => void; onNotify?: (message: string) => void; frameOverride?: FrameSvgData; geometryStatus?: DieCutStatus; geometryError?: string }) {
 	const [frame, setFrame] = useState<FrameSvgData | null>(null);
 	const [textures, setTextures] = useState<[CanvasTexture, CanvasTexture] | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const controls = useRef<{ reset: () => void } | null>(null);
 	const frameId = config.shape.type === "frame" ? config.shape.frameId : "heart";
 	const source = FRAMES.find((item) => item.id === frameId)?.src;
+	useEffect(() => { if (error) onNotify?.(error); }, [error, onNotify]);
 	useEffect(() => {
 		let active = true;
 		if (config.shape.type === "die-cut") { setFrame(frameOverride || null); return; }
@@ -52,8 +53,8 @@ export function Preview3D({ config, onBack, frameOverride, geometryStatus, geome
 		return () => { active = false; created.forEach((texture) => texture.dispose()); };
 	}, [frame, config]);
 	const onError = (message: string) => setError(message || "Thiết bị không hỗ trợ WebGL");
-	if (error) return <Preview3DFallback error={error} onBack={onBack} />;
-	if (!frame || !textures) return <Alert severity={geometryStatus === "error" ? "warning" : "info"} role="status">{geometryError || "Đang dựng bản xem trước 3D…"}</Alert>;
+	if (error) return <Preview3DFallback onBack={onBack} />;
+	if (!frame || !textures) return <Typography role="status" color={geometryStatus === "error" ? "warning.main" : "grey.300"}>{geometryError || "Đang dựng bản xem trước 3D…"}</Typography>;
 	return <Stack spacing={1}>
 		<Stack direction="row" spacing={1}><Button onClick={onBack}>Quay lại 2D</Button><Button onClick={() => controls.current?.reset()}>Fit / Reset camera</Button><Typography variant="body2" color="grey.400">Xoay và phóng to không làm thay đổi thiết kế</Typography></Stack>
 		<SceneBoundary onError={onError}>
