@@ -104,7 +104,7 @@ const LighterCardBuilder: React.FC = () => {
 									color: COLOR_CODE.WHITE,
 								}}
 							>
-								Skin bật lửa của bạn. Upload ảnh, xoay 3D, gửi đơn.
+								BẬT LỬA ĐỘC BẢN, DO BẠN TỰ THIẾT KẾ
 							</Typography>
 						</Box>
 						<Stack direction="row" alignItems="center" justifyContent="space-between" p={1}>

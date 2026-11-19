@@ -87,7 +87,7 @@ const LighterCardCustomize: React.FC = () => {
 									color: COLOR_CODE.WHITE,
 								}}
 							>
-								Bật lửa thiết kế theo yêu cầu của bạn
+								INUT thiết kế BẬT LỬA THEO YÊU CẦU CỦA BẠN
 							</Typography>
 						</Box>
 						<Stack direction="row" alignItems="center" justifyContent="space-between" p={1}>

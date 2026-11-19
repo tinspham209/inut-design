@@ -17,6 +17,7 @@ export interface ServiceCardProps {
 	href: string;
 	badge?: string | null;
 	image?: string | null;
+	compact?: boolean;
 }
 
 /**
@@ -29,6 +30,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 	image_url,
 	href,
 	badge,
+	compact = false,
 }) => {
 	const handleCardClick = () => {
 		trackEvent("service_click", {
@@ -101,7 +103,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 					className="card-image-container"
 					sx={{
 						width: "100%",
-						pt: "75%", // 4:3 Aspect Ratio
+						pt: compact ? "56.25%" : "75%", // compact 16:9; default 4:3
 						position: "relative",
 						overflow: "hidden",
 						backgroundColor: COLOR_CODE.INK_4,
@@ -118,7 +120,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 								left: 0,
 								width: "100%",
 								height: "100%",
-								objectFit: "cover",
+								objectFit: compact ? "contain" : "cover",
 								transition: "transform 0.5s ease",
 							}}
 						/>
@@ -177,7 +179,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 						display: "flex",
 						flexDirection: "column",
 						height: "100%",
-						p: 1,
+						p: compact ? 1.25 : 1,
 					}}
 				>
 					{/* Title */}
@@ -189,7 +191,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 						sx={{
 							color: COLOR_CODE.WHITE,
 							fontSize: { xs: "1rem", sm: "1.05rem" },
-							mb: 1,
+							mb: compact ? 0.5 : 1,
 						}}
 					>
 						{title}
@@ -202,7 +204,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 							color: COLOR_CODE.TEXT_SOFT,
 							lineHeight: 1.6,
 							flexGrow: 1,
-							mb: 2.5,
+							mb: compact ? 1.25 : 2.5,
 							display: "-webkit-box",
 							WebkitLineClamp: 2,
 							WebkitBoxOrient: "vertical",
@@ -220,7 +222,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 						spacing={0.5}
 						sx={{
 							mt: "auto",
-							pt: 1.5,
+							pt: compact ? 1 : 1.5,
 							borderTop: `1px solid ${COLOR_CODE.INK_4}`,
 						}}
 					>

@@ -62,6 +62,10 @@ export const ROUTE_LIST: RouteItem[] = [
 					badge: "Bestseller",
 				},
 			},
+			{
+				label: "Công cụ thiết kế",
+				path: "/builder",
+			},
 		],
 	},
 	{
