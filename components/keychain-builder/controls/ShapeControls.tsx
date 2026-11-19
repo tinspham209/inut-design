@@ -9,9 +9,9 @@ export function ShapeControls({ config, onChange }: { config: KeychainConfig; on
 	const setCutBorderPx = (value: number) => onChange({ type: "set-cut-border", cutBorderPx: Math.min(maxCutBorderPx, Math.max(0, value)) });
 	return <Stack spacing={{ xs: 1.25, md: 0.4 }}>
 		<Typography variant="caption" color="grey.400">Kiểu tạo hình</Typography>
-		<Stack direction="row" spacing={{ xs: 1, md: 0.5 }}>
-			<Button fullWidth variant="outlined" aria-pressed={config.shape.type === "frame"} onClick={() => onChange({ type: "select-frame", frameId: config.shape.type === "frame" ? config.shape.frameId : "heart" })} sx={{ minHeight: { md: 30 }, justifyContent: "flex-start", borderColor: config.shape.type === "frame" ? "#f47a28" : "#41424a", color: "white", bgcolor: "#202127" }}>▱ &nbsp; Khung có sẵn</Button>
-		<Button fullWidth variant="outlined" aria-pressed={config.shape.type === "die-cut"} onClick={() => onChange({ type: "select-die-cut" })} sx={{ minHeight: { md: 30 }, justifyContent: "flex-start", borderColor: config.shape.type === "die-cut" ? "#f47a28" : "#41424a", color: "white", bgcolor: "#202127" }}>✧ &nbsp; Cắt theo ảnh</Button>
+		<Stack direction="row" spacing={{ xs: 0.5, md: 0.5 }}>
+			<Button fullWidth size="small" variant="outlined" aria-pressed={config.shape.type === "frame"} onClick={() => onChange({ type: "select-frame", frameId: config.shape.type === "frame" ? config.shape.frameId : "heart" })} sx={{ flex: "1 1 0", minWidth: 0, minHeight: { xs: 36, md: 30 }, px: { xs: 0.5, md: 0.75 }, justifyContent: "center", whiteSpace: "nowrap", fontSize: { xs: 12, sm: 13, md: 12 }, lineHeight: 1.1, borderColor: config.shape.type === "frame" ? "#f47a28" : "#41424a", color: "white", bgcolor: "#202127" }}>▱ &nbsp; Khung có sẵn</Button>
+			<Button fullWidth size="small" variant="outlined" aria-pressed={config.shape.type === "die-cut"} onClick={() => onChange({ type: "select-die-cut" })} sx={{ flex: "1 1 0", minWidth: 0, minHeight: { xs: 36, md: 30 }, px: { xs: 0.5, md: 0.75 }, justifyContent: "center", whiteSpace: "nowrap", fontSize: { xs: 12, sm: 13, md: 12 }, lineHeight: 1.1, borderColor: config.shape.type === "die-cut" ? "#f47a28" : "#41424a", color: "white", bgcolor: "#202127" }}>✧ &nbsp; Cắt theo ảnh</Button>
 		</Stack>
 		{config.shape.type === "frame" && <>
 			<Typography variant="caption" color="grey.400">Chọn hình khung</Typography>
