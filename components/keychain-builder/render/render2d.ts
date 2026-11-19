@@ -17,6 +17,13 @@ const CLASSIC_CHAIN_LAYOUT = {
 	tail: { x: 127, y: 882, width: 175, height: 223 },
 } as const;
 const CHAIN_HOLE = { x: 215, y: 1097.5 };
+const CLASSIC_LEAD_PER_WIDTH = (CHAIN_HOLE.y - CLASSIC_CHAIN_LAYOUT.head.y) / CLASSIC_CHAIN_LAYOUT.head.width;
+const MAX_RING_WIDTH_RATIO = 0.3;
+const MAX_RING_LEAD_RATIO = 0.5;
+
+export function getScaledRingWidth(frameWidth: number, frameHeight: number, leadPerWidth: number) {
+	return Math.min(frameWidth * MAX_RING_WIDTH_RATIO, frameHeight * MAX_RING_LEAD_RATIO / Math.max(leadPerWidth, Number.EPSILON));
+}
 
 /** Render the acrylic charm and its hardware as one fitted assembly. */
 export async function renderKeychain2d(
@@ -30,9 +37,9 @@ export async function renderKeychain2d(
 	const mmPerUnit = config.sizeCm * 10 / Math.max(sourceWidth, sourceHeight);
 	const source = ring as (CanvasImageSource & { width: number; height: number }) | undefined;
 	const useClassicChain = Boolean(source && config.ringId === "ring-01" && connectors);
-	const connectorLead = source ? useClassicChain
-		? (CHAIN_HOLE.y - CLASSIC_CHAIN_LAYOUT.head.y) * (sourceWidth * 0.38 / CLASSIC_CHAIN_LAYOUT.head.width)
-		: sourceWidth * 0.38 * (source.height / source.width) * 0.94
+	const leadPerWidth = useClassicChain ? CLASSIC_LEAD_PER_WIDTH : source ? (source.height / source.width) * 0.94 : 0;
+	const ringWidthUnits = source ? getScaledRingWidth(sourceWidth, sourceHeight, leadPerWidth) : 0;
+	const connectorLead = source ? ringWidthUnits * leadPerWidth
 		: frame.hole.cy - minY;
 	const bodyBelowHole = source ? minY + sourceHeight - frame.hole.cy : sourceHeight;
 	const sceneUnits = Math.max(1, connectorLead + bodyBelowHole);
@@ -46,7 +53,7 @@ export async function renderKeychain2d(
 	const holeX = frameX + frame.hole.cx * pxPerUnit;
 	const holeY = sceneTop + connectorLead * pxPerUnit;
 	const frameY = holeY - frame.hole.cy * pxPerUnit;
-	const ringWidth = source ? sourceWidth * 0.38 * pxPerUnit : 0;
+	const ringWidth = ringWidthUnits * pxPerUnit;
 	const ringScale = source ? ringWidth / CLASSIC_CHAIN_LAYOUT.head.width : 0;
 	const drawReferenceLayer = (asset: CanvasImageSource, box: { x: number; y: number; width: number; height: number }, originX: number, originY: number) => {
 		ctx.drawImage(asset, originX + box.x * ringScale, originY + box.y * ringScale, box.width * ringScale, box.height * ringScale);
@@ -74,7 +81,6 @@ export async function renderKeychain2d(
 	ctx.translate(frameX, frameY);
 	ctx.scale(pxPerUnit, pxPerUnit);
 	const cut = new Path2D(frame.cutPath);
-	const print = new Path2D(frame.printPath);
 	const acrylicColor = config.acrylicId === "clear" ? "rgba(183,220,240,0.28)" : config.acrylicId;
 	ctx.fillStyle = acrylicColor;
 	ctx.fill(cut);
@@ -87,24 +93,13 @@ export async function renderKeychain2d(
 		if (config.backMode === "custom") renderImage = image;
 		if (config.backMode === "material") renderImage = undefined;
 	}
-	if (renderImage && (side === "front" || config.backMode === "through-acrylic" || config.backMode === "mirror-front" || config.backMode === "custom")) {
+	const canRenderImage = side === "front" || config.backMode === "through-acrylic" || config.backMode === "mirror-front" || config.backMode === "custom";
+	if (showImageCoverage && canRenderImage) { ctx.fillStyle = "#fff"; ctx.fill(cut); }
+	if (renderImage && canRenderImage) {
 		ctx.save();
 		ctx.clip(cut);
 		const borderPx = Math.max(0, Math.min(80, config.cutBorderPx ?? 20));
-		const printScale = 1 + (20 - borderPx) * 0.004;
-		const printCenterX = minX + sourceWidth / 2;
-		const printCenterY = minY + sourceHeight / 2;
-		ctx.translate(printCenterX, printCenterY);
-		ctx.scale(printScale, printScale);
-		ctx.translate(-printCenterX, -printCenterY);
-		ctx.clip(print);
-		ctx.translate(printCenterX, printCenterY);
-		ctx.scale(1 / printScale, 1 / printScale);
-		ctx.translate(-printCenterX, -printCenterY);
-		if (showImageCoverage) {
-			ctx.fillStyle = "#fff";
-			ctx.fillRect(minX, minY, sourceWidth, sourceHeight);
-		}
+		const imageScale = Math.max(0.68, 1 - borderPx * 0.004);
 		const face = side === "back" && config.backMode === "custom" ? config.backCustom : config.front;
 		const transform = face?.transform || config.front.transform;
 		const art = renderImage as CanvasImageSource & { width: number; height: number };
@@ -112,8 +107,8 @@ export async function renderKeychain2d(
 		const centerY = minY + sourceHeight / 2 + transform.yMm / mmPerUnit;
 		ctx.translate(centerX, centerY);
 		ctx.rotate((transform.rotation * Math.PI) / 180);
-		ctx.scale(transform.scale * (transform.flipX ? -1 : 1) * (mirror ? -1 : 1), transform.scale);
-		const fit = Math.max(sourceWidth * 0.72 / art.width, sourceHeight * 0.72 / art.height);
+		const fit = Math.max(sourceWidth / art.width, sourceHeight / art.height);
+		ctx.scale(transform.scale * imageScale * (transform.flipX ? -1 : 1) * (mirror ? -1 : 1), transform.scale * imageScale);
 		ctx.drawImage(art, -art.width * fit / 2, -art.height * fit / 2, art.width * fit, art.height * fit);
 		ctx.restore();
 	}
@@ -138,8 +133,8 @@ export function getFullKeychainHeight(frame: FrameSvgData, config: KeychainConfi
 	const sourceWidth = frame.viewBox[2];
 	const bodyBelowHole = frame.viewBox[1] + frame.viewBox[3] - frame.hole.cy;
 	if (!ring) return frame.viewBox[3];
-	const lead = config.ringId === "ring-01"
-		? (CHAIN_HOLE.y - CLASSIC_CHAIN_LAYOUT.head.y) * (sourceWidth * 0.38 / CLASSIC_CHAIN_LAYOUT.head.width)
-		: sourceWidth * 0.38 * (ring.height / ring.width) * 0.94;
+	const leadPerWidth = config.ringId === "ring-01" ? CLASSIC_LEAD_PER_WIDTH : (ring.height / ring.width) * 0.94;
+	const ringWidth = getScaledRingWidth(sourceWidth, frame.viewBox[3], leadPerWidth);
+	const lead = ringWidth * leadPerWidth;
 	return lead + bodyBelowHole;
 }

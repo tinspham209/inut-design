@@ -3,6 +3,9 @@ import { useLoader } from "@react-three/fiber";
 import { DoubleSide, TextureLoader, type Texture } from "three";
 import { RINGS } from "@/data/keychain/catalog";
 import type { FrameSvgData } from "../geometry/frameSvg";
+import { getScaledRingWidth } from "../render/render2d";
+
+const CLASSIC_LEAD_PER_WIDTH = (1097.5 - 38) / 431;
 
 const CONNECTOR_URLS = [
 	"/keychain/connectors/keychain_01_f.png", "/keychain/connectors/keychain_01_b.png",
@@ -28,7 +31,8 @@ function ClassicConnector({ ringId, sizeCm, frame }: { ringId: string; sizeCm: n
 	const [minX, minY, width, height] = frame.viewBox;
 	const worldPerUnit = sizeCm * 10 / Math.max(width, height);
 	const frameWidth = width * worldPerUnit;
-	const scale = frameWidth * 0.38 / 431;
+	const frameHeight = height * worldPerUnit;
+	const scale = getScaledRingWidth(frameWidth, frameHeight, CLASSIC_LEAD_PER_WIDTH) / 431;
 	const holeX = (frame.hole.cx - (minX + width / 2)) * worldPerUnit;
 	const holeY = (minY + height / 2 - frame.hole.cy) * worldPerUnit;
 	const plane = (box: { x: number; y: number; width: number; height: number }, z: number) => ({
@@ -57,10 +61,12 @@ function OtherRing({ ringId, sizeCm, frame }: { ringId: string; sizeCm: number; 
 	const [minX, minY, width, height] = frame.viewBox;
 	const worldPerUnit = sizeCm * 10 / Math.max(width, height);
 	const frameWidth = width * worldPerUnit;
+	const frameHeight = height * worldPerUnit;
 	const holeX = (frame.hole.cx - (minX + width / 2)) * worldPerUnit;
 	const holeY = (minY + height / 2 - frame.hole.cy) * worldPerUnit;
-	const ringWidth = frameWidth * 0.38;
+	const leadPerWidth = (source.height / source.width) * 0.94;
+	const ringWidth = getScaledRingWidth(frameWidth, frameHeight, leadPerWidth);
 	const ringHeight = ringWidth * source.height / source.width;
-	const anchorY = holeY + ringHeight * 0.5;
+	const anchorY = holeY + ringHeight * (0.94 - 0.5);
 	return <mesh position={[holeX, anchorY, 3]}><planeGeometry args={[ringWidth, ringHeight]} /><meshBasicMaterial map={texture} transparent depthWrite={false} side={DoubleSide} /></mesh>;
 }
