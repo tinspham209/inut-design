@@ -15,23 +15,38 @@ export function useExportDesign() {
 	const [error, setError] = useState<string | null>(null);
 	const [link, setLink] = useState<string | null>(null);
 	const retryRef = useRef<{ fingerprint: string; id: string } | null>(null);
-	const exportDesign = useCallback(async (config: KeychainConfig, render: () => Promise<Blob>) => {
+	const getRequestId = useCallback((config: KeychainConfig) => {
 		const fingerprint = JSON.stringify(config);
 		if (!retryRef.current || retryRef.current.fingerprint !== fingerprint) retryRef.current = { fingerprint, id: uuid() };
+		return retryRef.current.id;
+	}, []);
+	const saveDesign = useCallback(async (config: KeychainConfig) => {
+		const requestId = getRequestId(config);
+		setStatus("pending"); setError(null);
+		try {
+			const snapshot = await saveKeychainSnapshot(config, requestId);
+			setLink(new URL(snapshot.url, window.location.origin).toString()); setStatus("success");
+			return { id: snapshot.id, url: snapshot.url };
+		} catch (reason) {
+			setStatus("error"); setError(reason instanceof Error ? reason.message : "Không thể lưu thiết kế. Vui lòng thử lại.");
+			throw reason;
+		}
+	}, [getRequestId]);
+	const exportDesign = useCallback(async (config: KeychainConfig, render: () => Promise<Blob>) => {
 		setStatus("pending"); setError(null);
 		try {
 			const png = await render();
-			const snapshot = await saveKeychainSnapshot(config, retryRef.current.id);
+			const snapshot = await saveDesign(config);
 			const objectUrl = URL.createObjectURL(png);
 			const anchor = document.createElement("a"); anchor.href = objectUrl; anchor.download = `keychain-${snapshot.id}.png`; anchor.click();
 			window.setTimeout(() => URL.revokeObjectURL(objectUrl), 30_000);
-			setLink(new URL(snapshot.url, window.location.origin).toString()); setStatus("success");
+			setStatus("success");
 			retryRef.current = null;
 			return snapshot.url;
 		} catch (reason) {
 			setStatus("error"); setError(reason instanceof Error ? reason.message : "Không thể xuất thiết kế. Vui lòng thử lại.");
 			throw reason;
 		}
-	}, []);
-	return { exportDesign, status, error, link };
+	}, [saveDesign]);
+	return { exportDesign, saveDesign, status, error, link };
 }

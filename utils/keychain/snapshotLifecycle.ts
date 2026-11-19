@@ -1,18 +1,23 @@
-export type KeychainSnapshot = { _id: string; requestFingerprint: string; config: unknown; configVersion?: number; createdAt: string };
+export type KeychainSnapshot = { _id: string; requestFingerprint?: string; config: unknown; configVersion?: number; createdAt?: string };
 export type SnapshotRepository = {
 	readDirect: (id: string) => Promise<KeychainSnapshot | null>;
-	createIfAbsent: (id: string, requestId: string, config: unknown, fingerprint: string) => Promise<void>;
+	createIfAbsent: (id: string, config: unknown) => Promise<void>;
 };
 
-export async function saveSnapshotIdempotently(requestId: string, config: unknown, requestFingerprint: string, repository: SnapshotRepository) {
+export async function saveSnapshotIdempotently(requestId: string, config: unknown, requestFingerprint: string, repository: SnapshotRepository, legacyRequestFingerprint?: string) {
 	const id = `keychainDesign.${requestId}`;
 	const prior = await repository.readDirect(id);
-	if (prior) return prior.requestFingerprint === requestFingerprint ? { status: "replay" as const, snapshot: prior } : { status: "conflict" as const };
-	await repository.createIfAbsent(id, requestId, config, requestFingerprint);
+	if (prior) return matchesFingerprint(prior, requestFingerprint, legacyRequestFingerprint) ? { status: "replay" as const, snapshot: prior } : { status: "conflict" as const };
+	await repository.createIfAbsent(id, config);
 	const saved = await repository.readDirect(id);
 	if (!saved) throw new Error("Snapshot creation was not visible after write");
-	if (saved.requestFingerprint !== requestFingerprint) return { status: "conflict" as const };
+	if (!matchesFingerprint(saved, requestFingerprint, legacyRequestFingerprint)) return { status: "conflict" as const };
 	return { status: "created" as const, snapshot: saved };
+}
+
+function matchesFingerprint(snapshot: KeychainSnapshot, current: string, legacy?: string) {
+	if (snapshot.requestFingerprint === current || (legacy && snapshot.requestFingerprint === legacy)) return true;
+	return createKeychainRequestFingerprint(snapshot.config) === current;
 }
 
 export async function readSnapshotById(requestId: string, repository: SnapshotRepository) {
@@ -21,3 +26,4 @@ export async function readSnapshotById(requestId: string, repository: SnapshotRe
 	if (!snapshot) return { status: 404 as const };
 	return { status: 200 as const, snapshot };
 }
+import { createKeychainRequestFingerprint } from "@/utils/keychain/requestFingerprint";

@@ -1,5 +1,6 @@
 import sanityClient from "@sanity/client";
 import { createKeychainRequestFingerprint } from "@/utils/keychain/requestFingerprint";
+import { toSnapshotConfig } from "@/utils/keychain/snapshotConfig";
 import type { SnapshotRepository } from "@/utils/keychain/snapshotLifecycle";
 
 const client = sanityClient({
@@ -13,9 +14,8 @@ export function fingerprint(value: unknown) {
 }
 export const keychainSnapshotRepository: SnapshotRepository = {
 	readDirect: async (id) => client.getDocument(id),
-	createIfAbsent: async (id, requestId, config, requestFingerprint) => {
-		const value = config as { version?: number; front?: { image?: unknown }; backCustom?: { image?: unknown } };
-		const doc = { _id: id, _type: "keychainDesign", configVersion: value.version, config, frontImage: value.front?.image, backImage: value.backCustom?.image, createdAt: new Date().toISOString(), requestId, requestFingerprint };
+	createIfAbsent: async (id, config) => {
+		const doc = { _id: id, _type: "keychainDesign", config: toSnapshotConfig(config as Record<string, unknown>) };
 		await client.mutate([{ createIfNotExists: doc }], { returnDocuments: false, visibility: "sync" });
 	},
 };

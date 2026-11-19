@@ -59,7 +59,7 @@ export function KeychainBuilder() {
 	const backRemovalError = backgroundRemovalStates.backCustom.error;
 	const backgroundRemovalEnabled = process.env.NEXT_PUBLIC_KEYCHAIN_BACKGROUND_REMOVAL_ENABLED === "true";
 	const [exportOpen, setExportOpen] = useState(false);
-	const { exportDesign, status: exportStatus, error: exportError, link: exportLink } = useExportDesign();
+	const { exportDesign, saveDesign, status: exportStatus, error: exportError, link: exportLink } = useExportDesign();
 	const imageUrl = getFaceImageUrl(config.front) || null;
 	const onRing = (ringId: string) => { dispatch({ type: "select-ring", ringId }); trackKeychainAction("keychain_ring_selected", { ring_id: ringId }); };
 	const onFrame = (frameId: string) => { dispatch({ type: "select-frame", frameId }); trackKeychainAction("keychain_shape_selected", { shape_type: "frame" }); };
@@ -228,7 +228,7 @@ export function KeychainBuilder() {
 					</Box>
 				</Stack>
 				<OpaqueAcrylicDialog acrylicId={pendingAcrylic} onCancel={() => setPendingAcrylic(null)} onConfirm={(acrylicId) => { dispatch({ type: "confirm-opaque", acrylicId }); trackKeychainAction("keychain_acrylic_transition", { acrylic_id: acrylicId, print_sides: 1, result: "confirmed" }); setPendingAcrylic(null); }} />
-				<ExportDialog open={exportOpen} busy={exportStatus === "pending" || uploadStatus === "uploading"} error={uploadStatus === "uploading" ? "Đợi tải ảnh lên hoàn tất trước khi xuất." : exportError} link={exportLink} onClose={() => setExportOpen(false)} onExport={(scope, scale) => void onExport(scope, scale)} renderPreview={renderExportPreview} onContactClick={() => trackKeychainAction("contact_click", { variant: "keychain-export-dialog" })} />
+				<ExportDialog open={exportOpen} busy={exportStatus === "pending" || uploadStatus === "uploading"} error={uploadStatus === "uploading" ? "Đợi tải ảnh lên hoàn tất trước khi xuất." : exportError} link={exportLink} onClose={() => setExportOpen(false)} onExport={(scope, scale) => void onExport(scope, scale)} renderPreview={renderExportPreview} quoteDisabled={uploadStatus === "uploading" || !dieCutExportReady} onQuoteRequest={async () => (await saveDesign(config)).id} onContactClick={() => trackKeychainAction("contact_click", { variant: "keychain-export-dialog" })} />
 				<Snackbar open={Boolean(toast)} autoHideDuration={4500} onClose={() => setToast(null)} anchorOrigin={{ vertical: "bottom", horizontal: "center" }} sx={{ bottom: { xs: "calc(82px + env(safe-area-inset-bottom))", md: 24 } }}><Alert onClose={() => setToast(null)} severity={toast?.severity || "info"} variant="filled" sx={{ width: "100%" }}>{toast?.message}</Alert></Snackbar>
 			</Container>
 			<Box sx={{ display: { xs: "block", md: "none" }, position: "fixed", zIndex: 1100, left: 0, right: 0, bottom: 0, px: 2, pt: 2, pb: "calc(12px + env(safe-area-inset-bottom))", background: "linear-gradient(transparent, #101116 24%)" }}><Button fullWidth variant="contained" onClick={() => setExportOpen(true)} disabled={(typeof designId === "string" && loadStatus !== "loaded") || !dieCutExportReady} sx={{ minHeight: 50, bgcolor: "#f47a28", color: "#fff", fontWeight: 750, boxShadow: "0 8px 28px #0009", "&:hover": { bgcolor: "#ff8a36" } }}>Xuất PNG</Button></Box>

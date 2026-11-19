@@ -42,13 +42,16 @@ Một document = **một snapshot Export bất biến**, không phải draft t�
 
 | Field                                                        | Ý nghĩa                                                                                             |
 | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
-| `_id`, `_type`                                               | `keychainDesign.<UUID>`; UUID sinh bằng nguồn ngẫu nhiên an toàn, không là secret hay authorization |
-| `configVersion`, `config`                                    | Cấu hình có cấu trúc như trên, gồm mode, acrylic, geometry inputs và transform                      |
-| `frontImage`, `frontProcessed`, `backImage`, `backProcessed` | Image references tùy chọn; API ánh xạ thành một nguồn nhất quán, không lưu bản ref độc lập dễ lệch  |
-| `createdAt`                                                  | Thời điểm Export; không đặt TTL                                                                     |
-| `requestId`, `requestFingerprint`                            | Chống tạo document kép khi retry cùng hành động; không lưu ảnh, số điện thoại hay link trong log    |
+| `_id`, `_type`                   | `keychainDesign.<UUID>`; UUID ngẫu nhiên là định danh, không phải secret hay authorization |
+| `config.version`, `config`       | Cấu hình chuẩn gồm mode, acrylic, geometry inputs, transforms và nested image references |
+| `_createdAt`                     | Thời điểm Sanity tạo document; không đặt TTL |
+| Legacy fields (hidden in Studio) | Field trùng lặp từ snapshot cũ, chỉ để tương thích đọc; không ghi vào snapshot mới |
 
-Sanity là nguồn ảnh/metadata; URL image asset có thể truy cập công khai nếu biết URL, và dataset công khai có thể cho query config. Không lưu tên, số điện thoại, token hay credential vào document. User không đăng nhập, không có chức năng chỉnh/xóa document gốc từ builder. Mỗi Export mới tạo ID mới; retry cùng request chỉ trả snapshot đã tạo nếu fingerprint trùng, payload khác bị từ chối.
+Sanity là nguồn ảnh/metadata; URL image asset có thể truy cập công khai nếu biết URL, và dataset công khai có thể cho query config. Không lưu tên, số điện thoại, token hay credential vào document. User không đăng nhập, không có chức năng chỉnh/xóa document gốc từ builder. `_id` là định danh canonical; `config.version` là phiên bản cấu hình canonical. Image references lồng trong `config.front` và `config.backCustom` là nguồn ảnh canonical; CDN URLs được dựng lại từ references khi API trả snapshot. Các snapshot cũ có URL/configVersion/field trùng lặp vẫn được đọc tương thích.
+
+`requestId` chỉ tham gia tạo `_id` và không được ghi thành field riêng. Fingerprint được tính từ config canonical khi xử lý retry, không lưu trong document vì dataset và các field ẩn không phải cơ chế bảo mật. Snapshot mới không ghi `createdAt` tùy biến vì Sanity đã cung cấp `_createdAt`. Mỗi lần Export tạo request ID mới; retry cùng request ID và cùng config canonical trả snapshot hiện có, payload khác bị từ chối. Snapshot cũ có `requestFingerprint` vẫn được replay theo fingerprint cũ.
+
+Khi người dùng chọn nhận báo giá từ hộp Export, builder lưu snapshot hiện tại rồi điều hướng tới form kèm ID thiết kế. Form báo giá lưu Sanity reference `keychainDesign`; đội sales có thể mở snapshot từ document báo giá hoặc thông báo Telegram. Reference này không lưu ảnh preview trùng lặp.
 
 Có thể có asset upload chưa được document nào tham chiếu vì user rời trang hoặc Export lỗi. Theo quyết định của user, không tự xóa theo thời gian; INUT chủ động xử lý thủ công. Xóa design không xóa asset đang được snapshot khác tham chiếu. Xóa design làm link design ngừng hoạt động; Sanity CDN/cache hoặc file người khác đã tải có thể vẫn tồn tại.
 

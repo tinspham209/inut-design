@@ -162,6 +162,13 @@ export default {
 			rows: 3,
 		},
 		{
+			name: "keychainDesign",
+			title: "Thiết kế móc khóa",
+			type: "reference",
+			to: [{ type: "keychainDesign" }],
+			description: "Snapshot được lưu từ playground trước khi khách gửi yêu cầu báo giá.",
+		},
+		{
 			name: "createdAt",
 			title: "Ngày gửi",
 			type: "datetime",

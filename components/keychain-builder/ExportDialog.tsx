@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Alert, Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControl, InputLabel, MenuItem, Select, Stack, Typography } from "@mui/material";
-import Link from "next/link";
 import type { PngScale, PngScope } from "./render/renderPng";
 
 type Props = {
@@ -12,14 +11,37 @@ type Props = {
 	onExport: (scope: PngScope, scale: PngScale) => void;
 	renderPreview: (scope: PngScope) => Promise<Blob>;
 	onContactClick: () => void;
+	onQuoteRequest: () => Promise<string>;
+	quoteDisabled?: boolean;
 };
 
-export function ExportDialog({ open, busy, error, link, onClose, onExport, renderPreview, onContactClick }: Props) {
+export function ExportDialog({ open, busy, error, link, onClose, onExport, renderPreview, onContactClick, onQuoteRequest, quoteDisabled = false }: Props) {
 	const [scope, setScope] = useState<PngScope>("full-keychain");
 	const [scale, setScale] = useState<PngScale>(1);
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 	const [previewLoading, setPreviewLoading] = useState(false);
 	const [previewError, setPreviewError] = useState<string | null>(null);
+	const [quoteLoading, setQuoteLoading] = useState(false);
+	const [quoteError, setQuoteError] = useState<string | null>(null);
+
+	const requestQuote = async () => {
+		onContactClick();
+		setQuoteLoading(true);
+		setQuoteError(null);
+		const popup = window.open("about:blank", "_blank");
+		if (popup) popup.opener = null;
+		try {
+			const designId = await onQuoteRequest();
+			const url = `/contact/form?from=moc-khoa-mica&design=${encodeURIComponent(designId)}`;
+			if (popup && !popup.closed) popup.location.replace(url);
+			else window.location.assign(url);
+		} catch (reason) {
+			popup?.close();
+			setQuoteError(reason instanceof Error ? reason.message : "Không lưu được thiết kế để gửi kèm yêu cầu báo giá.");
+		} finally {
+			setQuoteLoading(false);
+		}
+	};
 
 	useEffect(() => {
 		if (!open) {
@@ -62,8 +84,9 @@ export function ExportDialog({ open, busy, error, link, onClose, onExport, rende
 			<Stack spacing={0.75} sx={{ p: 1.5, border: "1px solid #41424a", borderRadius: 1.5, bgcolor: "#202127" }}>
 				<Typography variant="subtitle2" fontWeight={750}>Cần đặt móc khóa mica?</Typography>
 				<Typography variant="body2" color="grey.400">Để lại thông tin, đội ngũ INUT sẽ liên hệ tư vấn và báo giá theo nhu cầu của bạn.</Typography>
-				<Link href="/contact/form?from=moc-khoa-mica" passHref legacyBehavior><Button component="a" variant="outlined" onClick={onContactClick} sx={{ alignSelf: "flex-start", borderColor: "#f47a28", color: "#ff8a36", "&:hover": { borderColor: "#ff8a36", bgcolor: "#f47a2814" } }}>Nhận tư vấn &amp; báo giá</Button></Link>
+				<Button variant="outlined" onClick={() => void requestQuote()} disabled={busy || quoteLoading || quoteDisabled} sx={{ alignSelf: "flex-start", borderColor: "#f47a28", height: "32px", color: "#ff8a36", "&:hover": { borderColor: "#ff8a36", bgcolor: "#f47a2814" } }}>{quoteLoading ? "Đang lưu thiết kế…" : "Nhận tư vấn &amp; báo giá"}</Button>
 			</Stack>
+			{quoteError && <Alert severity="error">{quoteError}</Alert>}
 			{error && <Alert severity="error">{error}</Alert>}
 			{link && <Alert severity="success" action={<Button onClick={() => void navigator.clipboard?.writeText(link)}>Sao chép</Button>}>Đã lưu snapshot. <a href={link} target="_blank" rel="noreferrer">Mở liên kết</a></Alert>}
 		</Stack></DialogContent>

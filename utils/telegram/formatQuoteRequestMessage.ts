@@ -1,4 +1,5 @@
 import { QuoteRequestForm } from "@/models/quoteRequest";
+import { SITE_URL } from "@/utils/siteUrl";
 
 const VIETNAM_TIMEZONE = "Asia/Ho_Chi_Minh";
 
@@ -130,6 +131,12 @@ export function formatQuoteRequestMessage(quoteData: QuoteRequestForm): string {
 
 	if (notes) {
 		message += `\n💬 <b>Ghi chú:</b>\n${notes}\n`;
+	}
+
+	const designId = quoteData.keychainDesign?._ref?.match(/^keychainDesign\.([0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})$/i)?.[1];
+	if (designId) {
+		const designUrl = `${SITE_URL}/builder/keychain?design=${encodeURIComponent(designId)}`;
+		message += `\n🔗 <b>Thiết kế móc khóa:</b> <a href="${designUrl}">Mở snapshot</a>\n`;
 	}
 
 	message += `\n⏰ <b>Thời gian:</b> ${new Date().toLocaleString("vi-VN", {
