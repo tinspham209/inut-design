@@ -82,8 +82,8 @@ export function Preview2D({ config, view, dispatch, on3D, onNotify, frameOverrid
 		if (value) dispatch({ type: "set-face", face, value: { ...value, transform: update(value.transform) } });
 	};
 	return <Stack spacing={{ xs: 0.75, md: 0.35 }} sx={{ width: "100%", height: { md: "100%" }, flex: { md: 1 }, minHeight: 0, ...(fullScreen ? { position: "fixed", zIndex: 1400, inset: 0, p: { xs: 1, md: 2 }, bgcolor: "#15161b", overflow: "auto" } : {}) }}>
-		<Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" flexWrap="nowrap" sx={{ height: 32, minHeight: 32 }}>
-			<Stack direction="row" spacing={0.5} sx={{ p: 0.35, bgcolor: "#22232a", border: "1px solid #36373e", borderRadius: 1.25 }}>
+		<Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" flexWrap="nowrap" sx={{ height: 32, minHeight: 32, maxHeight: 32, flex: "0 0 32px", overflow: "hidden", "& .MuiButton-root": { height: 28, minHeight: 28, maxHeight: 28, py: 0, flexShrink: 0 } }}>
+			<Stack direction="row" spacing={0.5} sx={{ p: 0, bgcolor: "#22232a", border: "1px solid #36373e", borderRadius: 1.25 }}>
 				{(["front", "back"] as const).map((face) => <Button key={face} size="small" aria-pressed={view === face} variant={view === face ? "contained" : "text"} onClick={() => dispatch({ type: "set-view", view: face })} sx={{ height: 28, minHeight: 28, px: { xs: 1, md: 1 }, lineHeight: 1, bgcolor: view === face ? "#f47a28" : "transparent", color: "white", "&:hover": { bgcolor: view === face ? "#ff8a36" : "#303139" } }}>{face === "front" ? "Mặt trước" : "Mặt sau"}</Button>)}
 			</Stack>
 			<Stack direction="row" spacing={0.25}>
