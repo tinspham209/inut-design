@@ -22,7 +22,7 @@ export async function renderShowcasePng(frame: FrameSvgData, config: KeychainCon
 	let connectors: ConnectorAssets | undefined;
 	if (ring && config.ringId === "ring-01") {
 		const names = ["keychain_01_f", "keychain_01_b", "keychain_02_f", "keychain_02_b", "keychain_03_f", "keychain_03_b", "keychain_tail_f", "keychain_tail_b"];
-		const images = await Promise.all(names.map(loadLocalImage));
+		const images = await Promise.all(names.map((name) => loadLocalImage(`/keychain/connectors/${name}.png`)));
 		connectors = { ring1Front: images[0], ring1Back: images[1], ring2Front: images[2], ring2Back: images[3], ring3Front: images[4], ring3Back: images[5], tailFront: images[6], tailBack: images[7] };
 	}
 	const output = document.createElement("canvas"); output.width = charmWidth; output.height = outputHeight;

@@ -180,18 +180,26 @@ export function KeychainBuilder() {
 		const value = face === "front" ? config.front : config.backCustom;
 		if (value?.processedImage && value.processedUrl) dispatch({ type: "set-face", face, value: { ...value, useProcessed } });
 	};
-	const onExport = async (scope: PngScope, scale: PngScale) => {
-		if (uploadStatus === "uploading" || !dieCutExportReady) return;
+	const getExportInputs = useCallback(async () => {
 		const selectedFrameId = config.shape.type === "frame" ? config.shape.frameId : undefined;
 		const frameRecord = selectedFrameId ? FRAMES.find((item) => item.id === selectedFrameId) : undefined;
-		if (selectedFrameId && !frameRecord) return;
+		if (selectedFrameId && !frameRecord) throw new Error("Không tìm thấy khung đã chọn.");
 		const fallbackFrameSource = frameRecord?.src;
-		if (!frameOverride && !fallbackFrameSource) return;
+		if (!frameOverride && !fallbackFrameSource) throw new Error("Chưa có khung để dựng ảnh.");
+		const frame = frameOverride || await loadFrameSvg(fallbackFrameSource as string);
+		const url = getFaceImageUrl(session.view === "back" && config.backMode === "custom" ? config.backCustom : config.front);
+		const image = url ? await loadSanityImage(url) : undefined;
+		return { frame, image };
+	}, [config, frameOverride, session.view]);
+	const renderExportPreview = useCallback(async (scope: PngScope) => {
+		const { frame, image } = await getExportInputs();
+		return renderShowcasePng(frame, config, image, 1, scope, session.view);
+	}, [config, getExportInputs, session.view]);
+	const onExport = async (scope: PngScope, scale: PngScale) => {
+		if (uploadStatus === "uploading" || !dieCutExportReady) return;
 		try {
 			await exportDesign(config, async () => {
-				const frame = frameOverride || await loadFrameSvg(fallbackFrameSource as string);
-				const url = getFaceImageUrl(session.view === "back" && config.backMode === "custom" ? config.backCustom : config.front);
-				const image = url ? await loadSanityImage(url) : undefined;
+				const { frame, image } = await getExportInputs();
 				return renderShowcasePng(frame, config, image, scale, scope, session.view);
 			});
 			trackKeychainAction("keychain_export", { variant: scope, scale, result: "success" });
@@ -220,7 +228,7 @@ export function KeychainBuilder() {
 					</Box>
 				</Stack>
 				<OpaqueAcrylicDialog acrylicId={pendingAcrylic} onCancel={() => setPendingAcrylic(null)} onConfirm={(acrylicId) => { dispatch({ type: "confirm-opaque", acrylicId }); trackKeychainAction("keychain_acrylic_transition", { acrylic_id: acrylicId, print_sides: 1, result: "confirmed" }); setPendingAcrylic(null); }} />
-				<ExportDialog open={exportOpen} busy={exportStatus === "pending" || uploadStatus === "uploading"} error={uploadStatus === "uploading" ? "Đợi tải ảnh lên hoàn tất trước khi xuất." : exportError} link={exportLink} onClose={() => setExportOpen(false)} onExport={(scope, scale) => void onExport(scope, scale)} />
+				<ExportDialog open={exportOpen} busy={exportStatus === "pending" || uploadStatus === "uploading"} error={uploadStatus === "uploading" ? "Đợi tải ảnh lên hoàn tất trước khi xuất." : exportError} link={exportLink} onClose={() => setExportOpen(false)} onExport={(scope, scale) => void onExport(scope, scale)} renderPreview={renderExportPreview} onContactClick={() => trackKeychainAction("contact_click", { variant: "keychain-export-dialog" })} />
 				<Snackbar open={Boolean(toast)} autoHideDuration={4500} onClose={() => setToast(null)} anchorOrigin={{ vertical: "bottom", horizontal: "center" }} sx={{ bottom: { xs: "calc(82px + env(safe-area-inset-bottom))", md: 24 } }}><Alert onClose={() => setToast(null)} severity={toast?.severity || "info"} variant="filled" sx={{ width: "100%" }}>{toast?.message}</Alert></Snackbar>
 			</Container>
 			<Box sx={{ display: { xs: "block", md: "none" }, position: "fixed", zIndex: 1100, left: 0, right: 0, bottom: 0, px: 2, pt: 2, pb: "calc(12px + env(safe-area-inset-bottom))", background: "linear-gradient(transparent, #101116 24%)" }}><Button fullWidth variant="contained" onClick={() => setExportOpen(true)} disabled={(typeof designId === "string" && loadStatus !== "loaded") || !dieCutExportReady} sx={{ minHeight: 50, bgcolor: "#f47a28", color: "#fff", fontWeight: 750, boxShadow: "0 8px 28px #0009", "&:hover": { bgcolor: "#ff8a36" } }}>Xuất PNG</Button></Box>
