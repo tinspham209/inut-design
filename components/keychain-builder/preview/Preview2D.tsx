@@ -88,7 +88,7 @@ export function Preview2D({ config, view, dispatch, on3D, onNotify, frameOverrid
 			</Stack>
 			<Stack direction="row" spacing={0.25}>
 				<Button size="small" variant="outlined" aria-current="true" sx={{ height: 28, minHeight: 28, minWidth: 36, borderColor: "#45464e", color: "#c5c6ce" }}>2D</Button>
-				{on3D && <Button size="small" onClick={on3D} disabled={config.shape.type === "die-cut" && !frameOverride} sx={{ height: 28, minHeight: 28, minWidth: 36, color: "#c5c6ce" }}>3D</Button>}
+				{on3D && <Button size="small" onClick={on3D} disabled title="Tạm thời chưa bật chế độ 3D" aria-label="3D, tạm thời chưa bật" sx={{ height: 28, minHeight: 28, minWidth: 36, color: "#777880", "&.Mui-disabled": { color: "#777880" } }}>3D</Button>}
 			</Stack>
 		</Stack>
 		<Stack direction="row" spacing={{ xs: 0.5, md: 0.5 }} alignItems="stretch" sx={{ minHeight: { xs: 260, md: 0 }, flex: { md: 1 } }}>
