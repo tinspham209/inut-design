@@ -91,8 +91,8 @@ export function Preview2D({ config, view, dispatch, on3D, onNotify, frameOverrid
 				{on3D && <Button size="small" onClick={on3D} disabled title="Tạm thời chưa bật chế độ 3D" aria-label="3D, tạm thời chưa bật" sx={{ height: 28, minHeight: 28, minWidth: 36, color: "#777880", "&.Mui-disabled": { color: "#777880" } }}>3D</Button>}
 			</Stack>
 		</Stack>
-		<Stack direction="row" spacing={{ xs: 0.5, md: 0.5 }} alignItems="stretch" sx={{ minHeight: { xs: 260, md: 0 }, flex: { md: 1 } }}>
-			<Stack direction={{ xs: "column" }} spacing={0.35} sx={{ width: 32, flex: "0 0 32px", py: 0.25 }}>
+		<Stack direction={{ xs: "column", md: "row" }} spacing={{ xs: 0.5, md: 0.5 }} alignItems="stretch" sx={{ minHeight: { xs: 300, md: 0 }, flex: 1, minWidth: 0 }}>
+			<Stack direction={{ xs: "row", md: "column" }} spacing={0.35} sx={{ width: { xs: "100%", md: 32 }, flex: { xs: "0 0 auto", md: "0 0 32px" }, py: { xs: 0, md: 0.25 }, "& .MuiButton-root": { width: { xs: 36, md: 32 }, minWidth: { xs: 36, md: 32 }, height: { xs: 36, md: 32 }, minHeight: { xs: 36, md: 32 }, maxHeight: { xs: 36, md: 32 }, py: 0, flexShrink: 0 } }}>
 				{[
 					{ label: "Xoay ảnh 90°", icon: "↻", action: () => updateTransform((t) => ({ ...t, rotation: (t.rotation + 90) % 360 })) },
 					{ label: "Lật ngang", icon: "⇋", action: () => updateTransform((t) => ({ ...t, flipX: !t.flipX })) },
@@ -102,7 +102,7 @@ export function Preview2D({ config, view, dispatch, on3D, onNotify, frameOverrid
 					{ label: fullScreen ? "Thoát toàn màn hình" : "Toàn màn hình", icon: fullScreen ? "⊡" : "⛶", action: () => setFullScreen((current) => !current) },
 				].map((tool) => <Button key={tool.label} title={tool.label} aria-label={tool.label} onClick={tool.action} sx={{ width: 32, minWidth: 32, height: 32, minHeight: 32, p: 0, color: "#c5c6ce", border: "1px solid #34353d", bgcolor: "#22232a", borderRadius: 1, fontSize: 14 }}>{tool.icon}</Button>)}
 			</Stack>
-			<Box ref={stageRef} sx={{ display: "grid", flex: 1, placeItems: "center", minWidth: 0, minHeight: 0, height: "100%", position: "relative", border: "1px solid #2d2e35", borderRadius: 1.5, bgcolor: "#17181e", backgroundImage: "linear-gradient(#ffffff05 1px, transparent 1px), linear-gradient(90deg, #ffffff05 1px, transparent 1px)", backgroundSize: "24px 24px" }}>
+			<Box ref={stageRef} sx={{ display: "grid", flex: 1, placeItems: "center", minWidth: 0, minHeight: { xs: 260, md: 0 }, height: { xs: "auto", md: "100%" }, position: "relative", border: "1px solid #2d2e35", borderRadius: 1.5, bgcolor: "#17181e", backgroundImage: "linear-gradient(#ffffff05 1px, transparent 1px), linear-gradient(90deg, #ffffff05 1px, transparent 1px)", backgroundSize: "24px 24px" }}>
 		{config.shape.type === "die-cut" && !frameOverride ? <Typography role="status" color={geometryStatus === "error" ? "error" : "grey.300"}>{geometryError || (geometryStatus === "processing" ? "Đang tạo đường cắt…" : "Chọn ảnh mặt trước để tạo đường cắt.")}</Typography> : <Box sx={{ position: "relative", width: "100%", height: "100%", maxWidth: { xs: 520, md: 440 }, mx: "auto" }}>
 			<canvas ref={canvasRef} aria-label={`Bản xem trước mặt ${view === "front" ? "trước" : "sau"}`} tabIndex={0}
 				onPointerDown={(event) => { event.currentTarget.setPointerCapture(event.pointerId); dragRef.current = { x: event.clientX, y: event.clientY }; }}
