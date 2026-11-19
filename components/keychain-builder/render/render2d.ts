@@ -22,7 +22,7 @@ const CHAIN_HOLE = { x: 215, y: 1097.5 };
 export async function renderKeychain2d(
 	canvas: HTMLCanvasElement, frame: FrameSvgData, config: KeychainConfig,
 	image?: CanvasImageSource, side: RenderSide = "front", ring?: CanvasImageSource,
-	connectors?: ConnectorAssets,
+	connectors?: ConnectorAssets, showImageCoverage = false,
 ) {
 	const ctx = canvas.getContext("2d");
 	if (!ctx) throw new Error("Thiết bị không hỗ trợ Canvas 2D");
@@ -89,7 +89,22 @@ export async function renderKeychain2d(
 	}
 	if (renderImage && (side === "front" || config.backMode === "through-acrylic" || config.backMode === "mirror-front" || config.backMode === "custom")) {
 		ctx.save();
+		ctx.clip(cut);
+		const borderPx = Math.max(0, Math.min(80, config.cutBorderPx ?? 20));
+		const printScale = 1 + (20 - borderPx) * 0.004;
+		const printCenterX = minX + sourceWidth / 2;
+		const printCenterY = minY + sourceHeight / 2;
+		ctx.translate(printCenterX, printCenterY);
+		ctx.scale(printScale, printScale);
+		ctx.translate(-printCenterX, -printCenterY);
 		ctx.clip(print);
+		ctx.translate(printCenterX, printCenterY);
+		ctx.scale(1 / printScale, 1 / printScale);
+		ctx.translate(-printCenterX, -printCenterY);
+		if (showImageCoverage) {
+			ctx.fillStyle = "#fff";
+			ctx.fillRect(minX, minY, sourceWidth, sourceHeight);
+		}
 		const face = side === "back" && config.backMode === "custom" ? config.backCustom : config.front;
 		const transform = face?.transform || config.front.transform;
 		const art = renderImage as CanvasImageSource & { width: number; height: number };

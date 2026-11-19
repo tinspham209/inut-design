@@ -8,6 +8,7 @@ export default {
 			{ name: "ringId", type: "string", validation: (Rule) => Rule.required() },
 			{ name: "shape", type: "object", fields: [{ name: "type", type: "string" }, { name: "frameId", type: "string" }, { name: "paddingMm", type: "number" }, { name: "smoothness", type: "number" }] },
 			{ name: "sizeCm", type: "number", validation: (Rule) => Rule.required().min(3).max(10) },
+			{ name: "cutBorderPx", type: "number" },
 			{ name: "acrylicId", type: "string", validation: (Rule) => Rule.required() },
 			{ name: "printSides", type: "number", validation: (Rule) => Rule.required().min(1).max(2) },
 			{ name: "backMode", type: "string", validation: (Rule) => Rule.required() },

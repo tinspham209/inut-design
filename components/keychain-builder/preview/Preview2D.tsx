@@ -60,7 +60,7 @@ export function Preview2D({ config, view, dispatch, on3D, onNotify, frameOverrid
 		const connectorAssets = config.ringId === "ring-01" ? Promise.all([
 			"keychain_01_f", "keychain_01_b", "keychain_02_f", "keychain_02_b", "keychain_03_f", "keychain_03_b", "keychain_tail_f", "keychain_tail_b",
 		].map((name) => loadDemoImage(`/keychain/connectors/${name}.png`))).then(([ring1Front, ring1Back, ring2Front, ring2Back, ring3Front, ring3Back, tailFront, tailBack]) => ({ ring1Front, ring1Back, ring2Front, ring2Back, ring3Front, ring3Back, tailFront, tailBack } as ConnectorAssets)) : Promise.resolve(undefined);
-		void Promise.all([load, ring, connectorAssets]).then(([image, ringImage, connectors]) => { if (active) return renderKeychain2d(canvas, frame, config, image, view, ringImage, connectors); }).catch((reason) => { if (active) setError(reason instanceof Error ? reason.message : "Không thể dựng bản xem trước"); });
+		void Promise.all([load, ring, connectorAssets]).then(([image, ringImage, connectors]) => { if (active) return renderKeychain2d(canvas, frame, config, image, view, ringImage, connectors, true); }).catch((reason) => { if (active) setError(reason instanceof Error ? reason.message : "Không thể dựng bản xem trước"); });
 		return () => { active = false; };
 	}, [frame, config, view, stageSize]);
 	useEffect(() => { if (error) onNotify?.(error); }, [error, onNotify]);
@@ -114,6 +114,5 @@ export function Preview2D({ config, view, dispatch, on3D, onNotify, frameOverrid
 		</Box>}
 			</Box>
 		</Stack>
-		<Typography variant="caption" color="grey.500" sx={{ fontSize: { md: 10 }, minHeight: 14 }}>Kéo ảnh để căn vị trí</Typography>
 	</Stack>;
 }

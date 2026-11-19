@@ -10,6 +10,7 @@ export function validateKeychainConfig(value: unknown): value is KeychainConfig 
 	const config = value as Partial<KeychainConfig>;
 	if (config.version !== 1 || !RINGS.some((item) => item.id === config.ringId)) return false;
 	if (!SIZES_CM.includes(config.sizeCm as (typeof SIZES_CM)[number])) return false;
+	if (config.cutBorderPx !== undefined && !isFiniteIn(config.cutBorderPx, 0, 80)) return false;
 	if (!ACRYLICS.some((item) => item.id === config.acrylicId)) return false;
 	if (config.printSides !== 1 && config.printSides !== 2) return false;
 	if (!config.shape) return false;

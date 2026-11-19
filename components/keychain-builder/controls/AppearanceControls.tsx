@@ -8,7 +8,7 @@ export function AppearanceControls({ section, config, onRing, onSize, onAcrylic,
 	if (section === "shape") return <Stack spacing={{ xs: 1.25, md: 0.35 }} sx={{ mt: { xs: 1.5, md: 0.35 } }}>
 		<Typography variant="caption" color="grey.400">Kiểu khoen</Typography>
 		<Box sx={{ display: "grid", gridTemplateColumns: { xs: "repeat(5, minmax(0, 1fr))", md: "repeat(10, minmax(0, 1fr))" }, gap: { xs: 0.5, md: 0.35 }, "& button": { minHeight: { md: 32 } } }}>{RINGS.map((ring) => <Button key={ring.id} title={ring.label} aria-label={ring.label} aria-pressed={config.ringId === ring.id} onClick={() => onRing(ring.id)} sx={{ minWidth: 0, minHeight: { xs: 49, md: 32 }, p: { xs: 0.5, md: 0.25 }, bgcolor: "#22232a", border: "1px solid", borderColor: config.ringId === ring.id ? "#f47a28" : "#36373e", borderRadius: 1 }}><Box sx={{ position: "relative", width: "100%", height: { xs: 34, md: 25 } }}><Image src={ring.src} alt="" layout="fill" objectFit="contain" unoptimized sizes="(min-width: 900px) 42px, 100%" /></Box></Button>)}</Box>
-		<Stack direction="row" alignItems="center" justifyContent="space-between"><Typography variant="caption" color="grey.400">Kích thước thành phẩm</Typography><Typography variant="caption" color="grey.500">Lỗ treo 4 mm</Typography></Stack>
+		<Typography variant="caption" color="grey.400">Kích thước thành phẩm</Typography>
 		<Stack direction="row" spacing={{ xs: 0.6, md: 0.35 }} flexWrap="wrap">{SIZES_CM.map((size) => <Button key={size} aria-pressed={config.sizeCm === size} onClick={() => onSize(size)} sx={{ px: { xs: 1.1, md: 0.7 }, minWidth: { xs: 39, md: 30 }, minHeight: { xs: 34, md: 28 }, border: "1px solid", borderColor: config.sizeCm === size ? "#f47a28" : "#36373e", color: config.sizeCm === size ? "#ffad69" : "#d0d0d5", bgcolor: "#22232a", borderRadius: 1, fontSize: 11 }}>{size}</Button>)}</Stack>
 	</Stack>;
 	return <>
@@ -18,6 +18,5 @@ export function AppearanceControls({ section, config, onRing, onSize, onAcrylic,
 			<Typography variant="caption" color="grey.400" sx={{ mr: 0.5 }}>Độ dày</Typography>
 			{([2, 3, 5] as const).map((thicknessMm) => <Button key={thicknessMm} aria-pressed={config.material.thicknessMm === thicknessMm} onClick={() => onMaterial({ thicknessMm })} sx={{ minWidth: { xs: 52, md: 46 }, minHeight: { xs: 34, md: 28 }, px: 0.75, border: "1px solid", borderColor: config.material.thicknessMm === thicknessMm ? "#f47a28" : "#36373e", color: config.material.thicknessMm === thicknessMm ? "#ffad69" : "#d0d0d5", bgcolor: "#22232a", borderRadius: 1, fontSize: 11 }}>{thicknessMm} mm</Button>)}
 		</Stack>
-		<Typography variant="caption" color="grey.500" sx={{ display: "block", mt: 0.75 }}>Màu và thông số vật liệu chỉ là bản minh họa.</Typography>
 	</>;
 }

@@ -9,12 +9,13 @@ export async function loadSanityImage(url: string): Promise<HTMLImageElement> {
 }
 
 async function load(url: string): Promise<HTMLImageElement> {
-	const candidates = [url, url.includes("?") ? `${url}&fm=jpg` : `${url}?fm=jpg`];
+	const isLocalObject = url.startsWith("blob:") || url.startsWith("data:");
+	const candidates = isLocalObject ? [url] : [url, url.includes("?") ? `${url}&fm=jpg` : `${url}?fm=jpg`];
 	let lastError: unknown;
 	for (const candidate of candidates) {
 		try {
 			const image = new Image();
-			image.crossOrigin = "anonymous";
+			if (!isLocalObject) image.crossOrigin = "anonymous";
 			image.decoding = "async";
 			await new Promise<void>((resolve, reject) => {
 				image.onload = () => resolve();

@@ -2,7 +2,7 @@ import { useReducer } from "react";
 import type { AcrylicId, KeychainAction, KeychainConfig, KeychainSession } from "@/components/keychain-builder/types";
 
 export const initialKeychainConfig: KeychainConfig = {
-	version: 1, ringId: "ring-01", shape: { type: "frame", frameId: "heart" }, sizeCm: 5,
+	version: 1, ringId: "ring-01", shape: { type: "frame", frameId: "heart" }, sizeCm: 5, cutBorderPx: 20,
 	acrylicId: "clear", printSides: 1, backMode: "through-acrylic",
 	front: { transform: { xMm: 0, yMm: 0, scale: 1, rotation: 0, flipX: false } },
 	material: { edge: "polished", thicknessMm: 3, sheen: 0.35 },
@@ -13,7 +13,11 @@ export function keychainReducer(state: KeychainConfig, action: KeychainAction): 
 		case "select-ring": return { ...state, ringId: action.ringId };
 		case "select-frame": return { ...state, shape: { type: "frame", frameId: action.frameId } };
 		case "select-die-cut": return { ...state, shape: { type: "die-cut", paddingMm: 5, smoothness: 4 } };
-		case "set-size": return { ...state, sizeCm: action.sizeCm };
+		case "set-size": {
+			const maximumCutBorderPx = Math.max(0, Math.min(80, (action.sizeCm * 10 - 6) * 2));
+			return { ...state, sizeCm: action.sizeCm, cutBorderPx: Math.min(state.cutBorderPx ?? 20, maximumCutBorderPx) };
+		}
+		case "set-cut-border": return { ...state, cutBorderPx: Math.max(0, Math.min(80, action.cutBorderPx)) };
 		case "set-material": return { ...state, material: { ...state.material, ...action.material } };
 		case "select-acrylic": return action.acrylicId === "clear"
 			? { ...state, acrylicId: "clear", printSides: 1, backMode: "through-acrylic" }
