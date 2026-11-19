@@ -4,9 +4,9 @@ import { Alert, Box, Button, Stack, Typography } from "@mui/material";
 type Props = { error?: string | null; hasImage: boolean; imageUrl?: string | null; onSelect: (file: File) => void; onRemove: () => void };
 export function ImageUpload({ error, hasImage, imageUrl, onSelect, onRemove }: Props) {
 	const [validationError, setValidationError] = useState<string | null>(null);
-	return <Stack spacing={1.25}>
-		<Stack direction="row" spacing={1} alignItems="center" sx={{ p: 1, border: "1px solid #34353d", borderRadius: 2, bgcolor: "#202127", minWidth: 0 }}>
-			{imageUrl ? <Box component="img" src={imageUrl} alt="Ảnh mặt trước đã chọn" sx={{ width: 48, height: 48, borderRadius: 1.25, objectFit: "cover", bgcolor: "#15161a" }} /> : <Box sx={{ width: 48, height: 48, borderRadius: 1.25, display: "grid", placeItems: "center", bgcolor: "#2a2b32", color: "#85868e", fontSize: 20 }}>＋</Box>}
+	return <Stack spacing={{ xs: 1.25, md: 0.5 }}>
+		<Stack direction="row" spacing={{ xs: 1, md: 0.75 }} alignItems="center" sx={{ p: { xs: 1, md: 0.6 }, border: "1px solid #34353d", borderRadius: 1.5, bgcolor: "#202127", minWidth: 0 }}>
+			{imageUrl ? <Box component="img" src={imageUrl} alt="Ảnh mặt trước đã chọn" sx={{ width: { xs: 48, md: 38 }, height: { xs: 48, md: 38 }, borderRadius: 1.25, objectFit: "cover", bgcolor: "#15161a" }} /> : <Box sx={{ width: { xs: 48, md: 38 }, height: { xs: 48, md: 38 }, borderRadius: 1.25, display: "grid", placeItems: "center", bgcolor: "#2a2b32", color: "#85868e", fontSize: 20 }}>＋</Box>}
 			<Box sx={{ flex: 1, minWidth: 0 }}><Typography variant="body2" fontWeight={600}>{hasImage ? "Ảnh thiết kế" : "Chưa có ảnh"}</Typography><Typography variant="caption" color="grey.500">PNG, JPG hoặc WebP · tối đa 10 MB</Typography></Box>
 			<Button component="label" variant="outlined" sx={{ minHeight: 38, px: 1.1, borderColor: "#55565f", whiteSpace: "nowrap" }}>
 				{hasImage ? "Thay ảnh" : "Tải ảnh"}

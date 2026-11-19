@@ -1,5 +1,5 @@
 import { Seo } from "@/components/common";
-import { MainLayout } from "@/components/layout";
+import { BuilderLayout } from "@/components/layout";
 import { NextPageWithLayout } from "@/models/common";
 import dynamic from "next/dynamic";
 
@@ -20,5 +20,5 @@ const KeychainBuilderPage: NextPageWithLayout = () => (
 	</>
 );
 
-KeychainBuilderPage.Layout = MainLayout;
+KeychainBuilderPage.Layout = BuilderLayout;
 export default KeychainBuilderPage;
