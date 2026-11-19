@@ -5,6 +5,7 @@ type Props = { label: string; hasImage: boolean; hasProcessed: boolean; useProce
 
 export function RemoveBackground({ label, hasImage, hasProcessed, useProcessed = false, enabled, state, onRemove, onUseOriginal, onUseProcessed }: Props) {
 	const busy = state.status === "processing" || state.status === "uploading";
+	if (!enabled && !hasProcessed) return null;
 	return <Stack spacing={0.75} sx={{ mt: 1 }}>
 		<Typography variant="caption" color="grey.400">Xóa nền · {label}</Typography>
 		{!enabled ? <Alert severity="info" sx={{ py: 0 }}>Đang tắt đến khi hoàn tất duyệt license, model và triển khai.</Alert> : <>
