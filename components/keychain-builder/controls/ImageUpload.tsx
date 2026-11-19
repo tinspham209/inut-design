@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { Alert, Box, Button, Stack, Typography } from "@mui/material";
 
-type Props = { status: "idle" | "uploading" | "error"; error?: string | null; hasImage: boolean; imageUrl?: string | null; onSelect: (file: File) => void; onRemove: () => void };
-export function ImageUpload({ status, error, hasImage, imageUrl, onSelect, onRemove }: Props) {
+type Props = { error?: string | null; hasImage: boolean; imageUrl?: string | null; onSelect: (file: File) => void; onRemove: () => void };
+export function ImageUpload({ error, hasImage, imageUrl, onSelect, onRemove }: Props) {
 	const [validationError, setValidationError] = useState<string | null>(null);
 	return <Stack spacing={1.25}>
 		<Stack direction="row" spacing={1} alignItems="center" sx={{ p: 1, border: "1px solid #34353d", borderRadius: 2, bgcolor: "#202127", minWidth: 0 }}>
 			{imageUrl ? <Box component="img" src={imageUrl} alt="Ảnh mặt trước đã chọn" sx={{ width: 48, height: 48, borderRadius: 1.25, objectFit: "cover", bgcolor: "#15161a" }} /> : <Box sx={{ width: 48, height: 48, borderRadius: 1.25, display: "grid", placeItems: "center", bgcolor: "#2a2b32", color: "#85868e", fontSize: 20 }}>＋</Box>}
-			<Box sx={{ flex: 1, minWidth: 0 }}><Typography variant="body2" fontWeight={600}>{hasImage ? "Ảnh thiết kế" : "Chưa có ảnh"}</Typography><Typography variant="caption" color="grey.500">{status === "uploading" ? "Đang tải lên…" : "PNG, JPG hoặc WebP · tối đa 10 MB"}</Typography></Box>
-			<Button component="label" variant="outlined" disabled={status === "uploading"} sx={{ minHeight: 38, px: 1.1, borderColor: "#55565f", whiteSpace: "nowrap" }}>
-				{status === "uploading" ? "Tải…" : hasImage ? "Thay ảnh" : "Tải ảnh"}
+			<Box sx={{ flex: 1, minWidth: 0 }}><Typography variant="body2" fontWeight={600}>{hasImage ? "Ảnh thiết kế" : "Chưa có ảnh"}</Typography><Typography variant="caption" color="grey.500">PNG, JPG hoặc WebP · tối đa 10 MB</Typography></Box>
+			<Button component="label" variant="outlined" sx={{ minHeight: 38, px: 1.1, borderColor: "#55565f", whiteSpace: "nowrap" }}>
+				{hasImage ? "Thay ảnh" : "Tải ảnh"}
 				<input hidden type="file" accept="image/png,image/jpeg,image/webp" onChange={(event) => {
 					const file = event.target.files?.[0]; event.target.value = ""; if (!file) return;
 					if (!/^image\/(png|jpeg|webp)$/.test(file.type)) { setValidationError("Chỉ hỗ trợ PNG, JPEG hoặc WebP."); return; }

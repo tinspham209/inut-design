@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Alert, Box, Button, Container, Paper, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { FRAMES } from "@/data/keychain/catalog";
@@ -26,9 +26,13 @@ import { getFaceImageUrl } from "@/components/keychain-builder/image/imageFace";
 import dynamic from "next/dynamic";
 
 const LazyPreview3D = dynamic(() => import("@/components/keychain-builder/preview/Preview3D").then((module) => module.Preview3D), { ssr: false, loading: () => <Typography role="status">Đang tải bộ dựng 3D…</Typography> });
+const defaultImageTransform = { xMm: 0, yMm: 0, scale: 1, rotation: 0, flipX: false };
 
 export function KeychainBuilder() {
 	const [config, dispatch, session] = useKeychainState();
+	const configRef = useRef(config);
+	configRef.current = config;
+	const localImageUrls = useRef<{ front?: string; backCustom?: string }>({});
 	const dieCut = useDieCutGeometry(config, session.revisions.geometry);
 	const dieCutReady = config.shape.type === "frame" || (dieCut.status === "ready" && dieCut.revision === session.revisions.geometry);
 	const frameOverride = useMemo(() => config.shape.type === "die-cut" && dieCutReady && dieCut.geometry ? dieCutFrameSvg(dieCut.geometry) : undefined, [config.shape.type, dieCutReady, dieCut.geometry]);
@@ -36,8 +40,8 @@ export function KeychainBuilder() {
 	const designId = router.query.design;
 	const { status: loadStatus, error: loadError, load } = useLoadDesign(designId);
 	const [pendingAcrylic, setPendingAcrylic] = useState<Exclude<typeof config.acrylicId, "clear"> | null>(null);
-	const { upload, status: uploadStatus, error: uploadError } = useImageUpload();
-	const backUpload = useBackImage();
+	const { upload, cancel: cancelUpload, status: uploadStatus, error: uploadError } = useImageUpload();
+	const { upload: uploadBackImage, cancel: cancelBackUpload, error: backUploadError } = useBackImage();
 	const { states: backgroundRemovalStates, remove: removeBackground, cancel: cancelBackgroundRemoval } = useBackgroundRemoval();
 	const backgroundRemovalEnabled = process.env.NEXT_PUBLIC_KEYCHAIN_BACKGROUND_REMOVAL_ENABLED === "true";
 	const [exportOpen, setExportOpen] = useState(false);
@@ -49,7 +53,10 @@ export function KeychainBuilder() {
 	useEffect(() => { if (router.isReady && typeof designId === "string") void load(designId, dispatch); }, [designId, dispatch, load, router.isReady]);
 	useEffect(() => { cancelBackgroundRemoval("front"); }, [cancelBackgroundRemoval, config.front.url]);
 	useEffect(() => { cancelBackgroundRemoval("backCustom"); }, [cancelBackgroundRemoval, config.backCustom?.url]);
-	useEffect(() => () => { cancelBackgroundRemoval("front"); cancelBackgroundRemoval("backCustom"); }, [cancelBackgroundRemoval]);
+	useEffect(() => () => {
+		cancelBackgroundRemoval("front"); cancelBackgroundRemoval("backCustom"); cancelUpload(); cancelBackUpload();
+		Object.values(localImageUrls.current).forEach((url) => { if (url) URL.revokeObjectURL(url); });
+	}, [cancelBackUpload, cancelBackgroundRemoval, cancelUpload]);
 	const onImage = (file?: File) => {
 		if (!file) return;
 		cancelBackgroundRemoval("front");
@@ -57,7 +64,48 @@ export function KeychainBuilder() {
 			window.alert("Chọn ảnh PNG, JPEG hoặc WebP tối đa 10 MB.");
 			return;
 		}
-		void upload(file).then((face) => { if (face) { dispatch({ type: "set-face", face: "front", value: face }); trackKeychainAction("keychain_image_upload", { result: "success" }); } else trackKeychainAction("keychain_image_upload", { result: "error" }); });
+		const url = URL.createObjectURL(file);
+		if (localImageUrls.current.front) URL.revokeObjectURL(localImageUrls.current.front);
+		localImageUrls.current.front = url;
+		dispatch({ type: "set-face", face: "front", value: { url, transform: defaultImageTransform } });
+		void upload(file).then((face) => {
+			if (localImageUrls.current.front !== url) return;
+			if (face) {
+				dispatch({ type: "set-face", face: "front", value: { ...face, transform: configRef.current.front.transform } });
+				localImageUrls.current.front = undefined; URL.revokeObjectURL(url);
+				trackKeychainAction("keychain_image_upload", { result: "success" });
+			} else trackKeychainAction("keychain_image_upload", { result: "error" });
+		});
+	};
+	const onBackImage = (file?: File) => {
+		if (!file) return;
+		if (!/^image\/(png|jpeg|webp)$/.test(file.type) || file.size > 10 * 1024 * 1024) {
+			window.alert("Chọn ảnh PNG, JPEG hoặc WebP tối đa 10 MB.");
+			return;
+		}
+		cancelBackgroundRemoval("backCustom");
+		const url = URL.createObjectURL(file);
+		if (localImageUrls.current.backCustom) URL.revokeObjectURL(localImageUrls.current.backCustom);
+		localImageUrls.current.backCustom = url;
+		dispatch({ type: "set-face", face: "backCustom", value: { url, transform: defaultImageTransform } });
+		void uploadBackImage(file).then((face) => {
+			if (localImageUrls.current.backCustom !== url || !face) return;
+			dispatch({ type: "set-face", face: "backCustom", value: { ...face, transform: configRef.current.backCustom?.transform || defaultImageTransform } });
+			localImageUrls.current.backCustom = undefined; URL.revokeObjectURL(url);
+			trackKeychainAction("keychain_custom_back", { result: "success" });
+		});
+	};
+	const removeFrontImage = () => {
+		cancelUpload(); cancelBackgroundRemoval("front");
+		if (localImageUrls.current.front) URL.revokeObjectURL(localImageUrls.current.front);
+		localImageUrls.current.front = undefined;
+		dispatch({ type: "set-face", face: "front", value: { transform: config.front.transform } });
+	};
+	const resetDesign = () => {
+		cancelUpload(); cancelBackUpload(); cancelBackgroundRemoval("front"); cancelBackgroundRemoval("backCustom");
+		Object.values(localImageUrls.current).forEach((url) => { if (url) URL.revokeObjectURL(url); });
+		localImageUrls.current = {};
+		dispatch({ type: "reset" });
 	};
 	const removeFaceBackground = async (face: BackgroundRemovalFace) => {
 		const value = face === "front" ? config.front : config.backCustom;
@@ -107,14 +155,14 @@ export function KeychainBuilder() {
 						<Box sx={{ flex: 1, minWidth: 0 }}><Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap"><Typography variant="h6" component="h1" fontWeight={750}>INUT Keychain Builder</Typography><Box sx={{ border: "1px solid #bc6a2d", color: "#ffad69", borderRadius: 1, px: 0.8, py: 0.15, fontSize: 10, fontWeight: 800, letterSpacing: 1 }}>DEMO</Box></Stack><Typography variant="caption" color="grey.400">Tùy chỉnh mẫu móc khóa của bạn</Typography></Box>
 					</Box>
 					<Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "minmax(0, 1.35fr) minmax(480px, 1fr)" }, gap: { xs: 1.5, md: 1.5 }, alignItems: "start" }}>
-						<Paper aria-label="Bản xem trước móc khóa" sx={{ position: { md: "sticky" }, top: 84, minHeight: { xs: 390, md: 600 }, bgcolor: "#191a20", color: "inherit", p: { xs: 1.5, md: 2.5 }, border: "1px solid #2c2d34", borderRadius: 3, backgroundImage: "radial-gradient(#30313a 0.7px, transparent 0.7px)", backgroundSize: "18px 18px" }}>
+							<Paper aria-label="Bản xem trước móc khóa" sx={{ position: { md: "sticky" }, top: 84, minHeight: { xs: 390, md: 600 }, bgcolor: "#191a20", color: "inherit", p: { xs: 1.5, md: 2.5 }, border: "1px solid #2c2d34", borderRadius: 3, backgroundImage: "radial-gradient(#30313a 0.7px, transparent 0.7px)", backgroundSize: "18px 18px" }}>
 			{session.preview === "2d" ? <Preview2D config={config} view={session.view} frameOverride={frameOverride} geometryStatus={dieCut.status} geometryError={dieCut.error} on3D={() => { dispatch({ type: "set-preview", preview: "3d" }); trackKeychainAction("keychain_view_change", { mode: "3d" }); }} dispatch={(action) => { dispatch(action); if (action.type === "set-view") trackKeychainAction("keychain_view_change", { mode: "2d" }); }} /> : <LazyPreview3D config={config} frameOverride={frameOverride} geometryStatus={dieCut.status} geometryError={dieCut.error} onBack={() => { dispatch({ type: "set-preview", preview: "2d" }); trackKeychainAction("keychain_view_change", { mode: "2d" }); }} />}
-							<Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mt: 1.5, pt: 1.5, borderTop: "1px solid #2d2e35" }}><Typography variant="caption" color="grey.500">Bản xem trước chỉ mang tính minh họa.</Typography><Button size="small" onClick={() => dispatch({ type: "reset" })} sx={{ color: "grey.400" }}>Đặt lại</Button></Stack>
+							<Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mt: 1.5, pt: 1.5, borderTop: "1px solid #2d2e35" }}><Typography variant="caption" color="grey.500">Bản xem trước chỉ mang tính minh họa.</Typography><Button size="small" onClick={resetDesign} sx={{ color: "grey.400" }}>Đặt lại</Button></Stack>
 						</Paper>
 						<Stack spacing={{ xs: 1.25, md: 0 }} sx={{ minWidth: 0, bgcolor: { md: "#191a20" }, border: { md: "1px solid #2c2d34" }, borderRadius: { md: 2.5 }, overflow: "hidden", "& .keychain-panel + .keychain-panel": { borderTop: { md: "1px solid #34353d" } } }}>
 							<Panel title="01" label="Hình dáng & móc"><ShapeControls config={config} status={dieCut.status} error={dieCut.error} onChange={dispatch} /><AppearanceControls section="shape" config={config} onRing={onRing} onFrame={onFrame} onSize={(sizeCm) => dispatch({ type: "set-size", sizeCm })} onAcrylic={onAcrylic} onOpaque={setPendingAcrylic} onMaterial={(material) => dispatch({ type: "set-material", material })} /></Panel>
-							<Panel title="02" label="Ảnh mặt trước"><ImageUpload status={uploadStatus} error={uploadError} hasImage={Boolean(imageUrl)} imageUrl={imageUrl} onSelect={onImage} onRemove={() => { cancelBackgroundRemoval("front"); dispatch({ type: "set-face", face: "front", value: { transform: config.front.transform } }); }} /><RemoveBackground label="mặt trước" hasImage={Boolean(config.front.url)} hasProcessed={Boolean(config.front.processedUrl && config.front.processedImage)} useProcessed={config.front.useProcessed} enabled={backgroundRemovalEnabled} state={backgroundRemovalStates.front} onRemove={() => void removeFaceBackground("front")} onUseOriginal={() => selectFaceSource("front", false)} onUseProcessed={() => selectFaceSource("front", true)} /></Panel>
-							<Panel title="03" label="Mặt sau"><BackControls acrylicId={config.acrylicId} backMode={config.backMode} hasCustomImage={Boolean(config.backCustom?.url)} uploading={backUpload.status === "uploading"} error={backUpload.error} onModeChange={(backMode) => { dispatch({ type: "set-back-mode", backMode }); trackKeychainAction("keychain_back_mode", { mode: backMode, print_sides: backMode === "mirror-front" || backMode === "custom" ? 2 : 1 }); }} onUpload={(file) => { if (file) { cancelBackgroundRemoval("backCustom"); void backUpload.upload(file).then((face) => { if (face) { dispatch({ type: "set-face", face: "backCustom", value: face }); trackKeychainAction("keychain_custom_back", { result: "success" }); } }); } }} />{config.backCustom?.url && <>{config.acrylicId === "clear" && <BackImageEditor transform={config.backCustom.transform} onChange={updateBackTransform} onReset={resetBackTransform} />}<RemoveBackground label="mặt sau" hasImage hasProcessed={Boolean(config.backCustom.processedUrl && config.backCustom.processedImage)} useProcessed={config.backCustom.useProcessed} enabled={backgroundRemovalEnabled} state={backgroundRemovalStates.backCustom} onRemove={() => void removeFaceBackground("backCustom")} onUseOriginal={() => selectFaceSource("backCustom", false)} onUseProcessed={() => selectFaceSource("backCustom", true)} /></>}</Panel>
+							<Panel title="02" label="Ảnh mặt trước"><ImageUpload error={uploadError} hasImage={Boolean(imageUrl)} imageUrl={imageUrl} onSelect={onImage} onRemove={removeFrontImage} /><RemoveBackground label="mặt trước" hasImage={Boolean(config.front.image)} hasProcessed={Boolean(config.front.processedUrl && config.front.processedImage)} useProcessed={config.front.useProcessed} enabled={backgroundRemovalEnabled} state={backgroundRemovalStates.front} onRemove={() => void removeFaceBackground("front")} onUseOriginal={() => selectFaceSource("front", false)} onUseProcessed={() => selectFaceSource("front", true)} /></Panel>
+		<Panel title="03" label="Mặt sau"><BackControls acrylicId={config.acrylicId} backMode={config.backMode} hasCustomImage={Boolean(config.backCustom?.url)} error={backUploadError} onModeChange={(backMode) => { dispatch({ type: "set-back-mode", backMode }); trackKeychainAction("keychain_back_mode", { mode: backMode, print_sides: backMode === "mirror-front" || backMode === "custom" ? 2 : 1 }); }} onUpload={onBackImage} />{config.backCustom?.url && <>{config.acrylicId === "clear" && <BackImageEditor transform={config.backCustom.transform} onChange={updateBackTransform} onReset={resetBackTransform} />}<RemoveBackground label="mặt sau" hasImage={Boolean(config.backCustom.image)} hasProcessed={Boolean(config.backCustom.processedUrl && config.backCustom.processedImage)} useProcessed={config.backCustom.useProcessed} enabled={backgroundRemovalEnabled} state={backgroundRemovalStates.backCustom} onRemove={() => void removeFaceBackground("backCustom")} onUseOriginal={() => selectFaceSource("backCustom", false)} onUseProcessed={() => selectFaceSource("backCustom", true)} /></>}</Panel>
 							<Panel title="04" label="Chất liệu"><AppearanceControls section="material" config={config} onRing={onRing} onFrame={onFrame} onSize={(sizeCm) => dispatch({ type: "set-size", sizeCm })} onAcrylic={onAcrylic} onOpaque={setPendingAcrylic} onMaterial={(material) => dispatch({ type: "set-material", material })} /></Panel>
 							<Panel title="05" label="Xuất file"><Typography variant="caption" color="grey.400">PNG giới thiệu ý tưởng · không phải file sản xuất.</Typography><Button fullWidth variant="contained" disabled={(typeof designId === "string" && loadStatus !== "loaded") || !dieCutReady} onClick={() => setExportOpen(true)} sx={{ mt: 1.5, minHeight: 48, bgcolor: "#f47a28", fontWeight: 750, "&:hover": { bgcolor: "#ff8a36" } }}>Xuất PNG</Button></Panel>
 						</Stack>
