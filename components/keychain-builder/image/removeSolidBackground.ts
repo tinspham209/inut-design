@@ -27,6 +27,32 @@ function cornerColor(data: Uint8ClampedArray, width: number, height: number, x: 
 	return average;
 }
 
+function getAlphaBounds(data: Uint8ClampedArray, width: number, height: number) {
+	let left = width; let top = height; let right = -1; let bottom = -1;
+	for (let y = 0; y < height; y += 1) for (let x = 0; x < width; x += 1) {
+		if (data[(y * width + x) * 4 + 3] < 16) continue;
+		left = Math.min(left, x); top = Math.min(top, y); right = Math.max(right, x); bottom = Math.max(bottom, y);
+	}
+	if (right < left || bottom < top) throw new Error("Ảnh không còn phần hình nào sau khi tách nền.");
+	return { left, top, right, bottom, width: right - left + 1, height: bottom - top + 1 };
+}
+
+async function encodeCrop(data: Uint8ClampedArray, sourceWidth: number, bounds: ReturnType<typeof getAlphaBounds>) {
+	const canvas = document.createElement("canvas");
+	canvas.width = bounds.width; canvas.height = bounds.height;
+	const context = canvas.getContext("2d");
+	if (!context) throw new Error("Canvas không khả dụng để lưu ảnh đã tách nền.");
+	const cropped = context.createImageData(bounds.width, bounds.height);
+	for (let y = 0; y < bounds.height; y += 1) {
+		const start = ((bounds.top + y) * sourceWidth + bounds.left) * 4;
+		cropped.data.set(data.subarray(start, start + bounds.width * 4), y * bounds.width * 4);
+	}
+	context.putImageData(cropped, 0, 0);
+	const result = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/webp", 0.95));
+	if (!result?.size) throw new Error("Không tạo được ảnh đã tách nền.");
+	return result;
+}
+
 /** Removes a connected, solid black or white canvas background while preserving existing alpha. */
 export async function removeSolidBackground(source: Blob): Promise<Blob | null> {
 	if (typeof window === "undefined") throw new Error("Tách nền chỉ khả dụng trong trình duyệt.");
@@ -44,9 +70,14 @@ export async function removeSolidBackground(source: Blob): Promise<Blob | null> 
 		context.drawImage(bitmap, 0, 0, width, height);
 		const pixels = context.getImageData(0, 0, width, height);
 		const { data } = pixels;
-		let hasTransparency = false;
-		for (let index = 3; index < data.length; index += 4) if (data[index] < 250) { hasTransparency = true; break; }
-		if (hasTransparency) return null;
+		let transparentPixels = 0;
+		for (let index = 3; index < data.length; index += 4) if (data[index] < 250) transparentPixels += 1;
+		const alreadyTransparent = transparentPixels > 0;
+		if (alreadyTransparent) {
+			const bounds = getAlphaBounds(data, width, height);
+			if (bounds.left === 0 && bounds.top === 0 && bounds.right === width - 1 && bounds.bottom === height - 1) return null;
+			return encodeCrop(data, width, bounds);
+		}
 
 		const corners = [
 			cornerColor(data, width, height, 0, 0),
@@ -94,9 +125,7 @@ export async function removeSolidBackground(source: Blob): Promise<Blob | null> 
 			data[index + 3] = alpha;
 		}
 		context.putImageData(pixels, 0, 0);
-		const result = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/webp", 0.95));
-		if (!result?.size) throw new Error("Không tạo được ảnh trong suốt sau khi tách nền.");
-		return result;
+		return encodeCrop(data, width, getAlphaBounds(data, width, height));
 	} finally {
 		bitmap.close();
 	}

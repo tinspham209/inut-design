@@ -39,7 +39,10 @@ export function KeychainBuilder() {
 	configRef.current = config;
 	const localImageUrls = useRef<{ front?: string; backCustom?: string; dieCutProcessed?: string }>({});
 	const [dieCutSource, setDieCutSource] = useState<{ status: "ready" | "processing" | "error"; sourceUrl?: string; error?: string }>({ status: "ready" });
-	const dieCut = useDieCutGeometry(config, session.revisions.geometry, config.shape.type === "die-cut" && dieCutSource.sourceUrl === config.front.url ? dieCutSource.status : "ready", dieCutSource.error);
+	const dieCutSourceIsCurrent = dieCutSource.sourceUrl === config.front.url;
+	const dieCutSourceStatus = config.shape.type === "die-cut" && config.front.url ? dieCutSourceIsCurrent ? dieCutSource.status : "processing" : "ready";
+	const dieCutSourceError = dieCutSourceIsCurrent ? dieCutSource.error : undefined;
+	const dieCut = useDieCutGeometry(config, session.revisions.geometry, dieCutSourceStatus, dieCutSourceError);
 	const dieCutReady = config.shape.type === "frame" || (dieCut.status === "ready" && dieCut.revision === session.revisions.geometry);
 	const dieCutExportReady = dieCutReady && !localImageUrls.current.dieCutProcessed;
 	const frameOverride = useMemo(() => config.shape.type === "die-cut" && dieCutReady && dieCut.geometry ? dieCutFrameSvg(dieCut.geometry) : undefined, [config.shape.type, dieCutReady, dieCut.geometry]);
@@ -107,8 +110,8 @@ export function KeychainBuilder() {
 	useEffect(() => { if (backUploadError) notify(backUploadError, "error"); }, [backUploadError, notify]);
 	useEffect(() => { if (exportError) notify(exportError, "error"); }, [exportError, notify]);
 	useEffect(() => {
-		if (dieCut.status === "error") notify(dieCut.error || "Không tạo được đường cắt. Chọn ảnh khác hoặc dùng khung cố định.", "warning");
-	}, [dieCut.error, dieCut.status, notify]);
+		if (dieCut.status === "error" && dieCut.revision === session.revisions.geometry && dieCutSourceStatus !== "processing" && dieCutSourceStatus !== "error") notify(dieCut.error || "Không tạo được đường cắt. Chọn ảnh khác hoặc dùng khung cố định.", "warning");
+	}, [dieCut.error, dieCut.revision, dieCut.status, dieCutSourceStatus, notify, session.revisions.geometry]);
 	useEffect(() => {
 		if (frontRemovalStatus === "error" || frontRemovalStatus === "unsupported") notify(frontRemovalError || "Không thể tách nền ảnh.", frontRemovalStatus === "unsupported" ? "info" : "error");
 		if (backRemovalStatus === "error" || backRemovalStatus === "unsupported") notify(backRemovalError || "Không thể tách nền ảnh.", backRemovalStatus === "unsupported" ? "info" : "error");

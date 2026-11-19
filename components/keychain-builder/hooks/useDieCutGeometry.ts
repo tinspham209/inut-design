@@ -11,22 +11,24 @@ export function useDieCutGeometry(config: KeychainConfig, revision: number, sour
 	const latest = useRef(0);
 	const face = config.front;
 	const faceUrl = getFaceImageUrl(face);
-	const transform = face.transform;
+	const faceUrlRef = useRef(faceUrl);
+	faceUrlRef.current = faceUrl;
 	const smoothness = config.shape.type === "die-cut" ? config.shape.smoothness : 4;
 	const paddingPx = config.cutBorderPx ?? 20;
 	useEffect(() => {
 		const current = ++latest.current;
+		const currentFaceUrl = faceUrlRef.current;
 		if (config.shape.type !== "die-cut") { setResult({ status: "idle", revision }); return; }
 		if (sourceStatus === "processing") { setResult({ status: "processing", revision }); return; }
 		if (sourceStatus === "error") { setResult({ status: "error", revision, error: sourceError || "Không thể tách nền ảnh để tạo đường cắt." }); return; }
-		if (!faceUrl) { setResult({ status: "error", revision, error: "Tải ảnh mặt trước để tạo đường cắt theo viền ảnh." }); return; }
+		if (!currentFaceUrl) { setResult({ status: "error", revision, error: "Tải ảnh mặt trước để tạo đường cắt theo viền ảnh." }); return; }
 		let worker: Worker | undefined;
 		let timeout: ReturnType<typeof setTimeout> | undefined;
 		let active = true;
 		setResult({ status: "processing", revision });
-		void loadSanityImage(faceUrl).then((image) => {
+		void loadSanityImage(currentFaceUrl).then((image) => {
 			if (!active) return;
-			const mask = extractImageAlpha(image, 2048, 16, { rotation: transform.rotation, flipX: transform.flipX });
+			const mask = extractImageAlpha(image, 2048, 16);
 			worker = new Worker(new URL("../geometry/dieCut.worker.ts", import.meta.url), { type: "module" });
 			worker.onmessage = (event: MessageEvent<{ revision: number; geometry?: DieCutGeometry; error?: string }>) => {
 				if (!active || !isLatestGeometryRevision(event.data.revision, current) || !isLatestGeometryRevision(current, latest.current)) return;
@@ -50,6 +52,6 @@ export function useDieCutGeometry(config: KeychainConfig, revision: number, sour
 			if (active && current === latest.current) setResult({ status: "error", revision, error: error instanceof Error ? error.message : "Không tải được ảnh để tạo đường cắt." });
 		});
 		return () => { active = false; if (timeout) clearTimeout(timeout); worker?.terminate(); };
-	}, [config.shape.type, config.sizeCm, config.cutBorderPx, smoothness, paddingPx, faceUrl, transform.xMm, transform.yMm, transform.scale, transform.rotation, transform.flipX, revision, sourceStatus, sourceError]);
+	}, [config.shape.type, config.sizeCm, config.cutBorderPx, smoothness, paddingPx, revision, sourceStatus, sourceError]);
 	return result;
 }

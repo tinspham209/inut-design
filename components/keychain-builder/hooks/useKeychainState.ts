@@ -41,14 +41,19 @@ function sessionReducer(state: KeychainSession, action: KeychainAction): Keychai
 	const config = keychainReducer(state.config, action);
 	const isFront = action.type === "set-face" && action.face === "front";
 	const isBack = action.type === "set-face" && action.face === "backCustom";
-	const changesGeometry = action.type !== "set-face";
+	const currentFrontSource = state.config.front.useProcessed && state.config.front.processedUrl ? state.config.front.processedUrl : state.config.front.url;
+	const nextFront = action.type === "set-face" && action.face === "front" ? action.value : state.config.front;
+	const nextFrontSource = nextFront.useProcessed && nextFront.processedUrl ? nextFront.processedUrl : nextFront.url;
+	const processedAssetSaved = isFront && state.config.front.useProcessed && nextFront.useProcessed && state.config.front.url === nextFront.url && state.config.front.processedUrl?.startsWith("blob:") && nextFront.processedUrl?.startsWith("https://cdn.sanity.io/");
+	const frontImageSourceChanged = isFront && currentFrontSource !== nextFrontSource && !processedAssetSaved;
+	const changesGeometry = action.type === "select-frame" || action.type === "select-die-cut" || action.type === "set-size" || action.type === "set-cut-border" || action.type === "load" || action.type === "reset" || frontImageSourceChanged;
 	return {
 		...state, config,
 		revisions: {
 			config: state.revisions.config + 1,
 			frontImage: state.revisions.frontImage + Number(isFront),
 			backImage: state.revisions.backImage + Number(isBack),
-			geometry: state.revisions.geometry + Number(changesGeometry || isFront),
+			geometry: state.revisions.geometry + Number(changesGeometry),
 		},
 	};
 }

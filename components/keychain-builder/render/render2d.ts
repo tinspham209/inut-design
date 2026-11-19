@@ -99,7 +99,7 @@ export async function renderKeychain2d(
 		ctx.save();
 		ctx.clip(cut);
 		const borderPx = Math.max(0, Math.min(80, config.cutBorderPx ?? 20));
-		const printScale = 1 + (20 - borderPx) * 0.004;
+		const printScale = config.shape.type === "die-cut" ? 1 : 1 + (20 - borderPx) * 0.004;
 		const printCenterX = minX + sourceWidth / 2;
 		const printCenterY = minY + sourceHeight / 2;
 		ctx.translate(printCenterX, printCenterY);
@@ -114,12 +114,16 @@ export async function renderKeychain2d(
 			const face = side === "back" && config.backMode === "custom" ? config.backCustom : config.front;
 			const transform = face?.transform || config.front.transform;
 			const art = renderImage as CanvasImageSource & { width: number; height: number };
+			const dieCutBodyTop = minY + frame.hole.cy;
+			const dieCutBodyHeight = Math.max(1, minY + sourceHeight - dieCutBodyTop);
 			const centerX = minX + sourceWidth / 2 + transform.xMm / mmPerUnit;
-			const centerY = minY + sourceHeight / 2 + transform.yMm / mmPerUnit;
+			const centerY = (config.shape.type === "die-cut" ? dieCutBodyTop + dieCutBodyHeight / 2 : minY + sourceHeight / 2) + transform.yMm / mmPerUnit;
 			ctx.translate(centerX, centerY);
 			ctx.rotate((transform.rotation * Math.PI) / 180);
 			ctx.scale(transform.scale * (transform.flipX ? -1 : 1) * (mirror ? -1 : 1), transform.scale);
-			const fit = Math.max(sourceWidth * 0.72 / art.width, sourceHeight * 0.72 / art.height);
+			const fit = config.shape.type === "die-cut"
+				? Math.max(sourceWidth / art.width, dieCutBodyHeight / art.height)
+				: Math.max(sourceWidth * 0.72 / art.width, sourceHeight * 0.72 / art.height);
 			ctx.drawImage(art, -art.width * fit / 2, -art.height * fit / 2, art.width * fit, art.height * fit);
 		}
 		ctx.restore();
