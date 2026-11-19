@@ -6,16 +6,19 @@ import type { KeychainConfig } from "@/components/keychain-builder/types";
 import { getFaceImageUrl } from "@/components/keychain-builder/image/imageFace";
 
 export type DieCutStatus = "idle" | "processing" | "ready" | "error";
-export function useDieCutGeometry(config: KeychainConfig, revision: number) {
+export function useDieCutGeometry(config: KeychainConfig, revision: number, sourceStatus: "ready" | "processing" | "error" = "ready", sourceError?: string) {
 	const [result, setResult] = useState<{ status: DieCutStatus; revision: number; geometry?: DieCutGeometry; error?: string }>({ status: "idle", revision });
 	const latest = useRef(0);
 	const face = config.front;
 	const faceUrl = getFaceImageUrl(face);
 	const transform = face.transform;
 	const smoothness = config.shape.type === "die-cut" ? config.shape.smoothness : 4;
+	const paddingPx = config.cutBorderPx ?? 20;
 	useEffect(() => {
 		const current = ++latest.current;
 		if (config.shape.type !== "die-cut") { setResult({ status: "idle", revision }); return; }
+		if (sourceStatus === "processing") { setResult({ status: "processing", revision }); return; }
+		if (sourceStatus === "error") { setResult({ status: "error", revision, error: sourceError || "Không thể tách nền ảnh để tạo đường cắt." }); return; }
 		if (!faceUrl) { setResult({ status: "error", revision, error: "Tải ảnh mặt trước để tạo đường cắt theo viền ảnh." }); return; }
 		let worker: Worker | undefined;
 		let timeout: ReturnType<typeof setTimeout> | undefined;
@@ -42,11 +45,11 @@ export function useDieCutGeometry(config: KeychainConfig, revision: number) {
 				worker?.terminate();
 				setResult({ status: "error", revision, error: "Tạo đường cắt mất quá nhiều thời gian. Hãy chọn ảnh nhỏ hơn hoặc thử lại." });
 			}, 20_000);
-			worker.postMessage({ revision: current, width: mask.width, height: mask.height, alpha: mask.alpha.buffer, sizeCm: config.sizeCm, tolerancePx: Math.max(0.5, 5 - smoothness) }, [mask.alpha.buffer]);
+			worker.postMessage({ revision: current, width: mask.width, height: mask.height, alpha: mask.alpha.buffer, sizeCm: config.sizeCm, tolerancePx: Math.max(0.5, 5 - smoothness), paddingPx }, [mask.alpha.buffer]);
 		}).catch((error) => {
 			if (active && current === latest.current) setResult({ status: "error", revision, error: error instanceof Error ? error.message : "Không tải được ảnh để tạo đường cắt." });
 		});
 		return () => { active = false; if (timeout) clearTimeout(timeout); worker?.terminate(); };
-	}, [config.shape.type, config.sizeCm, smoothness, faceUrl, transform.xMm, transform.yMm, transform.scale, transform.rotation, transform.flipX, revision]);
+	}, [config.shape.type, config.sizeCm, config.cutBorderPx, smoothness, paddingPx, faceUrl, transform.xMm, transform.yMm, transform.scale, transform.rotation, transform.flipX, revision, sourceStatus, sourceError]);
 	return result;
 }

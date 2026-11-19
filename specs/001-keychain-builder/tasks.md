@@ -129,12 +129,12 @@ description: "Implementation tasks for the Keychain Builder feature"
 
 **Goal**: Derive a valid die-cut contour from front-image alpha, support optional local background removal, and gate rendering/export on the latest geometry revision.
 
-**Independent Test**: Use transparent, multi-island, empty-alpha, and opaque-background synthetic images; verify stale work cannot win, valid die-cut includes the ear/hole, and changing the back never changes the contour.
+**Independent Test**: Use transparent, black/white-background, near multi-island, distant multi-island, and empty-alpha images; verify solid backgrounds are removed, near islands join within the cut border, distant islands and empty alpha fail safely, stale work cannot win, valid die-cut includes the ear/hole, and changing the back never changes the contour.
 
 ### Implementation for User Story 4
 
 - [X] T049 [P] [US4] Implement bounded image alpha extraction and decoded-image/CORS failure handling in `components/keychain-builder/geometry/imageAlpha.ts`
-- [X] T050 [P] [US4] Implement contour simplification, signed-area checks, disjoint/empty rejection, and physical size normalization in `components/keychain-builder/geometry/dieCut.ts`
+- [X] T050 [P] [US4] Implement cut-border mask expansion and island joining, contour simplification, signed-area checks, distant-disjoint/empty rejection, and physical size normalization in `components/keychain-builder/geometry/dieCut.ts`
 - [X] T051 [US4] Implement polygon union for the image silhouette plus ear and fixed 4 mm hole in `components/keychain-builder/geometry/dieCut.ts`
 - [X] T052 [US4] Move contour extraction to an isolated revision-aware Web Worker entry in `components/keychain-builder/geometry/dieCut.worker.ts`
 - [X] T053 [US4] Implement worker startup, cancellation, timeout, old-result rejection, and geometry-revision publication in `components/keychain-builder/hooks/useDieCutGeometry.ts`

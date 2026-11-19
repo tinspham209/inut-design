@@ -1,13 +1,13 @@
 import { createDieCutGeometry, type DieCutGeometry } from "./dieCut";
 
-type Request = { revision: number; width: number; height: number; alpha: ArrayBuffer; sizeCm: number; tolerancePx: number };
+type Request = { revision: number; width: number; height: number; alpha: ArrayBuffer; sizeCm: number; tolerancePx: number; paddingPx: number };
 type Response = { revision: number; geometry?: DieCutGeometry; error?: string };
 
 self.onmessage = (event: MessageEvent<Request>) => {
 	const request = event.data;
 	try {
 		const alpha = new Uint8Array(request.alpha);
-		const geometry = createDieCutGeometry({ width: request.width, height: request.height, alpha }, request.sizeCm, request.tolerancePx);
+		const geometry = createDieCutGeometry({ width: request.width, height: request.height, alpha }, request.sizeCm, request.tolerancePx, request.paddingPx);
 		const response: Response = { revision: request.revision, geometry };
 		self.postMessage(response);
 	} catch (error) {

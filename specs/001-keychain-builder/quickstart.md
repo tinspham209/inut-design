@@ -10,7 +10,7 @@ Hướng dẫn cho **sau khi triển khai**, không phải kết quả kiểm th
 
 ## Scenarios
 
-1. **Geometry:** Kiểm tra 18 SVG × tám size, lỗ 4 mm và cạnh dài gồm tai; cả hai hướng của frame bất đối xứng. Kiểm tra die-cut alpha rỗng/nhiều mảnh và công việc cũ hoàn tất sau công việc mới. Export chỉ dùng geometry mới nhất.
+1. **Geometry:** Kiểm tra 18 SVG × tám size, lỗ 4 mm và cạnh dài gồm tai; cả hai hướng của frame bất đối xứng. Kiểm tra die-cut với ảnh transparent, nền đen/trắng, mảng gần nhau/còn rời và alpha rỗng; công việc cũ hoàn tất sau công việc mới. Export chỉ dùng geometry mới nhất.
 2. **Màu và mặt sau:** Dùng ảnh có chữ/mũi tên, thử bốn mode clear và bảy màu opaque trên 2D/3D/PNG. Chuyển clear → opaque, xác nhận và hủy popup; kiểm tra reset đúng, giữ ảnh sau; quay lại clear chọn custom và khôi phục. Link đã Export phải khôi phục cả ảnh sau được giữ.
 3. **Ảnh và link:** Upload ảnh trước/sau, thay và xóa, remove-bg thành công/lỗi và đổi ảnh trong lúc xử lý. Kiểm tra ảnh từ Sanity dùng được trong Canvas/3D và Export không bị lỗi CORS/tainted canvas, kể cả fallback định dạng ảnh trên iOS Safari. Trước Export không có link; sau Export mở link trên trình duyệt mới không đăng nhập. Đóng/mở builder không có link không tự khôi phục. Export thay đổi tạo link mới; link cũ vẫn cho phiên bản cũ.
 4. **Lỗi và retry:** Giả lập upload/lưu lỗi, response mất và retry cùng request ID; không mất state, không báo link thành công sai và không tạo snapshot kép. ID trùng payload khác bị từ chối. Xóa document thử nghiệm và xác nhận link không mở; không kết luận CDN ảnh bị thu hồi.

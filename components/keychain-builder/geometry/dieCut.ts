@@ -19,13 +19,37 @@ function countComponents(mask: AlphaMask) {
 		while (stack.length) {
 			const current = stack.pop(); if (current === undefined) continue;
 			const x = current % mask.width; const y = Math.floor(current / mask.width);
-			for (const [nx, ny] of [[x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1]]) {
+			for (const [nx, ny] of [[x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1], [x - 1, y - 1], [x + 1, y - 1], [x - 1, y + 1], [x + 1, y + 1]]) {
 				if (nx < 0 || ny < 0 || nx >= mask.width || ny >= mask.height) continue;
 				const next = ny * mask.width + nx; if (mask.alpha[next] && !seen[next]) { seen[next] = 1; stack.push(next); }
 			}
 		}
 	}
 	return components;
+}
+
+function expandMask(mask: AlphaMask, radiusPx: number): AlphaMask {
+	if (radiusPx <= 0) return mask;
+	const distances = new Float32Array(mask.alpha.length);
+	for (let index = 0; index < mask.alpha.length; index += 1) distances[index] = mask.alpha[index] ? 0 : Number.POSITIVE_INFINITY;
+	const diagonal = Math.SQRT2;
+	for (let y = 0; y < mask.height; y += 1) for (let x = 0; x < mask.width; x += 1) {
+		const index = y * mask.width + x;
+		if (x > 0) distances[index] = Math.min(distances[index], distances[index - 1] + 1);
+		if (y > 0) distances[index] = Math.min(distances[index], distances[index - mask.width] + 1);
+		if (x > 0 && y > 0) distances[index] = Math.min(distances[index], distances[index - mask.width - 1] + diagonal);
+		if (x + 1 < mask.width && y > 0) distances[index] = Math.min(distances[index], distances[index - mask.width + 1] + diagonal);
+	}
+	const alpha = new Uint8Array(mask.alpha.length);
+	for (let y = mask.height - 1; y >= 0; y -= 1) for (let x = mask.width - 1; x >= 0; x -= 1) {
+		const index = y * mask.width + x;
+		if (x + 1 < mask.width) distances[index] = Math.min(distances[index], distances[index + 1] + 1);
+		if (y + 1 < mask.height) distances[index] = Math.min(distances[index], distances[index + mask.width] + 1);
+		if (x + 1 < mask.width && y + 1 < mask.height) distances[index] = Math.min(distances[index], distances[index + mask.width + 1] + diagonal);
+		if (x > 0 && y + 1 < mask.height) distances[index] = Math.min(distances[index], distances[index + mask.width - 1] + diagonal);
+		if (distances[index] <= radiusPx) alpha[index] = 1;
+	}
+	return { width: mask.width, height: mask.height, alpha };
 }
 
 function boundaryLoops(mask: AlphaMask) {
@@ -97,9 +121,10 @@ export function traceDieCut(mask: AlphaMask, sizeCm: number, tolerancePx = 1.5):
  * and a reconstructed 4 mm hole. The output is already in millimeters and the
  * longest outer dimension includes the ear.
  */
-export function createDieCutGeometry(mask: AlphaMask, sizeCm: number, tolerancePx = 1.5): DieCutGeometry {
+export function createDieCutGeometry(mask: AlphaMask, sizeCm: number, tolerancePx = 1.5, paddingPx = 0): DieCutGeometry {
 	if (!Number.isInteger(mask.width) || !Number.isInteger(mask.height) || mask.width < 1 || mask.height < 1 || mask.alpha.length !== mask.width * mask.height) throw new Error("Alpha mask không hợp lệ");
-	if (!Number.isInteger(sizeCm) || sizeCm < 3 || sizeCm > 10 || !Number.isFinite(tolerancePx) || tolerancePx < 0) throw new Error("Kích thước đường viền không hợp lệ");
+	if (!Number.isInteger(sizeCm) || sizeCm < 3 || sizeCm > 10 || !Number.isFinite(tolerancePx) || tolerancePx < 0 || !Number.isFinite(paddingPx) || paddingPx < 0 || paddingPx > 80) throw new Error("Kích thước đường viền không hợp lệ");
+	mask = expandMask(mask, paddingPx);
 	if (countComponents(mask) !== 1) throw new Error("Ảnh rỗng hoặc có nhiều mảnh rời; hãy chọn ảnh liền khối");
 	let minX = mask.width; let maxX = -1; let minY = mask.height; let maxY = -1;
 	for (let index = 0; index < mask.alpha.length; index += 1) if (mask.alpha[index]) {

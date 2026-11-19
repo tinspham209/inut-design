@@ -24,7 +24,7 @@
 
 ## 3. Hình học và ảnh hai mặt
 
-**Decision:** Một geometry mm dùng chung 2D, texture 3D và export. Lấy `#cut`, `#print`, `#hole` từ 18 SVG nháp; scale cạnh dài theo size 30–100 mm rồi dựng lại lỗ `r=2 mm`. Die-cut theo alpha mặt trước sau transform; union tai/lỗ, reject contour rỗng/rời/không hợp lệ thay vì giả định sản xuất được. Chạy worker và bỏ result phiên bản cũ.
+**Decision:** Một geometry mm dùng chung 2D, texture 3D và export. Lấy `#cut`, `#print`, `#hole` từ 18 SVG nháp; scale cạnh dài theo size 30–100 mm rồi dựng lại lỗ `r=2 mm`. Die-cut theo alpha mặt trước sau transform; khoảng đệm mở rộng mask và nối các mảng ở gần nhau trước khi union tai/lỗ; reject alpha rỗng, mảng còn rời hoặc contour không hợp lệ thay vì giả định sản xuất được. Chạy worker và bỏ result phiên bản cũ.
 
 **Rationale:** Tránh lỗ bị scale sai và outline/crop giữa các renderer lệch nhau. Hai mode in từ ảnh trước phản chiếu đúng một lần khi nhìn từ sau; custom giữ chiều chỉnh mặt sau và chỉ bị clip theo silhouette trước. Mặt sau opaque là màu acrylic không in. Frame/viền/lỗ là concept, team chỉ xác nhận sau demo.
 

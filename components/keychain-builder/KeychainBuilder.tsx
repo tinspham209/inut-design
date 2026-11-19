@@ -22,6 +22,8 @@ import { RemoveBackground } from "@/components/keychain-builder/controls/RemoveB
 import { useDieCutGeometry } from "@/components/keychain-builder/hooks/useDieCutGeometry";
 import { useBackgroundRemoval, type BackgroundRemovalFace } from "@/components/keychain-builder/hooks/useBackgroundRemoval";
 import { getFaceImageUrl } from "@/components/keychain-builder/image/imageFace";
+import { removeSolidBackground } from "@/components/keychain-builder/image/removeSolidBackground";
+import { uploadKeychainImage } from "@/api-client/keychain";
 import dynamic from "next/dynamic";
 
 const LazyPreview3D = dynamic(() => import("@/components/keychain-builder/preview/Preview3D").then((module) => module.Preview3D), { ssr: false, loading: () => <Typography role="status">Đang tải bộ dựng 3D…</Typography> });
@@ -35,9 +37,11 @@ export function KeychainBuilder() {
 	const [config, dispatch, session] = useKeychainState();
 	const configRef = useRef(config);
 	configRef.current = config;
-	const localImageUrls = useRef<{ front?: string; backCustom?: string }>({});
-	const dieCut = useDieCutGeometry(config, session.revisions.geometry);
+	const localImageUrls = useRef<{ front?: string; backCustom?: string; dieCutProcessed?: string }>({});
+	const [dieCutSource, setDieCutSource] = useState<{ status: "ready" | "processing" | "error"; sourceUrl?: string; error?: string }>({ status: "ready" });
+	const dieCut = useDieCutGeometry(config, session.revisions.geometry, config.shape.type === "die-cut" && dieCutSource.sourceUrl === config.front.url ? dieCutSource.status : "ready", dieCutSource.error);
 	const dieCutReady = config.shape.type === "frame" || (dieCut.status === "ready" && dieCut.revision === session.revisions.geometry);
+	const dieCutExportReady = dieCutReady && !localImageUrls.current.dieCutProcessed;
 	const frameOverride = useMemo(() => config.shape.type === "die-cut" && dieCutReady && dieCut.geometry ? dieCutFrameSvg(dieCut.geometry) : undefined, [config.shape.type, dieCutReady, dieCut.geometry]);
 	const router = useRouter();
 	const designId = router.query.design;
@@ -58,6 +62,47 @@ export function KeychainBuilder() {
 	const onFrame = (frameId: string) => { dispatch({ type: "select-frame", frameId }); trackKeychainAction("keychain_shape_selected", { shape_type: "frame" }); };
 	const onAcrylic = (acrylicId: typeof config.acrylicId) => { dispatch({ type: "select-acrylic", acrylicId }); trackKeychainAction("keychain_acrylic_selected", { acrylic_id: acrylicId }); };
 	useEffect(() => { if (router.isReady && typeof designId === "string") void load(designId, dispatch); }, [designId, dispatch, load, router.isReady]);
+	useEffect(() => {
+		if (config.shape.type !== "die-cut") { setDieCutSource({ status: "ready" }); return; }
+		const sourceUrl = config.front.url;
+		if (!sourceUrl) { setDieCutSource({ status: "ready" }); return; }
+		const currentFront = configRef.current.front;
+		if (currentFront.useProcessed && currentFront.processedUrl) { setDieCutSource({ status: "ready", sourceUrl }); return; }
+		let active = true;
+		setDieCutSource({ status: "processing", sourceUrl });
+		void (async () => {
+			try {
+				const response = await fetch(sourceUrl, { mode: "cors", credentials: "omit" });
+				if (!response.ok) throw new Error("Không tải được ảnh để tách nền. Hãy thử lại.");
+				const source = await response.blob();
+				if (!source.size || source.size > 10 * 1024 * 1024) throw new Error("Ảnh không hợp lệ hoặc vượt quá 10 MB.");
+				const processed = await removeSolidBackground(source);
+				if (!active || configRef.current.shape.type !== "die-cut" || configRef.current.front.url !== sourceUrl) return;
+				if (!processed) {
+					setDieCutSource({ status: "ready", sourceUrl });
+					return;
+				}
+				const localUrl = URL.createObjectURL(processed);
+				if (localImageUrls.current.dieCutProcessed) URL.revokeObjectURL(localImageUrls.current.dieCutProcessed);
+				localImageUrls.current.dieCutProcessed = localUrl;
+				dispatch({ type: "set-face", face: "front", value: { ...configRef.current.front, processedUrl: localUrl, useProcessed: true } });
+				setDieCutSource({ status: "ready", sourceUrl });
+				const processedFile = new File([processed], "keychain-front-background-removed.webp", { type: "image/webp" });
+				void uploadKeychainImage(processedFile).then((uploaded) => {
+					if (configRef.current.front.processedUrl !== localUrl) return;
+					dispatch({ type: "set-face", face: "front", value: { ...configRef.current.front, processedImage: uploaded.image, processedUrl: uploaded.url, useProcessed: true } });
+					if (localImageUrls.current.dieCutProcessed === localUrl) localImageUrls.current.dieCutProcessed = undefined;
+					URL.revokeObjectURL(localUrl);
+				}).catch(() => notify("Đường cắt đã sẵn sàng để xem trước, nhưng ảnh tách nền chưa lưu được. Hãy tải lại ảnh trước khi xuất.", "warning"));
+			} catch (reason) {
+				if (!active || configRef.current.front.url !== sourceUrl) return;
+				const message = reason instanceof Error ? reason.message : "Không thể tách nền ảnh.";
+				setDieCutSource({ status: "error", sourceUrl, error: message });
+				notify(message, "error");
+			}
+		})();
+		return () => { active = false; };
+	}, [config.shape.type, config.front.url, dispatch, notify]);
 	useEffect(() => { if (uploadError) notify(uploadError, "error"); }, [notify, uploadError]);
 	useEffect(() => { if (backUploadError) notify(backUploadError, "error"); }, [backUploadError, notify]);
 	useEffect(() => { if (exportError) notify(exportError, "error"); }, [exportError, notify]);
@@ -88,7 +133,8 @@ export function KeychainBuilder() {
 		void upload(file).then((face) => {
 			if (localImageUrls.current.front !== url) return;
 			if (face) {
-				dispatch({ type: "set-face", face: "front", value: { ...face, transform: configRef.current.front.transform } });
+				const currentFront = configRef.current.front;
+				dispatch({ type: "set-face", face: "front", value: { ...face, processedImage: currentFront.processedImage, processedUrl: currentFront.processedUrl, useProcessed: currentFront.useProcessed, transform: currentFront.transform } });
 				localImageUrls.current.front = undefined; URL.revokeObjectURL(url);
 				trackKeychainAction("keychain_image_upload", { result: "success" });
 			} else trackKeychainAction("keychain_image_upload", { result: "error" });
@@ -115,7 +161,8 @@ export function KeychainBuilder() {
 	const removeFrontImage = () => {
 		cancelUpload(); cancelBackgroundRemoval("front");
 		if (localImageUrls.current.front) URL.revokeObjectURL(localImageUrls.current.front);
-		localImageUrls.current.front = undefined;
+		if (localImageUrls.current.dieCutProcessed) URL.revokeObjectURL(localImageUrls.current.dieCutProcessed);
+		localImageUrls.current.front = undefined; localImageUrls.current.dieCutProcessed = undefined;
 		dispatch({ type: "set-face", face: "front", value: { transform: config.front.transform } });
 	};
 	const removeFaceBackground = async (face: BackgroundRemovalFace) => {
@@ -131,8 +178,7 @@ export function KeychainBuilder() {
 		if (value?.processedImage && value.processedUrl) dispatch({ type: "set-face", face, value: { ...value, useProcessed } });
 	};
 	const onExport = async (scope: PngScope, scale: PngScale) => {
-		if (uploadStatus === "uploading") return;
-		if (!dieCutReady) return;
+		if (uploadStatus === "uploading" || !dieCutExportReady) return;
 		const selectedFrameId = config.shape.type === "frame" ? config.shape.frameId : undefined;
 		const frameRecord = selectedFrameId ? FRAMES.find((item) => item.id === selectedFrameId) : undefined;
 		if (selectedFrameId && !frameRecord) return;
@@ -166,7 +212,7 @@ export function KeychainBuilder() {
 							<Panel title="02" label="Ảnh mặt trước"><ImageUpload hasImage={Boolean(imageUrl)} imageUrl={imageUrl} onSelect={onImage} onRemove={removeFrontImage} onValidationError={(message) => notify(message, "error")} /><RemoveBackground label="mặt trước" hasImage={Boolean(config.front.image)} hasProcessed={Boolean(config.front.processedUrl && config.front.processedImage)} useProcessed={config.front.useProcessed} enabled={backgroundRemovalEnabled} state={backgroundRemovalStates.front} onRemove={() => void removeFaceBackground("front")} onUseOriginal={() => selectFaceSource("front", false)} onUseProcessed={() => selectFaceSource("front", true)} /></Panel>
 							<Panel title="03" label="Mặt sau"><BackControls acrylicId={config.acrylicId} backMode={config.backMode} hasCustomImage={Boolean(config.backCustom?.url)} onModeChange={(backMode) => { dispatch({ type: "set-back-mode", backMode }); trackKeychainAction("keychain_back_mode", { mode: backMode, print_sides: backMode === "mirror-front" || backMode === "custom" ? 2 : 1 }); }} onUpload={onBackImage} />{config.backCustom?.url && <RemoveBackground label="mặt sau" hasImage={Boolean(config.backCustom.image)} hasProcessed={Boolean(config.backCustom.processedUrl && config.backCustom.processedImage)} useProcessed={config.backCustom.useProcessed} enabled={backgroundRemovalEnabled} state={backgroundRemovalStates.backCustom} onRemove={() => void removeFaceBackground("backCustom")} onUseOriginal={() => selectFaceSource("backCustom", false)} onUseProcessed={() => selectFaceSource("backCustom", true)} />}</Panel>
 							<Panel title="04" label="Chất liệu"><AppearanceControls section="material" config={config} onRing={onRing} onFrame={onFrame} onSize={(sizeCm) => dispatch({ type: "set-size", sizeCm })} onAcrylic={onAcrylic} onOpaque={setPendingAcrylic} onMaterial={(material) => dispatch({ type: "set-material", material })} /></Panel>
-							<Panel title="05" label="Xuất file"><Typography variant="caption" color="grey.400" sx={{ display: { xs: "block", md: "none" } }}>PNG giới thiệu ý tưởng · không phải file sản xuất.</Typography><Button fullWidth variant="contained" disabled={(typeof designId === "string" && loadStatus !== "loaded") || !dieCutReady} onClick={() => setExportOpen(true)} sx={{ mt: { xs: 1.5, md: 0.25 }, minHeight: { xs: 48, md: 34 }, bgcolor: "#f47a28", fontWeight: 750, "&:hover": { bgcolor: "#ff8a36" } }}>Xuất PNG</Button></Panel>
+							<Panel title="05" label="Xuất file"><Typography variant="caption" color="grey.400" sx={{ display: { xs: "block", md: "none" } }}>PNG giới thiệu ý tưởng · không phải file sản xuất.</Typography><Button fullWidth variant="contained" disabled={(typeof designId === "string" && loadStatus !== "loaded") || !dieCutExportReady} onClick={() => setExportOpen(true)} sx={{ mt: { xs: 1.5, md: 0.25 }, minHeight: { xs: 48, md: 34 }, bgcolor: "#f47a28", fontWeight: 750, "&:hover": { bgcolor: "#ff8a36" } }}>Xuất PNG</Button></Panel>
 						</Box>
 					</Box>
 				</Stack>
@@ -174,7 +220,7 @@ export function KeychainBuilder() {
 				<ExportDialog open={exportOpen} busy={exportStatus === "pending" || uploadStatus === "uploading"} error={uploadStatus === "uploading" ? "Đợi tải ảnh lên hoàn tất trước khi xuất." : exportError} link={exportLink} onClose={() => setExportOpen(false)} onExport={(scope, scale) => void onExport(scope, scale)} />
 				<Snackbar open={Boolean(toast)} autoHideDuration={4500} onClose={() => setToast(null)} anchorOrigin={{ vertical: "bottom", horizontal: "center" }} sx={{ bottom: { xs: "calc(82px + env(safe-area-inset-bottom))", md: 24 } }}><Alert onClose={() => setToast(null)} severity={toast?.severity || "info"} variant="filled" sx={{ width: "100%" }}>{toast?.message}</Alert></Snackbar>
 			</Container>
-			<Box sx={{ display: { xs: "block", md: "none" }, position: "fixed", zIndex: 1100, left: 0, right: 0, bottom: 0, px: 2, pt: 2, pb: "calc(12px + env(safe-area-inset-bottom))", background: "linear-gradient(transparent, #101116 24%)" }}><Button fullWidth variant="contained" onClick={() => setExportOpen(true)} disabled={(typeof designId === "string" && loadStatus !== "loaded") || !dieCutReady} sx={{ minHeight: 50, bgcolor: "#f47a28", color: "#fff", fontWeight: 750, boxShadow: "0 8px 28px #0009", "&:hover": { bgcolor: "#ff8a36" } }}>Xuất PNG</Button></Box>
+			<Box sx={{ display: { xs: "block", md: "none" }, position: "fixed", zIndex: 1100, left: 0, right: 0, bottom: 0, px: 2, pt: 2, pb: "calc(12px + env(safe-area-inset-bottom))", background: "linear-gradient(transparent, #101116 24%)" }}><Button fullWidth variant="contained" onClick={() => setExportOpen(true)} disabled={(typeof designId === "string" && loadStatus !== "loaded") || !dieCutExportReady} sx={{ minHeight: 50, bgcolor: "#f47a28", color: "#fff", fontWeight: 750, boxShadow: "0 8px 28px #0009", "&:hover": { bgcolor: "#ff8a36" } }}>Xuất PNG</Button></Box>
 		</Box>
 	);
 }

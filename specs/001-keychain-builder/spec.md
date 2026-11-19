@@ -137,7 +137,7 @@ Khách tải ảnh và chỉnh thiết kế trong phiên hiện tại. Sau khi E
 - Ảnh không hợp lệ, quá lớn, tải lên thất bại hoặc được thay trong lúc xử lý: báo lỗi hoặc bỏ kết quả cũ, giữ trạng thái thiết kế nhất quán và cho phép thử lại.
 - Ảnh sau khác tỷ lệ, bị crop nhiều hoặc đang được lưu khi đổi chế độ: báo phần bị crop và không kéo giãn, mất bản nháp hay đổi đường cắt.
 - Ảnh sau riêng được giữ khi đổi sang acrylic đục nhưng không hiển thị hoặc được tính là mặt in trong lúc acrylic đục đang được chọn.
-- Ảnh trước trong suốt có nhiều mảnh hoặc viền không thể tạo charm hợp lệ: cảnh báo và yêu cầu khách điều chỉnh hoặc đổi ảnh; không xuất bản xem như thể hợp lệ.
+- Ảnh trước có nhiều mảng gần nhau: nối các mảng bằng khoảng đệm đường cắt để tạo một contour. Mảng vẫn tách rời sau khi nối, alpha rỗng hoặc contour không hợp lệ: cảnh báo và yêu cầu khách điều chỉnh hoặc đổi ảnh; không xuất bản xem như thể hợp lệ.
 - Link không hợp lệ hoặc trỏ tới thiết kế/ảnh đã bị xóa: báo không còn khả dụng, không hiển thị sai thiết kế và cho phép bắt đầu thiết kế mới.
 - Khách đóng trình duyệt trước khi Export thành công hoặc không giữ lại link: trạng thái phiên bị mất và không tự khôi phục dù ảnh có thể đã được lưu trong Sanity.
 - Xóa thiết kế có ảnh vẫn được thiết kế khác sử dụng: giữ ảnh đó cho đến khi không còn thiết kế nào tham chiếu.

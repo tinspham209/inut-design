@@ -11,7 +11,7 @@ export function ShapeControls({ config, onChange }: { config: KeychainConfig; on
 		<Typography variant="caption" color="grey.400">Kiểu tạo hình</Typography>
 		<Stack direction="row" spacing={{ xs: 1, md: 0.5 }}>
 			<Button fullWidth variant="outlined" aria-pressed={config.shape.type === "frame"} onClick={() => onChange({ type: "select-frame", frameId: config.shape.type === "frame" ? config.shape.frameId : "heart" })} sx={{ minHeight: { md: 30 }, justifyContent: "flex-start", borderColor: config.shape.type === "frame" ? "#f47a28" : "#41424a", color: "white", bgcolor: "#202127" }}>▱ &nbsp; Khung có sẵn</Button>
-			<Button fullWidth disabled title="Sẽ mở lại sau khi hoàn thiện khung có sẵn" sx={{ minHeight: { md: 30 }, justifyContent: "flex-start", border: "1px solid #41424a", color: "#85868e", bgcolor: "#202127" }}>✧ &nbsp; Cắt theo ảnh</Button>
+		<Button fullWidth variant="outlined" aria-pressed={config.shape.type === "die-cut"} onClick={() => onChange({ type: "select-die-cut" })} sx={{ minHeight: { md: 30 }, justifyContent: "flex-start", borderColor: config.shape.type === "die-cut" ? "#f47a28" : "#41424a", color: "white", bgcolor: "#202127" }}>✧ &nbsp; Cắt theo ảnh</Button>
 		</Stack>
 		{config.shape.type === "frame" && <>
 			<Typography variant="caption" color="grey.400">Chọn hình khung</Typography>

@@ -34,7 +34,7 @@ Chuyển trong → đục yêu cầu popup. Hủy giữ nguyên; xác nhận đ�
 
 `cutPath`, `printClip`, `hole(cx, cy, radiusMm=2)`, `anchor` và die-cut mask là dữ liệu dẫn xuất từ config + asset; dùng mm. Size là cạnh dài nhất đường cắt **gồm tai**, không bao gồm ring. Không dùng pixel màn hình để suy ra mm. Geometry/worker có revision theo config và ảnh trước; chỉ render/export kết quả mới nhất.
 
-Outline phải kín, hình + tai nằm trong envelope size, lỗ thực sự được trừ khỏi acrylic; disjoint/empty/invalid báo lỗi. Mặt sau phản chiếu hình học theo hệ nhìn từ sau; crop ảnh custom theo cùng vùng và không làm đổi đường cắt. Không suy diễn thông số gia công chưa duyệt.
+Outline phải kín, hình + tai nằm trong envelope size, lỗ thực sự được trừ khỏi acrylic; các mảng trong giới hạn đệm đường cắt được nối thành một silhouette, còn disjoint sau khi đệm/empty/invalid báo lỗi. Mặt sau phản chiếu hình học theo hệ nhìn từ sau; crop ảnh custom theo cùng vùng và không làm đổi đường cắt. Không suy diễn thông số gia công chưa duyệt.
 
 ## Sanity `keychainDesign`
 
