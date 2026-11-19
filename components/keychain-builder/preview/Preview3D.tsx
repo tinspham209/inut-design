@@ -57,10 +57,10 @@ export function Preview3D({ config, onBack, frameOverride, geometryStatus, geome
 	return <Stack spacing={1}>
 		<Stack direction="row" spacing={1}><Button onClick={onBack}>Quay lại 2D</Button><Button onClick={() => controls.current?.reset()}>Fit / Reset camera</Button><Typography variant="body2" color="grey.400">Xoay và phóng to không làm thay đổi thiết kế</Typography></Stack>
 		<SceneBoundary onError={onError}>
-			<Canvas frameloop="demand" dpr={[1, 1.5]} camera={{ position: [0, 0, 120], fov: 35 }} style={{ width: "100%", height: 440 }} onCreated={({ gl }) => { if (!gl.getContext()) onError("WebGL không khả dụng."); }}>
+			<Canvas frameloop="demand" dpr={[1, 1.5]} camera={{ position: [0, 0, 120], fov: 44 }} style={{ width: "100%", height: 400 }} onCreated={({ gl }) => { if (!gl.getContext()) onError("WebGL không khả dụng."); }}>
 				<ambientLight intensity={1.2} /><directionalLight position={[30, 40, 60]} intensity={2} />
 				<KeychainMesh frame={frame} config={config} frontTexture={textures[0]} backTexture={textures[1]} />
-				<RingPlane ringId={config.ringId} sizeCm={config.sizeCm} />
+				<RingPlane ringId={config.ringId} sizeCm={config.sizeCm} frame={frame} />
 				<OrbitControls ref={(instance) => { controls.current = instance ? instance as unknown as { reset: () => void } : null; }} makeDefault enableDamping={false} enablePan={false} minDistance={70} maxDistance={220} />
 			</Canvas>
 		</SceneBoundary>

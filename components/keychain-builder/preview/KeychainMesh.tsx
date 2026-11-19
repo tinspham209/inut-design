@@ -7,6 +7,7 @@ import type { KeychainConfig } from "../types";
 
 type Props = { frame: FrameSvgData; config: KeychainConfig; frontTexture: CanvasTexture; backTexture: CanvasTexture };
 export function KeychainMesh({ frame, config, frontTexture, backTexture }: Props) {
+	const edgeColor = config.material.edge === "natural" ? "#9baab1" : "#d7e7ef";
 	const geometry = useMemo(() => {
 		const cutPath = new SVGLoader().parse(frame.source).paths.find((path) => path.userData?.node?.id === "cut");
 		if (!cutPath) throw new Error("SVG không có đường cắt #cut");
@@ -25,8 +26,8 @@ export function KeychainMesh({ frame, config, frontTexture, backTexture }: Props
 		return geometry;
 	}, [frame, config.sizeCm, config.material.thicknessMm]);
 	return <mesh geometry={geometry} rotation={[0, 0, 0]}>
-		<meshPhysicalMaterial attach="material-0" map={frontTexture} color={config.acrylicId === "clear" ? "#cceaff" : config.acrylicId} transparent={config.acrylicId === "clear"} opacity={config.acrylicId === "clear" ? 0.78 : 1} roughness={0.2 + config.material.sheen * 0.35} metalness={0} side={2} />
-		<meshPhysicalMaterial attach="material-1" map={backTexture} color={config.acrylicId === "clear" ? "#d9efff" : config.acrylicId} transparent={config.acrylicId === "clear"} opacity={config.acrylicId === "clear" ? 0.75 : 1} roughness={0.25} side={2} />
-		<meshPhysicalMaterial attach="material-2" color={config.material.edge} roughness={0.28} />
+		<meshPhysicalMaterial attach="material-0" map={frontTexture} color={config.acrylicId === "clear" ? "#e1f4ff" : config.acrylicId} transparent={config.acrylicId === "clear"} opacity={config.acrylicId === "clear" ? 0.52 : 1} roughness={0.2 + config.material.sheen * 0.35} metalness={0} clearcoat={0.9} clearcoatRoughness={0.16} side={2} />
+		<meshPhysicalMaterial attach="material-1" map={backTexture} color={config.acrylicId === "clear" ? "#e7f6ff" : config.acrylicId} transparent={config.acrylicId === "clear"} opacity={config.acrylicId === "clear" ? 0.45 : 1} roughness={0.25} clearcoat={0.75} side={2} />
+		<meshPhysicalMaterial attach="material-2" color={edgeColor} roughness={0.2} metalness={0.35} />
 	</mesh>;
 }
