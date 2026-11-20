@@ -1,6 +1,10 @@
 # Contracts: Keychain Builder
 
-Các endpoint dưới đây là hợp đồng dự kiến cho implementation, không mô tả API đã tồn tại. Xem [data model](../data-model.md). Tất cả hoạt động dùng ảnh tổng hợp trong test; không có authentication người dùng. URL asset Sanity là công khai với ai có URL.
+Các endpoint dưới đây là contract của implementation hiện tại, đồng bộ theo
+[source code](../../components/keychain-builder/KeychainBuilder.tsx) ngày
+2026-11-20. [spec](../spec.md) vẫn là nguồn intent ưu tiên
+khi contract/code drift. Tất cả hoạt động test dùng ảnh tổng hợp; không có
+authentication người dùng. URL asset Sanity là công khai với ai có URL.
 
 ## `POST /api/keychain/uploads`
 
@@ -39,7 +43,22 @@ Các endpoint dưới đây là hợp đồng dự kiến cho implementation, kh
 - Trong → đục hiện popup theo FR-028. Hủy giữ state; xác nhận reset sides/back mode, giữ ảnh/transform khác; quay lại trong mặc định through và có thể chọn lại ảnh sau đã giữ.
 - Bốn mode acrylic trong như bảng [data model](../data-model.md); 2D/3D/PNG phải khớp mặt và outline, lỗ luôn 4 mm. Die-cut dựa ảnh trước và chỉ Export khi geometry đúng revision.
 - PNG ngoài nền trong suốt; 1x = 100 px/cm chiều dài charm, 2x/3x là hệ số pixel; full bao gồm ring, charm-only không có ring. Quá giới hạn thiết bị báo lỗi, không âm thầm đổi scale.
-- Link được tạo sau khi snapshot lưu thành công ở Export hoặc khi người dùng chọn gửi yêu cầu báo giá. CTA báo giá đính kèm ID snapshot; document form lưu Sanity reference tới snapshot để sales mở lại thiết kế. Không lưu thêm ảnh PNG preview vào form. Không hứa ảnh chưa lưu khôi phục sau đóng trình duyệt.
+- Link được tạo sau khi snapshot lưu thành công ở Export. Implementation hiện
+  còn CTA báo giá lưu snapshot và đính kèm ID vào form; đây là implementation
+  addition chưa được `spec.md`/`tasks.md` gốc phê duyệt và được giữ ở trạng thái
+  pending tại T100. Không coi flow này là contract được phê duyệt. Không lưu
+  thêm ảnh PNG preview vào form và không hứa ảnh chưa lưu khôi phục sau đóng
+  trình duyệt.
+
+## Current implementation gaps
+
+- 3D module hiện có nhưng toolbar control đang disabled (T096).
+- Edge/sheen đã tồn tại trong model/render nhưng chưa có đầy đủ UI control
+  (T097).
+- Mobile target 44 px, custom-back upload/export gate và dedicated back crop
+  editor cần remediation theo T098, T099 và T101.
+- Focused Node suite hiện 21/23 pass; contract không được ghi là release-verified
+  cho tới khi T095 hoàn tất.
 
 ## Analytics and privacy
 

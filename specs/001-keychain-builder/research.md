@@ -38,6 +38,12 @@
 
 **Rationale:** Three/R3F đã có trong `package.json`. Giới hạn 2D preview DPR, demand rendering, worker và giải phóng tài nguyên giúp mobile; 30 FPS chỉ là mục tiêu phải đo. Việc chạy trên Next 12 phải được xác nhận bằng build/runtime vì vendor chỉ ghi hỗ trợ Next 15. Nếu thiết bị không xử lý được, báo lỗi và giữ config thay vì hứa mọi máy đều chạy.
 
+**Implementation note (2026-11-20):** module 3D lazy và worker contour đã được
+tạo, nhưng toolbar hiện vẫn disable 3D; T096 giữ điều này là implementation gap,
+không thay đổi quyết định trên. Ngoài model IMG.LY bị gate, die-cut còn có
+local solid black/white background-removal path để phục hồi alpha trước khi
+trace contour. Path local này không thay đổi license gate của IMG.LY.
+
 **Alternatives considered:** Tải 3D/model ngay hoặc gọi dịch vụ xử lý ảnh bên ngoài tăng chi phí/tải và đưa dữ liệu cá nhân ra bên thứ ba. Upstream xác nhận AGPL-3.0; owner chưa xác nhận quyền dùng package, model và phương án triển khai của INUT.
 
 ## 5. Độ phân giải Export và tính nhất quán
@@ -61,4 +67,9 @@
 - Xác minh nghĩa vụ bảo vệ dữ liệu áp dụng trước public; chính sách đã được người dùng duyệt nhưng chưa chứng minh tuân thủ.
 - Team sản xuất duyệt 18 frame, lỗ/tai, safe area, màu và tổ hợp size/móc **sau demo**; không coi output là production.
 - Owner xác minh license IMG.LY, model, quyền tái phân phối và môi trường deploy trước public; xác nhận anchor/kích thước thực và độ nét 10 ảnh móc.
-- Constitution hiện là template trống; owner cần quyết định thiết lập constitution trước khi áp dụng gate chính thức.
+- Constitution đã được ratified tại v1.0.0. Convergence 2026-11-20 phát hiện
+  verification baseline chưa sạch (T095) và các implementation gaps
+  T096–T102; không được claim constitution gate đã pass cho delivery.
+- CTA báo giá hiện lưu snapshot keychain từ Export dialog. Đây là implementation
+  addition chưa có trong spec/plan gốc và cần resolve tại T100, không phải
+  approved research decision.

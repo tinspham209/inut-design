@@ -1,5 +1,33 @@
 # Keychain Builder release record
 
+## Current implementation status (2026-11-20)
+
+- Core route, geometry, upload, immutable snapshot and analytics paths are
+  present in source. This is not a release-pass record: `tasks.md` Phase 9
+  tracks runtime and evidence drift found during convergence.
+- `rtk proxy node --test --import
+  ./scripts/register-typescript-loader.mjs
+  ./scripts/tests/keychain-*.test.mjs` currently reports **21/23 passing**.
+  The API lifecycle test fixture does not match the current
+  `SnapshotRepository.createIfAbsent(id, config)` signature, and the render
+  test fixture lacks `canvas.dataset`. T095 owns the fix and rerun.
+- The lazy 3D modules still exist, but the toolbar currently disables 3D with a
+  “Tạm thời chưa bật” label. Historical mocked fallback evidence must not be
+  treated as current evidence; T096 and T102 require rerun after re-enable.
+- Edge and sheen are stored and used by 3D/render paths, but the material UI
+  currently exposes thickness only. T097 is open.
+- Several mobile controls remain below the 44×44 px requirement, and the
+  browser script's current-selector coverage needs a refresh (T098/T102).
+- Custom-back upload is not included in the main Export busy gate, and dedicated
+  back crop/edit guidance is incomplete (T099/T101).
+- The quote CTA is implemented and can create a snapshot before PNG download,
+  but this flow is not in the original spec/plan intent. T100 must remove it or
+  record an approved amendment before release.
+- Existing T086 (Android/iOS browser evidence), T087 (physical-device FPS) and
+  T091 (IMG.LY owner approval) remain open release gates. No fresh Sanity
+  upload/snapshot lifecycle or hosted analytics network capture was performed
+  in this convergence pass.
+
 ## Server image normalization
 
 - `sharp@0.32.6` is pinned exactly for server-side decode, dimension limits, orientation normalization, and WebP conversion. The npm registry reports Apache-2.0 and Node.js `>=14.15.0`, compatible with the repository's `>=20.0.0 <26.0.0` engine range. See the [sharp 0.32.6 changelog](https://sharp.pixelplumbing.com/changelog/v0.32.6/) and [versioned npm package metadata](https://www.npmjs.com/package/sharp/v/0.32.6).
@@ -16,6 +44,8 @@
 
 ## Open release gates
 
+- Phase 9 convergence tasks T095–T102 must be resolved, verified and reflected
+  in this record before describing the feature as implementation-complete.
 - ML background removal through IMG.LY remains disabled by default. The package/model/deployment redistribution and production-use license still requires owner verification before public enablement (T091). The local solid black/white die-cut path does not use that package.
 - Initial dependency review: IMG.LY's [`background-removal-js` repository](https://github.com/imgly/background-removal-js) states the software is AGPL; its [web changelog](https://github.com/imgly/background-removal-js/blob/main/packages/web/CHANGELOG.md) records the license change and separation of model data into its own package. The vendor's [production asset guidance](https://github.com/imgly/background-removal-js/blob/main/packages/web/README.md) recommends self-hosting model/WASM assets. This is not an owner-approved license decision; package/model/deployment terms still need review against INUT's intended distribution.
 - Die-cut uses bounded native alpha extraction, pixel-mask union and a revision-aware worker; no contour/union dependency is required by the current implementation. Geometry is a demo outline, not a production-cut guarantee.
@@ -28,13 +58,22 @@
 - Background removal dependency build check: `rtk pnpm lint` and `rtk pnpm build` pass on the repository's Next.js 12.3.1 with the package present in the dependency graph. This proves local bundle compilation only, not vendor-supported Next.js 12 runtime compatibility. With the default flag off, the production alias excludes IMG.LY/ONNX code from shipped chunks. The opt-in browser operation has not been run against a Sanity asset; the public feature flag remains false.
 - Desktop visual smoke: Chrome 157.0.8103.80 at 1280 × 720 rendered the route, five control groups and DEMO notice; acrylic transition cancel preserved clear acrylic. Evidence: [desktop browser check](keychain-builder-evidence/desktop-browser.md) and its screenshot. This did not exercise image upload, die-cut worker, Export, or mobile layout.
 
-## Verification record (2026-11-19)
+## Verification record (2026-11-19; historical)
 
 - `rtk pnpm lint` passes with existing warnings; `rtk pnpm build` passes.
 - Local Chrome browser smoke used the supplied black-background unicorn and white-background badge images with `/api/keychain/uploads` intercepted, so no test assets were written to Sanity. Both images rendered as die-cut silhouettes; CMS persistence and export were intentionally not verified in that isolated run.
 - Responsive browser smoke: Chrome 157.0.8103.80 passed 320/360/390/430 px portrait, 844 × 390 landscape and 1280 × 800 desktop checks for horizontal overflow, order, focusability, 44 px buttons, 16 px inputs, scrolling and bottom spacing. With local API mocks, a synthetic image also passed die-cut/CORS canvas flow, all six PNG renders and forced WebGL fallback. Evidence: [viewport results](keychain-builder-evidence/browser-viewports.md). No Sanity asset or snapshot was written.
-- Local verification: `rtk pnpm lint`, `rtk pnpm build`, and `rtk proxy node --test --import ./scripts/register-typescript-loader.mjs ./scripts/tests/keychain-*.test.mjs` pass. The current five Node suites cover upload normalization, synthetic geometry, renderer contracts, API validation/fingerprinting and telemetry sanitization; they do not prove a live Sanity lifecycle or pixel-perfect browser rendering.
+- At this point in time, local lint/build were recorded as passing and the
+  five Node suites were recorded as passing. This superseded statement is
+  intentionally retained as a historical run, not current status: the exact
+  command rerun on 2026-11-20 is 21/23 and must be restored under T095. The
+  suites cover upload normalization, synthetic geometry, renderer contracts,
+  API validation/fingerprinting and telemetry sanitization; they do not prove
+  a live Sanity lifecycle or pixel-perfect browser rendering.
 - Public asset behavior: code stores ordinary Sanity image references and returns CDN URLs, but no fresh unauthenticated GET was performed in this pass because no test upload was made. Verify with the exact synthetic test asset URL using `curl -I '<asset-url>'` and a browser request without cookies before release.
 - Retention/manual deletion: no live document was created or deleted. Simulate 30/90/365-day reads, delete a synthetic snapshot manually in Studio, verify direct API read returns 404, and verify a shared asset remains while another snapshot references it.
-- Not measured here: Android Chrome and iOS Safari models, physical-device drag/pinch FPS, 3x ring quality, WebGL fallback, worker cancellation in a real browser, and hosted analytics/network payloads. Keep these as release gates.
+- Not measured here: Android Chrome and iOS Safari models, physical-device
+  drag/pinch FPS, 3x ring quality, current-code WebGL fallback, worker
+  cancellation in a real browser, and hosted analytics/network payloads. Keep
+  these as release gates.
 - Motion policy: 2D edits only move on pointer/keyboard input; 3D uses demand rendering and disables damping; loading/status UI is static. There is no autoplay, so `prefers-reduced-motion` users receive the same non-animated preview. A source-level regression check covers this policy; native accessibility behavior still needs device QA.

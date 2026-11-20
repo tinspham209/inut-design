@@ -2,6 +2,32 @@
 
 **Scope**: `spec.md`, `plan.md`, `tasks.md`, and `.specify/memory/constitution.md`
 
+## Post-implementation convergence (2026-11-20)
+
+The original design-time analysis below is retained as historical evidence.
+Current convergence compares the present source and evidence with the same
+governing intent:
+
+| Finding | Gap | Severity | Current disposition |
+|---------|-----|----------|---------------------|
+| F1 | Focused Node suite is 21/23 pass while T084 is marked complete | CRITICAL | T095 |
+| F2 | Lazy 3D modules exist but the 3D control is disabled | HIGH | T096 |
+| F3 | Edge/sheen state and render support lack complete UI controls | HIGH | T097 |
+| F4 | Several mobile controls remain below 44×44 px despite historical evidence | HIGH | T098 |
+| F5 | Custom-back upload is not consistently included in Export/save gating | HIGH | T099 |
+| F6 | Quote CTA creates a snapshot before PNG Export and was not in original intent | HIGH | T100 |
+| F7 | T036's independent back-image editor/crop warning is not present | MEDIUM | T101 |
+| F8 | Browser regression selectors/evidence do not match current DOM/state | MEDIUM | T102 |
+| F9 | Spec Kit and release docs contain stale constitution, suite and completion claims | MEDIUM | T103 |
+
+**Current metrics:** 40 buildable FR/SC items and 29 acceptance scenarios
+reviewed; 9 core plan decisions and 5 constitution principles checked. Phase 9
+contains 9 traceable remediation tasks. Existing release gates T086, T087 and
+T091 remain open. No requirements were rewritten to match implementation gaps.
+T103 updates documentation and is not a release-pass claim for T095–T102.
+
+## Original design-time analysis (2026-11-18)
+
 ## Remediation Status
 
 | Finding | Status | Resolution |
@@ -19,7 +45,8 @@
 | D2 | Resolved | FR-024 now references the canonical save-before-link rule in FR-014 instead of duplicating it. |
 | I2 | Resolved | The earlier restricted-access clarification is explicitly marked as superseded by the later public-asset clarification. |
 
-These resolutions close design-level coverage gaps. Implementation and release validation remain pending until the corresponding tasks are executed.
+These historical resolutions closed design-level coverage gaps at planning
+time. They do not supersede the post-implementation convergence findings above.
 
 `inputs/mockup-preview.png` is now an explicit visual reference for the
 responsive hierarchy. FR-030 and updated T005/T017/T020/T029/T085 bind desktop

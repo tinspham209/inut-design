@@ -33,4 +33,8 @@
 
 - The checklist assesses specification readiness, not proof that the unimplemented feature already meets its targets.
 - The user approved the supplied image permissions and data handling policy; verification of applicable data-protection obligations, production geometry, and background-removal licensing remains documented in the spec.
-- The original idea and draft assets are retained as planning inputs; the project constitution is currently an unfilled template.
+- The original idea and draft assets are retained as planning inputs. The
+  project constitution is now ratified at v1.0.0; the 2026-11-20 convergence
+  found current implementation/verification gaps in `tasks.md` Phase 9. These
+  incomplete checklist items remain open and were explicitly bypassed for the
+  documentation-only T103 update, not for runtime release approval.

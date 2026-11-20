@@ -51,7 +51,12 @@ Sanity là nguồn ảnh/metadata; URL image asset có thể truy cập công kh
 
 `requestId` chỉ tham gia tạo `_id` và không được ghi thành field riêng. Fingerprint được tính từ config canonical khi xử lý retry, không lưu trong document vì dataset và các field ẩn không phải cơ chế bảo mật. Snapshot mới không ghi `createdAt` tùy biến vì Sanity đã cung cấp `_createdAt`. Mỗi lần Export tạo request ID mới; retry cùng request ID và cùng config canonical trả snapshot hiện có, payload khác bị từ chối. Snapshot cũ có `requestFingerprint` vẫn được replay theo fingerprint cũ.
 
-Khi người dùng chọn nhận báo giá từ hộp Export, builder lưu snapshot hiện tại rồi điều hướng tới form kèm ID thiết kế. Form báo giá lưu Sanity reference `keychainDesign`; đội sales có thể mở snapshot từ document báo giá hoặc thông báo Telegram. Reference này không lưu ảnh preview trùng lặp.
+Implementation hiện tại cho phép chọn nhận báo giá từ hộp Export, lưu snapshot
+hiện tại rồi điều hướng tới form kèm ID thiết kế. Form báo giá lưu Sanity
+reference `keychainDesign`; đội sales có thể mở snapshot từ document báo giá
+hoặc thông báo Telegram. Đây là implementation addition chưa thuộc intent
+`spec.md`/`plan.md` ban đầu và đang chờ disposition tại T100; nó không được dùng
+để thay đổi rule “không cung cấp snapshot/link trước Export thành công”.
 
 Có thể có asset upload chưa được document nào tham chiếu vì user rời trang hoặc Export lỗi. Theo quyết định của user, không tự xóa theo thời gian; INUT chủ động xử lý thủ công. Xóa design không xóa asset đang được snapshot khác tham chiếu. Xóa design làm link design ngừng hoạt động; Sanity CDN/cache hoặc file người khác đã tải có thể vẫn tồn tại.
 

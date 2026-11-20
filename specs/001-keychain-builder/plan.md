@@ -1,8 +1,17 @@
 # Implementation Plan: Keychain Builder
 
-**Branch**: `main` | **Date**: 2026-11-18 | **Spec**: [spec.md](./spec.md)
+**Branch**: `main` | **Created**: 2026-11-18 | **Updated**: 2026-11-20 | **Spec**: [spec.md](./spec.md)
 
 **Input**: `specs/001-keychain-builder/spec.md`
+
+**Implementation status (2026-11-20)**: The route, state, geometry, upload,
+snapshot and analytics paths are implemented. The specification remains
+authoritative; current convergence gaps are tracked in `tasks.md` Phase 9.
+In particular, the 3D control is presently disabled, edge/sheen are not fully
+exposed in the UI, several mobile controls are below the 44 px target, both
+front/back uploads are not gated consistently, and the quote flow is not an
+approved addition to the original feature intent. T095–T102 track remediation;
+T086, T087 and T091 remain explicit release gates.
 
 ## Summary
 
@@ -18,7 +27,14 @@ Xây builder mobile-first cho acrylic trong và bảy màu đục, khung cố đ
 
 **Storage**: Sanity image assets thông thường và `keychainDesign` snapshot; URL asset công khai với bất kỳ ai có URL. Trạng thái chỉnh chỉ ở bộ nhớ phiên; không dùng `localStorage`, `sessionStorage`, IndexedDB hoặc cookie để khôi phục thiết kế.
 
-**Testing**: Tách suite Node cho geometry/config, render/CORS, API/lifecycle và analytics/privacy trong `scripts/tests/`; thực thi browser ở bốn viewport và trên Android Chrome/iOS Safari, đồng thời đo hiệu năng frame/die-cut trên thiết bị được ghi rõ. `rtk pnpm lint`, `rtk pnpm build` sau khi thực hiện thay đổi runtime; xác minh luồng lighter thực tế không bị ảnh hưởng.
+**Testing**: Năm suite Node trong `scripts/tests/` phủ image normalization,
+geometry/config, render/CORS, API/lifecycle và analytics/privacy. Kết quả
+2026-11-20 là 21/23 pass; hai lỗi test-fixture/runtime mismatch được theo dõi
+tại T095. Browser mock kiểm tra bốn viewport và các luồng 2D đã có bằng chứng
+lịch sử, nhưng script hiện cần cập nhật selector/state và rerun theo T102.
+Android Chrome/iOS Safari cùng đo hiệu năng vẫn thuộc T086/T087. `rtk pnpm
+lint`, `rtk pnpm build` được dùng cho thay đổi runtime; lighter regression
+được giữ riêng.
 
 **Target Platform**: Android Chrome và iOS Safari, ưu tiên viewport 320–430 CSS px; desktop hỗ trợ hai cột.
 
@@ -32,9 +48,15 @@ Xây builder mobile-first cho acrylic trong và bảy màu đục, khung cố đ
 
 ## Constitution Check
 
-**Trước và sau thiết kế:** `.specify/memory/constitution.md` vẫn là template chưa điền, nên không có nguyên tắc dự án được phê duyệt để đánh giá; không tuyên bố constitution gate đã pass. Các ràng buộc hiện hành trong repository vẫn áp dụng: token Sanity chỉ ở server; dùng `api-client/*`, `@/`, pnpm; dual GA4 + Umami không duplicate; không đổi `inut-lighters-cart`, pricing, order payload hay `_key` của lighter.
-
-Không có vi phạm constitution được xác định vì chưa có constitution thực tế. Owner cần thiết lập/duyệt constitution nếu muốn áp dụng gate chính thức; không tự tạo nguyên tắc giả. AGPL-3.0 của IMG.LY đã được xác minh từ upstream, nhưng phạm vi giấy phép cho package, model và môi trường triển khai của INUT vẫn chờ owner xác nhận theo T091.
+**Cập nhật 2026-11-20:** `.specify/memory/constitution.md` đã được ratified tại
+v1.0.0 với 5 principle. Constitution Check lịch sử trong plan đã bị stale và
+được thay bởi đánh giá hiện tại này. Token Sanity vẫn chỉ ở server; dữ liệu
+crosses boundaries được validate; cart/checkout lighter không bị chỉnh; GA4 và
+Umami giữ allow-list và de-duplication. Phase 9 đã xác định một vi phạm
+Constitution V tại baseline kiểm thử: T084 được đánh dấu hoàn tất nhưng lệnh
+suite hiện tại còn 2/23 failing; T095 phải phục hồi bằng chứng trước khi tuyên bố
+delivery complete. AGPL-3.0 của IMG.LY đã được xác minh kỹ thuật từ upstream,
+nhưng package/model/deployment vẫn chờ owner theo T091.
 
 ## Project Structure
 
@@ -63,26 +85,35 @@ pages/api/keychain/designs/[id].ts
 pages/api/keychain/uploads.ts
 components/keychain-builder/
   KeychainBuilder.tsx
-  preview/                  # 2D và 3D lazy
-  geometry/                 # SVG, die-cut worker, mm và lỗ
-  image/                    # load Sanity ảnh và remove background theo yêu cầu
-  render/                   # render 2D, texture, PNG
-  hooks/                    # trạng thái phiên, upload, export
+  preview/                  # 2D và module 3D lazy hiện đang gated
+  geometry/                 # SVG, die-cut worker, alpha mask, mm và lỗ
+  image/                    # Sanity loader, solid-background và IMG.LY gate
+  render/                   # render 2D, texture 3D, PNG
+  hooks/                    # state phiên, upload, geometry, snapshot
+  controls/                 # shape, image, back, acrylic và xóa nền
+  types.ts
+  ExportDialog.tsx
 data/keychain/              # danh mục, màu, metadata móc
 public/keychain/{frames,rings}/
 api-client/keychain.ts
+api-client/keychain-server.ts
 sanity/schemas/keychainDesign.js
 sanity/schemas/schema.js
 utils/analytics.ts
 utils/umamiAnalytics.ts
+utils/keychain/             # validation, privacy, lifecycle, fingerprint, hydration
 docs/ANALYTICS_GUIDE.md
 docs/keychain-builder-release.md
-docs/keychain-builder-evidence/
-scripts/tests/keychain-{geometry,render,api,privacy}.test.mjs
+docs/keychain-builder-evidence/{desktop-browser,browser-viewports}.md
+scripts/tests/keychain-{geometry,render,api,privacy,image-validation}.test.mjs
 scripts/test-keychain-browser.mjs
 ```
 
-**Structure Decision**: Theo pages router và phân lớp hiện có; file nêu trên là hướng triển khai, không tạo thư mục trống hay module không cần thiết. Dùng `MainLayout` và SEO như `pages/builder/lighters/index.tsx`. Tách route upload keychain để kiểm tra raster và giới hạn mà không đổi hợp đồng upload/checkout lighter. Không đưa asset nháp thành file cắt production.
+**Structure Decision**: Theo pages router và phân lớp hiện có. `BuilderLayout`
+được gán trực tiếp ở route keychain; `MainLayout` chỉ là precedent, không phải
+layout hiện tại của route. Upload keychain tách khỏi lighter. Không đưa asset
+nháp thành file cắt production. `BackImageEditor.tsx` từng được nêu trong
+T036 nhưng chưa tồn tại trong source; hành vi còn thiếu được trace tại T101.
 
 ## Visual Reference
 
@@ -103,6 +134,21 @@ về geometry, accessibility, dữ liệu và privacy vẫn là nguồn ưu tiê
 5. **Upload và snapshot:** Upload ảnh khi chọn, chặn input không hợp lệ; không tạo link trước Export. Export chờ ảnh và geometry mới nhất, render PNG, lưu snapshot mới và chỉ báo thành công/link sau khi lưu thành công. Retry không ghi đè snapshot khác; mở link chỉ đọc snapshot cũ và chỉnh trong phiên mới.
 6. **Analytics và bảo vệ dữ liệu:** Route API dùng giới hạn và validate server; không log ảnh, URL asset hay link thiết kế. Khử query/ảnh khỏi GA4/GTM, Umami, Vercel Analytics và referrer trước khi script ngoài có thể gửi dữ liệu; không duplicate page view. Asset CDN vẫn công khai theo quyết định đã chốt.
 7. **QA:** Kiểm tra hình học, hướng hai mặt, palette, popup, ảnh được giữ, upload/lưu/lỗi, snapshot bất biến, 6 biến thể Export, link và xóa thủ công, analytics; browser thực tế trên mobile và hồi quy lighter. Không thực hiện checkout/order thật.
+
+## Current Implementation Delta
+
+Implementation hiện tại còn các delta sau và chúng không được coi là plan
+amendment:
+
+- CTA báo giá trong Export dialog hiện lưu snapshot trước khi khách tải PNG.
+  Đây là addition chưa nằm trong intent ban đầu; T100 yêu cầu remove hoặc
+  approved spec/plan amendment.
+- 3D module đã tồn tại nhưng control đang disabled; T096 phải restore UX và
+  evidence trước khi claim US3 complete.
+- Edge và sheen chỉ tồn tại trong type/state/render, chưa có control UI; T097.
+- Mobile target size, back-upload gating và custom-back crop UX lần lượt là
+  T098, T099 và T101.
+- Browser script/evidence cần chạy lại theo current DOM; T102.
 
 ## Complexity Tracking
 
