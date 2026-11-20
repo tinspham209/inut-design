@@ -10,20 +10,22 @@ governing intent:
 
 | Finding | Gap | Severity | Current disposition |
 |---------|-----|----------|---------------------|
-| F1 | Focused Node suite is 21/23 pass while T084 is marked complete | CRITICAL | T095 |
-| F2 | Lazy 3D modules exist but the 3D control is disabled | HIGH | T096 |
-| F3 | Edge/sheen state and render support lack complete UI controls | HIGH | T097 |
-| F4 | Several mobile controls remain below 44×44 px despite historical evidence | HIGH | T098 |
-| F5 | Custom-back upload is not consistently included in Export/save gating | HIGH | T099 |
-| F6 | Quote CTA creates a snapshot before PNG Export and was not in original intent | HIGH | T100 |
-| F7 | T036's independent back-image editor/crop warning is not present | MEDIUM | T101 |
-| F8 | Browser regression selectors/evidence do not match current DOM/state | MEDIUM | T102 |
-| F9 | Spec Kit and release docs contain stale constitution, suite and completion claims | MEDIUM | T103 |
+| F1 | Focused Node suite was 21/23 while T084 was marked complete | CRITICAL | Resolved: exact current command 30/30 (T095) |
+| F2 | Lazy 3D modules existed but the 3D control was disabled | HIGH | Resolved: browser exercised both faces and camera-only state (T096) |
+| F3 | Edge/sheen state and render support lacked complete UI controls | HIGH | Resolved: controls changed render; material is shared with PNG/3D and snapshots (T097) |
+| F4 | Several mobile controls were below 44×44 px | HIGH | Resolved in responsive desktop Chrome measurements, including uploaded state (T098); native device gates remain open |
+| F5 | Custom-back upload was not consistently included in Export/snapshot gating | HIGH | Resolved: readiness gate plus local/stale reference tests (T099) |
+| F6 | Quote CTA created a snapshot before PNG Export outside original intent | HIGH | Resolved: CTA and snapshot linkage removed; no spec amendment (T100) |
+| F7 | Independent custom-back editor/crop warning was missing | MEDIUM | Resolved in source and crop/upload browser checks; crop estimate focused test added (T101) |
+| F8 | Browser regression selectors/evidence did not match current DOM/state | MEDIUM | Resolved: current runner and retained mocked-flow output (T102) |
+| F9 | Spec Kit and release docs contained stale status claims | MEDIUM | Resolved: current docs synchronized, with device/license gates pending (T103) |
+| F10 | User still sees a split/offset 3D frame and artwork at oblique angles after UV/cap-material experiments | HIGH | Open, deferred as next enhancement T104; synthetic screenshots and material-group tests are not visual acceptance |
 
 **Current metrics:** 40 buildable FR/SC items and 29 acceptance scenarios
 reviewed; 9 core plan decisions and 5 constitution principles checked. Phase 9
-contains 9 traceable remediation tasks. Existing release gates T086, T087 and
-T091 remain open. No requirements were rewritten to match implementation gaps.
+contains 10 traceable convergence/enhancement tasks. Existing release gates
+T086, T087 and T091 remain open; T104 is intentionally deferred by the user.
+No requirements were rewritten to match implementation gaps.
 T103 updates documentation and is not a release-pass claim for T095–T102.
 
 ## Original design-time analysis (2026-11-18)

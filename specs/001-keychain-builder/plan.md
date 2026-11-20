@@ -7,11 +7,11 @@
 **Implementation status (2026-11-20)**: The route, state, geometry, upload,
 snapshot and analytics paths are implemented. The specification remains
 authoritative; current convergence gaps are tracked in `tasks.md` Phase 9.
-In particular, the 3D control is presently disabled, edge/sheen are not fully
-exposed in the UI, several mobile controls are below the 44 px target, both
-front/back uploads are not gated consistently, and the quote flow is not an
-approved addition to the original feature intent. T095–T102 track remediation;
-T086, T087 and T091 remain explicit release gates.
+T095–T103 have local implementation/evidence updates; the latest focused
+command is 30/30 passing. Desktop evidence does not establish accepted 3D
+frame/artwork alignment: the user still sees a split/offset frame at oblique
+angles. Track that deferred enhancement separately as T104. T086, T087 and
+T091 remain explicit device and owner/legal release gates.
 
 ## Summary
 
@@ -29,12 +29,14 @@ Xây builder mobile-first cho acrylic trong và bảy màu đục, khung cố đ
 
 **Testing**: Năm suite Node trong `scripts/tests/` phủ image normalization,
 geometry/config, render/CORS, API/lifecycle và analytics/privacy. Kết quả
-2026-11-20 là 21/23 pass; hai lỗi test-fixture/runtime mismatch được theo dõi
-tại T095. Browser mock kiểm tra bốn viewport và các luồng 2D đã có bằng chứng
-lịch sử, nhưng script hiện cần cập nhật selector/state và rerun theo T102.
-Android Chrome/iOS Safari cùng đo hiệu năng vẫn thuộc T086/T087. `rtk pnpm
-lint`, `rtk pnpm build` được dùng cho thay đổi runtime; lighter regression
-được giữ riêng.
+2026-11-20 là 30/30 pass. Browser runner kiểm tra sáu viewport, controls
+44×44 tại bốn portrait và landscape, upload/die-cut với API mock, sáu PNG
+variants, 3D front/back/camera, WebGL fallback, reduced motion và custom-back
+crop/export readiness. Upload/snapshot mock không chứng minh Sanity lifecycle.
+Android Chrome/iOS Safari cùng đo hiệu năng vẫn pending tại T086/T087; owner
+license approval vẫn pending tại T091. `rtk pnpm lint` và `rtk pnpm build`
+pass tại convergence, với lint warnings được ghi nhận trong release record;
+lighter regression được giữ riêng.
 
 **Target Platform**: Android Chrome và iOS Safari, ưu tiên viewport 320–430 CSS px; desktop hỗ trợ hai cột.
 
@@ -140,15 +142,12 @@ về geometry, accessibility, dữ liệu và privacy vẫn là nguồn ưu tiê
 Implementation hiện tại còn các delta sau và chúng không được coi là plan
 amendment:
 
-- CTA báo giá trong Export dialog hiện lưu snapshot trước khi khách tải PNG.
-  Đây là addition chưa nằm trong intent ban đầu; T100 yêu cầu remove hoặc
-  approved spec/plan amendment.
-- 3D module đã tồn tại nhưng control đang disabled; T096 phải restore UX và
-  evidence trước khi claim US3 complete.
-- Edge và sheen chỉ tồn tại trong type/state/render, chưa có control UI; T097.
-- Mobile target size, back-upload gating và custom-back crop UX lần lượt là
-  T098, T099 và T101.
-- Browser script/evidence cần chạy lại theo current DOM; T102.
+- 3D frame/artwork alignment remains visually unresolved at oblique angles.
+  The current cap-material experiment removes an opaque duplicate reverse face,
+  but is not accepted as the final unified-frame rendering; T104 is deferred.
+- Android/iOS browser and FPS evidence remains pending at T086/T087; IMG.LY
+  package/model/deployment approval remains pending at T091.
+- Quote flow was removed under T100; no original spec amendment was made.
 
 ## Complexity Tracking
 

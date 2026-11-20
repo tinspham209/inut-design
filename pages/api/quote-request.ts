@@ -2,8 +2,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { CreateQuoteRequestInput, QuoteRequestForm } from "@/models/quoteRequest";
 import serverClient from "@/api-client/sanity-server";
 import rateLimit, { getRequestRateLimitToken } from "@/utils/rateLimit";
-import { isKeychainRequestId } from "@/utils/keychain/serverValidation";
-import { keychainSnapshotRepository } from "@/api-client/keychain-server";
 
 const limiter = rateLimit({ interval: 60 * 1000, uniqueTokenPerInterval: 1000 });
 
@@ -31,15 +29,6 @@ export default async function handler(
 	}
 
 	try {
-		let keychainDesign: { _type: "reference"; _ref: string } | undefined;
-		if (input.keychainDesignId !== undefined && input.keychainDesignId !== "") {
-			if (!isKeychainRequestId(input.keychainDesignId)) {
-				return res.status(400).json({ error: "Liên kết thiết kế móc khóa không hợp lệ." });
-			}
-			const snapshot = await keychainSnapshotRepository.readDirect(`keychainDesign.${input.keychainDesignId}`);
-			if (!snapshot) return res.status(400).json({ error: "Không tìm thấy thiết kế móc khóa đính kèm." });
-			keychainDesign = { _type: "reference", _ref: snapshot._id };
-		}
 		const doc = {
 			_type: "form-nhan-bao-gia",
 			createdAt: new Date().toISOString(),
@@ -57,7 +46,6 @@ export default async function handler(
 			priorityLevel: input.priorityLevel,
 			urgentDate: input.urgentDate,
 			notes: input.notes,
-			...(keychainDesign ? { keychainDesign } : {}),
 		};
 		return res.status(200).json((await serverClient.create(doc)) as QuoteRequestForm);
 	} catch (error) {

@@ -109,12 +109,9 @@ export default function QuoteRequestFormComponent() {
 	const router = useRouter();
 	const fromQuery = router.query.from as string;
 	const noteQuery = router.query.note as string;
-	const rawDesignId = router.query.design;
-	const designIdQuery = Array.isArray(rawDesignId) ? rawDesignId[0] : rawDesignId;
 
 	const {
 		control,
-		register,
 		handleSubmit,
 		watch,
 		reset,
@@ -136,7 +133,6 @@ export default function QuoteRequestFormComponent() {
 			priorityLevel: undefined,
 			urgentDate: "",
 			notes: "",
-			keychainDesignId: "",
 		},
 	});
 
@@ -150,13 +146,10 @@ export default function QuoteRequestFormComponent() {
 		if (fromQuery && Object.values(UsagePurposeValue).includes(fromQuery as UsagePurposeValue)) {
 			setValue("usagePurpose", fromQuery as UsagePurposeValue, { shouldValidate: true });
 		}
-		if (designIdQuery && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(designIdQuery)) {
-			setValue("keychainDesignId", designIdQuery);
-		}
 		if (noteQuery) {
 			setValue("notes", noteQuery, { shouldValidate: true });
 		}
-	}, [designIdQuery, fromQuery, noteQuery, setValue]);
+	}, [fromQuery, noteQuery, setValue]);
 
 	const handleSubmitForm = async (data: CreateQuoteRequestInput) => {
 		const normalizedPhone = normalizePhone(data.phone);
@@ -295,7 +288,6 @@ export default function QuoteRequestFormComponent() {
 				</Typography>
 
 				<form onSubmit={handleSubmit(handleSubmitForm)}>
-					<input type="hidden" {...register("keychainDesignId")} />
 					<Grid container spacing={1.5}>
 						{/* Customer Name */}
 						<Grid item xs={12} md={6}>

@@ -64,6 +64,9 @@ export function Preview2D({
 		observer.observe(stage);
 		return () => observer.disconnect();
 	}, []);
+	useEffect(() => {
+		setKeychainZoom(1);
+	}, [stageSize.width, stageSize.height]);
 
 	useEffect(() => {
 		let active = true;
@@ -143,7 +146,7 @@ export function Preview2D({
 		void Promise.all([load, ring, connectorAssets])
 			.then(([image, ringImage, connectors]) => {
 				if (active)
-					return renderKeychain2d(canvas, frame, config, image, view, ringImage, connectors, true);
+					return renderKeychain2d(canvas, frame, config, image, view, ringImage, connectors);
 			})
 			.catch((reason) => {
 				if (active)
@@ -217,12 +220,12 @@ export function Preview2D({
 				justifyContent="space-between"
 				flexWrap="nowrap"
 				sx={{
-					height: 32,
-					minHeight: 32,
-					maxHeight: 32,
-					flex: "0 0 32px",
+						height: { xs: 48, md: 32 },
+						minHeight: { xs: 48, md: 32 },
+						maxHeight: { xs: 48, md: 32 },
+						flex: { xs: "0 0 48px", md: "0 0 32px" },
 					overflow: "hidden",
-					"& .MuiButton-root": { height: 28, minHeight: 28, maxHeight: 28, py: 0, flexShrink: 0 },
+						"& .MuiButton-root": { height: { xs: 44, md: 28 }, minHeight: { xs: 44, md: 28 }, maxHeight: { xs: 44, md: 28 }, py: 0, flexShrink: 0 },
 				}}
 			>
 				<Stack
@@ -238,8 +241,8 @@ export function Preview2D({
 							variant={view === face ? "contained" : "text"}
 							onClick={() => dispatch({ type: "set-view", view: face })}
 							sx={{
-								height: 28,
-								minHeight: 28,
+							height: { xs: 44, md: 28 },
+							minHeight: { xs: 44, md: 28 },
 								px: { xs: 1, md: 1 },
 								lineHeight: 1,
 								borderRadius: "12px",
@@ -258,9 +261,9 @@ export function Preview2D({
 						variant="outlined"
 						aria-current="true"
 						sx={{
-							height: 28,
-							minHeight: 28,
-							minWidth: 36,
+								height: { xs: 44, md: 28 },
+								minHeight: { xs: 44, md: 28 },
+								minWidth: { xs: 44, md: 36 },
 							borderColor: "#45464e",
 							borderRadius: "12px",
 
@@ -273,15 +276,12 @@ export function Preview2D({
 						<Button
 							size="small"
 							onClick={on3D}
-							disabled
-							title="Tạm thời chưa bật chế độ 3D"
-							aria-label="3D, tạm thời chưa bật"
+							aria-label="Xem 3D"
 							sx={{
-								height: 28,
-								minHeight: 28,
-								minWidth: 36,
-								color: "#777880",
-								"&.Mui-disabled": { color: "#777880" },
+								height: { xs: 44, md: 28 },
+								minHeight: { xs: 44, md: 28 },
+								minWidth: { xs: 44, md: 36 },
+								color: "#c5c6ce",
 							}}
 						>
 							3D
@@ -303,11 +303,11 @@ export function Preview2D({
 						flex: { xs: "0 0 auto", md: "0 0 32px" },
 						py: { xs: 0, md: 0.25 },
 						"& .MuiButton-root": {
-							width: { xs: 36, md: 32 },
-							minWidth: { xs: 36, md: 32 },
-							height: { xs: 36, md: 32 },
-							minHeight: { xs: 36, md: 32 },
-							maxHeight: { xs: 36, md: 32 },
+							width: { xs: 44, md: 32 },
+							minWidth: { xs: 44, md: 32 },
+							height: { xs: 44, md: 32 },
+							minHeight: { xs: 44, md: 32 },
+							maxHeight: { xs: 44, md: 32 },
 							py: 0,
 							flexShrink: 0,
 						},
@@ -349,8 +349,10 @@ export function Preview2D({
 						{
 							label: "Đặt lại ảnh",
 							icon: "⟲",
-							action: () =>
-								updateTransform(() => ({ xMm: 0, yMm: 0, scale: 1, rotation: 0, flipX: false })),
+							action: () => {
+								setKeychainZoom(1);
+								updateTransform(() => ({ xMm: 0, yMm: 0, scale: 1, rotation: 0, flipX: false }));
+							},
 						},
 						{
 							label: fullScreen ? "Thoát toàn màn hình" : "Toàn màn hình",

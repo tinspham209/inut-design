@@ -6,7 +6,7 @@ Hướng dẫn cho **sau khi triển khai**, không phải kết quả kiểm th
 
 1. Dùng Node theo `package.json`, pnpm 10.32.1 và các biến Sanity server hiện có; không đưa `SANITY_TOKEN` hoặc credential vào browser/log. Chuẩn bị dataset test riêng và quyền xóa document test.
 2. Kiểm tra cấu hình bảo vệ dữ liệu, license IMG.LY, CDN và quyền tạo/xóa document với người phụ trách. Chính sách đã được người dùng duyệt; không đưa ảnh khách thật vào demo trước khi hoàn tất các kiểm tra còn lại trong [plan](./plan.md).
-3. Chạy năm suite tách biệt bằng `rtk proxy node --test --import ./scripts/register-typescript-loader.mjs ./scripts/tests/keychain-*.test.mjs`, sau đó chạy `rtk pnpm lint` và `rtk pnpm build`. Các suite hiện gồm `image-validation`, `geometry`, `render`, `api` và `privacy`. Kết quả convergence 2026-11-20 là 21/23 pass; T095 phải sửa hai fixture/runtime mismatch trước khi dùng lệnh này làm release evidence. Dùng `rtk pnpm dev` và `agent-browser-automation` cho browser; dùng thiết bị thật/agent-device cho Android và iOS theo các tiêu chí dưới đây.
+3. Chạy năm suite tách biệt bằng `rtk proxy node --test --import ./scripts/register-typescript-loader.mjs ./scripts/tests/keychain-*.test.mjs`, sau đó chạy `rtk pnpm lint` và `rtk pnpm build`. Các suite gồm `image-validation`, `geometry`, `render`, `api` và `privacy`; kết quả convergence 2026-11-20 là 30/30 pass. Dùng `rtk pnpm dev` và `agent-browser-automation` cho browser; dùng thiết bị thật/agent-device cho Android và iOS theo các tiêu chí dưới đây.
 
 ## Scenarios
 
@@ -18,10 +18,11 @@ Hướng dẫn cho **sau khi triển khai**, không phải kết quả kiểm th
 6. **Mobile và accessibility:** Thực thi `scripts/test-keychain-browser.mjs` ở 320/360/390/430 px và đối chiếu hierarchy với `inputs/mockup-preview.png`: desktop preview trái/control phải; mobile preview trước/control sau; năm nhóm giữ đúng thứ tự; Export nổi bật nhưng không che nội dung. Kiểm tra bàn phím, safe area, xoay ngang, mục tiêu chạm 44 px, chữ input 16 px và cuộn ngoài vùng chỉnh. Trên một Android Chrome và một iPhone/iOS Safari được ghi rõ model/browser, kiểm tra CORS/tainted canvas, fallback định dạng ảnh và đo FPS drag/pinch ảnh ≤2048 px cho cả frame và die-cut; mục tiêu ≥30 FPS. Ghi bằng chứng và lệnh chạy trong `docs/keychain-builder-evidence/`; test không hỗ trợ/mất WebGL về 2D giữ state.
 7. **Analytics:** Dùng `scripts/tests/keychain-privacy.test.mjs` và browser network capture để kiểm tra GA4/GTM, Umami, Vercel cho initial load và SPA: đúng một event mỗi hành động/hệ thống; không gửi ảnh, URL, link, ID thiết kế hoặc query/referrer nhạy cảm. Kiểm tra cả analytics tắt. Không yêu cầu ảnh/link thực.
 8. **Hồi quy lighter:** Kiểm tra upload, add-to-cart, cart và payload order bằng fixture/giả lập; bảo toàn `inut-lighters-cart`, pricing và `_key` duy nhất. `scripts/test-lighter-builder.sh` hiện có các bước mô phỏng/check mô tả, không tự chứng minh upload/checkout; cần browser/assertion thật cho các luồng bị ảnh hưởng.
-9. **Implementation delta:** Xác nhận T095–T102 đã đóng, đặc biệt 3D control,
-   edge/sheen controls, 44 px touch targets, chờ ảnh sau upload, custom-back
-   editor và disposition của quote CTA. Script browser hiện cần refresh theo
-   T102; evidence Chrome 2026-11-18/19 không tự chứng minh current code.
+9. **Implementation delta:** T095–T102 có browser/local evidence hiện hành;
+   quote CTA trước Export đã được gỡ do chưa có amendment được duyệt. T086/T087
+   còn chờ thiết bị Android/iOS; T091 chờ xác nhận owner/legal. Frame/artwork
+   3D vẫn bị split/offset ở góc nghiêng, được hoãn thành next enhancement T104.
+   Không sửa `spec.md` để hợp thức hóa implementation drift.
 
 ## Trước public
 

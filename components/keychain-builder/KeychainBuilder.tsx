@@ -29,6 +29,7 @@ import {
 	type BackgroundRemovalFace,
 } from "@/components/keychain-builder/hooks/useBackgroundRemoval";
 import { getFaceImageUrl } from "@/components/keychain-builder/image/imageFace";
+import { getExportImageIssue } from "@/components/keychain-builder/image/exportReadiness";
 import { removeSolidBackground } from "@/components/keychain-builder/image/removeSolidBackground";
 import { uploadKeychainImage } from "@/api-client/keychain";
 import dynamic from "next/dynamic";
@@ -84,6 +85,21 @@ export function KeychainBuilder() {
 				: undefined,
 		[config.shape.type, dieCutReady, dieCut.geometry]
 	);
+	const [backFrameAspect, setBackFrameAspect] = useState(1);
+	useEffect(() => {
+		if (frameOverride) {
+			setBackFrameAspect(frameOverride.viewBox[2] / frameOverride.viewBox[3]);
+			return;
+		}
+		const frameId = config.shape.type === "frame" ? config.shape.frameId : "heart";
+		const source = FRAMES.find((frame) => frame.id === frameId)?.src;
+		if (!source) return;
+		let active = true;
+		void loadFrameSvg(source).then((frame) => {
+			if (active) setBackFrameAspect(frame.viewBox[2] / frame.viewBox[3]);
+		}).catch(() => { if (active) setBackFrameAspect(1); });
+		return () => { active = false; };
+	}, [config.shape, frameOverride]);
 	const router = useRouter();
 	const designId = router.query.design;
 	const { status: loadStatus, error: loadError, load } = useLoadDesign(designId);
@@ -100,6 +116,7 @@ export function KeychainBuilder() {
 	const {
 		upload: uploadBackImage,
 		cancel: cancelBackUpload,
+		status: backUploadStatus,
 		error: backUploadError,
 	} = useBackImage();
 	const {
@@ -113,10 +130,14 @@ export function KeychainBuilder() {
 	const backRemovalError = backgroundRemovalStates.backCustom.error;
 	const backgroundRemovalEnabled =
 		process.env.NEXT_PUBLIC_KEYCHAIN_BACKGROUND_REMOVAL_ENABLED === "true";
+	const uploadOrProcessingBusy = uploadStatus === "uploading" || backUploadStatus === "uploading" ||
+		[frontRemovalStatus, backRemovalStatus].some((status) => status === "processing" || status === "uploading") ||
+		dieCutSourceStatus === "processing";
+	const exportImageIssue = getExportImageIssue(config);
+	const exportReady = dieCutExportReady && !uploadOrProcessingBusy && !exportImageIssue;
 	const [exportOpen, setExportOpen] = useState(false);
 	const {
 		exportDesign,
-		saveDesign,
 		status: exportStatus,
 		error: exportError,
 		link: exportLink,
@@ -339,6 +360,13 @@ export function KeychainBuilder() {
 			trackKeychainAction("keychain_custom_back", { result: "success" });
 		});
 	};
+	const removeBackImage = () => {
+		cancelBackUpload();
+		cancelBackgroundRemoval("backCustom");
+		if (localImageUrls.current.backCustom) URL.revokeObjectURL(localImageUrls.current.backCustom);
+		localImageUrls.current.backCustom = undefined;
+		dispatch({ type: "set-face", face: "backCustom", value: { transform: defaultImageTransform } });
+	};
 	const removeFrontImage = () => {
 		cancelUpload();
 		cancelBackgroundRemoval("front");
@@ -373,6 +401,7 @@ export function KeychainBuilder() {
 			dispatch({ type: "set-face", face, value: { ...value, useProcessed } });
 	};
 	const getExportInputs = useCallback(async () => {
+		if (!exportReady) throw new Error("Hoàn tất tải ảnh mặt trước và mặt sau trước khi xuất.");
 		const selectedFrameId = config.shape.type === "frame" ? config.shape.frameId : undefined;
 		const frameRecord = selectedFrameId
 			? FRAMES.find((item) => item.id === selectedFrameId)
@@ -386,7 +415,7 @@ export function KeychainBuilder() {
 		);
 		const image = url ? await loadSanityImage(url) : undefined;
 		return { frame, image };
-	}, [config, frameOverride, session.view]);
+	}, [config, exportReady, frameOverride, session.view]);
 	const renderExportPreview = useCallback(
 		async (scope: PngScope) => {
 			const { frame, image } = await getExportInputs();
@@ -395,7 +424,10 @@ export function KeychainBuilder() {
 		[config, getExportInputs, session.view]
 	);
 	const onExport = async (scope: PngScope, scale: PngScale) => {
-		if (uploadStatus === "uploading" || !dieCutExportReady) return;
+		if (!exportReady) {
+			notify(exportImageIssue === "local" ? "Ảnh vẫn còn dữ liệu tạm trên thiết bị. Hãy chờ tải ảnh lên hoàn tất." : "Hoàn tất tải ảnh mặt trước và mặt sau trước khi xuất.", "warning");
+			return;
+		}
 		try {
 			await exportDesign(config, async () => {
 				const { frame, image } = await getExportInputs();
@@ -440,7 +472,7 @@ export function KeychainBuilder() {
 				},
 				overflow: { md: "hidden" },
 				overflowX: "hidden",
-				"& button": { minHeight: { xs: 40, md: 34 }, textTransform: "none", fontSize: { md: 12 } },
+				"& button": { minHeight: { xs: 44, md: 34 }, textTransform: "none", fontSize: { md: 12 } },
 				"& input": { fontSize: 16 },
 			}}
 		>
@@ -525,6 +557,7 @@ export function KeychainBuilder() {
 								minWidth: 0,
 								minHeight: 0,
 								height: { md: "100%" },
+								overflowX: "hidden",
 								overflowY: { md: "auto" },
 								bgcolor: { md: "#191a20" },
 								border: { md: "1px solid #2c2d34" },
@@ -589,7 +622,11 @@ export function KeychainBuilder() {
 								<BackControls
 									acrylicId={config.acrylicId}
 									backMode={config.backMode}
+					face={config.backCustom}
 									hasCustomImage={Boolean(config.backCustom?.url)}
+					frameAspect={backFrameAspect}
+					uploadStatus={backUploadStatus}
+					uploadError={backUploadError}
 									onModeChange={(backMode) => {
 										dispatch({ type: "set-back-mode", backMode });
 										trackKeychainAction("keychain_back_mode", {
@@ -598,6 +635,9 @@ export function KeychainBuilder() {
 										});
 									}}
 									onUpload={onBackImage}
+					onTransform={(transform) => config.backCustom && dispatch({ type: "set-face", face: "backCustom", value: { ...config.backCustom, transform } })}
+					onReset={() => config.backCustom && dispatch({ type: "set-face", face: "backCustom", value: { ...config.backCustom, transform: defaultImageTransform } })}
+					onDiscard={removeBackImage}
 								/>
 								{config.backCustom?.url && (
 									<RemoveBackground
@@ -638,9 +678,7 @@ export function KeychainBuilder() {
 								<Button
 									fullWidth
 									variant="contained"
-									disabled={
-										(typeof designId === "string" && loadStatus !== "loaded") || !dieCutExportReady
-									}
+								disabled={(typeof designId === "string" && loadStatus !== "loaded") || !exportReady}
 									onClick={() => setExportOpen(true)}
 									sx={{
 										mt: { xs: 1.5, md: 0.25 },
@@ -671,32 +709,27 @@ export function KeychainBuilder() {
 				/>
 				<ExportDialog
 					open={exportOpen}
-					busy={exportStatus === "pending" || uploadStatus === "uploading"}
-					error={
-						uploadStatus === "uploading" ? "Đợi tải ảnh lên hoàn tất trước khi xuất." : exportError
-					}
+					busy={exportStatus === "pending" || uploadOrProcessingBusy}
+					error={!exportReady ? (exportImageIssue ? "Cần có ảnh Sanity đã tải xong cho mặt đang dùng trước khi xuất." : "Đợi tải ảnh và xử lý đường cắt hoàn tất trước khi xuất.") : exportError}
 					link={exportLink}
 					onClose={() => setExportOpen(false)}
 					onExport={(scope, scale) => void onExport(scope, scale)}
+					canExport={exportReady}
 					renderPreview={renderExportPreview}
-						quoteDisabled={uploadStatus === "uploading" || !dieCutExportReady}
-						onQuoteRequest={async () => (await saveDesign(config)).id}
-					onContactClick={() =>
-						trackKeychainAction("contact_click", { variant: "keychain-export-dialog" })
-					}
 				/>
 				<Snackbar
 					open={Boolean(toast)}
 					autoHideDuration={4500}
 					onClose={() => setToast(null)}
 					anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+					transitionDuration={0}
 					sx={{ bottom: { xs: "calc(82px + env(safe-area-inset-bottom))", md: 24 } }}
 				>
 					<Alert
 						onClose={() => setToast(null)}
 						severity={toast?.severity || "info"}
 						variant="filled"
-						sx={{ width: "100%" }}
+						sx={{ width: "100%", "& .MuiAlert-action > button": { minWidth: 44, minHeight: 44 } }}
 					>
 						{toast?.message}
 					</Alert>
@@ -720,7 +753,7 @@ export function KeychainBuilder() {
 					fullWidth
 					variant="contained"
 					onClick={() => setExportOpen(true)}
-					disabled={(typeof designId === "string" && loadStatus !== "loaded") || !dieCutExportReady}
+					disabled={(typeof designId === "string" && loadStatus !== "loaded") || !exportReady}
 					sx={{
 						minHeight: 50,
 						bgcolor: "#f47a28",

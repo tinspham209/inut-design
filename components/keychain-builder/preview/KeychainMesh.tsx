@@ -2,42 +2,55 @@
 import { useMemo } from "react";
 import { ExtrudeGeometry, Float32BufferAttribute, Path, Shape, type CanvasTexture } from "three";
 import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader";
+import { splitExtrudeMaterialGroups } from "../geometry/extrudeMaterialGroups";
+import { mapCenteredGeometryToFrameUv } from "../geometry/frameUv";
 import type { FrameSvgData } from "../geometry/frameSvg";
 import type { KeychainConfig } from "../types";
 
 type Props = { frame: FrameSvgData; config: KeychainConfig; frontTexture: CanvasTexture; backTexture: CanvasTexture; view: "front" | "back" };
+
 export function KeychainMesh({ frame, config, frontTexture, backTexture, view }: Props) {
-	const edgeColor = config.material.edge === "natural" ? "#9baab1" : "#d7e7ef";
+	const clearAcrylic = config.acrylicId === "clear";
+	const acrylicColor = clearAcrylic ? "#e1f4ff" : config.acrylicId;
+	const opacity = clearAcrylic ? 0.82 + config.material.sheen * 0.08 : 1;
+	const sideOpacity = clearAcrylic ? opacity * 0.28 : 1;
 	const geometry = useMemo(() => {
 		const cutPath = new SVGLoader().parse(frame.source).paths.find((path) => path.userData?.node?.id === "cut");
 		if (!cutPath) throw new Error("SVG không có đường cắt #cut");
 		const parsed = SVGLoader.createShapes(cutPath);
 		const shape = parsed[0] as Shape | undefined;
 		if (!shape) throw new Error("Không dựng được biên dạng 3D");
-		const scale = (config.sizeCm * 10) / Math.max(frame.viewBox[2], frame.viewBox[3]);
+		const [minX, minY, viewWidth, viewHeight] = frame.viewBox;
+		const scale = (config.sizeCm * 10) / Math.max(viewWidth, viewHeight);
 		if (!frame.holeAlreadyInPath) {
 			const hole = new Path();
 			hole.absellipse(frame.hole.cx, frame.hole.cy, 2 / scale, 2 / scale, 0, Math.PI * 2, false, 0);
 			shape.holes.push(hole);
 		}
 		const geometry = new ExtrudeGeometry(shape, { depth: config.material.thicknessMm / scale, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.25 / scale, bevelThickness: 0.25 / scale, curveSegments: 12 });
-		geometry.scale(scale, -scale, scale); geometry.center();
-		geometry.computeBoundingBox();
-		const bounds = geometry.boundingBox;
+		const materialGroups = splitExtrudeMaterialGroups(geometry.groups);
+		geometry.clearGroups();
+		for (const group of materialGroups) geometry.addGroup(group.start, group.count, group.materialIndex);
+		geometry.scale(scale, -scale, scale);
+		geometry.translate(-(minX + viewWidth / 2) * scale, (minY + viewHeight / 2) * scale, -config.material.thicknessMm / 2);
 		const positions = geometry.getAttribute("position");
 		const uv = new Float32Array(positions.count * 2);
-		const spanX = bounds ? Math.max(Number.EPSILON, bounds.max.x - bounds.min.x) : 1;
-		const spanY = bounds ? Math.max(Number.EPSILON, bounds.max.y - bounds.min.y) : 1;
+		const worldWidth = viewWidth * scale;
+		const worldHeight = viewHeight * scale;
 		for (let index = 0; index < positions.count; index += 1) {
-			uv[index * 2] = bounds ? (positions.getX(index) - bounds.min.x) / spanX : 0;
-			uv[index * 2 + 1] = bounds ? (positions.getY(index) - bounds.min.y) / spanY : 0;
+			const [u, v] = mapCenteredGeometryToFrameUv(positions.getX(index), positions.getY(index), worldWidth, worldHeight);
+			uv[index * 2] = u;
+			uv[index * 2 + 1] = v;
 		}
 		geometry.setAttribute("uv", new Float32BufferAttribute(uv, 2));
 		geometry.computeVertexNormals();
 		return geometry;
 	}, [frame, config.sizeCm, config.material.thicknessMm]);
+	const backFaceVisible = view === "back";
+	const frontFaceVisible = view === "front";
 	return <mesh geometry={geometry} rotation={[0, 0, 0]}>
-		<meshPhysicalMaterial attach="material-0" map={view === "front" ? frontTexture : backTexture} color={config.acrylicId === "clear" ? "#e1f4ff" : "#ffffff"} transparent={config.acrylicId === "clear"} opacity={config.acrylicId === "clear" ? 0.86 : 1} roughness={0.2 + config.material.sheen * 0.35} metalness={0} clearcoat={0.9} clearcoatRoughness={0.16} side={2} />
-		<meshPhysicalMaterial attach="material-1" color={edgeColor} roughness={0.2} metalness={0.35} />
+		{backFaceVisible ? <meshBasicMaterial attach="material-0" map={backTexture} color={acrylicColor} transparent={clearAcrylic} opacity={opacity} depthWrite side={2} /> : <meshBasicMaterial attach="material-0" transparent opacity={0} depthWrite={false} side={2} />}
+		{frontFaceVisible ? <meshBasicMaterial attach="material-1" map={frontTexture} color={acrylicColor} transparent={clearAcrylic} opacity={opacity} depthWrite side={2} /> : <meshBasicMaterial attach="material-1" transparent opacity={0} depthWrite={false} side={2} />}
+		<meshBasicMaterial attach="material-2" color={acrylicColor} transparent={clearAcrylic} opacity={sideOpacity} depthWrite side={2} />
 	</mesh>;
 }

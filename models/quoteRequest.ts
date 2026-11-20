@@ -67,10 +67,6 @@ export type CreateQuoteRequestInput = {
 	priorityLevel?: PriorityLevelValue;
 	urgentDate?: string;
 	notes?: string;
-	keychainDesignId?: string;
 };
 
-export type QuoteRequestForm = CreateQuoteRequestInput & {
-	_id?: string;
-	keychainDesign?: { _type: "reference"; _ref: string };
-};
+export type QuoteRequestForm = CreateQuoteRequestInput & { _id?: string };

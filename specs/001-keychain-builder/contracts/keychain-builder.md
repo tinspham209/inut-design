@@ -43,22 +43,26 @@ authentication người dùng. URL asset Sanity là công khai với ai có URL.
 - Trong → đục hiện popup theo FR-028. Hủy giữ state; xác nhận reset sides/back mode, giữ ảnh/transform khác; quay lại trong mặc định through và có thể chọn lại ảnh sau đã giữ.
 - Bốn mode acrylic trong như bảng [data model](../data-model.md); 2D/3D/PNG phải khớp mặt và outline, lỗ luôn 4 mm. Die-cut dựa ảnh trước và chỉ Export khi geometry đúng revision.
 - PNG ngoài nền trong suốt; 1x = 100 px/cm chiều dài charm, 2x/3x là hệ số pixel; full bao gồm ring, charm-only không có ring. Quá giới hạn thiết bị báo lỗi, không âm thầm đổi scale.
-- Link được tạo sau khi snapshot lưu thành công ở Export. Implementation hiện
-  còn CTA báo giá lưu snapshot và đính kèm ID vào form; đây là implementation
-  addition chưa được `spec.md`/`tasks.md` gốc phê duyệt và được giữ ở trạng thái
-  pending tại T100. Không coi flow này là contract được phê duyệt. Không lưu
-  thêm ảnh PNG preview vào form và không hứa ảnh chưa lưu khôi phục sau đóng
-  trình duyệt.
+- Link/snapshot chỉ được tạo sau khi PNG Export lưu thành công. CTA báo giá
+  trước Export cùng các trường/API/schema chỉ dùng để đính kèm snapshot đã bị
+  loại bỏ theo T100; không sửa intent trong `spec.md`. Không lưu thêm ảnh PNG
+  preview vào form và không hứa ảnh chưa lưu khôi phục sau đóng trình duyệt.
 
 ## Current implementation gaps
 
-- 3D module hiện có nhưng toolbar control đang disabled (T096).
-- Edge/sheen đã tồn tại trong model/render nhưng chưa có đầy đủ UI control
-  (T097).
-- Mobile target 44 px, custom-back upload/export gate và dedicated back crop
-  editor cần remediation theo T098, T099 và T101.
-- Focused Node suite hiện 21/23 pass; contract không được ghi là release-verified
-  cho tới khi T095 hoàn tất.
+- 3D front/back, camera-only controls và WebGL fallback đã được kiểm tra trong
+  desktop Chrome runner; edge/thickness/sheen UI và renderer đã được browser
+  exercised. Upload/snapshot endpoints là mock trong lượt này.
+- Export và snapshot gate yêu cầu ảnh front cùng ảnh custom-back đã upload và
+  xử lý xong; blob/local/stale references bị từ chối. Custom-back editor giữ
+  transform riêng, tỷ lệ ảnh, crop status/warning và stale upload recovery.
+- Focused Node suite hiện 30/30 pass. Desktop Chrome emulation đo targets
+  ≥44×44 CSS px tại bốn portrait sizes và 844×390 landscape. Android/iOS device
+  và FPS vẫn pending; IMG.LY owner/legal approval vẫn pending. Xem
+  `docs/keychain-builder-release.md` để biết giới hạn evidence và gates.
+- 3D frame/artwork vẫn nhìn split/offset ở góc nghiêng trong visual review.
+  T104 là next enhancement pending; không claim 3D alignment hoàn tất từ UV
+  mapping, material-group tests hoặc synthetic desktop screenshot.
 
 ## Analytics and privacy
 

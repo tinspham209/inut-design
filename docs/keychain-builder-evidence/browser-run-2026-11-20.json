@@ -1,0 +1,177 @@
+{
+  "session": "keychain-qa-c30d3494aa3c",
+  "route": "http://localhost:3001/builder/keychain",
+  "viewports": [
+    {
+      "width": 320,
+      "height": 780,
+      "noHorizontalOverflow": true,
+      "controlsInOrder": true,
+      "minInteractiveTarget": "44x44 CSS px",
+      "touchTargetIssues": [],
+      "minInputFont": 16
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "noHorizontalOverflow": true,
+      "controlsInOrder": true,
+      "minInteractiveTarget": "44x44 CSS px",
+      "touchTargetIssues": [],
+      "minInputFont": 16
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "noHorizontalOverflow": true,
+      "controlsInOrder": true,
+      "minInteractiveTarget": "44x44 CSS px",
+      "touchTargetIssues": [],
+      "minInputFont": 16
+    },
+    {
+      "width": 430,
+      "height": 900,
+      "noHorizontalOverflow": true,
+      "controlsInOrder": true,
+      "minInteractiveTarget": "44x44 CSS px",
+      "touchTargetIssues": [],
+      "minInputFont": 16
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "noHorizontalOverflow": true,
+      "controlsInOrder": true,
+      "minInteractiveTarget": "44x44 CSS px",
+      "touchTargetIssues": [],
+      "minInputFont": 16
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "noHorizontalOverflow": true,
+      "controlsInOrder": true,
+      "minInteractiveTarget": "desktop controls",
+      "touchTargetIssues": [],
+      "minInputFont": 16
+    }
+  ],
+  "uploadedDesignTouchAudit": [
+    {
+      "width": 320,
+      "height": 780,
+      "minInteractiveTarget": "44x44 CSS px",
+      "touchTargetIssues": []
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "minInteractiveTarget": "44x44 CSS px",
+      "touchTargetIssues": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "minInteractiveTarget": "44x44 CSS px",
+      "touchTargetIssues": []
+    },
+    {
+      "width": 430,
+      "height": 900,
+      "minInteractiveTarget": "44x44 CSS px",
+      "touchTargetIssues": []
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "minInteractiveTarget": "44x44 CSS px",
+      "touchTargetIssues": []
+    }
+  ],
+  "mockUpload": "synthetic local PNG served through a mocked CDN URL",
+  "mockSnapshot": true,
+  "customBackEditor": {
+    "cropStatus": true,
+    "uploadGate": true,
+    "editAndReset": true,
+    "visibleActions": [
+      {
+        "label": "Xoay ảnh 90°",
+        "text": "↻"
+      },
+      {
+        "label": "Lật ngang",
+        "text": "⇋"
+      },
+      {
+        "label": "Thu nhỏ ảnh",
+        "text": "−"
+      },
+      {
+        "label": "Phóng to ảnh",
+        "text": "+"
+      },
+      {
+        "label": "Thu nhỏ ảnh mặt sau",
+        "text": "−"
+      },
+      {
+        "label": "Phóng to ảnh mặt sau",
+        "text": "+"
+      },
+      {
+        "label": "Xoay ảnh mặt sau",
+        "text": "↻"
+      },
+      {
+        "label": "Lật ảnh mặt sau",
+        "text": "⇋"
+      },
+      {
+        "label": null,
+        "text": "Đặt lại vị trí"
+      }
+    ]
+  },
+  "material": {
+    "edge": "natural",
+    "thicknessMm": 5,
+    "sheenPercent": 100,
+    "renderChanged": true
+  },
+  "browserExportVariants": [
+    {
+      "scope": "Móc khóa đầy đủ",
+      "scale": "1× · 100 px/cm"
+    },
+    {
+      "scope": "Móc khóa đầy đủ",
+      "scale": "2× · 200 px/cm"
+    },
+    {
+      "scope": "Móc khóa đầy đủ",
+      "scale": "3× · 300 px/cm"
+    },
+    {
+      "scope": "Chỉ mặt móc",
+      "scale": "1× · 100 px/cm"
+    },
+    {
+      "scope": "Chỉ mặt móc",
+      "scale": "2× · 200 px/cm"
+    },
+    {
+      "scope": "Chỉ mặt móc",
+      "scale": "3× · 300 px/cm"
+    }
+  ],
+  "threeD": {
+    "front": true,
+    "back": true,
+    "cameraOnlyStateUnchanged": true
+  },
+  "webglFallback": "forced context creation failure rendered a 2D return path",
+  "reducedMotionEmulated": true,
+  "note": "Upload and snapshot API routes were mocked; no Sanity asset or snapshot was created."
+}

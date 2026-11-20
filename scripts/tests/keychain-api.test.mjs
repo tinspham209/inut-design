@@ -4,6 +4,7 @@ import { initialKeychainConfig } from "../../components/keychain-builder/hooks/u
 import { createKeychainRequestFingerprint } from "../../utils/keychain/requestFingerprint.ts";
 import { isKeychainRequestId, isSanityImageReference, validateKeychainServerConfig } from "../../utils/keychain/serverValidation.ts";
 import { readSnapshotById, saveSnapshotIdempotently } from "../../utils/keychain/snapshotLifecycle.ts";
+import { getExportImageIssue } from "../../components/keychain-builder/image/exportReadiness.ts";
 
 test("server validation requires a v4 request id and valid Sanity image references", () => {
 	assert.equal(isKeychainRequestId("bf9ab3f4-64b2-4f1c-b66d-0a272c7cce6d"), true);
@@ -40,13 +41,13 @@ test("snapshot retries are immutable, conflicting payloads fail, and direct read
 	const documents = new Map(); let createCalls = 0;
 	const repository = {
 		readDirect: async (id) => documents.get(id) || null,
-		createIfAbsent: async (id, requestId, config, fingerprint) => {
+		createIfAbsent: async (id, config) => {
 			createCalls += 1;
-			if (!documents.has(id)) documents.set(id, { _id: id, requestId, requestFingerprint: fingerprint, config: structuredClone(config), createdAt: "2026-11-18T00:00:00.000Z" });
+			if (!documents.has(id)) documents.set(id, { _id: id, requestFingerprint: createKeychainRequestFingerprint(config), config: structuredClone(config), createdAt: "2026-11-18T00:00:00.000Z" });
 		},
 	};
 	const requestId = "bf9ab3f4-64b2-4f1c-b66d-0a272c7cce6d";
-	const config = { version: 1, front: { image: { _type: "image", asset: { _type: "reference", _ref: "image-a1b2c3-64x64-png" } } } };
+	const config = { version: 1, material: { edge: "polished", thicknessMm: 5, sheen: 0.9 }, front: { image: { _type: "image", asset: { _type: "reference", _ref: "image-a1b2c3-64x64-png" } } } };
 	const digest = createKeychainRequestFingerprint(config);
 	assert.equal((await saveSnapshotIdempotently(requestId, config, digest, repository)).status, "created");
 	assert.equal((await saveSnapshotIdempotently(requestId, config, digest, repository)).status, "replay");
@@ -61,6 +62,18 @@ test("snapshot retries are immutable, conflicting payloads fail, and direct read
 	}
 	assert.equal((await readSnapshotById("not-a-uuid", repository)).status, 400);
 	assert.equal(documents.get(stored._id).config.version, 1, "a retry does not mutate the original snapshot");
+	assert.deepEqual(documents.get(stored._id).config.material, config.material, "material controls persist in the immutable snapshot");
+});
+
+test("snapshot image readiness rejects pending, local, and stale front or custom-back sources", () => {
+	const ref = { _type: "image", asset: { _type: "reference", _ref: "image-a1b2c3-64x64-png" } };
+	const validFace = { image: ref, url: "https://cdn.sanity.io/images/abc123/production/a1b2c3-64x64.png", transform: initialKeychainConfig.front.transform };
+	const config = { ...initialKeychainConfig, front: validFace };
+	assert.equal(getExportImageIssue(config), undefined);
+	assert.equal(getExportImageIssue({ ...config, front: { ...validFace, url: "blob:pending-upload" } }), "local");
+	assert.equal(getExportImageIssue({ ...config, front: { ...validFace, url: "https://cdn.sanity.io/images/abc123/production/different-64x64.png" } }), "stale");
+	assert.equal(getExportImageIssue({ ...config, backMode: "custom", backCustom: undefined }), "missing");
+	assert.equal(getExportImageIssue({ ...config, backMode: "custom", backCustom: { ...validFace, url: "blob:pending-back" } }), "local");
 });
 
 test("manual snapshot deletion does not remove an image referenced by another snapshot", async () => {

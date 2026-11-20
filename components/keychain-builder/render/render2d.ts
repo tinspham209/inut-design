@@ -1,5 +1,6 @@
 import type { FrameSvgData } from "../geometry/frameSvg";
 import type { KeychainConfig } from "../types";
+import { getMaterialEdgeStyle } from "./materialStyle";
 
 export type RenderSide = "front" | "back";
 export type ConnectorAssets = {
@@ -29,7 +30,7 @@ export function getScaledRingWidth(frameWidth: number, frameHeight: number, lead
 export async function renderKeychain2d(
 	canvas: HTMLCanvasElement, frame: FrameSvgData, config: KeychainConfig,
 	image?: CanvasImageSource, side: RenderSide = "front", ring?: CanvasImageSource,
-	connectors?: ConnectorAssets, showImageCoverage = false,
+	connectors?: ConnectorAssets,
 ) {
 	const ctx = canvas.getContext("2d");
 	if (!ctx) throw new Error("Thiết bị không hỗ trợ Canvas 2D");
@@ -43,7 +44,7 @@ export async function renderKeychain2d(
 		: frame.hole.cy - minY;
 	const bodyBelowHole = source ? minY + sourceHeight - frame.hole.cy : sourceHeight;
 	const sceneUnits = Math.max(1, connectorLead + bodyBelowHole);
-	const inset = Math.min(10, canvas.width * 0.02, canvas.height * 0.02);
+	const inset = Math.min(24, canvas.width * 0.06, canvas.height * 0.06);
 	const pxPerUnit = Math.max(0.01, Math.min((canvas.width - inset * 2) / sourceWidth, (canvas.height - inset * 2) / sceneUnits));
 	const bufferScale = canvas.width / Math.max(1, canvas.clientWidth || canvas.width);
 	canvas.dataset.frameMaxSize = String(pxPerUnit * Math.max(sourceWidth, sourceHeight) / bufferScale);
@@ -85,6 +86,7 @@ export async function renderKeychain2d(
 	const acrylicColor = config.acrylicId === "clear" ? "rgba(183,220,240,0.28)" : config.acrylicId;
 	ctx.fillStyle = acrylicColor;
 	ctx.fill(cut);
+	const materialEdge = getMaterialEdgeStyle(config.material);
 	let renderImage = image;
 	let mirror = false;
 	if (side === "back") {
@@ -95,7 +97,7 @@ export async function renderKeychain2d(
 		if (config.backMode === "material") renderImage = undefined;
 	}
 	const canRenderImage = side === "front" || config.backMode === "through-acrylic" || config.backMode === "mirror-front" || config.backMode === "custom";
-	if (canRenderImage && (renderImage || showImageCoverage)) {
+	if (canRenderImage && renderImage) {
 		ctx.save();
 		ctx.clip(cut);
 		const borderPx = Math.max(0, Math.min(80, config.cutBorderPx ?? 20));
@@ -109,7 +111,6 @@ export async function renderKeychain2d(
 		ctx.translate(printCenterX, printCenterY);
 		ctx.scale(1 / printScale, 1 / printScale);
 		ctx.translate(-printCenterX, -printCenterY);
-		if (showImageCoverage) { ctx.fillStyle = "#fff"; ctx.fillRect(minX, minY, sourceWidth, sourceHeight); }
 		if (renderImage) {
 			const face = side === "back" && config.backMode === "custom" ? config.backCustom : config.front;
 			const transform = face?.transform || config.front.transform;
@@ -133,8 +134,8 @@ export async function renderKeychain2d(
 	ctx.arc(frame.hole.cx, frame.hole.cy, frame.hole.radiusMm / mmPerUnit, 0, Math.PI * 2);
 	ctx.fill();
 	ctx.globalCompositeOperation = "source-over";
-	ctx.strokeStyle = "rgba(255,255,255,.75)";
-	ctx.lineWidth = 0.35 / mmPerUnit;
+	ctx.strokeStyle = materialEdge.color;
+	ctx.lineWidth = materialEdge.widthMm / mmPerUnit;
 	ctx.stroke(cut);
 	ctx.restore();
 	if (useClassicChain && connectors) {

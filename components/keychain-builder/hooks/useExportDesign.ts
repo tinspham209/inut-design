@@ -48,5 +48,5 @@ export function useExportDesign() {
 			throw reason;
 		}
 	}, [saveDesign]);
-	return { exportDesign, saveDesign, status, error, link };
+	return { exportDesign, status, error, link };
 }

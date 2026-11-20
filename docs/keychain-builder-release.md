@@ -2,31 +2,52 @@
 
 ## Current implementation status (2026-11-20)
 
-- Core route, geometry, upload, immutable snapshot and analytics paths are
-  present in source. This is not a release-pass record: `tasks.md` Phase 9
-  tracks runtime and evidence drift found during convergence.
-- `rtk proxy node --test --import
+- Phase 9 convergence T095–T102 is implemented and locally verified, subject
+  to the evidence limits below. The exact focused command reports **30/30
+  passing**. `scripts/test-keychain-browser.mjs` passed against local Chrome
+  with mocked upload and snapshot endpoints.
+- The enabled 3D preview was exercised on front and back; camera-only controls
+  preserved the selected material/design state. Forced WebGL context failure
+  returned the usable 2D path. Edge, thickness and sheen values were changed
+  in the browser; the 2D render changed and six PNG export variants completed
+  through the mocked snapshot route.
+- 320×780, 360×800, 390×844, 430×900, 844×390 and 1280×800 viewport checks
+  passed for no horizontal overflow, control order, keyboard focus and input
+  sizing. Every interactive target measured at least 44×44 CSS px in the four
+  portrait sizes and 844×390 landscape. These are desktop Chrome responsive
+  emulations, not Android/iOS device results. See
+  [current browser evidence](keychain-builder-evidence/browser-viewports.md)
+  and the [captured runner output](keychain-builder-evidence/browser-run-2026-11-20.json).
+- The quote CTA and its keychain-snapshot linkage were removed because no
+  approved spec amendment authorized a pre-Export quote flow. Snapshot creation
+  remains coupled to successful PNG Export. Custom-back editing now has
+  independent transform/reset controls, aspect ratio crop estimate/warning and
+  stale upload recovery; focused tests cover crop estimation and local/blob or
+  stale asset references prevent Export/snapshot.
+- Android/iOS browser and physical-device FPS tasks T086/T087 remain blocked:
+  no Android device is attached, and the iPhone 17 simulator cannot start its
+  simulator service with this installed Xcode/macOS combination. No FPS result
+  is claimed. T091 remains pending owner/legal confirmation; public IMG.LY
+  background removal remains disabled. No fresh Sanity write, real snapshot,
+  or hosted analytics network capture was performed.
+- **Deferred enhancement T104:** the 3D heart frame still looks split/offset
+  from its artwork at oblique angles in the current visual review. The latest
+  cap-material experiment prevents an opaque duplicate back face, but desktop
+  screenshot evidence does not establish accepted frame-to-art alignment. Keep
+  this explicitly pending for a later enhancement pass, as requested while the
+  user works on a higher-priority item; do not claim the 3D frame alignment
+  requirement is complete.
+
+## Convergence validation (2026-11-20)
+
+- Focused Node command: `rtk proxy node --test --import
   ./scripts/register-typescript-loader.mjs
-  ./scripts/tests/keychain-*.test.mjs` currently reports **21/23 passing**.
-  The API lifecycle test fixture does not match the current
-  `SnapshotRepository.createIfAbsent(id, config)` signature, and the render
-  test fixture lacks `canvas.dataset`. T095 owns the fix and rerun.
-- The lazy 3D modules still exist, but the toolbar currently disables 3D with a
-  “Tạm thời chưa bật” label. Historical mocked fallback evidence must not be
-  treated as current evidence; T096 and T102 require rerun after re-enable.
-- Edge and sheen are stored and used by 3D/render paths, but the material UI
-  currently exposes thickness only. T097 is open.
-- Several mobile controls remain below the 44×44 px requirement, and the
-  browser script's current-selector coverage needs a refresh (T098/T102).
-- Custom-back upload is not included in the main Export busy gate, and dedicated
-  back crop/edit guidance is incomplete (T099/T101).
-- The quote CTA is implemented and can create a snapshot before PNG download,
-  but this flow is not in the original spec/plan intent. T100 must remove it or
-  record an approved amendment before release.
-- Existing T086 (Android/iOS browser evidence), T087 (physical-device FPS) and
-  T091 (IMG.LY owner approval) remain open release gates. No fresh Sanity
-  upload/snapshot lifecycle or hosted analytics network capture was performed
-  in this convergence pass.
+  ./scripts/tests/keychain-*.test.mjs` — **30 passed, 0 failed**.
+- `rtk pnpm lint` passed with existing unrelated `CreativaBreadcrumbs`
+  unused-variable warning and camelcase warnings for analytics event keys.
+- `rtk pnpm build` passed, including static generation and SEO smoke. Next.js
+  reported that `caniuse-lite` data is outdated.
+- `rtk proxy git diff --check` passed after the release documentation update.
 
 ## Server image normalization
 
@@ -44,8 +65,8 @@
 
 ## Open release gates
 
-- Phase 9 convergence tasks T095–T102 must be resolved, verified and reflected
-  in this record before describing the feature as implementation-complete.
+- T086, T087 and T091 remain release gates. Local convergence evidence does not
+  establish native-device performance or owner license approval.
 - ML background removal through IMG.LY remains disabled by default. The package/model/deployment redistribution and production-use license still requires owner verification before public enablement (T091). The local solid black/white die-cut path does not use that package.
 - Initial dependency review: IMG.LY's [`background-removal-js` repository](https://github.com/imgly/background-removal-js) states the software is AGPL; its [web changelog](https://github.com/imgly/background-removal-js/blob/main/packages/web/CHANGELOG.md) records the license change and separation of model data into its own package. The vendor's [production asset guidance](https://github.com/imgly/background-removal-js/blob/main/packages/web/README.md) recommends self-hosting model/WASM assets. This is not an owner-approved license decision; package/model/deployment terms still need review against INUT's intended distribution.
 - Die-cut uses bounded native alpha extraction, pixel-mask union and a revision-aware worker; no contour/union dependency is required by the current implementation. Geometry is a demo outline, not a production-cut guarantee.
@@ -65,8 +86,7 @@
 - Responsive browser smoke: Chrome 157.0.8103.80 passed 320/360/390/430 px portrait, 844 × 390 landscape and 1280 × 800 desktop checks for horizontal overflow, order, focusability, 44 px buttons, 16 px inputs, scrolling and bottom spacing. With local API mocks, a synthetic image also passed die-cut/CORS canvas flow, all six PNG renders and forced WebGL fallback. Evidence: [viewport results](keychain-builder-evidence/browser-viewports.md). No Sanity asset or snapshot was written.
 - At this point in time, local lint/build were recorded as passing and the
   five Node suites were recorded as passing. This superseded statement is
-  intentionally retained as a historical run, not current status: the exact
-  command rerun on 2026-11-20 is 21/23 and must be restored under T095. The
+  intentionally retained as historical evidence, not current status. The
   suites cover upload normalization, synthetic geometry, renderer contracts,
   API validation/fingerprinting and telemetry sanitization; they do not prove
   a live Sanity lifecycle or pixel-perfect browser rendering.

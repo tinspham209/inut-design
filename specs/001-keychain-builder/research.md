@@ -38,9 +38,11 @@
 
 **Rationale:** Three/R3F đã có trong `package.json`. Giới hạn 2D preview DPR, demand rendering, worker và giải phóng tài nguyên giúp mobile; 30 FPS chỉ là mục tiêu phải đo. Việc chạy trên Next 12 phải được xác nhận bằng build/runtime vì vendor chỉ ghi hỗ trợ Next 15. Nếu thiết bị không xử lý được, báo lỗi và giữ config thay vì hứa mọi máy đều chạy.
 
-**Implementation note (2026-11-20):** module 3D lazy và worker contour đã được
-tạo, nhưng toolbar hiện vẫn disable 3D; T096 giữ điều này là implementation gap,
-không thay đổi quyết định trên. Ngoài model IMG.LY bị gate, die-cut còn có
+**Implementation note (2026-11-20):** module 3D lazy, toolbar và WebGL fallback
+đã được bật/kiểm tra. Geometry đang tách cap trước/sau để tránh một opaque
+duplicate cap che mặt đang xem. Tuy vậy, desktop review vẫn thấy frame/artwork
+bị split/offset ở góc nghiêng; T104 ghi nhận enhancement này còn pending, không
+thay đổi quyết định trên. Ngoài model IMG.LY bị gate, die-cut còn có
 local solid black/white background-removal path để phục hồi alpha trước khi
 trace contour. Path local này không thay đổi license gate của IMG.LY.
 
@@ -70,6 +72,7 @@ trace contour. Path local này không thay đổi license gate của IMG.LY.
 - Constitution đã được ratified tại v1.0.0. Convergence 2026-11-20 phát hiện
   verification baseline chưa sạch (T095) và các implementation gaps
   T096–T102; không được claim constitution gate đã pass cho delivery.
-- CTA báo giá hiện lưu snapshot keychain từ Export dialog. Đây là implementation
-  addition chưa có trong spec/plan gốc và cần resolve tại T100, không phải
-  approved research decision.
+- CTA báo giá trước Export và liên kết snapshot đã bị gỡ theo T100; không có
+  amendment nào được thêm vào spec/plan gốc.
+- T104 giữ frame/artwork 3D bị split/offset ở góc nghiêng làm next enhancement;
+  evidence desktop hiện tại không được coi là visual acceptance.
