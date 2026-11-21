@@ -330,7 +330,7 @@ export default function QuoteRequestFormComponent() {
 										<RadioGroup {...field} row>
 											<FormControlLabel value="zalo" control={<Radio />} label="Zalo" />
 											<FormControlLabel value="phone" control={<Radio />} label="Số điện thoại" />
-											<FormControlLabel value="email" control={<Radio />} label="Email" />
+											<FormControlLabel value="email" control={<Radio disabled />} label="Email" />
 											<FormControlLabel value="other" control={<Radio />} label="Khác" />
 										</RadioGroup>
 									)}
@@ -360,7 +360,7 @@ export default function QuoteRequestFormComponent() {
 										<TextField
 											{...field}
 											fullWidth
-											label="Vui lòng nhập nền tảng bạn muốn *"
+											label="Vui lòng nhập link profile của nền tảng *"
 											error={!!errors.receiveQuoteChannelOtherDetail}
 											helperText={errors.receiveQuoteChannelOtherDetail?.message}
 										/>
@@ -630,7 +630,7 @@ export default function QuoteRequestFormComponent() {
 									<TextareaAutosize
 										{...field}
 										minRows={3}
-										placeholder="Nhập ghi chú của bạn..."
+										placeholder="Nhập ghi chú của bạn càng chi tiết INUT báo giá càng nhanh"
 										style={{
 											width: "100%",
 											padding: "12px",
@@ -651,6 +651,9 @@ export default function QuoteRequestFormComponent() {
 									/>
 								)}
 							/>
+							<Typography variant="body2">
+								Nếu muốn báo giá nhiều sản phẩm, vui lòng điền vào ghi chú thêm cho INUT nha
+							</Typography>
 						</Grid>
 
 						{/* Submit Button */}
