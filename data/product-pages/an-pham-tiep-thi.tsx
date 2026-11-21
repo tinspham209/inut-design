@@ -30,7 +30,7 @@ export const IN_CARD_VISIT_DATA: ProductPageData = {
 		description:
 			"Dịch vụ in card visit (danh thiếp) tại Đà Nẵng: thiết kế chuyên nghiệp, in sắc nét, tùy chọn đa dạng chất liệu giấy/nhựa. Gia công mờ, bóng, ép kim sang trọng.",
 		url: "https://inutdesign.com/services/an-pham-tiep-thi/in-card-visit",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/an-pham-tiep-thi/thumbnail/in-card-visit.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -61,7 +61,7 @@ export const IN_CARD_VISIT_DATA: ProductPageData = {
 		title: "In card visit chuyên nghiệp",
 		description:
 			"Thiết kế chỉn chu, in sắc nét và chất liệu cao cấp giúp nâng tầm hình ảnh thương hiệu cá nhân và doanh nghiệp tại Đà Nẵng.",
-		image: HERO_IMAGE,
+		image: `/services/an-pham-tiep-thi/thumbnail/in-card-visit.avif`,
 		chips: ["In offset", "Đa dạng chất liệu"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem portfolio",
@@ -122,12 +122,12 @@ export const IN_CARD_VISIT_DATA: ProductPageData = {
 			{
 				name: "Card visit giấy",
 				description: "Đa dạng giấy Couche, Kraft, Mỹ thuật.",
-				image: "/branding/services/thiet-ke-in-an.avif",
+				image: `/services/an-pham-tiep-thi/in-card-visit/1.avif`,
 			},
 			{
 				name: "Card visit nhựa",
 				description: "Siêu bền, chống nước tuyệt đối.",
-				image: "/branding/services/sticker.avif",
+				image: `/services/an-pham-tiep-thi/in-card-visit/2.avif`,
 			},
 		],
 		specOptions: [
@@ -231,14 +231,9 @@ export const IN_CARD_VISIT_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Mẫu Card Visit đẹp",
 		title: "Dự án tiêu biểu",
-		images: [
-			"/branding/services/thiet-ke-in-an.avif",
-			"/branding/services/sticker.avif",
-			"/branding/services/skin-laptop.avif",
-			"/branding/services/skin-nut-phim.avif",
-			"/branding/services/nhan-chai-san-pham.avif",
-			"/branding/hero-bg.webp",
-		],
+		images: Array.from({ length: 10 }).map(
+			(_, i) => `/services/an-pham-tiep-thi/in-card-visit/${i + 1}.avif`
+		),
 		filters: [],
 	},
 	faq: TIEP_THI_FAQ,
