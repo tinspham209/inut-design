@@ -269,7 +269,7 @@ export const HOP_SAN_PHAM_DATA: ProductPageData = {
 		description:
 			"In hộp sản phẩm bao bì tại Đà Nẵng: hộp mỹ phẩm, hộp quà, hộp thực phẩm, hộp carton in offset. Thiết kế theo thương hiệu, cắt bế chính xác. Báo giá trong 15 phút.",
 		url: "https://inutdesign.com/services/an-pham-bao-bi/hop-san-pham",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/an-pham-bao-bi/thumbnail/hop-san-pham.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -300,7 +300,7 @@ export const HOP_SAN_PHAM_DATA: ProductPageData = {
 		title: "Hộp Sản Phẩm",
 		description:
 			"Hộp là thứ khách cầm trên tay trước khi chạm vào sản phẩm. In đẹp, cứng đúng độ, gấp khớp từng mép — bao bì tốt không chỉ bảo vệ hàng, nó bán hàng thay bạn.",
-		image: HERO_IMAGE,
+		image: `/services/an-pham-bao-bi/thumbnail/hop-san-pham.avif`,
 		chips: ["Thiết kế theo thương hiệu", "Cắt bế chính xác", "Đa dạng chất liệu"],
 		secondaryCtaLabel: "Xem portfolio",
 		ticker: [
@@ -365,25 +365,25 @@ export const HOP_SAN_PHAM_DATA: ProductPageData = {
 				name: "Hộp carton gấp (Folding Box)",
 				description:
 					"Gấp phẳng khi lưu kho, lắp ráp nhanh khi dùng — phổ biến nhất cho mỹ phẩm, thực phẩm, dược phẩm.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-bao-bi/hop-san-pham/1.avif`,
 			},
 			{
 				name: "Hộp cứng cao cấp (Rigid Box)",
 				description:
 					"Carton dày bọc giấy in — không gấp được, sang trọng, dùng cho quà tặng và sản phẩm premium.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-bao-bi/hop-san-pham/2.avif`,
 			},
 			{
 				name: "Hộp có cửa sổ (Window Box)",
 				description:
 					"Mặt trước gắn film PET trong suốt — khách nhìn thấy sản phẩm bên trong mà không cần mở hộp.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-bao-bi/hop-san-pham/3.avif`,
 			},
 			{
 				name: "Hộp kraft tự nhiên",
 				description:
 					"Carton kraftliner nâu mộc in 1–2 màu hoặc in UV — phù hợp thương hiệu organic, handmade, eco.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-bao-bi/hop-san-pham/4.avif`,
 			},
 		],
 	},
