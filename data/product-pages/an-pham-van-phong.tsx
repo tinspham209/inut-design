@@ -454,7 +454,7 @@ export const SO_TAY_DATA: ProductPageData = {
 		description:
 			"Dịch vụ in sổ tay, kỷ yếu, sổ bấm ghim tại Đà Nẵng: thiết kế đẹp, gia công chỉn chu, đa dạng chất liệu. Lưu giữ kỷ niệm, nâng tầm thương hiệu.",
 		url: "https://inutdesign.com/services/an-pham-van-phong/so-tay-ky-yeu-so-bam-ghim",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/an-pham-van-phong/thumbnail/so-tay-so-bam-ghim.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -488,7 +488,7 @@ export const SO_TAY_DATA: ProductPageData = {
 		title: "Sổ Tay & Kỷ Yếu",
 		description:
 			"Sản phẩm ghi chép và lưu giữ kỷ niệm chuyên nghiệp: từ sổ tay quà tặng thương hiệu đến kỷ yếu tập thể sang trọng.",
-		image: HERO_IMAGE,
+		image: `/services/an-pham-van-phong/thumbnail/so-tay-so-bam-ghim.avif`,
 		chips: ["In từ 10 cuốn", "Đa dạng kiểu đóng gáy"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem portfolio",
@@ -546,17 +546,17 @@ export const SO_TAY_DATA: ProductPageData = {
 			{
 				name: "Sổ tay",
 				description: "Đóng lò xo hoặc keo gáy.",
-				image: "/branding/services/thiet-ke-in-an.avif",
+				image: `/services/an-pham-van-phong/so-tay-ky-yeu-so-bam-ghim/1.avif`,
 			},
 			{
 				name: "Kỷ yếu",
 				description: "In ảnh sắc nét, bìa cứng sang trọng.",
-				image: "/branding/services/sticker.avif",
+				image: `/services/an-pham-van-phong/so-tay-ky-yeu-so-bam-ghim/2.avif`,
 			},
 			{
 				name: "Sổ bấm ghim",
 				description: "Gọn nhẹ, tiết kiệm chi phí.",
-				image: "/branding/services/skin-laptop.avif",
+				image: `/services/an-pham-van-phong/so-tay-ky-yeu-so-bam-ghim/3.avif`,
 			},
 		],
 	},
@@ -651,7 +651,9 @@ export const SO_TAY_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Dự án tiêu biểu",
 		title: "Hình ảnh thực tế",
-		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
+		images: Array.from({ length: 10 }).map(
+			(_, i) => `/services/an-pham-van-phong/so-tay-ky-yeu-so-bam-ghim/${i + 1}.avif`
+		),
 		filters: [],
 	},
 	faq: VAN_PHONG_FAQ,
