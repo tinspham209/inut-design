@@ -35,7 +35,7 @@ export const SAN_PHAM_DECOR_DATA: ProductPageData = {
 		description:
 			"Dịch vụ in sản phẩm decor cho nhà hàng, quán cà phê tại Đà Nẵng. Poster, bảng quote, decal dán tường, bảng chỉ dẫn, hashtag decor — thiết kế đẹp, chất liệu đa dạng, giá cạnh tranh.",
 		url: "https://inutdesign.com/services/an-pham-fb/san-pham-decor",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: "/services/an-pham-fb/thumbnail/san-pham-decor.avif",
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -66,7 +66,7 @@ export const SAN_PHAM_DECOR_DATA: ProductPageData = {
 		title: "Sản Phẩm Decor Nhà Hàng & Quán Cà Phê",
 		description:
 			"Không gian đẹp không tự nhiên mà có. Poster, bảng quote, decal dán tường, bảng chỉ dẫn — INUT in sắc nét, đúng chất liệu, đồng bộ với concept quán của bạn.",
-		image: HERO_IMAGE,
+		image: "/services/an-pham-fb/thumbnail/san-pham-decor.avif",
 		chips: ["Thiết kế theo concept", "Đa dạng chất liệu", "Lấy nhanh 3–4 ngày"],
 		secondaryCtaLabel: "Xem portfolio",
 		ticker: [
@@ -130,22 +130,22 @@ export const SAN_PHAM_DECOR_DATA: ProductPageData = {
 			{
 				name: "Poster & Bảng quote",
 				description: "Treo tường, dựng bàn, tạo điểm nhấn cho từng góc quán.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-fb/san-pham-decor/1.avif`,
 			},
 			{
 				name: "Decal dán tường & kính",
 				description: "Trang trí tường, cửa kính, quầy order — gọn, đẹp, dễ thi công.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-fb/san-pham-decor/2.avif`,
 			},
 			{
 				name: "Bảng cứng & Hashtag decor",
 				description: "Formex, mica, gỗ — bảng tên, bảng chỉ dẫn, hashtag check-in cố định.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-fb/san-pham-decor/3.avif`,
 			},
 			{
 				name: "Decor theo concept",
 				description: "Tùy chỉnh hoàn toàn theo phong cách và màu sắc nhận diện của quán.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-fb/san-pham-decor/4.avif`,
 			},
 		],
 	},
@@ -248,7 +248,9 @@ export const SAN_PHAM_DECOR_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Dự án đã thực hiện",
 		title: "Hình ảnh thực tế",
-		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
+		images: Array.from({ length: 7 }).map(
+			(_, i) => `/services/an-pham-fb/san-pham-decor/${i + 1}.avif`
+		),
 		filters: [],
 	},
 	faq: FB_FAQ,
@@ -493,7 +495,7 @@ export const PHIEU_VE_HOA_DON_GTGT_DATA: ProductPageData = {
 		description:
 			"Dịch vụ in phiếu order, vé vào cửa, hóa đơn GTGT tại Đà Nẵng. In số nhảy, mã seri, QR code, đóng quyển liên — thiết kế đẹp, in rõ, gia công chỉn chu. Phù hợp nhà hàng, sự kiện, doanh nghiệp.",
 		url: "https://inutdesign.com/services/an-pham-fb/phieu-ve-hoa-don-gtgt",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/an-pham-fb/thumbnail/phieu-ve-hoa-don-gtgt.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -524,7 +526,7 @@ export const PHIEU_VE_HOA_DON_GTGT_DATA: ProductPageData = {
 		title: "Phiếu, Vé & Hóa Đơn GTGT",
 		description:
 			"Phiếu order, vé vào cửa, hóa đơn GTGT — in số nhảy, đóng quyển liên, tích hợp QR code. Gọn, rõ, đúng nghiệp vụ và sẵn sàng dùng ngay khi nhận hàng.",
-		image: HERO_IMAGE,
+		image: `/services/an-pham-fb/thumbnail/phieu-ve-hoa-don-gtgt.avif`,
 		chips: ["In số nhảy & mã seri", "Đóng quyển liên", "Tích hợp QR code"],
 		secondaryCtaLabel: "Xem portfolio",
 		ticker: [
@@ -588,22 +590,22 @@ export const PHIEU_VE_HOA_DON_GTGT_DATA: ProductPageData = {
 			{
 				name: "Phiếu order & nghiệp vụ",
 				description: "Phiếu gọi món, phiếu thu, phiếu giao nhận, phiếu kiểm kho.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-fb/phieu-ve-hoa-don-gtgt/1.avif`,
 			},
 			{
 				name: "Vé vào cửa & sự kiện",
 				description: "Vé check-in, vé tham quan, vé giữ xe, vé VIP có QR code.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-fb/phieu-ve-hoa-don-gtgt/2.avif`,
 			},
 			{
 				name: "Hóa đơn GTGT",
 				description: "Theo đúng mẫu quy định, đầy đủ thông tin thuế và ký xác nhận.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-fb/phieu-ve-hoa-don-gtgt/3.avif`,
 			},
 			{
 				name: "Phiếu bảo hành & phiếu quà",
 				description: "Phiếu bảo hành sản phẩm, phiếu quà tặng có số seri kiểm soát.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-fb/phieu-ve-hoa-don-gtgt/4.avif`,
 			},
 		],
 	},
@@ -707,7 +709,7 @@ export const PHIEU_VE_HOA_DON_GTGT_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Dự án đã thực hiện",
 		title: "Hình ảnh thực tế",
-		images: Array.from({ length: 8 }).map(
+		images: Array.from({ length: 9 }).map(
 			(_, index) => `/services/an-pham-fb/phieu-ve-hoa-don-gtgt/${index + 1}.avif`
 		),
 		filters: [],
