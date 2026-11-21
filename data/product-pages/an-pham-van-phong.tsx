@@ -666,7 +666,7 @@ export const BANG_CUNG_IN_THONG_TIN_DATA: ProductPageData = {
 		description:
 			"Dịch vụ in bảng cứng in thông tin chuyên nghiệp tại Đà Nẵng: thiết kế đẹp, in sắc nét, chất liệu bền bỉ. Trình bày nội dung rõ ràng, nâng tầm không gian.",
 		url: "https://inutdesign.com/services/an-pham-van-phong/bang-cung-in-thong-tin",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/an-pham-van-phong/thumbnail/bang-cung-in-thong-tin.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -700,7 +700,7 @@ export const BANG_CUNG_IN_THONG_TIN_DATA: ProductPageData = {
 		title: "Bảng Cứng In Thông Tin",
 		description:
 			"Giải pháp trình bày thông tin chuyên nghiệp: từ bảng giá, menu quầy kệ đến bảng hướng dẫn không gian.",
-		image: HERO_IMAGE,
+		image: `/services/an-pham-van-phong/thumbnail/bang-cung-in-thong-tin.avif`,
 		chips: ["In sắc nét", "Bồi cứng bền bỉ"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem mẫu",
@@ -758,22 +758,22 @@ export const BANG_CUNG_IN_THONG_TIN_DATA: ProductPageData = {
 			{
 				name: "Bảng giá",
 				description: "Dùng cho quầy bán lẻ.",
-				image: "/branding/services/nhan-chai-san-pham.avif",
+				image: `/services/an-pham-van-phong/bang-cung-in-thong-tin/1.avif`,
 			},
 			{
 				name: "Bảng menu",
 				description: "Trình bày menu quầy order.",
-				image: "/branding/services/thiet-ke-in-an.avif",
+				image: `/services/an-pham-van-phong/bang-cung-in-thong-tin/2.avif`,
 			},
 			{
 				name: "Bảng hướng dẫn",
 				description: "Điều hướng trong văn phòng.",
-				image: "/branding/services/sticker.avif",
+				image: `/services/an-pham-van-phong/bang-cung-in-thong-tin/3.avif`,
 			},
 			{
 				name: "Bảng thương hiệu",
 				description: "Giữ hình ảnh nhất quán.",
-				image: "/branding/services/skin-laptop.avif",
+				image: `/services/an-pham-van-phong/bang-cung-in-thong-tin/4.avif`,
 			},
 		],
 	},
@@ -868,7 +868,9 @@ export const BANG_CUNG_IN_THONG_TIN_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Sản phẩm thực tế",
 		title: "Hình ảnh thi công",
-		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
+		images: Array.from({ length: 10 }).map(
+			(_, i) => `/services/an-pham-van-phong/bang-cung-in-thong-tin/${i + 1}.avif`
+		),
 		filters: [],
 	},
 	faq: VAN_PHONG_FAQ,
