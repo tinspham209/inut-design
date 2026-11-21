@@ -8,7 +8,7 @@ import { Box, Breadcrumbs, Container, Link as MuiLink, Typography } from "@mui/m
 import Link from "next/link";
 
 const BuilderIndexPage: NextPageWithLayout = () => (
-	<Box component="section" sx={{ bgcolor: COLOR_CODE.INK }} pt={0} pb={4} minHeight="60vh">
+	<Box component="section" sx={{ bgcolor: COLOR_CODE.INK }} pt={4} pb={4} minHeight="60vh">
 		<Seo
 			data={{
 				title: "Công cụ thiết kế trực tuyến - INUT Design",
@@ -19,7 +19,7 @@ const BuilderIndexPage: NextPageWithLayout = () => (
 			}}
 		/>
 		<Container maxWidth="lg">
-			<Breadcrumbs sx={{ mb: 0.5 }}>
+			<Breadcrumbs>
 				<Link href="/" passHref legacyBehavior>
 					<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover">
 						Trang chủ
@@ -27,24 +27,6 @@ const BuilderIndexPage: NextPageWithLayout = () => (
 				</Link>
 				<Typography sx={{ color: COLOR_CODE.WHITE }}>Công cụ thiết kế</Typography>
 			</Breadcrumbs>
-
-			<Box mb={0.5}>
-				<Typography
-					variant="h4"
-					component="h1"
-					fontWeight="800"
-					gutterBottom
-					sx={{ color: COLOR_CODE.WHITE }}
-				>
-					Công cụ thiết kế
-				</Typography>
-				<Typography
-					variant="h6"
-					sx={{ color: COLOR_CODE.TEXT_MUTED, maxWidth: 800, fontWeight: 400 }}
-				>
-					Chọn sản phẩm để bắt đầu tạo mẫu và xem trước thiết kế theo ý tưởng của bạn.
-				</Typography>
-			</Box>
 		</Container>
 		<BuilderPromotion placement="builder_index" />
 	</Box>

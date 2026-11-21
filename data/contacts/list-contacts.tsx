@@ -69,27 +69,27 @@ export const LIST_CONTACTS: ContactItem[] = [
 		link: "https://m.me/INUTdesign1003",
 		trackingType: "messenger" as const,
 		icon: <MessengerIcon />,
-		title: "Nhắn tin tư vấn Messenger",
+		title: "Nhắn tin Messenger",
 		isShowInHomepage: true,
 	},
 	{
 		link: "https://m.me/inutdesign",
 		trackingType: "messenger" as const,
 		icon: <MessengerIcon />,
-		title: "Nhắn tin tư vấn Messenger",
+		title: "Nhắn tin Messenger",
 		isShowInHomepage: false,
 	},
 
-	...[
-		{ label: "Mr TOM", value: "0792359996" },
-		{ label: "Ms BOO", value: "0777208215" },
-	].map((item) => ({
-		link: `https://zalo.me/${item.value}/`,
-		trackingType: "social" as const,
-		icon: <ZaloIcon />,
-		title: `Zalo ${item.label}`,
-		isShowInHomepage: false,
-	})),
+	// ...[
+	// 	{ label: "Mr TOM", value: "0792359996" },
+	// 	{ label: "Ms BOO", value: "0777208215" },
+	// ].map((item) => ({
+	// 	link: `https://zalo.me/${item.value}/`,
+	// 	trackingType: "social" as const,
+	// 	icon: <ZaloIcon />,
+	// 	title: `Zalo ${item.label}`,
+	// 	isShowInHomepage: false,
+	// })),
 
 	...[
 		{ label: "INUT Design", value: "INUTdesign1003", isShowInHomepage: true },
@@ -107,6 +107,26 @@ export const LIST_CONTACTS: ContactItem[] = [
 		title: `Facebook ${item.label}`,
 		isShowInHomepage: item.isShowInHomepage,
 	})),
+
+	...[
+		{ label: "inut_design", value: "inut_design", isShowInHomepage: true },
+		// { label: "inut.studiodn", value: "inut.studiodn", isShowInHomepage: false },
+		// { label: "inut_skin", value: "inut_skin", isShowInHomepage: false },
+		// { label: "inut.gift", value: "inut.gift", isShowInHomepage: false },
+	].map((item) => ({
+		link: `https://www.instagram.com/${item.value}/`,
+		trackingType: "social" as const,
+		icon: (
+			<Instagram
+				sx={{
+					fontSize: 40,
+				}}
+			/>
+		),
+		title: `Instagram @${item.label}`,
+		isShowInHomepage: item.isShowInHomepage,
+	})),
+
 	...[
 		{ label: "@inut.design", value: "@inut.design", isShowInHomepage: false },
 		{
@@ -119,25 +139,6 @@ export const LIST_CONTACTS: ContactItem[] = [
 		trackingType: "social" as const,
 		icon: <TikTokIcon size={40} />,
 		title: `TikTok ${item.label}`,
-		isShowInHomepage: item.isShowInHomepage,
-	})),
-
-	...[
-		{ label: "inut_design", value: "inut_design", isShowInHomepage: true },
-		{ label: "inut.studiodn", value: "inut.studiodn", isShowInHomepage: false },
-		{ label: "inut_skin", value: "inut_skin", isShowInHomepage: false },
-		{ label: "inut.gift", value: "inut.gift", isShowInHomepage: false },
-	].map((item) => ({
-		link: `https://www.instagram.com/${item.value}/`,
-		trackingType: "social" as const,
-		icon: (
-			<Instagram
-				sx={{
-					fontSize: 40,
-				}}
-			/>
-		),
-		title: `Instagram @${item.label}`,
 		isShowInHomepage: item.isShowInHomepage,
 	})),
 ];

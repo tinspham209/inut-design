@@ -213,7 +213,7 @@ export function HeroSection({
 						</Typography>
 
 						{/* CTA row */}
-						<Stack direction="row" spacing={1.25} flexWrap="wrap" useFlexGap>
+						<Stack direction="row" spacing={{ xs: 0.75, sm: 1.25 }} flexWrap={{ xs: "nowrap", sm: "wrap" }} useFlexGap>
 							<Link href={ctaPrimaryHref} passHref legacyBehavior>
 								<Button
 									component="a"
@@ -229,14 +229,16 @@ export function HeroSection({
 									}
 									sx={{
 										fontWeight: 700,
-										fontSize: "14px",
-										letterSpacing: "0.08em",
+										fontSize: { xs: "0.72rem", sm: "14px" },
+										letterSpacing: { xs: "0.04em", sm: "0.08em" },
 										textTransform: "uppercase",
 										bgcolor: C.orange,
 										color: C.cream,
 										borderRadius: "3px",
-										px: 3,
-										py: "13px",
+										minWidth: 0,
+										whiteSpace: "nowrap",
+										px: { xs: 1, sm: 3 },
+										py: { xs: "10px", sm: "13px" },
 										"&:hover": { bgcolor: "#e04400" },
 									}}
 								>
@@ -250,14 +252,16 @@ export function HeroSection({
 									aria-label="Báo giá ngay"
 									sx={{
 										fontWeight: 700,
-										fontSize: "14px",
-										letterSpacing: "0.08em",
+										fontSize: { xs: "0.72rem", sm: "14px" },
+										letterSpacing: { xs: "0.04em", sm: "0.08em" },
 										textTransform: "uppercase",
 										color: C.cream,
 										borderColor: C.ash,
 										borderRadius: "3px",
-										px: "22px",
-										py: "12px",
+										minWidth: 0,
+										whiteSpace: "nowrap",
+										px: { xs: 1, sm: "22px" },
+										py: { xs: "9px", sm: "12px" },
 										"&:hover": {
 											borderColor: C.smoke,
 											bgcolor: "rgba(255,255,255,0.04)",
