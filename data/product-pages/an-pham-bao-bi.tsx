@@ -32,7 +32,7 @@ export const DECAL_NHAN_MAC_DATA: ProductPageData = {
 		description:
 			"In decal nhãn mác bao bì tại Đà Nẵng: nhãn sản phẩm, nhãn chai lọ, tem dán hộp. Cắt theo hình, chống nước, in UV sắc nét. Đặt từ 50 cái — báo giá trong 15 phút.",
 		url: "https://inutdesign.com/services/an-pham-bao-bi/decal-nhan-mac",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/an-pham-bao-bi/thumbnail/decal-nhan-mac.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -63,7 +63,7 @@ export const DECAL_NHAN_MAC_DATA: ProductPageData = {
 		title: "Decal Nhãn Mác",
 		description:
 			"Bao bì không có nhãn là sản phẩm chưa hoàn chỉnh. Nhãn mác in đẹp — đúng màu thương hiệu, bám chắc trên mọi bề mặt, chống nước và không bong tróc khi vận chuyển.",
-		image: HERO_IMAGE,
+		image: `/services/an-pham-bao-bi/thumbnail/decal-nhan-mac.avif`,
 		chips: ["Cắt theo hình tự do", "Chống nước & bền dính", "Đặt từ 50 cái"],
 		secondaryCtaLabel: "Xem portfolio",
 		ticker: [
@@ -128,25 +128,25 @@ export const DECAL_NHAN_MAC_DATA: ProductPageData = {
 				name: "Nhãn giấy Couche / Kraft",
 				description:
 					"In CMYK sắc nét, cán matte hoặc glossy — phù hợp hộp carton, túi giấy, lọ thủy tinh.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-bao-bi/decal-nhan-mac/1.avif`,
 			},
 			{
 				name: "Nhãn PP trong suốt",
 				description:
 					"Dán vào chai lọ tạo hiệu ứng in thẳng lên bề mặt — phổ biến cho mỹ phẩm, thực phẩm, đồ uống.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-bao-bi/decal-nhan-mac/2.avif`,
 			},
 			{
 				name: "Nhãn PET bạc / vàng",
 				description:
 					"Hiệu ứng kim loại cao cấp, chống nước tốt — phù hợp thương hiệu premium, mỹ phẩm, rượu.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-bao-bi/decal-nhan-mac/3.avif`,
 			},
 			{
 				name: "Tem dán hộp bao bì",
 				description:
 					"Tem niêm phong, tem thương hiệu dán hộp ship — bảo vệ sản phẩm và tăng nhận diện khi giao hàng.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-bao-bi/decal-nhan-mac/4.avif`,
 			},
 		],
 	},
@@ -252,7 +252,7 @@ export const DECAL_NHAN_MAC_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Sản phẩm thực tế",
 		title: "Mẫu nhãn mác đã in",
-		images: Array.from({ length: 8 }).map(
+		images: Array.from({ length: 10 }).map(
 			(_, index) => `/services/an-pham-bao-bi/decal-nhan-mac/${index + 1}.avif`
 		),
 		filters: [],
