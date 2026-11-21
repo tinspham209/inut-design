@@ -238,7 +238,7 @@ export const IN_BI_THU_DATA: ProductPageData = {
 		description:
 			"Dịch vụ in bì thư (bao thư) chất lượng cao cho doanh nghiệp. Đầy đủ các kích thước A4, A5, A6. Thiết kế chuyên nghiệp, in sắc nét, giá cả cạnh tranh.",
 		url: "https://inutdesign.com/services/an-pham-van-phong/in-bi-thu",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/an-pham-van-phong/thumbnail/bi-thu.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -269,7 +269,7 @@ export const IN_BI_THU_DATA: ProductPageData = {
 		title: "In Bì Thư Doanh Nghiệp",
 		description:
 			"Xây dựng bộ nhận diện thương hiệu chuyên nghiệp ngay từ những chi tiết nhỏ nhất. Bì thư in sắc nét, chất liệu giấy tốt giúp bảo vệ tài liệu và tạo ấn tượng tốt với đối tác.",
-		image: HERO_IMAGE,
+		image: `/services/an-pham-van-phong/thumbnail/bi-thu.avif`,
 		chips: ["Thiết kế đồng bộ", "In sắc nét"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem portfolio",
@@ -330,17 +330,17 @@ export const IN_BI_THU_DATA: ProductPageData = {
 			{
 				name: "Bì thư A4",
 				description: "Đựng tài liệu, hợp đồng khổ A4.",
-				image: "/branding/services/thiet-ke-in-an.avif",
+				image: `/services/an-pham-van-phong/in-bi-thu/1.avif`,
 			},
 			{
 				name: "Bì thư A5",
 				description: "Đựng hóa đơn, thư mời khổ A5.",
-				image: "/branding/services/sticker.avif",
+				image: `/services/an-pham-van-phong/in-bi-thu/2.avif`,
 			},
 			{
 				name: "Bì thư A6",
 				description: "Chuyên dùng cho thư ngỏ, thiệp.",
-				image: "/branding/services/skin-laptop.avif",
+				image: `/services/an-pham-van-phong/in-bi-thu/3.avif`,
 			},
 		],
 	},
@@ -435,7 +435,9 @@ export const IN_BI_THU_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Mẫu bì thư thực tế",
 		title: "Thư viện dự án",
-		images: Array.from({ length: 8 }).map(() => HERO_IMAGE),
+		images: Array.from({ length: 10 }).map(
+			(_, i) => `/services/an-pham-van-phong/in-bi-thu/${i + 1}.avif`
+		),
 		filters: [],
 	},
 	faq: VAN_PHONG_FAQ,
