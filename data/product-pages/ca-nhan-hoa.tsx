@@ -39,7 +39,8 @@ export const SKIN_LAPTOP_DATA: ProductPageData = {
 		description:
 			"Dịch vụ in Skin Laptop theo yêu cầu. Decal 3M cao cấp, in UV sắc nét, cắt CNC chuẩn xác 99% cho mọi dòng máy như Macbook, Dell, HP, Asus...",
 		url: "https://inutdesign.com/services/ca-nhan-hoa/skin-laptop-customize",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl:
+			"https://cdn.sanity.io/images/soud11bs/production/4846e038f2fe54ea6e3de137c0fe47f06c2d08db-1200x630.jpg",
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -70,7 +71,8 @@ export const SKIN_LAPTOP_DATA: ProductPageData = {
 		title: "Skin Laptop Custom",
 		description:
 			"Dịch vụ in Skin Laptop theo yêu cầu. Decal 3M cao cấp, in UV sắc nét, cắt CNC chuẩn xác 99% cho mọi dòng máy.",
-		image: HERO_IMAGE,
+		image:
+			"https://cdn.sanity.io/images/soud11bs/production/4846e038f2fe54ea6e3de137c0fe47f06c2d08db-1200x630.jpg",
 		chips: ["Decal 3M cao cấp", "In UV sắc nét", "Cắt CNC chuẩn xác"],
 		ticker: [
 			"Decal 3M Cao Cấp",
@@ -208,6 +210,21 @@ export const SKIN_LAPTOP_DATA: ProductPageData = {
 	faq: CA_NHAN_HOA_FAQ,
 };
 
+const SKIN_NUT_PHIM_IMAGES = [
+	"https://cdn.sanity.io/images/soud11bs/production/31f5c4023d3acd9e9157853892a760fc6a1a887a-1000x1000.jpg?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/8be7e8316b9023c6e394f93581baec99ad41fc33-900x900.png?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/1c5f7b8ce757e1b858311c8e98a5e1fd271e7890-1000x1000.png?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/7bb66e864193abffde069262d87a95b6cd884560-3750x3751.jpg?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/5a0170a884a2c4afd85f8e93400fd38805bfc507-1000x1000.png?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/988f98a0c8fdb4d871406088d412d06b2803953e-1000x1000.jpg?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/b1ebb455918674a094031afc519c8f41fc3f87aa-900x900.png?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/7cc8d8817401a0746aea9f4cedd55b275c133df6-3751x3750.jpg?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/6afbe3c11926076e396b3b77c7f99756d5cf3a30-1667x1667.jpg?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/f874277ca6546acc77dd347cbf1d7f08d8ceb492-900x900.png?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/6ea81f31b5283d34e28b391df448f31c6b2fa5b5-1000x1000.jpg?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/13a50e64d999de5f88388dbd9039dfb2a913612e-1000x1000.jpg?w=1400&q=85&fit=max&auto=format",
+];
+
 export const SKIN_NUT_PHIM_DATA: ProductPageData = {
 	id: "macnut-customize",
 	name: "Skin Nút Phím",
@@ -217,7 +234,8 @@ export const SKIN_NUT_PHIM_DATA: ProductPageData = {
 		description:
 			"Dịch vụ in Skin nút phím cho laptop chuẩn xác mọi dòng máy. Cắt CNC rời từng phím, mỏng mịn, chống phai màu và bảo vệ phím bấm vượt trội.",
 		url: "https://inutdesign.com/services/ca-nhan-hoa/skin-nut-phim-customize",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl:
+			"https://cdn.sanity.io/images/soud11bs/production/b2be971a356214d16ddfceafc7b16f17f270a1ea-1200x630.jpg",
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -248,7 +266,8 @@ export const SKIN_NUT_PHIM_DATA: ProductPageData = {
 		title: "Skin Nút Phím Custom",
 		description:
 			"Dịch vụ in Skin nút phím cho laptop chuẩn xác mọi dòng máy. Cắt CNC rời từng phím, mỏng mịn, chống phai màu.",
-		image: HERO_IMAGE,
+		image:
+			"https://cdn.sanity.io/images/soud11bs/production/b2be971a356214d16ddfceafc7b16f17f270a1ea-1200x630.jpg",
 		chips: ["Cắt CNC chuẩn 99%", "Mỏng mịn", "Chống phai màu"],
 		ticker: [
 			"Skin Nút Phím",
@@ -311,24 +330,24 @@ export const SKIN_NUT_PHIM_DATA: ProductPageData = {
 				name: "Decal Phím Cán Mờ (Matte)",
 				description:
 					"Phủ thêm lớp nhám mịn cho phím, chống bám dấu vân tay và mồ hôi cực kỳ hiệu quả",
-				image: HERO_IMAGE,
+				image: SKIN_NUT_PHIM_IMAGES[1],
 			},
 			{
 				name: "Decal Phím Xuyên Led",
 				description:
 					"Cắt hở phần ký tự, thích hợp sử dụng trong bóng tối, tôn lên vẻ đẹp nguyên bản",
-				image: HERO_IMAGE,
+				image: SKIN_NUT_PHIM_IMAGES[2],
 			},
 			{
 				name: "Decal Set Phím Lẻ",
 				description:
 					"Chỉ in và dán một số phím thông dụng (Space, W A S D) theo ý định gaming, làm việc",
-				image: HERO_IMAGE,
+				image: SKIN_NUT_PHIM_IMAGES[3],
 			},
 			{
 				name: "Decal Gradient Collection",
 				description: "Mẫu bộ sưu tập chuyển màu theo phong cách ombre mượt mà, rực rỡ",
-				image: HERO_IMAGE,
+				image: SKIN_NUT_PHIM_IMAGES[4],
 			},
 		],
 		specOptions: [
@@ -381,7 +400,7 @@ export const SKIN_NUT_PHIM_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Dự án",
 		title: "Hình ảnh thực tế",
-		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
+		images: SKIN_NUT_PHIM_IMAGES,
 		filters: [],
 	},
 	faq: CA_NHAN_HOA_FAQ,
