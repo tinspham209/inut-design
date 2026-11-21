@@ -6,7 +6,7 @@ export type ImageFace = { image?: { _type: "image"; asset: { _ref: string; _type
 export type KeychainConfig = {
 	version: 1; ringId: string; shape: ShapeConfig; sizeCm: number; acrylicId: AcrylicId; cutBorderPx?: number;
 	printSides: 1 | 2; backMode: BackMode; front: ImageFace; backCustom?: ImageFace;
-	material: { edge: string; thicknessMm: number; sheen: number };
+	material: { thicknessMm: number };
 };
 export type KeychainGeometry = { cutPath: string; printPath: string; viewBox: [number, number, number, number]; hole: { cx: number; cy: number; radiusMm: 2 }; anchor: { x: number; y: number }; revision: number };
 export type KeychainApiError = { error: string };

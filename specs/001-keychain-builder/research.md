@@ -42,7 +42,10 @@
 đã được bật/kiểm tra. Geometry đang tách cap trước/sau để tránh một opaque
 duplicate cap che mặt đang xem. Tuy vậy, desktop review vẫn thấy frame/artwork
 bị split/offset ở góc nghiêng; T104 ghi nhận enhancement này còn pending, không
-thay đổi quyết định trên. Ngoài model IMG.LY bị gate, die-cut còn có
+thay đổi quyết định trên. Yêu cầu người dùng bổ sung cho 3D là giữ map riêng
+cho cả hai mặt, ẩn toggle mặt trong 3D, để các mode mặt sau điều khiển mặt sau
+vật lý và dùng chung toolbar 2D cho transform `backCustom`; T105–T108 được
+implement và kiểm chứng bằng regression/browser evidence 2026-11-21. Ngoài model IMG.LY bị gate, die-cut còn có
 local solid black/white background-removal path để phục hồi alpha trước khi
 trace contour. Path local này không thay đổi license gate của IMG.LY.
 
@@ -76,3 +79,6 @@ trace contour. Path local này không thay đổi license gate của IMG.LY.
   amendment nào được thêm vào spec/plan gốc.
 - T104 giữ frame/artwork 3D bị split/offset ở góc nghiêng làm next enhancement;
   evidence desktop hiện tại không được coi là visual acceptance.
+- T105–T108 đã hoàn tất với test/browser evidence desktop 2026-11-21; xem
+  `docs/keychain-builder-evidence/browser-viewports.md`. Upload API được mock;
+  Sanity lifecycle và backend snapshot không được kiểm chứng.

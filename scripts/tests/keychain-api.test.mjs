@@ -47,7 +47,7 @@ test("snapshot retries are immutable, conflicting payloads fail, and direct read
 		},
 	};
 	const requestId = "bf9ab3f4-64b2-4f1c-b66d-0a272c7cce6d";
-	const config = { version: 1, material: { edge: "polished", thicknessMm: 5, sheen: 0.9 }, front: { image: { _type: "image", asset: { _type: "reference", _ref: "image-a1b2c3-64x64-png" } } } };
+	const config = { version: 1, material: { thicknessMm: 5 }, front: { image: { _type: "image", asset: { _type: "reference", _ref: "image-a1b2c3-64x64-png" } } } };
 	const digest = createKeychainRequestFingerprint(config);
 	assert.equal((await saveSnapshotIdempotently(requestId, config, digest, repository)).status, "created");
 	assert.equal((await saveSnapshotIdempotently(requestId, config, digest, repository)).status, "replay");

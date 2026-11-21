@@ -3,6 +3,7 @@ import { Alert, Box, Button, Container, Paper, Snackbar, Stack, Typography } fro
 import { useRouter } from "next/router";
 import { FRAMES } from "@/data/keychain/catalog";
 import { Preview2D } from "@/components/keychain-builder/preview/Preview2D";
+import { Preview3DLoading } from "@/components/keychain-builder/preview/Preview3DLoading";
 import { useKeychainState } from "@/components/keychain-builder/hooks/useKeychainState";
 import { useImageUpload } from "@/components/keychain-builder/hooks/useImageUpload";
 import { useBackImage } from "@/components/keychain-builder/hooks/useBackImage";
@@ -37,7 +38,7 @@ import dynamic from "next/dynamic";
 const LazyPreview3D = dynamic(
 	() =>
 		import("@/components/keychain-builder/preview/Preview3D").then((module) => module.Preview3D),
-	{ ssr: false, loading: () => <Typography role="status">Đang tải bộ dựng 3D…</Typography> }
+	{ ssr: false, loading: () => <Preview3DLoading /> }
 );
 const defaultImageTransform = { xMm: 0, yMm: 0, scale: 1, rotation: 0, flipX: false };
 
@@ -493,8 +494,8 @@ export function KeychainBuilder() {
 							sx={{
 								position: { md: "relative" },
 								top: 0,
-								minHeight: { xs: 360, md: 0 },
-								height: { md: "100%" },
+							minHeight: { xs: "60vh", md: 0 },
+							height: { xs: "60vh", md: "100%" },
 								display: "flex",
 								flexDirection: "column",
 								overflow: "hidden",
@@ -529,14 +530,7 @@ export function KeychainBuilder() {
 								<LazyPreview3D
 									config={config}
 									view={session.view}
-									dispatch={(action) => {
-										dispatch(action);
-										if (action.type === "set-view")
-											trackKeychainAction("keychain_view_change", {
-												mode: "3d",
-												side: action.view,
-											});
-									}}
+									dispatch={dispatch}
 									onNotify={notifyPreviewError}
 									frameOverride={frameOverride}
 									geometryStatus={dieCut.status}
@@ -635,8 +629,6 @@ export function KeychainBuilder() {
 										});
 									}}
 									onUpload={onBackImage}
-					onTransform={(transform) => config.backCustom && dispatch({ type: "set-face", face: "backCustom", value: { ...config.backCustom, transform } })}
-					onReset={() => config.backCustom && dispatch({ type: "set-face", face: "backCustom", value: { ...config.backCustom, transform: defaultImageTransform } })}
 					onDiscard={removeBackImage}
 								/>
 								{config.backCustom?.url && (

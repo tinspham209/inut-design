@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { FRAMES, RINGS } from "@/data/keychain/catalog";
 import type { KeychainAction, KeychainConfig } from "../types";
@@ -7,6 +7,7 @@ import { loadSanityImage } from "../image/loadSanityImage";
 import { renderKeychain2d, type ConnectorAssets } from "../render/render2d";
 import type { DieCutStatus } from "../hooks/useDieCutGeometry";
 import { getFaceImageUrl } from "../image/imageFace";
+import { PreviewToolbar } from "./PreviewToolbar";
 
 type Props = {
 	config: KeychainConfig;
@@ -193,14 +194,21 @@ export function Preview2D({
 		if (value)
 			dispatch({ type: "set-face", face, value: { ...value, transform: update(value.transform) } });
 	};
+	const artworkLabel = view === "back" && config.backMode === "custom" ? "ảnh mặt sau" : "ảnh in";
+	const updateArtworkRotation = () => updateTransform((transform) => ({ ...transform, rotation: (transform.rotation + 90) % 360 }));
+	const updateArtworkFlip = () => updateTransform((transform) => ({ ...transform, flipX: !transform.flipX }));
+	const zoomArtworkOut = () => updateTransform((transform) => ({ ...transform, scale: Math.max(0.25, transform.scale / 1.1) }));
+	const zoomArtworkIn = () => updateTransform((transform) => ({ ...transform, scale: Math.min(12, transform.scale * 1.1) }));
+	const resetArtwork = () => updateTransform(() => ({ xMm: 0, yMm: 0, scale: 1, rotation: 0, flipX: false }));
 	return (
 		<Stack
-			spacing={1}
+			spacing={0.5}
 			sx={{
 				width: "100%",
-				height: { md: "100%" },
-				flex: { md: 1 },
+				height: "100%",
+				flex: 1,
 				minHeight: 0,
+				minWidth: 0,
 				...(fullScreen
 					? {
 							position: "fixed",
@@ -214,24 +222,34 @@ export function Preview2D({
 			}}
 		>
 			<Stack
+				className="keychain-preview-header"
 				direction="row"
 				spacing={0.5}
 				alignItems="center"
 				justifyContent="space-between"
 				flexWrap="nowrap"
 				sx={{
-						height: { xs: 48, md: 32 },
-						minHeight: { xs: 48, md: 32 },
-						maxHeight: { xs: 48, md: 32 },
-						flex: { xs: "0 0 48px", md: "0 0 32px" },
+					height: 32,
+					minHeight: 32,
+					maxHeight: 32,
+					flex: "0 0 32px",
+					minWidth: 0,
 					overflow: "hidden",
-						"& .MuiButton-root": { height: { xs: 44, md: 28 }, minHeight: { xs: 44, md: 28 }, maxHeight: { xs: 44, md: 28 }, py: 0, flexShrink: 0 },
+					"&& .MuiButton-root": { height: 28, minHeight: 28, maxHeight: 28, minWidth: 32, px: 0.5, py: 0, flexShrink: 0 },
 				}}
 			>
 				<Stack
 					direction="row"
-					spacing={0.5}
-					sx={{ p: 0, bgcolor: "#22232a", border: "1px solid #36373e", borderRadius: 1.25 }}
+					spacing={0.25}
+					sx={{
+						flex: { xs: "1 1 auto", md: "0 0 auto" },
+						minWidth: 0,
+						maxWidth: "100%",
+						p: 0,
+						bgcolor: "#22232a",
+						border: "1px solid #36373e",
+						borderRadius: 1.25,
+					}}
 				>
 					{(["front", "back"] as const).map((face) => (
 						<Button
@@ -241,9 +259,11 @@ export function Preview2D({
 							variant={view === face ? "contained" : "text"}
 							onClick={() => dispatch({ type: "set-view", view: face })}
 							sx={{
-							height: { xs: 44, md: 28 },
-							minHeight: { xs: 44, md: 28 },
-								px: { xs: 1, md: 1 },
+								flex: { xs: 1, md: "0 0 auto" },
+								minWidth: 0,
+								px: { xs: 0.5, md: 1 },
+								fontSize: { xs: 11, md: 13 },
+								whiteSpace: "nowrap",
 								lineHeight: 1,
 								borderRadius: "12px",
 								bgcolor: view === face ? "#f47a28" : "transparent",
@@ -255,20 +275,12 @@ export function Preview2D({
 						</Button>
 					))}
 				</Stack>
-				<Stack direction="row" spacing={0.25}>
+				<Stack direction="row" spacing={0.25} flexShrink={0}>
 					<Button
 						size="small"
 						variant="outlined"
 						aria-current="true"
-						sx={{
-								height: { xs: 44, md: 28 },
-								minHeight: { xs: 44, md: 28 },
-								minWidth: { xs: 44, md: 36 },
-							borderColor: "#45464e",
-							borderRadius: "12px",
-
-							color: "#c5c6ce",
-						}}
+						sx={{ color: "#c5c6ce", borderColor: "#45464e", borderRadius: "10px" }}
 					>
 						2D
 					</Button>
@@ -277,12 +289,7 @@ export function Preview2D({
 							size="small"
 							onClick={on3D}
 							aria-label="Xem 3D"
-							sx={{
-								height: { xs: 44, md: 28 },
-								minHeight: { xs: 44, md: 28 },
-								minWidth: { xs: 44, md: 36 },
-								color: "#c5c6ce",
-							}}
+							sx={{ color: "#c5c6ce", borderRadius: "10px" }}
 						>
 							3D
 						</Button>
@@ -293,111 +300,21 @@ export function Preview2D({
 				direction={{ xs: "column", md: "row" }}
 				spacing={{ xs: 0.5, md: 0.5 }}
 				alignItems="stretch"
-				sx={{ minHeight: { xs: 300, md: 0 }, flex: 1, minWidth: 0 }}
+				sx={{ minHeight: 0, flex: 1, minWidth: 0 }}
 			>
-				<Stack
-					direction={{ xs: "row", md: "column" }}
-					spacing={0.35}
-					sx={{
-						width: { xs: "100%", md: 32 },
-						flex: { xs: "0 0 auto", md: "0 0 32px" },
-						py: { xs: 0, md: 0.25 },
-						"& .MuiButton-root": {
-							width: { xs: 44, md: 32 },
-							minWidth: { xs: 44, md: 32 },
-							height: { xs: 44, md: 32 },
-							minHeight: { xs: 44, md: 32 },
-							maxHeight: { xs: 44, md: 32 },
-							py: 0,
-							flexShrink: 0,
-						},
-					}}
-				>
-					{[
-						{
-							label: "Xoay ảnh 90°",
-							icon: "↻",
-							action: () => updateTransform((t) => ({ ...t, rotation: (t.rotation + 90) % 360 })),
-						},
-						{
-							label: "Lật ngang",
-							icon: "⇋",
-							action: () => updateTransform((t) => ({ ...t, flipX: !t.flipX })),
-						},
-						{
-							label: "Thu nhỏ ảnh",
-							icon: "−",
-							action: () =>
-								updateTransform((t) => ({ ...t, scale: Math.max(0.25, t.scale / 1.1) })),
-						},
-						{
-							label: "Phóng to ảnh",
-							icon: "+",
-							action: () => updateTransform((t) => ({ ...t, scale: Math.min(12, t.scale * 1.1) })),
-						},
-						{
-							label: "Thu nhỏ toàn bộ keychain",
-							icon: "⊖",
-							separatorBefore: true,
-							action: () => setKeychainZoom((zoom) => Math.max(0.5, zoom / 1.1)),
-						},
-						{
-							label: "Phóng to toàn bộ keychain",
-							icon: "⊕",
-							action: () => setKeychainZoom((zoom) => Math.min(2.5, zoom * 1.1)),
-						},
-						{
-							label: "Đặt lại ảnh",
-							icon: "⟲",
-							action: () => {
-								setKeychainZoom(1);
-								updateTransform(() => ({ xMm: 0, yMm: 0, scale: 1, rotation: 0, flipX: false }));
-							},
-						},
-						{
-							label: fullScreen ? "Thoát toàn màn hình" : "Toàn màn hình",
-							icon: fullScreen ? "⊡" : "⛶",
-							action: () => setFullScreen((current) => !current),
-						},
-					].map((tool) => (
-						<Fragment key={tool.label}>
-							{"separatorBefore" in tool && tool.separatorBefore && (
-								<Box
-									key={`${tool.label}-separator`}
-									aria-hidden="true"
-									sx={{
-										width: { xs: "1px", md: 22 },
-										height: { xs: 28, md: "1px" },
-										alignSelf: "center",
-										flexShrink: 0,
-										bgcolor: "#45464e",
-									}}
-								/>
-							)}
-							<Button
-								title={tool.label}
-								aria-label={tool.label}
-								onClick={tool.action}
-								sx={{
-									width: 32,
-									minWidth: 32,
-									height: 32,
-									minHeight: 32,
-									p: 0,
-									color: "#c5c6ce",
-									border: "1px solid #34353d",
-									bgcolor: "#22232a",
-									borderRadius: 1,
-									fontSize: 14,
-								}}
-							>
-								<Box component="span" sx={{ display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 20, lineHeight: 1 }}>
-									{tool.icon}
-								</Box>
-							</Button>
-						</Fragment>
-					))}
-				</Stack>
+				<PreviewToolbar
+					artworkLabel={artworkLabel}
+					fullScreen={fullScreen}
+					onArtworkRotate={updateArtworkRotation}
+					onArtworkFlip={updateArtworkFlip}
+					onArtworkZoomOut={zoomArtworkOut}
+					onArtworkZoomIn={zoomArtworkIn}
+					onArtworkReset={resetArtwork}
+					onViewZoomOut={() => setKeychainZoom((zoom) => Math.max(0.5, zoom / 1.1))}
+					onViewZoomIn={() => setKeychainZoom((zoom) => Math.min(2.5, zoom * 1.1))}
+					onViewReset={() => setKeychainZoom(1)}
+					onFullScreenToggle={() => setFullScreen((current) => !current)}
+				/>
 				<Box
 					ref={stageRef}
 					sx={{
@@ -405,8 +322,8 @@ export function Preview2D({
 						flex: 1,
 						placeItems: "center",
 						minWidth: 0,
-						minHeight: { xs: 260, md: 0 },
-						height: { xs: "auto", md: "100%" },
+						minHeight: 0,
+						height: "100%",
 						overflow: "hidden",
 						position: "relative",
 						border: "1px solid #2d2e35",

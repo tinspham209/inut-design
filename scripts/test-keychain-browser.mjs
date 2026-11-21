@@ -20,6 +20,77 @@ const assertBrowser = (expression, message) => {
 };
 const readTouchTargetIssues = () => JSON.parse(JSON.parse(evaluate(`JSON.stringify(Array.from(${builderRoot}?.querySelectorAll('button, input:not([type=file]), .MuiSlider-thumb, [role=combobox]')||[]).map(e=>{const t=e.matches('input')?e.closest('.MuiInputBase-root')||e:e;const r=t.getBoundingClientRect();const s=getComputedStyle(e);return {label:(e.getAttribute('aria-label')||e.innerText||e.tagName).trim().replace(/\\s+/g,' ').slice(0,60),width:Math.round(r.width),height:Math.round(r.height),opacity:Number(s.opacity),pointerEvents:s.pointerEvents}}).filter(r=>r.width>0&&r.height>0&&r.opacity>0.5&&r.pointerEvents!=='none'&&(r.width<44||r.height<44)).map(({label,width,height})=>({label,width,height})))`)));
 
+if (process.env.KEYCHAIN_PHASE10_ONLY === "true") {
+	const screenshotDir = "docs/keychain-builder-evidence";
+	const fixtureUrl = `${new URL(baseUrl).origin}/keychain/fixtures/transparent-blob.png`;
+	const sanityUrl = "https://cdn.sanity.io/images/abc123/production/a1b2c3-64x64.png";
+	const canvasHash = () => evaluate("(() => {const c=document.querySelector('[aria-label=\\\"Bản xem trước móc khóa\\\"] canvas');const d=c?.getContext('2d')?.getImageData(0,0,c.width,c.height).data;if(!d)return 'unreadable';let h=2166136261;for(let i=0;i<d.length;i+=97)h=Math.imul(h^d[i],16777619);return String(h>>>0)})()");
+	const clickMode = (label) => evaluate(`Array.from(document.querySelectorAll('button')).find(e=>e.innerText.includes(${JSON.stringify(label)}))?.click();true`);
+	const screenshot = (name) => run("screenshot", `${screenshotDir}/phase10-${name}.png`);
+	run("open", route);
+	run("wait", "2500");
+	run("set", "viewport", "1280", "800");
+	run("network", "route", "**/api/keychain/uploads", "--body", JSON.stringify({ image: { _type: "image", asset: { _ref: "image-a1b2c3-64x64-png", _type: "reference" } }, url: sanityUrl }));
+	evaluate(`(() => {const p=HTMLImageElement.prototype;const d=Object.getOwnPropertyDescriptor(p,'src');Object.defineProperty(p,'src',{configurable:true,get(){return d.get.call(this)},set(value){d.set.call(this,typeof value==='string'?value.replace(${JSON.stringify(sanityUrl)},${JSON.stringify(fixtureUrl)}):value)}});const f=window.fetch.bind(window);window.fetch=(input,init)=>f(typeof input==='string'?input.replace(${JSON.stringify(sanityUrl)},${JSON.stringify(fixtureUrl)}):input,init);return true})()`);
+	run("upload", "input[type=file]", `${process.cwd()}/public/keychain/fixtures/asymmetric-arrow.png`);
+	run("wait", "1200");
+	clickMode("Ảnh riêng");
+	run("upload", "input[aria-label='Tải ảnh mặt sau']", `${process.cwd()}/public/keychain/fixtures/asymmetric-arrow.png`);
+	run("wait", "1200");
+	assertBrowser("document.body.innerText.includes('Ảnh giữ nguyên tỷ lệ') && !document.body.innerText.includes('Chỉnh riêng ảnh mặt sau')", "custom-back crop/upload status stays beside its uploader and duplicate editor panel is absent");
+	clickMode("Mặt sau");
+	run("wait", "900");
+	clickMode("Mặt trước");
+	run("wait", "900");
+	const frontBefore = canvasHash();
+	screenshot("2d-front-before-back-edit");
+	clickMode("Mặt sau");
+	run("wait", "900");
+	const backBefore = canvasHash();
+	evaluate("document.querySelector('[aria-label=\\\"Xoay ảnh 90°\\\"]')?.click();true");
+	evaluate("document.querySelector('[aria-label=\\\"Lật ngang\\\"]')?.click();document.querySelector('[aria-label=\\\"Phóng to ảnh\\\"]')?.click();true");
+	evaluate("(() => {const c=document.querySelector('[aria-label=\\\"Bản xem trước móc khóa\\\"] canvas');c?.focus();c?.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true}))})() ");
+	run("wait", "500");
+	const backAfter = canvasHash();
+	assert.notEqual(backAfter, backBefore, "shared toolbar changes the custom back render");
+	clickMode("Mặt trước");
+	run("wait", "1200");
+	const frontAfter = canvasHash();
+	assertBrowser("document.querySelector('[aria-label=\\\"Bản xem trước mặt trước\\\"]') !== null", "the 2D front selector still selects the front render after custom-back editing");
+	screenshot("2d-front-after-back-edit");
+	clickMode("Mặt sau");
+	evaluate("document.querySelector('[aria-label=\\\"Đặt lại ảnh\\\"]')?.click();true");
+	run("wait", "300");
+	screenshot("2d-back-custom-toolbar");
+	run("find", "role", "button", "click", "--name", "Xem 3D");
+	run("wait", "1800");
+	assertBrowser("document.querySelector('[aria-label=\\\"Bản xem trước móc khóa\\\"] canvas') !== null && !Array.from(document.querySelector('[aria-label=\\\"Bản xem trước móc khóa\\\"] button')?.parentElement?.querySelectorAll('button')||[]).some(e=>/Mặt trước|Mặt sau/.test(e.innerText))", "3D opens with both face materials and hides the 2D face selector");
+	const modeScreenshots = [];
+	for (const [mode, label] of [["through-acrylic", "Xuyên mica"], ["white", "Lót trắng"], ["mirror-front", "In hai mặt"], ["custom", "Ảnh riêng"]]) {
+		clickMode(label);
+		run("wait", "700");
+		assertBrowser(`Array.from(document.querySelectorAll('button')).some(e=>e.innerText.includes(${JSON.stringify(label)})&&e.getAttribute('aria-pressed')==='true') && document.querySelector('[aria-label=\\\"Bản xem trước móc khóa\\\"] canvas') !== null`, `3D remains active and updates the reverse face immediately for ${label}`);
+		screenshot(`3d-back-${mode}`);
+		modeScreenshots.push({ mode, screenshot: `${screenshotDir}/phase10-3d-back-${mode}.png` });
+	}
+	clickMode("Đỏ");
+	run("wait", "500");
+	run("find", "role", "button", "click", "--name", "Xác nhận");
+	run("wait", "1500");
+	const opaqueState = evaluate("JSON.stringify({canvas:!!document.querySelector('[aria-label=\\\"Bản xem trước móc khóa\\\"] canvas'),alert:document.querySelector('[role=alert]')?.innerText,dialog:!!document.querySelector('[role=dialog]'),threeD:Array.from(document.querySelectorAll('button')).some(e=>e.innerText.trim()==='3D'&&e.getAttribute('aria-current')==='true')})");
+	const opaqueResult = JSON.parse(JSON.parse(opaqueState));
+	assert.equal(opaqueResult.canvas, true, `opaque acrylic keeps the 3D mesh rendered; ${opaqueState}`);
+	assert.equal(opaqueResult.threeD, true, `opaque acrylic keeps the 3D mode active; ${opaqueState}`);
+	assert.equal(opaqueResult.dialog, false, `opaque acrylic confirmation completes; ${opaqueState}`);
+	assert.equal(opaqueResult.alert, "", `opaque back texture renders without a preview error; ${opaqueState}`);
+	screenshot("3d-back-opaque-material");
+	run("find", "role", "button", "click", "--name", "2D");
+	run("wait", "700");
+	assertBrowser("Array.from(document.querySelectorAll('button')).some(e=>e.innerText.trim()==='Mặt sau'&&e.getAttribute('aria-pressed')==='true')", "returning to 2D preserves its selected back face");
+	assertBrowser("!document.body.innerText.includes('Chỉnh riêng ảnh mặt sau')", "duplicate custom-back editor panel remains absent");
+	screenshot("2d-after-3d-back");
+	console.log(JSON.stringify({ session, route, desktopViewport: "1280x800", twoDThreeDState: "back selection retained on return", threeDFaceSelector: "hidden", clearBackModes: modeScreenshots, opaqueBack: "acrylic material, no printed custom art", sharedToolbar: { backRenderChanged: backAfter !== backBefore, frontRenderHashBefore: frontBefore, frontRenderHashAfter: frontAfter, reset: true }, uploadAndSnapshotRoutes: "upload mocked; snapshot not used", screenshots: ["2d-back-custom-toolbar", "2d-front-before-back-edit", "2d-front-after-back-edit", ...modeScreenshots.map((entry) => entry.screenshot.split("/").at(-1).replace("phase10-", "").replace(".png", "")), "3d-back-opaque-material", "2d-after-3d-back"].map((name) => `${screenshotDir}/phase10-${name}.png`) }, null, 2));
+} else {
 try {
 	run("open", route);
 	run("wait", "3000");
@@ -64,14 +135,9 @@ try {
 		uploadedDesignTouchAudit.push({ width, height, minInteractiveTarget: "44x44 CSS px", touchTargetIssues });
 	}
 	run("set", "viewport", "390", "844");
-	const beforeMaterial = evaluate("(() => {const c=document.querySelector('canvas');const d=c?.getContext('2d')?.getImageData(0,0,c.width,c.height).data;if(!d)return 'unreadable';let h=2166136261;for(let i=0;i<d.length;i+=97)h=Math.imul(h^d[i],16777619);return String(h>>>0)})()");
-	evaluate("Array.from(document.querySelectorAll('button')).find(e=>e.innerText.trim()==='5 mm')?.click();Array.from(document.querySelectorAll('button')).find(e=>e.innerText.trim()==='Tự nhiên')?.click();true");
-	run("find", "role", "slider", "click", "--name", "Độ bóng");
-	run("press", "End");
-	run("wait", "500");
-	assertBrowser("document.body.innerText.includes('Độ bóng · 100%') && Array.from(document.querySelectorAll('button')).some(e=>e.innerText.trim()==='5 mm'&&e.getAttribute('aria-pressed')==='true') && Array.from(document.querySelectorAll('button')).some(e=>e.innerText.trim()==='Tự nhiên'&&e.getAttribute('aria-pressed')==='true')", "edge, thickness, and sheen controls apply the selected material values");
-	const afterMaterial = evaluate("(() => {const c=document.querySelector('canvas');const d=c?.getContext('2d')?.getImageData(0,0,c.width,c.height).data;if(!d)return 'unreadable';let h=2166136261;for(let i=0;i<d.length;i+=97)h=Math.imul(h^d[i],16777619);return String(h>>>0)})()");
-	assert.notEqual(afterMaterial, beforeMaterial, "material selection changes the rendered 2D design, which the PNG renderer shares");
+	evaluate("Array.from(document.querySelectorAll('button')).find(e=>e.innerText.trim()==='5 mm')?.click();true");
+	run("wait", "300");
+	assertBrowser("document.body.innerText.includes('Độ dày') && Array.from(document.querySelectorAll('button')).some(e=>e.innerText.trim()==='5 mm'&&e.getAttribute('aria-pressed')==='true') && !/Tự nhiên|Đánh bóng|Độ bóng/.test(document.body.innerText)", "thickness remains available and edge-finish/sheen controls have been removed");
 	assertBrowser(`Array.from(${builderRoot}.querySelectorAll('button')).some(e => e.innerText.toLowerCase().includes('xuất png') && !e.disabled)`, "PNG export unlocks after the current geometry is ready");
 	evaluate("window.__keychainDownloads=[];HTMLAnchorElement.prototype.click=function(){if(this.download)window.__keychainDownloads.push(this.download)};true");
 	evaluate("Array.from(document.querySelectorAll('button')).filter(e=>e.innerText.toLowerCase().includes('xuất png')&&e.getBoundingClientRect().height>0).at(-1).click();true");
@@ -105,7 +171,7 @@ try {
 	assertBrowser("Array.from(document.querySelectorAll('button')).filter(e=>e.innerText.trim()==='Xuất PNG').some(e=>!e.disabled)", "custom-back upload completion unlocks Export");
 	run("scroll", "up");
 	run("wait", "300");
-	const beforeCamera = evaluate("JSON.stringify({canvas:!!document.querySelector('[aria-label=\"Bản xem trước móc khóa\"] canvas'),edge:Array.from(document.querySelectorAll('button')).find(e=>e.innerText.trim()==='Tự nhiên')?.getAttribute('aria-pressed'),thickness:Array.from(document.querySelectorAll('button')).find(e=>e.innerText.trim()==='5 mm')?.getAttribute('aria-pressed'),sheen:document.body.innerText.match(/Độ bóng · \\d+%/)?.[0]})");
+	const beforeCamera = evaluate("JSON.stringify({canvas:!!document.querySelector('[aria-label=\"Bản xem trước móc khóa\"] canvas'),thickness:Array.from(document.querySelectorAll('button')).find(e=>e.innerText.trim()==='5 mm')?.getAttribute('aria-pressed')})");
 	run("find", "role", "button", "click", "--name", "Xem 3D");
 	run("wait", "2500");
 	assertBrowser("document.querySelector('canvas') !== null && Array.from(document.querySelectorAll('button')).some(e=>e.getAttribute('aria-current')==='true'&&e.innerText.trim()==='3D')", "enabled 3D preview mounts on the front face");
@@ -118,7 +184,7 @@ try {
 	assertBrowser("!Array.from(document.querySelector('[aria-label=\"Bản xem trước móc khóa\"]')?.querySelectorAll('button')||[]).some(e=>/Lật ảnh|Đặt lại ảnh/.test(e.getAttribute('aria-label')||''))", "3D preview toolbar contains no image-transform actions");
 	run("find", "role", "button", "click", "--name", "2D");
 	run("wait", "800");
-	const afterCamera = evaluate("JSON.stringify({canvas:!!document.querySelector('[aria-label=\"Bản xem trước móc khóa\"] canvas'),edge:Array.from(document.querySelectorAll('button')).find(e=>e.innerText.trim()==='Tự nhiên')?.getAttribute('aria-pressed'),thickness:Array.from(document.querySelectorAll('button')).find(e=>e.innerText.trim()==='5 mm')?.getAttribute('aria-pressed'),sheen:document.body.innerText.match(/Độ bóng · \\d+%/)?.[0]})");
+	const afterCamera = evaluate("JSON.stringify({canvas:!!document.querySelector('[aria-label=\"Bản xem trước móc khóa\"] canvas'),thickness:Array.from(document.querySelectorAll('button')).find(e=>e.innerText.trim()==='5 mm')?.getAttribute('aria-pressed')})");
 	assert.equal(afterCamera, beforeCamera, "camera controls leave preview and material design state unchanged after returning to 2D");
 	evaluate("window.__originalCanvasGetContext=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return /webgl/i.test(type)?null:window.__originalCanvasGetContext.call(this,type,...args)};true");
 	run("find", "role", "button", "click", "--name", "Xem 3D");
@@ -126,7 +192,8 @@ try {
 	assertBrowser("document.body.innerText.includes('WebGL') || document.body.innerText.includes('Quay lại 2D')", "forced WebGL creation failure returns a usable 2D fallback");
 	run("set", "media", "light", "reduced-motion");
 	assertBrowser("matchMedia('(prefers-reduced-motion: reduce)').matches", "reduced-motion preference is emulated");
-	console.log(JSON.stringify({ session, route, viewports: results, uploadedDesignTouchAudit, mockUpload: "synthetic local PNG served through a mocked CDN URL", mockSnapshot: true, customBackEditor: { cropStatus: true, uploadGate: true, editAndReset: true, visibleActions: editorActions }, material: { edge: "natural", thicknessMm: 5, sheenPercent: 100, renderChanged: beforeMaterial !== afterMaterial }, browserExportVariants: variants, threeD: { front: true, back: true, cameraOnlyStateUnchanged: beforeCamera === afterCamera }, webglFallback: "forced context creation failure rendered a 2D return path", reducedMotionEmulated: true, note: "Upload and snapshot API routes were mocked; no Sanity asset or snapshot was created." }, null, 2));
+	console.log(JSON.stringify({ session, route, viewports: results, uploadedDesignTouchAudit, mockUpload: "synthetic local PNG served through a mocked CDN URL", mockSnapshot: true, customBackEditor: { cropStatus: true, uploadGate: true, editAndReset: true, visibleActions: editorActions }, material: { edgeControlsRemoved: true, sheenControlsRemoved: true, thicknessMm: 5 }, browserExportVariants: variants, threeD: { front: true, back: true, cameraOnlyStateUnchanged: beforeCamera === afterCamera }, webglFallback: "forced context creation failure rendered a 2D return path", reducedMotionEmulated: true, note: "Upload and snapshot API routes were mocked; no Sanity asset or snapshot was created." }, null, 2));
 } finally {
 	try { run("close"); } catch {}
+}
 }

@@ -25,8 +25,8 @@ export function validateKeychainConfig(value: unknown): value is KeychainConfig 
 		if (config.printSides === 2 && !["mirror-front", "custom"].includes(config.backMode || "")) return false;
 		if (config.backMode === "custom" && !validImageFace(config.backCustom)) return false;
 	} else if (config.printSides !== 1 || config.backMode !== "material") return false;
-	if (!validImageFace(config.front) || !config.material || !["polished", "natural"].includes(config.material.edge)) return false;
-	return isFiniteIn(config.material.thicknessMm, 1, 10) && isFiniteIn(config.material.sheen, 0, 1);
+	if (!validImageFace(config.front) || !config.material) return false;
+	return isFiniteIn(config.material.thicknessMm, 1, 10);
 }
 
 function validImageFace(face: unknown): face is NonNullable<KeychainConfig["front"]> {

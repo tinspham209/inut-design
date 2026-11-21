@@ -5,7 +5,7 @@ export const initialKeychainConfig: KeychainConfig = {
 	version: 1, ringId: "ring-01", shape: { type: "frame", frameId: "heart" }, sizeCm: 5, cutBorderPx: 20,
 	acrylicId: "clear", printSides: 1, backMode: "through-acrylic",
 	front: { transform: { xMm: 0, yMm: 0, scale: 1, rotation: 0, flipX: false } },
-	material: { edge: "polished", thicknessMm: 3, sheen: 0.35 },
+	material: { thicknessMm: 3 },
 };
 
 export function keychainReducer(state: KeychainConfig, action: KeychainAction): KeychainConfig {
@@ -18,7 +18,7 @@ export function keychainReducer(state: KeychainConfig, action: KeychainAction): 
 			return { ...state, sizeCm: action.sizeCm, cutBorderPx: Math.min(state.cutBorderPx ?? 20, maximumCutBorderPx) };
 		}
 		case "set-cut-border": return { ...state, cutBorderPx: Math.max(0, Math.min(80, action.cutBorderPx)) };
-		case "set-material": return { ...state, material: { ...state.material, ...action.material } };
+		case "set-material": return { ...state, material: { thicknessMm: action.material.thicknessMm ?? state.material.thicknessMm } };
 		case "select-acrylic": return action.acrylicId === "clear"
 			? { ...state, acrylicId: "clear", printSides: 1, backMode: "through-acrylic" }
 			: { ...state, acrylicId: action.acrylicId, printSides: 1, backMode: "material" };
@@ -26,7 +26,7 @@ export function keychainReducer(state: KeychainConfig, action: KeychainAction): 
 		case "set-back-mode": return { ...state, backMode: action.backMode, printSides: action.backMode === "mirror-front" || action.backMode === "custom" ? 2 : 1 };
 		case "set-print-sides": return { ...state, printSides: action.printSides, backMode: action.printSides === 1 ? "through-acrylic" : "mirror-front" };
 		case "set-face": return action.face === "front" ? { ...state, front: action.value } : { ...state, backCustom: action.value };
-		case "load": return action.config;
+		case "load": return { ...action.config, material: { thicknessMm: action.config.material.thicknessMm } };
 		case "set-view":
 		case "set-preview": return state;
 		case "reset": return initialKeychainConfig;

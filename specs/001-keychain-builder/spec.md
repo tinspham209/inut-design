@@ -16,8 +16,9 @@ quyền riêng tư trong tài liệu này.
 
 - Desktop dùng hai cột: vùng preview lớn bên trái và control panel hẹp bên phải.
 - Preview có nút quay về, tiêu đề INUT Keychain Builder, nhãn DEMO, toggle
-  `Mặt trước/Mặt sau`, toggle `2D/3D`, các công cụ căn giữa/fit và vùng thao tác
-  trực quan.
+  `Mặt trước/Mặt sau` khi xem 2D, toggle `2D/3D`, các công cụ căn giữa/fit và
+  vùng thao tác trực quan. Ở 3D, không hiện toggle mặt; người dùng xoay mô hình
+  để xem hai mặt vật lý.
 - Control panel được chia thành năm nhóm số thứ tự với accent cam: hình dáng &
   móc, ảnh thiết kế, mặt sau, acrylic và Export PNG.
 - Mobile giữ preview ở trên, controls ở dưới theo cùng thứ tự và nút Export PNG
@@ -46,6 +47,12 @@ quyền riêng tư trong tài liệu này.
 - Q: Trước khi upload ảnh có thông báo hoặc xin đồng ý không? → A: Không thông báo và không xin đồng ý trong MVP; cần xác minh tuân thủ trước khi public.
 - Q: Các quyết định về dữ liệu và quyền dùng ảnh đã được duyệt chưa? → A: Người dùng duyệt không thông báo/xin đồng ý, lưu vô hạn, không nhận yêu cầu xóa, quyền truy cập ảnh công khai và quy trình xóa thủ công; xác nhận ảnh được cung cấp được phép sử dụng.
 
+### Session 2026-11-20
+
+- Q: 3D xử lý lựa chọn mặt trước/mặt sau thế nào? → A: Ẩn bộ chọn mặt trong 3D; gắn nội dung trước và sau vào đúng hai mặt vật lý, camera xoay để xem mỗi mặt. Lựa chọn mặt 2D được giữ nguyên và chỉ dùng làm hướng camera ban đầu.
+- Q: Các mode Mặt sau bên phải có tác dụng trong 3D không? → A: Có; mode đang chọn quyết định nội dung/màu của mặt sau 3D theo cùng quy tắc với 2D và PNG.
+- Q: Chỉnh ảnh sau riêng ở đâu? → A: Bỏ panel chỉnh riêng; dùng toolbar chỉnh ảnh bên trái khi mặt sau được chọn trong 2D. Toolbar cập nhật transform riêng của ảnh sau; trạng thái/cảnh báo crop vẫn đặt cạnh phần tải ảnh.
+
 ## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Thiết kế và tải ảnh móc khóa (Priority: P1)
@@ -62,7 +69,7 @@ Khách truy cập `/builder/keychain`, chọn móc, khung, màu acrylic và kíc
 2. **Given** khách đã tải ảnh trước hợp lệ, **When** di chuyển, phóng thu hoặc xoay ảnh, **Then** bản xem cập nhật theo thao tác và ảnh chỉ xuất hiện trong vùng của charm.
 3. **Given** khách đang xem một mặt, **When** tải PNG toàn bộ móc khóa hoặc chỉ charm ở mức 1x, 2x hoặc 3x, **Then** file thể hiện đúng mặt, lựa chọn và bố cục hiện tại trên nền trong suốt.
 4. **Given** khách dùng màn hình hẹp, **When** chỉnh ảnh hoặc cuộn trang, **Then** khách vẫn tiếp cận được preview và Export, không bị tràn ngang hay nhầm thao tác cuộn với chỉnh ảnh.
-5. **Given** khách chỉnh giao diện acrylic, **When** thay màu, viền, độ dày hoặc độ bóng, **Then** lựa chọn được thể hiện nhất quán trong preview và PNG.
+5. **Given** khách chỉnh giao diện acrylic, **When** thay màu hoặc độ dày, **Then** lựa chọn được thể hiện nhất quán trong preview và PNG.
 6. **Given** khách chọn acrylic trong suốt hoặc một trong bảy màu đục từ danh sách, **When** xem 2D, 3D, Export và mở lại thiết kế, **Then** màu và độ trong/đục tương ứng được giữ đúng; không có lựa chọn nhập mã màu tự do.
 
 ### User Story 2 - Chọn và chỉnh mặt sau (Priority: P1)
@@ -78,7 +85,7 @@ Với acrylic trong suốt, khách chọn thiết kế một hoặc hai mặt v�
 1. **Given** thiết kế một mặt mặc định với acrylic trong suốt, **When** xem từ phía sau, **Then** khách thấy ảnh trước lật ngang qua acrylic trong, không phải một mặt in thứ hai.
 2. **Given** thiết kế một mặt với acrylic trong suốt, **When** chọn mặt sau trắng, **Then** mặt sau có màu trắng theo đường bao charm và chừa lỗ gắn móc.
 3. **Given** khách chọn hai mặt lần đầu với acrylic trong suốt, **When** xem từ phía sau, **Then** mặt sau mặc định là bản in thứ hai dùng ảnh trước lật ngang; thay đổi ảnh trước cũng cập nhật mặt sau.
-4. **Given** khách chọn ảnh sau riêng, **When** tải ảnh có tỷ lệ khác và chỉnh ảnh, **Then** ảnh được giữ tỷ lệ, crop theo vùng và kích thước mặt trước, có thể chỉnh riêng và không đổi đường cắt.
+4. **Given** khách chọn ảnh sau riêng và đang xem mặt sau trong 2D, **When** dùng toolbar chỉnh ảnh bên trái với ảnh có tỷ lệ khác, **Then** ảnh được giữ tỷ lệ, crop theo vùng/kích thước mặt trước và transform riêng được cập nhật mà không đổi đường cắt.
 5. **Given** ảnh sau riêng đã được chỉnh, **When** khách chuyển sang chế độ khác rồi quay lại, **Then** ảnh và phần chỉnh trước đó được khôi phục; chỉ xóa khi khách chủ động yêu cầu.
 6. **Given** khách chọn bất kỳ màu acrylic đục nào, **When** xem hoặc Export mặt sau, **Then** mặt sau chỉ có màu acrylic đã chọn và lỗ gắn móc, không có ảnh hay lớp in; các lựa chọn in hai mặt và in trắng ở mặt sau không khả dụng.
 7. **Given** khách đang dùng acrylic trong và có ảnh sau riêng, **When** chọn acrylic đục, **Then** builder hiện popup cảnh báo; xác nhận mới chuyển sang một mặt với mặt sau không in, giữ nguyên ảnh trước và các lựa chọn khác; còn hủy thì giữ nguyên toàn bộ thiết kế.
@@ -90,13 +97,15 @@ Khách chuyển từ bản xem 2D sang bản xem 3D có thể xoay để hình d
 
 **Why this priority**: Khách cần hình dung thiết kế nhưng vẫn có thể tạo và tải thiết kế bằng 2D.
 
-**Independent Test**: Tạo thiết kế có hình bất đối xứng, mở 3D và xoay xem hai mặt; so sánh với 2D và PNG.
+**Independent Test**: Tạo thiết kế bất đối xứng cho từng mode mặt sau, mở 3D và xoay xem hai mặt; xác nhận mode đã chọn thể hiện đúng ở mặt sau, đối chiếu với 2D và PNG.
 
 **Acceptance Scenarios**:
 
-1. **Given** thiết kế đã có ảnh, **When** khách mở và xoay bản xem 3D, **Then** hình dạng, vị trí móc, lỗ và hai mặt khớp thiết kế đang xem trong 2D.
+1. **Given** thiết kế đã có ảnh trước và cấu hình mặt sau, **When** khách mở và xoay bản xem 3D, **Then** mặt trước/sau được render đồng thời trên đúng hai mặt vật lý, hình dạng/móc/lỗ khớp 2D, và không có bộ chọn mặt trước/mặt sau trong toolbar 3D.
 2. **Given** thiết bị không hỗ trợ hoặc không thể duy trì bản xem 3D, **When** khách thử mở 3D hoặc bản xem gặp lỗi, **Then** khách được thông báo, quay về 2D và giữ nguyên thiết kế.
 3. **Given** khách đang xem 3D, **When** xoay hoặc thu phóng góc nhìn, **Then** thao tác đó không làm thay đổi ảnh hay cấu hình thiết kế.
+4. **Given** khách thay mode ở nhóm Mặt sau khi đang xem 3D, **When** xoay qua mặt sau, **Then** mặt sau 3D thể hiện mode mới mà không cần chọn mặt trong toolbar preview.
+5. **Given** khách chuyển từ 2D sang 3D rồi quay lại 2D, **When** 2D xuất hiện lại, **Then** mặt 2D đã chọn trước đó và transform từng ảnh vẫn được giữ nguyên.
 
 ### User Story 4 - Tạo charm theo viền ảnh (Priority: P2)
 
@@ -157,8 +166,8 @@ Khách tải ảnh và chỉnh thiết kế trong phiên hiện tại. Sau khi E
 - **FR-005**: Khách MUST tải ảnh trước và di chuyển, phóng thu, xoay hoặc chỉnh kích thước ảnh; builder MUST hiển thị kết quả trong vùng charm.
 - **FR-006**: Với acrylic trong suốt, builder MUST hỗ trợ bốn trạng thái hợp lệ: một mặt nhìn xuyên, một mặt sau trắng, hai mặt dùng ảnh trước lật ngang, và hai mặt dùng ảnh sau riêng. Chọn trắng chuyển sang một mặt; chọn ảnh riêng chuyển sang hai mặt. Với acrylic đục, builder MUST chỉ cho phép in một mặt; mặt sau giữ màu acrylic, không có ảnh hoặc lớp in.
 - **FR-007**: Hai trạng thái dùng ảnh trước MUST cập nhật theo ảnh trước hiện tại; khi nhìn trực diện từ sau ảnh được lật ngang đúng một lần. Trạng thái nhìn xuyên và trạng thái in hai mặt MUST được lưu phân biệt.
-- **FR-008**: Ảnh sau riêng MUST giữ tỷ lệ, mặc định được căn giữa và crop phủ vùng in/silhouette mặt trước, có thể chỉnh độc lập; đổi chế độ hoặc chuyển sang acrylic đục MUST giữ ảnh và chỉnh sửa cho đến khi khách chủ động xóa. Ảnh sau được giữ nhưng không hiển thị hoặc tính là mặt in khi chọn acrylic đục.
-- **FR-009**: Khách MUST chuyển xem mặt trước/mặt sau trong 2D; bản xem 3D xoay được MUST thể hiện cả hai mặt nhất quán với 2D và PNG. Móc trong 3D có thể là hình phẳng, không được mô tả như mô hình kim loại 3D thực.
+- **FR-008**: Ảnh sau riêng MUST giữ tỷ lệ, mặc định được căn giữa và crop phủ vùng in/silhouette mặt trước, có thể chỉnh độc lập bằng toolbar chỉnh ảnh bên trái khi mặt sau được chọn trong 2D; không có panel chỉnh ảnh sau riêng. Trạng thái/cảnh báo crop MUST nằm cạnh phần tải ảnh. Đổi chế độ hoặc chuyển sang acrylic đục MUST giữ ảnh và chỉnh sửa cho đến khi khách chủ động xóa. Ảnh sau được giữ nhưng không hiển thị hoặc tính là mặt in khi chọn acrylic đục.
+- **FR-009**: Khách MUST chuyển xem mặt trước/mặt sau trong 2D; toggle này MUST ẩn trong 3D. Bản xem 3D MUST gắn texture/màu mặt trước và mặt sau lên đúng hai mặt vật lý cùng lúc; người dùng xoay camera để xem, không đổi map của cả hai mặt bằng lựa chọn 2D. Móc trong 3D có thể là hình phẳng, không được mô tả như mô hình kim loại 3D thực.
 - **FR-010**: Die-cut MUST dựa trên silhouette ảnh trước sau chỉnh sửa, gồm tai và lỗ; ảnh sau không quyết định đường cắt. Thay ảnh hoặc chỉnh ảnh trước MUST cập nhật đường cắt và crop mặt sau trước khi Export.
 - **FR-011**: Khách MUST có thể chủ động yêu cầu xóa nền cho ảnh trước hoặc ảnh sau riêng, xem trạng thái xử lý, dùng lại ảnh gốc và nhận hướng dẫn thay thế khi xử lý thất bại. Kết quả của ảnh cũ MUST không thay thế ảnh mới.
 - **FR-012**: Khách MUST tải PNG nền trong suốt của mặt đang xem, chọn toàn bộ móc khóa hoặc chỉ charm và mức 1x/2x/3x. Nếu mức chọn không thực hiện được, builder MUST báo lỗi và cho chọn mức khác, không tự giảm mức.
@@ -172,7 +181,7 @@ Khách tải ảnh và chỉnh thiết kế trong phiên hiện tại. Sau khi E
 - **FR-020**: Builder MUST mặc định không tự chạy chuyển động; nếu có chuyển động tùy chọn, khách có thể dừng/phát lại và tùy chọn giảm chuyển động của thiết bị được tôn trọng.
 - **FR-021**: Builder MUST ghi nhận lượt xem và các hành động chọn móc, hình dáng, màu acrylic, mặt sau, tải ảnh, xóa nền, đổi chế độ xem và Export trong cả GA4 và Umami, không ghi trùng cho cùng một hành động trong mỗi hệ thống.
 - **FR-022**: Builder MUST thông báo preview và màu sắc/kích thước hiển thị chỉ mang tính minh họa; PNG Export không phải file in hoặc file cắt production.
-- **FR-023**: Khách MUST có thể điều chỉnh viền, độ dày và độ bóng của acrylic; các thay đổi MUST được phản ánh nhất quán trong preview, ảnh xuất và cấu hình đã Export. Độ trong/đục phụ thuộc lựa chọn acrylic và không thể chỉnh để biến màu đục thành trong hoặc acrylic trong thành đục.
+- **FR-023**: Khách MUST có thể điều chỉnh màu acrylic và độ dày; các thay đổi MUST được phản ánh nhất quán trong preview, ảnh xuất và cấu hình đã Export. Không cung cấp điều chỉnh kiểu cạnh hoặc độ bóng. Độ trong/đục phụ thuộc lựa chọn acrylic và không thể chỉnh để biến màu đục thành trong hoặc acrylic trong thành đục.
 - **FR-024**: Tính khả dụng của link MUST theo điều kiện lưu thành công đã nêu tại FR-014; mỗi lần Export thiết kế đã chỉnh MUST tạo snapshot mới và MUST không làm thay đổi nội dung của link trước.
 - **FR-025**: Builder MUST không yêu cầu đăng nhập và không lưu bền vững ảnh, cấu hình, link hoặc quyền khôi phục trên trình duyệt của khách. Sau khi đóng trình duyệt, khách chỉ mở lại được thiết kế đã Export bằng link.
 - **FR-026**: Builder MUST cung cấp dropdown gồm đúng tám lựa chọn acrylic: trắng trong suốt; đỏ, vàng, cam, xanh lá, xanh biển, trắng và đen đục. Mặc định là trắng trong suốt. Không có ô chọn hoặc nhập màu tự do theo mã hex.
@@ -180,6 +189,10 @@ Khách tải ảnh và chỉnh thiết kế trong phiên hiện tại. Sau khi E
 - **FR-028**: Khi khách chuyển từ acrylic trong sang acrylic đục, builder MUST hiện popup: “Acrylic đục chỉ in một mặt. Mặt sau sẽ là màu acrylic và lựa chọn mặt sau sẽ được đặt lại. Ảnh mặt sau đã tải vẫn được giữ.” Popup MUST có lựa chọn xác nhận và hủy. Nếu hủy hoặc đóng popup, builder MUST giữ nguyên thiết kế.
 - **FR-029**: Khi xác nhận popup, builder MUST chuyển sang acrylic đục đã chọn, reset số mặt về một và mặt sau về màu acrylic không in. Ảnh trước, móc, khung, kích thước, các phần chỉnh sửa khác và ảnh sau riêng đã tải MUST được giữ. Khi chọn lại acrylic trong, mặc định một mặt nhìn xuyên; khách có thể chọn lại ảnh sau riêng đã giữ.
 - **FR-030**: Builder MUST bám cấu trúc responsive trong `inputs/mockup-preview.png`: desktop hai cột preview/control panel, mobile preview-before-controls, thứ tự năm nhóm control, công cụ preview dễ tiếp cận và primary Export nổi bật. Chi tiết visual MAY thích ứng với MUI/theme hiện hữu, nhưng MUST bảo toàn thứ tự nhiệm vụ và hierarchy đã mô tả.
+- **FR-031**: Trong 3D, cả hai mặt MUST được render đồng thời bằng cấu hình ảnh/mặt sau hiện tại; xoay camera MUST bộc lộ mặt vật lý tương ứng. Bộ chọn `Mặt trước/Mặt sau` MUST không hiển thị trong 3D; lựa chọn mặt 2D chỉ định hướng camera ban đầu và MUST NOT đổi texture/màu của cả hai mặt. Khi quay về 2D, mặt đã chọn trước đó MUST được giữ.
+- **FR-032**: Bốn mode mặt sau MUST ảnh hưởng đến bề mặt sau của mesh 3D như trong 2D/PNG: xuyên mica dùng ảnh trước phản chiếu đúng một lần theo góc nhìn phía sau; lót trắng hiển thị nền trắng có lỗ; in hai mặt dùng ảnh trước làm mặt in thứ hai; ảnh riêng dùng ảnh và transform riêng đã tải. Chuyển mode khi đang ở 3D MUST cập nhật mặt sau mà không cần thoát 3D.
+- **FR-033**: Khi 2D đang xem mặt sau ở mode ảnh riêng, toolbar chỉnh ảnh bên trái MUST thao tác `backCustom` (pan/zoom/rotate/flip/reset) và giữ transform độc lập với ảnh trước. Builder MUST bỏ panel “Chỉnh riêng ảnh mặt sau”; phần crop/status/upload errors vẫn hiện cạnh upload và không bị mất.
+- **FR-034**: Chuyển 2D↔3D MUST giữ lựa chọn mặt 2D, ảnh trước/sau, mode mặt sau và transform. Điều khiển camera trong 3D MUST chỉ đổi camera, không dispatch thay đổi transform thiết kế.
 
 ### Key Entities _(include if feature involves data)_
 
@@ -205,6 +218,7 @@ Khách tải ảnh và chỉnh thiết kế trong phiên hiện tại. Sau khi E
 - **SC-009**: Trong kiểm thử, cả tám lựa chọn acrylic hiển thị và được khôi phục đúng màu/tính trong hoặc đục; với cả bảy màu đục, mặt sau không in và không thể chọn in hai mặt. Xác nhận hoặc hủy popup và khôi phục ảnh sau hoạt động đúng ở 100% trường hợp kiểm thử.
 - **SC-010**: Trong kiểm thử với thời gian mô phỏng 30, 90 và 365 ngày, ảnh, thiết kế và link không tự hết hạn; 100% link tới thiết kế đã bị INUT xóa thủ công báo không còn khả dụng.
 - **SC-011**: Trong kiểm thử với ảnh giả lập, 100% URL asset Sanity được tạo cho thiết kế có thể mở trực tiếp mà không cần đăng nhập hoặc link Export; phiên đang chỉnh và link Export hợp lệ vẫn xem được ảnh.
+- **SC-012**: Với ảnh bất đối xứng trong cả bốn mode mặt sau, 100% kiểm thử 3D thể hiện đúng ảnh/màu trên hai mặt vật lý khi xoay, không có toggle mặt trong 3D, và đổi mode bên phải cập nhật mặt sau mà không cần thoát 3D. Toolbar 2D chỉnh ảnh sau riêng phải cập nhật đúng transform độc lập và không làm đổi ảnh trước.
 
 ## Assumptions
 

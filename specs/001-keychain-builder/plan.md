@@ -4,14 +4,17 @@
 
 **Input**: `specs/001-keychain-builder/spec.md`
 
-**Implementation status (2026-11-20)**: The route, state, geometry, upload,
+**Implementation status (2026-11-21)**: The route, state, geometry, upload,
 snapshot and analytics paths are implemented. The specification remains
 authoritative; current convergence gaps are tracked in `tasks.md` Phase 9.
-T095–T103 have local implementation/evidence updates; the latest focused
-command is 30/30 passing. Desktop evidence does not establish accepted 3D
+T095–T109 have local implementation/evidence updates. Current focused renderer
+and API regressions pass 19/19; lint and build pass after the material-control
+and shared-toolbar updates. Desktop evidence does not establish accepted 3D
 frame/artwork alignment: the user still sees a split/offset frame at oblique
 angles. Track that deferred enhancement separately as T104. T086, T087 and
-T091 remain explicit device and owner/legal release gates.
+T091 remain explicit device and owner/legal release gates. The user's new
+3D-face/shared-toolbar requirements are implemented in T105–T108; desktop
+browser evidence is recorded in `docs/keychain-builder-evidence/browser-viewports.md`.
 
 ## Summary
 
@@ -32,7 +35,9 @@ geometry/config, render/CORS, API/lifecycle và analytics/privacy. Kết quả
 2026-11-20 là 30/30 pass. Browser runner kiểm tra sáu viewport, controls
 44×44 tại bốn portrait và landscape, upload/die-cut với API mock, sáu PNG
 variants, 3D front/back/camera, WebGL fallback, reduced motion và custom-back
-crop/export readiness. Upload/snapshot mock không chứng minh Sanity lifecycle.
+crop/export readiness. T105–T108 desktop scenarios passed 2026-11-21; upload
+was mocked and snapshot was not used, so the evidence does not prove Sanity
+lifecycle.
 Android Chrome/iOS Safari cùng đo hiệu năng vẫn pending tại T086/T087; owner
 license approval vẫn pending tại T091. `rtk pnpm lint` và `rtk pnpm build`
 pass tại convergence, với lint warnings được ghi nhận trong release record;
@@ -130,9 +135,9 @@ về geometry, accessibility, dữ liệu và privacy vẫn là nguồn ưu tiê
 ## Design and Delivery
 
 1. **Catalog và geometry:** Sao chép 18 SVG và 10 PNG được cung cấp cho demo, tạo ID ổn định và metadata anchor hiển thị. Dùng tọa độ mm, dựng lại lỗ bán kính 2 mm sau khi scale outline; ring thật/anchor và thông số xưởng vẫn cần team xác nhận sau demo.
-2. **State và UI:** Reducer theo phiên, acrylic mặc định trong suốt; dropdown tám màu; popup xác nhận chuyển sang đục chỉ reset số mặt/mode, giữ ảnh và transform hai mặt. Desktop giữ tỷ lệ preview/control như mockup; control panel bám thứ tự hình dáng & móc → ảnh → mặt sau → acrylic → Export. Các trạng thái hợp lệ được kiểm tra ở cả UI và server.
-3. **Render chung:** Một geometry/transform là nguồn cho preview 2D, 3D và PNG. Hệ tọa độ mặt sau phải phản chiếu outline và ảnh đúng một lần; opaque back không in; PNG nền ngoài charm trong suốt. Ảnh sau riêng crop vào vùng trước và không quyết định die-cut.
-4. **3D và die-cut:** Tải R3F khi mở 3D; PNG móc là plane gắn vào charm, không phải model 3D thật. Die-cut dựa trên alpha mặt trước, xử lý trong worker, bỏ kết quả cũ và chặn Export cho tới geometry mới nhất. Nếu WebGL/worker/remove-bg thất bại, thông báo và giữ thiết kế.
+2. **State và UI:** Reducer theo phiên, acrylic mặc định trong suốt; dropdown tám màu; popup xác nhận chuyển sang đục chỉ reset số mặt/mode, giữ ảnh và transform hai mặt. Toggle mặt trước/sau thuộc 2D; 3D ẩn toggle và chỉ dùng giá trị đó làm hướng camera khởi tạo, không đổi texture mặt. Chỉnh custom-back dùng chung toolbar bên trái của 2D khi mặt sau được chọn; crop/status vẫn ở cạnh upload, không có panel chỉnh riêng.
+3. **Render chung:** Một geometry/transform là nguồn cho preview 2D, 3D và PNG. Trong 3D, mặt trước và mặt sau có texture/material riêng và hiện đồng thời trên hai bề mặt; bốn mode mặt sau phải khớp 2D/PNG. Hệ tọa độ mặt sau phải phản chiếu outline và ảnh đúng một lần; opaque back không in; PNG nền ngoài charm trong suốt. Ảnh sau riêng crop vào vùng trước và không quyết định die-cut.
+4. **3D và die-cut:** Tải R3F khi mở 3D; orbit chỉ đổi camera và cho xem cả hai bề mặt; PNG móc là plane gắn vào charm, không phải model kim loại thật. Chuyển mode bên phải cập nhật bề mặt sau khi đang ở 3D. Die-cut dựa trên alpha mặt trước, xử lý trong worker, bỏ kết quả cũ và chặn Export cho tới geometry mới nhất. Nếu WebGL/worker/remove-bg thất bại, thông báo và giữ thiết kế.
 5. **Upload và snapshot:** Upload ảnh khi chọn, chặn input không hợp lệ; không tạo link trước Export. Export chờ ảnh và geometry mới nhất, render PNG, lưu snapshot mới và chỉ báo thành công/link sau khi lưu thành công. Retry không ghi đè snapshot khác; mở link chỉ đọc snapshot cũ và chỉnh trong phiên mới.
 6. **Analytics và bảo vệ dữ liệu:** Route API dùng giới hạn và validate server; không log ảnh, URL asset hay link thiết kế. Khử query/ảnh khỏi GA4/GTM, Umami, Vercel Analytics và referrer trước khi script ngoài có thể gửi dữ liệu; không duplicate page view. Asset CDN vẫn công khai theo quyết định đã chốt.
 7. **QA:** Kiểm tra hình học, hướng hai mặt, palette, popup, ảnh được giữ, upload/lưu/lỗi, snapshot bất biến, 6 biến thể Export, link và xóa thủ công, analytics; browser thực tế trên mobile và hồi quy lighter. Không thực hiện checkout/order thật.
@@ -148,6 +153,12 @@ amendment:
 - Android/iOS browser and FPS evidence remains pending at T086/T087; IMG.LY
   package/model/deployment approval remains pending at T091.
 - Quote flow was removed under T100; no original spec amendment was made.
+- The 3D toolbar hides the 2D face selector, maps textures to both physical caps,
+  and follows all reverse-face modes. Desktop browser evidence covers the mode
+  changes and 2D↔3D face-state return; this does not accept T104 alignment.
+- The separate “Chỉnh riêng ảnh mặt sau” panel has been removed. The shared 2D
+  toolbar targets `backCustom.transform` for the back/custom state; upload,
+  crop, error and local/stale recovery status remain beside the uploader.
 
 ## Complexity Tracking
 

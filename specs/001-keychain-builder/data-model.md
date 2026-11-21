@@ -14,9 +14,11 @@ Màu hiển thị minh họa, không tự nhận là mã sản phẩm hoặc mà
 
 ## Thiết kế trong phiên
 
-`KeychainConfig` có `version`, `ringId`, `shape` (`frame` + `frameId` hoặc `die-cut` + thông số đường viền), `sizeCm`, `acrylicId`, `printSides`, `backMode`, `front`, `backCustom` tùy chọn và material (`edge`, `bevel`, `thickness`, `sheen`). Front và back chứa asset gốc/đã xóa nền nếu có, `useProcessed`, transform (`xMm`, `yMm`, `scale`, `rotation`, `flipX` nếu được hỗ trợ). Transform và bounds phải được kiểm tra finite/giới hạn ở server; view zoom và góc camera không làm đổi config.
+`KeychainConfig` có `version`, `ringId`, `shape` (`frame` + `frameId` hoặc `die-cut` + thông số đường viền), `sizeCm`, `acrylicId`, `printSides`, `backMode`, `front`, `backCustom` tùy chọn và material (`thicknessMm`). Kiểu cạnh và độ bóng không phải thuộc tính cấu hình. Front và back chứa asset gốc/đã xóa nền nếu có, `useProcessed`, transform (`xMm`, `yMm`, `scale`, `rotation`, `flipX` nếu được hỗ trợ). Transform và bounds phải được kiểm tra finite/giới hạn ở server; view zoom và góc camera không làm đổi config. Khi nạp snapshot cũ có `edge`/`sheen`, client bỏ hai trường legacy và chỉ giữ độ dày.
 
 Ảnh được chọn upload ngay; state phiên giữ ảnh hiển thị và Sanity refs, không giữ thiết kế bền vững trong trình duyệt. `backCustom` được giữ khi đổi mode hoặc opaque, nhưng không được render/in khi mode không phải custom. Không tạo bản sao asset cho hai mode dùng ảnh trước.
+
+`view2d` (`front`/`back`) là state giao diện tạm, không nằm trong snapshot config. Nó chọn mặt 2D và mặt mà toolbar chỉnh ảnh đang thao tác; ở custom-back, toolbar cập nhật riêng `backCustom.transform`. 3D có camera orientation riêng: view2d chỉ đặt hướng camera ban đầu, còn mặt trước và sau luôn lấy nội dung từ config tương ứng, độc lập với camera. Xoay camera không đổi config hoặc transform.
 
 ### Cặp hợp lệ
 
@@ -51,12 +53,9 @@ Sanity là nguồn ảnh/metadata; URL image asset có thể truy cập công kh
 
 `requestId` chỉ tham gia tạo `_id` và không được ghi thành field riêng. Fingerprint được tính từ config canonical khi xử lý retry, không lưu trong document vì dataset và các field ẩn không phải cơ chế bảo mật. Snapshot mới không ghi `createdAt` tùy biến vì Sanity đã cung cấp `_createdAt`. Mỗi lần Export tạo request ID mới; retry cùng request ID và cùng config canonical trả snapshot hiện có, payload khác bị từ chối. Snapshot cũ có `requestFingerprint` vẫn được replay theo fingerprint cũ.
 
-Implementation hiện tại cho phép chọn nhận báo giá từ hộp Export, lưu snapshot
-hiện tại rồi điều hướng tới form kèm ID thiết kế. Form báo giá lưu Sanity
-reference `keychainDesign`; đội sales có thể mở snapshot từ document báo giá
-hoặc thông báo Telegram. Đây là implementation addition chưa thuộc intent
-`spec.md`/`plan.md` ban đầu và đang chờ disposition tại T100; nó không được dùng
-để thay đổi rule “không cung cấp snapshot/link trước Export thành công”.
+CTA báo giá trước Export và liên kết snapshot khỏi form/API/schema đã được gỡ
+theo T100. Snapshot vẫn chỉ được tạo sau Export thành công; không thêm flow
+báo giá vào data model của keychain.
 
 Có thể có asset upload chưa được document nào tham chiếu vì user rời trang hoặc Export lỗi. Theo quyết định của user, không tự xóa theo thời gian; INUT chủ động xử lý thủ công. Xóa design không xóa asset đang được snapshot khác tham chiếu. Xóa design làm link design ngừng hoạt động; Sanity CDN/cache hoặc file người khác đã tải có thể vẫn tồn tại.
 

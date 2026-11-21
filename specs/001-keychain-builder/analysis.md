@@ -12,7 +12,7 @@ governing intent:
 |---------|-----|----------|---------------------|
 | F1 | Focused Node suite was 21/23 while T084 was marked complete | CRITICAL | Resolved: exact current command 30/30 (T095) |
 | F2 | Lazy 3D modules existed but the 3D control was disabled | HIGH | Resolved: browser exercised both faces and camera-only state (T096) |
-| F3 | Edge/sheen state and render support lacked complete UI controls | HIGH | Resolved: controls changed render; material is shared with PNG/3D and snapshots (T097) |
+| F3 | Edge/sheen state and render support lacked complete UI controls | HIGH | Superseded by the 2026-11-21 product direction: remove decorative edge-finish/sheen controls and config; retain physical thickness only (T109) |
 | F4 | Several mobile controls were below 44×44 px | HIGH | Resolved in responsive desktop Chrome measurements, including uploaded state (T098); native device gates remain open |
 | F5 | Custom-back upload was not consistently included in Export/snapshot gating | HIGH | Resolved: readiness gate plus local/stale reference tests (T099) |
 | F6 | Quote CTA created a snapshot before PNG Export outside original intent | HIGH | Resolved: CTA and snapshot linkage removed; no spec amendment (T100) |
@@ -20,12 +20,15 @@ governing intent:
 | F8 | Browser regression selectors/evidence did not match current DOM/state | MEDIUM | Resolved: current runner and retained mocked-flow output (T102) |
 | F9 | Spec Kit and release docs contained stale status claims | MEDIUM | Resolved: current docs synchronized, with device/license gates pending (T103) |
 | F10 | User still sees a split/offset 3D frame and artwork at oblique angles after UV/cap-material experiments | HIGH | Open, deferred as next enhancement T104; synthetic screenshots and material-group tests are not visual acceptance |
+| F11 | 3D face selection couples one selected 2D image to both physical faces; back modes and custom-back editing have duplicate/inconsistent controls | HIGH | Resolved for T105–T108 by separate physical-face textures, mode-aware reverse material, shared 2D toolbar and desktop browser evidence dated 2026-11-21; live Sanity is not covered |
 
-**Current metrics:** 40 buildable FR/SC items and 29 acceptance scenarios
-reviewed; 9 core plan decisions and 5 constitution principles checked. Phase 9
-contains 10 traceable convergence/enhancement tasks. Existing release gates
-T086, T087 and T091 remain open; T104 is intentionally deferred by the user.
-No requirements were rewritten to match implementation gaps.
+**Current metrics:** 40 existing buildable FR/SC items and 29 existing
+acceptance scenarios reviewed; the new FR-031–FR-034 and US2/US3 scenarios add
+coverage for T105–T108. Nine core plan decisions and five constitution
+principles were checked. Phase 9 contains 10 convergence/enhancement tasks;
+Phase 10 contains four new implementation/evidence tasks. Existing release
+gates T086, T087 and T091 remain open; T104 is intentionally deferred by the
+user. No requirements were rewritten to match implementation gaps.
 T103 updates documentation and is not a release-pass claim for T095–T102.
 
 ## Original design-time analysis (2026-11-18)
@@ -142,6 +145,7 @@ None. All 94 tasks map at least nominally to a story, functional requirement, pl
 
 All identified high and medium findings are resolved at the design level.
 Run `/speckit-implement` against `specs/001-keychain-builder/tasks.md`.
-Implementation and release gates remain pending execution, including owner
-confirmation of the IMG.LY deployment license and measured Android/iPhone
-evidence. No extension hooks were registered.
+Phase 10 implementation and desktop evidence completed 2026-11-21. Release gates
+remain pending for owner confirmation of the IMG.LY deployment license and
+measured Android/iPhone evidence. T104 remains deferred. No extension hooks
+were registered.

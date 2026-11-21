@@ -3,11 +3,10 @@ import test from "node:test";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import { getBackRenderSource } from "../../components/keychain-builder/render/renderModel.ts";
-import { initialKeychainConfig } from "../../components/keychain-builder/hooks/useKeychainState.ts";
+import { getBackRenderSource, get3dBackRenderSource, get3dEditableFace, is3dBackOpaque } from "../../components/keychain-builder/render/renderModel.ts";
+import { initialKeychainConfig, keychainReducer } from "../../components/keychain-builder/hooks/useKeychainState.ts";
 import { renderShowcasePng } from "../../components/keychain-builder/render/renderPng.ts";
 import { extractImageAlpha } from "../../components/keychain-builder/geometry/imageAlpha.ts";
-import { getMaterialEdgeStyle } from "../../components/keychain-builder/render/materialStyle.ts";
 import { getImageCropPercent } from "../../components/keychain-builder/controls/BackImageEditor.tsx";
 import { mapCenteredGeometryToFrameUv } from "../../components/keychain-builder/geometry/frameUv.ts";
 import { splitExtrudeMaterialGroups } from "../../components/keychain-builder/geometry/extrudeMaterialGroups.ts";
@@ -29,13 +28,14 @@ test("custom-back crop estimate preserves aspect ratio and warns for substantial
 	assert.equal(getImageCropPercent(0, 1), 0);
 });
 
-test("edge, thickness, and sheen change shared render style and remain in snapshots", () => {
-	const baseline = { edge: "natural", thicknessMm: 2, sheen: 0.1 };
-	const changed = { edge: "polished", thicknessMm: 5, sheen: 0.9 };
-	assert.notDeepEqual(getMaterialEdgeStyle(baseline), getMaterialEdgeStyle(changed));
-	assert.notEqual(getMaterialEdgeStyle({ ...baseline, sheen: 0 }).color, getMaterialEdgeStyle({ ...baseline, sheen: 1 }).color);
-	const config = { ...initialKeychainConfig, material: changed };
-	assert.deepEqual(JSON.parse(JSON.stringify(config)).material, changed);
+test("acrylic config keeps thickness only and the material panel has no edge finish or sheen controls", async () => {
+	const config = { ...initialKeychainConfig, material: { thicknessMm: 5 } };
+	assert.deepEqual(JSON.parse(JSON.stringify(config)).material, { thicknessMm: 5 });
+	const controls = await readFile(path.join(root, "components/keychain-builder/controls/AppearanceControls.tsx"), "utf8");
+	assert.match(controls, /Độ dày/);
+	assert.doesNotMatch(controls, /Tự nhiên|Đánh bóng|Độ bóng|sheen|material\.edge/);
+	const style = await readFile(path.join(root, "components/keychain-builder/preview/KeychainMesh.tsx"), "utf8");
+	assert.doesNotMatch(style, /config\.material\.sheen/);
 });
 
 test("2D preview fits the full assembly and keeps the acrylic body a single base color", async () => {
@@ -84,7 +84,7 @@ test("both previews have no automatic motion and 3D renders only on demand", asy
 	assert.match(preview3d, /frameloop="demand"/);
 	assert.match(preview3d, /enableDamping=\{false\}/);
 	assert.doesNotMatch(preview3d, /autoRotate|requestAnimationFrame|setInterval/);
-	assert.doesNotMatch(preview3d, /type: "set-face"|type: "set-material"|type: "set-size"/);
+	assert.doesNotMatch(preview3d, /type: "set-material"|type: "set-size"|type: "set-view"/);
 });
 
 test("classic 3D hardware uses one centered, two-sided connector set", async () => {
@@ -95,7 +95,20 @@ test("classic 3D hardware uses one centered, two-sided connector set", async () 
 	assert.match(source, /depthTest=\{false\} side=\{DoubleSide\}/);
 });
 
-test("3D extrusion assigns one print texture to the selected physical face", async () => {
+test("3D back textures follow every acrylic back mode and use the right physical source", () => {
+	const front = "https://cdn.example/front.png";
+	const custom = "https://cdn.example/back.png";
+	assert.deepEqual(get3dBackRenderSource({ acrylicId: "clear", backMode: "through-acrylic" }, front, custom), { imageUrl: front, mirrorX: true, print: true, materialFill: false });
+	assert.deepEqual(get3dBackRenderSource({ acrylicId: "clear", backMode: "white" }, front, custom), { mirrorX: false, print: false, materialFill: true });
+	assert.deepEqual(get3dBackRenderSource({ acrylicId: "clear", backMode: "mirror-front" }, front, custom), { imageUrl: front, mirrorX: true, print: true, materialFill: false });
+	assert.deepEqual(get3dBackRenderSource({ acrylicId: "clear", backMode: "custom" }, front, custom), { imageUrl: custom, mirrorX: false, print: true, materialFill: false });
+	assert.deepEqual(get3dBackRenderSource({ acrylicId: "red", backMode: "material" }, front, custom), { mirrorX: false, print: false, materialFill: true });
+	assert.equal(is3dBackOpaque({ acrylicId: "clear", backMode: "white" }), true);
+	assert.equal(is3dBackOpaque({ acrylicId: "clear", backMode: "custom" }), false);
+	assert.equal(is3dBackOpaque({ acrylicId: "red", backMode: "material" }), true);
+});
+
+test("3D keeps both physical face textures attached and uses the 2D face only for camera orientation", async () => {
 	assert.deepEqual(splitExtrudeMaterialGroups([
 		{ start: 0, count: 120, materialIndex: 0 },
 		{ start: 120, count: 72, materialIndex: 1 },
@@ -109,9 +122,67 @@ test("3D extrusion assigns one print texture to the selected physical face", asy
 	assert.match(source, /splitExtrudeMaterialGroups\(geometry\.groups\)/);
 	assert.match(source, /attach="material-0" map=\{backTexture\}/);
 	assert.match(source, /attach="material-1" map=\{frontTexture\}/);
-	assert.match(source, /attach="material-0" transparent opacity=\{0\} depthWrite=\{false\}/);
-	assert.match(source, /attach="material-1" transparent opacity=\{0\} depthWrite=\{false\}/);
+	assert.doesNotMatch(source, /view === "(?:front|back)"/);
 	assert.match(source, /attach="material-2" color=\{acrylicColor\}/);
+	const preview = await readFile(path.join(root, "components/keychain-builder/preview/Preview3D.tsx"), "utf8");
+	assert.match(preview, /<CameraSide view=\{view\} \/>/);
+	assert.doesNotMatch(preview, /Mặt trước|Mặt sau|type: "set-view"/);
+	assert.match(preview, /get3dBackRenderSource\(config, frontUrl, customBackUrl\)/);
+});
+
+test("both previews share the same 3D-baseline toolbar and mobile preview height", async () => {
+	assert.equal(get3dEditableFace("front", "custom"), "front");
+	assert.equal(get3dEditableFace("back", "custom"), "backCustom");
+	assert.equal(get3dEditableFace("back", "through-acrylic"), "front");
+	assert.equal(get3dEditableFace("back", "white"), "front");
+	const before = { ...initialKeychainConfig, front: { ...initialKeychainConfig.front, transform: { ...initialKeychainConfig.front.transform } }, backCustom: { url: "back", transform: { ...initialKeychainConfig.front.transform } } };
+	const face = get3dEditableFace("back", "custom");
+	const updated = keychainReducer(before, { type: "set-face", face, value: { ...before.backCustom, transform: { ...before.backCustom.transform, rotation: 90, flipX: true } } });
+	assert.deepEqual(updated.front, before.front);
+	assert.deepEqual(updated.backCustom.transform, { ...before.backCustom.transform, rotation: 90, flipX: true });
+	const preview2d = await readFile(path.join(root, "components/keychain-builder/preview/Preview2D.tsx"), "utf8");
+	const preview3d = await readFile(path.join(root, "components/keychain-builder/preview/Preview3D.tsx"), "utf8");
+	const toolbar = await readFile(path.join(root, "components/keychain-builder/preview/PreviewToolbar.tsx"), "utf8");
+	assert.match(preview2d, /import \{ PreviewToolbar \} from "\.\/PreviewToolbar"/);
+	assert.match(preview3d, /import \{ PreviewToolbar \} from "\.\/PreviewToolbar"/);
+	for (const label of ["Thu nhỏ góc nhìn", "Phóng to góc nhìn", "Đặt lại góc nhìn", "Xoay ${artworkLabel} 90°", "Lật ${artworkLabel}", "Thu nhỏ ${artworkLabel}", "Phóng to ${artworkLabel}", "Đặt lại ${artworkLabel}"]) assert.ok(toolbar.includes(label), `missing shared toolbar control: ${label}`);
+	const orderedLabels = ["Thu nhỏ góc nhìn", "Phóng to góc nhìn", "Đặt lại góc nhìn", "Toàn màn hình", "Xoay ${artworkLabel} 90°", "Lật ${artworkLabel}", "Thu nhỏ ${artworkLabel}", "Phóng to ${artworkLabel}", "Đặt lại ${artworkLabel}"];
+	assert.deepEqual(orderedLabels.map((label) => toolbar.indexOf(label)), [...orderedLabels].map((label) => toolbar.indexOf(label)).sort((a, b) => a - b));
+	assert.match(toolbar, /gridTemplateColumns: \{ xs: "repeat\(5, 32px\)", md: "32px" \}/);
+	assert.match(toolbar, /height: 32,\s*minHeight: 32/);
+	assert.match(toolbar, /"& > svg": \{ fontSize: 20 \}/);
+	const builder = await readFile(path.join(root, "components/keychain-builder/KeychainBuilder.tsx"), "utf8");
+	const loading = await readFile(path.join(root, "components/keychain-builder/preview/Preview3DLoading.tsx"), "utf8");
+	assert.match(builder, /minHeight: \{ xs: "60vh", md: 0 \}/);
+	assert.match(builder, /height: \{ xs: "60vh", md: "100%" \}/);
+	assert.match(builder, /loading: \(\) => <Preview3DLoading \/>/);
+	assert.match(loading, /<PreviewToolbar[\s\S]*?disabled/);
+	assert.match(preview2d, /className="keychain-preview-header"/);
+	assert.match(preview3d, /className="keychain-preview-header"/);
+	assert.match(preview2d, /height: 32,\s*minHeight: 32/);
+	assert.match(preview3d, /height: 32, minHeight: 32/);
+});
+
+test("custom back uses the shared 2D toolbar and keeps upload guidance beside its upload", async () => {
+	const preview = await readFile(path.join(root, "components/keychain-builder/preview/Preview2D.tsx"), "utf8");
+	assert.match(preview, /view === "back" && config\.backMode === "custom" \? "backCustom" : "front"/);
+	assert.match(preview, /const face = view === "back" && config\.backMode === "custom" \? "backCustom" : "front"/);
+	assert.match(preview, /dispatch\(\{ type: "set-face", face, value: \{ \.\.\.value, transform: update\(value\.transform\) \} \}\)/);
+	const status = await readFile(path.join(root, "components/keychain-builder/controls/BackImageEditor.tsx"), "utf8");
+	assert.match(status, /Đang tải ảnh sau lên/);
+	assert.match(status, /ước tính crop/);
+	assert.match(status, /Ảnh tạm chưa lưu trên Sanity/);
+	assert.match(status, /status === "uploading"/);
+	assert.match(status, /error &&/);
+	assert.match(status, /localOnly && <Button color="warning" onClick=\{onDiscard\}/);
+	assert.doesNotMatch(status, /Chỉnh riêng ảnh mặt sau|Xoay ảnh mặt sau|Phóng to ảnh mặt sau/);
+	const controls = await readFile(path.join(root, "components/keychain-builder/controls/BackControls.tsx"), "utf8");
+	assert.match(controls, /BackImageStatus/);
+	assert.doesNotMatch(controls, /onTransform|onReset/);
+	const before = { ...initialKeychainConfig, front: { url: "front", transform: { ...initialKeychainConfig.front.transform } }, backCustom: { url: "back", transform: { ...initialKeychainConfig.front.transform } } };
+	const updatedBack = keychainReducer(before, { type: "set-face", face: "backCustom", value: { ...before.backCustom, transform: { ...before.backCustom.transform, rotation: 90, flipX: true } } });
+	assert.deepEqual(updatedBack.front, before.front, "back toolbar edits leave the front image state unchanged");
+	assert.deepEqual(updatedBack.backCustom.transform, { ...before.backCustom.transform, rotation: 90, flipX: true });
 });
 
 test("3D mesh UVs use the SVG viewBox instead of the cut-path bounds", async () => {

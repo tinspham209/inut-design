@@ -6,7 +6,7 @@ Hướng dẫn cho **sau khi triển khai**, không phải kết quả kiểm th
 
 1. Dùng Node theo `package.json`, pnpm 10.32.1 và các biến Sanity server hiện có; không đưa `SANITY_TOKEN` hoặc credential vào browser/log. Chuẩn bị dataset test riêng và quyền xóa document test.
 2. Kiểm tra cấu hình bảo vệ dữ liệu, license IMG.LY, CDN và quyền tạo/xóa document với người phụ trách. Chính sách đã được người dùng duyệt; không đưa ảnh khách thật vào demo trước khi hoàn tất các kiểm tra còn lại trong [plan](./plan.md).
-3. Chạy năm suite tách biệt bằng `rtk proxy node --test --import ./scripts/register-typescript-loader.mjs ./scripts/tests/keychain-*.test.mjs`, sau đó chạy `rtk pnpm lint` và `rtk pnpm build`. Các suite gồm `image-validation`, `geometry`, `render`, `api` và `privacy`; kết quả convergence 2026-11-20 là 30/30 pass. Dùng `rtk pnpm dev` và `agent-browser-automation` cho browser; dùng thiết bị thật/agent-device cho Android và iOS theo các tiêu chí dưới đây.
+3. Chạy năm suite tách biệt bằng `rtk proxy node --test --import ./scripts/register-typescript-loader.mjs ./scripts/tests/keychain-*.test.mjs`, sau đó chạy `rtk pnpm lint` và `rtk pnpm build`. Các suite gồm `image-validation`, `geometry`, `render`, `api` và `privacy`; historical convergence 2026-11-20 là 30/30 pass. Sau cập nhật Phase 10/11, renderer + API focused suites chạy ngày 2026-11-21 là 19/19; lint/build cũng pass. Dùng `rtk pnpm dev` và `agent-browser-automation` cho browser; dùng thiết bị thật/agent-device cho Android và iOS theo các tiêu chí dưới đây.
 
 ## Scenarios
 
@@ -22,7 +22,10 @@ Hướng dẫn cho **sau khi triển khai**, không phải kết quả kiểm th
    quote CTA trước Export đã được gỡ do chưa có amendment được duyệt. T086/T087
    còn chờ thiết bị Android/iOS; T091 chờ xác nhận owner/legal. Frame/artwork
    3D vẫn bị split/offset ở góc nghiêng, được hoãn thành next enhancement T104.
-   Không sửa `spec.md` để hợp thức hóa implementation drift.
+   T105–T108 đã implement và được kiểm tra trên desktop 2026-11-21: 3D map hai
+   mặt, các back mode cập nhật mặt vật lý, selector chỉ còn trong 2D và custom
+   back dùng toolbar trái. Upload được mock; không chứng minh Sanity lifecycle.
+   T104 vẫn deferred, không được coi frame alignment đã đạt.
 
 ## Trước public
 

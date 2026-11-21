@@ -1,6 +1,47 @@
 # Keychain Builder release record
 
-## Current implementation status (2026-11-20)
+## Acrylic material controls simplified (2026-11-21)
+
+- Removed “Tự nhiên”, “Đánh bóng” and the sheen slider from the material panel.
+  Removed the matching `edge`/`sheen` fields from active configuration,
+  validation and 2D rendering; clear-acrylic opacity is now fixed. Acrylic
+  thickness remains and still determines 3D extrusion depth.
+- Old snapshots may still contain the legacy fields. Validation accepts them
+  as unknown properties for read compatibility, and the client strips them
+  when loading into session state. New configurations omit them.
+- Current focused regression command passes 19/19. `rtk pnpm lint` and
+  `rtk pnpm build` also pass; lint retains the existing unused-variable and
+  analytics snake-case warnings. Toolbar screenshots below were captured
+  after the shared-toolbar/mobile-height update. Phase 10 face-mode screenshots
+  remain evidence for face behavior, not for the material panel.
+
+## Phase 10 verification (2026-11-21)
+
+- T105–T108 are implemented and checked on desktop Chrome at 1280 × 800.
+  Focused render tests pass 32/32; `rtk pnpm lint` and `rtk pnpm build` pass.
+- Both physical 3D caps keep their own textures. The face selector is hidden in
+  3D; 2D face selection sets the starting camera orientation and is preserved
+  when returning from 3D. All four clear back modes and opaque acrylic were
+  exercised while 3D remained open. White backing is opaque and excludes the
+  4 mm hole; opaque acrylic back uses the selected acrylic color with no print.
+- The duplicate “Chỉnh riêng ảnh mặt sau” panel is removed. The shared 2D
+  toolbar edits the custom reverse image; crop warning/upload/error/stale-local
+  recovery status remains by the uploader. Reducer regression confirms
+  `backCustom` edits do not change `front`.
+- Browser screenshots: [2D custom-back toolbar](keychain-builder-evidence/phase10-2d-back-custom-toolbar.png),
+  [3D through-acrylic](keychain-builder-evidence/phase10-3d-back-through-acrylic.png),
+  [3D white backing](keychain-builder-evidence/phase10-3d-back-white.png),
+  [3D two-sided print](keychain-builder-evidence/phase10-3d-back-mirror-front.png),
+  [3D custom back](keychain-builder-evidence/phase10-3d-back-custom.png), and
+  [3D opaque acrylic](keychain-builder-evidence/phase10-3d-back-opaque-material.png).
+  The upload route was mocked and a synthetic local image substituted for its
+  CDN URL; Sanity upload and snapshot persistence were not tested. Details and
+  limits are in [browser evidence](keychain-builder-evidence/browser-viewports.md).
+- T104 remains deferred: 3D frame/art alignment at oblique angles is not
+  accepted and was not part of this pass. T086/T087 and T091 release gates are
+  unchanged.
+
+## Historical convergence status before Phase 10 (2026-11-20)
 
 - Phase 9 convergence T095–T102 is implemented and locally verified, subject
   to the evidence limits below. The exact focused command reports **30/30
@@ -37,6 +78,9 @@
   this explicitly pending for a later enhancement pass, as requested while the
   user works on a higher-priority item; do not claim the 3D frame alignment
   requirement is complete.
+- **Phase 10 T105–T108 was completed on 2026-11-21** as recorded above; the
+  implementation and fresh desktop evidence supersede the planned next slice
+  in this historical entry.
 
 ## Convergence validation (2026-11-20)
 

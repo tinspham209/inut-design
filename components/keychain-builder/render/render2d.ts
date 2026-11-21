@@ -1,6 +1,5 @@
 import type { FrameSvgData } from "../geometry/frameSvg";
 import type { KeychainConfig } from "../types";
-import { getMaterialEdgeStyle } from "./materialStyle";
 
 export type RenderSide = "front" | "back";
 export type ConnectorAssets = {
@@ -86,7 +85,6 @@ export async function renderKeychain2d(
 	const acrylicColor = config.acrylicId === "clear" ? "rgba(183,220,240,0.28)" : config.acrylicId;
 	ctx.fillStyle = acrylicColor;
 	ctx.fill(cut);
-	const materialEdge = getMaterialEdgeStyle(config.material);
 	let renderImage = image;
 	let mirror = false;
 	if (side === "back") {
@@ -134,9 +132,6 @@ export async function renderKeychain2d(
 	ctx.arc(frame.hole.cx, frame.hole.cy, frame.hole.radiusMm / mmPerUnit, 0, Math.PI * 2);
 	ctx.fill();
 	ctx.globalCompositeOperation = "source-over";
-	ctx.strokeStyle = materialEdge.color;
-	ctx.lineWidth = materialEdge.widthMm / mmPerUnit;
-	ctx.stroke(cut);
 	ctx.restore();
 	if (useClassicChain && connectors) {
 		const originX = holeX - CHAIN_HOLE.x * ringScale;

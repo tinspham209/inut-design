@@ -1,6 +1,6 @@
 import { Button, Stack, Typography } from "@mui/material";
-import type { ImageFace, ImageTransform, AcrylicId, BackMode } from "../types";
-import { BackImageEditor } from "./BackImageEditor";
+import type { ImageFace, AcrylicId, BackMode } from "../types";
+import { BackImageStatus } from "./BackImageEditor";
 
 type Props = {
 	acrylicId: AcrylicId;
@@ -12,12 +12,10 @@ type Props = {
 	uploadError?: string | null;
 	onModeChange: (mode: Exclude<BackMode, "material">) => void;
 	onUpload: (file?: File) => void;
-	onTransform: (transform: ImageTransform) => void;
-	onReset: () => void;
 	onDiscard: () => void;
 };
 
-export function BackControls({ acrylicId, backMode, face, hasCustomImage, frameAspect, uploadStatus, uploadError, onModeChange, onUpload, onTransform, onReset, onDiscard }: Props) {
+export function BackControls({ acrylicId, backMode, face, hasCustomImage, frameAspect, uploadStatus, uploadError, onModeChange, onUpload, onDiscard }: Props) {
 	const clear = acrylicId === "clear";
 	const modes: Array<{ id: Exclude<BackMode, "material">; label: string; detail: string }> = [
 		{ id: "through-acrylic", label: "Xuyên mica", detail: "Giữ màu vật liệu" },
@@ -31,7 +29,7 @@ export function BackControls({ acrylicId, backMode, face, hasCustomImage, frameA
 		</Stack>
 		{backMode === "custom" && <>
 			<Button component="label" variant="outlined" disabled={!clear} sx={{ alignSelf: "flex-start", minHeight: { xs: 44, md: 28 }, borderColor: "#55565f" }}>{hasCustomImage ? "Thay ảnh mặt sau" : "＋ Tải ảnh mặt sau"}<input hidden aria-label="Tải ảnh mặt sau" type="file" accept="image/png,image/jpeg,image/webp" onChange={(event) => { onUpload(event.target.files?.[0]); event.target.value = ""; }} /></Button>
-			{face?.url && <BackImageEditor face={face} frameAspect={frameAspect} status={uploadStatus} error={uploadError} onChange={onTransform} onReset={onReset} onDiscard={onDiscard} />}
+			<BackImageStatus face={face} frameAspect={frameAspect} status={uploadStatus} error={uploadError} onDiscard={onDiscard} />
 		</>}
 	</Stack>;
 }

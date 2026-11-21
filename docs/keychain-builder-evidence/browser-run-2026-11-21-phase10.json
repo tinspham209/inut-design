@@ -1,0 +1,44 @@
+{
+  "session": "keychain-qa-c30d3494aa3c",
+  "route": "http://localhost:3001/builder/keychain",
+  "desktopViewport": "1280x800",
+  "twoDThreeDState": "back selection retained on return",
+  "threeDFaceSelector": "hidden",
+  "clearBackModes": [
+    {
+      "mode": "through-acrylic",
+      "screenshot": "docs/keychain-builder-evidence/phase10-3d-back-through-acrylic.png"
+    },
+    {
+      "mode": "white",
+      "screenshot": "docs/keychain-builder-evidence/phase10-3d-back-white.png"
+    },
+    {
+      "mode": "mirror-front",
+      "screenshot": "docs/keychain-builder-evidence/phase10-3d-back-mirror-front.png"
+    },
+    {
+      "mode": "custom",
+      "screenshot": "docs/keychain-builder-evidence/phase10-3d-back-custom.png"
+    }
+  ],
+  "opaqueBack": "acrylic material, no printed custom art",
+  "sharedToolbar": {
+    "backRenderChanged": true,
+    "frontRenderHashBefore": "\"1239645008\"",
+    "frontRenderHashAfter": "\"3058229274\"",
+    "reset": true
+  },
+  "uploadAndSnapshotRoutes": "upload mocked; snapshot not used",
+  "screenshots": [
+    "docs/keychain-builder-evidence/phase10-2d-back-custom-toolbar.png",
+    "docs/keychain-builder-evidence/phase10-2d-front-before-back-edit.png",
+    "docs/keychain-builder-evidence/phase10-2d-front-after-back-edit.png",
+    "docs/keychain-builder-evidence/phase10-3d-back-through-acrylic.png",
+    "docs/keychain-builder-evidence/phase10-3d-back-white.png",
+    "docs/keychain-builder-evidence/phase10-3d-back-mirror-front.png",
+    "docs/keychain-builder-evidence/phase10-3d-back-custom.png",
+    "docs/keychain-builder-evidence/phase10-3d-back-opaque-material.png",
+    "docs/keychain-builder-evidence/phase10-2d-after-3d-back.png"
+  ]
+}

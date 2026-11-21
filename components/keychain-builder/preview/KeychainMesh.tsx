@@ -4,15 +4,17 @@ import { ExtrudeGeometry, Float32BufferAttribute, Path, Shape, type CanvasTextur
 import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader";
 import { splitExtrudeMaterialGroups } from "../geometry/extrudeMaterialGroups";
 import { mapCenteredGeometryToFrameUv } from "../geometry/frameUv";
+import { is3dBackOpaque } from "../render/renderModel";
 import type { FrameSvgData } from "../geometry/frameSvg";
 import type { KeychainConfig } from "../types";
 
-type Props = { frame: FrameSvgData; config: KeychainConfig; frontTexture: CanvasTexture; backTexture: CanvasTexture; view: "front" | "back" };
+type Props = { frame: FrameSvgData; config: KeychainConfig; frontTexture: CanvasTexture; backTexture: CanvasTexture };
 
-export function KeychainMesh({ frame, config, frontTexture, backTexture, view }: Props) {
+export function KeychainMesh({ frame, config, frontTexture, backTexture }: Props) {
 	const clearAcrylic = config.acrylicId === "clear";
+	const opaqueBack = is3dBackOpaque(config);
 	const acrylicColor = clearAcrylic ? "#e1f4ff" : config.acrylicId;
-	const opacity = clearAcrylic ? 0.82 + config.material.sheen * 0.08 : 1;
+	const opacity = clearAcrylic ? 0.85 : 1;
 	const sideOpacity = clearAcrylic ? opacity * 0.28 : 1;
 	const geometry = useMemo(() => {
 		const cutPath = new SVGLoader().parse(frame.source).paths.find((path) => path.userData?.node?.id === "cut");
@@ -46,11 +48,9 @@ export function KeychainMesh({ frame, config, frontTexture, backTexture, view }:
 		geometry.computeVertexNormals();
 		return geometry;
 	}, [frame, config.sizeCm, config.material.thicknessMm]);
-	const backFaceVisible = view === "back";
-	const frontFaceVisible = view === "front";
 	return <mesh geometry={geometry} rotation={[0, 0, 0]}>
-		{backFaceVisible ? <meshBasicMaterial attach="material-0" map={backTexture} color={acrylicColor} transparent={clearAcrylic} opacity={opacity} depthWrite side={2} /> : <meshBasicMaterial attach="material-0" transparent opacity={0} depthWrite={false} side={2} />}
-		{frontFaceVisible ? <meshBasicMaterial attach="material-1" map={frontTexture} color={acrylicColor} transparent={clearAcrylic} opacity={opacity} depthWrite side={2} /> : <meshBasicMaterial attach="material-1" transparent opacity={0} depthWrite={false} side={2} />}
+		<meshBasicMaterial attach="material-0" map={backTexture} color="white" transparent={!opaqueBack} opacity={opaqueBack ? 1 : opacity} depthWrite side={2} />
+		<meshBasicMaterial attach="material-1" map={frontTexture} color="white" transparent={clearAcrylic} opacity={opacity} depthWrite side={2} />
 		<meshBasicMaterial attach="material-2" color={acrylicColor} transparent={clearAcrylic} opacity={sideOpacity} depthWrite side={2} />
 	</mesh>;
 }

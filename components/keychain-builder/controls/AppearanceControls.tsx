@@ -1,4 +1,4 @@
-import { Box, Button, Slider, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { ACRYLICS, RINGS, SIZES_CM } from "@/data/keychain/catalog";
 import type { AcrylicId, KeychainConfig } from "../types";
@@ -39,12 +39,6 @@ export function AppearanceControls({ section, config, onRing, onSize, onAcrylic,
 			<Stack direction="row" spacing={{ xs: 0.5, md: 0.35 }} flexWrap="wrap">
 				{([2, 3, 5] as const).map((thicknessMm) => <Button key={thicknessMm} aria-pressed={config.material.thicknessMm === thicknessMm} onClick={() => onMaterial({ thicknessMm })} sx={{ minWidth: { xs: 52, md: 46 }, minHeight: { xs: 44, md: 28 }, px: 0.75, border: "1px solid", borderColor: config.material.thicknessMm === thicknessMm ? "#f47a28" : "#36373e", color: config.material.thicknessMm === thicknessMm ? "#ffad69" : "#d0d0d5", bgcolor: "#22232a", borderRadius: 1, fontSize: 11 }}>{thicknessMm} mm</Button>)}
 			</Stack>
-			<Typography variant="caption" color="grey.400">Cạnh</Typography>
-			<Stack direction="row" spacing={{ xs: 0.5, md: 0.35 }}>
-				{(["natural", "polished"] as const).map((edge) => <Button key={edge} aria-pressed={config.material.edge === edge} onClick={() => onMaterial({ edge })} sx={{ minWidth: { xs: 96, md: 82 }, minHeight: { xs: 44, md: 28 }, border: "1px solid", borderColor: config.material.edge === edge ? "#f47a28" : "#36373e", color: config.material.edge === edge ? "#ffad69" : "#d0d0d5", bgcolor: "#22232a", borderRadius: 1, fontSize: 11 }}>{edge === "natural" ? "Tự nhiên" : "Đánh bóng"}</Button>)}
-			</Stack>
-			<Typography variant="caption" color="grey.400">Độ bóng · {Math.round(config.material.sheen * 100)}%</Typography>
-			<Slider aria-label="Độ bóng" value={config.material.sheen} min={0} max={1} step={0.05} onChange={(_, value) => onMaterial({ sheen: Array.isArray(value) ? value[0] : value })} sx={{ color: "#f47a28", boxSizing: "border-box", width: { xs: "calc(100% - 44px)", md: "calc(100% - 24px)" }, mx: { xs: 2.75, md: 1.5 }, px: { xs: 2.75, md: 1.5 }, py: 1, "& .MuiSlider-thumb": { width: { xs: 44, md: 18 }, height: { xs: 44, md: 18 }, bgcolor: { xs: "transparent", md: "#f47a28" }, "&:before": { width: { xs: 14, md: "auto" }, height: { xs: 14, md: "auto" }, borderRadius: "50%", bgcolor: { xs: "#f47a28", md: "transparent" }, boxShadow: "none" } }, "& .MuiSlider-rail": { opacity: 0.45 } }} />
 		</Stack>
 	);
 }
