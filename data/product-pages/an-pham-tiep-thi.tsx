@@ -253,7 +253,7 @@ export const CATALOGUE_BROCHURE_DATA: ProductPageData = {
 		description:
 			"Dịch vụ in Catalogue, Brochure chuyên nghiệp tại Đà Nẵng: thiết kế đẹp, gia công chỉn chu, hình ảnh sắc nét. Nâng tầm thương hiệu, hỗ trợ bán hàng hiệu quả.",
 		url: "https://inutdesign.com/services/an-pham-tiep-thi/catalogue-brochure",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/an-pham-tiep-thi/thumbnail/catalogue-brochure.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -284,7 +284,7 @@ export const CATALOGUE_BROCHURE_DATA: ProductPageData = {
 		title: "In Catalogue & Brochure",
 		description:
 			"Nâng tầm hình ảnh thương hiệu với các ấn phẩm Catalogue và Brochure chuyên nghiệp, in ấn sắc nét, thiết kế sáng tạo giúp truyền tải trọn vẹn giá trị sản phẩm và dịch vụ.",
-		image: HERO_IMAGE,
+		image: `/services/an-pham-tiep-thi/thumbnail/catalogue-brochure.avif`,
 		chips: ["Thiết kế chuẩn", "In sắc nét"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem portfolio",
@@ -347,12 +347,12 @@ export const CATALOGUE_BROCHURE_DATA: ProductPageData = {
 			{
 				name: "Catalogue",
 				description: "Nhiều trang, đóng ghim hoặc keo gáy.",
-				image: "/branding/services/thiet-ke-in-an.avif",
+				image: `/services/an-pham-tiep-thi/catalogue-brochure/1.avif`,
 			},
 			{
 				name: "Brochure",
 				description: "In tờ gấp 2, gấp 3 gọn nhẹ.",
-				image: "/branding/services/sticker.avif",
+				image: `/services/an-pham-tiep-thi/catalogue-brochure/2.avif`,
 			},
 		],
 	},
@@ -447,7 +447,9 @@ export const CATALOGUE_BROCHURE_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Sản phẩm thực tế",
 		title: "Thư viện dự án",
-		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
+		images: Array.from({ length: 8 }).map(
+			(_, i) => `/services/an-pham-tiep-thi/catalogue-brochure/${i + 1}.avif`
+		),
 		filters: [],
 	},
 	faq: TIEP_THI_FAQ,
