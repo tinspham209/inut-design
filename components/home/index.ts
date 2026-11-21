@@ -1,4 +1,5 @@
 export * from "./hero";
+export * from "./builder-promotion";
 export * from "./hero-img";
 export * from "./information";
 export * from "./featured-products-section";

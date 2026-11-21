@@ -2,7 +2,9 @@ import { Box, Button, Chip, Grid, keyframes, Stack, Typography } from "@mui/mate
 import Link from "next/link";
 import React, { useState } from "react";
 import { colors } from "../product-template/v3/shared";
-import { COLOR_CODE } from "@/utils";
+import { COLOR_CODE, trackBuilderPromotionEvent } from "@/utils";
+
+/* eslint-disable camelcase */
 
 // ─── Design tokens (mirrored from inut_hero_final.html) ────────────────────
 const C = {
@@ -35,7 +37,7 @@ interface StatItem {
 }
 
 export interface HeroSectionProps {
-	/** Override the primary CTA link (default: /san-pham) */
+	/** Override the primary CTA link (default: /builder) */
 	ctaPrimaryHref?: string;
 	/** Override the secondary CTA link (default: /contact) */
 	ctaSecondaryHref?: string;
@@ -114,7 +116,7 @@ function tagSx(variant: TagVariant) {
 
 // ─── Component ──────────────────────────────────────────────────────────────
 export function HeroSection({
-	ctaPrimaryHref = "#lighters",
+	ctaPrimaryHref = "/builder",
 	ctaSecondaryHref = "/contact/form",
 }: HeroSectionProps) {
 	const [activeCard, setActiveCard] = useState(0);
@@ -217,7 +219,14 @@ export function HeroSection({
 									component="a"
 									variant="contained"
 									disableElevation
-									aria-label="Xem sản phẩm INUT Design"
+									aria-label="Tự thiết kế ngay"
+									onClick={() =>
+										trackBuilderPromotionEvent("builder_promotion_click", {
+											builder_id: "overview",
+											placement: "home_hero",
+											action: "click",
+										})
+									}
 									sx={{
 										fontWeight: 700,
 										fontSize: "14px",
@@ -231,7 +240,7 @@ export function HeroSection({
 										"&:hover": { bgcolor: "#e04400" },
 									}}
 								>
-									Xem sản phẩm
+									Tự thiết kế ngay
 								</Button>
 							</Link>
 							<Link href={ctaSecondaryHref} passHref legacyBehavior>
@@ -424,6 +433,7 @@ export function HeroSection({
 							width: "max-content",
 							animation: `${tickerMove} 22s linear infinite`,
 							"&:hover": { animationPlayState: "paused" },
+							"@media (prefers-reduced-motion: reduce)": { animation: "none" },
 						}}
 					>
 						{[...Array(2)].map((_, i) => (

@@ -17,3 +17,4 @@ export * from "./date";
 export * from "./error";
 export * from "./analytics";
 export * from "./umamiAnalytics";
+export * from "./builderAnalytics";

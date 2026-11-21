@@ -6,6 +6,7 @@ import { Seo } from "@/components/common";
 import { ROUTE_LIST, RouteItem } from "@/components/common/header/routes";
 import {
 	BlogsHome,
+	BuilderPromotion,
 	CauChuyen,
 	ChotDon,
 	FeaturedProductsSection,
@@ -92,6 +93,7 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs, banner }
 				items={featuredGiftItems}
 				maxItems={8}
 			/>
+			<BuilderPromotion placement="home_feature" />
 
 			{/* Dịch vụ — all service sub-categories with children */}
 			<ServicesSection id="services" />

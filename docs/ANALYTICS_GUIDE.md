@@ -34,6 +34,34 @@ Evidence status: the local privacy suite passes, but no hosted analytics network
 capture or unauthenticated test-asset request has been recorded. Those checks
 remain pending before public release.
 
+## Builder promotion events
+
+The homepage Hero and Builder cards use two promotion events through the
+existing GA4/GTM and Umami wrappers:
+
+| Event | Trigger | `builder_id` | `placement` | `action` |
+| --- | --- | --- | --- | --- |
+| `builder_promotion_view` | A card is at least 50% visible | `keychain` or `lighter` | `home_feature` or `builder_index` | `view` |
+| `builder_promotion_click` | A Builder card is activated | `keychain` or `lighter` | `home_feature` or `builder_index` | `click` |
+| `builder_promotion_click` | The Hero “Tự thiết kế ngay” link is activated | `overview` | `home_hero` | `click` |
+
+The event payload is rebuilt from the fixed `builder_id`, `placement`, and
+`action` allow-list. It excludes titles, image URLs, query/share data, uploaded
+designs, customer/device identifiers, and commerce fields. Click tracking runs
+from the link handler and does not cancel navigation. Each visible card is
+measured once per mounted promotion placement; returning to a route that remounts
+the placement begins a new impression lifecycle. Each activation calls each
+available provider once. If `IntersectionObserver` is unavailable, impressions
+are not measured; links and cards still work normally. Missing providers are skipped, and provider exceptions
+are reported with a generic console message without being forwarded to analytics
+or interrupting navigation.
+
+For local browser verification, replace `window.gtag` and `window.umami.track`
+with call-recording functions before activating the links. Count only the
+promotion event names; the app's page-view and engagement instrumentation has
+separate event names and ownership. Local mocks prove dispatch shape and counts,
+not hosted GA4/GTM or Umami delivery.
+
 ---
 
 ## 🚀 Quick Start

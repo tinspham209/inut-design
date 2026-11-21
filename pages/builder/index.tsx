@@ -1,11 +1,10 @@
-import { ServiceCard } from "@/components/common/ServiceCard";
 import { Seo } from "@/components/common";
+import { BuilderPromotion } from "@/components/home";
 import { MainLayout } from "@/components/layout";
 import { NextPageWithLayout } from "@/models/common";
-import { BUILDER_CARDS } from "@/data/builders";
 import { SITE_URL } from "@/utils/siteUrl";
 import { COLOR_CODE } from "@/utils";
-import { Box, Breadcrumbs, Container, Grid, Link as MuiLink, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Container, Link as MuiLink, Typography } from "@mui/material";
 import Link from "next/link";
 
 const BuilderIndexPage: NextPageWithLayout = () => (
@@ -46,15 +45,8 @@ const BuilderIndexPage: NextPageWithLayout = () => (
 					Chọn sản phẩm để bắt đầu tạo mẫu và xem trước thiết kế theo ý tưởng của bạn.
 				</Typography>
 			</Box>
-
-			<Grid container spacing={2}>
-				{BUILDER_CARDS.map((card) => (
-					<Grid item key={card.href} xs={12} sm={6}>
-						<ServiceCard {...card} />
-					</Grid>
-				))}
-			</Grid>
 		</Container>
+		<BuilderPromotion placement="builder_index" />
 	</Box>
 );
 

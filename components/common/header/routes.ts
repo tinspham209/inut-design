@@ -66,7 +66,7 @@ export const ROUTE_LIST: RouteItem[] = [
 				label: "Tự thiết kế",
 				path: "/builder",
 				meta: {
-					description: "Tự thiết kế bật lửa và móc khóa mica trực tuyến theo ý tưởng của bạn.",
+					description: "Tự thiết kế móc khóa mica hoặc bật lửa trực tuyến theo ý tưởng của bạn.",
 					image_url: "/branding/builders/builders-og.avif",
 				},
 			},
