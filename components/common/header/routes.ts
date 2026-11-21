@@ -70,6 +70,15 @@ export const ROUTE_LIST: RouteItem[] = [
 					image_url: "/branding/builders/builders-og.avif",
 				},
 			},
+			{
+				label: "INUT Creativa",
+				path: "/creativa",
+				meta: {
+					description:
+						"Khám phá skin MacBook INUT Creativa: chọn thiết kế hợp gu, đúng dòng máy và phạm vi dán dành cho bạn.",
+					image_url: "/services/ca-nhan-hoa/thumbnail/creativa.avif",
+				},
+			},
 		],
 	},
 	{
@@ -152,21 +161,22 @@ export const ROUTE_LIST: RouteItem[] = [
 							image_url: "/services/ca-nhan-hoa/thumbnail/skin-nut-phim.avif",
 						},
 					},
-					// {
-					// 	label: "Skin điện thoại",
-					// 	path: "/services/ca-nhan-hoa/skin-dien-thoai-customize",
-					// 	meta: {
-					// 		description: "Cá nhân hóa ốp lưng hoặc dán skin điện thoại.",
-					// 		image_url: "",
-					// 		badge: "New",
-					// 	},
-					// },
+
 					{
 						label: "Bật lửa",
 						path: "/services/ca-nhan-hoa/skin-bat-lua-customize",
 						meta: {
 							description: "In hình cá nhân lên bật lửa Cricket.",
 							image_url: "/services/ca-nhan-hoa/thumbnail/lighter.avif",
+						},
+					},
+					{
+						label: "Tự thiết kế",
+						path: "/builder",
+						meta: {
+							description:
+								"Tự thiết kế móc khóa mica hoặc bật lửa trực tuyến theo ý tưởng của bạn.",
+							image_url: "/branding/builders/builders-og.avif",
 						},
 					},
 				],

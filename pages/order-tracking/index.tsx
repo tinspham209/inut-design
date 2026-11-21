@@ -134,7 +134,7 @@ const OrderConfirmationSearch: NextPageWithLayout = () => {
 									helperText={
 										orderType === "skin-laptop"
 											? "Dùng mã đã hiển thị khi đặt hàng; không có tiền tố. Không đổi chữ hoa/chữ thường."
-											: "Mã đơn hàng được gửi qua email hoặc SMS sau khi đặt hàng thành công"
+											: "Mã đơn hàng được hiển thị sau khi đặt hàng thành công"
 									}
 									inputProps={{ autoCapitalize: "none", autoCorrect: "off", spellCheck: false }}
 								/>

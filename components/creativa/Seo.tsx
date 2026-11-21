@@ -5,7 +5,7 @@ export function CreativaSeo({
 	title,
 	path,
 	description = "Khám phá các mẫu skin MacBook của INUT Creativa.",
-	image = "/branding/ogImage.jpg",
+	image = "/creativa/og-image.avif",
 	noindex = false,
 	structured,
 }: {
