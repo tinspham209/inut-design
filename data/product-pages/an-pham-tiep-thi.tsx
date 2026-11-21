@@ -460,7 +460,7 @@ export const IN_VOUCHER_VE_MOI_SU_KIEN_THE_TICH_DIEM_DATA: ProductPageData = {
 		description:
 			"Dịch vụ in voucher, vé mời sự kiện, thẻ tích điểm, tờ rơi tại Đà Nẵng. Thiết kế đẹp, in sắc nét, gia công chỉn chu, giá hợp lý. Phù hợp cửa hàng, café, spa, salon, doanh nghiệp.",
 		url: "https://inutdesign.com/services/an-pham-su-kien/in-voucher-ve-moi-su-kien-the-tich-diem-to-roi",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/an-pham-su-kien/thumbnail/voucher-ve-moi-su-kien-the-tich-diem-to-roi.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -494,7 +494,7 @@ export const IN_VOUCHER_VE_MOI_SU_KIEN_THE_TICH_DIEM_DATA: ProductPageData = {
 		title: "In Voucher, Vé Mời, Thẻ Tích Điểm & Tờ Rơi",
 		description:
 			"Nhỏ gọn nhưng không nhỏ vai trò. Voucher, vé mời, thẻ tích điểm và tờ rơi được thiết kế đẹp, in sắc nét và gia công chỉn chu — giúp thương hiệu của bạn ghi điểm ngay từ điểm chạm đầu tiên.",
-		image: HERO_IMAGE,
+		image: `/services/an-pham-tiep-thi/thumbnail/voucher-ve-moi-su-kien-the-tich-diem-to-roi.avif`,
 		chips: ["Thiết kế theo yêu cầu", "In lấy nhanh", "Gia công chỉn chu"],
 		secondaryCtaLabel: "Xem portfolio",
 		ticker: ["In Voucher Sắc Nét", "Vé Mời Chuyên Nghiệp", "Thẻ Tích Điểm Đẹp", "Tờ Rơi Ấn Tượng"],
@@ -552,22 +552,22 @@ export const IN_VOUCHER_VE_MOI_SU_KIEN_THE_TICH_DIEM_DATA: ProductPageData = {
 			{
 				name: "Voucher & Phiếu ưu đãi",
 				description: "Giảm giá, quà tặng, khuyến mãi theo mùa, tri ân khách hàng.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-tiep-thi/in-voucher-ve-moi-su-kien-the-tich-diem-to-roi/1.avif`,
 			},
 			{
 				name: "Vé mời sự kiện",
 				description: "Workshop, khai trương, hội thảo, event, vé VIP có QR code.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-tiep-thi/in-voucher-ve-moi-su-kien-the-tich-diem-to-roi/2.avif`,
 			},
 			{
 				name: "Thẻ tích điểm",
 				description: "Café, trà sữa, spa, salon, nail, cửa hàng thời trang.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-tiep-thi/in-voucher-ve-moi-su-kien-the-tich-diem-to-roi/3.avif`,
 			},
 			{
 				name: "Tờ rơi",
 				description: "Giới thiệu sản phẩm, dịch vụ, chương trình khuyến mãi.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-tiep-thi/in-voucher-ve-moi-su-kien-the-tich-diem-to-roi/4.avif`,
 			},
 		],
 	},
@@ -668,7 +668,10 @@ export const IN_VOUCHER_VE_MOI_SU_KIEN_THE_TICH_DIEM_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Dự án đã thực hiện",
 		title: "Hình ảnh thực tế",
-		images: Array.from({ length: 8 }).map((_, index) => HERO_IMAGE),
+		images: Array.from({ length: 8 }).map(
+			(_, i) =>
+				`/services/an-pham-tiep-thi/in-voucher-ve-moi-su-kien-the-tich-diem-to-roi/${i + 1}.avif`
+		),
 		filters: [],
 	},
 	faq: TIEP_THI_FAQ,
