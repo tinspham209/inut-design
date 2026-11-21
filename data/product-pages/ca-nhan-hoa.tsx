@@ -9,7 +9,26 @@ import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 
-const HERO_IMAGE = "/cover-web.webp";
+const SKIN_LAPTOP_IMAGES = [
+	"https://cdn.sanity.io/images/soud11bs/production/c171e8de1fdcc948befd5df4e8b8f03fdac3b2de-2564x2564.webp?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/b0c628ad9fe9f729db4c64dbb2a10ead7b674b08-1920x2560.webp?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/f7f30a0a30b75a36b138e10f036b68a8d2f7f1e2-1920x2560.webp?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/25d291658ee10b0d070b8a31843c97ccddcf7082-1140x1140.webp?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/20fd480c04dc60767ad255cf24030c8ae8c3af65-1140x1140.webp?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/6ec01312d7c948f94bbf6be1b31eecc8441f3a3f-900x900.webp?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/eaaab9152738ce52ad773e5a3221b6be38e2bef8-600x600.webp?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/4b17ec81b64f2a898dcd779059b3f312421e1574-2048x1536.webp?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/6779d18953a2f2309365206faba8c39c5ee12c23-1440x1080.webp?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/51753a3ffc22355a982a66b4dbc3a80b83edc9a7-2048x2048.webp?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/ecd680650d571afaeeb64b62752775cb927bae24-2048x2048.webp?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/5cd44b2ea3b83d526bb54551ec333db9daae3a8f-2048x1536.webp?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/6832e02b843b52cd5d455f87adca1f5248470e96-1440x1440.webp?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/b2026994a2cda4323bbbe49163dda6d010e6d994-2048x2048.webp?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/dc7baac68c7c28ff4bbfd8635e91f0f4b4feec18-1135x1135.jpg?w=1400&q=85&fit=max&auto=format",
+	"https://cdn.sanity.io/images/soud11bs/production/b521f1100fd4380956381ab9c3c00d4ea24e5884-1135x1135.webp?w=1400&q=85&fit=max&auto=format",
+];
+
+const HERO_IMAGE = SKIN_LAPTOP_IMAGES[0];
 
 export const SKIN_LAPTOP_DATA: ProductPageData = {
 	id: "skin-laptop-customize",
@@ -112,24 +131,24 @@ export const SKIN_LAPTOP_DATA: ProductPageData = {
 				name: "Skin Laptop Nhám (Matte)",
 				description:
 					"Bề mặt Matte chống bám mồ hôi, vân tay, mang lại cảm giác cầm êm tay, sang trọng",
-				image: HERO_IMAGE,
+				image: SKIN_LAPTOP_IMAGES[1],
 			},
 			{
 				name: "Skin Laptop Bóng (Glossy)",
 				description:
 					"Màng bóng rực rỡ, giúp làm nổi bật sâu sắc các mảng màu sắc trên thiết kế gốc",
-				image: HERO_IMAGE,
+				image: SKIN_LAPTOP_IMAGES[2],
 			},
 			{
 				name: "Skin Laptop Texture",
 				description: "Sử dụng vật liệu có hiệu ứng bề mặt như giả carbon, kim loại, hoặc vân nổi",
-				image: HERO_IMAGE,
+				image: SKIN_LAPTOP_IMAGES[7],
 			},
 			{
 				name: "Skin Cắt Tỉa Theo Yêu Cầu",
 				description:
 					"Cắt sát layout logo hoặc viền chi tiết lạ mắt, tạo hình dán đa dạng ngoài kích thước chung",
-				image: HERO_IMAGE,
+				image: SKIN_LAPTOP_IMAGES[6],
 			},
 		],
 		specOptions: [
@@ -183,7 +202,7 @@ export const SKIN_LAPTOP_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Bộ sưu tập",
 		title: "Hình ảnh thực tế",
-		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
+		images: SKIN_LAPTOP_IMAGES.slice(0, 12),
 		filters: [],
 	},
 	faq: CA_NHAN_HOA_FAQ,
