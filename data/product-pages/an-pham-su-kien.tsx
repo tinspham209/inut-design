@@ -918,7 +918,7 @@ export const SU_KIEN_TRON_GOI_DATA: ProductPageData = {
 		description:
 			"Dịch vụ sự kiện trọn gói tại Đà Nẵng: thiết kế, in ấn, thi công và set up đồng bộ. Phù hợp khai trương, hội nghị, workshop, activation. Báo giá nhanh trong 15 phút.",
 		url: "https://inutdesign.com/services/an-pham-su-kien/su-kien-tron-goi",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: "/services/an-pham-su-kien/thumbnail/su-kien-tron-goi.avif",
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -949,7 +949,7 @@ export const SU_KIEN_TRON_GOI_DATA: ProductPageData = {
 		title: "Sự Kiện Trọn Gói",
 		description:
 			"Từ concept đến thi công — INUT lo toàn bộ. Thiết kế đồng bộ, in ấn sắc nét, set up chỉn chu. Bạn chỉ cần xuất hiện và tận hưởng sự kiện.",
-		image: HERO_IMAGE,
+		image: "/services/an-pham-su-kien/thumbnail/su-kien-tron-goi.avif",
 		chips: ["Đồng bộ 100%", "Triển khai nhanh", "Tư vấn miễn phí"],
 		secondaryCtaLabel: "Xem portfolio",
 		ticker: ["Thiết Kế Đồng Bộ", "In Ấn Sắc Nét", "Thi Công Chuyên Nghiệp", "Giao Hàng Đúng Hẹn"],
@@ -1124,7 +1124,7 @@ export const SU_KIEN_TRON_GOI_DATA: ProductPageData = {
 		eyebrow: "Dự án đã thực hiện",
 		title: "Hình ảnh thực tế",
 		images: Array.from({ length: 8 }).map(
-			(_, index) => `/services/an-pham-su-kien/su-kien-tron-goi-da-nang/${index + 1}.avif`
+			(_, index) => `/services/an-pham-su-kien/su-kien-tron-goi/${index + 1}.avif`
 		),
 		filters: [],
 	},
