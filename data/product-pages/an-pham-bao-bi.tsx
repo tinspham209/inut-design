@@ -506,7 +506,7 @@ export const TEM_BAO_HANH_DATA: ProductPageData = {
 		description:
 			"In tem bảo hành tại Đà Nẵng: tem vỡ khi bóc, tem hologram, tem QR xác thực, tem niêm phong. Bảo vệ thương hiệu, chống hàng nhái. Đặt từ 10 cái — báo giá 15 phút.",
 		url: "https://inutdesign.com/services/an-pham-bao-bi/tem-bao-hanh",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/an-pham-bao-bi/thumbnail/tem-bao-hanh.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -537,7 +537,7 @@ export const TEM_BAO_HANH_DATA: ProductPageData = {
 		title: "Tem Bảo Hành",
 		description:
 			"Tem bảo hành không chỉ là tờ giấy dán lên sản phẩm — đó là tuyên bố: hàng này chính hãng, thương hiệu này đứng sau chất lượng. Vỡ khi bóc, in QR xác thực, chống làm giả từ trong ra ngoài.",
-		image: HERO_IMAGE,
+		image: `/services/an-pham-bao-bi/thumbnail/tem-bao-hanh.avif`,
 		chips: ["Vỡ khi bóc chống giả mạo", "In QR xác thực", "Đặt từ 10 cái"],
 		secondaryCtaLabel: "Xem portfolio",
 		ticker: ["Tem Vỡ Khi Bóc", "Tem Hologram Chống Giả", "Tem QR Xác Thực", "Tem Niêm Phong Hộp"],
@@ -597,37 +597,37 @@ export const TEM_BAO_HANH_DATA: ProductPageData = {
 				name: "Tem vỡ / Tem VOID",
 				description:
 					"Vỡ thành mảnh hoặc hiện chữ VOID khi bóc — tiêu chuẩn chống tháo mở cho điện tử, linh kiện, thiết bị kỹ thuật.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-bao-bi/tem-bao-hanh/1.avif`,
 			},
 			{
 				name: "Tem hologram chống giả",
 				description:
 					"Lớp hologram ánh kim 7 màu — khó sao chép bằng mắt thường, dùng cho hàng chính hãng cần bảo mật cao.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-bao-bi/tem-bao-hanh/2.avif`,
 			},
 			{
 				name: "Tem QR xác thực online",
 				description:
 					"Mỗi tem in QR riêng — scan xác thực hàng thật, tra cứu thời hạn bảo hành trực tiếp trên web hoặc app thương hiệu.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-bao-bi/tem-bao-hanh/3.avif`,
 			},
 			{
 				name: "Tem niêm phong hộp",
 				description:
 					"Dán qua khe mở hộp, vỡ khi mở — xác nhận hộp nguyên seal, bảo vệ sản phẩm trong vận chuyển và trưng bày.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-bao-bi/tem-bao-hanh/4.avif`,
 			},
 			{
 				name: "Tem nhựa thông tin bảo hành",
 				description:
 					"In logo, tháng năm, mã số, hotline — chất liệu nhựa PP bền hơn giấy, chịu ẩm, dùng cho môi trường cầm nắm thường xuyên.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-bao-bi/tem-bao-hanh/5.avif`,
 			},
 			{
 				name: "Tem giấy thông tin cơ bản",
 				description:
 					"Giấy couche in 1–2 màu, ghi thời hạn và thông tin bảo hành — chi phí tối ưu, phù hợp cửa hàng nhỏ và đại lý.",
-				image: HERO_IMAGE,
+				image: `/services/an-pham-bao-bi/tem-bao-hanh/6.avif`,
 			},
 		],
 	},
@@ -733,7 +733,7 @@ export const TEM_BAO_HANH_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Sản phẩm thực tế",
 		title: "Mẫu tem bảo hành đã in",
-		images: Array.from({ length: 8 }).map(
+		images: Array.from({ length: 12 }).map(
 			(_, index) => `/services/an-pham-bao-bi/tem-bao-hanh/${index + 1}.avif`
 		),
 		filters: ["Tất cả", "Tem VOID", "Tem Hologram", "Tem QR", "Tem Niêm Phong"],
