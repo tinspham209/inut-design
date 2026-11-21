@@ -26,7 +26,7 @@ export const GIAY_KHEN_DATA: ProductPageData = {
 		description:
 			"In ấn giấy khen, giấy chứng nhận cao cấp tại Đà Nẵng với giấy Couche, Mỹ thuật chuyên nghiệp. Thiết kế chuẩn nhận diện, tùy chọn ép kim sang trọng, nâng tầm uy tín doanh nghiệp.",
 		url: "https://inutdesign.com/services/an-pham-van-phong/giay-khen-giay-chung-nhan",
-		thumbnailUrl: HERO_IMAGE,
+		thumbnailUrl: `/services/an-pham-van-phong/thumbnail/bang-khen-giay-khen.avif`,
 		breadcrumbs: [
 			{ name: "Trang chủ", item: "/" },
 			{ name: "Dịch vụ", item: "/services" },
@@ -60,7 +60,7 @@ export const GIAY_KHEN_DATA: ProductPageData = {
 		title: "Giấy Khen & Giấy Chứng Nhận",
 		description:
 			"Thể hiện sự trân trọng và vinh danh xứng đáng với dịch vụ in giấy khen, giấy chứng nhận chuyên nghiệp: thiết kế trang trọng, chất liệu cao cấp và gia công tinh tế.",
-		image: HERO_IMAGE,
+		image: `/services/an-pham-van-phong/thumbnail/bang-khen-giay-khen.avif`,
 		chips: ["Thiết kế trang trọng", "Chất liệu cao cấp"],
 		ctaLabel: "Nhận báo giá nhanh",
 		secondaryCtaLabel: "Xem mẫu thiết kế",
@@ -123,12 +123,12 @@ export const GIAY_KHEN_DATA: ProductPageData = {
 			{
 				name: "Giấy khen / Bằng khen",
 				description: "Vinh danh học tập, công tác.",
-				image: "/branding/services/thiet-ke-in-an.avif",
+				image: `/services/an-pham-van-phong/bang-khen-giay-khen/1.avif`,
 			},
 			{
 				name: "Giấy chứng nhận",
 				description: "Xác nhận năng lực chuyên môn.",
-				image: "/branding/services/sticker.avif",
+				image: `/services/an-pham-van-phong/bang-khen-giay-khen/2.avif`,
 			},
 		],
 	},
@@ -223,7 +223,9 @@ export const GIAY_KHEN_DATA: ProductPageData = {
 	gallery: {
 		eyebrow: "Dự án đã thực hiện",
 		title: "Mẫu sản phẩm thực tế",
-		images: Array.from({ length: 12 }).map(() => HERO_IMAGE),
+		images: Array.from({ length: 10 }).map(
+			(_, i) => `/services/an-pham-van-phong/bang-khen-giay-khen/${i + 1}.avif`
+		),
 		filters: [],
 	},
 	faq: VAN_PHONG_FAQ,
