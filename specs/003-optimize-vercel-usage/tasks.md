@@ -333,6 +333,24 @@ Agent D: T066–T073 in blog/header/home link surfaces
 - A route not present in the 12-hour sample remains in scope if the repository
   audit confirms the same costly pattern.
 
+## Phase 8: Convergence
+
+- [x] T117 CRITICAL Block release acceptance until every measurable Production gate has retained evidence or an explicit failed/unverified result per Constitution V and FR-017 (partial)
+- [x] T118 Replace the three Creativa unavailable-state `revalidate: 60` values with the approved bounded 24-hour refresh and urgent-publication behavior per FR-022 and SC-019 (contradicts)
+- [x] T119 Change search response caching so stale corpus responses cannot remain visitor-visible beyond the approved 24-hour freshness limit per FR-021 and SC-018 (contradicts)
+- [x] T120 Establish an approved comparable Production baseline/post window, retain normalized five-route CPU and monthly safety-budget results, and preserve a failed status if the required pre-implementation freeze cannot be proven per FR-001, FR-014, SC-001, SC-002, SC-004, and SC-009 (missing)
+- [ ] T121 Capture Production p95/p99 latency, 5xx rate, malformed/missing/unavailable Active CPU, and separate content-fetch versus shared-render timing per SC-003, SC-005, SC-008, and FR-027 (missing)
+- [ ] T122 Validate Production `/contact` Function invocations and CMS reads, the `/contact/form` 10-minute automatic request classes, and explicit Production/Preview/Development workload separation per SC-012, SC-013, SC-014, and SC-015 (missing)
+- [ ] T123 Execute and retain Production normal-freshness, urgent-publication, search corpus refresh, and blog external-operation evidence per SC-006, SC-018, SC-019, and SC-021 (missing)
+- [ ] T124 Execute the class-specific protected API fixture matrix in an isolated environment and retain authorization, method, response, retry/idempotency, and sensitive-data results per FR-025 and SC-022 (partial)
+
+## Phase 9: Convergence
+
+- [ ] T125 CRITICAL Capture and retain qualifying Production p95/p99 latency, 5xx, failure-class Active CPU, and separate render-versus-content-fetch evidence per Constitution V, SC-003, SC-005, SC-008, and FR-027 (missing)
+- [ ] T126 Validate and retain Production-only `/contact` invocation and CMS-read counts, `/contact/form` automatic request classes, and Production/Preview/Development workload separation per SC-012, SC-013, SC-014, and SC-015 (missing)
+- [ ] T127 Execute and retain Production normal-freshness, urgent Creativa/search publication, search cold-start/deployment-epoch, and blog regeneration operation evidence per SC-006, SC-018, SC-019, and SC-021 (missing)
+- [ ] T128 Execute the protected API class-specific fixture matrix in an isolated environment and retain method, authorization, response, retry/idempotency, and sensitive-data outcomes per FR-025 and SC-022 (partial)
+
 ## Completion semantics for Production-only evidence
 
 Tasks T014, T080–T081, and T095–T116 may record an explicit unknown where the required

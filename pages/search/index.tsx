@@ -369,7 +369,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ query, res
 			page: query.page,
 			pageSize: query.pageSize || String(SEARCH_DEFAULT_PAGE_SIZE),
 		});
-		res.setHeader("Cache-Control", "public, s-maxage=86400, stale-while-revalidate=86400");
+		res.setHeader("Cache-Control", "public, s-maxage=86400");
 		return {
 			props: {
 				query: parsed.request.query,

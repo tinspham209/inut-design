@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 				catalogError:
 					failure instanceof CreativaError ? failure.message : "Không thể tải bộ sưu tập lúc này.",
 			},
-			revalidate: 60,
+			revalidate: 86400,
 		};
 	}
 };

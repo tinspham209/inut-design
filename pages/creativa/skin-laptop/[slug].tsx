@@ -608,7 +608,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 						? failure.message
 						: "Không thể tải sản phẩm. Vui lòng thử lại.",
 			},
-				revalidate: 60,
+				revalidate: 86400,
 		};
 	}
 };

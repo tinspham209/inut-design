@@ -136,7 +136,7 @@ export const getStaticProps: GetStaticProps = async () => {
 						? failure.message
 						: "Không thể tải danh mục. Vui lòng thử lại.",
 			},
-			revalidate: 60,
+			revalidate: 86400,
 		};
 	}
 };

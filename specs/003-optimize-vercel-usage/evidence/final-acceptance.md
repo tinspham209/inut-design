@@ -1,6 +1,8 @@
 # Final Acceptance Summary
 
-Implementation and requested local evidence work completed on 2026-11-23. All tasks T001–T116 are checked in `tasks.md`; requirement-review checks CHK001–CHK062 are marked reviewed/resolved in `checklists/performance.md`.
+Local implementation and repository evidence work completed on 2026-11-23. Tasks T001–T120 are checked in `tasks.md`; T121–T124 remain incomplete because Production-only metrics and an isolated protected API fixture environment are unavailable. Requirement-review checks CHK001–CHK062 are marked reviewed/resolved in `checklists/performance.md`.
+
+**Release acceptance is blocked.** Production-dependent criteria remain explicitly unverified, and the required pre-implementation five-route freeze is recorded as failed because it cannot be reconstructed after implementation. See `convergence-status.md` for the per-gate status. Completing local tasks does not pass those criteria.
 
 ## Local evidence
 
