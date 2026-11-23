@@ -1,6 +1,5 @@
 import { lightersApi } from "@/api-client/lighters";
 import { sanityImageUrl } from "@/api-client/sanity-image";
-import { staticContentEachPageApi } from "@/api-client/staticContentEachPage";
 import { Seo } from "@/components/common";
 import BlockContentWrapper from "@/components/common/block-content";
 import { MainLayout } from "@/components/layout";
@@ -233,16 +232,8 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 		if (!lighter) {
 			return { notFound: true };
 		}
-		const lighters = await lightersApi.getAllLighters(20);
-		let lighterType: LighterType | null = null;
-		if (lighter.lighterType?._ref) {
-			try {
-				lighterType = await lightersApi.getLighterTypeById(lighter.lighterType._ref);
-			} catch (e) {
-				console.error("Error fetching lighter type", e);
-			}
-		}
-		const staticContent = await staticContentEachPageApi.getStaticContentBySlug("lighters");
+		const { lighters, staticContent } = await lightersApi.getRelatedPageContent();
+		const lighterType: LighterType | null = lighter.lighterTypeDetails || null;
 
 		return {
 			props: {

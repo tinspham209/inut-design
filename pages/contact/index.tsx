@@ -1,10 +1,7 @@
-import { bannerApi } from "@/api-client/banner";
-import { sanityImageUrl } from "@/api-client/sanity-image";
 import { Seo } from "@/components/common";
 import { HeroImage } from "@/components/home";
 import { MainLayout } from "@/components/layout";
 import { LIST_CONTACTS } from "@/data/contacts/list-contacts";
-import { Banner } from "@/models/banner";
 import { NextPageWithLayout } from "@/models/common";
 import { trackContactClick, trackPhoneClick, trackSocialClick } from "@/utils/analytics";
 import { COLOR_CODE } from "@/utils";
@@ -12,9 +9,10 @@ import { ArrowForwardIos } from "@mui/icons-material";
 import { Box, Breadcrumbs, Container, Link as MuiLink, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import { GetStaticProps } from "next/types";
 
-const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
+const CONTACT_BANNER_PATH = "/branding/contacts/contact-page-banner.jpg";
+
+const ContactContainer: NextPageWithLayout = () => {
 	return (
 		<>
 			<Seo
@@ -23,7 +21,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 					description:
 						"Thiết kế & In ấn - Skin Laptop - Sticker - Decal - Thiệp - Card - Tem Nhãn, skin laptop da nang, skin laptop đà nẵng",
 					url: "https://inutdesign.com/contact",
-					thumbnailUrl: sanityImageUrl(banner.image, "seo"),
+					thumbnailUrl: CONTACT_BANNER_PATH,
 				}}
 			/>
 
@@ -189,7 +187,7 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 					</Stack>
 				</Container>
 				<Box mt={8}>
-					<HeroImage imgUrl={sanityImageUrl(banner.image, "hero")} />
+					<HeroImage imgUrl={CONTACT_BANNER_PATH} />
 				</Box>
 			</Box>
 		</>
@@ -197,19 +195,5 @@ const ContactContainer: NextPageWithLayout = ({ banner }: Props) => {
 };
 
 ContactContainer.Layout = MainLayout;
-type Props = {
-	banner: Banner;
-};
-
-export const getStaticProps: GetStaticProps<Props> = async () => {
-	const banner: Banner = await bannerApi.getBannerPage("contact-page");
-
-	return {
-		props: {
-			banner: banner ? banner[0] : [],
-		},
-		revalidate: 300,
-	};
-};
 
 export default ContactContainer;

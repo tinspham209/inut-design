@@ -127,7 +127,7 @@ export function ChotDon() {
 									Inbox Zalo ngay
 								</Button>
 							</MuiLink>
-							<Link href="/contact/form" passHref legacyBehavior>
+							<Link href="/contact/form" passHref legacyBehavior prefetch={false}>
 								<MuiLink rel="noopener noreferrer" underline="none">
 									<Button
 										variant="outlined"

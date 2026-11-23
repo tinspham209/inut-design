@@ -66,7 +66,7 @@ take_screenshot "phase1_homepage"
 echo -e "\n${BLUE}--- Phase 2: Product Categories ---${NC}"
 
 # Lighters (Bật lửa)
-agent-browser open "$URL/lighters"
+agent-browser open "$URL/san-pham/lighters"
 SNAPSHOT=$(agent-browser snapshot -i)
 if [[ $(echo "$SNAPSHOT" | tr '[:upper:]' '[:lower:]') == *"bật lửa"* ]]; then
     log_result 0 "Lighters Page: Loaded correctly."
@@ -100,8 +100,8 @@ take_screenshot "phase3_blog"
 if [[ "$MODE" == "full" ]] || [[ "$MODE" == "cart" ]]; then
     echo -e "\n${BLUE}--- Phase 4: Cart Flow (Lighters) ---${NC}"
     
-    # Go to a specific lighter page
-    agent-browser open "$URL/lighters"
+# Go to a specific lighter page
+agent-browser open "$URL/san-pham/lighters"
     SNAPSHOT=$(agent-browser snapshot -i)
     
     # Try to find "THÊM VÀO GIỎ" or "XEM CHI TIẾT"

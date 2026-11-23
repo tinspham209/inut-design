@@ -39,7 +39,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 				catalog: { ...catalog, items: catalog.items.slice(0, 4), cursor: null },
 				catalogError: null,
 			},
-			revalidate: 60,
+			revalidate: 86400,
 		};
 	} catch (failure) {
 		console.error("[Creativa homepage] Rendering unavailable catalog.", {

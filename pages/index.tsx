@@ -1,6 +1,4 @@
-import { bannerApi } from "@/api-client/banner";
-import { lightersApi } from "@/api-client/lighters";
-import { productsApi } from "@/api-client/products";
+import { getHomepageContent } from "@/api-client/homepage";
 import { sanityImageUrl } from "@/api-client/sanity-image";
 import { Seo } from "@/components/common";
 import { ROUTE_LIST, RouteItem } from "@/components/common/header/routes";
@@ -75,7 +73,7 @@ const Home: NextPageWithLayout = ({ products, macnuts, lighters, blogs, banner }
 					description:
 						"Xưởng in ấn cá nhân hóa tại Đà Nẵng: Sticker, Bật lửa, skin laptop, skin nút phím. Báo giá 15 phút, giao toàn quốc. Zalo: 0327 124 321.",
 					url: "https://inutdesign.com",
-					thumbnailUrl: sanityImageUrl(banner.image, "seo") || "/branding/ogImage.jpg",
+					thumbnailUrl: sanityImageUrl(banner?.image, "seo") || "/branding/ogImage.jpg",
 				}}
 			/>
 			{/* <Box pt={2} bgcolor={COLOR_CODE.BACKGROUND}>
@@ -152,28 +150,21 @@ type Props = {
 	macnuts: Products;
 	lighters: LighterProduct[];
 	blogs: Post[];
-	banner: Banner;
+	banner: Banner | null;
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-	const blogs = await getPostListLimit(3);
-	const banner: Banner = await bannerApi.getBannerPage("homepage");
-
-	const [specialProducts, specialMacnuts, specialLighters] = await Promise.all([
-		productsApi.getSpecialProducts(8),
-		productsApi.getSpecialProductsMacnut(8),
-		lightersApi.getSpecialLighters(8),
-	]);
+	const [blogs, homepageContent] = await Promise.all([getPostListLimit(3), getHomepageContent()]);
 
 	return {
 		props: {
-			products: specialProducts,
-			macnuts: specialMacnuts,
-			lighters: specialLighters,
+			products: homepageContent.products,
+			macnuts: homepageContent.macnuts,
+			lighters: homepageContent.lighters,
 			blogs,
-			banner: banner ? banner[0] : [],
+			banner: homepageContent.banner[0] ?? null,
 		},
-		revalidate: 300,
+		revalidate: 600,
 	};
 };
 

@@ -1,6 +1,4 @@
-import { bannerApi } from "@/api-client/banner";
 import { productsApi } from "@/api-client/products";
-import { productTypeApi } from "@/api-client/productType";
 import { sanityImageUrl } from "@/api-client/sanity-image";
 import { Seo } from "@/components/common";
 import { MainLayout } from "@/components/layout";
@@ -363,11 +361,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	const page = 1;
 	const pageSize = 24;
 
-	const [catalog, productTypes, banner] = await Promise.all([
-		productsApi.getMacnutPage({ page, pageSize }),
-		productTypeApi.getAllMacNut(),
-		bannerApi.getBannerPage("macnut-page"),
-	]);
+	const catalog = await productsApi.getMacnutListingContent({ page, pageSize });
+	const productTypes = catalog.types;
+	const banner = catalog.banner;
 	const products: Products = catalog.items;
 
 	const productUndefined = products

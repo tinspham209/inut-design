@@ -67,7 +67,7 @@ export function HeaderMobile({ routes = ROUTE_LIST }: HeaderMobileProps) {
 			<React.Fragment key={item.path + item.label}>
 				<ListItem disablePadding>
 					<Stack direction="row" alignItems="center" sx={{ width: "100%" }}>
-						<Link href={item.path} passHref>
+						<Link href={item.path} passHref prefetch={item.prefetch}>
 							<ListItemButton
 								onClick={() => {
 									trackHeaderNavigation(item.label, "Main Nav", "mobile");
@@ -156,7 +156,7 @@ export function HeaderMobile({ routes = ROUTE_LIST }: HeaderMobileProps) {
 
 					<Stack direction="row" alignItems="center" spacing={0.5}>
 						<SearchPopover device="mobile" />
-						<Link href={"/contact/form"} passHref>
+						<Link href={"/contact/form"} passHref prefetch={false}>
 							<Button
 								variant="contained"
 								size="small"
@@ -203,7 +203,7 @@ export function HeaderMobile({ routes = ROUTE_LIST }: HeaderMobileProps) {
 						{routes
 							.filter((r) => r.isButton)
 							.map((route) => (
-								<Link key={route.path} href={route.path} passHref>
+								<Link key={route.path} href={route.path} passHref prefetch={route.prefetch}>
 									<Button
 										fullWidth
 										variant="contained"

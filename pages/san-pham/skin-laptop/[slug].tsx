@@ -33,7 +33,6 @@ import styles from "./productItem.module.css";
 
 const Carousel = dynamic(() => import("react-material-ui-carousel"), { ssr: false });
 const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
-import { staticContentEachPageApi } from "@/api-client/staticContentEachPage";
 import { StaticContentEachPage } from "@/models";
 import BlockContentWrapper from "@/components/common/block-content";
 
@@ -407,8 +406,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params: { slug } }
 	const product = await productsApi.getProductBySlug(slug as string);
 	if (!product) return { notFound: true };
 
-	const products = await productsApi.getAllProducts(20);
-	const staticContent = await staticContentEachPageApi.getStaticContentBySlug("products");
+	const { products, staticContent } = await productsApi.getRelatedPageContent("products");
 
 	return {
 		props: {

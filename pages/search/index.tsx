@@ -352,6 +352,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ query, res
 	});
 
 	if (parsed.status !== "valid") {
+		res.setHeader("Cache-Control", "private, no-store");
 		return {
 			props: {
 				query: "",
@@ -368,7 +369,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ query, res
 			page: query.page,
 			pageSize: query.pageSize || String(SEARCH_DEFAULT_PAGE_SIZE),
 		});
-		res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=600");
+		res.setHeader("Cache-Control", "public, s-maxage=86400, stale-while-revalidate=86400");
 		return {
 			props: {
 				query: parsed.request.query,
@@ -379,6 +380,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ query, res
 	} catch (error) {
 		console.error("Search source unavailable", error instanceof Error ? error.message : "unknown error");
 		res.statusCode = 503;
+		res.setHeader("Cache-Control", "private, no-store");
 		return {
 			props: {
 				query: parsed.request.query,

@@ -122,7 +122,7 @@ export const getStaticProps: GetStaticProps = async () => {
 	try {
 		return {
 			props: { initial: await creativaCatalogApi.getPage(), initialError: null },
-			revalidate: 60,
+			revalidate: 86400,
 		};
 	} catch (failure) {
 		console.error("[Creativa catalog] Rendering unavailable state.", {

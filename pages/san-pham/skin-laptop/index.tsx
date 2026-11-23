@@ -1,5 +1,3 @@
-import { bannerApi } from "@/api-client/banner";
-import { productTypeApi } from "@/api-client/productType";
 import { productsApi } from "@/api-client/products";
 import { sanityImageUrl } from "@/api-client/sanity-image";
 import { Seo } from "@/components/common";
@@ -369,11 +367,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	const page = 1;
 	const pageSize = 24;
 
-	const [catalog, productTypes, banner] = await Promise.all([
-		productsApi.getProductsPage({ page, pageSize }),
-		productTypeApi.getAll(),
-		bannerApi.getBannerPage("products-page"),
-	]);
+	const catalog = await productsApi.getLaptopListingContent({ page, pageSize });
+	const productTypes = catalog.types;
+	const banner = catalog.banner;
 	const products: Products = catalog.items;
 
 	const productUndefined = products

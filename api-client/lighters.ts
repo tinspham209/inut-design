@@ -1,6 +1,8 @@
 import { client } from "./sanity-browser";
 import { LighterProduct, LighterType, LighterProductWithType } from "@/models/cart";
 import { CatalogPage } from "@/models/catalog";
+import { Banner } from "@/models/banner";
+import { StaticContentEachPage } from "@/models/staticContentEachPage";
 
 const IMAGE_PROJECTION = `_key, _type, asset, crop, hotspot`;
 const LIGHTER_LIST_FIELDS = `_id, _type, name, slug{current}, image[0...2]{${IMAGE_PROJECTION}}, lighterType, special, _createdAt`;
@@ -15,7 +17,49 @@ const normalizeCatalogTotal = (total: unknown): number =>
 const safePage = (page?: number) => Math.max(1, Math.floor(page || 1));
 const safePageSize = (pageSize?: number) => Math.min(48, Math.max(1, Math.floor(pageSize || DEFAULT_PAGE_SIZE)));
 
+export type LighterListingContent = CatalogPage<LighterProduct> & {
+	types: LighterType[];
+	banner: Banner[];
+};
+
+export type LighterRelatedContent = {
+	lighters: LighterProduct[];
+	staticContent: StaticContentEachPage | null;
+};
+
+const getGroupedLighterListing = async (options: { page?: number; pageSize?: number } = {}) => {
+	const page = safePage(options.page);
+	const pageSize = safePageSize(options.pageSize);
+	const start = (page - 1) * pageSize;
+	const where = '*[_type == "lighterProducts" && !(_id in path("drafts.**"))]';
+	const query = `{
+		"items": ${where} | order(_createdAt desc)[${start}...${start + pageSize}]{${LIGHTER_LIST_FIELDS}},
+		"total": count(${where}),
+		"types": *[_type == "lighterType"]{${LIGHTER_TYPE_LIST_FIELDS}} | order(name asc),
+		"banner": *[_type == "banner" && slug.current == "lighters-page"]{_id, _rev, _type, _updatedAt, createdAt, buttonText, slug{current}, image{_type, asset, crop, hotspot}}
+	}`;
+	const result = await client.fetch<Pick<LighterListingContent, "items" | "total" | "types" | "banner">>(query);
+	return {
+		items: result.items,
+		total: normalizeCatalogTotal(result.total),
+		types: result.types,
+		banner: result.banner,
+		page,
+		pageSize,
+	};
+};
+
 export const lightersApi = {
+	async getRelatedPageContent(): Promise<LighterRelatedContent> {
+		const query = `{
+			"lighters": *[_type == "lighterProducts"]{${LIGHTER_LIST_FIELDS}} | order(_createdAt desc)[0...20],
+			"staticContent": *[_type == "configStaticContentEachPage" && slug.current == "lighters"][0]{_id,name,"slug":slug.current,camKetMuaHang,moTaSanPham}
+		}`;
+		return client.fetch<LighterRelatedContent>(query);
+	},
+	async getLighterListingContent(options: { page?: number; pageSize?: number } = {}) {
+		return getGroupedLighterListing(options);
+	},
 	// ==================== Lighter Products ====================
 
 	/**

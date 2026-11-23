@@ -245,7 +245,7 @@ export function HeroSection({
 									Tự thiết kế ngay
 								</Button>
 							</Link>
-							<Link href={ctaSecondaryHref} passHref legacyBehavior>
+							<Link href={ctaSecondaryHref} passHref legacyBehavior prefetch={false}>
 								<Button
 									component="a"
 									variant="outlined"

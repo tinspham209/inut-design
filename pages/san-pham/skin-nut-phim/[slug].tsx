@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { productsApi } from "@/api-client/products";
 import { sanityImageUrl } from "@/api-client/sanity-image";
-import { staticContentEachPageApi } from "@/api-client/staticContentEachPage";
 import { Seo } from "@/components/common";
 import BlockContentWrapper from "@/components/common/block-content";
 import { Portal } from "@/components/common/Portal";
@@ -404,8 +403,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params: { slug } }) => {
 	const product = await productsApi.getProductBySlugMacnut(slug as string);
-	const products = await productsApi.getAllProductsMacnut(20);
-	const staticContent = await staticContentEachPageApi.getStaticContentBySlug("macnut");
+	const { products, staticContent } = await productsApi.getRelatedPageContent("macnut");
 
 	return {
 		props: {

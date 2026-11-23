@@ -1,4 +1,3 @@
-import { client } from "@/api-client/sanity-browser";
 import {
 	ACRYLIC_MAGNET_DATA,
 	IN_ANH_DATA,
@@ -52,6 +51,10 @@ import {
 import { ROUTE_LIST, CREATIVA_ROUTE_LIST, RouteItem } from "@/components/common/header/routes";
 import { ProductPageData } from "@/models/product-page";
 import { getPostList } from "@/utils/posts";
+import { createExpiringPromiseCache, SEARCH_CORPUS_TTL_MS } from "./expiring-promise-cache";
+import { dynamicDocuments, SearchFacetOption } from "./dynamic-sources";
+export { dynamicDocuments, SEARCH_DYNAMIC_SOURCES_QUERY } from "./dynamic-sources";
+export type { SearchFacetOption } from "./dynamic-sources";
 import {
 	normalizeSearchText,
 	SearchDocument,
@@ -97,20 +100,14 @@ const PRODUCT_PAGE_DATA: ProductPageData[] = [
 	STICKER_SHEET_DATA,
 ];
 
-export type SearchFacetOption = {
-	slug: string;
-	name: string;
-};
-
 export type SearchCorpus = {
 	documents: SearchDocument[];
 	facets: SearchFacetOption[];
 	legacyTypeSlugs: string[];
 };
 
-let pendingCorpus: Promise<SearchCorpus> | null = null;
-let cachedCorpus: { value: SearchCorpus; expiresAt: number } | null = null;
-const SEARCH_CORPUS_TTL_MS = 10 * 60 * 1000;
+export { SEARCH_CORPUS_TTL_MS } from "./expiring-promise-cache";
+const corpusCache = createExpiringPromiseCache<SearchCorpus>(SEARCH_CORPUS_TTL_MS);
 
 const isExcludedPath = (path: string): boolean =>
 	/^\/(search|api|cart|checkout|order-tracking|builder)(\/|$)/.test(path);
@@ -321,101 +318,6 @@ const productPageDocuments = (): SearchDocument[] =>
 		};
 	});
 
-type SanitySearchRecord = {
-	_id?: string;
-	_type?: string;
-	name?: string;
-	slug?: string;
-	details?: unknown;
-	productType?: { name?: string; slug?: string };
-	macnutType?: { name?: string; slug?: string };
-	lighterType?: { name?: string; slug?: string };
-};
-
-const dynamicDocuments = async (): Promise<{
-	documents: SearchDocument[];
-	facets: SearchFacetOption[];
-	legacyTypeSlugs: string[];
-}> => {
-	const productFields = `_id, _type, name, "slug": slug.current, details, "productType": productType->{name, "slug": slug.current}, "macnutType": macnutType->{name, "slug": slug.current}`;
-	const lighterFields = `_id, _type, name, "slug": slug.current, details, "lighterType": lighterType->{name, "slug": slug.current}`;
-	const productQuery = `*[_type == "products" && !(_id in path("drafts.**")) && defined(name) && defined(slug.current)]{${productFields}} | order(_createdAt desc)`;
-	const macnutQuery = `*[_type == "macnut" && !(_id in path("drafts.**")) && defined(name) && defined(slug.current)]{${productFields}} | order(_createdAt desc)`;
-	const lighterQuery = `*[_type == "lighterProducts" && !(_id in path("drafts.**")) && defined(name) && defined(slug.current)]{${lighterFields}} | order(_createdAt desc)`;
-	const productTypesQuery =
-		'*[_type == "productType" && !(_id in path("drafts.**")) && defined(name) && defined(slug.current)]{name, "slug": slug.current}';
-	const macnutTypesQuery =
-		'*[_type == "macnutType" && !(_id in path("drafts.**")) && defined(name) && defined(slug.current)]{name, "slug": slug.current}';
-
-	const [products, macnuts, lighters, productTypes, macnutTypes] = await Promise.all([
-		client.fetch<SanitySearchRecord[]>(productQuery),
-		client.fetch<SanitySearchRecord[]>(macnutQuery),
-		client.fetch<SanitySearchRecord[]>(lighterQuery),
-		client.fetch<SearchFacetOption[]>(productTypesQuery),
-		client.fetch<SearchFacetOption[]>(macnutTypesQuery),
-	]);
-
-	const toDocument = (
-		record: SanitySearchRecord,
-		kind: SearchKind,
-		kindLabel: string,
-		basePath: string,
-		sourcePrecedence: number
-	): SearchDocument | null => {
-		if (!record._id || !record.name || !record.slug) return null;
-		const type =
-			kind === "product"
-				? record.productType
-				: kind === "macnut"
-					? record.macnutType
-					: record.lighterType;
-		const facetSlugs =
-			kind === "product" || kind === "macnut"
-				? [record.productType?.slug, record.macnutType?.slug].filter(Boolean)
-				: [];
-		const typeName = type?.name || "";
-		return {
-			id: record._id,
-			url: `${basePath}/${record.slug}`,
-			kind,
-			kindLabel,
-			title: record.name,
-			category: typeName || kindLabel,
-			slug: record.slug,
-			excerpt: typeName,
-			body: plainRichText(record.details),
-			facetSlugs,
-			sourcePrecedence,
-		};
-	};
-
-	const documents = [
-		...products
-			.map((record) => toDocument(record, "product", "Skin Laptop", "/san-pham/skin-laptop", 1))
-			.filter((record): record is SearchDocument => Boolean(record)),
-		...macnuts
-			.map((record) =>
-				toDocument(record, "macnut", "Skin Nút Phím", "/san-pham/skin-nut-phim", 2)
-			)
-			.filter((record): record is SearchDocument => Boolean(record)),
-		...lighters
-			.map((record) =>
-				toDocument(record, "lighter", "Bật lửa", "/san-pham/lighters", 3)
-			)
-			.filter((record): record is SearchDocument => Boolean(record)),
-	];
-
-	const facets = [...productTypes, ...macnutTypes].filter(
-		(facet): facet is SearchFacetOption => Boolean(facet?.name && facet?.slug)
-	);
-
-	return {
-		documents,
-		facets,
-		legacyTypeSlugs: facets.map((facet) => facet.slug),
-	};
-};
-
 const blogDocuments = async (): Promise<SearchDocument[]> => {
 	const posts = await getPostList();
 	return posts.map((post) => {
@@ -461,24 +363,5 @@ async function buildSearchCorpus(): Promise<SearchCorpus> {
 }
 
 export function getSearchCorpus(): Promise<SearchCorpus> {
-	if (cachedCorpus && cachedCorpus.expiresAt > Date.now()) {
-		return Promise.resolve(cachedCorpus.value);
-	}
-	if (pendingCorpus) return pendingCorpus;
-
-	const corpusPromise = buildSearchCorpus();
-	pendingCorpus = corpusPromise;
-	corpusPromise.then(
-		(value) => {
-			cachedCorpus = {
-				value,
-				expiresAt: Date.now() + SEARCH_CORPUS_TTL_MS,
-			};
-			if (pendingCorpus === corpusPromise) pendingCorpus = null;
-		},
-		() => {
-			if (pendingCorpus === corpusPromise) pendingCorpus = null;
-		}
-	);
-	return corpusPromise;
+	return corpusCache.get(buildSearchCorpus);
 }

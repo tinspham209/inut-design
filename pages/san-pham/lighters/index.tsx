@@ -1,4 +1,3 @@
-import { bannerApi } from "@/api-client/banner";
 import { lightersApi } from "@/api-client/lighters";
 import { MainLayout } from "@/components/layout";
 import { LighterProduct, LighterType } from "@/models/cart";
@@ -48,11 +47,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	const page = 1;
 	const pageSize = 24;
 
-	const [catalog, lighterTypes, banner] = await Promise.all([
-		lightersApi.getLightersPage({ page, pageSize }),
-		lightersApi.getAllLighterTypes(),
-		bannerApi.getBannerPage("lighters-page"),
-	]);
+	const catalog = await lightersApi.getLighterListingContent({ page, pageSize });
+	const lighterTypes = catalog.types;
+	const banner = catalog.banner;
 	const lighters: LighterProduct[] = catalog.items;
 
 	// Filter out drafts and map type information

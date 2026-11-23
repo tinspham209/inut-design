@@ -307,35 +307,40 @@ export async function getCreativaCatalog(
 	const q = query.trim();
 	if (q.length > 80) throw new CreativaError("INVALID_QUERY", "Tìm kiếm tối đa 80 ký tự.", 400);
 	const after = parseCatalogCursor(cursor, q);
-	const [items, options] = await Promise.all([
-		publicClient().fetch<unknown>(
-			`*[${ELIGIBLE} &&
+	const grouped = await publicClient().fetch<unknown>(
+		`{
+		"items": *[${ELIGIBLE} &&
 			($q == "" || lower(name) match $pattern) &&
 			($after == false || _createdAt < $at || (_createdAt == $at && _id < $id))
 		] | order(_createdAt desc,_id desc)[0...25]{
 			_id,_rev,_createdAt,name,slug{current},active,printAssetPath,
 			"images": images[0...2]${CREATIVA_IMAGE_PROJECTION}
+		},
+		"models": *[_type == "creativaMacbookModel" && active == true &&
+			!(_id in path("drafts.**")) && !(_id in path("versions.**"))]{_id,name,code{current},sortOrder,active},
+		"coverages": *[_type == "creativaSkinCoverage" && active == true &&
+			!(_id in path("drafts.**")) && !(_id in path("versions.**"))]{_id,code,name,description,sortOrder,active,price},
+		"bank": ${CREATIVA_PRIMARY_BANK_QUERY}
 		}`,
-			{
-				q,
-				pattern: `*${q.toLowerCase().replace(/[\\*?[\]{}]/g, "\\$&")}*`,
-				reserved: RESERVED_SKIN_SLUGS,
-				after: !!after,
-				at: after?.at || "",
-				id: after?.id || "",
-			}
-		),
-		getCreativaOptions(),
-	]);
+		{
+			q,
+			pattern: `*${q.toLowerCase().replace(/[\\*?[\]{}]/g, "\\$&")}*`,
+			reserved: RESERVED_SKIN_SLUGS,
+			after: !!after,
+			at: after?.at || "",
+			id: after?.id || "",
+		}
+	);
+	if (!isRecord(grouped) || !Array.isArray(grouped.items)) throw commerceConfigurationError();
+	const options = parseOptions(grouped.models, grouped.coverages, grouped.bank);
 	if (!options.coverages.length)
 		throw new CreativaError("CONFIGURATION_ERROR", "Chưa có giá Creativa khả dụng.", 503);
-	if (!Array.isArray(items)) throw commerceConfigurationError();
-	const page = items.slice(0, 24).map((item) => parseCreativaProduct(item, true));
+	const page = grouped.items.slice(0, 24).map((item) => parseCreativaProduct(item, true));
 	const last = page[page.length - 1];
 	return {
 		items: page,
 		cursor:
-			items.length > 24 && last
+			grouped.items.length > 24 && last
 				? Buffer.from(
 						JSON.stringify({
 							v: 1,

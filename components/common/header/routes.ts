@@ -5,6 +5,7 @@ export interface RouteItem {
 	children?: RouteItem[];
 	isButton?: boolean;
 	isMega?: boolean;
+	prefetch?: boolean;
 	/**
 	 * Metadata for rendering navigation cards and SEO.
 	 * @example
@@ -468,6 +469,7 @@ export const ROUTE_LIST: RouteItem[] = [
 		label: "Nhận báo giá",
 		path: "/contact/form",
 		isButton: true,
+		prefetch: false,
 	},
 ];
 
@@ -484,5 +486,6 @@ export const CREATIVA_ROUTE_LIST: RouteItem[] = [
 		label: "Nhận báo giá",
 		path: "/contact/form",
 		isButton: true,
+		prefetch: false,
 	},
 ];

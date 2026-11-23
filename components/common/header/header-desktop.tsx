@@ -432,7 +432,7 @@ export function HeaderDesktop({ routes = ROUTE_LIST }: HeaderDesktopProps) {
 						{routes
 							.filter((r) => r.isButton)
 							.map((route) => (
-								<Link key={route.path} href={route.path} passHref>
+								<Link key={route.path} href={route.path} passHref prefetch={route.prefetch}>
 									<Button
 										variant="contained"
 										size="small"
