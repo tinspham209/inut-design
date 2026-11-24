@@ -83,7 +83,7 @@ const documents = corpus.documents
 			kindLabel: document.kindLabel,
 			title: document.title,
 			url,
-			summary: String(document.excerpt || document.body || document.title || "").slice(0, 360),
+			summary: String(document.excerpt || document.body || document.title || ""),
 			keywords: normalizeSearchText(sourceText),
 			productType: document.category ?? null,
 			facetSlugs: [...new Set(document.facetSlugs ?? [])].sort(),
