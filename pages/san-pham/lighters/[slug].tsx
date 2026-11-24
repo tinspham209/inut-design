@@ -242,7 +242,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 				lighterType,
 				staticContent,
 			},
-			revalidate: 86400,
 		};
 	} catch (error) {
 		console.error("Error in getStaticProps", error);

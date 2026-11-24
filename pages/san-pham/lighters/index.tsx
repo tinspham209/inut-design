@@ -82,7 +82,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			page: catalog.page,
 			pageSize: catalog.pageSize,
 		},
-		revalidate: 86400,
 	};
 };
 

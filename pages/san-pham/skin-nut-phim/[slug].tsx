@@ -401,7 +401,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params: { slug } }
 			products: products.filter((product) => !product._id.includes("drafts")),
 			staticContent,
 		},
-		revalidate: 86400,
 	};
 };
 
