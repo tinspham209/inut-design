@@ -60,9 +60,8 @@ function HomeLink({
 	outlined?: boolean;
 }) {
 	return (
-		<Link href={href} passHref>
-			<Button
-				component="a"
+		<Button
+				
 				variant={outlined ? "outlined" : "text"}
 				endIcon={<ArrowForwardIcon />}
 				onClick={() => trackCreativa("cta_click", { surface: "home_v2", cta_name: name })}
@@ -78,10 +77,9 @@ function HomeLink({
 					bgcolor: outlined ? cream : "transparent",
 					"&:hover": { borderColor: orange, bgcolor: outlined ? "#fff" : "transparent" },
 				}}
-			>
+			 component={Link} href={href}>
 				{children}
 			</Button>
-		</Link>
 	);
 }
 
@@ -335,9 +333,8 @@ export function CreativaHomepage({
 					}}
 				>
 					{HOME_MODELS.map((model) => (
-						<Link key={model.id} href={HOME_CATALOG} passHref>
-							<Box
-								component="a"
+						<Box
+								
 								onClick={() =>
 									trackCreativa("cta_click", {
 										surface: "home_v2",
@@ -346,7 +343,7 @@ export function CreativaHomepage({
 									})
 								}
 								sx={{ textDecoration: "none" }}
-							>
+							 component={Link} key={model.id} href={HOME_CATALOG}>
 								<ConceptImage
 									src={model.image}
 									alt="Gợi ý phong cách skin MacBook"
@@ -362,7 +359,6 @@ export function CreativaHomepage({
 									Xem skin
 								</Typography>
 							</Box>
-						</Link>
 					))}
 				</Box>
 			</Box>
@@ -389,9 +385,8 @@ export function CreativaHomepage({
 					}}
 				>
 					{HOME_STYLES.map((style) => (
-						<Link key={style.id} href={HOME_CATALOG} passHref>
-							<Box
-								component="a"
+						<Box
+								
 								onClick={() =>
 									trackCreativa("cta_click", {
 										surface: "home_v2",
@@ -405,7 +400,7 @@ export function CreativaHomepage({
 									textDecoration: "none",
 									scrollSnapAlign: "start",
 								}}
-							>
+							 component={Link} key={style.id} href={HOME_CATALOG}>
 								<ConceptImage
 									src={style.image}
 									alternate={style.alternate}
@@ -419,7 +414,6 @@ export function CreativaHomepage({
 								</Stack>
 								<Typography variant="caption">Xem tất cả mẫu</Typography>
 							</Box>
-						</Link>
 					))}
 				</Box>
 			</Box>

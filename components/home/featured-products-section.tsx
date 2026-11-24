@@ -139,13 +139,11 @@ export function FeaturedProductsSection({
 				</Grid>
 
 				<Stack flexDirection="row" justifyContent="center" mt={3}>
-					<Link href={viewAllHref} passHref>
-						<MuiLink underline="none">
+					<MuiLink underline="none" component={Link} href={viewAllHref}>
 							<Button variant="contained" color="primary" sx={{ fontWeight: 700 }}>
 								Xem thêm sản phẩm
 							</Button>
 						</MuiLink>
-					</Link>
 				</Stack>
 			</Container>
 		</Box>

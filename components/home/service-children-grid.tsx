@@ -72,8 +72,7 @@ export function ServiceChildrenGrid({
 							{eyebrow || title}
 						</Typography>
 					</Stack>
-					<Link href={titleHref} passHref>
-						<MuiLink underline="none">
+					<MuiLink underline="none" component={Link} href={titleHref}>
 							<Typography
 								component="h2"
 								sx={{
@@ -90,14 +89,12 @@ export function ServiceChildrenGrid({
 								{title}
 							</Typography>
 						</MuiLink>
-					</Link>
 				</Box>
 
 				<Grid container spacing={2}>
 					{displayItems.map((item) => (
 						<Grid item xs={6} sm={3} key={item.path}>
-							<Link href={item.path} passHref>
-								<MuiLink underline="none" onClick={() => handleItemClick(item)}>
+							<MuiLink underline="none" onClick={() => handleItemClick(item)} component={Link} href={item.path}>
 									<Box
 										sx={{
 											bgcolor: COLOR_CODE.INK_3,
@@ -197,18 +194,15 @@ export function ServiceChildrenGrid({
 										</Stack>
 									</Box>
 								</MuiLink>
-							</Link>
 						</Grid>
 					))}
 				</Grid>
 
 				{showSeeMore && (
 					<Stack flexDirection="row" justifyContent="center" mt={3}>
-						<Link href={titleHref} passHref>
-							<MuiLink underline="none">
+						<MuiLink underline="none" component={Link} href={titleHref}>
 								<Button variant="contained">Xem thêm</Button>
 							</MuiLink>
-						</Link>
 					</Stack>
 				)}
 			</Container>

@@ -73,8 +73,7 @@ export function BlogsHome({ posts }: Props) {
 								},
 							}}
 						>
-							<Link passHref href={`/blog/${post.slug}`}>
-								<MuiLink
+							<MuiLink
 									underline="none"
 									sx={{
 										display: "block",
@@ -83,17 +82,15 @@ export function BlogsHome({ posts }: Props) {
 										color: COLOR_CODE.WHITE,
 										"&:hover": { bgcolor: COLOR_CODE.INK_4 },
 									}}
-								>
+								 component={Link} href={`/blog/${post.slug}`}>
 									<PostItem post={post} />
 								</MuiLink>
-							</Link>
 						</Box>
 					))}
 				</Box>
 
 				<Stack direction="row" py={3} justifyContent="center" alignItems="center">
-					<Link href="/blog" passHref>
-						<MuiLink underline="none">
+					<MuiLink underline="none" component={Link} href="/blog">
 							<Button
 								variant="outlined"
 								sx={{
@@ -109,7 +106,6 @@ export function BlogsHome({ posts }: Props) {
 								Xem tất cả Tin Tức
 							</Button>
 						</MuiLink>
-					</Link>
 				</Stack>
 			</Container>
 		</Box>

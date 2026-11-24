@@ -127,8 +127,7 @@ export function ChotDon() {
 									Inbox Zalo ngay
 								</Button>
 							</MuiLink>
-							<Link href="/contact/form" passHref legacyBehavior prefetch={false}>
-								<MuiLink rel="noopener noreferrer" underline="none">
+							<MuiLink rel="noopener noreferrer" underline="none" component={Link} href="/contact/form" prefetch={false}>
 									<Button
 										variant="outlined"
 										size="medium"
@@ -139,7 +138,6 @@ export function ChotDon() {
 										Nhận báo giá
 									</Button>
 								</MuiLink>
-							</Link>
 						</Stack>
 					</Grid>
 

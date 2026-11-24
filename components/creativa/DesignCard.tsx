@@ -24,9 +24,8 @@ export function CreativaDesignCard({
 	const image = product.images[hover && product.images[1] ? 1 : 0];
 	const listId = surface === "home" ? "creativa_home_skin_laptop" : "creativa_skin_laptop";
 	return (
-		<Link href={`/creativa/skin-laptop/${product.slug.current}`} passHref>
-			<Box
-				component="a"
+		<Box
+				
 				sx={{ display: "block", color: "inherit", textDecoration: "none" }}
 				onClick={() =>
 					trackCreativa(
@@ -53,7 +52,7 @@ export function CreativaDesignCard({
 						]
 					)
 				}
-			>
+			 component={Link} href={`/creativa/skin-laptop/${product.slug.current}`}>
 				<Box
 					onMouseEnter={() => setHover(true)}
 					onMouseLeave={() => setHover(false)}
@@ -94,6 +93,5 @@ export function CreativaDesignCard({
 					</Typography>
 				)}
 			</Box>
-		</Link>
 	);
 }

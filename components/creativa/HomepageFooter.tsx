@@ -88,30 +88,26 @@ export function CreativaHomepageFooter() {
 					<Typography sx={{ maxWidth: 440, mt: 2 }}>
 						Chưa rõ MacBook đời nào? Xem cách kiểm tra model trước khi chọn skin.
 					</Typography>
-					<Link href={HOME_GUIDES} passHref>
-						<Button
-							component="a"
+					<Button
+							
 							onClick={() =>
 								trackCreativa("cta_click", { surface: "home_v2_footer", cta_name: "model_guide" })
 							}
 							sx={{ color: "inherit", px: 0, mt: 1, textDecoration: "underline" }}
-						>
+						 component={Link} href={HOME_GUIDES}>
 							Xem cách kiểm tra model
 						</Button>
-					</Link>
 					<Stack alignItems="flex-start" mt={2}>
 						{links.map((item) => (
-							<Link key={item.href} href={item.href} passHref>
-								<Button
-									component="a"
+							<Button
+									
 									onClick={() =>
 										trackCreativa("cta_click", { surface: "home_v2_footer", cta_name: item.href })
 									}
 									sx={{ color: "inherit", px: 0 }}
-								>
+								 component={Link} key={item.href} href={item.href}>
 									{item.label}
 								</Button>
-							</Link>
 						))}
 					</Stack>
 				</Box>

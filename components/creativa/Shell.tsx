@@ -90,9 +90,8 @@ export function CreativaStoreHeader() {
 						</Button>
 					))}
 				</Stack>
-				<Link href="/creativa" passHref>
-					<Typography
-						component="a"
+				<Typography
+						
 						onClick={() =>
 							trackCreativa("cta_click", { surface: "header", cta_name: "brand_home" })
 						}
@@ -103,10 +102,9 @@ export function CreativaStoreHeader() {
 							color: "primary.main",
 							textDecoration: "none",
 						}}
-					>
+					 component={Link} href="/creativa">
 						inut.creativa
 					</Typography>
-				</Link>
 				<Stack
 					direction="row"
 					alignItems="center"
@@ -194,17 +192,15 @@ export function CreativaStoreFooter() {
 					</Box>
 					<Stack direction="row" flexWrap="wrap" gap={2}>
 						{CREATIVA_FOOTER.map((item) => (
-							<Link key={item.href} href={item.href} passHref>
-								<Typography
-									component="a"
+							<Typography
+									
 									onClick={() =>
 										trackCreativa("cta_click", { surface: "footer", cta_name: item.href })
 									}
 									sx={{ color: "inherit", textDecoration: "underline", alignSelf: "center" }}
-								>
+								 component={Link} key={item.href} href={item.href}>
 									{item.label}
 								</Typography>
-							</Link>
 						))}
 					</Stack>
 				</Stack>

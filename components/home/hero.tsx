@@ -214,9 +214,8 @@ export function HeroSection({
 
 						{/* CTA row */}
 						<Stack direction="row" spacing={{ xs: 0.75, sm: 1.25 }} flexWrap={{ xs: "nowrap", sm: "wrap" }} useFlexGap>
-							<Link href={ctaPrimaryHref} passHref legacyBehavior>
-								<Button
-									component="a"
+							<Button
+									
 									variant="contained"
 									disableElevation
 									aria-label="Tự thiết kế ngay"
@@ -241,13 +240,11 @@ export function HeroSection({
 										py: { xs: "10px", sm: "13px" },
 										"&:hover": { bgcolor: "#e04400" },
 									}}
-								>
+								 component={Link} href={ctaPrimaryHref}>
 									Tự thiết kế ngay
 								</Button>
-							</Link>
-							<Link href={ctaSecondaryHref} passHref legacyBehavior prefetch={false}>
-								<Button
-									component="a"
+							<Button
+									
 									variant="outlined"
 									aria-label="Báo giá ngay"
 									sx={{
@@ -267,10 +264,9 @@ export function HeroSection({
 											bgcolor: "rgba(255,255,255,0.04)",
 										},
 									}}
-								>
+								 component={Link} href={ctaSecondaryHref} prefetch={false}>
 									Báo giá ngay
 								</Button>
-							</Link>
 						</Stack>
 					</Grid>
 
@@ -291,9 +287,8 @@ export function HeroSection({
 						{PRODUCT_CARDS.map((card, idx) => {
 							const isActive = activeCard === idx;
 							return (
-								<Link key={card.name} href={card.href} passHref legacyBehavior>
-									<Box
-										component="a"
+								<Box
+										
 										onClick={() => setActiveCard(idx)}
 										onMouseEnter={() => setActiveCard(idx)}
 										aria-current={isActive ? "true" : undefined}
@@ -320,7 +315,7 @@ export function HeroSection({
 												outlineOffset: 2,
 											},
 										}}
-									>
+									 component={Link} key={card.name} href={card.href}>
 										<Stack spacing={0.375}>
 											<Typography
 												sx={{
@@ -358,7 +353,6 @@ export function HeroSection({
 											}}
 										/>
 									</Box>
-								</Link>
 							);
 						})}
 					</Grid>

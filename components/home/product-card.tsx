@@ -17,8 +17,7 @@ type Props = {
 
 export function ProductCard({ imageUrl, href, alt, onSelect, priority = false }: Props) {
 	return (
-		<Link href={href} passHref>
-			<MuiLink sx={{ position: "relative", display: "block" }} onClick={onSelect}>
+		<MuiLink sx={{ position: "relative", display: "block" }} onClick={onSelect} component={Link} href={href}>
 				<Image
 					src={imageUrl}
 					width={600}
@@ -40,6 +39,5 @@ export function ProductCard({ imageUrl, href, alt, onSelect, priority = false }:
 					</Icon>
 				</Tooltip>
 			</MuiLink>
-		</Link>
 	);
 }

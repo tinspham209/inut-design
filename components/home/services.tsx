@@ -36,8 +36,7 @@ function ServiceItemCard({ item }: { item: RouteItem }) {
 	};
 
 	return (
-		<Link href={item.path} passHref>
-			<MuiLink underline="none" onClick={handleItemClick}>
+		<MuiLink underline="none" onClick={handleItemClick} component={Link} href={item.path}>
 				<Box
 					sx={{
 						bgcolor: COLOR_CODE.INK_3,
@@ -135,7 +134,6 @@ function ServiceItemCard({ item }: { item: RouteItem }) {
 					</Stack>
 				</Box>
 			</MuiLink>
-		</Link>
 	);
 }
 
@@ -153,12 +151,11 @@ function ServiceSubSection({ route, maxItems }: { route: RouteItem; maxItems: nu
 		<Box>
 			<Stack direction="row" alignItems="center" justifyContent="space-between" mb={2} mt={0.5}>
 				<Stack direction="row" alignItems="center" spacing={1.5}>
-					<Link href={route.path} passHref>
-						<MuiLink
+					<MuiLink
 							underline="hover"
 							onClick={handleHeaderClick}
 							sx={{ color: COLOR_CODE.TEXT_SOFT, "&:hover": { color: COLOR_CODE.WHITE } }}
-						>
+						 component={Link} href={route.path}>
 							<Typography
 								sx={{
 									fontWeight: 700,
@@ -170,7 +167,6 @@ function ServiceSubSection({ route, maxItems }: { route: RouteItem; maxItems: nu
 								{route.label}
 							</Typography>
 						</MuiLink>
-					</Link>
 					{route.meta?.badge && (
 						<Chip
 							label={route.meta.badge}
@@ -262,13 +258,11 @@ export function ServicesSection({ id }: { id?: string }) {
 				</Stack>
 
 				<Stack direction="row" justifyContent="center" mt={5}>
-					<Link href="/contact" passHref>
-						<MuiLink underline="none">
+					<MuiLink underline="none" component={Link} href="/contact">
 							<Button variant="contained" size="large">
 								Liên hệ tư vấn
 							</Button>
 						</MuiLink>
-					</Link>
 				</Stack>
 			</Container>
 		</Box>

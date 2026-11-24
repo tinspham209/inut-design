@@ -24,9 +24,8 @@ const BuilderCard: React.FC<BuilderCardProps> = ({ builder, placement, registerE
 	const [imageFailed, setImageFailed] = useState(false);
 
 	return (
-		<Link href={builder.href} passHref legacyBehavior>
-			<Box
-				component="a"
+		<Box
+				
 				ref={(element: HTMLAnchorElement | null) => registerElement(builderId, element)}
 				aria-label={`${builder.title}${
 					builder.badge ? `. ${builder.badge}` : ""
@@ -67,7 +66,7 @@ const BuilderCard: React.FC<BuilderCardProps> = ({ builder, placement, registerE
 						"&:hover": { transform: "none" },
 					},
 				}}
-			>
+			 component={Link} href={builder.href}>
 				<Box
 					sx={{
 						width: "100%",
@@ -158,7 +157,6 @@ const BuilderCard: React.FC<BuilderCardProps> = ({ builder, placement, registerE
 					</Typography>
 				</Stack>
 			</Box>
-		</Link>
 	);
 };
 
