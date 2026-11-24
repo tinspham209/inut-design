@@ -1,4 +1,3 @@
-import { timingSafeEqual } from "crypto";
 import type { NextApiRequest, NextApiResponse } from "next";
 import {
 	getDraftLighterOrders,
@@ -38,6 +37,7 @@ import { formatSpxSyncErrorMessage } from "@/utils/telegram/formatSpxSyncErrorMe
 import { TelegramClient, sendWithRetry } from "@/utils/telegram";
 import { validateTelegramCredentials } from "@/utils/telegram/validateTelegramEnv";
 import { getDeploymentChannel } from "@/utils/deployment-channel";
+import { timingSafeTextEqual } from "@/utils/worker-crypto";
 
 const CRON_JOB_TIMEOUT_MS = 30000;
 const DEFAULT_FUNCTION_TIMEOUT_MS = 30000;
@@ -137,12 +137,7 @@ function createEmptyPublishingSummary(): DraftPublishingSummary {
 }
 
 function secretsMatch(configured: string, provided: string): boolean {
-	const configuredBuffer = Buffer.from(configured);
-	const providedBuffer = Buffer.from(provided);
-	return (
-		configuredBuffer.length === providedBuffer.length &&
-		timingSafeEqual(configuredBuffer, providedBuffer)
-	);
+	return timingSafeTextEqual(configured, provided);
 }
 
 function getHeaderValue(value: string | string[] | undefined): string | undefined {

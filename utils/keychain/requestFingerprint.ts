@@ -1,4 +1,4 @@
-import crypto from "crypto";
+import { sha256Hex } from "@/utils/worker-crypto";
 
 const TRANSIENT_KEYS = new Set(["view", "preview", "camera", "cameraState", "geometryRevision"]);
 
@@ -13,5 +13,5 @@ function canonicalize(value: unknown): unknown {
 
 /** Stable SHA-256 fingerprint for the persisted design payload, excluding camera/view-only state. */
 export function createKeychainRequestFingerprint(value: unknown) {
-	return crypto.createHash("sha256").update(JSON.stringify(canonicalize(value))).digest("hex");
+	return sha256Hex(JSON.stringify(canonicalize(value)));
 }

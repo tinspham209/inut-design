@@ -1,4 +1,5 @@
 import sanityClient from "@sanity/client";
+import { base64UrlDecode, base64UrlEncode } from "@/utils/worker-crypto";
 import type {
 	CoverageCode,
 	CreativaBank,
@@ -279,7 +280,7 @@ export function parseCatalogCursor(cursor: string | undefined, q: string): Curso
 	if (!cursor) return null;
 	try {
 		if (cursor.length > 1000 || !/^[A-Za-z0-9_-]+$/.test(cursor)) throw new Error("cursor");
-		const value: unknown = JSON.parse(Buffer.from(cursor, "base64url").toString("utf8"));
+		const value: unknown = JSON.parse(base64UrlDecode(cursor));
 		if (
 			!isRecord(value) ||
 			value.v !== 1 ||
@@ -341,14 +342,14 @@ export async function getCreativaCatalog(
 		items: page,
 		cursor:
 			grouped.items.length > 24 && last
-				? Buffer.from(
+				? base64UrlEncode(
 						JSON.stringify({
 							v: 1,
 							q,
 							at: last._createdAt,
 							id: last._id,
-						})
-				  ).toString("base64url")
+						}),
+				  )
 				: null,
 		fromPrice: Math.min(...options.coverages.map((c) => c.price)),
 	};

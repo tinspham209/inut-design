@@ -1,4 +1,4 @@
-import { randomUUID } from "crypto";
+import { secureRandomUuid } from "@/utils/worker-crypto";
 import { getCreativaPrimaryBank } from "@/api-client/creativa-catalog";
 import type {
 	CreativaAccepted,
@@ -292,7 +292,7 @@ async function resume(
 	const setup = await notificationSetup();
 	for (let attempt = 0; attempt < 5; attempt++) {
 		const publicId = generatePublicId();
-		const orderId = `creativa.order.${randomUUID()}`;
+		const orderId = `creativa.order.${secureRandomUuid()}`;
 		const lookupId = `creativa.lookup.${sha256(publicId)}`;
 		const quote = evaluation.quote;
 		const document = {

@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { uploadImageAssetToSanity } from "@/api-client/sanity-server";
 import rateLimit, { getRequestRateLimitToken } from "@/utils/rateLimit";
+import { decodeBase64Image } from "@/utils/keychain/imageValidation";
 
 export const config = {
 	api: {
@@ -46,10 +47,10 @@ export default async function handler(
 	}
 
 	try {
-		const decoded = Buffer.from(data, "base64");
-		const bytes = new Uint8Array(decoded.byteLength);
-		bytes.set(decoded);
-		const asset = await uploadImageAssetToSanity(new Blob([bytes.buffer], {
+		const bytes = decodeBase64Image(data);
+		const copy = new Uint8Array(bytes.byteLength);
+		copy.set(bytes);
+		const asset = await uploadImageAssetToSanity(new Blob([copy.buffer], {
 			type: contentType,
 		}), {
 			filename: typeof filename === "string" ? filename : "design.webp",

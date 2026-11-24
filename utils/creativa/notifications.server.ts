@@ -1,5 +1,5 @@
 /* eslint-disable camelcase -- Telegram uses snake_case request fields. */
-import { randomUUID } from "crypto";
+import { secureRandomUuid } from "@/utils/worker-crypto";
 import { creativaServerClient } from "@/api-client/creativa-server";
 import { CreativaError, validCreativaPrintPath } from "./contracts";
 import {
@@ -462,7 +462,7 @@ async function dispatchOne(
 			}
 			return;
 		}
-		const nonce = randomUUID();
+		const nonce = secureRandomUuid();
 		const attemptedAt = new Date().toISOString();
 		const claimed: NotificationPart = {
 			...part,

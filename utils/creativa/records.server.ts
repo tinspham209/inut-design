@@ -1,4 +1,4 @@
-import { createHash, randomBytes } from "crypto";
+import { secureRandomBytes, sha256Hex } from "@/utils/worker-crypto";
 import type {
 	CreativaBank,
 	CreativaCheckoutRequest,
@@ -123,7 +123,7 @@ export type StoredIntent = {
 	order?: Ref;
 	rejection?: { code: string; message: string; status: number; quote?: CreativaQuote };
 };
-export const sha256 = (value: string) => createHash("sha256").update(value).digest("hex");
+export const sha256 = (value: string) => sha256Hex(value);
 export const semanticDigest = (value: unknown) => sha256(canonicalJson(value));
 export const reference = (_ref: string): Ref => ({ _type: "reference", _ref });
 export function intentId(capability: unknown): string {
@@ -134,7 +134,7 @@ export function intentId(capability: unknown): string {
 }
 export function generatePublicId(): string {
 	const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-";
-	return [...randomBytes(10)].map((byte) => alphabet[byte & 63]).join("");
+	return [...secureRandomBytes(10)].map((byte) => alphabet[byte & 63]).join("");
 }
 export function unavailable(): CreativaError {
 	return new CreativaError(
