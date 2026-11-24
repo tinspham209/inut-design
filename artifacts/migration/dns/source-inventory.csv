@@ -1,0 +1,18 @@
+name,type,target,ttl,priority,proxyMode,owner,purpose,disposition
+inutdesign.com,A,172.67.166.240,, ,proxied,owner-confirmation-required,public website,verify
+inutdesign.com,A,104.21.11.184,, ,proxied,owner-confirmation-required,public website,verify
+inutdesign.com,AAAA,2606:4700:3036::6815:bb8,, ,proxied,owner-confirmation-required,public website,verify
+inutdesign.com,AAAA,2606:4700:3037::ac43:a6f0,, ,proxied,owner-confirmation-required,public website,verify
+www.inutdesign.com,A,172.67.166.240,, ,proxied,owner-confirmation-required,www website,verify
+www.inutdesign.com,A,104.21.11.184,, ,proxied,owner-confirmation-required,www website,verify
+www.inutdesign.com,AAAA,2606:4700:3036::6815:bb8,, ,proxied,owner-confirmation-required,www website,verify
+www.inutdesign.com,AAAA,2606:4700:3037::ac43:a6f0,, ,proxied,owner-confirmation-required,www website,verify
+inutdesign.com,NS,giancarlo.ns.cloudflare.com.,,,n/a,cloudflare-owner,authoritative nameserver,verify
+inutdesign.com,NS,zainab.ns.cloudflare.com.,,,n/a,cloudflare-owner,authoritative nameserver,verify
+inutdesign.com,DS,none,,,n/a,owner-confirmation-required,DNSSEC delegation,verify
+inutdesign.com,MX,none,,verify,n/a,owner-confirmation-required,email routing,verify
+inutdesign.com,TXT,zalo-platform-site-verification=REDACTED,,,n/a,owner-confirmation-required,third-party verification,verify
+_dmarc.inutdesign.com,TXT,none,,,n/a,owner-confirmation-required,DMARC,verify
+inutdesign.com,SPF,none,,,n/a,owner-confirmation-required,SPF,verify
+_domainkey.inutdesign.com,TXT,owner-dkim-selectors-required,,,n/a,owner-confirmation-required,DKIM selectors,verify
+inutdesign.com,CAA,none,,,n/a,owner-confirmation-required,certificate authority,verify

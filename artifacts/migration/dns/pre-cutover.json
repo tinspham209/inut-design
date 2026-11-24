@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-11-24T09:51:46Z",
+  "domain": "inutdesign.com",
+  "authoritativeNameservers": [
+    "giancarlo.ns.cloudflare.com",
+    "zainab.ns.cloudflare.com"
+  ],
+  "dnssecDelegationSigned": false,
+  "registrar": "Squarespace Domains II LLC",
+  "registrarStatus": [
+    "pending transfer"
+  ],
+  "workerHealth": "not-verified",
+  "certificateState": "not-verified",
+  "squarespaceVercelTargets": "owner-confirmation-required",
+  "rdapEvidence": "https://rdap.verisign.com/com/v1/domain/inutdesign.com",
+  "operatorAction": "none-by-feature-implementation",
+  "note": "Public DNS is already authoritative on Cloudflare. Registrar status conflicts with the deferred-transfer requirement and blocks registrar-boundary completion."
+}
