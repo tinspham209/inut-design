@@ -1,5 +1,4 @@
 import axiosClient from "@/api-client/axios-client";
-import envConst from "@/utils/env-const";
 import {
 	SendAbandonedCheckoutNotificationRequest,
 	SendAbandonedCheckoutNotificationResponse,
@@ -26,10 +25,6 @@ export function useTelegramAbandonedCheckoutNotification() {
 		const headers: Record<string, string> = {
 			"Content-Type": "application/json",
 		};
-
-		if (envConst.X_API_KEY) {
-			headers["x-api-key"] = envConst.X_API_KEY;
-		}
 
 		void fetch(`/api${endpoint}`, {
 			method: "POST",
