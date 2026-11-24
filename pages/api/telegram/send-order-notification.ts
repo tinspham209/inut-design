@@ -10,6 +10,7 @@ import {
 	browserRateLimitToken,
 	validateBrowserJsonRequest,
 } from "@/utils/server/request-guard";
+import { requireServerEnv } from "@/utils/server-env";
 
 // Usage in API route
 const limiter = rateLimit({
@@ -50,8 +51,8 @@ export default async function handler(
 		}
 
 		// Get environment variables
-		const botToken = process.env.TELEGRAM_BOT_TOKEN;
-		const chatId = process.env.TELEGRAM_CHAT_ID;
+		const botToken = requireServerEnv("TELEGRAM_BOT_TOKEN");
+		const chatId = requireServerEnv("TELEGRAM_CHAT_ID");
 
 		// Parse request body
 		const { orderData } = req.body as SendOrderNotificationRequest;

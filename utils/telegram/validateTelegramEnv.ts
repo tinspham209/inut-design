@@ -42,7 +42,9 @@ export function validateTelegramEnv(): {
 	errors: string[];
 } {
 	return validateTelegramCredentials(
-		process.env.TELEGRAM_BOT_TOKEN,
-		process.env.TELEGRAM_CHAT_ID
+		requireServerEnv("TELEGRAM_BOT_TOKEN"),
+		requireServerEnv("TELEGRAM_CHAT_ID"),
 	);
 }
+import { requireServerEnv } from "@/utils/server-env";
+

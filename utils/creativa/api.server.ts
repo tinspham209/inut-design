@@ -5,6 +5,7 @@ import { getRequestRateLimitToken } from "@/utils/rateLimit";
 import { CreativaError } from "./contracts";
 import { QuoteChanged } from "./orders.server";
 import { validateBrowserJsonRequest } from "@/utils/server/request-guard";
+import { logWorkerEvent } from "@/utils/worker-logger";
 
 const counters = new LRUCache<string, { count: number; reset: number }>({ max: 5000, ttl: 60000 });
 type Handler = (req: NextApiRequest, body: unknown) => Promise<unknown>;
@@ -129,7 +130,7 @@ export function creativaApi(method: "GET" | "POST", kind: Kind, handler: Handler
 							503
 					  );
 			if (!(error instanceof CreativaError))
-				console.error("creativa_api_service_failure", {
+				logWorkerEvent("creativa_api_service_failure", {
 					kind,
 					code: error && typeof error === "object" && "code" in error ? error.code : "unknown",
 					message: error instanceof Error ? error.message : "unknown",

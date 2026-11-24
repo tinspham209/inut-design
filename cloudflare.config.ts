@@ -16,6 +16,12 @@ export default defineConfig({
     env: {
       ASSETS: bindings.assets(),
       SPX_SYNC_SECRET: bindings.secret(),
+      SPX_SYNC_TELEGRAM_BOT_TOKEN: bindings.secret(),
+      SPX_SYNC_TELEGRAM_CHAT_ID: bindings.secret(),
+      SANITY_TOKEN: bindings.secret(),
+      TELEGRAM_BOT_TOKEN: bindings.secret(),
+      TELEGRAM_CHAT_ID: bindings.secret(),
+      CREATIVA_TELEGRAM_BOT_TOKEN: bindings.secret(),
       DEPLOYMENT_CHANNEL: bindings.text(deploymentChannel),
     },
   }),

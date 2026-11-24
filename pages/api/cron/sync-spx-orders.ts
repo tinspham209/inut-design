@@ -38,6 +38,7 @@ import { TelegramClient, sendWithRetry } from "@/utils/telegram";
 import { validateTelegramCredentials } from "@/utils/telegram/validateTelegramEnv";
 import { getDeploymentChannel } from "@/utils/deployment-channel";
 import { timingSafeTextEqual } from "@/utils/worker-crypto";
+import { requireServerEnv } from "@/utils/server-env";
 
 const CRON_JOB_TIMEOUT_MS = 30000;
 const DEFAULT_FUNCTION_TIMEOUT_MS = 30000;
@@ -777,7 +778,7 @@ export default async function handler(
 	const workDeadlineAt = responseDeadlineAt - TELEGRAM_RESERVE_MS;
 	const authorization = authorizeSpxCronRequest(
 		req.method,
-		process.env.SPX_SYNC_SECRET,
+		process.env.SPX_SYNC_SECRET ? requireServerEnv("SPX_SYNC_SECRET") : undefined,
 		getHeaderValue(req.headers["x-cron-secret"]),
 		secretsMatch
 	);

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "route": "/api/cron/sync-spx-orders",
+  "cases": [
+    { "name": "duplicate-delivery", "source": "scripts/fixtures/spx-tracking-fixtures.mjs", "expect": "single idempotent unchanged/changed decision" },
+    { "name": "provider-timeout", "source": "scripts/test-spx-sync.mjs", "expect": "deterministic timeout error and one alert attempt" },
+    { "name": "concurrent-capacity", "source": "scripts/test-spx-sync.mjs", "expect": "bounded concurrency and explicit overflow" },
+    { "name": "partial-sanity-failure", "source": "scripts/test-spx-sync.mjs", "expect": "compact aggregate failure without PII" },
+    { "name": "telegram-mock-failure", "source": "scripts/test-spx-sync.mjs", "expect": "no real notification; failure status retained" }
+  ],
+  "sideEffects": 0,
+  "mocks": ["spx", "sanity", "telegram"]
+}

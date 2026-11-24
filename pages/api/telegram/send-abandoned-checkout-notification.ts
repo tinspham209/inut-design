@@ -6,6 +6,7 @@ import {
 	browserRateLimitToken,
 	validateBrowserJsonRequest,
 } from "@/utils/server/request-guard";
+import { requireServerEnv } from "@/utils/server-env";
 import { formatAbandonedCheckoutMessage } from "@/utils/telegram/formatAbandonedCheckoutMessage";
 import {
 	SendAbandonedCheckoutNotificationRequest,
@@ -78,8 +79,8 @@ export default async function handler(
 			});
 		}
 
-		const botToken = process.env.TELEGRAM_BOT_TOKEN;
-		const chatId = process.env.TELEGRAM_CHAT_ID;
+		const botToken = requireServerEnv("TELEGRAM_BOT_TOKEN");
+		const chatId = requireServerEnv("TELEGRAM_CHAT_ID");
 
 		const telegram = new TelegramClient(botToken);
 		const message = formatAbandonedCheckoutMessage(abandonedData);
