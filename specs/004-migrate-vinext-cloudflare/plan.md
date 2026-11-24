@@ -20,10 +20,15 @@ Release sequence bắt buộc là: baseline capture → upgrade & compatibility 
 **Primary Dependencies**: MUI 5, Zustand, SWR, React Hook Form, Sanity client/image helpers, GA4/GTM + Umami, `@vinext/cloudflare`/`cf` CLI sau khi implementation phase chạy `vinext init`  
 **Storage**: Sanity v2 là system of record; localStorage key `inut-lighters-cart` giữ nguyên; baseline Cloudflare không dùng R2/KV/D1/Durable Objects/Queue  
 **Testing**: `pnpm lint`, `pnpm build`, `pnpm build:vinext`, route/headers/curl checks, Node regression scripts, API fixtures/mocks, browser/device regression via `agent-browser`, SEO verifier hiện có  
-**Target Platform**: Cloudflare Workers Paid, static assets, preview hostname trước, production custom domain sau release gate  
+**Target Platform**: Cloudflare Worker, static assets, production custom domain;
+Workers Free hiện đang phục vụ production theo owner-approved exception, Workers
+Paid là TODO khi Cloudflare cảnh báo/usage tiến gần giới hạn
 **Project Type**: Full-stack Next.js Pages Router web application, không phải static-only  
 **Performance Goals**: 100% release-gate routes không timeout; 95% representative pages không chậm hơn baseline quá 10%; 100% API parity; rollback Cloudflare version trong 15 phút sau approval  
-**Constraints**: Worker isolate 128 MB; bundle size 64 MiB; Paid CPU limit và spending controls; API/public contract parity; 0 production side effect trong test; exact-once analytics; preview non-indexable; immediate hard cutover, no traffic split  
+**Constraints**: Worker isolate 128 MB; bundle size 64 MiB; Free CPU monitoring
+plus paid-upgrade controls; API/public contract parity; 0 production side effect
+trong test; exact-once analytics; preview non-indexable; immediate hard cutover,
+no traffic split
 **Scale/Scope**: 74 public page modules, 22 API routes, 11 ISR pages, 5 dynamic path sources, 1 SSR search route cần static hóa, 44 image usages trong 35 files, 99 legacy Link props trong 57 files, 5 `react-material-ui-carousel` call sites, 2 React Three/Fiber entry points, DNS/email/verification records và deferred registrar transfer
 
 ## Constitution Check
@@ -281,7 +286,12 @@ They converge at the Vinext local Worker gate; none bypass it.
    - use an explicit `DEPLOYMENT_CHANNEL=preview` build/config channel or proven host-aware Worker rule to add `X-Robots-Tag: noindex, nofollow` on all preview pages;
    - production canonical and sitemap host remain `https://inutdesign.com`;
    - no preview hostname in built sitemap/robots/canonical.
-4. Establish Workers Paid, preview subdomain, zone and spend policy only before a separately approved production cutover. Baseline warning at $2 usage-over-base and hard usage block at $10 usage excluding the $5 subscription. Record that these are proposal thresholds and confirm actual account plan controls support the chosen enforcement model before relying on them.
+4. Production cutover is complete on `inutdesign.com` as of 2026-11-24.
+   Keep Workers Free under the owner-approved exception and monitor the
+   Cloudflare plan/CPU/request warnings. Upgrade to Paid when a warning appears
+   or production usage approaches Free limits. Baseline warning remains $2
+   usage-over-base and hard usage block $10 after Paid, excluding the $5
+   subscription; confirm the actual controls before relying on them.
 5. Release evidence must include route/API, analytics, browser, upload, scheduler, SEO, CPU/memory/logs, asset/image parity and cost checks.
 6. Treat deployment artifacts as evidence:
    - immutable commit SHA and lockfile hash;

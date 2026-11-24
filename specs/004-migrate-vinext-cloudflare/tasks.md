@@ -224,13 +224,18 @@ silently marked complete:
   `skt-t1-2`, `grey-marble`, and `bat-lua-mini-in-thuong-mau-muoi-mot`. T044,
   T056, T074 and T129 now pass, including 714 static pages, 710 public paths,
   706 sitemap URLs, 22-route parity and 24 browser/viewport checks.
-- **Approved preview/production owner action**: T085, T090, T091 — no deploy,
-  production artifact or rollback drill was executed without explicit approval.
-- **Preview-only measurement**: T076 — local timing is 100% within +10% and APIs
-  have no timeout, but peak isolate memory requires Cloudflare preview telemetry.
-- **Approved DNS inventory/cutover**: T096, T102, T103 — no DNS change was made;
-  current public DNS is already Cloudflare-authoritative and returns HTTP 402,
-  so post-cutover health is not valid.
+- **Preview/production owner action resolved (2026-11-24)**: T076 and T085 pass
+  with Cloudflare timing/memory evidence. `inutdesign.com` now serves the
+  production Worker. T090 remains a rollback evidence/drill item; it is not a
+  current application blocker.
+- **Production DNS cutover resolved (2026-11-24)**: the domain is healthy on the
+  Cloudflare Worker at both apex and `www`; the former manual CNAME was replaced
+  by a Worker-managed `www.inutdesign.com` custom domain after its 522 was
+  diagnosed. T096/T102/T103 remain post-cutover evidence items for
+  record-by-record validation, snapshot retention and timing.
+- **Workers Paid TODO (accepted owner exception)**: production continues on
+  Workers Free. Upgrade when Cloudflare emits a plan/quota/CPU warning or usage
+  approaches Free limits.
 - **Registrar owner action/evidence**: T104 — public RDAP says Squarespace
   registrar with `pending transfer`, contradicting the required “no transfer”
   completion condition; this implementation initiated no registrar action.

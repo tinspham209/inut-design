@@ -8,12 +8,21 @@ not delegated. The domain currently reports `pending transfer`, so registrar and
 transfer eligibility gates are blocked and require owner review before any
 registrar claim.
 
+Production DNS cutover is complete as of 2026-11-24. `https://inutdesign.com`
+and `https://www.inutdesign.com` are attached to Worker `inutdesign-web` and
+serving production. The `www` custom domain replaced the externally managed
+CNAME that was returning 522. The Worker stays on Cloudflare Free by owner
+decision; Workers Paid is a pending TODO triggered by a Cloudflare
+plan/quota/CPU warning or usage approaching the Free limits.
+
 ## Preparation
 
 1. Complete and owner-approve `artifacts/migration/dns/source-inventory.csv`.
 2. Fill every unknown MX/SPF/DKIM/DMARC/TXT/CAA/DS owner and disposition.
 3. Confirm Cloudflare zone, target Worker, custom domain, certificate and nameservers.
-4. Confirm Worker preview, release gate and Workers Paid/spend controls.
+4. Confirm Worker preview and release gate. Apply the documented Free-plan
+   exception until the owner triggers Workers Paid; keep spend and usage
+   monitoring active.
 5. Confirm DNSSEC state:
    - if active, capture DS, disable at the current registrar/DNS provider and wait
      for the DS removal to propagate;
@@ -34,6 +43,10 @@ No traffic split is allowed.
 7. Verify apex, `www`, TLS, redirects, robots, canonical, sitemap, indexed paths,
    22 APIs, critical commerce/contact flows, and email continuity.
 8. Record Cloudflare Worker version, custom domain and resolution snapshot.
+
+The apex and `www` steps above are complete for the current production
+cutover. Keep the resulting DNS and Worker layers unchanged while monitoring
+Free-plan usage.
 
 ## Post-Cutover Evidence
 

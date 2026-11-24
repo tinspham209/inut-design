@@ -2,7 +2,11 @@
 
 ## Account Capability Check
 
-1. Confirm Workers Paid is active for the selected account.
+Current production state (2026-11-24): `inutdesign.com` runs on Cloudflare
+Workers Free under an owner-approved operational exception.
+
+1. **TODO pending**: upgrade to Workers Paid when Cloudflare reports a quota,
+   CPU or plan warning, or when production usage approaches Free-plan limits.
 2. Confirm billing owner and account-level permission.
 3. Verify whether Cloudflare supports the proposed warning at $2 usage over base
    and hard block at $10 usage over base. Do not claim enforcement from this
@@ -18,6 +22,9 @@
 - Logs: alert on volume growth and cap retained detail; logs contain route,
   status, duration and aggregate counters only.
 - Security: secret scan failures and unusual write abuse stop release escalation.
+- Free-plan escalation: review the first Cloudflare plan/CPU/request warning
+  immediately and prepare the Paid-plan upgrade without changing DNS or Worker
+  routing.
 
 ## Cost Comparison
 

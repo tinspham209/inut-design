@@ -74,7 +74,7 @@ Every preview response must:
 | Security | 0 secret in client/source map/public response; validation/auth not weakened |
 | Secret migration | Old exposed Telegram token rotated; public credential names removed; browser and trusted internal/scheduler caller classes pass separate tests |
 | Worker graph | No native `sharp`, build/test-only package, request-time filesystem/path module or disabled IMG.LY/ONNX asset in production graph |
-| Cost | Workers Paid/spend controls/alerts configured before production; modeled total ≤ approved range |
+| Cost | Paid mode remains preferred; the owner-approved 2026-11-24 Free-plan exception may continue while Cloudflare usage is healthy and monitoring/watch triggers are retained |
 | Operations | operator completes deploy/verify/rollback drill in allowed time |
 
 ## Production Deploy Contract
@@ -87,7 +87,8 @@ Production deploy/cutover requires an explicit owner approval record referencing
 - Worker module graph and artifact-size report;
 - release-gate report;
 - DNS inventory approval;
-- account/zone/Workers Paid readiness;
+- account/zone/Workers readiness plus Paid-plan status or the owner-approved
+  Free-plan exception and escalation trigger;
 - spending policy;
 - verified rollback point.
 
@@ -108,7 +109,10 @@ Success criterion: restoration ≤15 minutes after approval, excluding DNS propa
 
 ## Cost & Observability
 
-- Workers Paid is required before production.
+- Workers Paid was the original baseline, but production is now live on Workers
+  Free under an owner-approved 2026-11-24 exception. Upgrade becomes a TODO
+  trigger when Cloudflare reports plan/quota/CPU warning, usage approaches Free
+  limits, or reliability is affected.
 - Model Worker request/CPU usage after full-static conversion; do not reuse Vercel function invocations as a direct bill proxy.
 - Configure warning at $2 usage over base and hard usage block at $10, excluding $5 subscription.
 - Configure Worker CPU/request and log-volume alerts.

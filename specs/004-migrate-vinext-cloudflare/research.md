@@ -185,15 +185,24 @@ The plan resolves hard issues in Phase 1 and turns partial support into executab
 
 ## Cost & Optional Services
 
-**Decision**: Workers Paid is required. Baseline is $5/month when under included usage; configure a $2 usage-over-base warning and $10 usage hard block. No optional Cloudflare data/image/queue service is enabled without compatibility/cost evidence.
+**Decision**: Workers Paid remains the long-term baseline at $5/month under
+included usage. Production is currently allowed to remain on Workers Free under
+the owner-approved 2026-11-24 exception; upgrade when Cloudflare warns about
+plan/quota/CPU or usage approaches Free limits. Retain the $2 usage-over-base
+warning and $10 usage hard-block policy for the Paid transition. No optional
+Cloudflare data/image/queue service is enabled without compatibility/cost
+evidence.
 
 **Rationale**:
-- Workers Free has 10 ms CPU/request, unsuitable for validated API parity and is explicitly rejected in the spec.
+- Workers Free has 10 ms CPU/request, so production remains watch-gated and has
+  an explicit Paid upgrade trigger rather than an unconditional long-term
+  reliance.
 - Workers Paid includes 10M requests and 30M CPU ms/month; static asset requests are free.
 - Existing Vercel invocation samples include SSR/ISR work and cannot be treated as Worker API billing volume after full-static conversion.
 
 **Alternatives considered**:
-- Stay on Free — rejected for CPU reliability.
+- Stay on Free indefinitely — rejected; the accepted exception is temporary and
+  warning/usage triggered.
 - Enable R2/Response Store preemptively — rejected; it is not needed for static publication.
 - Add Cache/Queue/Image services for “future use” — rejected as unsupported cost/scope.
 

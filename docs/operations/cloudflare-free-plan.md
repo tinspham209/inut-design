@@ -5,9 +5,10 @@
 - Account: `inutdesign`
 - Zone plan: Cloudflare Free ($0)
 - Cloudflare CLI authentication: completed
-- Worker account has no deployed scripts yet.
+- Worker `inutdesign-web` is deployed and serving `inutdesign.com` in production.
+- `inutdesign.com` custom-domain cutover is complete.
 - `cloudflare.config.ts` contains the account ID and no paid-only service.
-- Vinext Cloudflare deploy dry-run passes.
+- `pnpm release:local` and Vinext Cloudflare deploy dry-run pass.
 
 ## Current Limits Relevant to This Project
 
@@ -18,31 +19,38 @@
 - 20,000 static asset files per Worker version.
 - 25 MiB per static asset and 64 MiB Worker size limit.
 
-This is sufficient for a limited preview and setup validation. It is not the
-production gate because the feature requires higher CPU/runtime headroom and
-the release policy is based on Workers Paid.
+## Accepted Production Decision
 
-## Secrets Required Before Preview
+Production remains on Workers Free by explicit owner decision on 2026-11-24.
+Workers Paid is a pending operational TODO, not a reason to roll back the healthy
+production Worker.
 
-Present locally by name:
+- Continue operating on the Free plan while Cloudflare reports healthy request,
+  CPU and memory usage.
+- Upgrade to Workers Paid when Cloudflare emits a plan/quota/CPU warning, usage
+  approaches the Free limits, or production reliability is affected.
+- Retain the existing Paid escalation evidence and `$2` warning / `$10` usage
+  block policy for the upgrade so the account can be switched without changing
+  the Worker or DNS architecture.
+
+## Worker Secrets
+
+Production Worker secrets are configured in Cloudflare by name:
 
 - `SANITY_TOKEN`
+- `TELEGRAM_BOT_TOKEN`
+- `TELEGRAM_CHAT_ID`
 - `CREATIVA_TELEGRAM_BOT_TOKEN`
 - `SPX_SYNC_SECRET`
 - `SPX_SYNC_TELEGRAM_BOT_TOKEN`
 - `SPX_SYNC_TELEGRAM_CHAT_ID`
 
-Still missing under the approved server-only names:
-
-- `TELEGRAM_BOT_TOKEN`
-- `TELEGRAM_CHAT_ID`
-
-After the rotated token is placed under `TELEGRAM_BOT_TOKEN` and the destination
-under `TELEGRAM_CHAT_ID` in the local secret source, the preview deploy can load
-those secrets. Never paste values into this repository, chat, logs or commits.
+Never paste values into this repository, chat, logs or commits. Rotate and
+replace credentials in Cloudflare secrets without exposing them in build output.
 
 ## Boundary
 
-No Worker has been deployed, no paid subscription has been created, and no DNS
-or registrar action has been performed. Preview deployment remains the separate
-owner-approved step.
+Production DNS and Worker routing are complete. The registrar remains at
+Squarespace and no registrar transfer action is part of this deployment.
+Workers Paid has not been purchased; monitor Cloudflare warnings and upgrade
+only when the owner-decided trigger is reached.

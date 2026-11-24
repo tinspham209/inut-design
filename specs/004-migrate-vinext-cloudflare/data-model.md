@@ -239,7 +239,10 @@ Additional rule: `scope=browser-build` is reserved for non-secret public config.
 
 Fields: `plan`, `includedRequestCount`, `includedCpuMs`, `usageWarningUsd`, `usageBlockUsd`, `logVolumeThreshold`, `reviewOwner`, `lastReviewedAt`.
 
-Baseline: Workers Paid, warning at $2 usage over base, usage block at $10, excluding $5 subscription.
+Long-term baseline: Workers Paid, warning at $2 usage over base, usage block at
+$10, excluding $5 subscription. Current production state: Workers Free under
+the owner-approved 2026-11-24 exception, with upgrade triggered by Cloudflare
+plan/quota/CPU warning or Free-limit pressure.
 
 ## State Transitions
 

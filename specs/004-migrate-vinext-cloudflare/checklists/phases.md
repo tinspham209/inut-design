@@ -62,7 +62,7 @@
 - [ ] CHK040 Is "owner repeat by one command" reconciled with the separate dry-run, preview, approval and production actions required by the release sequence? [Ambiguity, Spec §SC-026, §FR-040]
 - [ ] CHK041 Are release-gate ownership, evidence retention, approval record and blocker/escalation rules explicitly defined for every mandatory gate? [Completeness, Spec §FR-011, §FR-012]
 - [ ] CHK042 Are Worker memory, CPU, request, bundle-size and log-volume limits mapped to measurable preview evidence and failure thresholds? [Measurability, Spec §SC-013, §SC-015]
-- [ ] CHK043 Are Workers Paid, preview hostname, zone, spend warning and usage block stated as preconditions with verified account-control semantics rather than assumptions? [Dependency, Spec §FR-018, §FR-020, §FR-024]
+- [ ] CHK043 Are Workers Paid status or the accepted Free-plan exception, preview hostname, zone, spend warning and usage block stated with verified account-control semantics and explicit upgrade trigger? [Dependency, Spec §FR-018, §FR-020, §FR-024]
 - [ ] CHK044 Are $5/$6 monthly estimates and the $10 usage block unambiguous about included subscription, overage, tax, logs and optional services? [Clarity, Spec §SC-011, §SC-012; Cost Estimate]
 - [ ] CHK045 Are optional Images, KV, R2, Durable Object, D1 and Queue activation requirements defined by a documented compatibility/performance/cost evidence threshold? [Completeness, Spec §FR-019, §SC-014]
 

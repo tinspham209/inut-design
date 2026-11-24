@@ -2,6 +2,23 @@
 
 This runbook is owner-triggered. It never grants approval by itself.
 
+## Production State (2026-11-24)
+
+Production cutover is complete: Worker `inutdesign-web` serves
+`https://inutdesign.com` on Cloudflare in production mode. Production route,
+API, commerce, upload, search, analytics, SEO, security and Worker-resource
+checks have passed.
+
+Both apex and `www` return 200 from the same production Worker. The
+`www.inutdesign.com` custom domain was attached on 2026-11-24 after replacing
+the externally managed CNAME; Cloudflare now owns that routing record and its
+certificate.
+
+Worker remains on the Cloudflare Free plan by explicit owner decision.
+Workers Paid is the only remaining account-plan TODO: keep the Free plan active
+until Cloudflare emits a quota/CPU/plan warning or usage approaches the Free
+limits, then upgrade without changing the Worker or DNS architecture.
+
 ## Preconditions
 
 - Feature 004 `pnpm release:local` passes without unresolved mandatory blocker.
@@ -13,6 +30,8 @@ This runbook is owner-triggered. It never grants approval by itself.
   without secret values.
 - Required Worker secrets are injected by the Cloudflare secret mechanism and are
   absent from output, logs and source maps.
+- For future releases, retain this Free-plan exception until the owner triggers
+  the Workers Paid upgrade.
 
 ## Dry Run and Deploy
 
@@ -33,6 +52,9 @@ This runbook is owner-triggered. It never grants approval by itself.
 4. Perform an immediate hard cutover; do not split traffic.
 5. Verify apex, `www`, TLS, redirects, canonical, sitemap, 22 APIs and critical flows.
 6. Record the active version and verification timestamps.
+
+Cutover steps 1-6 are complete for apex and `www.inutdesign.com` as of
+2026-11-24.
 
 ## Worker Rollback
 

@@ -59,6 +59,20 @@
   Squarespace and `pending transfer`. Feature 004 does not claim the pending
   transfer was initiated by this implementation; no registrar action was taken.
 
+## MIGRATION-WORKERS-FREE-PRODUCTION-EXCEPTION
+
+- **Status**: owner-accepted operational exception on 2026-11-24.
+- **Decision**: keep production Worker `inutdesign-web` on Cloudflare Free after
+  the successful `inutdesign.com` custom-domain cutover.
+- **Pending TODO**: upgrade to Workers Paid when Cloudflare reports a
+  plan/quota/CPU warning, production usage approaches the Free limits, or the
+  owner observes reliability impact.
+- **Evidence**: preview/production route and API checks, 0 Worker errors, peak
+  measured memory below 128 MB, and the complete production cutover.
+- **Boundary**: this exception does not relax secrets, origin validation,
+  security, API, SEO, commerce or Worker graph requirements. It defers only the
+  paid subscription/cost-control transition.
+
 ## MIGRATION-SANITY-SLUG-RESOLUTION
 
 - **Status**: resolved by owner on 2026-11-24.
