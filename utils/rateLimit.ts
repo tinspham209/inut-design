@@ -36,7 +36,13 @@ function rateLimit(options?: Options) {
 export function getRequestRateLimitToken(req: NextApiRequest): string {
 	const forwardedFor = req.headers["x-forwarded-for"];
 	const forwardedAddress = Array.isArray(forwardedFor) ? forwardedFor[0] : forwardedFor?.split(",")[0];
-	return forwardedAddress?.trim() || req.socket.remoteAddress || "unknown";
+	return (
+		forwardedAddress?.trim() ||
+		req.socket?.remoteAddress ||
+		(typeof req.headers["cf-connecting-ip"] === "string"
+			? req.headers["cf-connecting-ip"]
+			: "unknown")
+	);
 }
 
 export default rateLimit;

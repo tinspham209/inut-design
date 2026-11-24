@@ -13,6 +13,10 @@ const disabledBrowserImageRemoval = path.resolve(
 	"components/keychain-builder/image/backgroundRemovalDisabled.ts",
 );
 const workerSharp = path.resolve(import.meta.dirname, "utils/worker-sharp.ts");
+const muiIconEsm = path.resolve(
+	import.meta.dirname,
+	"node_modules/@mui/icons-material/esm",
+);
 const browserFsFallback = (): Plugin => ({
 	name: "browser-fs-fallback",
 	enforce: "pre",
@@ -42,10 +46,20 @@ export default defineConfig({
 			: []),
 	],
 	resolve: {
-		alias: {
-			sharp: workerSharp,
-			...(backgroundRemovalEnabled ? {} : { "@imgly/background-removal": disabledBrowserImageRemoval }),
-		},
+		alias: [
+			{ find: "sharp", replacement: workerSharp },
+			{
+				find: /^@mui\/icons-material\/(.+)$/,
+				replacement: `${muiIconEsm}/$1.js`,
+			},
+			{
+				find: /^@mui\/icons-material$/,
+				replacement: `${muiIconEsm}/index.js`,
+			},
+			...(backgroundRemovalEnabled
+				? []
+				: [{ find: "@imgly/background-removal", replacement: disabledBrowserImageRemoval }]),
+		],
 	},
 	css: {
 		modules: {

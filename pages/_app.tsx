@@ -12,32 +12,26 @@ import { initializeConsentMode } from "@/utils/consent";
 import { CacheProvider } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
-import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { isCreativaPath, trackCreativaPage } from "@/utils/creativa/analytics";
 import { SWRConfig } from "swr";
-
-const ProductCartWrapper = dynamic(
-	() => import("@/components/cart/CartWrapper").then((mod) => mod.ProductCartWrapper),
-	{ ssr: false }
-);
-const DialogContainer = dynamic(
-	() => import("@/components/common").then((mod) => mod.DialogContainer),
-	{
-		ssr: false,
-	}
-);
-const Toaster = dynamic(() => import("react-hot-toast").then((mod) => mod.Toaster), {
-	ssr: false,
-});
+import { ProductCartWrapper } from "@/components/cart/CartWrapper";
+import { DialogContainer } from "@/components/common";
+import { Toaster } from "react-hot-toast";
 
 import "../styles/globals.css";
 import "../styles/prism.css";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
+
+function MountedOnly({ children }: { children: ReactNode }) {
+	const [mounted, setMounted] = useState(false);
+	useEffect(() => setMounted(true), []);
+	return mounted ? children : null;
+}
 
 function MyApp({
 	Component,
@@ -111,9 +105,11 @@ function MyApp({
 					>
 						<Layout>
 							<Component {...pageProps} />
-							<ProductCartWrapper />
-							<Toaster />
-							<DialogContainer />
+							<MountedOnly>
+								<ProductCartWrapper />
+								<Toaster />
+								<DialogContainer />
+							</MountedOnly>
 						</Layout>
 					</SWRConfig>
 				</ThemeProvider>

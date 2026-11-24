@@ -38,7 +38,12 @@ async function walk(directory) {
 	return files;
 }
 
-const roots = candidateRoots.filter((relative) => existsSync(path.join(root, relative)));
+const cloudflareRootExists = existsSync(path.join(root, ".cloudflare"));
+const roots = candidateRoots.filter(
+	(relative) =>
+		existsSync(path.join(root, relative)) &&
+		(!cloudflareRootExists || !relative.startsWith(".next")),
+);
 const findings = [];
 let scannedFiles = 0;
 

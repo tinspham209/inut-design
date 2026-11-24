@@ -129,7 +129,11 @@ export function creativaApi(method: "GET" | "POST", kind: Kind, handler: Handler
 							503
 					  );
 			if (!(error instanceof CreativaError))
-				console.error("creativa_api_service_failure", { kind });
+				console.error("creativa_api_service_failure", {
+					kind,
+					code: error && typeof error === "object" && "code" in error ? error.code : "unknown",
+					message: error instanceof Error ? error.message : "unknown",
+				});
 			res.status(safe.status).json({
 				ok: false,
 				error: {

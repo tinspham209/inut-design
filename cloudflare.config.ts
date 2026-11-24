@@ -12,6 +12,7 @@ export default defineConfig({
     },
     env: {
       ASSETS: bindings.assets(),
+      SPX_SYNC_SECRET: bindings.secret(),
     },
   }),
 });
