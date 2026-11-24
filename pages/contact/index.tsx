@@ -28,11 +28,9 @@ const ContactContainer: NextPageWithLayout = () => {
 			<Box component={"section"} sx={{ bgcolor: COLOR_CODE.INK }} pt={2} pb={4} minHeight="60vh">
 				<Container>
 					<Breadcrumbs>
-						<Link href={"/"} passHref>
-							<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover">
+						<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover" component={Link} href={"/"}>
 								Trang chủ
 							</MuiLink>
-						</Link>
 
 						<Typography sx={{ color: COLOR_CODE.WHITE }}>Liên hệ</Typography>
 					</Breadcrumbs>

@@ -114,11 +114,9 @@ const PoliciesTermsIndexPage: NextPageWithLayout = () => {
 			/>
 			<Container maxWidth="md">
 				<Breadcrumbs sx={{ mb: 4 }}>
-					<Link href="/" passHref>
-						<MuiLink color="inherit" underline="hover">
+					<MuiLink color="inherit" underline="hover" component={Link} href="/">
 							Trang chủ
 						</MuiLink>
-					</Link>
 					<Typography color="text.primary">{PAGE_TITLE}</Typography>
 				</Breadcrumbs>
 
@@ -135,8 +133,7 @@ const PoliciesTermsIndexPage: NextPageWithLayout = () => {
 				<Grid container spacing={{ xs: 2.5, md: 3 }}>
 					{policyPages.map((page) => (
 						<Grid item xs={12} sm={6} key={page.url}>
-							<Link href={page.url} passHref>
-								<Paper
+							<Paper
 									elevation={0}
 									onClick={() => handleCardClick(page.title, page.url)}
 									sx={{
@@ -152,7 +149,7 @@ const PoliciesTermsIndexPage: NextPageWithLayout = () => {
 											borderColor: COLOR_CODE.PRIMARY,
 										},
 									}}
-								>
+								 component={Link} href={page.url}>
 									<Stack direction="row" spacing={2.5} alignItems="flex-start">
 										<Box
 											sx={{
@@ -182,7 +179,6 @@ const PoliciesTermsIndexPage: NextPageWithLayout = () => {
 										</Box>
 									</Stack>
 								</Paper>
-							</Link>
 						</Grid>
 					))}
 				</Grid>

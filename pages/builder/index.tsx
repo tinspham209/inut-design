@@ -20,11 +20,9 @@ const BuilderIndexPage: NextPageWithLayout = () => (
 		/>
 		<Container maxWidth="lg">
 			<Breadcrumbs>
-				<Link href="/" passHref legacyBehavior>
-					<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover">
+				<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover" component={Link} href="/">
 						Trang chủ
 					</MuiLink>
-				</Link>
 				<Typography sx={{ color: COLOR_CODE.WHITE }}>Công cụ thiết kế</Typography>
 			</Breadcrumbs>
 		</Container>

@@ -379,15 +379,13 @@ const Guide: NextPageWithLayout = () => (
 							bạn. Nếu cần hỗ trợ, hãy gửi hình ảnh tình trạng miếng skin và model MacBook cho INUT
 							nhé.
 						</Typography>
-						<Link href="/contact" passHref>
-							<Button
-								component="a"
+						<Button
+								
 								variant="contained"
 								onClick={() => trackCreativa("contact_click", { method: "form", surface: "guide" })}
-							>
+							 component={Link} href="/contact">
 								Liên hệ hỗ trợ
 							</Button>
-						</Link>
 					</Stack>
 				</Box>
 			</Box>

@@ -51,12 +51,8 @@ export default function BlogDetailPage({ post }: BlogPageProps) {
 						mb: 4,
 					}}
 				>
-					<Link href={"/"} passHref>
-						<MuiLink>Trang chủ</MuiLink>
-					</Link>
-					<Link href={"/blog"} passHref>
-						<MuiLink>Blog</MuiLink>
-					</Link>
+					<MuiLink component={Link} href={"/"}>Trang chủ</MuiLink>
+					<MuiLink component={Link} href={"/blog"}>Blog</MuiLink>
 					<Typography>{post.title}</Typography>
 				</Breadcrumbs>
 				<PostItem

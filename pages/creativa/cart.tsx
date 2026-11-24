@@ -60,11 +60,9 @@ function CartLine({
 			<Stack direction="row" gap={1.5} alignItems="flex-start">
 				<CreativaProductThumbnail image={image} name={item.productName} />
 				<Box sx={{ flex: 1, minWidth: 0, overflowWrap: "anywhere" }}>
-					<Link href={`/creativa/skin-laptop/${item.productSlug}`} passHref>
-						<Typography component="a" fontWeight={500}>
+					<Typography  fontWeight={500} component={Link} href={`/creativa/skin-laptop/${item.productSlug}`}>
 							{item.productName}
 						</Typography>
-					</Link>
 					<Typography variant="body2" color="text.secondary">
 						{item.modelName} / {item.coverageName}
 					</Typography>
@@ -216,27 +214,23 @@ const Cart: NextPageWithLayout = () => {
 								Phí vận chuyển được xác nhận ở bước thanh toán.
 							</Typography>
 							<Divider sx={{ my: 0.5 }} />
-							<Link href="/creativa/checkout" passHref>
-								<Button
-									component="a"
+							<Button
+									
 									variant="contained"
 									disabled={
 										loading || !!cart.error || !!error || (!!changed && reviewed !== quote.digest)
 									}
-								>
+								 component={Link} href="/creativa/checkout">
 									Tiếp tục thanh toán
 								</Button>
-							</Link>
 						</Stack>
 					)}
 					{loading && (
 						<Typography variant="body2">Đang kiểm tra giá và lựa chọn hiện tại…</Typography>
 					)}
-					<Link href="/creativa/skin-laptop" passHref>
-						<Button component="a" sx={{ alignSelf: "flex-start" }}>
+					<Button  sx={{ alignSelf: "flex-start" }} component={Link} href="/creativa/skin-laptop">
 							Tiếp tục xem thiết kế
 						</Button>
-					</Link>
 					<Link href="/creativa/checkout">Khôi phục lần đặt hàng trước</Link>
 				</Stack>
 			</Container>

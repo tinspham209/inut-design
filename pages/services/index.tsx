@@ -35,11 +35,9 @@ const ServicesIndexPage: NextPageWithLayout<Props> = ({ currentPath, currentRout
 
 			<Container maxWidth="lg">
 				<Breadcrumbs sx={{ mb: 4 }}>
-					<Link href="/" passHref legacyBehavior>
-						<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover">
+					<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover" component={Link} href="/">
 							Trang chủ
 						</MuiLink>
-					</Link>
 					<Typography sx={{ color: COLOR_CODE.WHITE }}>Dịch vụ</Typography>
 				</Breadcrumbs>
 

@@ -36,16 +36,12 @@ const ContactForm: NextPageWithLayout = () => {
 							pt: 2,
 						}}
 					>
-						<Link href={"/"} passHref>
-							<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover">
+						<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover" component={Link} href={"/"}>
 								Trang chủ
 							</MuiLink>
-						</Link>
-						<Link href={"/contact"} passHref>
-							<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover">
+						<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover" component={Link} href={"/contact"}>
 								Liên hệ
 							</MuiLink>
-						</Link>
 
 						<Typography sx={{ color: COLOR_CODE.WHITE }}>Nhận báo giá</Typography>
 					</Breadcrumbs>

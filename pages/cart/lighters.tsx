@@ -31,16 +31,12 @@ const LighterCartPage: NextPageWithLayout = () => {
 					aria-label="breadcrumb"
 					sx={{ mb: 4 }}
 				>
-					<Link href="/" passHref legacyBehavior>
-						<MuiLink underline="hover" color="inherit">
+					<MuiLink underline="hover" color="inherit" component={Link} href="/">
 							Trang chủ
 						</MuiLink>
-					</Link>
-					<Link href="/san-pham/lighters" passHref legacyBehavior>
-						<MuiLink underline="hover" color="inherit">
+					<MuiLink underline="hover" color="inherit" component={Link} href="/san-pham/lighters">
 							Bật lửa
 						</MuiLink>
-					</Link>
 					<Typography color="text.primary">Giỏ hàng</Typography>
 				</Breadcrumbs>
 

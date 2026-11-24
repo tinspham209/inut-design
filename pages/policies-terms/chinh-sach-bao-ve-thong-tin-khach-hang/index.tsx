@@ -162,16 +162,12 @@ const PrivacyPolicyPage: NextPageWithLayout = () => {
 			/>
 			<Container maxWidth="lg">
 				<Breadcrumbs sx={{ mb: 4 }}>
-					<Link href="/" passHref>
-						<MuiLink color="inherit" underline="hover">
+					<MuiLink color="inherit" underline="hover" component={Link} href="/">
 							Trang chủ
 						</MuiLink>
-					</Link>
-					<Link href="/policies-terms" passHref>
-						<MuiLink color="inherit" underline="hover">
+					<MuiLink color="inherit" underline="hover" component={Link} href="/policies-terms">
 							Chính sách và Điều khoản
 						</MuiLink>
-					</Link>
 					<Typography color="text.primary">{PAGE_TITLE}</Typography>
 				</Breadcrumbs>
 

@@ -62,9 +62,8 @@ const darkTextFieldSx = {
 };
 
 const SearchResultCard = ({ result }: { result: SearchResult }) => (
-	<Link href={result.url} passHref legacyBehavior>
-		<Card
-			component="a"
+	<Card
+			
 			onClick={() => trackSearchResultClick(result.kind)}
 			sx={{
 				height: "100%",
@@ -80,7 +79,7 @@ const SearchResultCard = ({ result }: { result: SearchResult }) => (
 					backgroundColor: COLOR_CODE.INK_2,
 				},
 			}}
-		>
+		 component={Link} href={result.url}>
 			<CardContent>
 				<Stack direction="row" justifyContent="space-between" alignItems="flex-start" gap={1} mb={1}>
 					<Typography
@@ -103,7 +102,6 @@ const SearchResultCard = ({ result }: { result: SearchResult }) => (
 				</Typography>
 			</CardContent>
 		</Card>
-	</Link>
 );
 
 const Search: NextPageWithLayout<Props> = ({ query, page, status }) => {
@@ -210,9 +208,7 @@ const Search: NextPageWithLayout<Props> = ({ query, page, status }) => {
 			/>
 			<Container>
 				<Breadcrumbs sx={{ color: COLOR_CODE.TEXT_MUTED }}>
-					<Link href="/" passHref>
-						<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }}>Trang chủ</MuiLink>
-					</Link>
+					<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} component={Link} href="/">Trang chủ</MuiLink>
 					<Typography sx={{ color: COLOR_CODE.WHITE }}>Tìm kiếm</Typography>
 				</Breadcrumbs>
 

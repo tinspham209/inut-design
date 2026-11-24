@@ -532,19 +532,17 @@ const OrderDetail: NextPageWithLayout = () => {
 							<Box sx={{ mt: 0.5, textAlign: "center" }}>
 								<Typography variant="body2" color="text.secondary" gutterBottom>
 									Cần hỗ trợ?{" "}
-									<Link href="/contact" passHref>
-										<MuiLink
-											component="a"
+									<MuiLink
+											
 											onClick={() =>
 												trackCreativa("contact_click", {
 													method: "form",
 													surface: "order_tracking",
 												})
 											}
-										>
+										 component={Link} href="/contact">
 											Liên hệ với chúng tôi
 										</MuiLink>
-									</Link>
 								</Typography>
 								<Stack
 									direction={{ xs: "column", sm: "row" }}

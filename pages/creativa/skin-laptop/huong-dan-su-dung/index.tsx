@@ -40,9 +40,8 @@ const Guides: NextPageWithLayout = () => (
 							{MACBOOK_GUIDE.title}
 						</Typography>
 						<Typography color="text.secondary">{MACBOOK_GUIDE.description}</Typography>
-						<Link href={MACBOOK_GUIDE_PATH} passHref>
-							<Button
-								component="a"
+						<Button
+								
 								variant="contained"
 								onClick={() =>
 									trackCreativa("cta_click", {
@@ -50,10 +49,9 @@ const Guides: NextPageWithLayout = () => (
 										cta_name: "macbook_application_guide",
 									})
 								}
-							>
+							 component={Link} href={MACBOOK_GUIDE_PATH}>
 								Đọc hướng dẫn
 							</Button>
-						</Link>
 					</Stack>
 				</Box>
 			</Stack>

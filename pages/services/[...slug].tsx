@@ -44,16 +44,12 @@ const ServiceDynamicPage: NextPageWithLayout<Props> = ({ currentPath, currentRou
 
 			<Container maxWidth="lg">
 				<Breadcrumbs sx={{ mb: 4 }}>
-					<Link href="/" passHref legacyBehavior>
-						<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover">
+					<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover" component={Link} href="/">
 							Trang chủ
 						</MuiLink>
-					</Link>
-					<Link href="/services" passHref legacyBehavior>
-						<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover">
+					<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} underline="hover" component={Link} href="/services">
 							Dịch vụ
 						</MuiLink>
-					</Link>
 					<Typography sx={{ color: COLOR_CODE.WHITE }}>{currentRoute.label}</Typography>
 				</Breadcrumbs>
 

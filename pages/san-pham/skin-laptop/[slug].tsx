@@ -130,16 +130,12 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 							"& li": { color: COLOR_CODE.TEXT_SOFT },
 						}}
 					>
-						<Link href={"/"} passHref>
-							<MuiLink sx={{ color: COLOR_CODE.TEXT_SOFT, "&:hover": { color: COLOR_CODE.WHITE } }}>
+						<MuiLink sx={{ color: COLOR_CODE.TEXT_SOFT, "&:hover": { color: COLOR_CODE.WHITE } }} component={Link} href={"/"}>
 								Trang chủ
 							</MuiLink>
-						</Link>
-						<Link href={`/san-pham/skin-laptop#${product.slug.current}`} passHref>
-							<MuiLink sx={{ color: COLOR_CODE.TEXT_SOFT, "&:hover": { color: COLOR_CODE.WHITE } }}>
+						<MuiLink sx={{ color: COLOR_CODE.TEXT_SOFT, "&:hover": { color: COLOR_CODE.WHITE } }} component={Link} href={`/san-pham/skin-laptop#${product.slug.current}`}>
 								Sản phẩm
 							</MuiLink>
-						</Link>
 						<Typography sx={{ color: COLOR_CODE.TEXT_MUTED }}>{product.name}</Typography>
 					</Breadcrumbs>
 
@@ -237,13 +233,11 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 							</Stack>
 
 							<Stack flexDirection="row" alignItems={"center"} mt={2} gap={2}>
-								<Link href="/creativa/skin-laptop" passHref>
-									<MuiLink>
+								<MuiLink component={Link} href="/creativa/skin-laptop">
 										<Button variant="contained" color="primary">
 											Đặt hàng
 										</Button>
 									</MuiLink>
-								</Link>
 								<MuiLink href="/creativa/skin-laptop">
 									<Button
 										variant="outlined"
@@ -326,12 +320,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 							<Grid container spacing={2} key={chunkIdx} justifyContent="center">
 								{chunk.map((relatedProduct) => (
 									<Grid item xs={12} sm={4} md={2.4} key={relatedProduct._id}>
-										<Link
-											href={`/san-pham/skin-laptop/${relatedProduct.slug.current}`}
-											passHref
-											style={{ textDecoration: "none" }}
-										>
-											<MuiLink sx={{ textDecoration: "none", display: "block" }}>
+										<MuiLink sx={{ textDecoration: "none", display: "block" }} component={Link} href={`/san-pham/skin-laptop/${relatedProduct.slug.current}`} style={{ textDecoration: "none" }}>
 												<Box
 													sx={{
 														position: "relative",
@@ -370,7 +359,6 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 													{relatedProduct.name}
 												</Typography>
 											</MuiLink>
-										</Link>
 									</Grid>
 								))}
 							</Grid>

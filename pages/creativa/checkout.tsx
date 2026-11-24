@@ -96,11 +96,9 @@ const Checkout: NextPageWithLayout = () => {
 							<Typography variant="body2" mb={1.5}>
 								Lỗi lưu trữ hoặc đo lường không làm hủy đơn đã tiếp nhận. Không đặt lại đơn này.
 							</Typography>
-							<Link href={`/creativa/order-tracking/${accepted.publicId}`} passHref>
-								<Button component="a" variant="contained">
+							<Button  variant="contained" component={Link} href={`/creativa/order-tracking/${accepted.publicId}`}>
 									Xem đơn và sao chép mã
 								</Button>
-							</Link>
 							{attempt && (
 								<Button disabled={busy} onClick={() => void resolve(attempt)} sx={{ mt: 1 }}>
 									Thử khôi phục giỏ cục bộ (không đặt lại)

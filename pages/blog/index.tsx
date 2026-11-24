@@ -40,9 +40,7 @@ const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
 			<Container>
 				<Box>
 					<Breadcrumbs>
-						<Link href={"/"} passHref>
-							<MuiLink>Trang chủ</MuiLink>
-						</Link>
+						<MuiLink component={Link} href={"/"}>Trang chủ</MuiLink>
 
 						<Typography color="text.primary">Blog</Typography>
 					</Breadcrumbs>
@@ -54,11 +52,9 @@ const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
 					<Box component="ul" sx={{ listStyleType: "none", p: 0, mt: 3 }}>
 						{posts.map((post) => (
 							<li key={post.id}>
-								<Link passHref href={`/blog/${post.slug}`}>
-									<MuiLink onClick={() => handlePostClick(post)}>
+								<MuiLink onClick={() => handlePostClick(post)} component={Link} href={`/blog/${post.slug}`}>
 										<PostItem post={post} />
 									</MuiLink>
-								</Link>
 
 								<Divider sx={{ my: 3 }} />
 							</li>

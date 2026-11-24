@@ -58,14 +58,12 @@ const ProductsIndexPage: NextPageWithLayout<Props> = ({ currentPath, currentRout
 						"& li": { color: COLOR_CODE.TEXT_SOFT },
 					}}
 				>
-					<Link href="/" passHref legacyBehavior>
-						<MuiLink
+					<MuiLink
 							sx={{ color: COLOR_CODE.TEXT_SOFT, "&:hover": { color: COLOR_CODE.WHITE } }}
 							underline="hover"
-						>
+						 component={Link} href="/">
 							Trang chủ
 						</MuiLink>
-					</Link>
 					<Typography sx={{ color: COLOR_CODE.TEXT_MUTED }}>Sản phẩm</Typography>
 				</Breadcrumbs>
 

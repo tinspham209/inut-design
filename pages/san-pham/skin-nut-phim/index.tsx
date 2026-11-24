@@ -193,11 +193,9 @@ const Home: NextPageWithLayout = ({ products, productTypes, banner, total, page,
 							"& li": { color: COLOR_CODE.TEXT_SOFT },
 						}}
 					>
-						<Link href={"/"} passHref>
-							<MuiLink sx={{ color: COLOR_CODE.TEXT_SOFT, "&:hover": { color: COLOR_CODE.WHITE } }}>
+						<MuiLink sx={{ color: COLOR_CODE.TEXT_SOFT, "&:hover": { color: COLOR_CODE.WHITE } }} component={Link} href={"/"}>
 								Trang chủ
 							</MuiLink>
-						</Link>
 						<Typography sx={{ color: COLOR_CODE.TEXT_MUTED }}>Nút Phím</Typography>
 					</Breadcrumbs>
 					<Stack direction="row" alignItems="center" gap={1.25} mb={1.5}>
