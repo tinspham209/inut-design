@@ -1,24 +1,51 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import sharp from "sharp";
-import { normalizeKeychainImage } from "../../utils/keychain/imageValidation.ts";
+import {
+	decodeBase64Image,
+	validateKeychainImage,
+} from "../../utils/keychain/imageValidation.ts";
 
-const fixture = async (format, width = 64, height = 32) => sharp({ create: { width, height, channels: 4, background: { r: 255, g: 30, b: 10, alpha: 0.5 } } })[format]().toBuffer();
+const fixture = async (format, width = 64, height = 32) =>
+	sharp({
+		create: {
+			width,
+			height,
+			channels: 4,
+			background: { r: 255, g: 30, b: 10, alpha: 0.5 },
+		},
+	})[format]().toBuffer();
 
-test("accepts and normalizes the supported raster formats", async () => {
-	for (const [format, mime] of [["png", "image/png"], ["jpeg", "image/jpeg"], ["webp", "image/webp"]]) {
-		const normalized = await normalizeKeychainImage(await fixture(format), mime);
-		assert.equal((await sharp(normalized).metadata()).format, "webp");
+test("accepts bounded PNG, JPEG, and WebP worker uploads", async () => {
+	for (const [format, mime] of [
+		["png", "image/png"],
+		["jpeg", "image/jpeg"],
+		["webp", "image/webp"],
+	]) {
+		const input = new Uint8Array(await fixture(format));
+		const validated = validateKeychainImage(input, mime);
+		assert.equal(validated.format, format);
+		assert.equal(validated.width, 64);
+		assert.equal(validated.height, 32);
+		assert.equal(decodeBase64Image(Buffer.from(input).toString("base64")).byteLength, input.byteLength);
 	}
 });
 
-test("rejects declared format mismatches and corrupt bytes", async () => {
-	await assert.rejects(normalizeKeychainImage(await fixture("png"), "image/jpeg"), /INVALID_IMAGE/);
-	await assert.rejects(normalizeKeychainImage(Buffer.from("not an image"), "image/png"));
+test("rejects declared format mismatches, malformed base64, and corrupt bytes", async () => {
+	const png = new Uint8Array(await fixture("png"));
+	assert.throws(() => validateKeychainImage(png, "image/jpeg"), /INVALID_IMAGE/);
+	assert.throws(() => decodeBase64Image("%%%"), /INVALID_BASE64/);
+	assert.throws(() => validateKeychainImage(new TextEncoder().encode("not an image"), "image/png"), /INVALID_IMAGE/);
 });
 
-test("resizes oversized dimensions within the browser rendering limit", async () => {
-	const normalized = await normalizeKeychainImage(await fixture("png", 2300, 1500), "image/png");
-	const { width, height } = await sharp(normalized).metadata();
-	assert.ok(width <= 2048 && height <= 2048);
+test("rejects browser output above the Worker dimensions and pixel ceiling", async () => {
+	const oversized = new Uint8Array(await fixture("png", 2300, 1500));
+	assert.throws(
+		() => validateKeychainImage(new Uint8Array(Buffer.concat([
+			Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
+			Buffer.alloc(8),
+		])), "image/png"),
+		/INVALID_IMAGE/,
+	);
+	assert.throws(() => validateKeychainImage(oversized, "image/png"), /INVALID_IMAGE/);
 });

@@ -1,6 +1,6 @@
 const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
-const MAX_IMAGE_DIMENSION = 12_000;
-const MAX_IMAGE_PIXELS = 20_000_000;
+const MAX_IMAGE_DIMENSION = 2048;
+const MAX_IMAGE_PIXELS = MAX_IMAGE_DIMENSION * MAX_IMAGE_DIMENSION;
 const ACCEPTED_FORMATS = new Map([
 	["image/png", "png"],
 	["image/jpeg", "jpeg"],
