@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  use-sync-external-store: 1.6.0
+
 importers:
 
   .:
@@ -22,10 +25,10 @@ importers:
         version: 11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1)
       '@hookform/error-message':
         specifier: ^2.0.1
-        version: 2.0.1(react-dom@19.3.1(react@19.3.1))(react-hook-form@7.72.0(react@19.3.1))(react@19.3.1)
+        version: 2.0.1(react-dom@19.3.1(react@19.3.1))(react-hook-form@7.92.0(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)
       '@hookform/resolvers':
         specifier: 3.10.0
-        version: 3.10.0(react-hook-form@7.72.0(react@19.3.1))
+        version: 3.10.0(react-hook-form@7.92.0(@types/react@19.3.0)(react@19.3.1))
       '@imgly/background-removal':
         specifier: 1.7.0
         version: 1.7.0(onnxruntime-web@1.21.0)
@@ -45,8 +48,8 @@ importers:
         specifier: 9.8.2
         version: 9.8.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(three@0.187.0)
       '@sanity/block-content-to-react':
-        specifier: ^2
-        version: 2.0.7(react@19.3.1)
+        specifier: ^3.0.0
+        version: 3.0.0(react@19.3.1)
       '@sanity/client':
         specifier: ^3.4.1
         version: 3.4.1
@@ -99,14 +102,14 @@ importers:
         specifier: 19.3.1
         version: 19.3.1(react@19.3.1)
       react-hook-form:
-        specifier: ^7.44.2
-        version: 7.72.0(react@19.3.1)
+        specifier: ^7.92.0
+        version: 7.92.0(@types/react@19.3.0)(react@19.3.1)
       react-hot-toast:
         specifier: ^2.4.1
         version: 2.6.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react-icons:
-        specifier: ^5.6.0
-        version: 5.6.0(react@19.3.1)
+        specifier: ^5.7.0
+        version: 5.7.0(react@19.3.1)
       rehype-autolink-headings:
         specifier: ^6.1.1
         version: 6.1.1
@@ -144,8 +147,8 @@ importers:
         specifier: 0.32.6
         version: 0.32.6(bare-buffer@3.7.3)
       swr:
-        specifier: 2.1.5
-        version: 2.1.5(react@19.3.1)
+        specifier: 2.5.1
+        version: 2.5.1(react@19.3.1)
       three:
         specifier: 0.187.0
         version: 0.187.0
@@ -153,14 +156,14 @@ importers:
         specifier: ^10.1.2
         version: 10.1.2
       yet-another-react-lightbox:
-        specifier: ^3.29.1
-        version: 3.29.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        specifier: ^3.33.1
+        version: 3.33.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       yup:
         specifier: 1.7.1
         version: 1.7.1
       zustand:
-        specifier: 4.3.8
-        version: 4.3.8(react@19.3.1)
+        specifier: 5.1.0
+        version: 5.1.0(@types/react@19.3.0)(react@19.3.1)(use-sync-external-store@1.6.0(react@19.3.1))
     devDependencies:
       '@next/bundle-analyzer':
         specifier: ^15.5.29
@@ -897,11 +900,11 @@ packages:
   '@rushstack/eslint-patch@1.16.1':
     resolution: {integrity: sha512-TvZbIpeKqGQQ7X0zSCvPH9riMSFQFSggnfBjFZ1mEoILW+UuXCKwOoPcgjMwiUtRqFZ8jWhPJc4um14vC6I4ag==}
 
-  '@sanity/block-content-to-hyperscript@2.0.10':
-    resolution: {integrity: sha512-xT3iEmZkK0fvO5PDFpn9GMWGfvOopvbrRCBU48XxpFoTxRrfsHhxbRy8J0eND1HGXHUENkIKv5jbohtGd1MiVg==}
+  '@sanity/block-content-to-hyperscript@3.0.1':
+    resolution: {integrity: sha512-g61ogB8s94T5ellKMtnoN1wW9mCqy1foS9jw5QaRAQZUk7ANIwT2YNFqfAj6xF9YiMXcoaKTqDa/JzKeGMpJHA==}
 
-  '@sanity/block-content-to-react@2.0.7':
-    resolution: {integrity: sha512-oSriTf/3Ihnxp6AjEGiVjNPA2Iq/IFaWg4Frn5msGq5GT8N1kwLwxduig1OSn87UA15LNwiai9LAJwBR2k9lIg==}
+  '@sanity/block-content-to-react@3.0.0':
+    resolution: {integrity: sha512-oHPLlIsulsnL3ITs93RIvUPBI6nAeoSFOUf16vX4T7z4wWywxP39N1DF9mAx2tV6Kjr1fJAx5GF7zfiMXYLaqA==}
     peerDependencies:
       react: '>=15.0.0'
 
@@ -3099,11 +3102,15 @@ packages:
     peerDependencies:
       react: ^19.3.1
 
-  react-hook-form@7.72.0:
-    resolution: {integrity: sha512-V4v6jubaf6JAurEaVnT9aUPKFbNtDgohj5CIgVGyPHvT9wRx5OZHVjz31GsxnPNI278XMu+ruFz+wGOscHaLKw==}
+  react-hook-form@7.92.0:
+    resolution: {integrity: sha512-O5ILyY5fYHN7N13Pfxpe55KboyNFsJdM03BHpshQkClJd8raugiAUGY7VjifITrfhVxyx81ko25azXCoayhf1w==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
+      '@types/react': '*'
       react: ^16.8.0 || ^17 || ^18 || ^19
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   react-hot-toast@2.6.0:
     resolution: {integrity: sha512-bH+2EBMZ4sdyou/DPrfgIouFpcRLCJ+HoCA32UoAYHn6T3Ur5yfcDCeSr5mwldl6pFOsiocmrXMuoCJ1vV8bWg==}
@@ -3112,8 +3119,8 @@ packages:
       react: '>=16'
       react-dom: '>=16'
 
-  react-icons@5.6.0:
-    resolution: {integrity: sha512-RH93p5ki6LfOiIt0UtDyNg/cee+HLVR6cHHtW3wALfo+eOHTp8RnU2kRkI6E+H19zMIs03DyxUG/GfZMOGvmiA==}
+  react-icons@5.7.0:
+    resolution: {integrity: sha512-LBLy340Rzqy6+/yVhZKT3B/QpP1BZaesGqasf09HPOBzRarcDIFH0WwXlXQfE7q7ipxK4MSiC5DIBWURCny6fw==}
     peerDependencies:
       react: '*'
 
@@ -3502,10 +3509,10 @@ packages:
     peerDependencies:
       react: '>=17.0'
 
-  swr@2.1.5:
-    resolution: {integrity: sha512-/OhfZMcEpuz77KavXST5q6XE9nrOBOVcBLWjMT+oAE/kQHyE3PASrevXCtQDZ8aamntOfFkbVJp7Il9tNBQWrw==}
+  swr@2.5.1:
+    resolution: {integrity: sha512-BRw55e8r0B7SpDN20CAzoQAHl7y1yP7/Zt7oqUjMv0vSt2u2Xnkm88Ws+VypbV9BXHQVuSuyVq7zMjO16wSExw==}
     peerDependencies:
-      react: ^16.11.0 || ^17.0.0 || ^18.0.0
+      react: ^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
@@ -3725,11 +3732,6 @@ packages:
   url-parse@1.5.10:
     resolution: {integrity: sha512-WypcfiRhfeUP9vvF0j6rw0J3hrWrw6iZv3+22h6iRMJ/8z1Tj6XfLP4DsUix5MhMPnXpiHDoKyoZ/bdCkwBCiQ==}
 
-  use-sync-external-store@1.2.0:
-    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-
   use-sync-external-store@1.6.0:
     resolution: {integrity: sha512-Pp6GSwGP/NrPIrxVFAIkOQeyw8lFenOHijQWkUTrDvrF4ALqylP2C/KCkeS9dpUM3KvYRQhna5vt7IL95+ZQ9w==}
     peerDependencies:
@@ -3878,8 +3880,8 @@ packages:
     resolution: {integrity: sha512-vIYeF1u3CjlhAFekPPAk2h/Kv4T3mAkMox5OymRiJQB0spDP10LHvt+K7G9Ny6NuuMAb25/6n1qyUjAcGNf/AA==}
     engines: {node: '>= 6'}
 
-  yet-another-react-lightbox@3.29.2:
-    resolution: {integrity: sha512-TMDHPn1uDOkrjEysoKCt1xsswGTcC2DPXHmjFUG1szWJ8ksu7bp+l67h/ZV27miA5hkSCLtqGzkHGTMOurce9w==}
+  yet-another-react-lightbox@3.33.1:
+    resolution: {integrity: sha512-VmdrpshUTUNkgkdckiKFiUP+A3ov2R1xNT/suPchZOowGC7fYEV52DdrxCsG8ccq/unJsnTo08YpGT0kqxl4BA==}
     engines: {node: '>=14'}
     peerDependencies:
       '@types/react': ^16 || ^17 || ^18 || ^19
@@ -3917,7 +3919,7 @@ packages:
       '@types/react': '>=18.0.0'
       immer: '>=9.0.6'
       react: '>=18.0.0'
-      use-sync-external-store: '>=1.2.0'
+      use-sync-external-store: 1.6.0
     peerDependenciesMeta:
       '@types/react':
         optional: true
@@ -4182,15 +4184,15 @@ snapshots:
 
   '@exodus/bytes@1.15.0': {}
 
-  '@hookform/error-message@2.0.1(react-dom@19.3.1(react@19.3.1))(react-hook-form@7.72.0(react@19.3.1))(react@19.3.1)':
+  '@hookform/error-message@2.0.1(react-dom@19.3.1(react@19.3.1))(react-hook-form@7.92.0(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)':
     dependencies:
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
-      react-hook-form: 7.72.0(react@19.3.1)
+      react-hook-form: 7.92.0(@types/react@19.3.0)(react@19.3.1)
 
-  '@hookform/resolvers@3.10.0(react-hook-form@7.72.0(react@19.3.1))':
+  '@hookform/resolvers@3.10.0(react-hook-form@7.92.0(@types/react@19.3.0)(react@19.3.1))':
     dependencies:
-      react-hook-form: 7.72.0(react@19.3.1)
+      react-hook-form: 7.92.0(@types/react@19.3.0)(react@19.3.1)
 
   '@humanwhocodes/config-array@0.9.5':
     dependencies:
@@ -4566,16 +4568,16 @@ snapshots:
 
   '@rushstack/eslint-patch@1.16.1': {}
 
-  '@sanity/block-content-to-hyperscript@2.0.10':
+  '@sanity/block-content-to-hyperscript@3.0.1':
     dependencies:
       '@sanity/generate-help-url': 0.140.0
       '@sanity/image-url': 0.140.22
       hyperscript: 2.0.2
       object-assign: 4.1.1
 
-  '@sanity/block-content-to-react@2.0.7(react@19.3.1)':
+  '@sanity/block-content-to-react@3.0.0(react@19.3.1)':
     dependencies:
-      '@sanity/block-content-to-hyperscript': 2.0.10
+      '@sanity/block-content-to-hyperscript': 3.0.1
       prop-types: 15.8.1
       react: 19.3.1
 
@@ -7160,9 +7162,11 @@ snapshots:
       react: 19.3.1
       scheduler: 0.28.0
 
-  react-hook-form@7.72.0(react@19.3.1):
+  react-hook-form@7.92.0(@types/react@19.3.0)(react@19.3.1):
     dependencies:
       react: 19.3.1
+    optionalDependencies:
+      '@types/react': 19.3.0
 
   react-hot-toast@2.6.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
     dependencies:
@@ -7171,7 +7175,7 @@ snapshots:
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
 
-  react-icons@5.6.0(react@19.3.1):
+  react-icons@5.7.0(react@19.3.1):
     dependencies:
       react: 19.3.1
 
@@ -7711,8 +7715,9 @@ snapshots:
     dependencies:
       react: 19.3.1
 
-  swr@2.1.5(react@19.3.1):
+  swr@2.5.1(react@19.3.1):
     dependencies:
+      dequal: 2.0.3
       react: 19.3.1
       use-sync-external-store: 1.6.0(react@19.3.1)
 
@@ -8022,10 +8027,6 @@ snapshots:
       querystringify: 2.2.0
       requires-port: 1.0.0
 
-  use-sync-external-store@1.2.0(react@19.3.1):
-    dependencies:
-      react: 19.3.1
-
   use-sync-external-store@1.6.0(react@19.3.1):
     dependencies:
       react: 19.3.1
@@ -8190,7 +8191,7 @@ snapshots:
 
   yaml@1.10.3: {}
 
-  yet-another-react-lightbox@3.29.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
+  yet-another-react-lightbox@3.33.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
     dependencies:
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
@@ -8209,7 +8210,7 @@ snapshots:
 
   zustand@4.3.8(react@19.3.1):
     dependencies:
-      use-sync-external-store: 1.2.0(react@19.3.1)
+      use-sync-external-store: 1.6.0(react@19.3.1)
     optionalDependencies:
       react: 19.3.1
 

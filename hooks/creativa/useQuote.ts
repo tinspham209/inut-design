@@ -17,7 +17,7 @@ export function useCreativaQuote() {
 	const [scheduled, setScheduled] = useState(false);
 	const [replacement, setReplacement] = useState<CreativaQuote | null>(null);
 	const generation = useRef(0);
-	const timer = useRef<ReturnType<typeof setTimeout>>();
+	const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const source = useRef<Input | null>(null);
 	const invalidate = useCallback(() => {
 		generation.current += 1;

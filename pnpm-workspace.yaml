@@ -2,3 +2,6 @@ allowBuilds:
   protobufjs: false
   sharp: true
   unrs-resolver: true
+
+overrides:
+  use-sync-external-store: 1.6.0

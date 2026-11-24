@@ -28,7 +28,7 @@ export function useCreativaCatalog(
 	const impressed = useRef(new Set<string>());
 	const batches = useRef(new Set<number>());
 	const searchPending = useRef(false);
-	const timer = useRef<ReturnType<typeof setTimeout>>();
+	const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const additional = useRef<number | null>(null);
 	const actionSequence = useRef(0);
 	currentColumns.current = columns;
