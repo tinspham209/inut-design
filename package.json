@@ -51,7 +51,6 @@
 		"@sanity/block-content-to-react": "^3.0.0",
 		"@sanity/client": "^3.4.1",
 		"@sanity/image-url": "^1.0.1",
-		"@vercel/analytics": "^1.0.0",
 		"axios": "^0.27.2",
 		"clsx": "^1.2.1",
 		"date-fns": "^2.29.1",

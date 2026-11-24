@@ -12,12 +12,11 @@ import { initializeConsentMode } from "@/utils/consent";
 import { CacheProvider } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
-import { Analytics } from "@vercel/analytics/react";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { isCreativaPath, safeCreativaUrl, trackCreativaPage } from "@/utils/creativa/analytics";
+import { isCreativaPath, trackCreativaPage } from "@/utils/creativa/analytics";
 import { SWRConfig } from "swr";
 
 const ProductCartWrapper = dynamic(
@@ -119,13 +118,6 @@ function MyApp({
 					</SWRConfig>
 				</ThemeProvider>
 			</CacheProvider>
-			<Analytics
-				mode="production"
-				beforeSend={(event) => {
-					if (isCreativaPath(new URL(event.url, "https://inutdesign.com").pathname)) return null;
-					return { ...event, url: safeCreativaUrl(event.url) };
-				}}
-			/>
 			{!isCreativaPath(router.pathname) && <FacebookChatPlugin />}
 			<GoogleTagSchema />
 			<SpeculationRulesScript />
