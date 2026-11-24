@@ -9,7 +9,19 @@ const outputDir = process.env.MIGRATION_BROWSER_OUTPUT
 	? path.resolve(process.env.MIGRATION_BROWSER_OUTPUT)
 	: path.join(root, "artifacts/migration/baseline/browser");
 const session = `inut-migration-${process.pid}`;
-const routes = ["/", "/blog", "/san-pham/lighters", "/builder/keychain", "/creativa", "/search?q=sticker"];
+const routes = [
+	"/",
+	"/blog",
+	"/san-pham/lighters",
+	"/builder/keychain",
+	"/builder/lighters",
+	"/creativa",
+	"/creativa/cart",
+	"/creativa/checkout",
+	"/cart/lighters",
+	"/checkout/lighters",
+	"/search?q=sticker",
+];
 const viewports = [
 	{ name: "desktop", width: 1440, height: 1000 },
 	{ name: "mobile", width: 390, height: 844 },
@@ -75,8 +87,24 @@ function sanitizeNetwork(value) {
 				? value
 				: [];
 	return entries.flatMap((entry) => {
-		const requestUrl = safeUrl(entry.url ?? entry.request?.url);
+		const rawUrl = entry.url ?? entry.request?.url;
+		const requestUrl = safeUrl(rawUrl);
 		if (!requestUrl) return [];
+		let analyticsEvent = null;
+		let analyticsProvider = null;
+		try {
+			const parsed = new URL(rawUrl);
+			const endpoint = `${parsed.origin}${parsed.pathname}`;
+			if (/google-analytics|googletagmanager/i.test(endpoint)) {
+				analyticsProvider = "ga4-gtm";
+				analyticsEvent = parsed.searchParams.get("en");
+			} else if (/umami/i.test(endpoint) || parsed.pathname.endsWith("/api/send")) {
+				analyticsProvider = "umami";
+				analyticsEvent = "send";
+			}
+		} catch {
+			// Invalid URLs are already omitted above.
+		}
 		const method = entry.method ?? entry.request?.method ?? "GET";
 		const resourceType = entry.resourceType ?? entry.type ?? null;
 		return [
@@ -86,7 +114,9 @@ function sanitizeNetwork(value) {
 				method,
 				resourceType,
 				status: entry.status ?? entry.response?.status ?? null,
-				analytics: /google-analytics|googletagmanager|umami|analytics/i.test(requestUrl.origin + requestUrl.path),
+				analytics: Boolean(analyticsProvider),
+				analyticsProvider,
+				analyticsEvent,
 			},
 		];
 	});
@@ -118,6 +148,10 @@ try {
 				"eval",
 				`JSON.stringify({tag:document.activeElement?.tagName||null,role:document.activeElement?.getAttribute("role"),label:document.activeElement?.getAttribute("aria-label"),text:(document.activeElement?.textContent||"").trim().slice(0,100)})`,
 			]);
+			const surface = parse([
+				"eval",
+				`JSON.stringify({canvases:document.querySelectorAll("canvas").length,images:document.querySelectorAll("img").length,buttons:document.querySelectorAll("button").length,carouselRegions:document.querySelectorAll('[aria-roledescription="carousel"]').length})`,
+			]);
 			const timing = parse([
 				"eval",
 				`JSON.stringify((()=>{const n=performance.getEntriesByType("navigation")[0];return n?{domContentLoadedMs:Math.round(n.domContentLoadedEventEnd),loadMs:Math.round(n.loadEventEnd),responseStartMs:Math.round(n.responseStart),durationMs:Math.round(n.duration)}:null})())`,
@@ -135,6 +169,7 @@ try {
 					activeElement,
 				},
 				timing,
+				surface,
 				console: sanitizeConsole(parse(["console"], true)),
 				network,
 				analytics: network.filter((request) => request.analytics),
