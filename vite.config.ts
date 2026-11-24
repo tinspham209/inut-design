@@ -8,6 +8,11 @@ import { visualizer } from "rollup-plugin-visualizer";
 
 const backgroundRemovalEnabled =
 	process.env.NEXT_PUBLIC_KEYCHAIN_BACKGROUND_REMOVAL_ENABLED === "true";
+const disabledBrowserImageRemoval = path.resolve(
+	import.meta.dirname,
+	"components/keychain-builder/image/backgroundRemovalDisabled.ts",
+);
+const workerSharp = path.resolve(import.meta.dirname, "utils/worker-sharp.ts");
 const browserFsFallback = (): Plugin => ({
 	name: "browser-fs-fallback",
 	enforce: "pre",
@@ -37,17 +42,10 @@ export default defineConfig({
 			: []),
 	],
 	resolve: {
-		alias: backgroundRemovalEnabled
-			? {}
-			: {
-					"@imgly/background-removal": path.resolve(
-						import.meta.dirname,
-						"components/keychain-builder/image/backgroundRemovalDisabled.ts",
-					),
-				},
-	},
-	ssr: {
-		external: ["sharp"],
+		alias: {
+			sharp: workerSharp,
+			...(backgroundRemovalEnabled ? {} : { "@imgly/background-removal": disabledBrowserImageRemoval }),
+		},
 	},
 	css: {
 		modules: {

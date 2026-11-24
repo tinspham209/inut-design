@@ -130,7 +130,7 @@ export async function updateOrderStatus(
 }
 
 export async function uploadImageAssetToSanity(
-	file: Buffer,
+	file: Blob,
 	options: { filename?: string; contentType?: string } = {}
 ): Promise<{ _type: string; asset: { _ref: string; _type: string } }> {
 	const asset = await serverClient.assets.upload("image", file, {

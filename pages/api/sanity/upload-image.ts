@@ -46,7 +46,12 @@ export default async function handler(
 	}
 
 	try {
-		const asset = await uploadImageAssetToSanity(Buffer.from(data, "base64"), {
+		const decoded = Buffer.from(data, "base64");
+		const bytes = new Uint8Array(decoded.byteLength);
+		bytes.set(decoded);
+		const asset = await uploadImageAssetToSanity(new Blob([bytes.buffer], {
+			type: contentType,
+		}), {
 			filename: typeof filename === "string" ? filename : "design.webp",
 			contentType,
 		});
