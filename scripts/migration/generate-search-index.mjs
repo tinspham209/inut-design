@@ -33,6 +33,22 @@ const fieldAllowList = [
 	"sourceHash",
 	"sourcePrecedence",
 ];
+const prohibitedFields = new Set([
+	"body",
+	"asset",
+	"customer",
+	"customerName",
+	"phone",
+	"email",
+	"order",
+	"orderItems",
+	"upload",
+	"token",
+	"secret",
+	"shareLink",
+	"_ref",
+	"_type",
+]);
 const seenIds = new Set();
 const seenUrls = new Set();
 const errors = [];
@@ -56,11 +72,12 @@ const documents = corpus.documents
 			.filter(Boolean)
 			.join(" ");
 		if (!id || !url.startsWith("/")) errors.push(`Invalid public search identity for ${url || id || "unknown"}.`);
+		if (id.includes("drafts.") || id.includes("versions.")) errors.push(`Draft search document ${id}.`);
 		if (seenIds.has(id)) errors.push(`Duplicate search document ID ${id}.`);
 		if (seenUrls.has(url)) errors.push(`Duplicate search document URL ${url}.`);
 		seenIds.add(id);
 		seenUrls.add(url);
-		return {
+		const publicDocument = {
 			id,
 			kind: document.kind,
 			kindLabel: document.kindLabel,
@@ -73,6 +90,16 @@ const documents = corpus.documents
 			sourceHash: hash(JSON.stringify(document)),
 			sourcePrecedence: document.sourcePrecedence,
 		};
+		for (const segment of url.split("/").filter(Boolean)) {
+			if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(segment)) {
+				errors.push(`Invalid search URL segment "${segment}" in ${url}.`);
+			}
+		}
+		for (const key of Object.keys(publicDocument)) {
+			if (!fieldAllowList.includes(key)) errors.push(`Field ${key} is not allow-listed in ${url}.`);
+			if (prohibitedFields.has(key)) errors.push(`Prohibited field ${key} leaked into ${url}.`);
+		}
+		return publicDocument;
 	})
 	.sort((left, right) => left.url.localeCompare(right.url) || left.id.localeCompare(right.id));
 
@@ -87,6 +114,18 @@ const sourceCommit = execFileSync("git", ["rev-parse", "HEAD"], {
 	encoding: "utf8",
 }).trim();
 const documentsHash = hash(JSON.stringify(documents));
+if (documents.length === 0) errors.push("Search index cannot be empty.");
+if (new Set(documents.map((document) => document.id)).size !== documents.length) {
+	errors.push("Search index contains duplicate document IDs.");
+}
+if (new Set(documents.map((document) => document.url)).size !== documents.length) {
+	errors.push("Search index contains duplicate document URLs.");
+}
+if (errors.length) {
+	console.error(`Search index validation failed (${errors.length}):`);
+	for (const error of new Set(errors)) console.error(`- ${error}`);
+	process.exit(1);
+}
 const output = {
 	schemaVersion: 1,
 	version: documentsHash,
