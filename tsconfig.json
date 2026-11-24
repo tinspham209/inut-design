@@ -26,6 +26,7 @@
 	},
 	"include": [
 		"next-env.d.ts",
+		".cloudflare/types/**/*.d.ts",
 		"**/*.ts",
 		"**/*.tsx",
 		"components/canvas/laptop.jsx",
