@@ -92,8 +92,10 @@ export const productsApi = {
 	},
 
 	async getAllSlugs() {
-		const query = `*[_type == "products"]{
-			slug{current}
+		const query = `*[_type == "products" && !(_id in path("drafts.**")) && !(_id in path("versions.**"))]{
+			_id,
+			slug{current},
+			productType->{_id}
 		}`;
 		return await client.fetch(query);
 	},
@@ -163,8 +165,10 @@ export const productsApi = {
 	},
 
 	async getAllSlugsMacnut() {
-		const query = `*[_type == "macnut"]{
-			slug{current}
+		const query = `*[_type == "macnut" && !(_id in path("drafts.**")) && !(_id in path("versions.**"))]{
+			_id,
+			slug{current},
+			macnutType->{_id}
 		}`;
 		return await client.fetch(query);
 	},

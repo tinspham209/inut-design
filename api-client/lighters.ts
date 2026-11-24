@@ -117,8 +117,10 @@ export const lightersApi = {
 	 * Get all lighter product slugs (for static path generation)
 	 */
 	async getAllLighterSlugs() {
-		const query = `*[_type == "lighterProducts"]{
-			slug{current}
+		const query = `*[_type == "lighterProducts" && !(_id in path("drafts.**")) && !(_id in path("versions.**"))]{
+			_id,
+			slug{current},
+			lighterType->{_id}
 		}`;
 		return await client.fetch(query);
 	},
