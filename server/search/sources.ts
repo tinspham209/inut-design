@@ -341,13 +341,26 @@ const blogDocuments = async (): Promise<SearchDocument[]> => {
 
 async function buildSearchCorpus(): Promise<SearchCorpus> {
 	const [dynamic, blogs] = await Promise.all([dynamicDocuments(), blogDocuments()]);
-	const documents = [
+	const sourceDocuments = [
 		...routeDocuments(),
 		...staticPageDocuments(),
 		...productPageDocuments(),
 		...blogs,
 		...dynamic.documents,
 	];
+	const documentsByUrl = new Map<string, SearchDocument>();
+	for (const document of sourceDocuments) {
+		const existing = documentsByUrl.get(document.url);
+		if (
+			!existing ||
+			document.sourcePrecedence < existing.sourcePrecedence ||
+			(document.sourcePrecedence === existing.sourcePrecedence &&
+				document.id.localeCompare(existing.id) < 0)
+		) {
+			documentsByUrl.set(document.url, document);
+		}
+	}
+	const documents = [...documentsByUrl.values()];
 
 	const uniqueFacets = new Map<string, SearchFacetOption>();
 	for (const facet of dynamic.facets) {
