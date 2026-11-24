@@ -51,7 +51,19 @@ export async function resolve(specifier, context, nextResolve) {
 		if (resolved) return { url: resolved, shortCircuit: true };
 	}
 
-	return nextResolve(specifier, context);
+	try {
+		return await nextResolve(specifier, context);
+	} catch (error) {
+		const isPackageSubpath =
+			!specifier.startsWith(".") &&
+			!specifier.startsWith("/") &&
+			!specifier.startsWith("@/") &&
+			!path.extname(specifier);
+		if (isPackageSubpath) {
+			return nextResolve(`${specifier}.js`, context);
+		}
+		throw error;
+	}
 }
 
 export async function load(url, context, nextLoad) {
