@@ -9,16 +9,16 @@ importers:
   .:
     dependencies:
       '@emotion/cache':
-        specifier: ^11.10.1
+        specifier: ^11.14.0
         version: 11.14.0
       '@emotion/react':
-        specifier: ^11.10.0
+        specifier: ^11.14.0
         version: 11.14.0(@types/react@19.3.0)(react@19.3.1)
       '@emotion/server':
-        specifier: ^11.10.0
+        specifier: ^11.11.0
         version: 11.11.0
       '@emotion/styled':
-        specifier: ^11.10.0
+        specifier: ^11.14.1
         version: 11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1)
       '@hookform/error-message':
         specifier: ^2.0.1
@@ -30,10 +30,10 @@ importers:
         specifier: 1.7.0
         version: 1.7.0(onnxruntime-web@1.21.0)
       '@mui/icons-material':
-        specifier: ^5.8.4
+        specifier: ^5.18.0
         version: 5.18.0(@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(@types/react@19.3.0)(react@19.3.1)
       '@mui/material':
-        specifier: ^5.9.3
+        specifier: ^5.18.0
         version: 5.18.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react@19.3.1))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@next/third-parties':
         specifier: ^15.5.29
