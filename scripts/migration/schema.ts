@@ -13,7 +13,7 @@ import type {
 	ValidatedUpload,
 	VerificationResult,
 	VerificationStatus,
-} from "./types.ts";
+} from "./types";
 
 type StateFamily = "candidate" | "domain" | "search";
 type StringMap = Record<string, unknown>;
