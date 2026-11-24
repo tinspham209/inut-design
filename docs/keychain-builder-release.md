@@ -1,5 +1,11 @@
 # Keychain Builder release record
 
+> **Dated evidence record.** This file preserves the keychain feature's
+> implementation history. Production now runs on Next 15.5.29 + Vinext
+> 1.4.6/Cloudflare; the Next 12 and old server-normalization statements below
+> describe historical checkpoints, not the current runtime. Current Worker
+> uploads are browser-prepared and Worker-validated without native `sharp`.
+
 ## Acrylic material controls simplified (2026-11-21)
 
 - Removed “Tự nhiên”, “Đánh bóng” and the sheen slider from the material panel.
@@ -95,13 +101,22 @@
 
 ## Server image normalization
 
-- `sharp@0.32.6` is pinned exactly for server-side decode, dimension limits, orientation normalization, and WebP conversion. The npm registry reports Apache-2.0 and Node.js `>=14.15.0`, compatible with the repository's `>=20.0.0 <26.0.0` engine range. See the [sharp 0.32.6 changelog](https://sharp.pixelplumbing.com/changelog/v0.32.6/) and [versioned npm package metadata](https://www.npmjs.com/package/sharp/v/0.32.6).
+- **Historical only:** earlier checkpoints used `sharp@0.32.6` for server-side
+  decode, dimension limits, orientation normalization and WebP conversion.
+  The migration subsequently removed `sharp` from the Worker runtime graph.
+  The current browser/Worker flow resizes in the browser, validates type,
+  signature, byte and dimension bounds in the Worker, and persists to Sanity.
 - Upload processing rejects unknown/corrupt formats, caps decode at 20 megapixels and each axis at 12,000 px, then produces a WebP no larger than 2048 px per side. The normalized image has metadata stripped by decode/re-encode.
 
 ## Local background removal dependency assessment (2026-11-18)
 
 - Contour/union review: the existing native alpha-mask extraction plus the revision-aware worker's mask union meets the current die-cut requirements, so no additional contour package is needed.
-- `@imgly/background-removal@1.7.0` is pinned with its exact peer `onnxruntime-web@1.21.0`. The package's included `LICENSE.md` and upstream repository state AGPL-3.0; the package uses a separately served model/WASM asset bundle. The selected `isnet_quint8` model is the quantized option. Upstream documentation says its current supported Next.js version is 15, while this repo remains on Next 12.3.1; local build compatibility is checked, but vendor-supported compatibility is not claimed.
+- `@imgly/background-removal@1.7.0` is pinned with its exact peer
+  `onnxruntime-web@1.21.0`. The package's included `LICENSE.md` and upstream
+  repository state AGPL-3.0; the package uses a separately served model/WASM
+  asset bundle. Upstream supports the Next 15 line, which matches the current
+  repository. The feature remains disabled pending owner approval of the
+  package/model redistribution boundary.
 - Inference runs in the browser on CPU. The source image is fetched from the existing public Sanity URL and passed as a Blob to the model; it is not sent to IMG.LY. The processed WebP is then uploaded through the existing keychain upload API so preview/export/snapshots can reuse it. Model and WASM assets use IMG.LY's default static asset host unless a custom `publicPath` is configured.
 - The die-cut flow now handles solid black or white image backgrounds with a local edge-connected color removal pass before contour extraction. Existing transparent images keep their alpha. This path does not load IMG.LY; non-solid opaque backgrounds still require an already-transparent source or the separately gated model flow.
 - `NEXT_PUBLIC_KEYCHAIN_BACKGROUND_REMOVAL_ENABLED` defaults to `false` in `.env.example`. When false, the production build aliases the package to a local stub, so the AGPL package is not included in shipped client/server chunks. Do not enable it for public deployment until T091 verifies the package, model, redistribution and deployment terms with the responsible owner. IMG.LY advises self-hosting model/WASM assets in production. This record is a technical assessment, not legal approval.
@@ -120,7 +135,10 @@
 
 ## Verification record (2026-11-18)
 
-- Background removal dependency build check: `rtk pnpm lint` and `rtk pnpm build` pass on the repository's Next.js 12.3.1 with the package present in the dependency graph. This proves local bundle compilation only, not vendor-supported Next.js 12 runtime compatibility. With the default flag off, the production alias excludes IMG.LY/ONNX code from shipped chunks. The opt-in browser operation has not been run against a Sanity asset; the public feature flag remains false.
+- **Historical checkpoint:** lint/build passed with Next 12.3.1 and the package
+  present in the dependency graph. Current production uses Next 15.5.29/Vinext
+  and still aliases IMG.LY/ONNX out while the flag is false. The opt-in browser
+  operation has not been authorized as a public production feature.
 - Desktop visual smoke: Chrome 157.0.8103.80 at 1280 × 720 rendered the route, five control groups and DEMO notice; acrylic transition cancel preserved clear acrylic. Evidence: [desktop browser check](keychain-builder-evidence/desktop-browser.md) and its screenshot. This did not exercise image upload, die-cut worker, Export, or mobile layout.
 
 ## Verification record (2026-11-19; historical)

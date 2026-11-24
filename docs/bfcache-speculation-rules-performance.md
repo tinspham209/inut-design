@@ -1,5 +1,10 @@
 # Performance Optimization: bfcache & Speculation Rules
 
+> **Implementation status:** the bfcache monitor, speculation-rule injector
+> and fallback prefetch code described here are present in the current
+> application. Performance numbers and proposed thresholds below are dated
+> evidence, not a universal production guarantee.
+
 ## Overview
 
 This document outlines the implementation of Back/forward cache (bfcache) and speculation rules for the Inut Design website to improve navigation performance and user experience.
@@ -36,7 +41,7 @@ components/scripts/
 └── speculation-rules.tsx     # React component for script injection
 
 docs/
-└── PERFORMANCE_OPTIMIZATION.md  # This documentation
+└── bfcache-speculation-rules-performance.md  # This documentation
 ```
 
 ## Configuration Details

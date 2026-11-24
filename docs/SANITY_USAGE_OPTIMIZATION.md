@@ -11,8 +11,10 @@
   quality presets. Product structured data intentionally emits one image.
 - Raster checkout designs are validated at 10MB, resized to 2048px, and
   compressed to WebP before upload. SVG files remain vector data.
-- Public catalog responses are edge-cacheable for five minutes. Shared SWR CMS
-  reads use a five-minute deduplication window.
+- Public catalog pages are generated during the approved build/deploy flow.
+  Runtime CMS reads remain limited to bounded catalog/API interactions; shared
+  SWR reads use a five-minute deduplication window.
 
-Manual QA still needed: verify a real checkout upload/order in the deployed
-environment and confirm CDN cache headers with the production host.
+Production verification has covered marked order/notification and keychain
+upload/snapshot flows on the Cloudflare candidate. Repeat only with explicit
+owner approval and clearly marked non-customer data.

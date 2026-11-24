@@ -12,6 +12,7 @@ guaranteed. Do not recreate mirror trees.
 | Blog batch / Vietnamese product copy | [Canonical writer inputs](../../.agents/skills/inut-content-writer/references/input-examples.md) |
 | New landing page / draft only        | [Brief inputs](../../.agents/skills/inut-product-page-automation/references/input-recipes.md)    |
 | Existing content to template route   | [Generator QA](../../.agents/skills/product-page-generator/references/requirements-qa.md)        |
+| Local production deploy to Cloudflare | [Local deploy skill](../../.agents/skills/inut-cloudflare-local-deploy/SKILL.md)                 |
 
 Keep examples in the bundled writer reference; update that source rather than
 copying contracts into editor-specific files or this human-facing index.

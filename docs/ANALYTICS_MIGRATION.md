@@ -1,5 +1,9 @@
 # 🔄 Analytics Migration Guide
 
+> **Historical migration record.** The migration is implemented. Use
+> [ANALYTICS_GUIDE.md](ANALYTICS_GUIDE.md) and the tracking wrappers in `utils/`
+> for current behavior and release checks.
+
 ## Overview
 
 This guide documents the migration from the legacy analytics implementation to the enhanced analytics architecture with improved GA4 integration, Umami dual tracking, consent management, and engagement scoring.
@@ -314,11 +318,10 @@ rm scripts/validate-tracking.ts
 
 - [Analytics Event Map](./ANALYTICS_EVENT_MAP.md) - Complete event documentation
 - [Analytics Guide](./ANALYTICS_GUIDE.md) - Implementation guide
-- [Umami Performance Plan](./umami-performance-comprehensive-plan.md) - Umami optimization
 
 ### Validation
 
-- Run `npx ts-node scripts/validate-tracking.ts` for automated checks
+- Run the repository's `pnpm regression:safe` analytics/privacy gates
 - Use GA4 DebugView for real-time event inspection
 - Use GTM Tag Assistant for tag validation
 - Check Umami dashboard for privacy-focused analytics

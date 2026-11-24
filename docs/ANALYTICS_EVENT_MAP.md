@@ -2,19 +2,27 @@
 
 ## Overview
 
-This document provides a comprehensive mapping of all analytics events tracked in the Inut Design platform, including GA4 standard events, custom events, and Umami events.
+> **Current source of truth:** `utils/analytics.ts`,
+> `utils/umamiAnalytics.ts`, `utils/creativa/analytics.ts` and
+> `utils/creativa/purchase.ts`. This document is an event-contract overview;
+> update it from those wrappers when a provider/event is added or removed.
 
 ## Architecture
 
-The analytics system uses a **dual tracking architecture**:
+The analytics system uses a **privacy-safe dual tracking architecture**:
 - **GA4 (Google Analytics 4)**: Primary analytics for business intelligence
 - **Umami**: Privacy-focused analytics for GDPR compliance
+- **GTM/dataLayer**: Optional event/config routing for the configured container
 
 ### Data Flow
 
 ```
-User Action → Analytics Function → GA4 (gtag) + Umami (umami.track) → DataLayer (GTM)
+User Action → Analytics wrapper → GA4 + Umami
+                         ↘ allow-listed dataLayer event when used
 ```
+
+Vercel Analytics was removed from the application and is not part of the
+current production event path.
 
 ---
 

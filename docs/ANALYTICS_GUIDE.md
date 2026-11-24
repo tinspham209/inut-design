@@ -6,7 +6,7 @@ A single, comprehensive reference for Google Analytics 4 (GA4), Google Tag Manag
 
 Keychain tracking is deliberately allow-listed and query-free. Local checks prove
 helper and wrapper behavior only; they do not prove hosted GA4/GTM, Umami or
-Vercel configuration.
+production Cloudflare configuration.
 
 Run the focused checks:
 
@@ -17,7 +17,7 @@ rtk proxy node --test --import ./scripts/register-typescript-loader.mjs ./script
 For a browser release check, open `/builder/keychain?design=<synthetic-uuid>`
 with DevTools Network capture enabled, then trigger one shape selection, one
 acrylic change, and one export action. Inspect GA4 collect requests, GTM data
-layer requests, Umami requests, and Vercel analytics requests. Confirm each
+layer requests and Umami requests. Confirm each
 action appears no more than once per configured provider and that page location,
 referrer, event parameters, image contents, request ID, design ID, and Sanity
 asset URL are absent. Repeat on initial load and after SPA navigation.
@@ -30,9 +30,10 @@ non-production dataset, copy the returned CDN URL, and run
 HTTP status and confirm the same URL renders in a clean browser profile. Do not
 paste the URL, query, or image data into analytics evidence.
 
-Evidence status: the local privacy suite passes, but no hosted analytics network
-capture or unauthenticated test-asset request has been recorded. Those checks
-remain pending before public release.
+Evidence status: the local privacy suite passes and production GA4 collection
+was observed in the Cloudflare preview/production checks. Hosted Umami delivery
+still depends on `NEXT_PUBLIC_ENABLE_UMAMI` and must be verified when enabled;
+Vercel Analytics is no longer deployed.
 
 ## Builder promotion events
 
@@ -67,7 +68,7 @@ not hosted GA4/GTM or Umami delivery.
 ## 🚀 Quick Start
 
 1. **Update Environment Variables**
-   - Copy `.env.local.example` to `.env.local`
+   - Use `.env.example` as the variable-name template
    - Set your GA4 Measurement ID (`NEXT_PUBLIC_GA_MEASUREMENT_ID`)
    - Set your GTM Container ID (`NEXT_PUBLIC_GTM_ID`)
    - Set your Umami Website ID (`NEXT_PUBLIC_UMAMI_WEBSITE_ID`)
@@ -75,10 +76,8 @@ not hosted GA4/GTM or Umami delivery.
 
 2. **Build & Deploy**
    ```bash
-   pnpm build
-   git add .
-   git commit -m "feat: enhance analytics tracking"
-   git push origin main
+   pnpm release:local
+   pnpm deploy:vinext
    ```
 
 3. **Verify Tracking**
@@ -329,20 +328,20 @@ accepted navigation/cart/history recovery open.
 Never send customer names/contact/address/notes, public order IDs, recovery
 capabilities, history arrays, full transfer content/context or raw exception payloads. The pre-bootstrap
 `creativaBeforeSend` hook also sanitizes automatic Umami URL/referrer context.
-Vercel analytics is suppressed for Creativa routes. GTM is not newly bootstrapped
-on direct Creativa entry; an already loaded root container's automatic tags still
+Vercel Analytics is no longer installed. GTM is not newly bootstrapped on direct
+Creativa entry; an already loaded root container's automatic tags still
 require an authorized real-container inspection and Creativa exclusions before
 release. Do not infer hosted privacy/deduplication from development logs.
 
 Owner-provided launch data, native Safari behavior, actual Sanity privacy and
-real GA4/GTM/Umami settings remain separate verification gates in
-`tasks/creativa/plan.md` and `tasks/creativa/test-plan.md`.
+real GA4/GTM/Umami settings remain separate verification gates. Use the
+current Creativa source under `utils/creativa/` and the migration evidence under
+`specs/004-migrate-vinext-cloudflare/` rather than retired task paths.
 
 The 2026-10-23 CMS-first flow was accepted by the owner, who then authorized
-runtime/orange-light integration. Follow
-[CM-03 through CM-07](../tasks/creativa/plan.md#cms-first-amendment-and-required-next-actions)
-and CM-08's light theme with exact `#fd4d01` primary. Existing event names and
-dispatch ownership remain unchanged. Keep absolute print-file paths, production
+runtime/orange-light integration. Use the current Creativa flow with exact
+`#fd4d01` primary. Existing event names and dispatch ownership remain unchanged.
+Keep absolute print-file paths, production
 metadata, internal bank notes and account details out of telemetry; current
 guards cover those keys. Only the active primary bank is used for new orders,
 and tracking uses its accepted snapshot. No new event or collector is added.
@@ -366,17 +365,18 @@ or persistent browser storage.
 
 Earlier seventeen contract groups, current parser parity and local destination
 captures do not prove hosted delivery, container exclusions or host-log privacy.
-Remaining witnesses and all requirement/AC results are recorded in the
-[final verification report](../tasks/creativa/final-verification.md).
+Remaining historical Creativa verification evidence must be reconciled from the
+current source and migration evidence before release claims; retired task links
+are intentionally not used as runtime documentation.
 # Keychain Builder privacy checks
 
 Keychain route analytics must use the query-free `/builder/keychain` URL. The
 `design` query, Sanity asset URL, design ID, uploaded image, and request ID are
 never event properties. Keychain action properties are restricted to the
 catalog/mode fields in `utils/keychain/privacy.ts`; GA4 and Umami use the
-existing wrappers, while Vercel URL reporting is sanitized through the shared
-URL policy. The Umami before-send bootstrap runs before the deferred analytics
-script.
+existing wrappers, with automatic Umami URL/referrer context sanitized through
+the shared URL policy. Vercel Analytics is not deployed. The Umami before-send
+bootstrap runs before the deferred analytics script.
 
 Run focused static checks with:
 
@@ -384,7 +384,7 @@ Run focused static checks with:
 rtk proxy node --test --import ./scripts/register-typescript-loader.mjs ./scripts/tests/keychain-privacy.test.mjs
 ```
 
-Before release, capture GA4/GTM, Umami, and Vercel requests on initial load and
+Before release, capture GA4/GTM and enabled Umami requests on initial load and
 SPA navigation with a synthetic `?design=<uuid>` value. Confirm the outbound
 payload contains only the path and no query, referrer query, Sanity URL, design
 ID, request ID, or image bytes. Repeat with analytics disabled. A static test

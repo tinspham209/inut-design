@@ -1,59 +1,55 @@
 # Inut Design
 
-**E-commerce platform for custom laptop skins, stickers, and printing services in Da Nang, Vietnam.**
+**Production commerce and product-design platform for custom printing in Da Nang, Vietnam.**
 
 - 🌐 Website: https://inutdesign.com
 - 🛠️ CMS Studio: https://inut-design.sanity.studio/
+- ☁️ Hosting: Cloudflare Workers (`inutdesign-web`)
+- 📦 Runtime: Next.js Pages Router + Vinext/Vite on Cloudflare
 
 ## 🎯 Key Features
 
-- 🛍️ E-commerce for laptop skins and custom products
+- 🛍️ Commerce for laptop skins, lighter products, Creativa and custom goods
 - 📦 Shopping cart with tiered pricing
-- 🔄 Telegram Notifications when new order arrived
+- 🎨 Lighter and keychain design builders
+- 🔄 Telegram notifications for approved order/contact flows
 - 💳 Order management via Sanity CMS
 - 📱 Responsive design (mobile-first)
-- 🎨 Custom product visualization
 - 📧 Contact forms and quote requests
-- 📊 Comprehensive analytics tracking
-- 🌐 SEO optimized
-- 📝 Blog system with markdown
+- 📊 GA4/GTM and Umami tracking with privacy allow-lists
+- 🌐 Static SEO, sitemap and redirect contracts
+- 🔎 Build-time static search index
+- 📝 Markdown blog pipeline
 
 ## Tech Stack
 
-- NextJS 12
-- Sanity v2
-- MUI v5
-- Framer Motion
-- unified, Rehype
-- SWR
-- zustand
-- react-hook-form
-- Vercel
-- Umami.js
-- Google Analytics 4
-- Google Tag Manager
+- Next.js 15.5.29 / React 19.3.1
+- Vinext 1.4.6 / Vite 8
+- Sanity v2 Studio and `@sanity/client` 7
+- MUI 5, Emotion, Zustand, SWR, React Hook Form
+- Markdown processing with unified/remark/rehype
+- Cloudflare Workers and static assets
+- Google Analytics 4, Google Tag Manager and optional Umami
 - Telegram Bot API
 
-## 🛣️ Routing Update (2026-03-17)
+## Routing
 
-The application routing structure has been systematically updated to align with the new product and service hierarchy.
-
-### Key Changes:
-- **Product Routes**: Moved from `/products`, `/macnut`, and `/lighters` to `/san-pham/skin-laptop`, `/san-pham/skin-nut-phim`, and `/san-pham/lighters` respectively.
-- **Service Routes**: Moved various landing pages (Stickers, Marketing, Office, etc.) into the `/services/` subfolder.
-- **Typo Fixes**: Corrected `arcylic-magnet` to `acrylic-magnet` in all paths and references.
-- **Redirects**: Implemented 301 (permanent) redirects in `next.config.js` to preserve SEO and existing links.
-- **Internal Links**: Updated all `Link` components and `router.push` calls to use the new paths.
-
-For full details, see [APP_ROUTING.md](file:///Users/tin.phamv/work/personal/inut-design/APP_ROUTING.md).
+- Products: `/san-pham/skin-laptop`, `/san-pham/skin-nut-phim`,
+  `/san-pham/lighters`
+- Creativa: `/creativa` and `/creativa/skin-laptop/*`
+- Builders: `/builder/lighters` and `/builder/keychain`
+- Services: `/services/*`
+- Redirects and headers are defined in `next.config.js`; generated routes are
+  reconciled by the migration manifest scripts.
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 22+
-- pnpm 9+ (package manager)
+- Node.js `>=22 <26`
+- pnpm `11.5.3`
+- Cloudflare authentication only for local/CI deploys
 
 ### Environment Variables
 
@@ -62,35 +58,52 @@ Create `.env` file in project root:
 
 ### Install & Run
 
-**Main Application:**
+**Main application:**
+
 ```bash
-pnpm i
+pnpm install --frozen-lockfile
 pnpm dev
 # → http://localhost:3000
 ```
 
-**Sanity Studio:**
-```bash
-# Install Sanity CLI v2 globally if needed
-npm install -g @sanity/cli@^2
+**Vinext local development:**
 
-# Setup studio
-cd ./sanity
-pnpm i
-sanity install
+```bash
+pnpm dev:vinext
+# → http://localhost:3001
+```
+
+**Sanity Studio:**
+
+```bash
+cd sanity
+pnpm install
 pnpm start
 # → http://localhost:3333
 ```
 
 ## 📦 Deployment
 
-### Webapp (Vercel)
+### Webapp (Cloudflare Workers)
+
+Production is served from `inutdesign.com` and `www.inutdesign.com` through the
+Worker `inutdesign-web`. Workers Paid remains a pending owner-controlled
+upgrade; the accepted current state runs on Workers Free until Cloudflare
+reports plan/quota/CPU pressure or another approved trigger occurs.
+
 ```bash
-git push origin main
-# Automatic deployment via Vercel CI/CD
+pnpm exec cf auth login
+export DEPLOYMENT_CHANNEL=production
+export NEXT_PUBLIC_SITE_URL=https://inutdesign.com
+pnpm release:local
+pnpm deploy:vinext
 ```
 
+GitHub Actions also exposes the owner-triggered
+`preview | production` deployment workflow.
+
 ### Sanity Studio
+
 ```bash
 cd sanity
 sanity login
@@ -101,17 +114,18 @@ sanity deploy
 
 ### Analytics & Tracking
 - [Analytics Guide](./docs/ANALYTICS_GUIDE.md) - All-in-one setup, implementation, and troubleshooting
+- [Analytics Event Map](./docs/ANALYTICS_EVENT_MAP.md) - Current event contract overview
 
 ### Project Documentation
+- [Documentation Index](./docs/README.md) - Current, operational and historical document map
 - [Project Constitution](./.specify/memory/constitution.md) - Governing engineering
   principles, protected contracts, privacy rules, and quality gates
 - [AGENTS Playbook](./AGENTS.md) - AI Agent baseline for multi-editor support
-- [App Routing](./APP_ROUTING.md) - Application route structure
-- [Analytics Guide](./docs/ANALYTICS_GUIDE.md) - Tracking setup and troubleshooting
+- [Cloudflare Release Runbook](./docs/operations/cloudflare-release.md) - Production deploy, verify and rollback
 - [Sanity Architecture](./sanity/docs/ARCHITECTURE.md) - CMS documentation
 
 ### AI Assistant Toolkit
-- [AI Bootstrap](./AGENTS.md) - Safety and routing to seven canonical skills
+- [AI Bootstrap](./AGENTS.md) - Safety and routing to canonical project skills
 - [Skill Usage Index](./docs/ai/PORTABLE_PROMPTS.md) - Task routing, not a second prompt tree
 - [Multi-Editor Operation](./docs/ai/DUAL_EDITOR_WORKFLOW.md) - Explicit-path fallback when discovery is unavailable
 - [Project Skill](./.agents/skills/inut-design-workflow/SKILL.md) - Engineering conventions, feature/bug recipes and checkout audits
@@ -134,6 +148,8 @@ sanity deploy
 │   ├── layout/        # Layout components
 │   └── product/       # Product components
 ├── docs/              # Documentation
+├── scripts/migration/ # Vinext/Cloudflare verification and release tooling
+├── specs/             # Feature specifications and migration evidence plans
 ├── pages/             # Next.js pages
 ├── public/            # Static assets
 ├── sanity/            # Sanity CMS config & schemas
@@ -146,16 +162,23 @@ sanity deploy
 ## 🔧 Scripts
 
 ```bash
-pnpm dev          # Development server
-pnpm build        # Production build
-pnpm start        # Production server
-pnpm lint         # Lint code
-pnpm sanity       # Start Sanity Studio (from root)
+pnpm dev                         # Next.js development server
+pnpm dev:vinext                  # Vinext development server
+pnpm build                       # Standard Next production build
+pnpm build:vinext                # Vinext/Cloudflare production build
+pnpm lint                        # Lint
+pnpm exec tsc --noEmit           # Type-check
+pnpm regression:safe             # Safe 22-route/flow regression
+pnpm release:local               # Full local release gate and deploy dry-run
+pnpm deploy:vinext               # Deploy current build to Cloudflare
+pnpm sanity                      # Start Sanity Studio
 ```
 
 ## 📈 Analytics Events Tracked
 
-See [Analytics Guide](./docs/ANALYTICS_GUIDE.md) for implementation examples and patterns.
+See [Analytics Guide](./docs/ANALYTICS_GUIDE.md) and
+[Analytics Event Map](./docs/ANALYTICS_EVENT_MAP.md) for current wrappers,
+privacy rules and event contracts.
 
 ## 🤝 Contributing
 

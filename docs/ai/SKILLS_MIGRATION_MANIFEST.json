@@ -243,7 +243,19 @@
 		"product-page-generator",
 		"agent-browser-automation",
 		"autoresearch",
-		"skill-creator"
+		"skill-creator",
+		"migrate-to-vinext",
+		"inut-cloudflare-local-deploy",
+		"speckit-analyze",
+		"speckit-checklist",
+		"speckit-clarify",
+		"speckit-constitution",
+		"speckit-converge",
+		"speckit-implement",
+		"speckit-plan",
+		"speckit-specify",
+		"speckit-tasks",
+		"speckit-taskstoissues"
 	],
 	"preserved": [
 		"CLAUDE.md",
@@ -251,7 +263,6 @@
 		".github/workflows/deploy-sanity.yml",
 		".agents/skills/skill-creator/agents/",
 		".agents/skills/skill-creator/assets/",
-		"openwiki/",
 		"blog/"
 	],
 	"superseded_rules": [

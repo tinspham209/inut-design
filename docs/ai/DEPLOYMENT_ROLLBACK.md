@@ -4,7 +4,7 @@
 
 1. Inspect Git changes and preserve user edits before changing skill content.
 2. Edit `.agents/skills/<name>/SKILL.md` and bundled references/assets/scripts.
-   Keep root `AGENTS.md` minimal and preserve its OpenWiki section.
+   Keep root `AGENTS.md` minimal and preserve its generated-context section.
 3. Run `rtk proxy bash scripts/validate-ai-config.sh` (read-only), inspect the
    diff, and run scoped safe examples. No app build is needed for customization.
 4. Commit only reviewed task files when requested. Do not create mirrors.
