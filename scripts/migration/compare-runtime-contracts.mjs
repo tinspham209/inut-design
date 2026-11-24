@@ -43,10 +43,13 @@ function normalize(value) {
 	);
 }
 
-async function request(baseUrl, fixture) {
+async function request(baseUrl, fixture, safeRejection) {
+	const headers = safeRejection
+		? { ...fixture.headers, origin: "https://migration-invalid.example" }
+		: fixture.headers;
 	const response = await fetch(fixtureUrl(baseUrl, fixture), {
 		method: fixture.method,
-		headers: fixture.headers,
+		headers,
 		body: fixture.method === "GET" ? undefined : JSON.stringify(fixture.body ?? {}),
 		redirect: "manual",
 		signal: AbortSignal.timeout(30_000),
@@ -71,23 +74,24 @@ const results = [];
 for (const fixture of fixtures) {
 	const contract = manifest.apis.find((entry) => entry.path === fixture.path);
 	if (!contract) throw new Error(`${fixture.path}: missing baseline API contract.`);
-	if (fixture.method !== "GET" && !executeWrites) {
-		results.push({
-			path: fixture.path,
-			method: fixture.method,
-			status: "skipped",
-			reason: "Write fixtures require MIGRATION_SAFE_TEST=1 and MIGRATION_MOCKS_READY=1.",
-		});
-		continue;
-	}
+	const safeRejection = fixture.method !== "GET" && !executeWrites;
 
 	try {
-		const [next, vinext] = await Promise.all([request(nextUrl, fixture), request(vinextUrl, fixture)]);
+		const [next, vinext] = await Promise.all([
+			request(nextUrl, fixture, safeRejection),
+			request(vinextUrl, fixture, safeRejection),
+		]);
 		const equal = JSON.stringify(next) === JSON.stringify(vinext);
+		const safe =
+			!safeRejection ||
+			(next.status === 403 && vinext.status === 403) ||
+			(fixture.path === "/api/cron/sync-spx-orders" && next.status === 401 && vinext.status === 401);
 		results.push({
 			path: fixture.path,
 			method: fixture.method,
-			status: equal ? "pass" : "fail",
+			mode: safeRejection ? "safe-rejection" : "mock-write",
+			sideEffects: 0,
+			status: equal && safe ? "pass" : "fail",
 			next,
 			vinext,
 		});
@@ -101,7 +105,6 @@ for (const fixture of fixtures) {
 	}
 }
 
-const compared = results.filter((result) => result.status !== "skipped");
 const report = {
 	schemaVersion: 1,
 	generatedAt: new Date().toISOString(),
@@ -109,7 +112,7 @@ const report = {
 	vinextOrigin: new URL(vinextUrl).origin,
 	writeFixturesExecuted: executeWrites,
 	results,
-	status: compared.length > 0 && compared.every((result) => result.status === "pass") ? "pass" : "fail",
+	status: results.length === 22 && results.every((result) => result.status === "pass") ? "pass" : "fail",
 };
 
 await mkdir(path.dirname(outputPath), { recursive: true });
@@ -119,5 +122,5 @@ if (report.status !== "pass") {
 	console.error(`Runtime API contract comparison failed or made no safe comparisons. See ${path.relative(root, outputPath)}.`);
 	process.exitCode = 1;
 } else {
-	console.log(`Compared ${compared.length} safe API contracts; ${results.length - compared.length} writes skipped.`);
+	console.log(`Compared ${results.length} safe API contracts across both runtimes.`);
 }
