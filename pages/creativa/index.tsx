@@ -39,7 +39,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 				catalog: { ...catalog, items: catalog.items.slice(0, 4), cursor: null },
 				catalogError: null,
 			},
-			revalidate: 86400,
 		};
 	} catch (failure) {
 		console.error("[Creativa homepage] Rendering unavailable catalog.", {
@@ -51,7 +50,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 				catalogError:
 					failure instanceof CreativaError ? failure.message : "Không thể tải bộ sưu tập lúc này.",
 			},
-			revalidate: 86400,
 		};
 	}
 };

@@ -122,7 +122,6 @@ export const getStaticProps: GetStaticProps = async () => {
 	try {
 		return {
 			props: { initial: await creativaCatalogApi.getPage(), initialError: null },
-			revalidate: 86400,
 		};
 	} catch (failure) {
 		console.error("[Creativa catalog] Rendering unavailable state.", {
@@ -136,7 +135,6 @@ export const getStaticProps: GetStaticProps = async () => {
 						? failure.message
 						: "Không thể tải danh mục. Vui lòng thử lại.",
 			},
-			revalidate: 86400,
 		};
 	}
 };

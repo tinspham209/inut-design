@@ -82,7 +82,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			posts: posts.sort((a, b) => (a.publishedDate < b.publishedDate ? 1 : -1)),
 			banner: banner ? banner[0] : [],
 		},
-		revalidate: 600,
 	};
 };
 

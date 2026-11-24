@@ -595,10 +595,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const slug = typeof params?.slug === "string" ? params.slug : "";
 	const { getCreativaProduct } = await import("@/api-client/creativa-catalog");
 	try {
-		return { props: await getCreativaProduct(slug), revalidate: 86400 };
+		return { props: await getCreativaProduct(slug) };
 	} catch (failure) {
 		if (failure instanceof CreativaError && failure.code === "PRODUCT_NOT_FOUND")
-			return { notFound: true, revalidate: 86400 };
+			return { notFound: true };
 		console.error("[Creativa product] Rendering unavailable state.", {
 			code: failure instanceof CreativaError ? failure.code : "PRODUCT_UNAVAILABLE",
 		});
@@ -610,7 +610,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 						? failure.message
 						: "Không thể tải sản phẩm. Vui lòng thử lại.",
 			},
-				revalidate: 86400,
 		};
 	}
 };

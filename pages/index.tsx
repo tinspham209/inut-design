@@ -164,7 +164,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			blogs,
 			banner: homepageContent.banner[0] ?? null,
 		},
-		revalidate: 600,
 	};
 };
 
