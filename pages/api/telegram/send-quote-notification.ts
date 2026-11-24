@@ -1,8 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { TelegramClient, sendWithRetry } from "@/utils/telegram";
 import { validateTelegramEnv } from "@/utils/telegram/validateTelegramEnv";
-import envConst from "@/utils/env-const";
 import rateLimit from "@/utils/rateLimit";
+import {
+	browserRateLimitToken,
+	validateBrowserJsonRequest,
+} from "@/utils/server/request-guard";
 import { formatQuoteRequestMessage } from "@/utils/telegram/formatQuoteRequestMessage";
 import { QuoteRequestForm } from "@/models/quoteRequest";
 
@@ -29,22 +32,17 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse<SendQuoteNotificationResponse>
 ) {
+	if (req.method !== "POST") {
+		return res.status(405).json({ success: false, error: "Method not allowed" });
+	}
+	const requestError = validateBrowserJsonRequest(req);
+	if (requestError) {
+		return res.status(requestError.status).json({ success: false, error: requestError.error });
+	}
 	try {
-		await limiter.check(res as unknown as Response, 10, "CACHE_TOKEN");
+		await limiter.check(res as unknown as Response, 10, browserRateLimitToken(req));
 	} catch {
 		return res.status(429).json({ success: false, error: "Rate limit exceeded" });
-	}
-
-	if (req.method !== "POST") {
-		return res.status(405).json({
-			success: false,
-			error: "Method not allowed",
-		});
-	}
-
-	const apiKey = req.headers["x-api-key"];
-	if (apiKey !== envConst.X_API_KEY) {
-		return res.status(401).json({ success: false, error: "Unauthorized" });
 	}
 
 	try {
@@ -57,8 +55,8 @@ export default async function handler(
 			});
 		}
 
-		const botToken = envConst.TELEGRAM_BOT_TOKEN;
-		const chatId = envConst.TELEGRAM_CHAT_ID;
+		const botToken = process.env.TELEGRAM_BOT_TOKEN;
+		const chatId = process.env.TELEGRAM_CHAT_ID;
 
 		const { quoteData } = req.body as SendQuoteNotificationRequest;
 

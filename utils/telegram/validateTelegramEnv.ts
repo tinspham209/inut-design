@@ -1,5 +1,3 @@
-import envConst from "../env-const";
-
 export function validateTelegramCredentials(
 	botToken: string | undefined,
 	chatId: string | undefined,
@@ -44,7 +42,7 @@ export function validateTelegramEnv(): {
 	errors: string[];
 } {
 	return validateTelegramCredentials(
-		envConst.TELEGRAM_BOT_TOKEN,
-		envConst.TELEGRAM_CHAT_ID
+		process.env.TELEGRAM_BOT_TOKEN,
+		process.env.TELEGRAM_CHAT_ID
 	);
 }
