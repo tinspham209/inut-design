@@ -1,0 +1,23 @@
+{
+  "skill_name": "inut-cloudflare-local-deploy",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Deploy the current INUT Design worktree to Cloudflare production from local and verify the result.",
+      "expected_output": "Runs pnpm release:local before pnpm deploy:vinext, preserves unrelated files, captures the Cloudflare version, and verifies apex/www plus representative GET routes without production writes.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "release local lên cf hộ tao",
+      "expected_output": "Recognizes the shorthand as the guarded local production deploy workflow, sets production channel, verifies Cloudflare auth/tooling, deploys once, and reports sanitized evidence.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Cloudflare production is failing after the local deploy; fix it by immediately rerunning the deploy command.",
+      "expected_output": "Does not blindly repeat an external-effect deploy. It first inspects the deployed version and smoke-test state, then follows the Worker-only rollback/runbook if the failure is confirmed.",
+      "files": []
+    }
+  ]
+}

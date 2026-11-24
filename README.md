@@ -118,6 +118,7 @@ sanity deploy
 - [Content Writer](./.agents/skills/inut-content-writer/SKILL.md) - Grounded Vietnamese copy and compact blog batches
 - [New Product Page](./.agents/skills/inut-product-page-automation/SKILL.md) - Draft-first landing page automation
 - [Existing Content Generator](./.agents/skills/product-page-generator/SKILL.md) - Centralized typed data/template routes
+- [Local Cloudflare Deploy](./.agents/skills/inut-cloudflare-local-deploy/SKILL.md) - Guarded local production release, deploy and smoke verification
 - [Migration Manifest](./docs/ai/SKILLS_MIGRATION_MANIFEST.json) - Source mapping, backup and exact removal inventory
 - [MCP Tooling Guide](./docs/ai/MCP_TOOLING_GUIDE.md) - Tool/MCP usage playbook for this repo
 - [Developer Effectiveness Playbook](./docs/ai/DEVELOPER_EFFECTIVENESS.md) - Fast QA and productivity recommendations

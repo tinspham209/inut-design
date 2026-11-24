@@ -29,6 +29,8 @@ Read `.agents/skills/<name>/SKILL.md`:
 | `agent-browser-automation`     | Browser verification, screenshots, flow regression                          |
 | `autoresearch`                 | Measurable optimization experiments, not ordinary fixes                     |
 | `skill-creator`                | Create, improve or evaluate skills                                          |
+| `migrate-to-vinext`            | Vinext compatibility and Cloudflare configuration                           |
+| `inut-cloudflare-local-deploy` | Guarded local production release to Cloudflare and post-deploy smoke checks |
 
 Customization checks: `rtk proxy bash scripts/validate-ai-config.sh`.
 Operation/fallback: `docs/ai/DUAL_EDITOR_WORKFLOW.md`.
