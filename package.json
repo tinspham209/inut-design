@@ -26,7 +26,14 @@
 		"regression:lighter": "./scripts/test-lighter-builder.sh",
 		"regression:spx": "node --import ./scripts/register-typescript-loader.mjs ./scripts/test-spx-sync.mjs",
 		"regression:creativa-notification": "node --import ./scripts/register-typescript-loader.mjs ./scripts/test-creativa-notification-format.mjs",
-		"regression:quote-form": "./scripts/regression-test-quote-form.sh"
+		"regression:quote-form": "./scripts/regression-test-quote-form.sh",
+		"migration:inventory": "node scripts/migration/inventory-dependencies.mjs && node scripts/migration/inventory-env.mjs && node scripts/migration/inventory-call-sites.mjs && node scripts/migration/slug-manifest.mjs",
+		"migration:verify-routes": "node scripts/migration/verify-route-manifest.mjs",
+		"migration:verify-apis": "node scripts/migration/verify-api-manifest.mjs",
+		"migration:check-manifests": "node scripts/migration/check-manifests.mjs",
+		"migration:check-secrets": "node scripts/migration/check-secrets.mjs",
+		"migration:check-worker-graph": "node scripts/migration/check-worker-graph.mjs",
+		"regression:safe": "node scripts/migration/run-safe-regression.mjs"
 	},
 	"dependencies": {
 		"@emotion/cache": "^11.10.1",
