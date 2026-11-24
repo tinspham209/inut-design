@@ -315,7 +315,8 @@ const Guide: NextPageWithLayout = () => (
 										alt={step.imageAlt}
 										width={1536}
 										height={1024}
-										layout="responsive"
+										sizes="(min-width: 900px) 800px, 100vw"
+										style={{ width: "100%", height: "auto" }}
 									/>
 								</Box>
 							</Box>

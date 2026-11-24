@@ -60,8 +60,9 @@ function GalleryImage({ image, priority = false }: { image: CreativaImage; prior
 				<Image
 					src={sanityImageUrl(image, "hero")}
 					alt={image.alt}
-					layout="fill"
-					objectFit="contain"
+					fill
+					sizes="(min-width: 900px) 58vw, 100vw"
+					style={{ objectFit: "contain" }}
 					priority={priority}
 					onError={() => setFailed(true)}
 				/>
@@ -231,8 +232,9 @@ function ProductContent(initial: Props) {
 									<Image
 										src={sanityImageUrl(image, "tiny")}
 										alt={image.alt}
-										layout="fill"
-										objectFit="contain"
+										fill
+										sizes="70px"
+										style={{ objectFit: "contain" }}
 									/>
 								</Box>
 							))}

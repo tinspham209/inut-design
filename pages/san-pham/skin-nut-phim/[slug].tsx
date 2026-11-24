@@ -176,7 +176,8 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 									>
 										<Image
 											src={sanityImageUrl(image, "thumbnail")}
-											layout="fill"
+											fill
+											sizes="(min-width: 900px) 50vw, 100vw"
 											priority={idx === 0}
 											unoptimized
 											alt="product-image"
@@ -352,10 +353,11 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 												>
 													<Image
 														src={sanityImageUrl(relatedProduct.image[0], "card")}
-														layout="fill"
-														objectFit="cover"
+														fill
+														sizes="(min-width: 1200px) 20vw, (min-width: 768px) 33vw, 100vw"
 														unoptimized
 														alt={relatedProduct.name}
+														style={{ objectFit: "cover" }}
 													/>
 												</Box>
 												<Typography
