@@ -78,7 +78,7 @@
 - [X] T041 [US1] Translate required IMG.LY alias behavior, browser `fs` fallback, temporary `sharp` externalization, analyzer behavior, headers, cache rules, and redirects into `vite.config.ts` and `next.config.js`
 - [X] T042 [US1] Add `dev:vinext`, `build:vinext`, and `start:vinext` commands to `package.json` and prove the normal Next commands remain available
 - [X] T043 [US1] Add build-time fail-closed validation for required environment variable names without values in `scripts/migration/validate-env.mjs`
-- [ ] T044 [US1] Run `pnpm lint`, `pnpm exec tsc --noEmit`, `pnpm build`, `pnpm build:vinext`, and local built-Worker smoke checks, saving sanitized results in `artifacts/migration/runtime/framework/`
+- [X] T044 [US1] Run `pnpm lint`, `pnpm exec tsc --noEmit`, `pnpm build`, `pnpm build:vinext`, and local built-Worker smoke checks, saving sanitized results in `artifacts/migration/runtime/framework/`
 
 ### Static Publication and Search
 
@@ -93,7 +93,7 @@
 - [X] T053 [US1] Remove request-time `getServerSideProps` and `/api/search` dependency from `pages/search/index.tsx` while retaining the endpoint at `pages/api/search.ts`
 - [X] T054 [US1] Preserve search filters, pagination, ranking, result excerpts, keyboard behavior, and loading/error/empty UX in `pages/search/index.tsx` and `components/`
 - [X] T055 [US1] Make sitemap, SEO verification, static manifest, and search-index generation explicit for both build paths in `package.json`, `next-sitemap.config.js`, and `scripts/verify-seo.mjs`
-- [ ] T056 [US1] Run standard and Vinext builds, verify the 74-module route manifest, all approved slugs, fallback behavior, sitemap, redirects, and zero ISR/SSR public page, and retain evidence under `artifacts/migration/runtime/static/`
+- [X] T056 [US1] Run standard and Vinext builds, verify the 74-module route manifest, all approved slugs, fallback behavior, sitemap, redirects, and zero ISR/SSR public page, and retain evidence under `artifacts/migration/runtime/static/`
 
 ### Worker API, Upload, and Secret Boundary
 
@@ -117,7 +117,7 @@
 ### Story 1 Acceptance
 
 - [X] T073 [US1] Run protected cart, checkout, quote, contact, keychain, Creativa, order tracking, and confirmation flows with safe mocks through `scripts/migration/run-safe-regression.mjs`
-- [ ] T074 [US1] Run desktop/mobile keyboard, responsive, hydration, carousel, 3D normal/context-loss/fallback, image, reduced-motion, and critical-flow browser checks through `scripts/migration/browser-baseline.mjs`
+- [X] T074 [US1] Run desktop/mobile keyboard, responsive, hydration, carousel, 3D normal/context-loss/fallback, image, reduced-motion, and critical-flow browser checks through `scripts/migration/browser-baseline.mjs`
 - [X] T075 [US1] Compare GA4/GTM and Umami page/action/initial-load/navigation/bfcache sequences for exact-once behavior and prohibited fields, saving sanitized evidence in `artifacts/migration/runtime/analytics/`
 - [ ] T076 [US1] Measure representative public page timing and all 22 APIs, prove no timeout, 95% of pages within +10%, and Worker memory below 128 MB in `artifacts/migration/runtime/performance/`
 - [X] T077 [US1] Assemble the US1 gate report with route, API, commerce, static, search, upload, analytics, accessibility, performance, and security evidence in `artifacts/migration/gates/us1.md`
@@ -206,7 +206,7 @@
 - [X] T126 [P] Verify five carousel surfaces and two React Three canvases with keyboard/pointer, forced fallback/context-loss, responsive, and no-hydration-error evidence in `artifacts/migration/runtime/browser/`
 - [X] T127 [P] Verify preview and production docs contain no secret values, auth codes, customer data, upload bytes, share links, or production credential names in `artifacts/migration/release/`
 - [X] T128 Run `scripts/migration/check-manifests.mjs` and require all reviewed deltas from the baseline to reference a change record in `specs/004-migrate-vinext-cloudflare/compatibility-decisions.md`
-- [ ] T129 Run `pnpm lint`, `pnpm exec tsc --noEmit`, `pnpm build`, `pnpm build:vinext`, safe regressions, browser checks, SEO verification, secret scan, and Worker graph check from the final candidate
+- [X] T129 Run `pnpm lint`, `pnpm exec tsc --noEmit`, `pnpm build`, `pnpm build:vinext`, safe regressions, browser checks, SEO verification, secret scan, and Worker graph check from the final candidate
 - [X] T130 Generate the final immutable release report with every FR/SC result, explicit pass/fail/block/waive state, evidence reference, owner, and Cloudflare rollback version in `artifacts/migration/release/final-report.json`
 - [ ] T131 Verify `artifacts/migration/release/final-report.json` has no unresolved blocker, no security/data waiver, all mandatory gates passed, and registrar actions absent
 
@@ -220,9 +220,10 @@ Implementation is complete for all local, source-controlled work. The remaining
 unchecked tasks require one of the following owner/external states and were not
 silently marked complete:
 
-- **Sanity owner action**: T044, T056, T074, T129 — three production slugs are
-  invalid and static/search builds intentionally fail closed until corrected:
-  `skt-t1 1`, `Vân Đá`, `bat-lua-mini-in-thuong-mau-muoi mot`.
+- **Sanity owner action resolved (2026-11-24)**: owner updated the three records to
+  `skt-t1-2`, `grey-marble`, and `bat-lua-mini-in-thuong-mau-muoi-mot`. T044,
+  T056, T074 and T129 now pass, including 714 static pages, 710 public paths,
+  706 sitemap URLs, 22-route parity and 24 browser/viewport checks.
 - **Approved preview/production owner action**: T085, T090, T091 — no deploy,
   production artifact or rollback drill was executed without explicit approval.
 - **Preview-only measurement**: T076 — local timing is 100% within +10% and APIs

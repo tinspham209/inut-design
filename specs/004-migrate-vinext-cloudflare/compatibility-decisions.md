@@ -59,10 +59,12 @@
   Squarespace and `pending transfer`. Feature 004 does not claim the pending
   transfer was initiated by this implementation; no registrar action was taken.
 
-## MIGRATION-SANITY-SLUG-BLOCKER
+## MIGRATION-SANITY-SLUG-RESOLUTION
 
-- **Status**: blocked owner action.
-- Three production Sanity records contain invalid slugs: `skt-t1 1`, `Vân Đá`,
-  and `bat-lua-mini-in-thuong-mau-muoi mot`.
-- The build intentionally fails rather than sanitize or mutate CMS records
-  without approval.
+- **Status**: resolved by owner on 2026-11-24.
+- `skt-t1 1` → `skt-t1-2`
+- `Vân Đá` → `grey-marble`
+- `bat-lua-mini-in-thuong-mau-muoi mot` →
+  `bat-lua-mini-in-thuong-mau-muoi-mot`
+- Standard Next and Vinext builds both pass afterward; 710 public paths, 706
+  sitemap URLs and 678 search documents reconcile without validation issues.
