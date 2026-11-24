@@ -1,156 +1,54 @@
-import path from "path";
-import fs from "fs";
-import matter from "gray-matter";
+import blogPosts from "@/data/blog-posts.json";
 import { Post } from "@/models";
 
-const BLOG_FOLDER = path.join(process.cwd(), "blog");
+type GeneratedPost = Omit<Post, "description"> & {
+	excerpt: string;
+	description: string;
+	ogImage: string | null;
+	mdContent: string;
+};
+
+const posts = blogPosts as GeneratedPost[];
+
+function listPost(post: GeneratedPost): Post {
+	return {
+		id: post.id,
+		slug: post.slug,
+		title: post.title,
+		author: post.author,
+		tagList: post.tagList,
+		publishedDate: post.publishedDate,
+		description: post.excerpt,
+		ogImage: post.ogImage,
+	};
+}
 
 export async function getPostList(): Promise<Post[]> {
-	// read all markdown files
-	const fileNameList = fs.readdirSync(BLOG_FOLDER);
-
-	const postList: Post[] = [];
-
-	for (const fileName of fileNameList) {
-		const filePath = path.join(BLOG_FOLDER, fileName);
-		const fileContents = fs.readFileSync(filePath, "utf8");
-
-		const { data, excerpt, content } = matter(fileContents, {
-			excerpt_separator: "<!-- truncate-->",
-		});
-		postList.push({
-			id: fileName,
-			slug: data.slug,
-			title: data.title,
-			author: {
-				name: data.author,
-				title: data.author_title,
-				profileUrl: data.author_url,
-				avatarUrl: data.author_image_url,
-			},
-			tagList: data.tags,
-			publishedDate: data.date,
-			description: excerpt || "",
-			ogImage: data.ogImage || null,
-			mdContent: content,
-		});
-	}
-
-	return postList;
+	return posts.map((post) => ({ ...listPost(post), mdContent: post.mdContent }));
 }
 
 export async function getPostListSummary(): Promise<Post[]> {
-	const fileNameList = fs.readdirSync(BLOG_FOLDER);
-	const postList: Post[] = [];
-
-	for (const fileName of fileNameList) {
-		const filePath = path.join(BLOG_FOLDER, fileName);
-		const fileContents = fs.readFileSync(filePath, "utf8");
-
-		const { data, excerpt } = matter(fileContents, {
-			excerpt_separator: "<!-- truncate-->",
-		});
-		postList.push({
-			id: fileName,
-			slug: data.slug,
-			title: data.title,
-			author: {
-				name: data.author,
-				title: data.author_title,
-				profileUrl: data.author_url,
-				avatarUrl: data.author_image_url,
-			},
-			tagList: data.tags,
-			publishedDate: data.date,
-			description: excerpt || "",
-			ogImage: data.ogImage || null,
-			// Omitting mdContent for performance
-		});
-	}
-
-	return postList;
+	return posts.map(listPost);
 }
 
 export async function getPostListLimit(limit: number): Promise<Post[]> {
-	try {
-		if (!fs.existsSync(BLOG_FOLDER)) {
-			return [];
-		}
-
-		// Read all filenames and sort them alphabetically descending (newest first based on YYYY-MM-DD prefix)
-		const fileNameList = fs
-			.readdirSync(BLOG_FOLDER)
-			.filter((fileName) => fileName.endsWith(".md"))
-			.sort((a, b) => b.localeCompare(a))
-			.slice(0, limit);
-
-		const postList: Post[] = [];
-
-		for (const fileName of fileNameList) {
-			const filePath = path.join(BLOG_FOLDER, fileName);
-			const fileContents = fs.readFileSync(filePath, "utf8");
-
-			const { data, excerpt } = matter(fileContents, {
-				excerpt_separator: "<!-- truncate-->",
-			});
-
-			postList.push({
-				id: fileName,
-				slug: data.slug,
-				title: data.title,
-				author: {
-					name: data.author,
-					title: data.author_title,
-					profileUrl: data.author_url,
-					avatarUrl: data.author_image_url,
-				},
-				tagList: data.tags,
-				publishedDate: data.date,
-				description: excerpt || "",
-				ogImage: data.ogImage || null,
-				// Omitting mdContent for performance
-			});
-		}
-
-		return postList;
-	} catch (error) {
-		console.error("Error fetching limited post list:", error);
-		return [];
-	}
+	return [...posts]
+		.sort((left, right) => String(right.id).localeCompare(String(left.id)))
+		.slice(0, limit)
+		.map(listPost);
 }
 
 export async function getPostBySlug(slug: string | string[]): Promise<Post | null> {
-	// Instead of loading all posts, let's find the specific file
-	const fileNameList = fs.readdirSync(BLOG_FOLDER);
-
-	for (const fileName of fileNameList) {
-		const filePath = path.join(BLOG_FOLDER, fileName);
-		const fileContents = fs.readFileSync(filePath, "utf8");
-		const { data, content } = matter(fileContents);
-
-		if (data.slug === slug) {
-			return {
-				id: fileName,
-				slug: data.slug,
-				title: data.title,
-				author: {
-					name: data.author,
-					title: data.author_title,
-					profileUrl: data.author_url,
-					avatarUrl: data.author_image_url,
-				},
-				tagList: data.tags,
-				publishedDate: data.date,
-				description: data.description || "",
-				ogImage: data.ogImage || null,
-				mdContent: content,
-			};
-		}
-	}
-	return null;
+	const post = posts.find((candidate) => candidate.slug === slug);
+	return post
+		? {
+				...listPost(post),
+				description: post.description,
+				mdContent: post.mdContent,
+			}
+		: null;
 }
 
 export async function getAllPostSlugs(): Promise<string[]> {
-	const postList = await getPostList();
-	return postList.map((x) => x.slug);
+	return posts.map((post) => post.slug);
 }

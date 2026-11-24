@@ -15,7 +15,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/migration/validate-env.mjs --stage=build && pnpm migration:search-index && next build",
+    "build": "node scripts/migration/validate-env.mjs --stage=build && pnpm migration:blog-data && pnpm migration:search-index && next build",
     "build:analyze": "ANALYZE=true pnpm build",
     "start": "next start",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx pages components api-client server hooks lib scripts utils next.config.js",
@@ -34,11 +34,12 @@
     "migration:check-secrets": "node scripts/migration/check-secrets.mjs",
     "migration:check-worker-graph": "node scripts/migration/check-worker-graph.mjs",
     "migration:search-index": "node scripts/migration/generate-search-index.mjs",
+    "migration:blog-data": "node scripts/migration/generate-blog-data.mjs",
     "migration:static-manifest": "node scripts/migration/generate-static-manifest.mjs",
     "migration:seo": "node scripts/migration/generate-seo-artifacts.mjs && node scripts/verify-seo.mjs",
     "regression:safe": "node scripts/migration/run-safe-regression.mjs",
     "dev:vinext": "vite dev --port 3001",
-    "build:vinext": "node scripts/migration/validate-env.mjs --stage=build && pnpm migration:search-index && pnpm migration:seo && vite build && pnpm migration:static-manifest",
+    "build:vinext": "node scripts/migration/validate-env.mjs --stage=build && pnpm migration:blog-data && pnpm migration:search-index && pnpm migration:seo && vite build && pnpm migration:static-manifest",
     "start:vinext": "vite preview",
     "deploy:vinext": "vinext-cloudflare deploy"
   },
