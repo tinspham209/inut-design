@@ -141,7 +141,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
 	const cards = mapChildRoutesToCards(currentPath);
 	validateStaticPathSegments(
-		cards.map((card) => card.href.split("/").filter(Boolean).slice(1)),
+		cards.map((card) => card.href.split("/").filter(Boolean)),
 		"san-pham route tree",
 	);
 
