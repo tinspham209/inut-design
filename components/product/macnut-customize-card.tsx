@@ -57,8 +57,9 @@ export const MacnutCustomizeCard: React.FC = () => {
 								<Image
 									src="/assets/skin-nut-phim-customize.avif"
 									alt="Custom skin nút phím"
-									layout="fill"
-									objectFit="cover"
+									fill
+									sizes="(min-width: 900px) 30vw, 100vw"
+									style={{ objectFit: "cover" }}
 								/>
 							</Box>
 						</Box>

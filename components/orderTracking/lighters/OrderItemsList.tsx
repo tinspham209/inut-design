@@ -115,13 +115,15 @@ const OrderItem: React.FC<OrderItemProps> = ({ item, index }) => {
 					<Image
 						src={sanityImageUrl(item.product?.image[0], "tiny")}
 						alt={item.product?.name || "Sản phẩm"}
-						width="100%"
-						height={"100%"}
+						width={60}
+						height={60}
 						unoptimized
-						layout="responsive"
 						priority={true}
 						style={{
 							borderRadius: "8px",
+							width: "100%",
+							height: "100%",
+							objectFit: "cover",
 						}}
 					/>
 				</Box>

@@ -23,10 +23,10 @@ export function ProductCard({ imageUrl, href, alt, onSelect, priority = false }:
 					src={imageUrl}
 					width={600}
 					height={600}
-					layout="responsive"
 					alt={alt}
 					priority={priority}
 					className={styles.productImage}
+					style={{ width: "100%", height: "auto" }}
 				/>
 				<Tooltip title="Xem chi tiết" placement="right-end" arrow>
 					<Icon

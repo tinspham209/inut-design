@@ -160,14 +160,15 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, href }
 							>
 								<Image
 									src={hovered && secondaryUrl ? secondaryUrl : primaryUrl}
-									width="100%"
-									height={"100%"}
+									width={600}
+									height={600}
 									unoptimized
-									layout="responsive"
 									alt={lighter.name}
 									style={{
 										borderRadius: 8,
 										transition: "opacity 0.3s ease",
+										width: "100%",
+										height: "auto",
 									}}
 								/>
 							</Box>

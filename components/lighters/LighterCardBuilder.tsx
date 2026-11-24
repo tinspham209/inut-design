@@ -65,8 +65,9 @@ const LighterCardBuilder: React.FC = () => {
 								<Image
 									src="/assets/skin-bat-lua-builder.avif"
 									alt="Tự thiết kế bật lửa"
-									layout="fill"
-									objectFit="cover"
+									fill
+									sizes="(min-width: 900px) 25vw, 50vw"
+									style={{ objectFit: "cover" }}
 									priority
 								/>
 								<Chip

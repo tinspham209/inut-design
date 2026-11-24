@@ -97,7 +97,7 @@ export function InfoSection({ imgUrl }: Props) {
 								}}
 							/>
 							<Stack flexDirection={"row"} alignItems="center" justifyContent={"space-between"}>
-								<Image src={"/branding/logo.avif"} alt="INUT logo" width={"193px"} height="60px" />
+								<Image src={"/branding/logo.avif"} alt="INUT logo" width={193} height={60} />
 							</Stack>
 
 							<Typography variant="h3" sx={{ mt: 3 }} fontWeight="bold" color="white">

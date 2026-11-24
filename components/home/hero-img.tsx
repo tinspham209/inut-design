@@ -18,11 +18,12 @@ export function HeroImage({ imgUrl }: Props) {
 			>
 				<Image
 					src={imgUrl}
-					width="100%"
-					height="30%"
-					layout="responsive"
+					width={1000}
+					height={300}
+					sizes="(min-width: 1200px) 1200px, 100vw"
 					alt="avatar"
 					priority={true}
+					style={{ width: "100%", height: "auto" }}
 				/>
 			</Container>
 		</Box>

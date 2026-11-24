@@ -55,8 +55,9 @@ export const SkinLaptopCustomizeCard: React.FC = () => {
 								<Image
 									src="/assets/skin-laptop-customize.avif"
 									alt="Skin Laptop Custom"
-									layout="fill"
-									objectFit="cover"
+									fill
+									sizes="(min-width: 900px) 30vw, 100vw"
+									style={{ objectFit: "cover" }}
 								/>
 							</Box>
 						</Box>

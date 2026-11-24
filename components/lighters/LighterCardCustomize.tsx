@@ -62,8 +62,9 @@ const LighterCardCustomize: React.FC = () => {
 								<Image
 									src="/assets/skin-bat-lua-customize.avif"
 									alt="Bật lửa theo yêu cầu"
-									layout="fill"
-									objectFit="cover"
+									fill
+									sizes="(min-width: 900px) 25vw, 50vw"
+									style={{ objectFit: "cover" }}
 								/>
 							</Box>
 						</Box>
