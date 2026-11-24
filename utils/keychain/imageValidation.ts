@@ -20,6 +20,11 @@ export type ValidatedKeychainImage = {
 	pixelCount: number;
 };
 
+export type PersistedKeychainImage = {
+	image: { _type: "image"; asset: { _ref: string; _type: "reference" } };
+	url: string;
+};
+
 function uint32be(bytes: Uint8Array, offset: number) {
 	return (
 		(((bytes[offset] ?? 0) << 24) |
@@ -165,6 +170,7 @@ export function decodeBase64Image(data: string): Uint8Array {
 	}
 	try {
 		const binary = atob(data);
+		if (btoa(binary) !== data) throw new Error("INVALID_BASE64");
 		return Uint8Array.from(binary, (character) => character.charCodeAt(0));
 	} catch {
 		throw new Error("INVALID_BASE64");
@@ -199,4 +205,36 @@ export function validateKeychainImage(
 		height: dimensions.height,
 		pixelCount: dimensions.width * dimensions.height,
 	};
+}
+
+export function sanitizeKeychainFilename(filename: unknown, mime: ImageMime): string {
+	const extensions: Record<ImageMime, string> = {
+		"image/png": "png",
+		"image/jpeg": "jpg",
+		"image/webp": "webp",
+	};
+	const raw = typeof filename === "string" ? filename.trim() : "";
+	if (!raw) return `keychain-design.${extensions[mime]}`;
+	const base = raw.split(/[\\/]/).pop() || "";
+	const stem = base
+		.replace(/\.[^.]*$/, "")
+		.replace(/[^a-zA-Z0-9_-]/g, "_")
+		.replace(/^[_-]+|[_-]+$/g, "")
+		.slice(0, 80);
+	return `${stem || "keychain-design"}.${extensions[mime]}`;
+}
+
+export function validatePersistedKeychainImage(value: unknown): asserts value is PersistedKeychainImage {
+	if (!value || typeof value !== "object") throw new Error("INVALID_PERSISTENCE_RESULT");
+	const result = value as Partial<PersistedKeychainImage>;
+	if (
+		typeof result.url !== "string" ||
+		!/^https?:\/\//.test(result.url) ||
+		result.image?._type !== "image" ||
+		result.image.asset?._type !== "reference" ||
+		typeof result.image.asset?._ref !== "string" ||
+		!result.image.asset._ref
+	) {
+		throw new Error("INVALID_PERSISTENCE_RESULT");
+	}
 }

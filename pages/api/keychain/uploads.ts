@@ -2,7 +2,12 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { uploadImageAssetToSanity } from "@/api-client/sanity-server";
 import { sanityImageUrl } from "@/api-client/sanity-image";
 import rateLimit, { getRequestRateLimitToken } from "@/utils/rateLimit";
-import { decodeBase64Image, validateKeychainImage } from "@/utils/keychain/imageValidation";
+import {
+	decodeBase64Image,
+	sanitizeKeychainFilename,
+	validateKeychainImage,
+	validatePersistedKeychainImage,
+} from "@/utils/keychain/imageValidation";
 
 export const config = { api: { bodyParser: { sizeLimit: "14mb" } } };
 const MAX_BYTES = 10 * 1024 * 1024;
@@ -20,16 +25,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 		const bytes = decodeBase64Image(data);
 		if (bytes.byteLength > MAX_BYTES) return res.status(413).json({ error: "Ảnh không được vượt quá 10 MB." });
 		validateKeychainImage(bytes, contentType);
-		const safeFilename = typeof filename === "string" ? filename.slice(0, 100).replace(/[^a-zA-Z0-9._-]/g, "_") : "keychain-design.webp";
+		const safeFilename = sanitizeKeychainFilename(filename, contentType);
 		const copy = new Uint8Array(bytes.byteLength);
 		copy.set(bytes);
 		const image = await uploadImageAssetToSanity(new Blob([copy.buffer], { type: contentType }), {
 			filename: safeFilename,
 			contentType,
 		});
-		return res.status(200).json({ image, url: sanityImageUrl(image, "design") });
+		const result = { image, url: sanityImageUrl(image, "design") };
+		validatePersistedKeychainImage(result);
+		return res.status(200).json(result);
 	} catch (error) {
 		if (error instanceof Error && ["INVALID_BASE64", "INVALID_SIZE", "UNSUPPORTED_FORMAT", "INVALID_IMAGE"].includes(error.message)) return res.status(400).json({ error: "Dữ liệu ảnh không hợp lệ hoặc vượt kích thước hỗ trợ." });
+		if (error instanceof Error && error.message === "INVALID_PERSISTENCE_RESULT") return res.status(500).json({ error: "Không xác nhận được ảnh đã lưu. Vui lòng thử lại." });
 		return res.status(500).json({ error: "Không tải được ảnh. Vui lòng thử lại." });
 	}
 }
