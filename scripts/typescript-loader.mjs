@@ -84,5 +84,14 @@ export async function load(url, context, nextLoad) {
 		};
 	}
 
+	if (url.endsWith(".json")) {
+		const source = await readFile(fileURLToPath(url), "utf8");
+		return {
+			format: "module",
+			source: `export default ${source};`,
+			shortCircuit: true,
+		};
+	}
+
 	return nextLoad(url, context);
 }
