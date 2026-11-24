@@ -6,6 +6,7 @@ import { join, resolve } from "path";
 const ROOT = resolve(process.argv[2] || process.cwd());
 const ROBOTS_PATH = join(ROOT, "public", "robots.txt");
 const SITEMAP_PATH = join(ROOT, "public", "sitemap.xml");
+const SEARCH_INDEX_PATH = join(ROOT, "public", "search-index.json");
 
 let exitCode = 0;
 const fail = (msg) => { console.error("  ✗ " + msg); exitCode = 1; };
@@ -88,6 +89,35 @@ function assertSitemapXml(content) {
 	}
 }
 
+function assertSearchIndex(content) {
+	console.log("\n[search-index.json]");
+	let index;
+	try {
+		index = JSON.parse(content);
+	} catch {
+		fail("Search index is not valid JSON");
+		return;
+	}
+	if (index.schemaVersion === 1 && index.documentsHash && index.sourceCommit) {
+		pass("Search index metadata present");
+	} else {
+		fail("Missing search index schema metadata");
+	}
+	if (Array.isArray(index.documents) && index.documents.length > 0 && index.documents.length === index.documentCount) {
+		pass(`${index.documents.length} search documents match documentCount`);
+	} else {
+		fail("Search index count does not match documents");
+		return;
+	}
+	const urls = index.documents.map((document) => document.url);
+	if (new Set(urls).size === urls.length) pass("Search URLs are unique");
+	else fail("Search index contains duplicate URLs");
+	const prohibited = new Set(["body", "customer", "order", "upload", "token", "secret", "shareLink", "_ref", "_type"]);
+	const leaked = index.documents.some((document) => Object.keys(document).some((field) => prohibited.has(field)));
+	if (!leaked) pass("Search index excludes prohibited fields");
+	else fail("Search index contains a prohibited field");
+}
+
 function main() {
 	console.log(`🔍 SEO smoke test — ${ROOT}\n`);
 
@@ -103,6 +133,12 @@ function main() {
 	} else {
 		const sitemap = readFileSync(SITEMAP_PATH, "utf-8");
 		assertSitemapXml(sitemap);
+	}
+
+	if (!existsSync(SEARCH_INDEX_PATH)) {
+		fail(`search-index.json not found at ${SEARCH_INDEX_PATH}`);
+	} else {
+		assertSearchIndex(readFileSync(SEARCH_INDEX_PATH, "utf-8"));
 	}
 
 	console.log(exitCode === 0 ? "\n✅ All SEO smoke tests passed.\n" : `\n❌ ${exitCode} SEO smoke test(s) failed.\n`);

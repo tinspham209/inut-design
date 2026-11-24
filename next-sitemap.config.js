@@ -1,15 +1,16 @@
 /** @type {import('next-sitemap').IConfig} */
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://inutdesign.com";
+const migrationExcludedRoutes = [
+	"/search",
+	"/creativa/cart",
+	"/creativa/checkout",
+	"/creativa/order-tracking",
+	"/creativa/order-tracking/*",
+];
 const nextSitemapConfig = {
 	siteUrl,
 	generateIndexSitemap: false,
-	exclude: [
-		"/search",
-		"/creativa/cart",
-		"/creativa/checkout",
-		"/creativa/order-tracking",
-		"/creativa/order-tracking/*",
-	],
+	exclude: migrationExcludedRoutes,
 
 	generateRobotsTxt: true,
 	robotsTxtOptions: {
