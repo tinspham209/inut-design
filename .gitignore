@@ -46,3 +46,17 @@ dist
 sanity/reports/
 
 test-results/**
+
+# Vinext / Cloudflare migration output
+.vinext/
+.cloudflare/
+.wrangler/
+.dev.vars*
+*.map
+
+# Generated migration evidence (reviewed baseline/fixtures stay tracked)
+artifacts/migration/runtime/
+artifacts/migration/preview/
+artifacts/migration/operations/
+artifacts/migration/dns/
+artifacts/migration/release/
