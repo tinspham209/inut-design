@@ -3,8 +3,8 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const SANITY_DIR = path.resolve(__dirname, "..");
+const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
+const SANITY_DIR = path.resolve(SCRIPT_DIR, "..");
 const ENV_PATH = path.join(SANITY_DIR, ".env");
 const SANITY_JSON_PATH = path.join(SANITY_DIR, "sanity.json");
 const REPORTS_DIR = path.join(SANITY_DIR, "reports");
