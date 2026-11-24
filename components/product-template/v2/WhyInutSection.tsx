@@ -77,7 +77,7 @@ export const WhyInutSection: React.FC<WhyInutSectionProps> = ({
 												display: "flex",
 											}}
 										>
-											{React.cloneElement(step.icon as React.ReactElement, { sx: { fontSize: 28 } })}
+											{React.cloneElement(step.icon as React.ReactElement<{ sx?: object }>, { sx: { fontSize: 28 } })}
 										</Box>
 										<Box>
 											<Typography variant="subtitle1" fontWeight={700} gutterBottom>
@@ -124,7 +124,7 @@ export const WhyInutSection: React.FC<WhyInutSectionProps> = ({
 												display: "flex",
 											}}
 										>
-											{React.cloneElement(app.icon as React.ReactElement, { sx: { fontSize: 32 } })}
+											{React.cloneElement(app.icon as React.ReactElement<{ sx?: object }>, { sx: { fontSize: 32 } })}
 										</Box>
 										<Box>
 											<Typography variant="h6" fontWeight={700} gutterBottom sx={{ fontSize: "1.1rem" }}>
@@ -169,7 +169,7 @@ export const WhyInutSection: React.FC<WhyInutSectionProps> = ({
 									display: "flex",
 								}}
 							>
-								{React.cloneElement(commitment.icon as React.ReactElement, {
+								{React.cloneElement(commitment.icon as React.ReactElement<{ sx?: object }>, {
 									sx: { fontSize: 48 },
 								})}
 							</Box>

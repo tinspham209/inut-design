@@ -48,7 +48,7 @@ class VietQRService {
 			if (!response.ok) {
 				throw new Error(`Failed to fetch banks: ${response.statusText}`);
 			}
-			const data = await response.json();
+			const data = (await response.json()) as { data?: VietQRBank[] };
 
 			return (data.data || []).map((bank: VietQRBank) => ({
 				id: bank.id.toString(),

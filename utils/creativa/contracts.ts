@@ -39,7 +39,7 @@ export function projectCreativaImage(value: unknown, name: string): CreativaImag
 export function validCreativaPrintPath(value: unknown): value is string {
 	return (
 		typeof value === "string" &&
-		!/[\u0000-\u001f]/.test(value) &&
+		!Array.from(value).some((character) => character.charCodeAt(0) <= 0x1f) &&
 		(/^\/.+/.test(value) ||
 			/^[A-Za-z]:[\\/].+/.test(value) ||
 			/^\\\\[^\\/]+[\\/][^\\/]+[\\/].+/.test(value))

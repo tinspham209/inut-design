@@ -8,8 +8,12 @@ export const quoteRequestApi = {
 			body: JSON.stringify(input),
 		});
 		if (!response.ok) {
-			const payload = await response.json().catch(() => null);
-			throw new Error(payload?.error || "Failed to submit quote request.");
+			const payload: unknown = await response.json().catch(() => null);
+			throw new Error(
+				typeof (payload as { error?: unknown })?.error === "string"
+					? (payload as { error: string }).error
+					: "Failed to submit quote request."
+			);
 		}
 		return response.json();
 	},

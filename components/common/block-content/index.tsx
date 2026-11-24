@@ -88,6 +88,10 @@ const BlockContentWrapper: FC<Props> = ({ blocks }) => {
 				blocks={blocks}
 				projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
 				dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
+				serializers={{}}
+				ignoreUnknownTypes
+				renderContainerOnSingleChild={false}
+				imageOptions={{}}
 			/>
 		</Box>
 	);

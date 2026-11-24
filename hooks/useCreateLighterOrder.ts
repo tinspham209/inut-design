@@ -22,10 +22,14 @@ async function createOrderFetcher(
 		body: JSON.stringify(arg.order),
 	});
 	if (!response.ok) {
-		const payload = await response.json().catch(() => null);
-		throw new Error(payload?.error || "Failed to create order.");
+		const payload: unknown = await response.json().catch(() => null);
+		throw new Error(
+			typeof (payload as { error?: unknown })?.error === "string"
+				? (payload as { error: string }).error
+				: "Failed to create order."
+		);
 	}
-	const order = await response.json();
+	const order = (await response.json()) as CreateLighterOrderResponse["order"];
 	return {
 		order,
 		created: response.headers.get("X-Order-Created") === "true",

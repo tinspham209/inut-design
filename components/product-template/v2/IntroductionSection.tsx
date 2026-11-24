@@ -117,7 +117,7 @@ export const IntroductionSection: React.FC<IntroductionSectionProps> = ({
 												mb: 1,
 											}}
 										>
-											{React.cloneElement(highlight.icon as React.ReactElement, {
+											{React.cloneElement(highlight.icon as React.ReactElement<{ sx?: object }>, {
 												sx: { fontSize: 28 },
 											})}
 										</Box>

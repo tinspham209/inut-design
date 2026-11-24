@@ -162,11 +162,11 @@ export function trackCreativaPage(url: string) {
 export const CREATIVA_TELEMETRY_BOOTSTRAP = `
 (function () {
   function creator(url) {
-    try { return /^(?:\\/(?:api\\/)?creativa(?:\\/|$)|\\/_next\\/data\\/[^/]+\\/creativa(?:\\/|$))/.test(new URL(url, location.origin).pathname); }
+    try { return new RegExp("^(?:/(?:api/)?creativa(?:/|$)|/_next/data/[^/]+/creativa(?:/|$))").test(new URL(url, location.origin).pathname); }
     catch (_) { return false; }
   }
   function keychain(url) {
-    try { return /^\/builder\/keychain(?:\/|$)/.test(new URL(url, location.origin).pathname); }
+    try { return new RegExp("^/builder/keychain(?:/|$)").test(new URL(url, location.origin).pathname); }
     catch (_) { return false; }
   }
   function safe(url) {
