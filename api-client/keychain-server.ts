@@ -1,9 +1,9 @@
-import sanityClient from "@sanity/client";
+import { createClient } from "@sanity/client";
 import { createKeychainRequestFingerprint } from "@/utils/keychain/requestFingerprint";
 import { toSnapshotConfig } from "@/utils/keychain/snapshotConfig";
 import type { SnapshotRepository } from "@/utils/keychain/snapshotLifecycle";
 
-const client = sanityClient({
+const client = createClient({
 	projectId: process.env.SANITY_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
 	dataset: process.env.SANITY_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET,
 	token: process.env.SANITY_TOKEN, apiVersion: "2022-09-19", useCdn: false,

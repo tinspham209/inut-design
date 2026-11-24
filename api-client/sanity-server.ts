@@ -1,4 +1,4 @@
-import sanityClient from "@sanity/client";
+import { createClient } from "@sanity/client";
 import {
 	CreateLighterOrderResponse,
 	CreateOrderLighterInput,
@@ -16,7 +16,7 @@ import {
 	stripServerManagedSpxFields,
 } from "@/utils/spx/sync";
 
-const serverClient = sanityClient({
+const serverClient = createClient({
 	projectId: process.env.SANITY_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
 	dataset: process.env.SANITY_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET,
 	token: process.env.SANITY_TOKEN,

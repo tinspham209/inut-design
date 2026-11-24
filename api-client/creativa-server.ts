@@ -1,7 +1,7 @@
-import sanityClient from "@sanity/client";
+import { createClient } from "@sanity/client";
 import { CreativaError } from "@/utils/creativa/contracts";
 
-let cached: ReturnType<typeof sanityClient> | undefined;
+let cached: ReturnType<typeof createClient> | undefined;
 
 export function creativaServerClient() {
 	if (typeof window !== "undefined") throw new Error("Server-only Creativa adapter");
@@ -12,7 +12,7 @@ export function creativaServerClient() {
 		throw new CreativaError("SERVICE_UNAVAILABLE", "Dịch vụ Creativa chưa sẵn sàng.", 503);
 	}
 	if (!cached)
-		cached = sanityClient({
+		cached = createClient({
 			projectId,
 			dataset,
 			token,

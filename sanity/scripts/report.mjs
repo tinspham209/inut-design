@@ -1,4 +1,4 @@
-import sanityClient from "@sanity/client";
+import { createClient } from "@sanity/client";
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -303,7 +303,7 @@ async function main() {
 	const sanityJson = JSON.parse(await fs.readFile(SANITY_JSON_PATH, "utf8"));
 	const { projectId, dataset } = sanityJson.api;
 
-	const client = sanityClient({
+	const client = createClient({
 		projectId,
 		dataset,
 		apiVersion: "2022-09-19",

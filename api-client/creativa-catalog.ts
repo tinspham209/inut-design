@@ -1,4 +1,4 @@
-import sanityClient from "@sanity/client";
+import { createClient } from "@sanity/client";
 import { base64UrlDecode, base64UrlEncode } from "@/utils/worker-crypto";
 import type {
 	CoverageCode,
@@ -51,7 +51,7 @@ function publicClient() {
 	const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
 	if (!projectId || !dataset)
 		throw new CreativaError("SERVICE_UNAVAILABLE", "Không thể tải dữ liệu Creativa.", 503);
-	return sanityClient({
+	return 	createClient({
 		projectId,
 		dataset,
 		apiVersion: "2022-09-19",
