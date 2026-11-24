@@ -2,12 +2,16 @@ import { Seo } from "@/components/common";
 import { MainLayout } from "@/components/layout";
 import { NextPageWithLayout } from "@/models/common";
 import {
-	SearchPage as SearchResultPage,
-	SearchResult,
 	parseSearchParams,
-	searchSite,
-} from "@/server/search";
-import { SEARCH_DEFAULT_PAGE_SIZE } from "@/server/search/domain";
+	searchDocuments,
+	SEARCH_DEFAULT_PAGE_SIZE,
+	type SearchResult,
+} from "@/server/search/client";
+import {
+	loadPublicSearchIndex,
+	toSearchDocuments,
+	type PublicSearchIndex,
+} from "@/server/search/public-index";
 import { COLOR_CODE, trackCatalogPagination, trackSearch, trackSearchResultClick } from "@/utils";
 import SearchIcon from "@mui/icons-material/Search";
 import {
@@ -24,163 +28,145 @@ import {
 	TextField,
 	Typography,
 } from "@mui/material";
-import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 
-type SearchStatus = "prompt" | "success" | "error";
-
-type Props = {
-	query: string;
-	page: SearchResultPage | null;
-	status: SearchStatus;
-};
+type SearchStatus = "prompt" | "loading" | "success" | "error";
 
 const darkTextFieldSx = {
-	"& .MuiInputLabel-root": {
-		color: COLOR_CODE.TEXT_MUTED,
-	},
-	"& .MuiInputLabel-root.Mui-focused": {
-		color: COLOR_CODE.PRIMARY,
-	},
+	"& .MuiInputLabel-root": { color: COLOR_CODE.TEXT_MUTED },
+	"& .MuiInputLabel-root.Mui-focused": { color: COLOR_CODE.PRIMARY },
 	"& .MuiOutlinedInput-root": {
 		color: COLOR_CODE.WHITE,
-		"& fieldset": {
-			borderColor: COLOR_CODE.INK_4,
-		},
-		"&:hover fieldset": {
-			borderColor: COLOR_CODE.TEXT_MUTED,
-		},
-		"&.Mui-focused fieldset": {
-			borderColor: COLOR_CODE.PRIMARY,
-		},
+		"& fieldset": { borderColor: COLOR_CODE.INK_4 },
+		"&:hover fieldset": { borderColor: COLOR_CODE.TEXT_MUTED },
+		"&.Mui-focused fieldset": { borderColor: COLOR_CODE.PRIMARY },
 	},
-	"& .MuiFormHelperText-root": {
-		color: COLOR_CODE.TEXT_MUTED,
-	},
+	"& .MuiFormHelperText-root": { color: COLOR_CODE.TEXT_MUTED },
 };
 
 const SearchResultCard = ({ result }: { result: SearchResult }) => (
 	<Card
-			
-			onClick={() => trackSearchResultClick(result.kind)}
-			sx={{
-				height: "100%",
-				display: "block",
-				textDecoration: "none",
-				backgroundColor: COLOR_CODE.INK_3,
-				transition: "transform 150ms ease, border-color 150ms ease",
-				border: "1px solid",
-				borderColor: COLOR_CODE.INK_4,
-				"&:hover": {
-					transform: "translateY(-2px)",
-					borderColor: COLOR_CODE.PRIMARY,
-					backgroundColor: COLOR_CODE.INK_2,
-				},
-			}}
-		 component={Link} href={result.url}>
-			<CardContent>
-				<Stack direction="row" justifyContent="space-between" alignItems="flex-start" gap={1} mb={1}>
-					<Typography
-						variant="h6"
-						component="h2"
-						sx={{ color: COLOR_CODE.WHITE }}
-						fontWeight="bold"
-					>
-						{result.title}
-					</Typography>
-					<Chip
-						size="small"
-						variant="outlined"
-						label={result.kindLabel}
-						sx={{ color: COLOR_CODE.PRIMARY, borderColor: COLOR_CODE.PRIMARY }}
-					/>
-				</Stack>
-				<Typography sx={{ color: COLOR_CODE.TEXT_MUTED, lineHeight: 1.65 }}>
-					{result.excerpt}
+		onClick={() => trackSearchResultClick(result.kind)}
+		component={Link}
+		href={result.url}
+		sx={{
+			height: "100%",
+			display: "block",
+			textDecoration: "none",
+			backgroundColor: COLOR_CODE.INK_3,
+			transition: "transform 150ms ease, border-color 150ms ease",
+			border: "1px solid",
+			borderColor: COLOR_CODE.INK_4,
+			"&:hover": {
+				transform: "translateY(-2px)",
+				borderColor: COLOR_CODE.PRIMARY,
+				backgroundColor: COLOR_CODE.INK_2,
+			},
+		}}
+	>
+		<CardContent>
+			<Stack direction="row" justifyContent="space-between" alignItems="flex-start" gap={1} mb={1}>
+				<Typography
+					variant="h6"
+					component="h2"
+					sx={{ color: COLOR_CODE.WHITE }}
+					fontWeight="bold"
+				>
+					{result.title}
 				</Typography>
-			</CardContent>
-		</Card>
+				<Chip
+					size="small"
+					variant="outlined"
+					label={result.kindLabel}
+					sx={{ color: COLOR_CODE.PRIMARY, borderColor: COLOR_CODE.PRIMARY }}
+				/>
+			</Stack>
+			<Typography sx={{ color: COLOR_CODE.TEXT_MUTED, lineHeight: 1.65 }}>
+				{result.excerpt}
+			</Typography>
+		</CardContent>
+	</Card>
 );
 
-const Search: NextPageWithLayout<Props> = ({ query, page, status }) => {
+const Search: NextPageWithLayout = () => {
 	const router = useRouter();
-	const knownUrls = React.useRef(new Set((page?.items || []).map((item) => item.url)));
-	const [currentPage, setCurrentPage] = React.useState(page);
-	const [isLoading, setIsLoading] = React.useState(false);
-	const [loadError, setLoadError] = React.useState(false);
+	const query = typeof router.query.q === "string" ? router.query.q : "";
+	const activeFacet = typeof router.query.productType === "string" ? router.query.productType : "";
+	const [index, setIndex] = React.useState<PublicSearchIndex | null>(null);
+	const [status, setStatus] = React.useState<SearchStatus>("prompt");
 	const [searchValue, setSearchValue] = React.useState(query);
 	const [searchError, setSearchError] = React.useState(false);
+	const [loadedPages, setLoadedPages] = React.useState(1);
+	const [isLoadingMore, setIsLoadingMore] = React.useState(false);
 	const loadMoreRef = React.useRef<HTMLDivElement | null>(null);
-	const requestInFlight = React.useRef(false);
-	const activeFacet = typeof router.query.productType === "string" ? router.query.productType : "";
+	const trackedSearch = React.useRef("");
 
 	React.useEffect(() => {
-		setCurrentPage(page);
-		knownUrls.current = new Set((page?.items || []).map((item) => item.url));
-		setLoadError(false);
+		const controller = new AbortController();
+		setStatus(query ? "loading" : "prompt");
+		loadPublicSearchIndex(controller.signal)
+			.then((value) => {
+				setIndex(value);
+				setStatus(query ? "success" : "prompt");
+			})
+			.catch((error) => {
+				if (controller.signal.aborted) return;
+				console.error("Public search index unavailable", error instanceof Error ? error.message : "unknown error");
+				setStatus("error");
+			});
+		return () => controller.abort();
+	}, [query]);
+
+	React.useEffect(() => {
 		setSearchValue(query);
-	}, [activeFacet, page, query]);
+		setLoadedPages(1);
+	}, [activeFacet, query]);
+
+	const parsed = React.useMemo(
+		() =>
+			parseSearchParams({
+				q: query,
+				productType: activeFacet || undefined,
+				page: "1",
+				pageSize: String(SEARCH_DEFAULT_PAGE_SIZE * loadedPages),
+			}),
+		[activeFacet, loadedPages, query],
+	);
+	const page = React.useMemo(() => {
+		if (!index || parsed.status !== "valid") return null;
+		return searchDocuments(toSearchDocuments(index), parsed.request, index.legacyTypeSlugs);
+	}, [index, parsed]);
 
 	React.useEffect(() => {
-		if (status !== "success" || !query) return;
-		trackSearch(query, page?.total || 0);
-	}, [query, status, page?.total]);
+		if (!page || !query || parsed.status !== "valid") return;
+		const key = `${query}:${activeFacet}`;
+		if (trackedSearch.current === key) return;
+		trackedSearch.current = key;
+		trackSearch(query, page.total);
+	}, [activeFacet, page, parsed.status, query]);
 
-	const loadNextPage = React.useCallback(async () => {
-		if (!currentPage?.hasMore || requestInFlight.current) return;
-		requestInFlight.current = true;
-		setIsLoading(true);
-		setLoadError(false);
-		try {
-			const nextPage = currentPage.page + 1;
-			const params = new URLSearchParams({
-				q: query,
-				page: String(nextPage),
-				pageSize: String(currentPage.pageSize),
-			});
-			if (activeFacet) params.set("productType", activeFacet);
-
-			const response = await fetch(`/api/search?${params.toString()}`);
-			if (!response.ok) throw new Error("Search page unavailable");
-			const result: SearchResultPage = await response.json();
-			const newItems = result.items.filter((item) => {
-				if (knownUrls.current.has(item.url)) return false;
-				knownUrls.current.add(item.url);
-				return true;
-			});
-
-			setCurrentPage({
-				...result,
-				items: [...(currentPage.items || []), ...newItems],
-			});
-			trackCatalogPagination("search", nextPage);
-		} catch (error) {
-			console.error("Error loading more search results:", error instanceof Error ? error.message : "unknown error");
-			setLoadError(true);
-		} finally {
-			requestInFlight.current = false;
-			setIsLoading(false);
-		}
-	}, [activeFacet, currentPage, query]);
+	const loadNextPage = React.useCallback(() => {
+		if (!page?.hasMore || isLoadingMore) return;
+		setIsLoadingMore(true);
+		setLoadedPages((value) => value + 1);
+		window.requestAnimationFrame(() => setIsLoadingMore(false));
+		trackCatalogPagination("search", loadedPages + 1);
+	}, [isLoadingMore, loadedPages, page?.hasMore]);
 
 	React.useEffect(() => {
 		const sentinel = loadMoreRef.current;
-		if (!sentinel || !currentPage?.hasMore || isLoading || loadError) return;
-
+		if (!sentinel || !page?.hasMore || isLoadingMore) return;
 		const observer = new IntersectionObserver(
 			(entries) => {
-				if (entries.some((entry) => entry.isIntersecting)) {
-					void loadNextPage();
-				}
+				if (entries.some((entry) => entry.isIntersecting)) loadNextPage();
 			},
-			{ rootMargin: "600px 0px" }
+			{ rootMargin: "600px 0px" },
 		);
-
 		observer.observe(sentinel);
 		return () => observer.disconnect();
-	}, [currentPage?.hasMore, isLoading, loadError, loadNextPage]);
+	}, [isLoadingMore, loadNextPage, page?.hasMore]);
 
 	const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -189,18 +175,21 @@ const Search: NextPageWithLayout<Props> = ({ query, page, status }) => {
 			setSearchError(true);
 			return;
 		}
-
 		setSearchError(false);
-		void router.push(`/search?q=${encodeURIComponent(trimmedValue)}`);
+		const params = new URLSearchParams({ q: trimmedValue });
+		if (activeFacet) params.set("productType", activeFacet);
+		void router.push(`/search?${params.toString()}`);
 	};
+
+	const visibleStatus: SearchStatus =
+		status === "error" ? "error" : !query ? "prompt" : !index ? "loading" : "success";
 
 	return (
 		<Box component="section" sx={{ bgcolor: COLOR_CODE.INK, color: COLOR_CODE.WHITE }} pt={4} pb={8}>
 			<Seo
 				data={{
 					title: "Tìm kiếm - INUT Design",
-					description:
-						"Khám phá sản phẩm, dịch vụ, bài viết và thông tin hữu ích từ INUT Design.",
+					description: "Khám phá sản phẩm, dịch vụ, bài viết và thông tin hữu ích từ INUT Design.",
 					url: "https://inutdesign.com/search",
 					thumbnailUrl: "/branding/ogImage.jpg",
 					noindex: true,
@@ -208,7 +197,9 @@ const Search: NextPageWithLayout<Props> = ({ query, page, status }) => {
 			/>
 			<Container>
 				<Breadcrumbs sx={{ color: COLOR_CODE.TEXT_MUTED }}>
-					<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} component={Link} href="/">Trang chủ</MuiLink>
+					<MuiLink sx={{ color: COLOR_CODE.TEXT_MUTED }} component={Link} href="/">
+						Trang chủ
+					</MuiLink>
 					<Typography sx={{ color: COLOR_CODE.WHITE }}>Tìm kiếm</Typography>
 				</Breadcrumbs>
 
@@ -260,16 +251,20 @@ const Search: NextPageWithLayout<Props> = ({ query, page, status }) => {
 					</Stack>
 				</Box>
 
-				{status === "prompt" && (
+				{visibleStatus === "prompt" && (
 					<Typography textAlign="center" sx={{ color: COLOR_CODE.TEXT_MUTED }} mt={6}>
 						Nhập từ khóa để tìm sản phẩm, dịch vụ, bài viết hoặc thông tin trên INUT Design.
 					</Typography>
 				)}
-
-				{status === "error" && (
+				{visibleStatus === "loading" && (
+					<Typography textAlign="center" sx={{ color: COLOR_CODE.TEXT_MUTED }} mt={6}>
+						Đang tải dữ liệu tìm kiếm...
+					</Typography>
+				)}
+				{visibleStatus === "error" && (
 					<Stack alignItems="center" spacing={2} mt={6}>
 						<Typography textAlign="center" sx={{ color: COLOR_CODE.PRIMARY }}>
-							Không thể tải kết quả tìm kiếm lúc này. Vui lòng thử lại.
+							Không thể tải dữ liệu tìm kiếm lúc này. Vui lòng thử lại.
 						</Typography>
 						<Button
 							variant="outlined"
@@ -280,8 +275,7 @@ const Search: NextPageWithLayout<Props> = ({ query, page, status }) => {
 						</Button>
 					</Stack>
 				)}
-
-				{status === "success" && currentPage && (
+				{visibleStatus === "success" && page && (
 					<>
 						<Stack
 							direction={{ xs: "column", sm: "row" }}
@@ -292,38 +286,28 @@ const Search: NextPageWithLayout<Props> = ({ query, page, status }) => {
 							mb={2}
 						>
 							<Typography variant="h5" component="h2" fontWeight="bold">
-								Kết quả tìm kiếm{query ? ` cho “${query}”` : ""}
+								Kết quả tìm kiếm cho “{query}”
 							</Typography>
-							<Typography sx={{ color: COLOR_CODE.TEXT_MUTED }}>
-								{currentPage.total} kết quả
-							</Typography>
+							<Typography sx={{ color: COLOR_CODE.TEXT_MUTED }}>{page.total} kết quả</Typography>
 						</Stack>
-						{currentPage.total === 0 ? (
+						{page.total === 0 ? (
 							<Typography textAlign="center" sx={{ color: COLOR_CODE.TEXT_MUTED }} mt={6}>
 								Không tìm thấy kết quả phù hợp.
 							</Typography>
 						) : (
 							<Grid container spacing={{ xs: 2, md: 3 }}>
-								{currentPage.items.map((result) => (
+								{page.items.map((result) => (
 									<Grid item xs={12} sm={6} md={4} key={result.url}>
 										<SearchResultCard result={result} />
 									</Grid>
 								))}
-								{currentPage.hasMore && (
+								{page.hasMore && (
 									<Grid item xs={12}>
 										<Stack alignItems="center" py={2} ref={loadMoreRef}>
-											{isLoading && (
+											{isLoadingMore && (
 												<Typography sx={{ color: COLOR_CODE.TEXT_MUTED }}>
 													Đang tải thêm kết quả...
 												</Typography>
-											)}
-											{loadError && (
-												<Button
-													onClick={loadNextPage}
-													sx={{ color: COLOR_CODE.PRIMARY }}
-												>
-													Không tải được. Thử lại
-												</Button>
 											)}
 										</Stack>
 									</Grid>
@@ -338,53 +322,4 @@ const Search: NextPageWithLayout<Props> = ({ query, page, status }) => {
 };
 
 Search.Layout = MainLayout;
-
-export const getServerSideProps: GetServerSideProps<Props> = async ({ query, res }) => {
-	const parsed = parseSearchParams({
-		q: query.q,
-		productType: query.productType,
-		page: query.page,
-		pageSize: query.pageSize,
-	});
-
-	if (parsed.status !== "valid") {
-		res.setHeader("Cache-Control", "private, no-store");
-		return {
-			props: {
-				query: "",
-				page: null,
-				status: "prompt",
-			},
-		};
-	}
-
-	try {
-		const result = await searchSite({
-			q: query.q,
-			productType: query.productType,
-			page: query.page,
-			pageSize: query.pageSize || String(SEARCH_DEFAULT_PAGE_SIZE),
-		});
-		res.setHeader("Cache-Control", "public, s-maxage=86400");
-		return {
-			props: {
-				query: parsed.request.query,
-				page: result,
-				status: "success",
-			},
-		};
-	} catch (error) {
-		console.error("Search source unavailable", error instanceof Error ? error.message : "unknown error");
-		res.statusCode = 503;
-		res.setHeader("Cache-Control", "private, no-store");
-		return {
-			props: {
-				query: parsed.request.query,
-				page: null,
-				status: "error",
-			},
-		};
-	}
-};
-
 export default Search;

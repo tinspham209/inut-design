@@ -138,7 +138,9 @@ const output = {
 	legacyTypeSlugs: corpus.legacyTypeSlugs,
 	documents,
 };
-const outputPath = path.join(root, "artifacts/migration/runtime/static/search-index.json");
-await mkdir(path.dirname(outputPath), { recursive: true });
-await writeFile(outputPath, `${JSON.stringify(output, null, 2)}\n`);
+const outputPath = path.join(root, "public/search-index.json");
+const candidatePath = path.join(root, "artifacts/migration/runtime/static/search-index.json");
+await Promise.all([mkdir(path.dirname(candidatePath), { recursive: true }), mkdir(path.dirname(outputPath), { recursive: true })]);
+const serialized = `${JSON.stringify(output, null, 2)}\n`;
+await Promise.all([writeFile(candidatePath, serialized), writeFile(outputPath, serialized)]);
 console.log(`Generated ${documents.length} public search documents at ${path.relative(root, outputPath)}.`);
