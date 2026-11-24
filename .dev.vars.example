@@ -1,0 +1,21 @@
+# Copy to .dev.vars and fill values locally. Never commit .dev.vars.
+
+# Public/non-secret runtime config
+DEPLOYMENT_CHANNEL=preview
+PREVIEW_SITE_URL=https://your-preview-hostname.workers.dev
+SANITY_PROJECT_ID=
+SANITY_DATASET=
+
+# Server-only Sanity
+SANITY_TOKEN=
+
+# Telegram notifications
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
+CREATIVA_TELEGRAM_BOT_TOKEN=
+
+# SPX scheduler
+SPX_SYNC_SECRET=
+SPX_SYNC_TELEGRAM_BOT_TOKEN=
+SPX_SYNC_TELEGRAM_CHAT_ID=
+SPX_SYNC_FUNCTION_TIMEOUT_MS=30000
