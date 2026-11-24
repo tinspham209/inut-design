@@ -5,6 +5,7 @@ const withBundleAnalyzer = BundleAnalyzer({
 	enabled: process.env.ANALYZE === "true",
 });
 const backgroundRemovalEnabled = process.env.NEXT_PUBLIC_KEYCHAIN_BACKGROUND_REMOVAL_ENABLED === "true";
+const deploymentChannel = process.env.DEPLOYMENT_CHANNEL || "production";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -17,6 +18,19 @@ const nextConfig = {
 	// Headers for bfcache optimization
 	async headers() {
 		return [
+			...(deploymentChannel === "preview"
+				? [
+						{
+							source: "/:path*",
+							headers: [
+								{
+									key: "X-Robots-Tag",
+									value: "noindex, nofollow",
+								},
+							],
+						},
+				  ]
+				: []),
 			{
 				source: "/:path*",
 				headers: [

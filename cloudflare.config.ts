@@ -1,5 +1,8 @@
 import { bindings, defineConfig, defineWorker } from "cf/config";
 
+const deploymentChannel =
+  process.env.DEPLOYMENT_CHANNEL === "preview" ? "preview" : "production";
+
 export default defineConfig({
   worker: defineWorker({
     name: "inutdesign-web",
@@ -13,6 +16,7 @@ export default defineConfig({
     env: {
       ASSETS: bindings.assets(),
       SPX_SYNC_SECRET: bindings.secret(),
+      DEPLOYMENT_CHANNEL: bindings.text(deploymentChannel),
     },
   }),
 });
