@@ -43,21 +43,46 @@ function validateOrigin(req: NextApiRequest): void {
 }
 
 export async function readJsonBody(req: NextApiRequest): Promise<unknown> {
-	const declaredLength = Number(req.headers["content-length"] || 0);
-	if (declaredLength > 65536) throw new CreativaError("PAYLOAD_TOO_LARGE", "Yêu cầu quá lớn.", 413);
+	const rawDeclaredLength = req.headers["content-length"];
+	const declaredLength =
+		typeof rawDeclaredLength === "string" && rawDeclaredLength.length > 0
+			? Number(rawDeclaredLength)
+			: null;
+	if (
+		declaredLength !== null &&
+		(!Number.isSafeInteger(declaredLength) || declaredLength < 0)
+	) {
+		throw new CreativaError("INVALID_CONTENT_LENGTH", "Độ dài yêu cầu không hợp lệ.", 400);
+	}
+	if (declaredLength !== null && declaredLength > 65536)
+		throw new CreativaError("PAYLOAD_TOO_LARGE", "Yêu cầu quá lớn.", 413);
 	if (!req.headers["content-type"]?.toLowerCase().startsWith("application/json")) {
 		throw new CreativaError("INVALID_CONTENT_TYPE", "Yêu cầu phải là JSON.", 415);
 	}
-	const chunks: Buffer[] = [];
+	const chunks: Uint8Array[] = [];
 	let bytes = 0;
 	for await (const chunk of req) {
-		const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
-		bytes += buffer.length;
+		const value =
+			typeof chunk === "string"
+				? new TextEncoder().encode(chunk)
+				: chunk instanceof Uint8Array
+					? chunk
+					: new Uint8Array(chunk as ArrayBuffer);
+		bytes += value.byteLength;
 		if (bytes > 65536) throw new CreativaError("PAYLOAD_TOO_LARGE", "Yêu cầu quá lớn.", 413);
-		chunks.push(buffer);
+		chunks.push(value);
+	}
+	if (declaredLength !== null && declaredLength !== bytes) {
+		throw new CreativaError("INVALID_CONTENT_LENGTH", "Độ dài yêu cầu không khớp nội dung.", 400);
+	}
+	const body = new Uint8Array(bytes);
+	let offset = 0;
+	for (const chunk of chunks) {
+		body.set(chunk, offset);
+		offset += chunk.byteLength;
 	}
 	try {
-		return JSON.parse(Buffer.concat(chunks).toString("utf8")) as unknown;
+		return JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(body)) as unknown;
 	} catch {
 		throw new CreativaError("INVALID_JSON", "JSON không hợp lệ.", 400);
 	}
