@@ -66,7 +66,7 @@ function LighterModel({ textureUrl, transform, modelPath }: LighterModelProps) {
 	// Update CanvasTexture whenever inputs change
 	useEffect(() => {
 		if (!canvasTexture || !scene) return;
-		const canvas = canvasTexture.image;
+		const canvas = canvasTexture.image as HTMLCanvasElement;
 		const ctx = canvas.getContext("2d");
 		if (!ctx) return;
 
@@ -76,7 +76,7 @@ function LighterModel({ textureUrl, transform, modelPath }: LighterModelProps) {
 
 		// 2. Draw image if available
 		if (texture && textureUrl && texture.image) {
-			const img = texture.image;
+			const img = texture.image as HTMLImageElement;
 			ctx.save();
 
 			// Center by default (matching ImagePositionPreview)

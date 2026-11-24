@@ -17,7 +17,9 @@ export function KeychainMesh({ frame, config, frontTexture, backTexture }: Props
 	const opacity = clearAcrylic ? 0.85 : 1;
 	const sideOpacity = clearAcrylic ? opacity * 0.28 : 1;
 	const geometry = useMemo(() => {
-		const cutPath = new SVGLoader().parse(frame.source).paths.find((path) => path.userData?.node?.id === "cut");
+		const cutPath = new SVGLoader()
+			.parse(frame.source)
+			.paths.find((path) => (path.userData?.node as Element | undefined)?.id === "cut");
 		if (!cutPath) throw new Error("SVG không có đường cắt #cut");
 		const parsed = SVGLoader.createShapes(cutPath);
 		const shape = parsed[0] as Shape | undefined;
