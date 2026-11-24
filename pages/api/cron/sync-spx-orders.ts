@@ -37,6 +37,7 @@ import { fetchSpxTracking } from "@/utils/spx/tracking";
 import { formatSpxSyncErrorMessage } from "@/utils/telegram/formatSpxSyncErrorMessage";
 import { TelegramClient, sendWithRetry } from "@/utils/telegram";
 import { validateTelegramCredentials } from "@/utils/telegram/validateTelegramEnv";
+import { getDeploymentChannel } from "@/utils/deployment-channel";
 
 const CRON_JOB_TIMEOUT_MS = 30000;
 const DEFAULT_FUNCTION_TIMEOUT_MS = 30000;
@@ -518,7 +519,7 @@ async function sendFailureAlert(
 
 	const message = formatSpxSyncErrorMessage({
 		runTime,
-		environment: process.env.VERCEL_ENV || process.env.NODE_ENV || "development",
+		environment: getDeploymentChannel(),
 		summary,
 		publishing,
 		failures,
