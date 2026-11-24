@@ -4,6 +4,7 @@ import type { CreativaEnvelope } from "@/models/creativa";
 import { getRequestRateLimitToken } from "@/utils/rateLimit";
 import { CreativaError } from "./contracts";
 import { QuoteChanged } from "./orders.server";
+import { validateBrowserJsonRequest } from "@/utils/server/request-guard";
 
 const counters = new LRUCache<string, { count: number; reset: number }>({ max: 5000, ttl: 60000 });
 type Handler = (req: NextApiRequest, body: unknown) => Promise<unknown>;
@@ -20,26 +21,6 @@ export function scalarQuery(value: string | string[] | undefined, field: string)
 	if (Array.isArray(value))
 		throw new CreativaError("INVALID_QUERY", `Tham số ${field} không hợp lệ.`, 400);
 	return value || "";
-}
-
-function validateOrigin(req: NextApiRequest): void {
-	const origins = new Set<string>();
-	if (process.env.NEXT_PUBLIC_SITE_URL) {
-		try {
-			origins.add(new URL(process.env.NEXT_PUBLIC_SITE_URL).origin);
-		} catch {
-			throw new CreativaError("SERVICE_UNAVAILABLE", "Chưa cấu hình địa chỉ Creativa.", 503);
-		}
-	}
-	if (process.env.NODE_ENV !== "production") {
-		for (const port of [3000, 3001]) {
-			origins.add(`http://localhost:${port}`);
-			origins.add(`http://127.0.0.1:${port}`);
-		}
-	}
-	const origin = req.headers.origin;
-	if (!origin || !origins.has(origin))
-		throw new CreativaError("ORIGIN_REJECTED", "Nguồn yêu cầu không hợp lệ.", 403);
 }
 
 export async function readJsonBody(req: NextApiRequest): Promise<unknown> {
@@ -99,7 +80,20 @@ export function creativaApi(method: "GET" | "POST", kind: Kind, handler: Handler
 				res.setHeader("Allow", method);
 				throw new CreativaError("METHOD_NOT_ALLOWED", "Phương thức không được hỗ trợ.", 405);
 			}
-			if (method === "POST") validateOrigin(req);
+			if (method === "POST") {
+				const requestError = validateBrowserJsonRequest(req);
+				if (requestError) {
+					const code =
+						requestError.status === 403
+							? "ORIGIN_REJECTED"
+							: requestError.status === 413
+								? "PAYLOAD_TOO_LARGE"
+								: requestError.status === 415
+									? "INVALID_CONTENT_TYPE"
+									: "SERVICE_UNAVAILABLE";
+					throw new CreativaError(code, requestError.error, requestError.status);
+				}
+			}
 			const key = `${kind}:${getRequestRateLimitToken(req)}`;
 			const now = Date.now();
 			const bucket = counters.get(key) || { count: 0, reset: now + 60000 };

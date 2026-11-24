@@ -6,6 +6,10 @@ type GuardResult = { status: number; error: string } | null;
 
 function configuredOrigins(): Set<string> {
 	const origins = new Set<string>();
+	const channel = getDeploymentChannel();
+	if (channel === "preview" && !process.env.PREVIEW_SITE_URL) {
+		throw new Error("Preview origin is required");
+	}
 	for (const value of [
 		process.env.NEXT_PUBLIC_SITE_URL || "https://inutdesign.com",
 		process.env.PREVIEW_SITE_URL,
@@ -19,7 +23,7 @@ function configuredOrigins(): Set<string> {
 			throw new Error("Allowed origin configuration is invalid");
 		}
 	}
-	if (getDeploymentChannel() !== "production") {
+	if (channel === "development" || channel === "test") {
 		for (const port of [3000, 3001]) {
 			origins.add(`http://localhost:${port}`);
 			origins.add(`http://127.0.0.1:${port}`);
