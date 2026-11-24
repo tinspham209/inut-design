@@ -32,6 +32,7 @@ import React from "react";
 import "yet-another-react-lightbox/styles.css";
 import ResponsiveCarousel from "@/components/common/ResponsiveCarousel";
 import styles from "./productItem.module.css";
+import { validateStaticSlugs } from "@/server/static-paths";
 
 const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
 
@@ -378,17 +379,10 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 
 export const getStaticPaths = async () => {
 	const products = await productsApi.getAllSlugsMacnut();
-
-	// Only pre-render the first 10 products to speed up the build.
-	// The rest will be generated on-demand via fallback: "blocking".
-	const paths = products
-		.filter((product) => product.slug !== null)
-		.slice(0, 10)
-		.map((product) => ({
-			params: { slug: product.slug.current },
-		}));
-
-	return { paths, fallback: "blocking" };
+	const slugs = validateStaticSlugs(products, "Sanity macnut", {
+		requiredRelations: ["macnutType"],
+	});
+	return { paths: slugs.map((slug) => ({ params: { slug } })), fallback: false };
 };
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params: { slug } }) => {

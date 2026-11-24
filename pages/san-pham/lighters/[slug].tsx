@@ -3,6 +3,7 @@ import { sanityImageUrl } from "@/api-client/sanity-image";
 import { Seo } from "@/components/common";
 import BlockContentWrapper from "@/components/common/block-content";
 import { MainLayout } from "@/components/layout";
+import { validateStaticSlugs } from "@/server/static-paths";
 import ActionButtons from "@/components/lighter-detail/ActionButtons";
 import BreadcrumbsNav from "@/components/lighter-detail/BreadcrumbsNav";
 import DescriptionAccordion from "@/components/lighter-detail/DescriptionAccordion";
@@ -209,17 +210,16 @@ const LighterDetail: NextPageWithLayout = ({
 };
 
 interface LighterSlugDoc {
+	_id?: string;
 	slug: { current: string } | null;
+	lighterType?: { _id?: string } | null;
 }
 export const getStaticPaths: GetStaticPaths = async () => {
 	const lighters: LighterSlugDoc[] = await lightersApi.getAllLighterSlugs();
-	// Only pre-render the first 10 products to speed up the build.
-	// The rest will be generated on-demand via fallback: "blocking".
-	const paths = lighters
-		.filter((lighter): lighter is { slug: { current: string } } => lighter.slug !== null)
-		.slice(0, 10)
-		.map((lighter) => ({ params: { slug: lighter.slug.current } }));
-	return { paths, fallback: "blocking" };
+	const slugs = validateStaticSlugs(lighters, "Sanity lighterProducts", {
+		requiredRelations: ["lighterType"],
+	});
+	return { paths: slugs.map((slug) => ({ params: { slug } })), fallback: false };
 };
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {

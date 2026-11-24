@@ -4,6 +4,7 @@ import { ServiceCard, ServiceCardProps } from "@/components/common/ServiceCard";
 import { MainLayout } from "@/components/layout";
 import { findRouteByPath, mapChildRoutesToCards } from "@/lib/routeMapToCards";
 import { NextPageWithLayout } from "@/models/common";
+import { validateStaticPathSegments } from "@/server/static-paths";
 import { COLOR_CODE } from "@/utils";
 import {
 	Box,
@@ -139,6 +140,10 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	}
 
 	const cards = mapChildRoutesToCards(currentPath);
+	validateStaticPathSegments(
+		cards.map((card) => card.href.split("/").filter(Boolean).slice(1)),
+		"san-pham route tree",
+	);
 
 	return {
 		props: {
