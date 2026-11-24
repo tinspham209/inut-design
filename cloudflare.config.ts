@@ -4,6 +4,7 @@ const deploymentChannel =
   process.env.DEPLOYMENT_CHANNEL === "preview" ? "preview" : "production";
 
 export default defineConfig({
+  accountId: "2b0715e3577db65f2693d4dc58fd3b61",
   worker: defineWorker({
     name: "inutdesign-web",
     entrypoint: "vinext/server/fetch-handler",

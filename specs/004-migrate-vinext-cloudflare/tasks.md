@@ -178,7 +178,7 @@
 
 - [X] T106 [US3] Finalize the environment scope inventory with browser-build, Worker-secret, scheduler, and local-test classifications in `artifacts/migration/operations/env-inventory.json`
 - [X] T107 [US3] Update `.env.example` to remove public credential names, include only approved public values, and document server-only replacement names without values
-- [ ] T108 [US3] Add a pre-preview secret migration and rotation checklist proving the exposed legacy Telegram credential was rotated in `artifacts/migration/operations/secret-rotation.json`
+- [X] T108 [US3] Add a pre-preview secret migration and rotation checklist proving the exposed legacy Telegram credential was rotated in `artifacts/migration/operations/secret-rotation.json`
 - [X] T109 [US3] Add fail-closed server-only secret lookup and variable-name-only diagnostics for Telegram, Sanity, SPX, and internal callers in `utils/env-const.ts` and `server/`
 - [X] T110 [US3] Preserve external scheduler targeting, auth, timeout, idempotency, concurrency, response, and notification behavior for `pages/api/cron/sync-spx-orders.ts`
 - [X] T111 [US3] Add safe SPX duplicate, timeout, concurrent, partial failure, and notification-mock fixtures under `scripts/migration/api-fixtures/spx/`
