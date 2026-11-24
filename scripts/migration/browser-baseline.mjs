@@ -16,6 +16,7 @@ const routes = [
 	"/builder/keychain",
 	"/builder/lighters",
 	"/creativa",
+	"/creativa/skin-laptop/daisy-quilt-macbook-skin",
 	"/creativa/cart",
 	"/creativa/checkout",
 	"/cart/lighters",
@@ -152,6 +153,14 @@ try {
 				"eval",
 				`JSON.stringify({canvases:document.querySelectorAll("canvas").length,images:document.querySelectorAll("img").length,buttons:document.querySelectorAll("button").length,carouselRegions:document.querySelectorAll('[aria-roledescription="carousel"]').length})`,
 			]);
+			const contextLoss = parse(
+				[
+					"eval",
+					`JSON.stringify((()=>{const canvas=document.querySelector("canvas");if(!canvas)return null;const gl=canvas.getContext("webgl2")||canvas.getContext("webgl");const extension=gl?.getExtension("WEBGL_lose_context");if(extension){extension.loseContext();return {supported:true,lost:gl?.isContextLost?.()??true,method:"extension"}}const event=new Event("webglcontextlost",{cancelable:true});const dispatched=canvas.dispatchEvent(event);return {supported:true,lost:dispatched,method:"event"}})())`,
+				],
+				true,
+			);
+			if (contextLoss) browser(["wait", "500"], true);
 			const timing = parse([
 				"eval",
 				`JSON.stringify((()=>{const n=performance.getEntriesByType("navigation")[0];return n?{domContentLoadedMs:Math.round(n.domContentLoadedEventEnd),loadMs:Math.round(n.loadEventEnd),responseStartMs:Math.round(n.responseStart),durationMs:Math.round(n.duration)}:null})())`,
@@ -170,6 +179,7 @@ try {
 				},
 				timing,
 				surface,
+				contextLoss,
 				console: sanitizeConsole(parse(["console"], true)),
 				network,
 				analytics: network.filter((request) => request.analytics),
