@@ -48,8 +48,7 @@ export function HeaderDesktop({ routes = ROUTE_LIST }: HeaderDesktopProps) {
 		isTitle?: boolean;
 		onClick?: () => void;
 	}) => (
-		<Link href={href} passHref>
-			<MuiLink
+		<MuiLink
 				underline="hover"
 				onClick={onClick}
 				sx={{
@@ -75,10 +74,9 @@ export function HeaderDesktop({ routes = ROUTE_LIST }: HeaderDesktopProps) {
 						},
 					}),
 				}}
-			>
+			 component={Link} href={href}>
 				{children}
 			</MuiLink>
-		</Link>
 	);
 
 	const renderDropdown = (item: RouteItem) => {
@@ -285,8 +283,7 @@ export function HeaderDesktop({ routes = ROUTE_LIST }: HeaderDesktopProps) {
 				>
 					<Stack>
 						{item.children.map((child) => (
-							<Link key={child.path} href={child.path} passHref>
-								<MuiLink
+							<MuiLink
 									onClick={() => {
 										trackHeaderNavigation(child.label, item.label, "desktop");
 										setActiveMenu(null);
@@ -302,10 +299,9 @@ export function HeaderDesktop({ routes = ROUTE_LIST }: HeaderDesktopProps) {
 									}}
 									underline="none"
 									className={clsx({ active: isActive(child.path) })}
-								>
+								 component={Link} key={child.path} href={child.path}>
 									{child.label}
 								</MuiLink>
-							</Link>
 						))}
 					</Stack>
 				</Paper>
@@ -338,11 +334,9 @@ export function HeaderDesktop({ routes = ROUTE_LIST }: HeaderDesktopProps) {
 					alignItems={"center"}
 					sx={{ height: 72 }}
 				>
-					<Link href={"/"} passHref>
-						<MuiLink sx={{ display: "flex", flexShrink: 0 }}>
+					<MuiLink sx={{ display: "flex", flexShrink: 0 }} component={Link} href={"/"}>
 							<Image src={"/branding/logo.avif"} alt="logo" width={103} height={32} priority />
 						</MuiLink>
-					</Link>
 
 					<Stack
 						direction="row"
@@ -369,8 +363,7 @@ export function HeaderDesktop({ routes = ROUTE_LIST }: HeaderDesktopProps) {
 										flexShrink: 0,
 									}}
 								>
-									<Link href={route.path} passHref>
-										<MuiLink
+									<MuiLink
 											onClick={() => {
 												trackHeaderNavigation(route.label, "Main Nav", "desktop");
 												setActiveMenu(null);
@@ -405,7 +398,7 @@ export function HeaderDesktop({ routes = ROUTE_LIST }: HeaderDesktopProps) {
 											}}
 											underline="none"
 											className={clsx({ active: isActive(route.path) })}
-										>
+										 component={Link} href={route.path}>
 											{route.label}
 											{route.children && route.children.length > 0 && (
 												<KeyboardArrowDownIcon
@@ -422,7 +415,6 @@ export function HeaderDesktop({ routes = ROUTE_LIST }: HeaderDesktopProps) {
 												/>
 											)}
 										</MuiLink>
-									</Link>
 									{renderDropdown(route)}
 								</Box>
 							);
@@ -432,8 +424,7 @@ export function HeaderDesktop({ routes = ROUTE_LIST }: HeaderDesktopProps) {
 						{routes
 							.filter((r) => r.isButton)
 							.map((route) => (
-								<Link key={route.path} href={route.path} passHref prefetch={route.prefetch}>
-									<Button
+								<Button
 										variant="contained"
 										size="small"
 										onClick={() => {
@@ -447,10 +438,9 @@ export function HeaderDesktop({ routes = ROUTE_LIST }: HeaderDesktopProps) {
 											letterSpacing: "0.06em",
 											flexShrink: 0,
 										}}
-									>
+									 component={Link} key={route.path} href={route.path} prefetch={route.prefetch}>
 										{route.label}
 									</Button>
-								</Link>
 							))}
 					</Stack>
 				</Stack>

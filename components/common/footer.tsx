@@ -93,8 +93,7 @@ export function Footer() {
 						</Typography>
 						<Stack spacing={1.5}>
 							{introLinks.map((link) => (
-								<Link key={link.label} href={link.url} passHref>
-									<MuiLink
+								<MuiLink
 										variant="body2"
 										sx={{
 											color: COLOR_CODE.TEXT_MUTED,
@@ -102,10 +101,9 @@ export function Footer() {
 											"&:hover": { color: COLOR_CODE.PRIMARY },
 											transition: "color 0.2s",
 										}}
-									>
+									 component={Link} key={link.label} href={link.url}>
 										{link.label}
 									</MuiLink>
-								</Link>
 							))}
 						</Stack>
 					</Grid>
@@ -126,8 +124,7 @@ export function Footer() {
 						</Typography>
 						<Stack spacing={1.5}>
 							{policyLinks.map((link) => (
-								<Link key={link.label} href={link.url} passHref>
-									<MuiLink
+								<MuiLink
 										variant="body2"
 										sx={{
 											color: COLOR_CODE.TEXT_MUTED,
@@ -135,10 +132,9 @@ export function Footer() {
 											"&:hover": { color: COLOR_CODE.PRIMARY },
 											transition: "color 0.2s",
 										}}
-									>
+									 component={Link} key={link.label} href={link.url}>
 										{link.label}
 									</MuiLink>
-								</Link>
 							))}
 						</Stack>
 					</Grid>

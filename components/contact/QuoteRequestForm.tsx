@@ -495,11 +495,9 @@ export default function QuoteRequestFormComponent() {
 											label="Model thiết bị"
 											placeholder={"Ví dụ: MacBook Air 13, iPhone 15..."}
 											helperText={
-												<Link passHref href="/blog/huong-dan-xem-doi-may-ten-model-may-tinh-laptop">
-													<MuiLink target="_blank">
+												<MuiLink target="_blank" component={Link} href="/blog/huong-dan-xem-doi-may-ten-model-may-tinh-laptop">
 														Hướng dẫn xem đời máy, tên model máy tính Laptop
 													</MuiLink>
-												</Link>
 											}
 										/>
 									)}

@@ -465,9 +465,8 @@ const ComingSoon: React.FC<ComingSoonProps> = ({
 				</Box>
 
 				{/* BACK BUTTON */}
-				<Link href={backUrl} passHref>
-					<Button
-						component="a"
+				<Button
+						
 						startIcon={<ArrowBackIosNewIcon sx={{ fontSize: "14px !important" }} />}
 						sx={{
 							mt: "16px",
@@ -493,10 +492,9 @@ const ComingSoon: React.FC<ComingSoonProps> = ({
 								marginRight: "8px",
 							},
 						}}
-					>
+					 component={Link} href={backUrl}>
 						{backText}
 					</Button>
-				</Link>
 			</Container>
 		</Box>
 	);

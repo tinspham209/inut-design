@@ -67,8 +67,7 @@ export function HeaderMobile({ routes = ROUTE_LIST }: HeaderMobileProps) {
 			<React.Fragment key={item.path + item.label}>
 				<ListItem disablePadding>
 					<Stack direction="row" alignItems="center" sx={{ width: "100%" }}>
-						<Link href={item.path} passHref prefetch={item.prefetch}>
-							<ListItemButton
+						<ListItemButton
 								onClick={() => {
 									trackHeaderNavigation(item.label, "Main Nav", "mobile");
 									setOpen(false);
@@ -79,7 +78,7 @@ export function HeaderMobile({ routes = ROUTE_LIST }: HeaderMobileProps) {
 									borderRadius: 1,
 								}}
 								selected={isActive(item.path)}
-							>
+							 component={Link} href={item.path} prefetch={item.prefetch}>
 								<ListItemText
 									primary={item.label}
 									primaryTypographyProps={{
@@ -90,7 +89,6 @@ export function HeaderMobile({ routes = ROUTE_LIST }: HeaderMobileProps) {
 									}}
 								/>
 							</ListItemButton>
-						</Link>
 						{hasChildren && (
 							<IconButton
 								size="small"
@@ -147,17 +145,14 @@ export function HeaderMobile({ routes = ROUTE_LIST }: HeaderMobileProps) {
 						>
 							<MenuIcon />
 						</IconButton>
-						<Link href={"/"} passHref>
-							<Box sx={{ display: "flex", cursor: "pointer" }}>
+						<Box sx={{ display: "flex", cursor: "pointer" }} component={Link} href={"/"}>
 								<Image src={"/branding/logo.avif"} alt="logo" width={103} height={32} priority />
 							</Box>
-						</Link>
 					</Stack>
 
 					<Stack direction="row" alignItems="center" spacing={0.5}>
 						<SearchPopover device="mobile" />
-						<Link href={"/contact/form"} passHref prefetch={false}>
-							<Button
+						<Button
 								variant="contained"
 								size="small"
 								sx={{
@@ -166,10 +161,9 @@ export function HeaderMobile({ routes = ROUTE_LIST }: HeaderMobileProps) {
 									textTransform: "uppercase",
 									letterSpacing: "0.06em",
 								}}
-							>
+							 component={Link} href={"/contact/form"} prefetch={false}>
 								Báo giá
 							</Button>
-						</Link>
 					</Stack>
 				</Stack>
 
@@ -203,8 +197,7 @@ export function HeaderMobile({ routes = ROUTE_LIST }: HeaderMobileProps) {
 						{routes
 							.filter((r) => r.isButton)
 							.map((route) => (
-								<Link key={route.path} href={route.path} passHref prefetch={route.prefetch}>
-									<Button
+								<Button
 										fullWidth
 										variant="contained"
 										onClick={toggleDrawer(false)}
@@ -214,10 +207,9 @@ export function HeaderMobile({ routes = ROUTE_LIST }: HeaderMobileProps) {
 											textTransform: "uppercase",
 											letterSpacing: "0.06em",
 										}}
-									>
+									 component={Link} key={route.path} href={route.path} prefetch={route.prefetch}>
 										{route.label}
 									</Button>
-								</Link>
 							))}
 					</Box>
 				</Drawer>

@@ -54,9 +54,8 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 	};
 
 	return (
-		<Link href={href} passHref legacyBehavior>
-			<Card
-				component="a"
+		<Card
+				
 				onClick={handleCardClick}
 				tabIndex={0}
 				aria-label={title}
@@ -97,7 +96,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 						},
 					},
 				}}
-			>
+			 component={Link} href={href}>
 				{/* Image Container with 4:3 Aspect Ratio */}
 				<Box
 					className="card-image-container"
@@ -251,7 +250,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 					</Stack>
 				</Box>
 			</Card>
-		</Link>
 	);
 };
 
