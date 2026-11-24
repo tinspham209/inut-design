@@ -6,6 +6,7 @@ import { CreativaHomepage } from "@/components/creativa/Homepage";
 import type { NextPageWithLayout } from "@/models/common";
 import type { CreativaCatalogPage } from "@/models/creativa";
 import { CreativaError } from "@/utils/creativa/contracts";
+import { validateStaticSlugs } from "@/server/static-paths";
 
 type Props = { catalog: CreativaCatalogPage | null; catalogError: string | null };
 
@@ -34,6 +35,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	const { creativaCatalogApi } = await import("@/api-client/creativa-catalog");
 	try {
 		const catalog = await creativaCatalogApi.getPage();
+		validateStaticSlugs(catalog.items, "Sanity Creativa homepage");
 		return {
 			props: {
 				catalog: { ...catalog, items: catalog.items.slice(0, 4), cursor: null },

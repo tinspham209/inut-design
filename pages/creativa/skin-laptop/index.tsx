@@ -21,6 +21,7 @@ import { useCreativaCatalog } from "@/hooks/creativa/useCatalog";
 import type { CreativaCatalogPage } from "@/models/creativa";
 import type { NextPageWithLayout } from "@/models/common";
 import { CreativaError } from "@/utils/creativa/contracts";
+import { validateStaticSlugs } from "@/server/static-paths";
 
 const SkinCatalog: NextPageWithLayout<{
 	initial: CreativaCatalogPage | null;
@@ -120,8 +121,10 @@ SkinCatalog.Layout = CreativaLayout;
 export const getStaticProps: GetStaticProps = async () => {
 	const { creativaCatalogApi } = await import("@/api-client/creativa-catalog");
 	try {
+		const initial = await creativaCatalogApi.getPage();
+		validateStaticSlugs(initial.items, "Sanity Creativa catalog");
 		return {
-			props: { initial: await creativaCatalogApi.getPage(), initialError: null },
+			props: { initial, initialError: null },
 		};
 	} catch (failure) {
 		console.error("[Creativa catalog] Rendering unavailable state.", {

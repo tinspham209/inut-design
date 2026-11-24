@@ -1,4 +1,5 @@
 import { getHomepageContent } from "@/api-client/homepage";
+import { validateStaticSlugs } from "@/server/static-paths";
 import { sanityImageUrl } from "@/api-client/sanity-image";
 import { Seo } from "@/components/common";
 import { ROUTE_LIST, RouteItem } from "@/components/common/header/routes";
@@ -155,6 +156,15 @@ type Props = {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
 	const [blogs, homepageContent] = await Promise.all([getPostListLimit(3), getHomepageContent()]);
+	validateStaticSlugs(homepageContent.products, "homepage products", {
+		requiredRelations: ["productType"],
+	});
+	validateStaticSlugs(homepageContent.macnuts, "homepage macnut", {
+		requiredRelations: ["macnutType"],
+	});
+	validateStaticSlugs(homepageContent.lighters, "homepage lighters", {
+		requiredRelations: ["lighterType"],
+	});
 
 	return {
 		props: {

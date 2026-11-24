@@ -43,6 +43,7 @@ import BlockContentWrapper from "@/components/common/block-content";
 import { creativaDescriptionText } from "@/utils/creativa/content";
 import { creativaProductSchema } from "@/utils/creativa/forms";
 import ResponsiveCarousel from "@/components/common/ResponsiveCarousel";
+import { validateStaticSlugs } from "@/server/static-paths";
 
 const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
 type Props = { product: CreativaProduct; options: CreativaOptions };
@@ -590,7 +591,18 @@ const ProductDetail: NextPageWithLayout<Props | UnavailableProps> = (props) =>
 		<ProductContent key={props.product._id} {...props} />
 	);
 ProductDetail.Layout = CreativaLayout;
-export const getStaticPaths: GetStaticPaths = async () => ({ paths: [], fallback: "blocking" });
+export const getStaticPaths: GetStaticPaths = async () => {
+	const { getCreativaCatalog } = await import("@/api-client/creativa-catalog");
+	const products = [];
+	let cursor: string | undefined;
+	do {
+		const page = await getCreativaCatalog("", cursor);
+		products.push(...page.items);
+		cursor = page.cursor ?? undefined;
+	} while (cursor);
+	const slugs = validateStaticSlugs(products, "Sanity Creativa products");
+	return { paths: slugs.map((slug) => ({ params: { slug } })), fallback: false };
+};
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const slug = typeof params?.slug === "string" ? params.slug : "";
 	const { getCreativaProduct } = await import("@/api-client/creativa-catalog");

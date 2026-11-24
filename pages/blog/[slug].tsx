@@ -13,6 +13,7 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 import Link from "next/link";
 import Script from "next/script";
 import React from "react";
+import { validateStaticSlugs } from "@/server/static-paths";
 
 export interface BlogPageProps {
 	post: Post;
@@ -85,11 +86,11 @@ export default function BlogDetailPage({ post }: BlogPageProps) {
 BlogDetailPage.Layout = MainLayout;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const slugs = await getAllPostSlugs();
+	const slugs = validateStaticSlugs(await getAllPostSlugs(), "blog Markdown frontmatter");
 
 	return {
 		paths: slugs.map((slug) => ({ params: { slug } })),
-		fallback: "blocking",
+		fallback: false,
 	};
 };
 

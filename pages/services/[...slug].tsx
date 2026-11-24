@@ -11,6 +11,7 @@ import React from "react";
 import { Seo } from "@/components/common";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ROUTE_LIST, RouteItem } from "@/components/common/header/routes";
+import { validateStaticPathSegments } from "@/server/static-paths";
 
 interface Props {
 	currentPath: string;
@@ -124,7 +125,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 	extractPaths(ROUTE_LIST);
 
 	return {
-		paths,
+		paths: validateStaticPathSegments(
+			paths.map((entry) => entry.params.slug),
+			"services route tree",
+		).map((slug) => ({ params: { slug } })),
 		fallback: false, // Or 'blocking' if you expect more routes to be added dynamically
 	};
 };
