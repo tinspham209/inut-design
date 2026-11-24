@@ -1,8 +1,9 @@
 import sanityClient from "@sanity/client";
 import fs from "fs/promises";
 import path from "path";
+import { fileURLToPath } from "url";
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SANITY_DIR = path.resolve(__dirname, "..");
 const ENV_PATH = path.join(SANITY_DIR, ".env");
 const SANITY_JSON_PATH = path.join(SANITY_DIR, "sanity.json");
