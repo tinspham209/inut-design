@@ -11,7 +11,7 @@ import { getPostListSummary } from "@/utils";
 import { trackEvent } from "@/utils/analytics";
 import { Box, Breadcrumbs, Container, Divider, Link as MuiLink, Typography } from "@mui/material";
 import Link from "next/link";
-import { GetStaticProps } from "next/types";
+import { GetStaticProps } from "next";
 import dynamic from "next/dynamic";
 const CountUp = dynamic(() => import("react-countup"), { ssr: false });
 
