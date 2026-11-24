@@ -1,6 +1,8 @@
 export type DeploymentChannel = "development" | "preview" | "production" | "test";
 
-type DeploymentEnvironment = Pick<NodeJS.ProcessEnv, "DEPLOYMENT_CHANNEL" | "NODE_ENV">;
+type DeploymentEnvironment = Partial<
+	Pick<NodeJS.ProcessEnv, "DEPLOYMENT_CHANNEL" | "NODE_ENV">
+>;
 
 export function getDeploymentChannel(
 	environment: DeploymentEnvironment = process.env
