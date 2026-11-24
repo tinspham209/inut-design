@@ -10,10 +10,8 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import { COLOR_CODE } from "@/utils";
-
-const Carousel = dynamic(() => import("react-material-ui-carousel"), { ssr: false });
+import ResponsiveCarousel from "@/components/common/ResponsiveCarousel";
 
 interface RelatedProduct {
 	_id: string;
@@ -54,7 +52,7 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ products }) => {
 				Có thể bạn sẽ thích
 			</Typography>
 			<Box sx={{ maxWidth: "100%", overflow: "hidden", px: { xs: 2, md: 4 }, py: 4 }}>
-				<Carousel
+				<ResponsiveCarousel
 					autoPlay
 					animation="slide"
 					indicators={chunkedProducts.length > 1}
@@ -124,7 +122,7 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ products }) => {
 							))}
 						</Grid>
 					))}
-				</Carousel>
+				</ResponsiveCarousel>
 			</Box>
 			<Divider />
 		</Box>

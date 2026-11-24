@@ -30,9 +30,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import "yet-another-react-lightbox/styles.css";
+import ResponsiveCarousel from "@/components/common/ResponsiveCarousel";
 import styles from "./productItem.module.css";
 
-const Carousel = dynamic(() => import("react-material-ui-carousel"), { ssr: false });
 const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
 
 type Props = {
@@ -154,7 +154,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 						pt={2}
 					>
 						<Grid item xs={12} md={6}>
-							<Carousel
+							<ResponsiveCarousel
 								autoPlay
 								indicators={true}
 								navButtonsAlwaysVisible={true}
@@ -185,7 +185,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 										/>
 									</Box>
 								))}
-							</Carousel>
+							</ResponsiveCarousel>
 							{/* Thumbnails */}
 							<Box sx={{ display: "flex", gap: 1, mt: 2, overflowX: "auto", pb: 1 }}>
 								{product.image.map((thumbnail, idx) => (
@@ -307,7 +307,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 					Có thể bạn sẽ thích
 				</Typography>
 				<Box sx={{ maxWidth: "100%", overflow: "hidden", px: { xs: 2, md: 4 }, py: 4 }}>
-					<Carousel
+					<ResponsiveCarousel
 						autoPlay
 						animation="slide"
 						indicators={chunkedProducts.length > 1}
@@ -378,7 +378,7 @@ const ProductDetail = ({ product, products, staticContent }: Props) => {
 								))}
 							</Grid>
 						))}
-					</Carousel>
+					</ResponsiveCarousel>
 				</Box>
 				<Divider />
 			</Box>

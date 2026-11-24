@@ -42,8 +42,8 @@ import { SITE_URL } from "@/utils/siteUrl";
 import BlockContentWrapper from "@/components/common/block-content";
 import { creativaDescriptionText } from "@/utils/creativa/content";
 import { creativaProductSchema } from "@/utils/creativa/forms";
+import ResponsiveCarousel from "@/components/common/ResponsiveCarousel";
 
-const Carousel = dynamic(() => import("react-material-ui-carousel"), { ssr: false });
 const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
 type Props = { product: CreativaProduct; options: CreativaOptions };
 type UnavailableProps = { slug: string; initialError: string };
@@ -164,7 +164,7 @@ function ProductContent(initial: Props) {
 				/>
 				<Grid container spacing={{ xs: 2, md: 3 }}>
 					<Grid item xs={12} md={7}>
-						<Carousel
+						<ResponsiveCarousel
 							autoPlay={false}
 							indicators
 							navButtonsAlwaysVisible
@@ -202,7 +202,7 @@ function ProductContent(initial: Props) {
 									<GalleryImage image={image} priority={imageIndex === 0} />
 								</Box>
 							))}
-						</Carousel>
+						</ResponsiveCarousel>
 						<Stack direction="row" gap={1} sx={{ overflowX: "auto", mt: 1 }}>
 							{product.images.map((image, imageIndex) => (
 								<Box

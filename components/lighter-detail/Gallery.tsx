@@ -3,8 +3,8 @@ import { Box } from "@mui/material";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Portal } from "../common/Portal";
+import ResponsiveCarousel from "@/components/common/ResponsiveCarousel";
 
-const Carousel = dynamic(() => import("react-material-ui-carousel"), { ssr: false });
 const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
 import "yet-another-react-lightbox/styles.css";
 
@@ -26,7 +26,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
 
 	return (
 		<Box>
-			<Carousel
+			<ResponsiveCarousel
 				autoPlay
 				indicators={true}
 				navButtonsAlwaysVisible={true}
@@ -65,7 +65,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
 						/>
 					</Box>
 				))}
-			</Carousel>
+			</ResponsiveCarousel>
 			{/* Thumbnails */}
 			<Box sx={{ display: "flex", gap: 1, mt: 2, overflowX: "auto", pb: 1 }}>
 				{images.map((img, idx) => (
