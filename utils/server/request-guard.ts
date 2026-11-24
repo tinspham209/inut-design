@@ -1,6 +1,7 @@
 import type { NextApiRequest } from "next";
 import { getDeploymentChannel } from "@/utils/deployment-channel";
 import { getRequestRateLimitToken } from "@/utils/rateLimit";
+import { SITE_URL } from "@/utils/siteUrl";
 
 type GuardResult = { status: number; error: string } | null;
 
@@ -11,7 +12,7 @@ function configuredOrigins(): Set<string> {
 		throw new Error("Preview origin is required");
 	}
 	for (const value of [
-		process.env.NEXT_PUBLIC_SITE_URL || "https://inutdesign.com",
+		SITE_URL,
 		process.env.PREVIEW_SITE_URL,
 		...(process.env.NEXT_PUBLIC_ALLOWED_ORIGINS?.split(",") ?? []),
 	]) {

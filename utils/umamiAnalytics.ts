@@ -6,6 +6,7 @@
  */
 
 import envConst from "./env-const";
+import { getUmamiRuntimeConfig } from "./public-env";
 
 type UmamiTrackFunction = (
 	eventName?: string | object | ((props: any) => any),
@@ -24,10 +25,15 @@ declare global {
 
 // Helper to check if Umami is available
 const isUmamiAvailable = (): boolean => {
+	const config = getUmamiRuntimeConfig(
+		envConst.ENABLE_UMAMI,
+		envConst.UMAMI_WEBSITE_ID,
+		envConst.UMAMI_HOST_URL,
+	);
 	return (
 		typeof window !== "undefined" &&
 		typeof window.umami !== "undefined" &&
-		envConst.ENABLE_UMAMI === "true"
+		config.configured
 	);
 };
 

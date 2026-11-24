@@ -2,6 +2,7 @@
 import { secureRandomUuid } from "@/utils/worker-crypto";
 import { creativaServerClient } from "@/api-client/creativa-server";
 import { CreativaError, validCreativaPrintPath } from "./contracts";
+import { SITE_URL } from "@/utils/siteUrl";
 import {
 	conflict,
 	NotificationPart,
@@ -142,7 +143,7 @@ function notificationText(order: StoredOrder): string {
 	const sanityStudioUrl = `https://inut-design.sanity.studio/desk/creativaOrder;${encodeURIComponent(
 		order._id
 	)}`;
-	const orderTrackingUrl = `https://inutdesign.com/creativa/order-tracking/${encodeURIComponent(
+	const orderTrackingUrl = `${SITE_URL}/creativa/order-tracking/${encodeURIComponent(
 		order.publicId
 	)}`;
 

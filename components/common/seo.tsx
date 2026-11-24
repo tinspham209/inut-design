@@ -1,4 +1,4 @@
-import { SITE_URL } from "@/utils/siteUrl";
+import { DEFAULT_SITE_URL, SITE_URL, resolveSiteUrl } from "@/utils/siteUrl";
 import Head from "next/head";
 import * as React from "react";
 
@@ -30,6 +30,8 @@ export function Seo({ data }: SeoProps) {
 		canonical,
 		siteName = "INUT Design",
 	} = data;
+	const resolvedUrl = resolveSiteUrl(url);
+	const resolvedCanonical = canonical ? resolveSiteUrl(canonical) : resolvedUrl;
 
 	const breadcrumbStructuredData = React.useMemo(() => {
 		if (!breadcrumbs || breadcrumbs.length === 0) return null;
@@ -51,8 +53,7 @@ export function Seo({ data }: SeoProps) {
 			<link rel="icon" href="/static/favicon.ico" />
 			<link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" />
 
-			{canonical && <link rel="canonical" href={canonical} />}
-			{!canonical && <link rel="canonical" href={url} />}
+			<link rel="canonical" href={resolvedCanonical} />
 
 			<meta name="title" content={title} />
 			<meta name="description" content={description} />
@@ -62,14 +63,14 @@ export function Seo({ data }: SeoProps) {
 			<meta property="og:type" content="website" />
 			<meta property="og:locale" content="vi_VN" />
 			<meta property="og:site_name" content={siteName} />
-			<meta property="og:url" content={url} />
+			<meta property="og:url" content={resolvedUrl} />
 			<meta property="og:title" content={title} />
 			<meta property="og:description" content={description} />
 			<meta property="og:image" content={thumbnailUrl} />
 			<meta property="og:image:alt" content={title} />
 
 			<meta property="twitter:card" content="summary_large_image" />
-			<meta property="twitter:url" content={url} />
+			<meta property="twitter:url" content={resolvedUrl} />
 			<meta property="twitter:title" content={title} />
 			<meta property="twitter:description" content={description} />
 			<meta property="twitter:image" content={thumbnailUrl} />
@@ -80,7 +81,7 @@ export function Seo({ data }: SeoProps) {
 					dangerouslySetInnerHTML={{
 						__html:
 							typeof productStructuredData === "string"
-								? productStructuredData
+								? productStructuredData.replaceAll(DEFAULT_SITE_URL, SITE_URL)
 								: JSON.stringify(productStructuredData),
 					}}
 				/>

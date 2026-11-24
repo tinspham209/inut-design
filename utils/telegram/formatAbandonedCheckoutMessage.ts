@@ -1,4 +1,5 @@
 import { SendAbandonedCheckoutNotificationRequest } from "./telegram.types";
+import { resolveSiteUrl, SITE_URL } from "@/utils/siteUrl";
 
 const VIETNAM_TIMEZONE = "Asia/Ho_Chi_Minh";
 
@@ -33,8 +34,8 @@ export function formatAbandonedCheckoutMessage(
 		.join("\n");
 
 	const checkoutUrl = abandonedData.pagePath
-		? `https://inutdesign.com${abandonedData.pagePath}`
-		: "https://inutdesign.com/checkout/lighters";
+		? resolveSiteUrl(abandonedData.pagePath)
+		: `${SITE_URL}/checkout/lighters`;
 
 	return `
 ⚠️ <b>CHECKOUT BỊ BỎ DỞ</b>

@@ -1,3 +1,5 @@
+import { SITE_URL } from "@/utils/siteUrl";
+
 export function isCreativaPath(path: string): boolean {
 	return /^\/creativa(?:\/|$)/.test(path.split("?")[0]);
 }
@@ -8,7 +10,7 @@ export const CREATIVA_PRIVATE_PROPERTY =
 export function safeCreativaUrl(input: string): string {
 	if (!input) return input;
 	try {
-		const url = new URL(input, "https://inutdesign.com");
+		const url = new URL(input, SITE_URL);
 		const creator =
 			/^\/(?:api\/)?creativa(?:\/|$)/.test(url.pathname) ||
 			/^\/_next\/data\/[^/]+\/creativa(?:\/|$)/.test(url.pathname);

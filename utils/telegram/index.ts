@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { type AxiosError } from "axios";
 import type { SendOrderNotificationRequest } from "./telegram.types";
+import { SITE_URL } from "@/utils/siteUrl";
 
 const VIETNAM_TIMEZONE = "Asia/Ho_Chi_Minh";
 
@@ -270,7 +271,7 @@ export function formatOrderMessage(order: SendOrderNotificationRequest["orderDat
 	if (orderId) {
 		sanityStudioUrl += `;${orderId}`;
 	}
-	const orderTrackingUrl = `https://inutdesign.com/order-tracking/lighters/${encodeURIComponent(
+	const orderTrackingUrl = `${SITE_URL}/order-tracking/lighters/${encodeURIComponent(
 		order.orderNumber
 	)}`;
 	const message = `

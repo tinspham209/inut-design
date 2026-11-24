@@ -1,5 +1,6 @@
 import type { CreativaDescription } from "@/models/creativa";
 import { CreativaError, isRecord, validCreativaImageRef } from "./contracts";
+import { SITE_URL } from "@/utils/siteUrl";
 
 function invalidDescription(): never {
 	throw new CreativaError("CONFIGURATION_ERROR", "Mô tả sản phẩm Creativa không hợp lệ.", 503);
@@ -51,7 +52,7 @@ export function parseCreativaDescription(value: unknown): CreativaDescription | 
 				return invalidDescription();
 			let url: URL;
 			try {
-				url = new URL(mark.href, "https://inutdesign.com");
+				url = new URL(mark.href, SITE_URL);
 			} catch {
 				return invalidDescription();
 			}

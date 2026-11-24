@@ -14,6 +14,12 @@ const nextConfig = {
 		domains: ["res.cloudinary.com", "cdn.sanity.io", "*.fna.fbcdn.net"],
 		unoptimized: true,
 	},
+	env: {
+		NEXT_PUBLIC_ENABLE_ZALO_PHONE_CHECK:
+			process.env.NEXT_PUBLIC_ENABLE_ZALO_PHONE_CHECK ||
+			process.env.ENABLE_ZALO_PHONE_CHECK ||
+			"true",
+	},
 	// Headers for bfcache optimization
 	async headers() {
 		return [

@@ -1,5 +1,8 @@
 /** @type {import('next-sitemap').IConfig} */
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://inutdesign.com";
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://inutdesign.com").replace(
+	/\/+$/,
+	""
+);
 const migrationExcludedRoutes = [
 	"/search",
 	"/creativa/cart",
