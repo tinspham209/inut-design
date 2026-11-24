@@ -75,12 +75,7 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ products }) => {
 						<Grid container spacing={2} key={chunkIdx} justifyContent="center">
 							{chunk.map((product) => (
 								<Grid item xs={12} sm={4} md={2.4} key={product._id}>
-									<Link
-										href={`/san-pham/lighters/${product.slug.current}`}
-										passHref
-										style={{ textDecoration: "none" }}
-									>
-										<MuiLink sx={{ textDecoration: "none", display: "block" }}>
+									<MuiLink sx={{ textDecoration: "none", display: "block" }} component={Link} href={`/san-pham/lighters/${product.slug.current}`} style={{ textDecoration: "none" }}>
 											<Box
 												sx={{
 													position: "relative",
@@ -118,7 +113,6 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ products }) => {
 												{product.name}
 											</Typography>
 										</MuiLink>
-									</Link>
 								</Grid>
 							))}
 						</Grid>

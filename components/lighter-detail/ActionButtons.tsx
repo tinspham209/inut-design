@@ -47,18 +47,16 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ lighter, lighterType, qua
 					Chat Messenger
 				</Button>
 			</MuiLink>
-			<Link href="/contact" passHref>
-				<MuiLink
+			<MuiLink
 					sx={{
 						display: "flex",
 						flexBasis: "calc(50% - 8px)",
 					}}
-				>
+				 component={Link} href="/contact">
 					<Button fullWidth variant="outlined" color="primary" size="medium">
 						Liên hệ tư vấn
 					</Button>
 				</MuiLink>
-			</Link>
 		</Stack>
 	</Stack>
 );

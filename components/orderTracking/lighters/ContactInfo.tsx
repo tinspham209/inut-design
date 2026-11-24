@@ -6,9 +6,7 @@ const ContactInfo: React.FC = () => (
 	<Box sx={{ mt: 4, textAlign: "center" }}>
 		<Typography variant="body2" color="text.secondary" gutterBottom>
 			Cần hỗ trợ?{" "}
-			<Link href="/contact" passHref>
-				<MuiLink>Liên hệ với chúng tôi</MuiLink>
-			</Link>
+			<MuiLink component={Link} href="/contact">Liên hệ với chúng tôi</MuiLink>
 		</Typography>
 		<Stack
 			direction={{ xs: "column", sm: "row" }}

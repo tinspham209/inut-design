@@ -7,8 +7,7 @@ import { COLOR_CODE } from "@/utils/theme";
 
 export const SkinLaptopCustomizeCard: React.FC = () => {
 	return (
-		<Link href="/creativa/skin-laptop" passHref>
-			<MuiLink sx={{ textDecoration: "none" }}>
+		<MuiLink sx={{ textDecoration: "none" }} component={Link} href="/creativa/skin-laptop">
 				<Card
 					sx={{
 						transition: "border-color 200ms, transform 200ms cubic-bezier(0.16,1,0.3,1)",
@@ -99,6 +98,5 @@ export const SkinLaptopCustomizeCard: React.FC = () => {
 					</CardContent>
 				</Card>
 			</MuiLink>
-		</Link>
 	);
 };

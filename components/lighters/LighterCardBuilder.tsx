@@ -15,8 +15,7 @@ const LighterCardBuilder: React.FC = () => {
 	};
 
 	return (
-		<Link href="/builder/lighters" passHref>
-			<MuiLink sx={{ textDecoration: "none" }} onClick={handleTrackClick}>
+		<MuiLink sx={{ textDecoration: "none" }} onClick={handleTrackClick} component={Link} href="/builder/lighters">
 				<Card
 					sx={{
 						transition: "border-color 200ms, transform 200ms cubic-bezier(0.16,1,0.3,1)",
@@ -123,7 +122,6 @@ const LighterCardBuilder: React.FC = () => {
 					</CardContent>
 				</Card>
 			</MuiLink>
-		</Link>
 	);
 };
 

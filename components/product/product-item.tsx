@@ -72,15 +72,11 @@ export function ProductItem({ product, productTypes, isMacnut = false }: Product
 					flexDirection: "column",
 				}}
 			>
-				<Link
-					href={
+				<MuiLink sx={{ textDecoration: "none" }} onClick={() => handleProductClick()} component={Link} href={
 						isMacnut
 							? `/san-pham/skin-nut-phim/${product.slug.current}`
 							: `/san-pham/skin-laptop/${product.slug.current}`
-					}
-					passHref
-				>
-					<MuiLink sx={{ textDecoration: "none" }} onClick={() => handleProductClick()}>
+					}>
 						<Box>
 							<Box
 								sx={{
@@ -143,7 +139,6 @@ export function ProductItem({ product, productTypes, isMacnut = false }: Product
 							justifyContent="space-between"
 						></Stack>
 					</MuiLink>
-				</Link>
 			</CardContent>
 		</Card>
 	);

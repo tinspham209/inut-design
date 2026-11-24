@@ -130,8 +130,7 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, href }
 					flexDirection: "column",
 				}}
 			>
-				<Link href={href || `/san-pham/lighters/${lighter.slug.current}`} passHref>
-					<MuiLink
+				<MuiLink
 						sx={{ textDecoration: "none" }}
 						onClick={() =>
 							trackSelectProduct(
@@ -145,7 +144,7 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, href }
 								0
 							)
 						}
-					>
+					 component={Link} href={href || `/san-pham/lighters/${lighter.slug.current}`}>
 						<Box>
 							<Box
 								sx={{
@@ -200,7 +199,6 @@ const LighterCard: React.FC<LighterCardProps> = ({ lighter, lighterTypes, href }
 							</Box>
 						</Box>
 					</MuiLink>
-				</Link>
 
 				{/* Add to Cart Button - Below Content */}
 				<Stack

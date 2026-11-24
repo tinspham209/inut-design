@@ -15,8 +15,7 @@ const LighterCardCustomize: React.FC = () => {
 	};
 
 	return (
-		<Link href="/services/ca-nhan-hoa/skin-bat-lua-customize" passHref>
-			<MuiLink sx={{ textDecoration: "none" }} onClick={handleTrackClick}>
+		<MuiLink sx={{ textDecoration: "none" }} onClick={handleTrackClick} component={Link} href="/services/ca-nhan-hoa/skin-bat-lua-customize">
 				<Card
 					sx={{
 						transition: "border-color 200ms, transform 200ms cubic-bezier(0.16,1,0.3,1)",
@@ -106,7 +105,6 @@ const LighterCardCustomize: React.FC = () => {
 					</CardContent>
 				</Card>
 			</MuiLink>
-		</Link>
 	);
 };
 

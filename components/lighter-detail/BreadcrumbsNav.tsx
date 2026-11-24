@@ -17,16 +17,12 @@ const BreadcrumbsNav: React.FC<BreadcrumbsNavProps> = ({ lighterName, lighterSlu
 			"& li": { color: COLOR_CODE.TEXT_SOFT },
 		}}
 	>
-		<Link href="/" passHref>
-			<MuiLink sx={{ color: COLOR_CODE.TEXT_SOFT, "&:hover": { color: COLOR_CODE.WHITE } }}>
+		<MuiLink sx={{ color: COLOR_CODE.TEXT_SOFT, "&:hover": { color: COLOR_CODE.WHITE } }} component={Link} href="/">
 				Trang chủ
 			</MuiLink>
-		</Link>
-		<Link href={`/san-pham/lighters#${lighterSlug}`} passHref>
-			<MuiLink sx={{ color: COLOR_CODE.TEXT_SOFT, "&:hover": { color: COLOR_CODE.WHITE } }}>
+		<MuiLink sx={{ color: COLOR_CODE.TEXT_SOFT, "&:hover": { color: COLOR_CODE.WHITE } }} component={Link} href={`/san-pham/lighters#${lighterSlug}`}>
 				Lighters
 			</MuiLink>
-		</Link>
 		<Typography sx={{ color: COLOR_CODE.TEXT_MUTED }}>{lighterName}</Typography>
 	</Breadcrumbs>
 );
