@@ -1,5 +1,6 @@
 const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
 const MAX_IMAGE_DIMENSION = 2048;
+const MAX_SOURCE_PIXELS = 40_000_000;
 const ALLOWED_IMAGE_TYPES = new Set([
 	"image/png",
 	"image/jpeg",
@@ -42,24 +43,38 @@ export async function prepareSanityImageUpload(file: File | Blob): Promise<Blob>
 	}
 
 	const image = await loadImage(file);
+	if (image.width * image.height > MAX_SOURCE_PIXELS) {
+		throw new Error("Ảnh thiết kế có độ phân giải quá lớn.");
+	}
 	const scale = Math.min(1, MAX_IMAGE_DIMENSION / Math.max(image.width, image.height));
 	const width = Math.max(1, Math.round(image.width * scale));
 	const height = Math.max(1, Math.round(image.height * scale));
 	const canvas = document.createElement("canvas");
 	canvas.width = width;
 	canvas.height = height;
-	canvas.getContext("2d")?.drawImage(image, 0, 0, width, height);
+	const context = canvas.getContext("2d");
+	if (!context) throw new Error("Trình duyệt không hỗ trợ xử lý ảnh thiết kế.");
+	context.drawImage(image, 0, 0, width, height);
 
 	const compressed = await new Promise<Blob | null>((resolve) =>
 		canvas.toBlob(resolve, "image/webp", 0.85)
 	);
-	return compressed || file;
+	if (!compressed || compressed.type !== "image/webp") {
+		throw new Error("Trình duyệt không thể mã hóa ảnh WebP.");
+	}
+	if (compressed.size > MAX_UPLOAD_BYTES) {
+		throw new Error("Ảnh sau khi xử lý vượt quá 10MB.");
+	}
+	return compressed;
 }
 
 export async function uploadImageToSanity(
 	file: File | Blob
 ): Promise<{ _type: string; asset: { _ref: string; _type: string } }> {
 	const prepared = await prepareSanityImageUpload(file);
+	if (prepared.size > MAX_UPLOAD_BYTES) {
+		throw new Error("Ảnh sau khi xử lý vượt quá 10MB.");
+	}
 	const data = new Uint8Array(await prepared.arrayBuffer());
 	let binary = "";
 	const chunkSize = 0x8000;

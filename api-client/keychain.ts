@@ -28,6 +28,7 @@ export async function uploadKeychainImage(file: File): Promise<KeychainUploadRes
 	if (!/^image\/(png|jpeg|webp)$/.test(file.type)) throw new Error("Chỉ hỗ trợ ảnh PNG, JPEG và WebP.");
 	if (file.size > 10 * 1024 * 1024) throw new Error("Ảnh không được vượt quá 10 MB.");
 	const prepared = await prepareSanityImageUpload(file);
+	if (prepared.size > 10 * 1024 * 1024) throw new Error("Ảnh sau khi xử lý vượt quá 10 MB.");
 	const data = new Uint8Array(await prepared.arrayBuffer());
 	let binary = "";
 	for (let offset = 0; offset < data.length; offset += 0x8000) binary += String.fromCharCode(...data.subarray(offset, offset + 0x8000));
