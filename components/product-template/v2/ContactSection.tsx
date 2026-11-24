@@ -120,9 +120,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 										alt={`${contact.name} contact`}
 										width={1000}
 										height={250}
-										layout="responsive"
-										objectFit="cover"
 										unoptimized
+										style={{ width: "100%", height: "auto", objectFit: "cover" }}
 									/>
 								</Link>
 							</Grid>

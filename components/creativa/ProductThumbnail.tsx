@@ -27,8 +27,9 @@ function Thumbnail({ image, name }: { image?: CreativaImage; name: string }) {
 				<Image
 					src={sanityImageUrl(image, "tiny")}
 					alt={image.alt || name}
-					layout="fill"
-					objectFit="contain"
+					fill
+					sizes="(min-width: 900px) 25vw, 50vw"
+					style={{ objectFit: "contain" }}
 					onError={() => setFailed(true)}
 				/>
 			) : (

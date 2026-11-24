@@ -63,9 +63,9 @@ export function CreativaDesignCard({
 						<Image
 							src={sanityImageUrl(image, "card")}
 							alt={image.alt || product.name}
-							layout="fill"
-							objectFit="contain"
+							fill
 							sizes="(min-width: 1200px) 25vw, (min-width: 900px) 33vw, 50vw"
+							style={{ objectFit: "contain" }}
 							onError={() => setFailed(true)}
 						/>
 					) : (

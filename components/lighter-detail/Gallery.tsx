@@ -52,7 +52,8 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
 					>
 						<Image
 							src={img.url}
-							layout="fill"
+							fill
+							sizes="(min-width: 900px) 50vw, 100vw"
 							priority={idx === 0}
 							unoptimized
 							alt={img.alt}

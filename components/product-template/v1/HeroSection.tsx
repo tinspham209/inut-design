@@ -121,8 +121,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 							<Image
 								src={image}
 								alt={title}
-								layout="fill"
-								objectFit="cover"
+								fill
+								sizes="(min-width: 900px) 50vw, 100vw"
+								style={{ objectFit: "cover" }}
 								unoptimized
 								priority={true}
 							/>

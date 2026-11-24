@@ -153,7 +153,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 						}}
 					>
 						<Box sx={{ position: "relative", pt: "56.25%" /* 16:9 */ }}>
-							<Image src={image} alt={title} layout="fill" objectFit="cover" unoptimized />
+							<Image
+								src={image}
+								alt={title}
+								fill
+								sizes="(min-width: 900px) 80vw, 100vw"
+								style={{ objectFit: "cover" }}
+								unoptimized
+							/>
 						</Box>
 					</Box>
 				</Stack>

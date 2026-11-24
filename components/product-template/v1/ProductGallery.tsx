@@ -97,11 +97,12 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
 								<Image
 									src={image}
 									alt={`Product sample ${index + 1}`}
-									layout="fill"
-									objectFit="cover"
+									fill
+									sizes="(min-width: 900px) 33vw, 100vw"
 									unoptimized
 									style={{
 										transition: "transform 0.3s ease-in-out",
+										objectFit: "cover",
 									}}
 								/>
 							</Box>

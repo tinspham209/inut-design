@@ -198,9 +198,8 @@ export function CreativaHomepage({
 					<Image
 						src="/creativa/homepage/hero.jpg"
 						alt="Người ngồi trên sofa cùng các mẫu MacBook kẻ sọc, caro và hoa"
-						layout="fill"
-						objectFit="cover"
-						objectPosition="center"
+						fill
+						style={{ objectFit: "cover", objectPosition: "center" }}
 						priority
 						sizes="100vw"
 					/>

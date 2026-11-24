@@ -77,7 +77,13 @@ export const TypesSection: React.FC<TypesSectionProps> = ({
 							}}
 						>
 							<Box sx={{ position: "relative", pt: "100%", bgcolor: "grey.100" }}>
-								<Image src={type.image} alt={type.name} layout="fill" objectFit="cover" />
+								<Image
+									src={type.image}
+									alt={type.name}
+									fill
+									sizes="(min-width: 900px) 25vw, 50vw"
+									style={{ objectFit: "cover" }}
+								/>
 							</Box>
 							<Box sx={{ p: 3 }}>
 								<Typography variant="h6" fontWeight={800} gutterBottom sx={{ fontSize: "1.15rem" }}>

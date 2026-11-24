@@ -78,11 +78,12 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
 							alt={`Product sample ${index + 1}`}
 							width={500}
 							height={500}
-							layout="responsive"
-							objectFit="cover"
 							unoptimized
 							style={{
 								borderRadius: "16px",
+								objectFit: "cover",
+								width: "100%",
+								height: "auto",
 							}}
 						/>
 					</ImageListItem>

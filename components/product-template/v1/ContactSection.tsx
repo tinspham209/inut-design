@@ -107,7 +107,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 								<Image
 									src={contact.photoUrl}
 									alt={`${contact.name} contact`}
-									layout="responsive"
 									width={711}
 									height={300}
 									style={{

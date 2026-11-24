@@ -97,9 +97,10 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ products }) => {
 											>
 												<Image
 													src={product.imageUrl}
-													layout="fill"
-													objectFit="cover"
+													fill
+													sizes="(min-width: 1200px) 20vw, (min-width: 768px) 33vw, 100vw"
 													alt={product.name}
+													style={{ objectFit: "cover" }}
 												/>
 											</Box>
 											<Typography

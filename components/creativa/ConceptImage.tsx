@@ -31,8 +31,8 @@ export function ConceptImage({
 			<Image
 				src={src}
 				alt={alt}
-				layout="fill"
-				objectFit="cover"
+				fill
+				style={{ objectFit: "cover" }}
 				priority={priority}
 				sizes="(min-width: 900px) 50vw, 100vw"
 			/>
@@ -41,8 +41,8 @@ export function ConceptImage({
 					<Image
 						src={alternate}
 						alt=""
-						layout="fill"
-						objectFit="cover"
+						fill
+						style={{ objectFit: "cover" }}
 						sizes="(min-width: 900px) 33vw, 80vw"
 					/>
 				</Box>

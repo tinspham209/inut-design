@@ -20,7 +20,7 @@ export function AppearanceControls({ section, config, onRing, onSize, onAcrylic,
 			<Stack spacing={{ xs: 1.25, md: 0.35 }} sx={{ mt: { xs: 1.5, md: 0.35 } }}>
 				<Typography variant="caption" color="grey.400">Kiểu khoen</Typography>
 				<Box sx={{ display: "grid", gridTemplateColumns: { xs: "repeat(5, minmax(0, 1fr))", md: "repeat(10, minmax(0, 1fr))" }, gap: { xs: 0.5, md: 0.35 }, "& button": { minHeight: { md: 32 } } }}>
-					{RINGS.map((ring) => <Button key={ring.id} title={ring.label} aria-label={ring.label} aria-pressed={config.ringId === ring.id} onClick={() => onRing(ring.id)} sx={{ minWidth: 0, minHeight: { xs: 49, md: 32 }, p: { xs: 0.5, md: 0.25 }, bgcolor: "#22232a", border: "1px solid", borderColor: config.ringId === ring.id ? "#f47a28" : "#36373e", borderRadius: 1 }}><Box sx={{ position: "relative", width: "100%", height: { xs: 34, md: 25 } }}><Image src={ring.src} alt="" layout="fill" objectFit="contain" unoptimized sizes="(min-width: 900px) 42px, 100%" /></Box></Button>)}
+					{RINGS.map((ring) => <Button key={ring.id} title={ring.label} aria-label={ring.label} aria-pressed={config.ringId === ring.id} onClick={() => onRing(ring.id)} sx={{ minWidth: 0, minHeight: { xs: 49, md: 32 }, p: { xs: 0.5, md: 0.25 }, bgcolor: "#22232a", border: "1px solid", borderColor: config.ringId === ring.id ? "#f47a28" : "#36373e", borderRadius: 1 }}><Box sx={{ position: "relative", width: "100%", height: { xs: 34, md: 25 } }}><Image src={ring.src} alt="" fill style={{ objectFit: "contain" }} unoptimized sizes="(min-width: 900px) 42px, 100%" /></Box></Button>)}
 				</Box>
 				<Typography variant="caption" color="grey.400">Kích thước thành phẩm (cm)</Typography>
 				<Stack direction="row" spacing={{ xs: 0.6, md: 0.35 }} flexWrap="wrap">
