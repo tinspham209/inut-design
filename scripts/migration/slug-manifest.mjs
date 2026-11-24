@@ -39,7 +39,7 @@ function stringsFromSlugRecords(records, family) {
 			}
 			return true;
 		})
-		.sort();
+		.sort((left, right) => left.localeCompare(right));
 }
 
 async function collectBlogSlugs() {
@@ -58,7 +58,7 @@ async function collectServicePaths() {
 	const source = await readFile(path.join(root, "components/common/header/routes.ts"), "utf8");
 	return [...source.matchAll(/path:\s*["'](\/services(?:\/[^"']+)+)["']/g)]
 		.map((match) => match[1].slice("/services/".length))
-		.sort();
+		.sort((left, right) => left.localeCompare(right));
 }
 
 async function collectSanitySlugs() {
@@ -101,7 +101,7 @@ async function collectSanitySlugs() {
 		lighters: stringsFromSlugRecords(lighterRecords, "lighters"),
 		laptop: stringsFromSlugRecords(laptopRecords, "laptop"),
 		macnut: stringsFromSlugRecords(macnutRecords, "macnut"),
-		creativa: creativa.sort(),
+		creativa: creativa.sort((left, right) => left.localeCompare(right)),
 	};
 }
 
@@ -112,7 +112,12 @@ const [blog, services, sanity] = await Promise.all([
 ]);
 
 const families = [
-	{ family: "blog", routePrefix: "/blog", source: "blog/**/*.md frontmatter", slugs: blog.sort() },
+	{
+		family: "blog",
+		routePrefix: "/blog",
+		source: "blog/**/*.md frontmatter",
+		slugs: blog.sort((left, right) => left.localeCompare(right)),
+	},
 	{
 		family: "services",
 		routePrefix: "/services",
@@ -150,7 +155,7 @@ const families = [
 		...entry,
 		slugs,
 		count: slugs.length,
-		paths: slugs.map((slug) => `${entry.routePrefix}/${slug}`).sort(),
+		paths: slugs.map((slug) => `${entry.routePrefix}/${slug}`).sort((left, right) => left.localeCompare(right)),
 	};
 });
 
@@ -166,7 +171,7 @@ await writeFile(
 			schemaVersion: 1,
 			families,
 			count: paths.length,
-			paths: paths.sort(),
+			paths: paths.sort((left, right) => left.localeCompare(right)),
 			validation: {
 				status: errors.length ? "fail" : "pass",
 				errors,
