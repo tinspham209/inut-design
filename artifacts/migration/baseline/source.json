@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "commitSha": "70f8e68bbf3662640a88b9dc4b500a7df6be56ee",
+  "branch": "main",
+  "capturedAt": "2026-11-24T05:17:02.463Z",
+  "dirtyFiles": [
+    ".agents/skills/migrate-to-vinext/",
+    ".specify/feature.json",
+    "scripts/migration/",
+    "skills-lock.json",
+    "specs/004-migrate-vinext-cloudflare/checklists/phases.md",
+    "specs/004-migrate-vinext-cloudflare/checklists/requirements.md",
+    "specs/004-migrate-vinext-cloudflare/contracts/deployment-release.md",
+    "specs/004-migrate-vinext-cloudflare/contracts/dns-registrar.md",
+    "specs/004-migrate-vinext-cloudflare/contracts/runtime-api.md",
+    "specs/004-migrate-vinext-cloudflare/data-model.md",
+    "specs/004-migrate-vinext-cloudflare/plan.md",
+    "specs/004-migrate-vinext-cloudflare/quickstart.md",
+    "specs/004-migrate-vinext-cloudflare/research.md",
+    "specs/004-migrate-vinext-cloudflare/spec.md",
+    "specs/004-migrate-vinext-cloudflare/tasks.md"
+  ],
+  "toolVersions": {
+    "node": "v22.23.2",
+    "pnpm": "10.32.1",
+    "next": "12.3.1",
+    "react": "18.2.0",
+    "reactDom": "18.2.0"
+  },
+  "lockfileHash": "ce04cc62bfab728a47cf3ac9028609887b56b301e739e75daa5d61277b645ae7"
+}

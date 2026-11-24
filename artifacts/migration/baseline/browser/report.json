@@ -1,0 +1,4973 @@
+{
+  "schemaVersion": 1,
+  "baseUrl": "http://127.0.0.1:3000",
+  "capturedAt": "2026-11-24T05:25:22.365Z",
+  "routes": [
+    "/",
+    "/blog",
+    "/san-pham/lighters",
+    "/builder/keychain",
+    "/creativa",
+    "/search?q=sticker"
+  ],
+  "viewports": [
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "pages": [
+        {
+          "route": "/",
+          "url": {
+            "origin": "http://127.0.0.1:3000",
+            "path": "/",
+            "method": "GET"
+          },
+          "navigationOk": true,
+          "screenshot": "artifacts/migration/baseline/browser/desktop-home.png",
+          "keyboard": {
+            "tabPressed": true,
+            "activeElement": {
+              "success": true,
+              "data": {
+                "lifecycle": {
+                  "effectiveLaunch": {
+                    "browserLaunched": true,
+                    "engine": "chrome",
+                    "launchHash": 17461799183016884000
+                  },
+                  "launched": false,
+                  "relaunchedBrowser": false,
+                  "restartedBackground": false,
+                  "restoreStatus": "not_configured",
+                  "reused": true,
+                  "saveStatus": "not_attempted"
+                },
+                "origin": "http://127.0.0.1:3000/",
+                "result": "{\"tag\":\"NEXTJS-PORTAL\",\"role\":null,\"label\":null,\"text\":\"\"}"
+              },
+              "error": null
+            }
+          },
+          "timing": {
+            "success": true,
+            "data": {
+              "lifecycle": {
+                "effectiveLaunch": {
+                  "browserLaunched": true,
+                  "engine": "chrome",
+                  "launchHash": 17461799183016884000
+                },
+                "launched": false,
+                "relaunchedBrowser": false,
+                "restartedBackground": false,
+                "restoreStatus": "not_configured",
+                "reused": true,
+                "saveStatus": "not_attempted"
+              },
+              "origin": "http://127.0.0.1:3000/",
+              "result": "{\"domContentLoadedMs\":1241,\"loadMs\":1241,\"responseStartMs\":1099,\"durationMs\":1241}"
+            },
+            "error": null
+          },
+          "console": [],
+          "network": [
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/",
+              "method": "GET",
+              "resourceType": "Document",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/branding/logo.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://cdn.sanity.io",
+              "path": "/images/soud11bs/production/0364e8a9a8c6f3d721fcde3050941fbd6029426d-1135x1135.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://cdn.sanity.io",
+              "path": "/images/soud11bs/production/215263997684a7a30d578ff53141a705d8826cea-1135x1135.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/css2",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/icon",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/webpack.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/main.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_app.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/index.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_buildManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_ssgManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/sticker/thumbnail/sticker-sheet.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/sticker/thumbnail/sticker-diecut.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/sticker/thumbnail/sticker-pack.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/sticker/thumbnail/sticker-magnet.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-luu-niem/thumbnail/acrylic-magnet.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-luu-niem/thumbnail/moc-khoa-mica.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-luu-niem/thumbnail/pin-cai-ao-mica.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/ca-nhan-hoa/thumbnail/lighter.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/ca-nhan-hoa/thumbnail/skin-laptop.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/ca-nhan-hoa/thumbnail/skin-nut-phim.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-su-kien/thumbnail/hashtag-cam-tay.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-su-kien/thumbnail/poster-decal.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-su-kien/thumbnail/banner-standee.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-su-kien/thumbnail/huy-chuong.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-su-kien/thumbnail/su-kien-tron-goi.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-fb/thumbnail/thiet-ke-in-menu.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-fb/thumbnail/san-pham-decor.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-fb/thumbnail/phieu-ve-hoa-don-gtgt.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-fb/thumbnail/tam-lot-ban-an.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-tiep-thi/thumbnail/catalogue-brochure.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-tiep-thi/thumbnail/in-card-visit.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-tiep-thi/thumbnail/voucher-ve-moi-su-kien-the-tich-diem-to-roi.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-van-phong/thumbnail/bang-cung-in-thong-tin.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-van-phong/thumbnail/bang-khen-giay-khen.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-van-phong/thumbnail/bi-thu.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-van-phong/thumbnail/so-tay-so-bam-ghim.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-bao-bi/thumbnail/decal-nhan-mac.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-bao-bi/thumbnail/hop-san-pham.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-bao-bi/thumbnail/tem-bao-hanh.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-luu-niem/thumbnail/in-postcard.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-luu-niem/thumbnail/thank-card-gift-card.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-luu-niem/thumbnail/in-anh.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/react-refresh.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_devMiddlewareManifest.json",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCHkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkBnkaSTbQWg.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3OUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCXkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMaxKUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/branding/builders/keychain-builder-card-thumbnail.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/branding/builders/lighter-builder-card-thumbnail.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_components_cart_CartWrapper_tsx.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_node_modules_pnpm_react-hot-toast_2_6_0_react-dom_19_3_1_react_19_3_1__rea-dd8c43.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_vercel/insights/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 404,
+              "analytics": false
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_components_common_dialog_renderer_tsx.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMawCUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_original-stack-frames",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://connect.facebook.net",
+              "path": "/vi_VN/sdk/xfbml.customerchat.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": null,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-mono-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            }
+          ],
+          "analytics": [
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            }
+          ]
+        },
+        {
+          "route": "/blog",
+          "url": {
+            "origin": "http://127.0.0.1:3000",
+            "path": "/blog",
+            "method": "GET"
+          },
+          "navigationOk": true,
+          "screenshot": "artifacts/migration/baseline/browser/desktop-blog.png",
+          "keyboard": {
+            "tabPressed": true,
+            "activeElement": {
+              "success": true,
+              "data": {
+                "lifecycle": {
+                  "effectiveLaunch": {
+                    "browserLaunched": true,
+                    "engine": "chrome",
+                    "launchHash": 17461799183016884000
+                  },
+                  "launched": false,
+                  "relaunchedBrowser": false,
+                  "restartedBackground": false,
+                  "restoreStatus": "not_configured",
+                  "reused": true,
+                  "saveStatus": "not_attempted"
+                },
+                "origin": "http://127.0.0.1:3000/blog",
+                "result": "{\"tag\":\"NEXTJS-PORTAL\",\"role\":null,\"label\":null,\"text\":\"\"}"
+              },
+              "error": null
+            }
+          },
+          "timing": {
+            "success": true,
+            "data": {
+              "lifecycle": {
+                "effectiveLaunch": {
+                  "browserLaunched": true,
+                  "engine": "chrome",
+                  "launchHash": 17461799183016884000
+                },
+                "launched": false,
+                "relaunchedBrowser": false,
+                "restartedBackground": false,
+                "restoreStatus": "not_configured",
+                "reused": true,
+                "saveStatus": "not_attempted"
+              },
+              "origin": "http://127.0.0.1:3000/blog",
+              "result": "{\"domContentLoadedMs\":744,\"loadMs\":745,\"responseStartMs\":697,\"durationMs\":745}"
+            },
+            "error": null
+          },
+          "console": [],
+          "network": [
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/blog",
+              "method": "GET",
+              "resourceType": "Document",
+              "status": 500,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/css2",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/icon",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/webpack.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/main.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_app.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_error.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_buildManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_ssgManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/react-refresh.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_devMiddlewareManifest.json",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCXkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCHkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkBnkaSTbQWg.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMawCUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMaxKUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3OUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-mono-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_original-stack-frames",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            }
+          ],
+          "analytics": [
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            }
+          ]
+        },
+        {
+          "route": "/san-pham/lighters",
+          "url": {
+            "origin": "http://127.0.0.1:3000",
+            "path": "/san-pham/lighters",
+            "method": "GET"
+          },
+          "navigationOk": true,
+          "screenshot": "artifacts/migration/baseline/browser/desktop-san-pham-lighters.png",
+          "keyboard": {
+            "tabPressed": true,
+            "activeElement": {
+              "success": true,
+              "data": {
+                "lifecycle": {
+                  "effectiveLaunch": {
+                    "browserLaunched": true,
+                    "engine": "chrome",
+                    "launchHash": 17461799183016884000
+                  },
+                  "launched": false,
+                  "relaunchedBrowser": false,
+                  "restartedBackground": false,
+                  "restoreStatus": "not_configured",
+                  "reused": true,
+                  "saveStatus": "not_attempted"
+                },
+                "origin": "http://127.0.0.1:3000/san-pham/lighters",
+                "result": "{\"tag\":\"NEXTJS-PORTAL\",\"role\":null,\"label\":null,\"text\":\"\"}"
+              },
+              "error": null
+            }
+          },
+          "timing": {
+            "success": true,
+            "data": {
+              "lifecycle": {
+                "effectiveLaunch": {
+                  "browserLaunched": true,
+                  "engine": "chrome",
+                  "launchHash": 17461799183016884000
+                },
+                "launched": false,
+                "relaunchedBrowser": false,
+                "restartedBackground": false,
+                "restoreStatus": "not_configured",
+                "reused": true,
+                "saveStatus": "not_attempted"
+              },
+              "origin": "http://127.0.0.1:3000/san-pham/lighters",
+              "result": "{\"domContentLoadedMs\":1239,\"loadMs\":1240,\"responseStartMs\":1202,\"durationMs\":1240}"
+            },
+            "error": null
+          },
+          "console": [],
+          "network": [
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/san-pham/lighters",
+              "method": "GET",
+              "resourceType": "Document",
+              "status": 500,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/css2",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/icon",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/webpack.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/main.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_app.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_error.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_buildManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_ssgManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/react-refresh.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_devMiddlewareManifest.json",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCXkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCHkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkBnkaSTbQWg.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMawCUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMaxKUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3OUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-mono-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_original-stack-frames",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            }
+          ],
+          "analytics": [
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            }
+          ]
+        },
+        {
+          "route": "/builder/keychain",
+          "url": {
+            "origin": "http://127.0.0.1:3000",
+            "path": "/builder/keychain",
+            "method": "GET"
+          },
+          "navigationOk": true,
+          "screenshot": "artifacts/migration/baseline/browser/desktop-builder-keychain.png",
+          "keyboard": {
+            "tabPressed": true,
+            "activeElement": {
+              "success": true,
+              "data": {
+                "lifecycle": {
+                  "effectiveLaunch": {
+                    "browserLaunched": true,
+                    "engine": "chrome",
+                    "launchHash": 17461799183016884000
+                  },
+                  "launched": false,
+                  "relaunchedBrowser": false,
+                  "restartedBackground": false,
+                  "restoreStatus": "not_configured",
+                  "reused": true,
+                  "saveStatus": "not_attempted"
+                },
+                "origin": "http://127.0.0.1:3000/builder/keychain",
+                "result": "{\"tag\":\"NEXTJS-PORTAL\",\"role\":null,\"label\":null,\"text\":\"\"}"
+              },
+              "error": null
+            }
+          },
+          "timing": {
+            "success": true,
+            "data": {
+              "lifecycle": {
+                "effectiveLaunch": {
+                  "browserLaunched": true,
+                  "engine": "chrome",
+                  "launchHash": 17461799183016884000
+                },
+                "launched": false,
+                "relaunchedBrowser": false,
+                "restartedBackground": false,
+                "restoreStatus": "not_configured",
+                "reused": true,
+                "saveStatus": "not_attempted"
+              },
+              "origin": "http://127.0.0.1:3000/builder/keychain",
+              "result": "{\"domContentLoadedMs\":294,\"loadMs\":295,\"responseStartMs\":266,\"durationMs\":295}"
+            },
+            "error": null
+          },
+          "console": [],
+          "network": [
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/builder/keychain",
+              "method": "GET",
+              "resourceType": "Document",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/branding/logo.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 304,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/css2",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/icon",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/webpack.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/main.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_app.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/builder/keychain.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_buildManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_ssgManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/react-refresh.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_devMiddlewareManifest.json",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCXkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCHkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkBnkaSTbQWg.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMawCUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMaxKUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3OUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_components_keychain-builder_KeychainBuilder_tsx.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_components_cart_CartWrapper_tsx.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_node_modules_pnpm_react-hot-toast_2_6_0_react-dom_19_3_1_react_19_3_1__rea-dd8c43.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_vercel/insights/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 404,
+              "analytics": false
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_components_common_dialog_renderer_tsx.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-mono-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_original-stack-frames",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://connect.facebook.net",
+              "path": "/vi_VN/sdk/xfbml.customerchat.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": null,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-heart.svg",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-heart.svg",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-heart.svg",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-heart.svg",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-bear.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-cat.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-circle.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-cloud.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-diamond.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-drop.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-flower.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-heart.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-hexagon.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-landscape.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-oval.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-polaroid.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-portrait.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-rounded-square.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-rounded-star.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-shield.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-speech-bubble.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-ticket.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-01.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-02.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-03.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-04.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-05.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-06.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-07.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-08.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-09.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-10.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/connectors/keychain_01_f.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/connectors/keychain_01_b.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/connectors/keychain_02_f.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/connectors/keychain_02_b.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/connectors/keychain_03_f.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/connectors/keychain_03_b.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/connectors/keychain_tail_f.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/connectors/keychain_tail_b.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            }
+          ],
+          "analytics": [
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            }
+          ]
+        },
+        {
+          "route": "/creativa",
+          "url": {
+            "origin": "http://127.0.0.1:3000",
+            "path": "/creativa",
+            "method": "GET"
+          },
+          "navigationOk": true,
+          "screenshot": "artifacts/migration/baseline/browser/desktop-creativa.png",
+          "keyboard": {
+            "tabPressed": true,
+            "activeElement": {
+              "success": true,
+              "data": {
+                "lifecycle": {
+                  "effectiveLaunch": {
+                    "browserLaunched": true,
+                    "engine": "chrome",
+                    "launchHash": 17461799183016884000
+                  },
+                  "launched": false,
+                  "relaunchedBrowser": false,
+                  "restartedBackground": false,
+                  "restoreStatus": "not_configured",
+                  "reused": true,
+                  "saveStatus": "not_attempted"
+                },
+                "origin": "http://127.0.0.1:3000/creativa",
+                "result": "{\"tag\":\"NEXTJS-PORTAL\",\"role\":null,\"label\":null,\"text\":\"\"}"
+              },
+              "error": null
+            }
+          },
+          "timing": {
+            "success": true,
+            "data": {
+              "lifecycle": {
+                "effectiveLaunch": {
+                  "browserLaunched": true,
+                  "engine": "chrome",
+                  "launchHash": 17461799183016884000
+                },
+                "launched": false,
+                "relaunchedBrowser": false,
+                "restartedBackground": false,
+                "restoreStatus": "not_configured",
+                "reused": true,
+                "saveStatus": "not_attempted"
+              },
+              "origin": "http://127.0.0.1:3000/creativa",
+              "result": "{\"domContentLoadedMs\":1599,\"loadMs\":1600,\"responseStartMs\":1566,\"durationMs\":1600}"
+            },
+            "error": null
+          },
+          "console": [],
+          "network": [
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/creativa",
+              "method": "GET",
+              "resourceType": "Document",
+              "status": 500,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/css2",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/icon",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/webpack.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/main.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_app.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_error.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_buildManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_ssgManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/react-refresh.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_devMiddlewareManifest.json",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCXkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCHkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkBnkaSTbQWg.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMawCUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMaxKUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3OUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-mono-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_original-stack-frames",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            }
+          ],
+          "analytics": [
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            }
+          ]
+        },
+        {
+          "route": "/search?q=sticker",
+          "url": {
+            "origin": "http://127.0.0.1:3000",
+            "path": "/search",
+            "method": "GET"
+          },
+          "navigationOk": true,
+          "screenshot": "artifacts/migration/baseline/browser/desktop-search-q-sticker.png",
+          "keyboard": {
+            "tabPressed": true,
+            "activeElement": {
+              "success": true,
+              "data": {
+                "lifecycle": {
+                  "effectiveLaunch": {
+                    "browserLaunched": true,
+                    "engine": "chrome",
+                    "launchHash": 17461799183016884000
+                  },
+                  "launched": false,
+                  "relaunchedBrowser": false,
+                  "restartedBackground": false,
+                  "restoreStatus": "not_configured",
+                  "reused": true,
+                  "saveStatus": "not_attempted"
+                },
+                "origin": "http://127.0.0.1:3000/search?q=sticker",
+                "result": "{\"tag\":\"NEXTJS-PORTAL\",\"role\":null,\"label\":null,\"text\":\"\"}"
+              },
+              "error": null
+            }
+          },
+          "timing": {
+            "success": true,
+            "data": {
+              "lifecycle": {
+                "effectiveLaunch": {
+                  "browserLaunched": true,
+                  "engine": "chrome",
+                  "launchHash": 17461799183016884000
+                },
+                "launched": false,
+                "relaunchedBrowser": false,
+                "restartedBackground": false,
+                "restoreStatus": "not_configured",
+                "reused": true,
+                "saveStatus": "not_attempted"
+              },
+              "origin": "http://127.0.0.1:3000/search?q=sticker",
+              "result": "{\"domContentLoadedMs\":354,\"loadMs\":355,\"responseStartMs\":318,\"durationMs\":355}"
+            },
+            "error": null
+          },
+          "console": [],
+          "network": [
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/search",
+              "method": "GET",
+              "resourceType": "Document",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/branding/logo.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 304,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/css2",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/icon",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/webpack.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/main.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_app.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/search.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_buildManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_ssgManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/react-refresh.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_devMiddlewareManifest.json",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCXkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCHkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkBnkaSTbQWg.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMawCUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMaxKUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3OUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_components_cart_CartWrapper_tsx.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_node_modules_pnpm_react-hot-toast_2_6_0_react-dom_19_3_1_react_19_3_1__rea-dd8c43.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_vercel/insights/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 404,
+              "analytics": false
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_components_common_dialog_renderer_tsx.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-mono-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_original-stack-frames",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://connect.facebook.net",
+              "path": "/vi_VN/sdk/xfbml.customerchat.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": null,
+              "analytics": false
+            }
+          ],
+          "analytics": [
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "pages": [
+        {
+          "route": "/",
+          "url": {
+            "origin": "http://127.0.0.1:3000",
+            "path": "/",
+            "method": "GET"
+          },
+          "navigationOk": true,
+          "screenshot": "artifacts/migration/baseline/browser/mobile-home.png",
+          "keyboard": {
+            "tabPressed": true,
+            "activeElement": {
+              "success": true,
+              "data": {
+                "lifecycle": {
+                  "effectiveLaunch": {
+                    "browserLaunched": true,
+                    "engine": "chrome",
+                    "launchHash": 17461799183016884000
+                  },
+                  "launched": false,
+                  "relaunchedBrowser": false,
+                  "restartedBackground": false,
+                  "restoreStatus": "not_configured",
+                  "reused": true,
+                  "saveStatus": "not_attempted"
+                },
+                "origin": "http://127.0.0.1:3000/",
+                "result": "{\"tag\":\"NEXTJS-PORTAL\",\"role\":null,\"label\":null,\"text\":\"\"}"
+              },
+              "error": null
+            }
+          },
+          "timing": {
+            "success": true,
+            "data": {
+              "lifecycle": {
+                "effectiveLaunch": {
+                  "browserLaunched": true,
+                  "engine": "chrome",
+                  "launchHash": 17461799183016884000
+                },
+                "launched": false,
+                "relaunchedBrowser": false,
+                "restartedBackground": false,
+                "restoreStatus": "not_configured",
+                "reused": true,
+                "saveStatus": "not_attempted"
+              },
+              "origin": "http://127.0.0.1:3000/",
+              "result": "{\"domContentLoadedMs\":592,\"loadMs\":593,\"responseStartMs\":551,\"durationMs\":593}"
+            },
+            "error": null
+          },
+          "console": [],
+          "network": [
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/",
+              "method": "GET",
+              "resourceType": "Document",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/branding/logo.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 304,
+              "analytics": false
+            },
+            {
+              "origin": "https://cdn.sanity.io",
+              "path": "/images/soud11bs/production/0364e8a9a8c6f3d721fcde3050941fbd6029426d-1135x1135.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://cdn.sanity.io",
+              "path": "/images/soud11bs/production/215263997684a7a30d578ff53141a705d8826cea-1135x1135.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/css2",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/icon",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/webpack.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/main.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_app.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/index.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_buildManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_ssgManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/sticker/thumbnail/sticker-sheet.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/sticker/thumbnail/sticker-diecut.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/sticker/thumbnail/sticker-pack.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/sticker/thumbnail/sticker-magnet.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-luu-niem/thumbnail/acrylic-magnet.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-luu-niem/thumbnail/moc-khoa-mica.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-luu-niem/thumbnail/pin-cai-ao-mica.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/ca-nhan-hoa/thumbnail/lighter.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/ca-nhan-hoa/thumbnail/skin-laptop.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/ca-nhan-hoa/thumbnail/skin-nut-phim.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-su-kien/thumbnail/hashtag-cam-tay.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-su-kien/thumbnail/poster-decal.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-su-kien/thumbnail/banner-standee.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-su-kien/thumbnail/huy-chuong.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-su-kien/thumbnail/su-kien-tron-goi.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-fb/thumbnail/thiet-ke-in-menu.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-fb/thumbnail/san-pham-decor.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-fb/thumbnail/phieu-ve-hoa-don-gtgt.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-fb/thumbnail/tam-lot-ban-an.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-tiep-thi/thumbnail/catalogue-brochure.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-tiep-thi/thumbnail/in-card-visit.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-tiep-thi/thumbnail/voucher-ve-moi-su-kien-the-tich-diem-to-roi.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-van-phong/thumbnail/bang-cung-in-thong-tin.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-van-phong/thumbnail/bang-khen-giay-khen.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-van-phong/thumbnail/bi-thu.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-van-phong/thumbnail/so-tay-so-bam-ghim.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-bao-bi/thumbnail/decal-nhan-mac.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-bao-bi/thumbnail/hop-san-pham.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-bao-bi/thumbnail/tem-bao-hanh.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-luu-niem/thumbnail/in-postcard.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-luu-niem/thumbnail/thank-card-gift-card.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/services/an-pham-luu-niem/thumbnail/in-anh.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/react-refresh.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_devMiddlewareManifest.json",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCXkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCHkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkBnkaSTbQWg.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMawCUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMaxKUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3OUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_components_cart_CartWrapper_tsx.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_node_modules_pnpm_react-hot-toast_2_6_0_react-dom_19_3_1_react_19_3_1__rea-dd8c43.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_vercel/insights/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 404,
+              "analytics": false
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_components_common_dialog_renderer_tsx.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-mono-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_original-stack-frames",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://connect.facebook.net",
+              "path": "/vi_VN/sdk/xfbml.customerchat.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": null,
+              "analytics": false
+            }
+          ],
+          "analytics": [
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            }
+          ]
+        },
+        {
+          "route": "/blog",
+          "url": {
+            "origin": "http://127.0.0.1:3000",
+            "path": "/blog",
+            "method": "GET"
+          },
+          "navigationOk": true,
+          "screenshot": "artifacts/migration/baseline/browser/mobile-blog.png",
+          "keyboard": {
+            "tabPressed": true,
+            "activeElement": {
+              "success": true,
+              "data": {
+                "lifecycle": {
+                  "effectiveLaunch": {
+                    "browserLaunched": true,
+                    "engine": "chrome",
+                    "launchHash": 17461799183016884000
+                  },
+                  "launched": false,
+                  "relaunchedBrowser": false,
+                  "restartedBackground": false,
+                  "restoreStatus": "not_configured",
+                  "reused": true,
+                  "saveStatus": "not_attempted"
+                },
+                "origin": "http://127.0.0.1:3000/blog",
+                "result": "{\"tag\":\"NEXTJS-PORTAL\",\"role\":null,\"label\":null,\"text\":\"\"}"
+              },
+              "error": null
+            }
+          },
+          "timing": {
+            "success": true,
+            "data": {
+              "lifecycle": {
+                "effectiveLaunch": {
+                  "browserLaunched": true,
+                  "engine": "chrome",
+                  "launchHash": 17461799183016884000
+                },
+                "launched": false,
+                "relaunchedBrowser": false,
+                "restartedBackground": false,
+                "restoreStatus": "not_configured",
+                "reused": true,
+                "saveStatus": "not_attempted"
+              },
+              "origin": "http://127.0.0.1:3000/blog",
+              "result": "{\"domContentLoadedMs\":584,\"loadMs\":586,\"responseStartMs\":540,\"durationMs\":586}"
+            },
+            "error": null
+          },
+          "console": [],
+          "network": [
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/blog",
+              "method": "GET",
+              "resourceType": "Document",
+              "status": 500,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/css2",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/icon",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/webpack.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/main.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_app.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_error.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_buildManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_ssgManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/react-refresh.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_devMiddlewareManifest.json",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCXkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCHkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkBnkaSTbQWg.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMawCUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMaxKUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3OUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-mono-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_original-stack-frames",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            }
+          ],
+          "analytics": [
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            }
+          ]
+        },
+        {
+          "route": "/san-pham/lighters",
+          "url": {
+            "origin": "http://127.0.0.1:3000",
+            "path": "/san-pham/lighters",
+            "method": "GET"
+          },
+          "navigationOk": true,
+          "screenshot": "artifacts/migration/baseline/browser/mobile-san-pham-lighters.png",
+          "keyboard": {
+            "tabPressed": true,
+            "activeElement": {
+              "success": true,
+              "data": {
+                "lifecycle": {
+                  "effectiveLaunch": {
+                    "browserLaunched": true,
+                    "engine": "chrome",
+                    "launchHash": 17461799183016884000
+                  },
+                  "launched": false,
+                  "relaunchedBrowser": false,
+                  "restartedBackground": false,
+                  "restoreStatus": "not_configured",
+                  "reused": true,
+                  "saveStatus": "not_attempted"
+                },
+                "origin": "http://127.0.0.1:3000/san-pham/lighters",
+                "result": "{\"tag\":\"NEXTJS-PORTAL\",\"role\":null,\"label\":null,\"text\":\"\"}"
+              },
+              "error": null
+            }
+          },
+          "timing": {
+            "success": true,
+            "data": {
+              "lifecycle": {
+                "effectiveLaunch": {
+                  "browserLaunched": true,
+                  "engine": "chrome",
+                  "launchHash": 17461799183016884000
+                },
+                "launched": false,
+                "relaunchedBrowser": false,
+                "restartedBackground": false,
+                "restoreStatus": "not_configured",
+                "reused": true,
+                "saveStatus": "not_attempted"
+              },
+              "origin": "http://127.0.0.1:3000/san-pham/lighters",
+              "result": "{\"domContentLoadedMs\":564,\"loadMs\":565,\"responseStartMs\":532,\"durationMs\":565}"
+            },
+            "error": null
+          },
+          "console": [],
+          "network": [
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/san-pham/lighters",
+              "method": "GET",
+              "resourceType": "Document",
+              "status": 500,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/css2",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/icon",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/webpack.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/main.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_app.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_error.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_buildManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_ssgManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/react-refresh.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_devMiddlewareManifest.json",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCXkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCHkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkBnkaSTbQWg.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMawCUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMaxKUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3OUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-mono-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_original-stack-frames",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            }
+          ],
+          "analytics": [
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            }
+          ]
+        },
+        {
+          "route": "/builder/keychain",
+          "url": {
+            "origin": "http://127.0.0.1:3000",
+            "path": "/builder/keychain",
+            "method": "GET"
+          },
+          "navigationOk": true,
+          "screenshot": "artifacts/migration/baseline/browser/mobile-builder-keychain.png",
+          "keyboard": {
+            "tabPressed": true,
+            "activeElement": {
+              "success": true,
+              "data": {
+                "lifecycle": {
+                  "effectiveLaunch": {
+                    "browserLaunched": true,
+                    "engine": "chrome",
+                    "launchHash": 17461799183016884000
+                  },
+                  "launched": false,
+                  "relaunchedBrowser": false,
+                  "restartedBackground": false,
+                  "restoreStatus": "not_configured",
+                  "reused": true,
+                  "saveStatus": "not_attempted"
+                },
+                "origin": "http://127.0.0.1:3000/builder/keychain",
+                "result": "{\"tag\":\"NEXTJS-PORTAL\",\"role\":null,\"label\":null,\"text\":\"\"}"
+              },
+              "error": null
+            }
+          },
+          "timing": {
+            "success": true,
+            "data": {
+              "lifecycle": {
+                "effectiveLaunch": {
+                  "browserLaunched": true,
+                  "engine": "chrome",
+                  "launchHash": 17461799183016884000
+                },
+                "launched": false,
+                "relaunchedBrowser": false,
+                "restartedBackground": false,
+                "restoreStatus": "not_configured",
+                "reused": true,
+                "saveStatus": "not_attempted"
+              },
+              "origin": "http://127.0.0.1:3000/builder/keychain",
+              "result": "{\"domContentLoadedMs\":279,\"loadMs\":280,\"responseStartMs\":249,\"durationMs\":280}"
+            },
+            "error": null
+          },
+          "console": [],
+          "network": [
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/builder/keychain",
+              "method": "GET",
+              "resourceType": "Document",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/branding/logo.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 304,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/css2",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/icon",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/webpack.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/main.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_app.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/builder/keychain.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_buildManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_ssgManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/react-refresh.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_devMiddlewareManifest.json",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCXkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCHkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkBnkaSTbQWg.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMawCUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMaxKUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3OUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_components_keychain-builder_KeychainBuilder_tsx.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_components_cart_CartWrapper_tsx.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_node_modules_pnpm_react-hot-toast_2_6_0_react-dom_19_3_1_react_19_3_1__rea-dd8c43.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_vercel/insights/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 404,
+              "analytics": false
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_components_common_dialog_renderer_tsx.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-heart.svg",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-heart.svg",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-heart.svg",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-heart.svg",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-mono-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-bear.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-cat.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-circle.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-cloud.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-diamond.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-drop.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-flower.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-heart.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-hexagon.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-landscape.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-oval.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-polaroid.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-portrait.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-rounded-square.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-rounded-star.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-shield.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-speech-bubble.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/frames/frame-ticket.svg",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-01.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-02.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-03.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-04.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-05.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-06.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-07.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-08.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-09.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/rings/ring-10.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_original-stack-frames",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/connectors/keychain_01_f.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/connectors/keychain_01_b.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/connectors/keychain_02_f.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/connectors/keychain_02_b.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/connectors/keychain_03_f.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/connectors/keychain_03_b.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/connectors/keychain_tail_f.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/keychain/connectors/keychain_tail_b.png",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://connect.facebook.net",
+              "path": "/vi_VN/sdk/xfbml.customerchat.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": null,
+              "analytics": false
+            }
+          ],
+          "analytics": [
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            }
+          ]
+        },
+        {
+          "route": "/creativa",
+          "url": {
+            "origin": "http://127.0.0.1:3000",
+            "path": "/creativa",
+            "method": "GET"
+          },
+          "navigationOk": true,
+          "screenshot": "artifacts/migration/baseline/browser/mobile-creativa.png",
+          "keyboard": {
+            "tabPressed": true,
+            "activeElement": {
+              "success": true,
+              "data": {
+                "lifecycle": {
+                  "effectiveLaunch": {
+                    "browserLaunched": true,
+                    "engine": "chrome",
+                    "launchHash": 17461799183016884000
+                  },
+                  "launched": false,
+                  "relaunchedBrowser": false,
+                  "restartedBackground": false,
+                  "restoreStatus": "not_configured",
+                  "reused": true,
+                  "saveStatus": "not_attempted"
+                },
+                "origin": "http://127.0.0.1:3000/creativa",
+                "result": "{\"tag\":\"NEXTJS-PORTAL\",\"role\":null,\"label\":null,\"text\":\"\"}"
+              },
+              "error": null
+            }
+          },
+          "timing": {
+            "success": true,
+            "data": {
+              "lifecycle": {
+                "effectiveLaunch": {
+                  "browserLaunched": true,
+                  "engine": "chrome",
+                  "launchHash": 17461799183016884000
+                },
+                "launched": false,
+                "relaunchedBrowser": false,
+                "restartedBackground": false,
+                "restoreStatus": "not_configured",
+                "reused": true,
+                "saveStatus": "not_attempted"
+              },
+              "origin": "http://127.0.0.1:3000/creativa",
+              "result": "{\"domContentLoadedMs\":1242,\"loadMs\":1243,\"responseStartMs\":1212,\"durationMs\":1243}"
+            },
+            "error": null
+          },
+          "console": [],
+          "network": [
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/creativa",
+              "method": "GET",
+              "resourceType": "Document",
+              "status": 500,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/css2",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/icon",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/webpack.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/main.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_app.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_error.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_buildManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_ssgManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/react-refresh.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_devMiddlewareManifest.json",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCXkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCHkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkBnkaSTbQWg.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMawCUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMaxKUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3OUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-mono-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_original-stack-frames",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            }
+          ],
+          "analytics": [
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            }
+          ]
+        },
+        {
+          "route": "/search?q=sticker",
+          "url": {
+            "origin": "http://127.0.0.1:3000",
+            "path": "/search",
+            "method": "GET"
+          },
+          "navigationOk": true,
+          "screenshot": "artifacts/migration/baseline/browser/mobile-search-q-sticker.png",
+          "keyboard": {
+            "tabPressed": true,
+            "activeElement": {
+              "success": true,
+              "data": {
+                "lifecycle": {
+                  "effectiveLaunch": {
+                    "browserLaunched": true,
+                    "engine": "chrome",
+                    "launchHash": 17461799183016884000
+                  },
+                  "launched": false,
+                  "relaunchedBrowser": false,
+                  "restartedBackground": false,
+                  "restoreStatus": "not_configured",
+                  "reused": true,
+                  "saveStatus": "not_attempted"
+                },
+                "origin": "http://127.0.0.1:3000/search?q=sticker",
+                "result": "{\"tag\":\"NEXTJS-PORTAL\",\"role\":null,\"label\":null,\"text\":\"\"}"
+              },
+              "error": null
+            }
+          },
+          "timing": {
+            "success": true,
+            "data": {
+              "lifecycle": {
+                "effectiveLaunch": {
+                  "browserLaunched": true,
+                  "engine": "chrome",
+                  "launchHash": 17461799183016884000
+                },
+                "launched": false,
+                "relaunchedBrowser": false,
+                "restartedBackground": false,
+                "restoreStatus": "not_configured",
+                "reused": true,
+                "saveStatus": "not_attempted"
+              },
+              "origin": "http://127.0.0.1:3000/search?q=sticker",
+              "result": "{\"domContentLoadedMs\":308,\"loadMs\":309,\"responseStartMs\":279,\"durationMs\":309}"
+            },
+            "error": null
+          },
+          "console": [],
+          "network": [
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/search",
+              "method": "GET",
+              "resourceType": "Document",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/branding/logo.avif",
+              "method": "GET",
+              "resourceType": "Image",
+              "status": 304,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/css2",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.googleapis.com",
+              "path": "/icon",
+              "method": "GET",
+              "resourceType": "Stylesheet",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/webpack.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/main.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/_app.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/pages/search.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_buildManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_ssgManifest.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/react-refresh.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/development/_devMiddlewareManifest.json",
+              "method": "GET",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCXkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkCHkaSTbQWt4N.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO5CnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmkBnkaSTbQWg.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMawCUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMaxKUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3OUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBHMdazTgWw.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://fonts.gstatic.com",
+              "path": "/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_components_cart_CartWrapper_tsx.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_node_modules_pnpm_react-hot-toast_2_6_0_react-dom_19_3_1_react_19_3_1__rea-dd8c43.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_vercel/insights/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 404,
+              "analytics": false
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/_next/static/chunks/_pages-dir-browser_components_common_dialog_renderer_tsx.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_font/geist-mono-latin.woff2",
+              "method": "GET",
+              "resourceType": "Font",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "http://127.0.0.1:3000",
+              "path": "/__nextjs_original-stack-frames",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": false
+            },
+            {
+              "origin": "https://connect.facebook.net",
+              "path": "/vi_VN/sdk/xfbml.customerchat.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": null,
+              "analytics": false
+            }
+          ],
+          "analytics": [
+            {
+              "origin": "https://cloud.umami.is",
+              "path": "/script.js",
+              "method": "GET",
+              "resourceType": "Script",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            },
+            {
+              "origin": "https://gateway.umami.is",
+              "path": "/api/send",
+              "method": "POST",
+              "resourceType": "Fetch",
+              "status": 200,
+              "analytics": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

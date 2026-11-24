@@ -1,0 +1,1967 @@
+{
+  "schemaVersion": 1,
+  "count": 74,
+  "dependencies": [
+    {
+      "package": "@emotion/cache",
+      "declaredVersion": "^11.10.1",
+      "resolvedVersion": "11.14.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "utils/create-emotion-cache.ts"
+      ],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "@emotion/react",
+      "declaredVersion": "^11.10.0",
+      "resolvedVersion": "11.14.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "react": ">=16.8.0"
+      },
+      "consumers": [
+        "models/common.ts",
+        "pages/_app.tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "@emotion/server",
+      "declaredVersion": "^11.10.0",
+      "resolvedVersion": "11.11.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "@emotion/css": "^11.0.0-rc.0"
+      },
+      "consumers": [
+        "pages/_document.tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "@emotion/styled",
+      "declaredVersion": "^11.10.0",
+      "resolvedVersion": "11.14.1",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "@emotion/react": "^11.0.0-rc.0",
+        "react": ">=16.8.0"
+      },
+      "consumers": [],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "@hookform/error-message",
+      "declaredVersion": "^2.0.1",
+      "resolvedVersion": "2.0.1",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "react": ">=16.8.0",
+        "react-dom": ">=16.8.0",
+        "react-hook-form": "^7.0.0"
+      },
+      "consumers": [
+        "components/common/calendar/datePicker.tsx",
+        "components/common/input/controller.tsx",
+        "components/common/switch/index.tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "@hookform/resolvers",
+      "declaredVersion": "3.10.0",
+      "resolvedVersion": "3.10.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "react-hook-form": "^7.0.0"
+      },
+      "consumers": [
+        "components/creativa/Shell.tsx",
+        "hooks/creativa/useCatalog.ts",
+        "hooks/creativa/useCheckout.ts",
+        "pages/creativa/cart.tsx",
+        "pages/creativa/order-tracking/index.tsx",
+        "pages/creativa/skin-laptop/[slug].tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "@imgly/background-removal",
+      "declaredVersion": "1.7.0",
+      "resolvedVersion": "1.7.0",
+      "installed": true,
+      "section": "production",
+      "license": "SEE LICENSE IN LICENSE.md",
+      "peerConstraints": {
+        "onnxruntime-web": "1.21.0"
+      },
+      "consumers": [
+        "components/keychain-builder/image/removeBackground.ts"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "worker-boundary-review",
+      "ownerDecision": null
+    },
+    {
+      "package": "@mui/icons-material",
+      "declaredVersion": "^5.8.4",
+      "resolvedVersion": "5.18.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "@mui/material": "^5.0.0",
+        "@types/react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "consumers": [
+        "components/cart/lighters/AddToLighterCartButton.tsx",
+        "components/cart/lighters/LighterCartBadge.tsx",
+        "components/cart/lighters/LighterCartContent.tsx",
+        "components/cart/lighters/LighterCartDrawer.tsx",
+        "components/common/ComingSoon.tsx",
+        "components/common/ServiceCard.tsx",
+        "components/common/dialog/index.tsx",
+        "components/common/footer.tsx",
+        "components/common/header/header-desktop.tsx",
+        "components/common/header/header-mobile.tsx",
+        "components/common/header/search-popover.tsx",
+        "components/common/scrollToBottom/index.tsx",
+        "components/creativa/BankInstructions.tsx",
+        "components/creativa/Homepage.tsx",
+        "components/creativa/Shell.tsx",
+        "components/keychain-builder/preview/PreviewToolbar.tsx",
+        "components/lighter-builder/LighterCanvas.tsx",
+        "components/lighter-detail/DescriptionAccordion.tsx",
+        "components/lighter-detail/PriceAccordion.tsx",
+        "components/lighter-detail/QuantitySelector.tsx",
+        "components/lighters/LayoutViewSwitch.tsx",
+        "components/lighters/LighterCard.tsx",
+        "components/lighters/LighterCardBuilder.tsx",
+        "components/lighters/LighterCardCustomize.tsx",
+        "components/lighters/LightersFilter.tsx",
+        "components/orderTracking/lighters/ActionButtons.tsx",
+        "components/orderTracking/lighters/BankTransferInfo.tsx",
+        "components/orderTracking/lighters/ErrorState.tsx",
+        "components/orderTracking/lighters/OrderInfoCard.tsx",
+        "components/orderTracking/lighters/SuccessHeader.tsx",
+        "components/product-template/v1/IntroductionSection.tsx",
+        "components/product-template/v1/TypesSection.tsx",
+        "components/product-template/v2/IntroductionSection.tsx",
+        "components/product-template/v2/TypesSection.tsx",
+        "components/product-template/v3/ProductsSection.tsx",
+        "components/product/macnut-customize-card.tsx",
+        "components/product/skin-laptop-customize-card.tsx",
+        "data/contacts/list-contacts.tsx",
+        "data/product-pages/an-pham-bao-bi.tsx",
+        "data/product-pages/an-pham-fb.tsx",
+        "data/product-pages/an-pham-su-kien.tsx",
+        "data/product-pages/an-pham-tiep-thi.tsx",
+        "data/product-pages/an-pham-van-phong.tsx",
+        "data/product-pages/ca-nhan-hoa.tsx",
+        "data/product-pages/san-pham-luu-niem.tsx",
+        "data/product-pages/sticker.tsx",
+        "pages/cart/lighters.tsx",
+        "pages/checkout/lighters.tsx",
+        "pages/contact/index.tsx",
+        "pages/creativa/cart.tsx",
+        "pages/creativa/order-tracking/[slug].tsx",
+        "pages/creativa/skin-laptop/[slug].tsx",
+        "pages/creativa/skin-laptop/huong-dan-su-dung/cach-tu-dan-skin-macbook-tai-nha/index.tsx",
+        "pages/creativa/skin-laptop/index.tsx",
+        "pages/order-tracking/index.tsx",
+        "pages/policies-terms/chinh-sach-bao-hanh-doi-tra/index.tsx",
+        "pages/policies-terms/chinh-sach-bao-ve-thong-tin-khach-hang/index.tsx",
+        "pages/policies-terms/chinh-sach-duyet-in-va-san-xuat/index.tsx",
+        "pages/policies-terms/dieu-khoan-su-dung/index.tsx",
+        "pages/policies-terms/faqs/index.tsx",
+        "pages/policies-terms/index.tsx",
+        "pages/policies-terms/thong-tin-doanh-nghiep/index.tsx",
+        "pages/policies-terms/thong-tin-thanh-toan/index.tsx",
+        "pages/san-pham/skin-laptop/index.tsx",
+        "pages/san-pham/skin-nut-phim/index.tsx",
+        "pages/search/index.tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "@mui/material",
+      "declaredVersion": "^5.9.3",
+      "resolvedVersion": "5.18.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "@emotion/react": "^11.5.0",
+        "@emotion/styled": "^11.3.0",
+        "@types/react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "consumers": [
+        "components/blog/post-item.tsx",
+        "components/cart/CartWrapper.tsx",
+        "components/cart/lighters/AddToLighterCartButton.tsx",
+        "components/cart/lighters/LighterCartBadge.tsx",
+        "components/cart/lighters/LighterCartContent.tsx",
+        "components/cart/lighters/LighterCartDrawer.tsx",
+        "components/common/ComingSoon.tsx",
+        "components/common/ServiceCard.tsx",
+        "components/common/block-content/index.tsx",
+        "components/common/dialog/container.tsx",
+        "components/common/dialog/index.tsx",
+        "components/common/dialog/renderer.tsx",
+        "components/common/footer.tsx",
+        "components/common/header/header-desktop.tsx",
+        "components/common/header/header-mobile.tsx",
+        "components/common/header/search-popover.tsx",
+        "components/common/input/controller.tsx",
+        "components/common/input/index.tsx",
+        "components/common/markdown/MarkdownWrapper.tsx",
+        "components/common/scrollToBottom/index.tsx",
+        "components/common/switch/index.tsx",
+        "components/common/template.tsx",
+        "components/contact/QuoteRequestForm.tsx",
+        "components/creativa/BankInstructions.tsx",
+        "components/creativa/Breadcrumbs.tsx",
+        "components/creativa/ConceptImage.tsx",
+        "components/creativa/DesignCard.tsx",
+        "components/creativa/Homepage.tsx",
+        "components/creativa/HomepageFooter.tsx",
+        "components/creativa/ProductThumbnail.tsx",
+        "components/creativa/RecentOrders.tsx",
+        "components/creativa/Shell.tsx",
+        "components/home/blog.tsx",
+        "components/home/builder-promotion.tsx",
+        "components/home/cau-chuyen.tsx",
+        "components/home/chot-don.tsx",
+        "components/home/featured-products-section.tsx",
+        "components/home/hero-img.tsx",
+        "components/home/hero.tsx",
+        "components/home/information.tsx",
+        "components/home/product-card.tsx",
+        "components/home/service-children-grid.tsx",
+        "components/home/services.tsx",
+        "components/keychain-builder/ExportDialog.tsx",
+        "components/keychain-builder/KeychainBuilder.tsx",
+        "components/keychain-builder/controls/AppearanceControls.tsx",
+        "components/keychain-builder/controls/BackControls.tsx",
+        "components/keychain-builder/controls/BackImageEditor.tsx",
+        "components/keychain-builder/controls/ImageUpload.tsx",
+        "components/keychain-builder/controls/OpaqueAcrylicDialog.tsx",
+        "components/keychain-builder/controls/RemoveBackground.tsx",
+        "components/keychain-builder/controls/ShapeControls.tsx",
+        "components/keychain-builder/preview/Preview2D.tsx",
+        "components/keychain-builder/preview/Preview3D.tsx",
+        "components/keychain-builder/preview/Preview3DFallback.tsx",
+        "components/keychain-builder/preview/Preview3DLoading.tsx",
+        "components/keychain-builder/preview/PreviewToolbar.tsx",
+        "components/layout/builder.tsx",
+        "components/layout/creativa.tsx",
+        "components/layout/main.tsx",
+        "components/lighter-builder/BuilderSkeleton.tsx",
+        "components/lighter-builder/ControlPanel.tsx",
+        "components/lighter-builder/ImagePositionPreview.tsx",
+        "components/lighter-builder/ImageUploadZone.tsx",
+        "components/lighter-builder/LighterBuilder.tsx",
+        "components/lighter-builder/LighterCanvas.tsx",
+        "components/lighter-builder/hooks/useImageUploader.tsx",
+        "components/lighter-detail/ActionButtons.tsx",
+        "components/lighter-detail/BreadcrumbsNav.tsx",
+        "components/lighter-detail/Description.tsx",
+        "components/lighter-detail/DescriptionAccordion.tsx",
+        "components/lighter-detail/Gallery.tsx",
+        "components/lighter-detail/InfoPanel.tsx",
+        "components/lighter-detail/PriceAccordion.tsx",
+        "components/lighter-detail/PriceTable.tsx",
+        "components/lighter-detail/QuantitySelector.tsx",
+        "components/lighter-detail/RelatedProducts.tsx",
+        "components/lighters/LayoutViewSwitch.tsx",
+        "components/lighters/LighterCard.tsx",
+        "components/lighters/LighterCardBuilder.tsx",
+        "components/lighters/LighterCardCustomize.tsx",
+        "components/lighters/LightersFilter.tsx",
+        "components/lighters/LightersGrid.tsx",
+        "components/lighters/LightersPageContainer.tsx",
+        "components/lighters/LightersPageHeader.tsx",
+        "components/orderTracking/lighters/ActionButtons.tsx",
+        "components/orderTracking/lighters/BankTransferInfo.tsx",
+        "components/orderTracking/lighters/ContactInfo.tsx",
+        "components/orderTracking/lighters/CustomerInfoCard.tsx",
+        "components/orderTracking/lighters/ErrorState.tsx",
+        "components/orderTracking/lighters/LoadingState.tsx",
+        "components/orderTracking/lighters/OrderInfoCard.tsx",
+        "components/orderTracking/lighters/OrderItemsList.tsx",
+        "components/orderTracking/lighters/SuccessHeader.tsx",
+        "components/product-template/ProductPageTemplate.tsx",
+        "components/product-template/v1/ContactSection.tsx",
+        "components/product-template/v1/HeroSection.tsx",
+        "components/product-template/v1/IntroductionSection.tsx",
+        "components/product-template/v1/ProductGallery.tsx",
+        "components/product-template/v1/ProductPageTemplateV1.tsx",
+        "components/product-template/v1/TypesSection.tsx",
+        "components/product-template/v1/WhyInutSection.tsx",
+        "components/product-template/v2/ContactSection.tsx",
+        "components/product-template/v2/HeroSection.tsx",
+        "components/product-template/v2/IntroductionSection.tsx",
+        "components/product-template/v2/ProductGallery.tsx",
+        "components/product-template/v2/ProductPageTemplateV2.tsx",
+        "components/product-template/v2/TypesSection.tsx",
+        "components/product-template/v2/WhyInutSection.tsx",
+        "components/product-template/v3/ContactSection.tsx",
+        "components/product-template/v3/FeaturesSection.tsx",
+        "components/product-template/v3/HeroSection.tsx",
+        "components/product-template/v3/PortfolioSection.tsx",
+        "components/product-template/v3/ProcessSection.tsx",
+        "components/product-template/v3/ProductPageTemplateV3.tsx",
+        "components/product-template/v3/ProductsSection.tsx",
+        "components/product-template/v3/ReviewsSection.tsx",
+        "components/product-template/v3/shared/BackgroundEffects.tsx",
+        "components/product-template/v3/shared/CommonCard.tsx",
+        "components/product-template/v3/shared/SectionHeader.tsx",
+        "components/product-template/v3/shared/SectionWrapper.tsx",
+        "components/product-template/v3/shared/types.ts",
+        "components/product/macnut-customize-card.tsx",
+        "components/product/product-item.tsx",
+        "components/product/skin-laptop-customize-card.tsx",
+        "pages/_app.tsx",
+        "pages/about-us/index.tsx",
+        "pages/blog/[slug].tsx",
+        "pages/blog/index.tsx",
+        "pages/builder/index.tsx",
+        "pages/cart/lighters.tsx",
+        "pages/checkout/lighters.tsx",
+        "pages/contact/form/index.tsx",
+        "pages/contact/index.tsx",
+        "pages/creativa/cart.tsx",
+        "pages/creativa/checkout.tsx",
+        "pages/creativa/order-tracking/[slug].tsx",
+        "pages/creativa/order-tracking/index.tsx",
+        "pages/creativa/skin-laptop/[slug].tsx",
+        "pages/creativa/skin-laptop/huong-dan-su-dung/cach-tu-dan-skin-macbook-tai-nha/index.tsx",
+        "pages/creativa/skin-laptop/huong-dan-su-dung/index.tsx",
+        "pages/creativa/skin-laptop/index.tsx",
+        "pages/index.tsx",
+        "pages/order-tracking/index.tsx",
+        "pages/order-tracking/lighters/[slug].tsx",
+        "pages/policies-terms/chinh-sach-bao-hanh-doi-tra/index.tsx",
+        "pages/policies-terms/chinh-sach-bao-ve-thong-tin-khach-hang/index.tsx",
+        "pages/policies-terms/chinh-sach-duyet-in-va-san-xuat/index.tsx",
+        "pages/policies-terms/dieu-khoan-su-dung/index.tsx",
+        "pages/policies-terms/faqs/index.tsx",
+        "pages/policies-terms/index.tsx",
+        "pages/policies-terms/thong-tin-doanh-nghiep/index.tsx",
+        "pages/policies-terms/thong-tin-thanh-toan/index.tsx",
+        "pages/san-pham/index.tsx",
+        "pages/san-pham/lighters/[slug].tsx",
+        "pages/san-pham/skin-laptop/[slug].tsx",
+        "pages/san-pham/skin-laptop/index.tsx",
+        "pages/san-pham/skin-nut-phim/[slug].tsx",
+        "pages/san-pham/skin-nut-phim/index.tsx",
+        "pages/search/index.tsx",
+        "pages/services/[...slug].tsx",
+        "pages/services/index.tsx",
+        "utils/theme.ts"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "@next/bundle-analyzer",
+      "declaredVersion": "^16.1.6",
+      "resolvedVersion": "15.5.29",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "next.config.js"
+      ],
+      "scope": [
+        "build",
+        "dev-test"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "@next/third-parties",
+      "declaredVersion": "^15.2.4",
+      "resolvedVersion": "15.5.29",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "next": "^13.0.0 || ^14.0.0 || ^15.0.0",
+        "react": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0"
+      },
+      "consumers": [],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "@react-three/drei",
+      "declaredVersion": "9.92.0",
+      "resolvedVersion": "10.7.9",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "@react-three/fiber": "^9.0.0",
+        "react": "^19",
+        "react-dom": "^19",
+        "three": ">=0.159"
+      },
+      "consumers": [
+        "components/keychain-builder/preview/Preview3D.tsx",
+        "components/lighter-builder/LighterCanvas.tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "@react-three/fiber",
+      "declaredVersion": "8.15.0",
+      "resolvedVersion": "9.8.2",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "expo": ">=43.0",
+        "expo-asset": ">=8.4",
+        "expo-file-system": ">=11.0",
+        "expo-gl": ">=11.0",
+        "react": ">=19 <19.4",
+        "react-dom": ">=19 <19.4",
+        "react-native": ">=0.78",
+        "three": ">=0.156"
+      },
+      "consumers": [
+        "components/keychain-builder/preview/Preview3D.tsx",
+        "components/keychain-builder/preview/RingPlane.tsx",
+        "components/lighter-builder/LighterCanvas.tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "@sanity/block-content-to-react",
+      "declaredVersion": "^2",
+      "resolvedVersion": "2.0.7",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "react": ">=15.0.0"
+      },
+      "consumers": [
+        "components/common/block-content/index.tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "@sanity/client",
+      "declaredVersion": "^3.4.1",
+      "resolvedVersion": "3.4.1",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "api-client/creativa-catalog.ts",
+        "api-client/creativa-server.ts",
+        "api-client/keychain-server.ts",
+        "api-client/sanity-browser.ts",
+        "api-client/sanity-server.ts",
+        "sanity/scripts/report.mjs",
+        "utils/spx/sync.ts"
+      ],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "@sanity/image-url",
+      "declaredVersion": "^1.0.1",
+      "resolvedVersion": "1.2.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "api-client/sanity-browser.ts"
+      ],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "@types/axios",
+      "declaredVersion": "^0.14.0",
+      "resolvedVersion": null,
+      "installed": false,
+      "section": "development",
+      "license": null,
+      "peerConstraints": {},
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
+      "package": "@types/lodash",
+      "declaredVersion": "^4.14.191",
+      "resolvedVersion": "4.17.24",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
+      "package": "@types/node",
+      "declaredVersion": "18.6.3",
+      "resolvedVersion": "18.6.3",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "@types/react",
+      "declaredVersion": "18.3.28",
+      "resolvedVersion": "19.3.0",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "@types/react-date-range",
+      "declaredVersion": "^1.4.4",
+      "resolvedVersion": "1.4.10",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
+      "package": "@types/react-dom",
+      "declaredVersion": "18.3.7",
+      "resolvedVersion": "19.3.0",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {
+        "@types/react": "^19.3.0"
+      },
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "@types/remark-prism",
+      "declaredVersion": "^1.3.3",
+      "resolvedVersion": "1.3.7",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
+      "package": "@types/three",
+      "declaredVersion": "0.160.0",
+      "resolvedVersion": "0.160.0",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "@typescript-eslint/eslint-plugin",
+      "declaredVersion": "^5.38.0",
+      "resolvedVersion": "5.62.0",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {
+        "@typescript-eslint/parser": "^5.0.0",
+        "eslint": "^6.0.0 || ^7.0.0 || ^8.0.0"
+      },
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
+      "package": "@typescript-eslint/parser",
+      "declaredVersion": "^5.38.0",
+      "resolvedVersion": "5.62.0",
+      "installed": true,
+      "section": "development",
+      "license": "BSD-2-Clause",
+      "peerConstraints": {
+        "eslint": "^6.0.0 || ^7.0.0 || ^8.0.0"
+      },
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
+      "package": "@vercel/analytics",
+      "declaredVersion": "^1.0.0",
+      "resolvedVersion": "1.6.1",
+      "installed": true,
+      "section": "production",
+      "license": "MPL-2.0",
+      "peerConstraints": {
+        "@remix-run/react": "^2",
+        "@sveltejs/kit": "^1 || ^2",
+        "next": ">= 13",
+        "react": "^18 || ^19 || ^19.0.0-rc",
+        "svelte": ">= 4",
+        "vue": "^3",
+        "vue-router": "^4"
+      },
+      "consumers": [
+        "pages/_app.tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "remove",
+      "ownerDecision": null
+    },
+    {
+      "package": "axios",
+      "declaredVersion": "^0.27.2",
+      "resolvedVersion": "0.27.2",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "api-client/axios-client.ts",
+        "utils/telegram/index.ts"
+      ],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "clsx",
+      "declaredVersion": "^1.2.1",
+      "resolvedVersion": "1.2.1",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "components/common/dialog/index.tsx",
+        "components/common/header/header-desktop.tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "cross-env",
+      "declaredVersion": "^10.1.0",
+      "resolvedVersion": "10.1.0",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
+      "package": "date-fns",
+      "declaredVersion": "^2.29.1",
+      "resolvedVersion": "2.30.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "components/blog/post-item.tsx",
+        "components/orderTracking/lighters/OrderInfoCard.tsx",
+        "utils/date.ts"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "eslint",
+      "declaredVersion": "8.20.0",
+      "resolvedVersion": "8.20.0",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
+      "package": "eslint-config-next",
+      "declaredVersion": "12.2.3",
+      "resolvedVersion": "15.5.29",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {
+        "eslint": "^7.23.0 || ^8.0.0 || ^9.0.0",
+        "typescript": ">=3.3.1"
+      },
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "eslint-config-prettier",
+      "declaredVersion": "^8.5.0",
+      "resolvedVersion": "8.10.2",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {
+        "eslint": ">=7.0.0"
+      },
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
+      "package": "eslint-import-resolver-typescript",
+      "declaredVersion": "^3.5.1",
+      "resolvedVersion": "3.10.1",
+      "installed": true,
+      "section": "development",
+      "license": "ISC",
+      "peerConstraints": {
+        "eslint": "*",
+        "eslint-plugin-import": "*",
+        "eslint-plugin-import-x": "*"
+      },
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
+      "package": "eslint-plugin-import",
+      "declaredVersion": "^2.26.0",
+      "resolvedVersion": "2.32.0",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {
+        "eslint": "^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8 || ^9"
+      },
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
+      "package": "eslint-plugin-prettier",
+      "declaredVersion": "^4.2.1",
+      "resolvedVersion": "4.2.5",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {
+        "eslint": ">=7.28.0",
+        "prettier": ">=2.0.0"
+      },
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
+      "package": "eslint-plugin-react",
+      "declaredVersion": "^7.31.8",
+      "resolvedVersion": "7.37.5",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {
+        "eslint": "^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7"
+      },
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
+      "package": "eslint-plugin-react-hooks",
+      "declaredVersion": "^4.6.0",
+      "resolvedVersion": "4.6.2",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {
+        "eslint": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0"
+      },
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
+      "package": "gray-matter",
+      "declaredVersion": "^4.0.3",
+      "resolvedVersion": "4.0.3",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        ".agents/skills/inut-content-writer/scripts/validate-blog.mjs",
+        ".agents/skills/inut-design-workflow/scripts/validate-ai-config.mjs",
+        "scripts/migration/slug-manifest.mjs",
+        "utils/posts.ts"
+      ],
+      "scope": [
+        "build"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "isomorphic-dompurify",
+      "declaredVersion": "^2.29.0",
+      "resolvedVersion": "2.36.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "pages/blog/[slug].tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "lodash",
+      "declaredVersion": "^4.17.21",
+      "resolvedVersion": "4.17.23",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "components/lighters/LightersPageContainer.tsx",
+        "pages/checkout/lighters.tsx",
+        "pages/san-pham/skin-laptop/index.tsx",
+        "store/dialog/slice.ts"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "lru-cache",
+      "declaredVersion": "^11.2.2",
+      "resolvedVersion": "11.2.7",
+      "installed": true,
+      "section": "production",
+      "license": "BlueOak-1.0.0",
+      "peerConstraints": {},
+      "consumers": [
+        "utils/creativa/api.server.ts",
+        "utils/rateLimit.ts"
+      ],
+      "scope": [
+        "worker"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "next",
+      "declaredVersion": "12.3.1",
+      "resolvedVersion": "15.5.29",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "@opentelemetry/api": "^1.1.0",
+        "@playwright/test": "^1.51.1",
+        "babel-plugin-react-compiler": "*",
+        "react": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0",
+        "react-dom": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0",
+        "sass": "^1.3.0"
+      },
+      "consumers": [
+        "components/cart/CartWrapper.tsx",
+        "components/cart/lighters/LighterCartContent.tsx",
+        "components/common/ComingSoon.tsx",
+        "components/common/ServiceCard.tsx",
+        "components/common/dialog/container.tsx",
+        "components/common/footer.tsx",
+        "components/common/header/header-desktop.tsx",
+        "components/common/header/header-mobile.tsx",
+        "components/common/header/search-popover.tsx",
+        "components/common/seo.tsx",
+        "components/contact/QuoteRequestForm.tsx",
+        "components/creativa/Breadcrumbs.tsx",
+        "components/creativa/ConceptImage.tsx",
+        "components/creativa/DesignCard.tsx",
+        "components/creativa/Homepage.tsx",
+        "components/creativa/HomepageFooter.tsx",
+        "components/creativa/ProductThumbnail.tsx",
+        "components/creativa/RecentOrders.tsx",
+        "components/creativa/Shell.tsx",
+        "components/home/blog.tsx",
+        "components/home/builder-promotion.tsx",
+        "components/home/chot-don.tsx",
+        "components/home/featured-products-section.tsx",
+        "components/home/hero-img.tsx",
+        "components/home/hero.tsx",
+        "components/home/information.tsx",
+        "components/home/product-card.tsx",
+        "components/home/service-children-grid.tsx",
+        "components/home/services.tsx",
+        "components/keychain-builder/KeychainBuilder.tsx",
+        "components/keychain-builder/controls/AppearanceControls.tsx",
+        "components/keychain-builder/controls/ShapeControls.tsx",
+        "components/lighter-builder/LighterBuilder.tsx",
+        "components/lighter-detail/ActionButtons.tsx",
+        "components/lighter-detail/BreadcrumbsNav.tsx",
+        "components/lighter-detail/Gallery.tsx",
+        "components/lighter-detail/RelatedProducts.tsx",
+        "components/lighters/LighterCard.tsx",
+        "components/lighters/LighterCardBuilder.tsx",
+        "components/lighters/LighterCardCustomize.tsx",
+        "components/lighters/LightersFilter.tsx",
+        "components/lighters/LightersPageContainer.tsx",
+        "components/lighters/LightersPageHeader.tsx",
+        "components/orderTracking/lighters/ActionButtons.tsx",
+        "components/orderTracking/lighters/ContactInfo.tsx",
+        "components/orderTracking/lighters/ErrorState.tsx",
+        "components/orderTracking/lighters/OrderItemsList.tsx",
+        "components/product-template/v1/ContactSection.tsx",
+        "components/product-template/v1/HeroSection.tsx",
+        "components/product-template/v1/ProductGallery.tsx",
+        "components/product-template/v1/TypesSection.tsx",
+        "components/product-template/v2/ContactSection.tsx",
+        "components/product-template/v2/HeroSection.tsx",
+        "components/product-template/v2/ProductGallery.tsx",
+        "components/product-template/v2/TypesSection.tsx",
+        "components/product/macnut-customize-card.tsx",
+        "components/product/product-item.tsx",
+        "components/product/skin-laptop-customize-card.tsx",
+        "components/scripts/facebook-plugin.tsx",
+        "components/scripts/faq-schema.tsx",
+        "components/scripts/google-tag-manager.tsx",
+        "components/scripts/speculation-rules.tsx",
+        "hooks/creativa/useCatalog.ts",
+        "hooks/creativa/useCheckout.ts",
+        "hooks/creativa/useTracking.ts",
+        "hooks/useCurrentCart.ts",
+        "models/common.ts",
+        "next.config.js",
+        "pages/_app.tsx",
+        "pages/_document.tsx",
+        "pages/api/costs/create.ts",
+        "pages/api/cron/sync-spx-orders.ts",
+        "pages/api/income/create.ts",
+        "pages/api/keychain/designs/[id].ts",
+        "pages/api/keychain/designs/index.ts",
+        "pages/api/keychain/uploads.ts",
+        "pages/api/orders/lighters.ts",
+        "pages/api/quote-request.ts",
+        "pages/api/sanity/upload-image.ts",
+        "pages/api/search.ts",
+        "pages/api/telegram/send-abandoned-checkout-notification.ts",
+        "pages/api/telegram/send-order-notification.ts",
+        "pages/api/telegram/send-quote-notification.ts",
+        "pages/api/validate-phone.ts",
+        "pages/blog/[slug].tsx",
+        "pages/blog/index.tsx",
+        "pages/builder/index.tsx",
+        "pages/builder/keychain/index.tsx",
+        "pages/builder/lighters/index.tsx",
+        "pages/cart/lighters.tsx",
+        "pages/checkout/lighters.tsx",
+        "pages/contact/form/index.tsx",
+        "pages/contact/index.tsx",
+        "pages/creativa/cart.tsx",
+        "pages/creativa/checkout.tsx",
+        "pages/creativa/index.tsx",
+        "pages/creativa/order-tracking/[slug].tsx",
+        "pages/creativa/order-tracking/index.tsx",
+        "pages/creativa/skin-laptop/[slug].tsx",
+        "pages/creativa/skin-laptop/huong-dan-su-dung/cach-tu-dan-skin-macbook-tai-nha/index.tsx",
+        "pages/creativa/skin-laptop/huong-dan-su-dung/index.tsx",
+        "pages/creativa/skin-laptop/index.tsx",
+        "pages/index.tsx",
+        "pages/order-tracking/index.tsx",
+        "pages/order-tracking/lighters/[slug].tsx",
+        "pages/policies-terms/chinh-sach-bao-hanh-doi-tra/index.tsx",
+        "pages/policies-terms/chinh-sach-bao-ve-thong-tin-khach-hang/index.tsx",
+        "pages/policies-terms/chinh-sach-duyet-in-va-san-xuat/index.tsx",
+        "pages/policies-terms/dieu-khoan-su-dung/index.tsx",
+        "pages/policies-terms/faqs/index.tsx",
+        "pages/policies-terms/index.tsx",
+        "pages/policies-terms/thong-tin-doanh-nghiep/index.tsx",
+        "pages/policies-terms/thong-tin-thanh-toan/index.tsx",
+        "pages/san-pham/index.tsx",
+        "pages/san-pham/lighters/[slug].tsx",
+        "pages/san-pham/lighters/index.tsx",
+        "pages/san-pham/skin-laptop/[slug].tsx",
+        "pages/san-pham/skin-laptop/index.tsx",
+        "pages/san-pham/skin-nut-phim/[slug].tsx",
+        "pages/san-pham/skin-nut-phim/index.tsx",
+        "pages/search/index.tsx",
+        "pages/services/[...slug].tsx",
+        "pages/services/index.tsx",
+        "utils/creativa/api.server.ts",
+        "utils/rateLimit.ts"
+      ],
+      "scope": [
+        "browser",
+        "build",
+        "worker"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "next-sitemap",
+      "declaredVersion": "^3.1.23",
+      "resolvedVersion": "3.1.55",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "next": "*",
+        "@next/env": "*"
+      },
+      "consumers": [
+        "next-sitemap.config.js"
+      ],
+      "scope": [
+        "build"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "onnxruntime-web",
+      "declaredVersion": "1.21.0",
+      "resolvedVersion": "1.21.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "worker-boundary-review",
+      "ownerDecision": null
+    },
+    {
+      "package": "prettier",
+      "declaredVersion": "^2.7.1",
+      "resolvedVersion": "2.8.8",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
+      "package": "react",
+      "declaredVersion": "18.2.0",
+      "resolvedVersion": "19.3.1",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "components/cart/CartWrapper.tsx",
+        "components/cart/lighters/AddToLighterCartButton.tsx",
+        "components/common/ComingSoon.tsx",
+        "components/common/Portal.tsx",
+        "components/common/ServiceCard.tsx",
+        "components/common/block-content/index.tsx",
+        "components/common/calendar/datePicker.tsx",
+        "components/common/dialog/container.tsx",
+        "components/common/dialog/index.tsx",
+        "components/common/dialog/renderer.tsx",
+        "components/common/header/header-desktop.tsx",
+        "components/common/header/header-mobile.tsx",
+        "components/common/header/search-popover.tsx",
+        "components/common/input/controller.tsx",
+        "components/common/input/index.tsx",
+        "components/common/markdown/MarkdownWrapper.tsx",
+        "components/common/scrollToBottom/index.tsx",
+        "components/common/seo.tsx",
+        "components/common/switch/index.tsx",
+        "components/common/template.tsx",
+        "components/contact/QuoteRequestForm.tsx",
+        "components/creativa/BankInstructions.tsx",
+        "components/creativa/DesignCard.tsx",
+        "components/creativa/Homepage.tsx",
+        "components/creativa/ProductThumbnail.tsx",
+        "components/creativa/RecentOrders.tsx",
+        "components/creativa/Shell.tsx",
+        "components/home/builder-promotion.tsx",
+        "components/home/hero.tsx",
+        "components/keychain-builder/ExportDialog.tsx",
+        "components/keychain-builder/KeychainBuilder.tsx",
+        "components/keychain-builder/controls/BackImageEditor.tsx",
+        "components/keychain-builder/hooks/useBackImage.ts",
+        "components/keychain-builder/hooks/useBackgroundRemoval.ts",
+        "components/keychain-builder/hooks/useDieCutGeometry.ts",
+        "components/keychain-builder/hooks/useExportDesign.ts",
+        "components/keychain-builder/hooks/useImageTransform.ts",
+        "components/keychain-builder/hooks/useImageUpload.ts",
+        "components/keychain-builder/hooks/useKeychainState.ts",
+        "components/keychain-builder/hooks/useLoadDesign.ts",
+        "components/keychain-builder/hooks/useOperationStatus.ts",
+        "components/keychain-builder/preview/KeychainMesh.tsx",
+        "components/keychain-builder/preview/Preview2D.tsx",
+        "components/keychain-builder/preview/Preview3D.tsx",
+        "components/keychain-builder/preview/PreviewToolbar.tsx",
+        "components/layout/empty.tsx",
+        "components/lighter-builder/ControlPanel.tsx",
+        "components/lighter-builder/ImagePositionPreview.tsx",
+        "components/lighter-builder/ImageUploadZone.tsx",
+        "components/lighter-builder/LighterBuilder.tsx",
+        "components/lighter-builder/LighterCanvas.tsx",
+        "components/lighter-builder/hooks/useImageUploader.tsx",
+        "components/lighter-builder/hooks/useLighterTransform.ts",
+        "components/lighter-detail/ActionButtons.tsx",
+        "components/lighter-detail/BreadcrumbsNav.tsx",
+        "components/lighter-detail/Description.tsx",
+        "components/lighter-detail/DescriptionAccordion.tsx",
+        "components/lighter-detail/Gallery.tsx",
+        "components/lighter-detail/InfoPanel.tsx",
+        "components/lighter-detail/PriceAccordion.tsx",
+        "components/lighter-detail/PriceTable.tsx",
+        "components/lighter-detail/QuantitySelector.tsx",
+        "components/lighter-detail/RelatedProducts.tsx",
+        "components/lighters/LayoutViewSwitch.tsx",
+        "components/lighters/LighterCard.tsx",
+        "components/lighters/LighterCardBuilder.tsx",
+        "components/lighters/LighterCardCustomize.tsx",
+        "components/lighters/LightersFilter.tsx",
+        "components/lighters/LightersGrid.tsx",
+        "components/lighters/LightersPageContainer.tsx",
+        "components/lighters/LightersPageHeader.tsx",
+        "components/orderTracking/lighters/ActionButtons.tsx",
+        "components/orderTracking/lighters/BankTransferInfo.tsx",
+        "components/orderTracking/lighters/ContactInfo.tsx",
+        "components/orderTracking/lighters/CustomerInfoCard.tsx",
+        "components/orderTracking/lighters/ErrorState.tsx",
+        "components/orderTracking/lighters/LoadingState.tsx",
+        "components/orderTracking/lighters/OrderInfoCard.tsx",
+        "components/orderTracking/lighters/OrderItemsList.tsx",
+        "components/orderTracking/lighters/SuccessHeader.tsx",
+        "components/product-template/ProductPageTemplate.tsx",
+        "components/product-template/v1/ContactSection.tsx",
+        "components/product-template/v1/HeroSection.tsx",
+        "components/product-template/v1/IntroductionSection.tsx",
+        "components/product-template/v1/ProductGallery.tsx",
+        "components/product-template/v1/ProductPageTemplateV1.tsx",
+        "components/product-template/v1/TypesSection.tsx",
+        "components/product-template/v1/WhyInutSection.tsx",
+        "components/product-template/v2/ContactSection.tsx",
+        "components/product-template/v2/HeroSection.tsx",
+        "components/product-template/v2/IntroductionSection.tsx",
+        "components/product-template/v2/ProductGallery.tsx",
+        "components/product-template/v2/ProductPageTemplateV2.tsx",
+        "components/product-template/v2/TypesSection.tsx",
+        "components/product-template/v2/WhyInutSection.tsx",
+        "components/product-template/v3/ContactSection.tsx",
+        "components/product-template/v3/FeaturesSection.tsx",
+        "components/product-template/v3/HeroSection.tsx",
+        "components/product-template/v3/PortfolioSection.tsx",
+        "components/product-template/v3/ProcessSection.tsx",
+        "components/product-template/v3/ProductPageTemplateV3.tsx",
+        "components/product-template/v3/ProductsSection.tsx",
+        "components/product-template/v3/ReviewsSection.tsx",
+        "components/product-template/v3/shared/BackgroundEffects.tsx",
+        "components/product-template/v3/shared/CommonCard.tsx",
+        "components/product-template/v3/shared/SectionHeader.tsx",
+        "components/product-template/v3/shared/SectionWrapper.tsx",
+        "components/product-template/v3/shared/types.ts",
+        "components/product/macnut-customize-card.tsx",
+        "components/product/product-item.tsx",
+        "components/product/skin-laptop-customize-card.tsx",
+        "components/scripts/faq-schema.tsx",
+        "components/scripts/google-tag-manager.tsx",
+        "components/scripts/organization-schema.tsx",
+        "components/scripts/speculation-rules.tsx",
+        "components/swr/StudentDetail.tsx",
+        "data/product-pages/an-pham-su-kien.tsx",
+        "hooks/creativa/useBrowserState.ts",
+        "hooks/creativa/useCart.ts",
+        "hooks/creativa/useCatalog.ts",
+        "hooks/creativa/useCheckout.ts",
+        "hooks/creativa/useQuote.ts",
+        "hooks/creativa/useTracking.ts",
+        "hooks/useCurrentCart.ts",
+        "hooks/useEngagementTracking.ts",
+        "hooks/useInfiniteCatalog.ts",
+        "hooks/useLightersPage.ts",
+        "hooks/usePhoneZaloCheck.ts",
+        "hooks/useUmamiEngagement.ts",
+        "models/common.ts",
+        "models/product-page.ts",
+        "pages/_app.tsx",
+        "pages/blog/[slug].tsx",
+        "pages/cart/lighters.tsx",
+        "pages/checkout/lighters.tsx",
+        "pages/creativa/cart.tsx",
+        "pages/creativa/order-tracking/[slug].tsx",
+        "pages/creativa/skin-laptop/[slug].tsx",
+        "pages/order-tracking/index.tsx",
+        "pages/policies-terms/chinh-sach-bao-hanh-doi-tra/index.tsx",
+        "pages/policies-terms/chinh-sach-bao-ve-thong-tin-khach-hang/index.tsx",
+        "pages/policies-terms/chinh-sach-duyet-in-va-san-xuat/index.tsx",
+        "pages/policies-terms/dieu-khoan-su-dung/index.tsx",
+        "pages/policies-terms/faqs/index.tsx",
+        "pages/policies-terms/index.tsx",
+        "pages/policies-terms/thong-tin-doanh-nghiep/index.tsx",
+        "pages/policies-terms/thong-tin-thanh-toan/index.tsx",
+        "pages/san-pham/lighters/[slug].tsx",
+        "pages/san-pham/lighters/index.tsx",
+        "pages/san-pham/skin-laptop/[slug].tsx",
+        "pages/san-pham/skin-laptop/index.tsx",
+        "pages/san-pham/skin-nut-phim/[slug].tsx",
+        "pages/san-pham/skin-nut-phim/index.tsx",
+        "pages/search/index.tsx",
+        "pages/services/[...slug].tsx",
+        "pages/services/an-pham-luu-niem/acrylic-magnet/index.tsx",
+        "pages/services/an-pham-luu-niem/in-anh-da-nang/index.tsx",
+        "pages/services/an-pham-luu-niem/in-postcard/index.tsx",
+        "pages/services/an-pham-luu-niem/moc-khoa-mica/index.tsx",
+        "pages/services/an-pham-luu-niem/pin-cai-ao-mica/index.tsx",
+        "pages/services/an-pham-luu-niem/thank-card-gift-card/index.tsx",
+        "pages/services/an-pham-su-kien/hashtag-cam-tay/index.tsx",
+        "pages/services/an-pham-su-kien/poster-decal/index.tsx",
+        "pages/services/an-pham-tiep-thi/catalogue-brochure/index.tsx",
+        "pages/services/an-pham-tiep-thi/in-card-visit/index.tsx",
+        "pages/services/an-pham-van-phong/bang-cung-in-thong-tin/index.tsx",
+        "pages/services/an-pham-van-phong/giay-khen-giay-chung-nhan/index.tsx",
+        "pages/services/an-pham-van-phong/in-bi-thu/index.tsx",
+        "pages/services/an-pham-van-phong/so-tay-ky-yeu-so-bam-ghim/index.tsx",
+        "pages/services/ca-nhan-hoa/skin-dien-thoai-customize/index.tsx",
+        "pages/services/ca-nhan-hoa/skin-laptop-customize/index.tsx",
+        "pages/services/ca-nhan-hoa/skin-nut-phim-customize/index.tsx",
+        "pages/services/sticker/sticker-diecut/index.tsx",
+        "pages/services/sticker/sticker-kisscut/index.tsx",
+        "pages/services/sticker/sticker-magnet/index.tsx",
+        "pages/services/sticker/sticker-sheet/index.tsx",
+        "sanity/components/StatusSelectWithGuide.js"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "react-countup",
+      "declaredVersion": "^6.3.1",
+      "resolvedVersion": "6.5.3",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "react": ">= 16.3.0"
+      },
+      "consumers": [
+        "components/lighters/LightersPageHeader.tsx",
+        "pages/blog/index.tsx",
+        "pages/san-pham/skin-laptop/[slug].tsx",
+        "pages/san-pham/skin-laptop/index.tsx",
+        "pages/san-pham/skin-nut-phim/index.tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "react-date-range",
+      "declaredVersion": "^1.4.0",
+      "resolvedVersion": "1.4.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "date-fns": "2.0.0-alpha.7 || >=2.0.0",
+        "react": "^0.14 || ^15.0.0-rc || >=15.0"
+      },
+      "consumers": [
+        "components/common/calendar/datePicker.tsx",
+        "components/common/calendar/dateRange.tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "react-dom",
+      "declaredVersion": "18.2.0",
+      "resolvedVersion": "19.3.1",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "react": "^19.3.1"
+      },
+      "consumers": [
+        "components/common/Portal.tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "react-hook-form",
+      "declaredVersion": "^7.44.2",
+      "resolvedVersion": "7.92.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "@types/react": "*",
+        "react": "^16.8.0 || ^17 || ^18 || ^19"
+      },
+      "consumers": [
+        "components/common/calendar/datePicker.tsx",
+        "components/common/input/controller.tsx",
+        "components/common/switch/index.tsx",
+        "components/contact/QuoteRequestForm.tsx",
+        "components/creativa/Shell.tsx",
+        "hooks/creativa/useCatalog.ts",
+        "hooks/creativa/useCheckout.ts",
+        "pages/checkout/lighters.tsx",
+        "pages/creativa/cart.tsx",
+        "pages/creativa/checkout.tsx",
+        "pages/creativa/order-tracking/index.tsx",
+        "pages/creativa/skin-laptop/[slug].tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "react-hot-toast",
+      "declaredVersion": "^2.4.1",
+      "resolvedVersion": "2.6.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "react": ">=16",
+        "react-dom": ">=16"
+      },
+      "consumers": [
+        "components/cart/lighters/AddToLighterCartButton.tsx",
+        "components/contact/QuoteRequestForm.tsx",
+        "components/creativa/BankInstructions.tsx",
+        "components/lighter-builder/LighterBuilder.tsx",
+        "components/lighter-builder/hooks/useImageUploader.tsx",
+        "components/lighters/LighterCard.tsx",
+        "components/orderTracking/lighters/BankTransferInfo.tsx",
+        "components/orderTracking/lighters/OrderInfoCard.tsx",
+        "pages/_app.tsx",
+        "pages/checkout/lighters.tsx",
+        "pages/creativa/order-tracking/[slug].tsx",
+        "pages/creativa/skin-laptop/[slug].tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "react-icons",
+      "declaredVersion": "^5.6.0",
+      "resolvedVersion": "5.6.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "react": "*"
+      },
+      "consumers": [
+        "components/common/input/index.tsx",
+        "components/home/product-card.tsx",
+        "data/contacts/list-contacts.tsx",
+        "pages/san-pham/skin-laptop/[slug].tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "react-material-ui-carousel",
+      "declaredVersion": "^3.4.2",
+      "resolvedVersion": "3.4.2",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "@emotion/react": "^11.4.1",
+        "@emotion/styled": "^11.3.0",
+        "@mui/icons-material": "^5.0.0",
+        "@mui/material": "^5.0.0",
+        "@mui/system": "^5.0.0",
+        "react": "^17.0.1 || ^18.0.0",
+        "react-dom": "^17.0.2 || ^18.0.0"
+      },
+      "consumers": [
+        "components/lighter-detail/Gallery.tsx",
+        "components/lighter-detail/RelatedProducts.tsx",
+        "pages/creativa/skin-laptop/[slug].tsx",
+        "pages/san-pham/skin-laptop/[slug].tsx",
+        "pages/san-pham/skin-nut-phim/[slug].tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "rehype-autolink-headings",
+      "declaredVersion": "^6.1.1",
+      "resolvedVersion": "6.1.1",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "utils/unified.ts"
+      ],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "rehype-document",
+      "declaredVersion": "^6.0.1",
+      "resolvedVersion": "6.1.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "utils/unified.ts"
+      ],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "rehype-format",
+      "declaredVersion": "^4.0.1",
+      "resolvedVersion": "4.0.1",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "utils/unified.ts"
+      ],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "rehype-slug",
+      "declaredVersion": "^5.0.1",
+      "resolvedVersion": "5.1.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "utils/unified.ts"
+      ],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "rehype-stringify",
+      "declaredVersion": "^9.0.3",
+      "resolvedVersion": "9.0.4",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "utils/unified.ts"
+      ],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "remark-gfm",
+      "declaredVersion": "1",
+      "resolvedVersion": "1.0.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        ".agents/skills/inut-content-writer/scripts/validate-blog.mjs",
+        "utils/unified.ts"
+      ],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "remark-images",
+      "declaredVersion": "^3.1.0",
+      "resolvedVersion": "3.1.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "utils/unified.ts"
+      ],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "remark-parse",
+      "declaredVersion": "^10.0.1",
+      "resolvedVersion": "10.0.2",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        ".agents/skills/inut-content-writer/scripts/validate-blog.mjs",
+        "utils/unified.ts"
+      ],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "remark-prism",
+      "declaredVersion": "^1.3.6",
+      "resolvedVersion": "1.3.6",
+      "installed": true,
+      "section": "production",
+      "license": "BSD-3-Clause",
+      "peerConstraints": {},
+      "consumers": [
+        "utils/unified.ts"
+      ],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "remark-rehype",
+      "declaredVersion": "^10.1.0",
+      "resolvedVersion": "10.1.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "utils/unified.ts"
+      ],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "remark-toc",
+      "declaredVersion": "^8.0.1",
+      "resolvedVersion": "8.0.1",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "utils/unified.ts"
+      ],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "sharp",
+      "declaredVersion": "0.32.6",
+      "resolvedVersion": "0.32.6",
+      "installed": true,
+      "section": "production",
+      "license": "Apache-2.0",
+      "peerConstraints": {},
+      "consumers": [
+        "scripts/migration/api-fixtures/uploads/upload-fixtures.mjs",
+        "scripts/tests/keychain-geometry.test.mjs",
+        "scripts/tests/keychain-image-validation.test.mjs",
+        "utils/keychain/imageValidation.ts"
+      ],
+      "scope": [
+        "build",
+        "test",
+        "worker"
+      ],
+      "migrationAction": "worker-boundary-review",
+      "ownerDecision": null
+    },
+    {
+      "package": "swr",
+      "declaredVersion": "2.1.5",
+      "resolvedVersion": "2.5.1",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "react": "^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "consumers": [
+        "components/swr/StudentDetail.tsx",
+        "components/swr/costs.ts",
+        "components/swr/incomes.ts",
+        "hooks/creativa/useApi.ts",
+        "hooks/creativa/useCatalog.ts",
+        "hooks/useCreateLighterOrder.ts",
+        "hooks/useOrderByNumber.ts",
+        "hooks/usePrimaryBankInfo.ts",
+        "hooks/useShippingFees.ts",
+        "hooks/useStaticContentBySlug.ts",
+        "hooks/useSubmitQuoteRequest.ts",
+        "hooks/useTelegramAbandonedCheckoutNotification.ts",
+        "hooks/useTelegramNotification.ts",
+        "hooks/useTelegramQuoteNotification.ts",
+        "pages/_app.tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "three",
+      "declaredVersion": "0.160.0",
+      "resolvedVersion": "0.160.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "components/keychain-builder/preview/KeychainMesh.tsx",
+        "components/keychain-builder/preview/Preview3D.tsx",
+        "components/keychain-builder/preview/RingPlane.tsx",
+        "components/keychain-builder/render/render3dTexture.ts",
+        "components/lighter-builder/LighterCanvas.tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "upgrade-unit",
+      "ownerDecision": null
+    },
+    {
+      "package": "typescript",
+      "declaredVersion": "5.0.4",
+      "resolvedVersion": "5.9.3",
+      "installed": true,
+      "section": "development",
+      "license": "Apache-2.0",
+      "peerConstraints": {},
+      "consumers": [
+        "scripts/typescript-loader.mjs"
+      ],
+      "scope": [
+        "build",
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
+      "package": "unified",
+      "declaredVersion": "^10.1.2",
+      "resolvedVersion": "10.1.2",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        ".agents/skills/inut-content-writer/scripts/validate-blog.mjs",
+        "utils/unified.ts"
+      ],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "yet-another-react-lightbox",
+      "declaredVersion": "^3.29.1",
+      "resolvedVersion": "3.29.2",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "@types/react": "^16 || ^17 || ^18 || ^19",
+        "@types/react-dom": "^16 || ^17 || ^18 || ^19",
+        "react": "^16.8.0 || ^17 || ^18 || ^19",
+        "react-dom": "^16.8.0 || ^17 || ^18 || ^19"
+      },
+      "consumers": [
+        "components/lighter-detail/Gallery.tsx",
+        "components/product-template/v1/ProductGallery.tsx",
+        "components/product-template/v2/ProductGallery.tsx",
+        "pages/creativa/skin-laptop/[slug].tsx",
+        "pages/san-pham/skin-laptop/[slug].tsx",
+        "pages/san-pham/skin-nut-phim/[slug].tsx"
+      ],
+      "scope": [
+        "browser"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "yup",
+      "declaredVersion": "1.7.1",
+      "resolvedVersion": "1.7.1",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "pages/creativa/cart.tsx",
+        "utils/creativa/forms.ts"
+      ],
+      "scope": [
+        "browser",
+        "worker"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "zustand",
+      "declaredVersion": "4.3.8",
+      "resolvedVersion": "4.3.8",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "immer": ">=9.0",
+        "react": ">=16.8"
+      },
+      "consumers": [
+        "store/cart/creativaCart.ts",
+        "store/cart/lightersCart.ts",
+        "store/dialog/slice.ts",
+        "store/layout/lightersLayout.ts"
+      ],
+      "scope": [
+        "direct-unused"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    }
+  ]
+}

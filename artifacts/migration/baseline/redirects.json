@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "redirects": [
+    {
+      "source": "/creatiave",
+      "destination": "/creativa",
+      "permanent": true,
+      "status": 308
+    },
+    {
+      "source": "/macnut",
+      "destination": "/san-pham/skin-nut-phim",
+      "permanent": true,
+      "status": 308
+    },
+    {
+      "source": "/macnut/:slug*",
+      "destination": "/san-pham/skin-nut-phim/:slug*",
+      "permanent": true,
+      "status": 308
+    },
+    {
+      "source": "/products",
+      "destination": "/san-pham/skin-laptop",
+      "permanent": true,
+      "status": 308
+    },
+    {
+      "source": "/products/:slug*",
+      "destination": "/san-pham/skin-laptop/:slug*",
+      "permanent": true,
+      "status": 308
+    }
+  ]
+}

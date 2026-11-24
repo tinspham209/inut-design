@@ -1,0 +1,26 @@
+
+> inutdesign-web@3.1.0 build /Users/tin.phamv/work/personal/inut-design
+> next build
+
+ ⚠ Invalid next.config.js options detected: 
+ ⚠     Unrecognized key(s) in object: 'swcMinify'
+ ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+   ▲ Next.js 15.5.29
+   - Environments: .env
+
+   Skipping linting
+   Checking validity of types ...
+Failed to compile.
+
+./components/home/hero-img.tsx:21:6
+Type error: Type '"100%"' is not assignable to type 'number | `${number}`'.
+
+[0m [90m 19 |[39m 				[33m<[39m[33mImage[39m
+ [90m 20 |[39m 					src[33m=[39m{imgUrl}
+[31m[1m>[22m[39m[90m 21 |[39m 					width[33m=[39m[32m"100%"[39m
+ [90m    |[39m 					[31m[1m^[22m[39m
+ [90m 22 |[39m 					height[33m=[39m[32m"30%"[39m
+ [90m 23 |[39m 					layout[33m=[39m[32m"responsive"[39m
+ [90m 24 |[39m 					alt[33m=[39m[32m"avatar"[39m[0m
+Next.js build worker exited with code: 1 and signal: null
+ ELIFECYCLE  Command failed with exit code 1.

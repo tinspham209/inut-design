@@ -1,0 +1,11 @@
+
+> inutdesign-web@3.1.0 lint /Users/tin.phamv/work/personal/inut-design
+> next lint
+
+`next lint` is deprecated and will be removed in Next.js 16.
+For new projects, use create-next-app to choose your preferred linter.
+For existing projects, migrate to the ESLint CLI:
+npx @next/codemod@canary next-lint-to-eslint-cli .
+
+Plugin "react-hooks" was conflicted between ".eslintrc.json" and ".eslintrc.json » eslint-config-next/core-web-vitals » /Users/tin.phamv/work/personal/inut-design/node_modules/.pnpm/eslint-config-next@15.5.29_eslint@8.20.0_typescript@5.9.3/node_modules/eslint-config-next/index.js » plugin:react-hooks/recommended".
+ ELIFECYCLE  Command failed with exit code 1.

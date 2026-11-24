@@ -56,7 +56,9 @@ test-results/**
 
 # Generated migration evidence (reviewed baseline/fixtures stay tracked)
 artifacts/migration/runtime/
+artifacts/migration/gates/
 artifacts/migration/preview/
 artifacts/migration/operations/
 artifacts/migration/dns/
 artifacts/migration/release/
+artifacts/migration/baseline/browser/*.png

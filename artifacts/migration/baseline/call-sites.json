@@ -1,0 +1,1920 @@
+{
+  "schemaVersion": 1,
+  "summary": {
+    "nextImage": {
+      "files": 35,
+      "occurrences": 44,
+      "risk": "Next 15 legacy prop, dimensions, layout and priority behavior"
+    },
+    "nextImageLegacyProps": {
+      "files": 28,
+      "occurrences": 55,
+      "risk": "Legacy next/image layout prop migration"
+    },
+    "nextLink": {
+      "files": 61,
+      "occurrences": 118,
+      "risk": "Nested anchor, href, focus, prefetch and click-tracking semantics"
+    },
+    "nextLinkLegacyProps": {
+      "files": 19,
+      "occurrences": 27,
+      "risk": "Next 15 Link child-clone and anchor composition"
+    },
+    "carousel": {
+      "files": 7,
+      "occurrences": 15,
+      "risk": "React 19 peer compatibility and shared accessible controls"
+    },
+    "reactThree": {
+      "files": 12,
+      "occurrences": 38,
+      "risk": "Fiber/Drei/Three peers, SSR boundary, WebGL fallback"
+    },
+    "buffer": {
+      "files": 10,
+      "occurrences": 37,
+      "risk": "Worker-safe byte handling"
+    },
+    "nodeCrypto": {
+      "files": 10,
+      "occurrences": 14,
+      "risk": "Worker-safe Web Crypto or server-only boundary"
+    },
+    "nodeFilesystem": {
+      "files": 24,
+      "occurrences": 25,
+      "risk": "Request-time filesystem dependency"
+    },
+    "nodePath": {
+      "files": 24,
+      "occurrences": 24,
+      "risk": "Request-time path module dependency"
+    },
+    "rawBody": {
+      "files": 7,
+      "occurrences": 8,
+      "risk": "Worker raw-byte, malformed UTF-8 and 64 KiB body parity"
+    },
+    "publicSecrets": {
+      "files": 2,
+      "occurrences": 6,
+      "risk": "Existing public credential exposure requiring removal and rotation"
+    }
+  },
+  "categories": {
+    "nextImage": [
+      {
+        "file": "components/cart/lighters/LighterCartContent.tsx",
+        "matches": 1,
+        "lines": [
+          144
+        ]
+      },
+      {
+        "file": "components/common/header/header-desktop.tsx",
+        "matches": 1,
+        "lines": [
+          343
+        ]
+      },
+      {
+        "file": "components/common/header/header-mobile.tsx",
+        "matches": 2,
+        "lines": [
+          152,
+          194
+        ]
+      },
+      {
+        "file": "components/creativa/ConceptImage.tsx",
+        "matches": 2,
+        "lines": [
+          31,
+          41
+        ]
+      },
+      {
+        "file": "components/creativa/DesignCard.tsx",
+        "matches": 1,
+        "lines": [
+          63
+        ]
+      },
+      {
+        "file": "components/creativa/Homepage.tsx",
+        "matches": 1,
+        "lines": [
+          198
+        ]
+      },
+      {
+        "file": "components/creativa/ProductThumbnail.tsx",
+        "matches": 1,
+        "lines": [
+          27
+        ]
+      },
+      {
+        "file": "components/home/hero-img.tsx",
+        "matches": 1,
+        "lines": [
+          19
+        ]
+      },
+      {
+        "file": "components/home/information.tsx",
+        "matches": 1,
+        "lines": [
+          100
+        ]
+      },
+      {
+        "file": "components/home/product-card.tsx",
+        "matches": 1,
+        "lines": [
+          22
+        ]
+      },
+      {
+        "file": "components/keychain-builder/controls/AppearanceControls.tsx",
+        "matches": 1,
+        "lines": [
+          23
+        ]
+      },
+      {
+        "file": "components/keychain-builder/controls/ShapeControls.tsx",
+        "matches": 1,
+        "lines": [
+          19
+        ]
+      },
+      {
+        "file": "components/lighter-detail/Gallery.tsx",
+        "matches": 2,
+        "lines": [
+          53,
+          89
+        ]
+      },
+      {
+        "file": "components/lighter-detail/RelatedProducts.tsx",
+        "matches": 1,
+        "lines": [
+          100
+        ]
+      },
+      {
+        "file": "components/lighters/LighterCard.tsx",
+        "matches": 1,
+        "lines": [
+          161
+        ]
+      },
+      {
+        "file": "components/lighters/LighterCardBuilder.tsx",
+        "matches": 1,
+        "lines": [
+          65
+        ]
+      },
+      {
+        "file": "components/lighters/LighterCardCustomize.tsx",
+        "matches": 1,
+        "lines": [
+          62
+        ]
+      },
+      {
+        "file": "components/orderTracking/lighters/OrderItemsList.tsx",
+        "matches": 1,
+        "lines": [
+          115
+        ]
+      },
+      {
+        "file": "components/product-template/v1/ContactSection.tsx",
+        "matches": 1,
+        "lines": [
+          107
+        ]
+      },
+      {
+        "file": "components/product-template/v1/HeroSection.tsx",
+        "matches": 1,
+        "lines": [
+          121
+        ]
+      },
+      {
+        "file": "components/product-template/v1/ProductGallery.tsx",
+        "matches": 1,
+        "lines": [
+          97
+        ]
+      },
+      {
+        "file": "components/product-template/v1/TypesSection.tsx",
+        "matches": 1,
+        "lines": [
+          70
+        ]
+      },
+      {
+        "file": "components/product-template/v2/ContactSection.tsx",
+        "matches": 1,
+        "lines": [
+          118
+        ]
+      },
+      {
+        "file": "components/product-template/v2/HeroSection.tsx",
+        "matches": 1,
+        "lines": [
+          156
+        ]
+      },
+      {
+        "file": "components/product-template/v2/ProductGallery.tsx",
+        "matches": 1,
+        "lines": [
+          76
+        ]
+      },
+      {
+        "file": "components/product-template/v2/TypesSection.tsx",
+        "matches": 1,
+        "lines": [
+          80
+        ]
+      },
+      {
+        "file": "components/product/macnut-customize-card.tsx",
+        "matches": 1,
+        "lines": [
+          57
+        ]
+      },
+      {
+        "file": "components/product/product-item.tsx",
+        "matches": 1,
+        "lines": [
+          96
+        ]
+      },
+      {
+        "file": "components/product/skin-laptop-customize-card.tsx",
+        "matches": 1,
+        "lines": [
+          55
+        ]
+      },
+      {
+        "file": "pages/checkout/lighters.tsx",
+        "matches": 2,
+        "lines": [
+          685,
+          706
+        ]
+      },
+      {
+        "file": "pages/contact/index.tsx",
+        "matches": 1,
+        "lines": [
+          42
+        ]
+      },
+      {
+        "file": "pages/creativa/skin-laptop/[slug].tsx",
+        "matches": 2,
+        "lines": [
+          60,
+          231
+        ]
+      },
+      {
+        "file": "pages/creativa/skin-laptop/huong-dan-su-dung/cach-tu-dan-skin-macbook-tai-nha/index.tsx",
+        "matches": 1,
+        "lines": [
+          313
+        ]
+      },
+      {
+        "file": "pages/san-pham/skin-laptop/[slug].tsx",
+        "matches": 3,
+        "lines": [
+          173,
+          205,
+          348
+        ]
+      },
+      {
+        "file": "pages/san-pham/skin-nut-phim/[slug].tsx",
+        "matches": 3,
+        "lines": [
+          177,
+          209,
+          353
+        ]
+      }
+    ],
+    "nextImageLegacyProps": [
+      {
+        "file": "components/creativa/ConceptImage.tsx",
+        "matches": 4,
+        "lines": [
+          34,
+          35,
+          44,
+          45
+        ]
+      },
+      {
+        "file": "components/creativa/DesignCard.tsx",
+        "matches": 2,
+        "lines": [
+          66,
+          67
+        ]
+      },
+      {
+        "file": "components/creativa/Homepage.tsx",
+        "matches": 3,
+        "lines": [
+          201,
+          202,
+          203
+        ]
+      },
+      {
+        "file": "components/creativa/ProductThumbnail.tsx",
+        "matches": 2,
+        "lines": [
+          30,
+          31
+        ]
+      },
+      {
+        "file": "components/home/hero-img.tsx",
+        "matches": 1,
+        "lines": [
+          23
+        ]
+      },
+      {
+        "file": "components/home/product-card.tsx",
+        "matches": 1,
+        "lines": [
+          26
+        ]
+      },
+      {
+        "file": "components/keychain-builder/controls/AppearanceControls.tsx",
+        "matches": 2,
+        "lines": [
+          23
+        ]
+      },
+      {
+        "file": "components/lighter-detail/Gallery.tsx",
+        "matches": 1,
+        "lines": [
+          55
+        ]
+      },
+      {
+        "file": "components/lighter-detail/RelatedProducts.tsx",
+        "matches": 2,
+        "lines": [
+          102,
+          103
+        ]
+      },
+      {
+        "file": "components/lighters/LighterCard.tsx",
+        "matches": 1,
+        "lines": [
+          166
+        ]
+      },
+      {
+        "file": "components/lighters/LighterCardBuilder.tsx",
+        "matches": 2,
+        "lines": [
+          68,
+          69
+        ]
+      },
+      {
+        "file": "components/lighters/LighterCardCustomize.tsx",
+        "matches": 2,
+        "lines": [
+          65,
+          66
+        ]
+      },
+      {
+        "file": "components/orderTracking/lighters/OrderItemsList.tsx",
+        "matches": 1,
+        "lines": [
+          121
+        ]
+      },
+      {
+        "file": "components/product-template/v1/ContactSection.tsx",
+        "matches": 1,
+        "lines": [
+          110
+        ]
+      },
+      {
+        "file": "components/product-template/v1/HeroSection.tsx",
+        "matches": 2,
+        "lines": [
+          124,
+          125
+        ]
+      },
+      {
+        "file": "components/product-template/v1/ProductGallery.tsx",
+        "matches": 2,
+        "lines": [
+          100,
+          101
+        ]
+      },
+      {
+        "file": "components/product-template/v1/TypesSection.tsx",
+        "matches": 2,
+        "lines": [
+          70
+        ]
+      },
+      {
+        "file": "components/product-template/v2/ContactSection.tsx",
+        "matches": 2,
+        "lines": [
+          123,
+          124
+        ]
+      },
+      {
+        "file": "components/product-template/v2/HeroSection.tsx",
+        "matches": 2,
+        "lines": [
+          156
+        ]
+      },
+      {
+        "file": "components/product-template/v2/ProductGallery.tsx",
+        "matches": 2,
+        "lines": [
+          81,
+          82
+        ]
+      },
+      {
+        "file": "components/product-template/v2/TypesSection.tsx",
+        "matches": 2,
+        "lines": [
+          80
+        ]
+      },
+      {
+        "file": "components/product/macnut-customize-card.tsx",
+        "matches": 2,
+        "lines": [
+          60,
+          61
+        ]
+      },
+      {
+        "file": "components/product/product-item.tsx",
+        "matches": 1,
+        "lines": [
+          101
+        ]
+      },
+      {
+        "file": "components/product/skin-laptop-customize-card.tsx",
+        "matches": 2,
+        "lines": [
+          58,
+          59
+        ]
+      },
+      {
+        "file": "pages/creativa/skin-laptop/[slug].tsx",
+        "matches": 4,
+        "lines": [
+          63,
+          64,
+          234,
+          235
+        ]
+      },
+      {
+        "file": "pages/creativa/skin-laptop/huong-dan-su-dung/cach-tu-dan-skin-macbook-tai-nha/index.tsx",
+        "matches": 1,
+        "lines": [
+          318
+        ]
+      },
+      {
+        "file": "pages/san-pham/skin-laptop/[slug].tsx",
+        "matches": 3,
+        "lines": [
+          175,
+          350,
+          351
+        ]
+      },
+      {
+        "file": "pages/san-pham/skin-nut-phim/[slug].tsx",
+        "matches": 3,
+        "lines": [
+          179,
+          355,
+          356
+        ]
+      }
+    ],
+    "nextLink": [
+      {
+        "file": "components/common/ComingSoon.tsx",
+        "matches": 1,
+        "lines": [
+          468
+        ]
+      },
+      {
+        "file": "components/common/footer.tsx",
+        "matches": 3,
+        "lines": [
+          96,
+          129,
+          320
+        ]
+      },
+      {
+        "file": "components/common/header/header-desktop.tsx",
+        "matches": 5,
+        "lines": [
+          51,
+          288,
+          341,
+          372,
+          435
+        ]
+      },
+      {
+        "file": "components/common/header/header-mobile.tsx",
+        "matches": 4,
+        "lines": [
+          70,
+          150,
+          159,
+          206
+        ]
+      },
+      {
+        "file": "components/common/ServiceCard.tsx",
+        "matches": 1,
+        "lines": [
+          57
+        ]
+      },
+      {
+        "file": "components/contact/QuoteRequestForm.tsx",
+        "matches": 3,
+        "lines": [
+          253,
+          285,
+          498
+        ]
+      },
+      {
+        "file": "components/creativa/Breadcrumbs.tsx",
+        "matches": 1,
+        "lines": [
+          16
+        ]
+      },
+      {
+        "file": "components/creativa/DesignCard.tsx",
+        "matches": 1,
+        "lines": [
+          27
+        ]
+      },
+      {
+        "file": "components/creativa/Homepage.tsx",
+        "matches": 4,
+        "lines": [
+          63,
+          339,
+          393,
+          514
+        ]
+      },
+      {
+        "file": "components/creativa/HomepageFooter.tsx",
+        "matches": 2,
+        "lines": [
+          91,
+          104
+        ]
+      },
+      {
+        "file": "components/creativa/Shell.tsx",
+        "matches": 2,
+        "lines": [
+          93,
+          197
+        ]
+      },
+      {
+        "file": "components/home/blog.tsx",
+        "matches": 2,
+        "lines": [
+          76,
+          95
+        ]
+      },
+      {
+        "file": "components/home/builder-promotion.tsx",
+        "matches": 1,
+        "lines": [
+          27
+        ]
+      },
+      {
+        "file": "components/home/chot-don.tsx",
+        "matches": 1,
+        "lines": [
+          130
+        ]
+      },
+      {
+        "file": "components/home/featured-products-section.tsx",
+        "matches": 1,
+        "lines": [
+          142
+        ]
+      },
+      {
+        "file": "components/home/hero.tsx",
+        "matches": 3,
+        "lines": [
+          217,
+          248,
+          294
+        ]
+      },
+      {
+        "file": "components/home/product-card.tsx",
+        "matches": 1,
+        "lines": [
+          20
+        ]
+      },
+      {
+        "file": "components/home/service-children-grid.tsx",
+        "matches": 3,
+        "lines": [
+          75,
+          99,
+          207
+        ]
+      },
+      {
+        "file": "components/home/services.tsx",
+        "matches": 3,
+        "lines": [
+          39,
+          156,
+          265
+        ]
+      },
+      {
+        "file": "components/lighter-detail/ActionButtons.tsx",
+        "matches": 1,
+        "lines": [
+          50
+        ]
+      },
+      {
+        "file": "components/lighter-detail/BreadcrumbsNav.tsx",
+        "matches": 2,
+        "lines": [
+          20,
+          25
+        ]
+      },
+      {
+        "file": "components/lighter-detail/RelatedProducts.tsx",
+        "matches": 1,
+        "lines": [
+          80
+        ]
+      },
+      {
+        "file": "components/lighters/LighterCard.tsx",
+        "matches": 1,
+        "lines": [
+          133
+        ]
+      },
+      {
+        "file": "components/lighters/LighterCardBuilder.tsx",
+        "matches": 1,
+        "lines": [
+          18
+        ]
+      },
+      {
+        "file": "components/lighters/LighterCardCustomize.tsx",
+        "matches": 1,
+        "lines": [
+          18
+        ]
+      },
+      {
+        "file": "components/lighters/LightersPageHeader.tsx",
+        "matches": 1,
+        "lines": [
+          22
+        ]
+      },
+      {
+        "file": "components/orderTracking/lighters/ContactInfo.tsx",
+        "matches": 1,
+        "lines": [
+          9
+        ]
+      },
+      {
+        "file": "components/product-template/v1/ContactSection.tsx",
+        "matches": 2,
+        "lines": [
+          71,
+          96
+        ]
+      },
+      {
+        "file": "components/product-template/v2/ContactSection.tsx",
+        "matches": 2,
+        "lines": [
+          65,
+          101
+        ]
+      },
+      {
+        "file": "components/product/macnut-customize-card.tsx",
+        "matches": 1,
+        "lines": [
+          10
+        ]
+      },
+      {
+        "file": "components/product/product-item.tsx",
+        "matches": 1,
+        "lines": [
+          75
+        ]
+      },
+      {
+        "file": "components/product/skin-laptop-customize-card.tsx",
+        "matches": 1,
+        "lines": [
+          10
+        ]
+      },
+      {
+        "file": "pages/blog/[slug].tsx",
+        "matches": 2,
+        "lines": [
+          54,
+          57
+        ]
+      },
+      {
+        "file": "pages/blog/index.tsx",
+        "matches": 2,
+        "lines": [
+          43,
+          57
+        ]
+      },
+      {
+        "file": "pages/builder/index.tsx",
+        "matches": 1,
+        "lines": [
+          23
+        ]
+      },
+      {
+        "file": "pages/cart/lighters.tsx",
+        "matches": 2,
+        "lines": [
+          34,
+          39
+        ]
+      },
+      {
+        "file": "pages/contact/form/index.tsx",
+        "matches": 2,
+        "lines": [
+          39,
+          44
+        ]
+      },
+      {
+        "file": "pages/contact/index.tsx",
+        "matches": 1,
+        "lines": [
+          31
+        ]
+      },
+      {
+        "file": "pages/creativa/cart.tsx",
+        "matches": 4,
+        "lines": [
+          63,
+          219,
+          235,
+          240
+        ]
+      },
+      {
+        "file": "pages/creativa/checkout.tsx",
+        "matches": 5,
+        "lines": [
+          99,
+          127,
+          361,
+          362,
+          363
+        ]
+      },
+      {
+        "file": "pages/creativa/order-tracking/[slug].tsx",
+        "matches": 3,
+        "lines": [
+          535,
+          588,
+          600
+        ]
+      },
+      {
+        "file": "pages/creativa/skin-laptop/[slug].tsx",
+        "matches": 3,
+        "lines": [
+          434,
+          540,
+          578
+        ]
+      },
+      {
+        "file": "pages/creativa/skin-laptop/huong-dan-su-dung/cach-tu-dan-skin-macbook-tai-nha/index.tsx",
+        "matches": 1,
+        "lines": [
+          381
+        ]
+      },
+      {
+        "file": "pages/creativa/skin-laptop/huong-dan-su-dung/index.tsx",
+        "matches": 1,
+        "lines": [
+          43
+        ]
+      },
+      {
+        "file": "pages/policies-terms/chinh-sach-bao-hanh-doi-tra/index.tsx",
+        "matches": 2,
+        "lines": [
+          180,
+          183
+        ]
+      },
+      {
+        "file": "pages/policies-terms/chinh-sach-bao-ve-thong-tin-khach-hang/index.tsx",
+        "matches": 2,
+        "lines": [
+          165,
+          170
+        ]
+      },
+      {
+        "file": "pages/policies-terms/chinh-sach-duyet-in-va-san-xuat/index.tsx",
+        "matches": 2,
+        "lines": [
+          98,
+          103
+        ]
+      },
+      {
+        "file": "pages/policies-terms/dieu-khoan-su-dung/index.tsx",
+        "matches": 2,
+        "lines": [
+          252,
+          257
+        ]
+      },
+      {
+        "file": "pages/policies-terms/faqs/index.tsx",
+        "matches": 2,
+        "lines": [
+          54,
+          59
+        ]
+      },
+      {
+        "file": "pages/policies-terms/index.tsx",
+        "matches": 2,
+        "lines": [
+          117,
+          138
+        ]
+      },
+      {
+        "file": "pages/policies-terms/thong-tin-doanh-nghiep/index.tsx",
+        "matches": 2,
+        "lines": [
+          103,
+          106
+        ]
+      },
+      {
+        "file": "pages/policies-terms/thong-tin-thanh-toan/index.tsx",
+        "matches": 2,
+        "lines": [
+          144,
+          149
+        ]
+      },
+      {
+        "file": "pages/san-pham/index.tsx",
+        "matches": 1,
+        "lines": [
+          61
+        ]
+      },
+      {
+        "file": "pages/san-pham/skin-laptop/[slug].tsx",
+        "matches": 4,
+        "lines": [
+          133,
+          138,
+          239,
+          328
+        ]
+      },
+      {
+        "file": "pages/san-pham/skin-laptop/index.tsx",
+        "matches": 1,
+        "lines": [
+          198
+        ]
+      },
+      {
+        "file": "pages/san-pham/skin-nut-phim/[slug].tsx",
+        "matches": 4,
+        "lines": [
+          138,
+          143,
+          244,
+          333
+        ]
+      },
+      {
+        "file": "pages/san-pham/skin-nut-phim/index.tsx",
+        "matches": 1,
+        "lines": [
+          196
+        ]
+      },
+      {
+        "file": "pages/search/index.tsx",
+        "matches": 2,
+        "lines": [
+          65,
+          213
+        ]
+      },
+      {
+        "file": "pages/services/[...slug].tsx",
+        "matches": 2,
+        "lines": [
+          47,
+          52
+        ]
+      },
+      {
+        "file": "pages/services/index.tsx",
+        "matches": 1,
+        "lines": [
+          38
+        ]
+      },
+      {
+        "file": "scripts/migration/inventory-call-sites.mjs",
+        "matches": 1,
+        "lines": [
+          32
+        ]
+      }
+    ],
+    "nextLinkLegacyProps": [
+      {
+        "file": "components/common/header/header-desktop.tsx",
+        "matches": 1,
+        "lines": [
+          435
+        ]
+      },
+      {
+        "file": "components/common/header/header-mobile.tsx",
+        "matches": 3,
+        "lines": [
+          70,
+          159,
+          206
+        ]
+      },
+      {
+        "file": "components/common/ServiceCard.tsx",
+        "matches": 1,
+        "lines": [
+          57
+        ]
+      },
+      {
+        "file": "components/contact/QuoteRequestForm.tsx",
+        "matches": 1,
+        "lines": [
+          498
+        ]
+      },
+      {
+        "file": "components/home/blog.tsx",
+        "matches": 1,
+        "lines": [
+          76
+        ]
+      },
+      {
+        "file": "components/home/builder-promotion.tsx",
+        "matches": 1,
+        "lines": [
+          27
+        ]
+      },
+      {
+        "file": "components/home/chot-don.tsx",
+        "matches": 2,
+        "lines": [
+          130
+        ]
+      },
+      {
+        "file": "components/home/hero.tsx",
+        "matches": 4,
+        "lines": [
+          217,
+          248,
+          294
+        ]
+      },
+      {
+        "file": "components/lighter-detail/RelatedProducts.tsx",
+        "matches": 1,
+        "lines": [
+          82
+        ]
+      },
+      {
+        "file": "components/product/product-item.tsx",
+        "matches": 1,
+        "lines": [
+          81
+        ]
+      },
+      {
+        "file": "pages/blog/index.tsx",
+        "matches": 1,
+        "lines": [
+          57
+        ]
+      },
+      {
+        "file": "pages/builder/index.tsx",
+        "matches": 1,
+        "lines": [
+          23
+        ]
+      },
+      {
+        "file": "pages/cart/lighters.tsx",
+        "matches": 2,
+        "lines": [
+          34,
+          39
+        ]
+      },
+      {
+        "file": "pages/san-pham/index.tsx",
+        "matches": 1,
+        "lines": [
+          61
+        ]
+      },
+      {
+        "file": "pages/san-pham/skin-laptop/[slug].tsx",
+        "matches": 1,
+        "lines": [
+          330
+        ]
+      },
+      {
+        "file": "pages/san-pham/skin-nut-phim/[slug].tsx",
+        "matches": 1,
+        "lines": [
+          335
+        ]
+      },
+      {
+        "file": "pages/search/index.tsx",
+        "matches": 1,
+        "lines": [
+          65
+        ]
+      },
+      {
+        "file": "pages/services/[...slug].tsx",
+        "matches": 2,
+        "lines": [
+          47,
+          52
+        ]
+      },
+      {
+        "file": "pages/services/index.tsx",
+        "matches": 1,
+        "lines": [
+          38
+        ]
+      }
+    ],
+    "carousel": [
+      {
+        "file": "components/lighter-detail/Gallery.tsx",
+        "matches": 2,
+        "lines": [
+          7,
+          29
+        ]
+      },
+      {
+        "file": "components/lighter-detail/RelatedProducts.tsx",
+        "matches": 2,
+        "lines": [
+          16,
+          57
+        ]
+      },
+      {
+        "file": "pages/creativa/skin-laptop/[slug].tsx",
+        "matches": 2,
+        "lines": [
+          46,
+          167
+        ]
+      },
+      {
+        "file": "pages/san-pham/skin-laptop/[slug].tsx",
+        "matches": 3,
+        "lines": [
+          34,
+          153,
+          305
+        ]
+      },
+      {
+        "file": "pages/san-pham/skin-nut-phim/[slug].tsx",
+        "matches": 3,
+        "lines": [
+          35,
+          157,
+          310
+        ]
+      },
+      {
+        "file": "scripts/migration/inventory-call-sites.mjs",
+        "matches": 2,
+        "lines": [
+          40
+        ]
+      },
+      {
+        "file": "scripts/migration/inventory-dependencies.mjs",
+        "matches": 1,
+        "lines": [
+          76
+        ]
+      }
+    ],
+    "reactThree": [
+      {
+        "file": "components/keychain-builder/geometry/imageAlpha.ts",
+        "matches": 1,
+        "lines": [
+          18
+        ]
+      },
+      {
+        "file": "components/keychain-builder/image/loadSanityImage.ts",
+        "matches": 2,
+        "lines": [
+          28,
+          34
+        ]
+      },
+      {
+        "file": "components/keychain-builder/image/removeSolidBackground.ts",
+        "matches": 2,
+        "lines": [
+          44,
+          69
+        ]
+      },
+      {
+        "file": "components/keychain-builder/preview/Preview3D.tsx",
+        "matches": 5,
+        "lines": [
+          4,
+          5,
+          94,
+          102
+        ]
+      },
+      {
+        "file": "components/keychain-builder/preview/RingPlane.tsx",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "components/keychain-builder/render/render2d.ts",
+        "matches": 1,
+        "lines": [
+          35
+        ]
+      },
+      {
+        "file": "components/lighter-builder/BuilderSkeleton.tsx",
+        "matches": 1,
+        "lines": [
+          26
+        ]
+      },
+      {
+        "file": "components/lighter-builder/LighterBuilder.tsx",
+        "matches": 1,
+        "lines": [
+          259
+        ]
+      },
+      {
+        "file": "components/lighter-builder/LighterCanvas.tsx",
+        "matches": 19,
+        "lines": [
+          1,
+          9,
+          42,
+          43,
+          44,
+          45,
+          54,
+          102,
+          104,
+          122,
+          123,
+          137,
+          143,
+          148,
+          321,
+          326,
+          327,
+          351
+        ]
+      },
+      {
+        "file": "data/product-pages/an-pham-su-kien.tsx",
+        "matches": 1,
+        "lines": [
+          315
+        ]
+      },
+      {
+        "file": "scripts/migration/inventory-dependencies.mjs",
+        "matches": 2,
+        "lines": [
+          66,
+          67
+        ]
+      },
+      {
+        "file": "scripts/tests/keychain-render.test.mjs",
+        "matches": 2,
+        "lines": [
+          51,
+          57
+        ]
+      }
+    ],
+    "buffer": [
+      {
+        "file": "api-client/creativa-catalog.ts",
+        "matches": 2,
+        "lines": [
+          282,
+          344
+        ]
+      },
+      {
+        "file": "api-client/sanity-server.ts",
+        "matches": 1,
+        "lines": [
+          133
+        ]
+      },
+      {
+        "file": "pages/api/cron/sync-spx-orders.ts",
+        "matches": 2,
+        "lines": [
+          139,
+          140
+        ]
+      },
+      {
+        "file": "pages/api/keychain/uploads.ts",
+        "matches": 3,
+        "lines": [
+          12,
+          13,
+          26
+        ]
+      },
+      {
+        "file": "pages/api/sanity/upload-image.ts",
+        "matches": 1,
+        "lines": [
+          49
+        ]
+      },
+      {
+        "file": "scripts/migration/api-fixtures/creativa/raw-body-fixtures.mjs",
+        "matches": 13,
+        "lines": [
+          14,
+          16,
+          19,
+          24,
+          25,
+          29,
+          30,
+          31,
+          32,
+          33,
+          36,
+          37
+        ]
+      },
+      {
+        "file": "scripts/migration/api-fixtures/uploads/upload-fixtures.mjs",
+        "matches": 7,
+        "lines": [
+          23,
+          34,
+          65,
+          70,
+          75
+        ]
+      },
+      {
+        "file": "scripts/tests/keychain-image-validation.test.mjs",
+        "matches": 1,
+        "lines": [
+          17
+        ]
+      },
+      {
+        "file": "utils/creativa/api.server.ts",
+        "matches": 4,
+        "lines": [
+          51,
+          54,
+          60
+        ]
+      },
+      {
+        "file": "utils/keychain/imageValidation.ts",
+        "matches": 3,
+        "lines": [
+          6,
+          7
+        ]
+      }
+    ],
+    "nodeCrypto": [
+      {
+        "file": "components/keychain-builder/hooks/useExportDesign.ts",
+        "matches": 3,
+        "lines": [
+          6,
+          7
+        ]
+      },
+      {
+        "file": "hooks/useCreateLighterOrder.ts",
+        "matches": 1,
+        "lines": [
+          56
+        ]
+      },
+      {
+        "file": "pages/api/cron/sync-spx-orders.ts",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "pages/checkout/lighters.tsx",
+        "matches": 1,
+        "lines": [
+          264
+        ]
+      },
+      {
+        "file": "scripts/migration/capture-baseline.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "utils/creativa/notifications.server.ts",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "utils/creativa/orders.server.ts",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "utils/creativa/records.server.ts",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "utils/creativa/storage.ts",
+        "matches": 2,
+        "lines": [
+          25,
+          32
+        ]
+      },
+      {
+        "file": "utils/keychain/requestFingerprint.ts",
+        "matches": 2,
+        "lines": [
+          1,
+          16
+        ]
+      }
+    ],
+    "nodeFilesystem": [
+      {
+        "file": ".agents/skills/inut-content-writer/scripts/test-validation.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": ".agents/skills/inut-content-writer/scripts/validate-blog.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": ".agents/skills/inut-design-workflow/scripts/test-customizations.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": ".agents/skills/inut-design-workflow/scripts/validate-ai-config.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "sanity/scripts/report.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/api-fixtures/creativa/raw-body-fixtures.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/api-fixtures/fixture-loader.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/api-fixtures/uploads/upload-fixtures.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/browser-baseline.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/capture-baseline.mjs",
+        "matches": 2,
+        "lines": [
+          3,
+          4
+        ]
+      },
+      {
+        "file": "scripts/migration/inventory-call-sites.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/inventory-dependencies.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/inventory-env.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/slug-manifest.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/verify-api-manifest.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/verify-route-manifest.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/test-spx-sync.mjs",
+        "matches": 1,
+        "lines": [
+          3
+        ]
+      },
+      {
+        "file": "scripts/tests/builder-promotion.test.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/tests/keychain-geometry.test.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/tests/keychain-render.test.mjs",
+        "matches": 1,
+        "lines": [
+          3
+        ]
+      },
+      {
+        "file": "scripts/typescript-loader.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/validate-tracking.ts",
+        "matches": 1,
+        "lines": [
+          8
+        ]
+      },
+      {
+        "file": "scripts/verify-seo.mjs",
+        "matches": 1,
+        "lines": [
+          3
+        ]
+      },
+      {
+        "file": "utils/posts.ts",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      }
+    ],
+    "nodePath": [
+      {
+        "file": ".agents/skills/inut-content-writer/scripts/test-validation.mjs",
+        "matches": 1,
+        "lines": [
+          3
+        ]
+      },
+      {
+        "file": ".agents/skills/inut-content-writer/scripts/validate-blog.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": ".agents/skills/inut-design-workflow/scripts/test-customizations.mjs",
+        "matches": 1,
+        "lines": [
+          4
+        ]
+      },
+      {
+        "file": ".agents/skills/inut-design-workflow/scripts/validate-ai-config.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "next.config.js",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "sanity/scripts/report.mjs",
+        "matches": 1,
+        "lines": [
+          3
+        ]
+      },
+      {
+        "file": "scripts/migration/api-fixtures/creativa/raw-body-fixtures.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/api-fixtures/fixture-loader.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/api-fixtures/uploads/upload-fixtures.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/browser-baseline.mjs",
+        "matches": 1,
+        "lines": [
+          3
+        ]
+      },
+      {
+        "file": "scripts/migration/capture-baseline.mjs",
+        "matches": 1,
+        "lines": [
+          5
+        ]
+      },
+      {
+        "file": "scripts/migration/inventory-call-sites.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/inventory-dependencies.mjs",
+        "matches": 1,
+        "lines": [
+          3
+        ]
+      },
+      {
+        "file": "scripts/migration/inventory-env.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/slug-manifest.mjs",
+        "matches": 1,
+        "lines": [
+          3
+        ]
+      },
+      {
+        "file": "scripts/migration/verify-api-manifest.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/verify-route-manifest.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/test-spx-sync.mjs",
+        "matches": 1,
+        "lines": [
+          4
+        ]
+      },
+      {
+        "file": "scripts/tests/keychain-geometry.test.mjs",
+        "matches": 1,
+        "lines": [
+          5
+        ]
+      },
+      {
+        "file": "scripts/tests/keychain-render.test.mjs",
+        "matches": 1,
+        "lines": [
+          5
+        ]
+      },
+      {
+        "file": "scripts/typescript-loader.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/validate-tracking.ts",
+        "matches": 1,
+        "lines": [
+          9
+        ]
+      },
+      {
+        "file": "scripts/verify-seo.mjs",
+        "matches": 1,
+        "lines": [
+          4
+        ]
+      },
+      {
+        "file": "utils/posts.ts",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      }
+    ],
+    "rawBody": [
+      {
+        "file": "pages/api/creativa/orders/analytics-claim.ts",
+        "matches": 1,
+        "lines": [
+          4
+        ]
+      },
+      {
+        "file": "pages/api/creativa/orders/index.ts",
+        "matches": 1,
+        "lines": [
+          4
+        ]
+      },
+      {
+        "file": "pages/api/creativa/orders/resolve.ts",
+        "matches": 1,
+        "lines": [
+          5
+        ]
+      },
+      {
+        "file": "pages/api/creativa/quote.ts",
+        "matches": 1,
+        "lines": [
+          4
+        ]
+      },
+      {
+        "file": "scripts/migration/api-fixtures/creativa/raw-body-fixtures.mjs",
+        "matches": 1,
+        "lines": [
+          64
+        ]
+      },
+      {
+        "file": "scripts/migration/inventory-call-sites.mjs",
+        "matches": 2,
+        "lines": [
+          64
+        ]
+      },
+      {
+        "file": "utils/creativa/api.server.ts",
+        "matches": 1,
+        "lines": [
+          53
+        ]
+      }
+    ],
+    "publicSecrets": [
+      {
+        "file": "scripts/migration/inventory-env.mjs",
+        "matches": 3,
+        "lines": [
+          36,
+          37,
+          38
+        ]
+      },
+      {
+        "file": "utils/env-const.ts",
+        "matches": 3,
+        "lines": [
+          3,
+          14,
+          15
+        ]
+      }
+    ]
+  }
+}

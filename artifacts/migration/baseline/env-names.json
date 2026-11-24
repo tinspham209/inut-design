@@ -1,0 +1,915 @@
+{
+  "schemaVersion": 1,
+  "count": 85,
+  "records": [
+    {
+      "name": "ACRYLIC_MAGNET",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "ANALYZE",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "next.config.js"
+      ]
+    },
+    {
+      "name": "BACKDROP_CLICK",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "components/common/dialog/helpers.tsx"
+      ]
+    },
+    {
+      "name": "BANG_CUNG_IN_THONG_TIN",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "BANNER_STANDEE",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "BINH_THUONG",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "CA_NHAN",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "CATALOGUE_BROCHURE",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "CLOSE_ICON_CLICK",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "components/common/dialog/helpers.tsx"
+      ]
+    },
+    {
+      "name": "CONTENT_DIALOG",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "store/dialog/type.ts"
+      ]
+    },
+    {
+      "name": "CREATIVA_TELEGRAM_BOT_TOKEN",
+      "scope": "worker-secret",
+      "visibility": "server-only",
+      "stage": "worker-runtime",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "utils/creativa/notifications.server.ts"
+      ]
+    },
+    {
+      "name": "DECAL_NHAN_MAC",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "ENABLE_ZALO_PHONE_CHECK",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example"
+      ]
+    },
+    {
+      "name": "ESCAPE_KEY_DOWN",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "components/common/dialog/helpers.tsx"
+      ]
+    },
+    {
+      "name": "FIRST",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "store/dialog/type.ts"
+      ]
+    },
+    {
+      "name": "GAP",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "GIAY_KHEN_GIAY_CHUNG_NHAN",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "HASHTAG_CAM_TAY",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "HAVE_DESIGN",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "HOP_SAN_PHAM",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "HUY_CHUONG",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "IN_ANH",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "IN_BI_THU",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "IN_CARD_VISIT",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "IN_POSTCARD",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "IN_VOUCHER_VE_MOI_SU_KIEN_THE_TICH_DIEM",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "KEYCHAIN_BASE_URL",
+      "scope": "local-test",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "scripts/test-keychain-browser.mjs"
+      ]
+    },
+    {
+      "name": "KEYCHAIN_PHASE10_ONLY",
+      "scope": "local-test",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "scripts/test-keychain-browser.mjs"
+      ]
+    },
+    {
+      "name": "KINH_DOANH",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "LAPTOP_CUSTOMIZE",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "LIGHTER_CUSTOMIZE",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "MACNUT_CUSTOMIZE",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "MIGRATION_BASE_URL",
+      "scope": "local-test",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "scripts/migration/browser-baseline.mjs"
+      ]
+    },
+    {
+      "name": "MIGRATION_BROWSER_OUTPUT",
+      "scope": "local-test",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "scripts/migration/browser-baseline.mjs"
+      ]
+    },
+    {
+      "name": "MOC_KHOA_MICA",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "NEED_DESIGN_AND_PRINT",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_FB_CHAT",
+      "scope": "browser-build",
+      "visibility": "public",
+      "stage": "build-and-browser",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "utils/env-const.ts"
+      ]
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_UMAMI",
+      "scope": "browser-build",
+      "visibility": "public",
+      "stage": "build-and-browser",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "pages/_document.tsx",
+        "scripts/tests/keychain-privacy.test.mjs",
+        "utils/creativa/purchase.ts",
+        "utils/env-const.ts"
+      ]
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_ZALO_PHONE_CHECK",
+      "scope": "browser-build",
+      "visibility": "public",
+      "stage": "build-and-browser",
+      "rotationRequired": false,
+      "callers": [
+        "utils/env-const.ts"
+      ]
+    },
+    {
+      "name": "NEXT_PUBLIC_FACEBOOK_PAGE_ID",
+      "scope": "browser-build",
+      "visibility": "public",
+      "stage": "build-and-browser",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "utils/env-const.ts"
+      ]
+    },
+    {
+      "name": "NEXT_PUBLIC_GA_MEASUREMENT_ID",
+      "scope": "browser-build",
+      "visibility": "public",
+      "stage": "build-and-browser",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "pages/_document.tsx",
+        "utils/env-const.ts"
+      ]
+    },
+    {
+      "name": "NEXT_PUBLIC_GTM_ID",
+      "scope": "browser-build",
+      "visibility": "public",
+      "stage": "build-and-browser",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "utils/env-const.ts"
+      ]
+    },
+    {
+      "name": "NEXT_PUBLIC_KEYCHAIN_BACKGROUND_REMOVAL_ENABLED",
+      "scope": "browser-build",
+      "visibility": "public",
+      "stage": "build-and-browser",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "components/keychain-builder/KeychainBuilder.tsx",
+        "next.config.js"
+      ]
+    },
+    {
+      "name": "NEXT_PUBLIC_SANITY_DATASET",
+      "scope": "browser-build",
+      "visibility": "public",
+      "stage": "build-and-browser",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "api-client/creativa-catalog.ts",
+        "api-client/creativa-server.ts",
+        "api-client/keychain-server.ts",
+        "api-client/sanity-browser.ts",
+        "api-client/sanity-server.ts",
+        "components/common/block-content/index.tsx",
+        "scripts/tests/keychain-api.test.mjs",
+        "utils/env-const.ts"
+      ]
+    },
+    {
+      "name": "NEXT_PUBLIC_SANITY_PROJECT_ID",
+      "scope": "browser-build",
+      "visibility": "public",
+      "stage": "build-and-browser",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "api-client/creativa-catalog.ts",
+        "api-client/creativa-server.ts",
+        "api-client/keychain-server.ts",
+        "api-client/sanity-browser.ts",
+        "api-client/sanity-server.ts",
+        "components/common/block-content/index.tsx",
+        "scripts/tests/keychain-api.test.mjs",
+        "utils/env-const.ts"
+      ]
+    },
+    {
+      "name": "NEXT_PUBLIC_SITE_URL",
+      "scope": "browser-build",
+      "visibility": "public",
+      "stage": "build-and-browser",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "next-sitemap.config.js",
+        "utils/creativa/api.server.ts",
+        "utils/siteUrl.ts"
+      ]
+    },
+    {
+      "name": "NEXT_PUBLIC_TELEGRAM_BOT_TOKEN",
+      "scope": "legacy-public-secret",
+      "visibility": "exposed-browser-credential",
+      "stage": "browser-build-remediation",
+      "rotationRequired": true,
+      "callers": [
+        ".env.example",
+        "utils/env-const.ts"
+      ]
+    },
+    {
+      "name": "NEXT_PUBLIC_TELEGRAM_CHAT_ID",
+      "scope": "legacy-public-secret",
+      "visibility": "exposed-browser-credential",
+      "stage": "browser-build-remediation",
+      "rotationRequired": true,
+      "callers": [
+        ".env.example",
+        "utils/env-const.ts"
+      ]
+    },
+    {
+      "name": "NEXT_PUBLIC_UMAMI_HOST_URL",
+      "scope": "browser-build",
+      "visibility": "public",
+      "stage": "build-and-browser",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "utils/env-const.ts"
+      ]
+    },
+    {
+      "name": "NEXT_PUBLIC_UMAMI_WEBSITE_ID",
+      "scope": "browser-build",
+      "visibility": "public",
+      "stage": "build-and-browser",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "utils/env-const.ts"
+      ]
+    },
+    {
+      "name": "NEXT_PUBLIC_X_API_KEY",
+      "scope": "legacy-public-secret",
+      "visibility": "exposed-browser-credential",
+      "stage": "browser-build-remediation",
+      "rotationRequired": true,
+      "callers": [
+        ".env.example",
+        "utils/env-const.ts"
+      ]
+    },
+    {
+      "name": "NHAN_DAN_BAO_BI",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "NODE_ENV",
+      "scope": "scheduler",
+      "visibility": "server-only",
+      "stage": "worker-runtime",
+      "rotationRequired": false,
+      "callers": [
+        "components/scripts/speculation-rules.tsx",
+        "pages/api/cron/sync-spx-orders.ts",
+        "utils/bfcache-monitor.ts",
+        "utils/creativa/api.server.ts",
+        "utils/env-const.ts",
+        "utils/prefetch-fallback.ts",
+        "utils/speculation-monitor.ts"
+      ]
+    },
+    {
+      "name": "OK_DIALOG",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "store/dialog/type.ts"
+      ]
+    },
+    {
+      "name": "OTHER",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "PHIEU_VE_HOA_DON_GTGT",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "PHONE_CUSTOMIZE",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "PIN_CAI_AO_MICA",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "POSTER_DECAL",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "SAN_PHAM_DECOR",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "SANITY_DATASET",
+      "scope": "worker-secret",
+      "visibility": "server-only",
+      "stage": "worker-runtime",
+      "rotationRequired": false,
+      "callers": [
+        "api-client/creativa-server.ts",
+        "api-client/keychain-server.ts",
+        "api-client/sanity-server.ts",
+        "scripts/test-spx-sync.mjs"
+      ]
+    },
+    {
+      "name": "SANITY_PROJECT_ID",
+      "scope": "worker-secret",
+      "visibility": "server-only",
+      "stage": "worker-runtime",
+      "rotationRequired": false,
+      "callers": [
+        "api-client/creativa-server.ts",
+        "api-client/keychain-server.ts",
+        "api-client/sanity-server.ts",
+        "scripts/test-spx-sync.mjs"
+      ]
+    },
+    {
+      "name": "SANITY_TOKEN",
+      "scope": "worker-secret",
+      "visibility": "server-only",
+      "stage": "worker-runtime",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "api-client/creativa-server.ts",
+        "api-client/keychain-server.ts",
+        "api-client/sanity-server.ts"
+      ]
+    },
+    {
+      "name": "SECOND",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "store/dialog/type.ts"
+      ]
+    },
+    {
+      "name": "SO_TAY_KY_YEU_SO_BAM_GHIM",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "SPX_SYNC_FUNCTION_TIMEOUT_MS",
+      "scope": "scheduler",
+      "visibility": "server-only",
+      "stage": "worker-runtime",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "pages/api/cron/sync-spx-orders.ts"
+      ]
+    },
+    {
+      "name": "SPX_SYNC_SECRET",
+      "scope": "scheduler",
+      "visibility": "server-only",
+      "stage": "worker-runtime",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "pages/api/cron/sync-spx-orders.ts"
+      ]
+    },
+    {
+      "name": "SPX_SYNC_TELEGRAM_BOT_TOKEN",
+      "scope": "scheduler",
+      "visibility": "server-only",
+      "stage": "worker-runtime",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "pages/api/cron/sync-spx-orders.ts"
+      ]
+    },
+    {
+      "name": "SPX_SYNC_TELEGRAM_CHAT_ID",
+      "scope": "scheduler",
+      "visibility": "server-only",
+      "stage": "worker-runtime",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "pages/api/cron/sync-spx-orders.ts"
+      ]
+    },
+    {
+      "name": "STICKER",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "STICKER_DIECUT",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "STICKER_KISSCUT",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "STICKER_MAGNET",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "STICKER_SHEET",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "SU_KIEN_TRON_GOI",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "TAM_LOT_BAN_AN",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "TELEGRAM_MAX_RETRIES",
+      "scope": "worker-secret",
+      "visibility": "server-only",
+      "stage": "worker-runtime",
+      "rotationRequired": false,
+      "callers": [
+        "pages/api/telegram/send-abandoned-checkout-notification.ts",
+        "pages/api/telegram/send-order-notification.ts",
+        "pages/api/telegram/send-quote-notification.ts"
+      ]
+    },
+    {
+      "name": "TELEGRAM_RETRY_BASE_DELAY",
+      "scope": "worker-secret",
+      "visibility": "server-only",
+      "stage": "worker-runtime",
+      "rotationRequired": false,
+      "callers": [
+        "pages/api/telegram/send-abandoned-checkout-notification.ts",
+        "pages/api/telegram/send-order-notification.ts",
+        "pages/api/telegram/send-quote-notification.ts"
+      ]
+    },
+    {
+      "name": "TEM_BAO_HANH",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "THANK_CARD_GIFT_CARD",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "THIET_KE_IN_AN_CUA_HANG_TRON_GOI",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "THIET_KE_IN_MENU",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "models/quoteRequest.ts"
+      ]
+    },
+    {
+      "name": "THIRD",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "store/dialog/type.ts"
+      ]
+    },
+    {
+      "name": "VERCEL_ENV",
+      "scope": "scheduler",
+      "visibility": "server-only",
+      "stage": "worker-runtime",
+      "rotationRequired": false,
+      "callers": [
+        "pages/api/cron/sync-spx-orders.ts"
+      ]
+    },
+    {
+      "name": "YESNO_DIALOG",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "store/dialog/type.ts"
+      ]
+    }
+  ]
+}
