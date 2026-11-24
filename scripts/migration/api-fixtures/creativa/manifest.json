@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "appliesTo": [
+    "/api/creativa/orders",
+    "/api/creativa/orders/resolve",
+    "/api/creativa/orders/analytics-claim",
+    "/api/creativa/quote"
+  ],
+  "maxBytes": 65536,
+  "cases": [
+    { "name": "empty", "kind": "empty", "byteLength": 0, "expected": "400" },
+    { "name": "one-byte", "kind": "malformed-json", "byteLength": 1, "expected": "400" },
+    { "name": "valid-json-65535", "kind": "valid-json-exact-size", "byteLength": 65535, "expected": "route-validation" },
+    { "name": "valid-json-65536", "kind": "valid-json-exact-size", "byteLength": 65536, "expected": "route-validation" },
+    { "name": "valid-json-65537", "kind": "valid-json-exact-size", "byteLength": 65537, "expected": "413" },
+    { "name": "malformed-json", "kind": "malformed-json", "expected": "400" },
+    { "name": "malformed-utf8", "kind": "malformed-utf8", "expected": "400" },
+    { "name": "chunked-valid-json", "kind": "chunked", "expected": "route-validation" },
+    { "name": "declared-length-too-small", "kind": "mismatched-content-length", "expected": "transport-or-400" },
+    { "name": "declared-length-too-large", "kind": "mismatched-content-length", "expected": "transport-or-400" }
+  ]
+}

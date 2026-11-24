@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "fixtures": [
+    {
+      "path": "/api/costs/create",
+      "method": "POST",
+      "headers": { "content-type": "application/json" },
+      "body": { "title": "MIGRATION_FIXTURE", "date": "2026-01-01", "price": 0 },
+      "mockAdapters": [{ "name": "sanity", "mode": "mock" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/creativa/catalog",
+      "method": "GET",
+      "query": {},
+      "mockAdapters": [{ "name": "sanity-catalog", "mode": "fixture" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/creativa/options",
+      "method": "GET",
+      "query": {},
+      "mockAdapters": [{ "name": "sanity-options", "mode": "fixture" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/creativa/orders/[publicId]",
+      "method": "GET",
+      "pathParameters": { "publicId": "INUT-MIGRATION-0001" },
+      "mockAdapters": [{ "name": "sanity-order-lookup", "mode": "fixture" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/creativa/orders/analytics-claim",
+      "method": "POST",
+      "headers": { "content-type": "application/json", "idempotency-key": "migration-analytics-0001" },
+      "body": { "publicId": "INUT-MIGRATION-0001", "claim": "fixture" },
+      "mockAdapters": [{ "name": "sanity", "mode": "mock" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/creativa/orders",
+      "method": "POST",
+      "headers": { "content-type": "application/json", "idempotency-key": "migration-order-0000001" },
+      "body": { "fixture": true, "items": [], "customer": { "name": "MIGRATION" } },
+      "mockAdapters": [{ "name": "sanity", "mode": "mock" }, { "name": "telegram", "mode": "no-op" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/creativa/orders/resolve",
+      "method": "POST",
+      "headers": { "content-type": "application/json", "idempotency-key": "migration-resolve-0001" },
+      "body": { "publicId": "INUT-MIGRATION-0001", "status": "fixture" },
+      "mockAdapters": [{ "name": "sanity", "mode": "mock" }, { "name": "telegram", "mode": "no-op" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/creativa/products/[slug]",
+      "method": "GET",
+      "pathParameters": { "slug": "migration-product" },
+      "mockAdapters": [{ "name": "sanity-product", "mode": "fixture" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/creativa/quote",
+      "method": "POST",
+      "headers": { "content-type": "application/json" },
+      "body": { "fixture": true, "quantity": 1 },
+      "mockAdapters": [{ "name": "quote-engine", "mode": "fixture" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/cron/sync-spx-orders",
+      "method": "POST",
+      "headers": { "content-type": "application/json", "x-cron-secret": "FIXTURE_ONLY" },
+      "body": { "fixture": true },
+      "mockAdapters": [
+        { "name": "spx", "mode": "mock" },
+        { "name": "sanity", "mode": "mock" },
+        { "name": "telegram", "mode": "no-op" }
+      ],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/income/create",
+      "method": "POST",
+      "headers": { "content-type": "application/json" },
+      "body": { "title": "MIGRATION_FIXTURE", "date": "2026-01-01", "price": 0 },
+      "mockAdapters": [{ "name": "sanity", "mode": "mock" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/keychain/designs/[id]",
+      "method": "GET",
+      "pathParameters": { "id": "MIGRATION-DESIGN-0001" },
+      "mockAdapters": [{ "name": "sanity-design", "mode": "fixture" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/keychain/designs",
+      "method": "POST",
+      "headers": { "content-type": "application/json" },
+      "body": { "requestId": "MIGRATION-DESIGN-0001", "config": { "fixture": true } },
+      "mockAdapters": [{ "name": "sanity", "mode": "mock" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/keychain/uploads",
+      "method": "POST",
+      "headers": { "content-type": "application/json" },
+      "body": { "data": "iVBORw0KGgo=", "contentType": "image/png", "filename": "migration.png" },
+      "mockAdapters": [{ "name": "sanity-upload", "mode": "mock" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/orders/lighters",
+      "method": "POST",
+      "headers": { "content-type": "application/json", "idempotency-key": "migration-lighter-order-0001" },
+      "body": { "fixture": true, "items": [], "customer": { "name": "MIGRATION" } },
+      "mockAdapters": [{ "name": "sanity", "mode": "mock" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/quote-request",
+      "method": "POST",
+      "headers": { "content-type": "application/json" },
+      "body": { "fixture": true, "name": "MIGRATION", "request": "fixture" },
+      "mockAdapters": [{ "name": "sanity", "mode": "mock" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/sanity/upload-image",
+      "method": "POST",
+      "headers": { "content-type": "application/json" },
+      "body": { "data": "iVBORw0KGgo=", "contentType": "image/png", "filename": "migration.png" },
+      "mockAdapters": [{ "name": "sanity-upload", "mode": "mock" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/search",
+      "method": "GET",
+      "query": { "q": "sticker", "page": "1" },
+      "mockAdapters": [{ "name": "search-corpus", "mode": "fixture" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/telegram/send-abandoned-checkout-notification",
+      "method": "POST",
+      "headers": { "content-type": "application/json" },
+      "body": { "fixture": true, "checkoutId": "MIGRATION-CHECKOUT-0001" },
+      "mockAdapters": [{ "name": "telegram", "mode": "no-op" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/telegram/send-order-notification",
+      "method": "POST",
+      "headers": { "content-type": "application/json" },
+      "body": { "fixture": true, "orderId": "MIGRATION-ORDER-0001" },
+      "mockAdapters": [{ "name": "telegram", "mode": "no-op" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/telegram/send-quote-notification",
+      "method": "POST",
+      "headers": { "content-type": "application/json" },
+      "body": { "fixture": true, "quoteId": "MIGRATION-QUOTE-0001" },
+      "mockAdapters": [{ "name": "telegram", "mode": "no-op" }],
+      "expectedSideEffects": 0
+    },
+    {
+      "path": "/api/validate-phone",
+      "method": "POST",
+      "headers": { "content-type": "application/json" },
+      "body": { "fixture": true, "phone": "0000000000" },
+      "mockAdapters": [{ "name": "phone-provider", "mode": "mock" }],
+      "expectedSideEffects": 0
+    }
+  ]
+}

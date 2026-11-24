@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "appliesTo": ["/api/keychain/uploads", "/api/sanity/upload-image"],
+  "limits": {
+    "decodedBytes": 10485760,
+    "width": 2048,
+    "height": 2048,
+    "pixels": 4194304
+  },
+  "cases": [
+    { "name": "valid-png", "format": "png", "expected": "200-mock-write" },
+    { "name": "valid-jpeg", "format": "jpeg", "expected": "200-mock-write" },
+    { "name": "valid-webp", "format": "webp", "expected": "200-mock-write" },
+    { "name": "declared-mime-mismatch", "format": "png", "declaredMime": "image/jpeg", "expected": "400" },
+    { "name": "signature-mismatch", "format": "jpeg", "mutate": "signature", "expected": "400" },
+    { "name": "malformed-base64", "format": "text", "data": "%%%not-base64%%%", "expected": "400" },
+    { "name": "trailing-base64-bytes", "format": "text", "data": "AA==ignored", "expected": "400" },
+    { "name": "polyglot-png", "format": "png", "mutate": "polyglot", "expected": "400" },
+    { "name": "decompression-bomb-metadata", "format": "png", "mutate": "huge-dimensions", "width": 65535, "height": 65535, "expected": "400" },
+    { "name": "over-limit-dimensions", "format": "png", "mutate": "dimensions", "width": 4096, "height": 1, "expected": "400" },
+    { "name": "over-limit-pixels", "format": "png", "mutate": "dimensions", "width": 10000, "height": 10000, "expected": "400" },
+    { "name": "over-limit-bytes", "format": "binary", "byteLength": 10485761, "expected": "413" }
+  ]
+}
