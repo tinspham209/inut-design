@@ -4,10 +4,13 @@ import { isKeychainRequestId, validateKeychainServerConfig } from "@/utils/keych
 import { saveSnapshotIdempotently } from "@/utils/keychain/snapshotLifecycle";
 import { toSnapshotConfig } from "@/utils/keychain/snapshotConfig";
 import rateLimit, { getRequestRateLimitToken } from "@/utils/rateLimit";
+import { validateBrowserJsonRequest } from "@/utils/server/request-guard";
 
 const limiter = rateLimit({ interval: 60_000, uniqueTokenPerInterval: 1000 });
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+	const requestError = validateBrowserJsonRequest(req);
+	if (requestError) return res.status(requestError.status).json({ error: requestError.error });
 	try { await limiter.check(res as unknown as Response, 12, getRequestRateLimitToken(req)); }
 	catch { return res.status(429).json({ error: "Quá nhiều lượt xuất. Vui lòng thử lại sau." }); }
 	const { requestId, config } = req.body || {};

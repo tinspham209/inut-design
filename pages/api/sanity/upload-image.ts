@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { uploadImageAssetToSanity } from "@/api-client/sanity-server";
 import rateLimit, { getRequestRateLimitToken } from "@/utils/rateLimit";
 import { decodeBase64Image } from "@/utils/keychain/imageValidation";
+import { validateBrowserJsonRequest } from "@/utils/server/request-guard";
 
 export const config = {
 	api: {
@@ -25,6 +26,10 @@ export default async function handler(
 ) {
 	if (req.method !== "POST") {
 		return res.status(405).json({ error: "Method not allowed" });
+	}
+	const requestError = validateBrowserJsonRequest(req, 14 * 1024 * 1024);
+	if (requestError) {
+		return res.status(requestError.status).json({ error: requestError.error });
 	}
 
 	try {

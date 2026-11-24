@@ -1,8 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import serverClient from "@/api-client/sanity-server";
+import { validateBrowserJsonRequest } from "@/utils/server/request-guard";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+	const requestError = validateBrowserJsonRequest(req);
+	if (requestError) return res.status(requestError.status).json({ error: requestError.error });
 	const { title, date, price } = req.body || {};
 	if (!title || !date || typeof price !== "number") {
 		return res.status(400).json({ error: "Invalid cost payload" });

@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { CreateQuoteRequestInput, QuoteRequestForm } from "@/models/quoteRequest";
 import serverClient from "@/api-client/sanity-server";
 import rateLimit, { getRequestRateLimitToken } from "@/utils/rateLimit";
+import { validateBrowserJsonRequest } from "@/utils/server/request-guard";
 
 const limiter = rateLimit({ interval: 60 * 1000, uniqueTokenPerInterval: 1000 });
 
@@ -12,6 +13,8 @@ export default async function handler(
 	if (req.method !== "POST") {
 		return res.status(405).json({ error: "Method not allowed" });
 	}
+	const requestError = validateBrowserJsonRequest(req);
+	if (requestError) return res.status(requestError.status).json({ error: requestError.error });
 
 	try {
 		await limiter.check(

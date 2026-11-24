@@ -8,6 +8,7 @@ import {
 	validateKeychainImage,
 	validatePersistedKeychainImage,
 } from "@/utils/keychain/imageValidation";
+import { validateBrowserJsonRequest } from "@/utils/server/request-guard";
 
 export const config = { api: { bodyParser: { sizeLimit: "14mb" } } };
 const MAX_BYTES = 10 * 1024 * 1024;
@@ -16,6 +17,8 @@ type UploadResponse = { image: { _type: string; asset: { _ref: string; _type: st
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<UploadResponse>) {
 	if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+	const requestError = validateBrowserJsonRequest(req, 14 * 1024 * 1024);
+	if (requestError) return res.status(requestError.status).json({ error: requestError.error });
 	try { await limiter.check(res as unknown as Response, 6, getRequestRateLimitToken(req)); }
 	catch { return res.status(429).json({ error: "Quá nhiều lượt tải. Vui lòng thử lại sau." }); }
 	const { data, contentType, filename } = req.body || {};

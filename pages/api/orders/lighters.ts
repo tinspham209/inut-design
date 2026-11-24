@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { createLighterOrder } from "@/api-client/sanity-server";
 import { CreateOrderLighterInput, OrderLighter } from "@/models/cart";
 import rateLimit, { getRequestRateLimitToken } from "@/utils/rateLimit";
+import { validateBrowserJsonRequest } from "@/utils/server/request-guard";
 
 type ApiResponse = OrderLighter | { error: string };
 
@@ -11,6 +12,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 	if (req.method !== "POST") {
 		return res.status(405).json({ error: "Method not allowed" });
 	}
+	const requestError = validateBrowserJsonRequest(req);
+	if (requestError) return res.status(requestError.status).json({ error: requestError.error });
 
 	try {
 		await limiter.check(
