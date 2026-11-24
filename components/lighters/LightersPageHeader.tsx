@@ -3,7 +3,7 @@ import { Box, Breadcrumbs, Link as MuiLink, Stack, Typography } from "@mui/mater
 import Link from "next/link";
 import React from "react";
 import dynamic from "next/dynamic";
-const CountUp = dynamic(() => import("react-countup"), { ssr: false });
+const CountUp = dynamic(() => import("react-countup").then((module) => module.default), { ssr: false });
 
 interface LightersPageHeaderProps {
 	itemCount: number;

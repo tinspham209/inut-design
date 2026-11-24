@@ -119,7 +119,7 @@
 - [X] T073 [US1] Run protected cart, checkout, quote, contact, keychain, Creativa, order tracking, and confirmation flows with safe mocks through `scripts/migration/run-safe-regression.mjs`
 - [X] T074 [US1] Run desktop/mobile keyboard, responsive, hydration, carousel, 3D normal/context-loss/fallback, image, reduced-motion, and critical-flow browser checks through `scripts/migration/browser-baseline.mjs`
 - [X] T075 [US1] Compare GA4/GTM and Umami page/action/initial-load/navigation/bfcache sequences for exact-once behavior and prohibited fields, saving sanitized evidence in `artifacts/migration/runtime/analytics/`
-- [ ] T076 [US1] Measure representative public page timing and all 22 APIs, prove no timeout, 95% of pages within +10%, and Worker memory below 128 MB in `artifacts/migration/runtime/performance/`
+- [X] T076 [US1] Measure representative public page timing and all 22 APIs, prove no timeout, 95% of pages within +10%, and Worker memory below 128 MB in `artifacts/migration/runtime/performance/`
 - [X] T077 [US1] Assemble the US1 gate report with route, API, commerce, static, search, upload, analytics, accessibility, performance, and security evidence in `artifacts/migration/gates/us1.md`
 
 **Checkpoint**: Standard Next and local built Vinext reproduce the production surface safely, with static public rendering and Worker-safe APIs.
@@ -137,7 +137,7 @@
 - [X] T082 [US2] Implement the preview channel in `cloudflare.config.ts` and `next.config.js` so every preview page emits `X-Robots-Tag: noindex, nofollow` while canonical/sitemap remain on `https://inutdesign.com`
 - [X] T083 [US2] Add `scripts/migration/check-preview-seo.mjs` to reject preview hostnames in production index, canonical, sitemap, or robots artifacts and require preview noindex
 - [X] T084 [US2] Add the Cloudflare deploy dry-run and owner-controlled preview deploy steps to `.github/workflows/deploy-web.yml` after all local gates
-- [ ] T085 [US2] Run the full route, API, browser, upload, analytics, SEO, performance, secret, and Worker-graph matrix on an approved preview deployment and retain evidence in `artifacts/migration/preview/`
+- [X] T085 [US2] Run the full route, API, browser, upload, analytics, SEO, performance, secret, and Worker-graph matrix on an approved preview deployment and retain evidence in `artifacts/migration/preview/`
 - [X] T086 [US2] Create `scripts/migration/release-gate.mjs` to require pass status for every mandatory compatibility, route, API, commerce, search, upload, analytics, accessibility, Worker, security, secret, cost, and operations gate
 - [X] T087 [US2] Define owner approval evidence fields and production artifact delta checks in `artifacts/migration/templates/production-approval.json`
 - [X] T088 [US2] Create the deploy, immediate hard cutover, health verification, and Cloudflare-version rollback procedure in `docs/operations/cloudflare-release.md`

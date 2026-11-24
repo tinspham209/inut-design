@@ -37,14 +37,23 @@ export function validateBrowserJsonRequest(
 	req: NextApiRequest,
 	maxBodyBytes = 65_536,
 ): GuardResult {
-	let origins: Set<string>;
-	try {
-		origins = configuredOrigins();
-	} catch {
-		return { status: 503, error: "Origin configuration unavailable" };
-	}
 	const origin = typeof req.headers.origin === "string" ? req.headers.origin : "";
-	if (!origin || !origins.has(origin)) return { status: 403, error: "Origin not allowed" };
+	const host = typeof req.headers.host === "string" ? req.headers.host : "";
+	let isSameOrigin = false;
+	try {
+		isSameOrigin = Boolean(host && new URL(origin).host === host);
+	} catch {
+		return { status: 403, error: "Origin not allowed" };
+	}
+	if (!isSameOrigin) {
+		let origins: Set<string>;
+		try {
+			origins = configuredOrigins();
+		} catch {
+			return { status: 503, error: "Origin configuration unavailable" };
+		}
+		if (!origins.has(origin)) return { status: 403, error: "Origin not allowed" };
+	}
 	if (!req.headers["content-type"]?.toLowerCase().startsWith("application/json")) {
 		return { status: 415, error: "JSON content type required" };
 	}

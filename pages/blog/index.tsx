@@ -13,7 +13,7 @@ import { Box, Breadcrumbs, Container, Divider, Link as MuiLink, Typography } fro
 import Link from "next/link";
 import { GetStaticProps } from "next";
 import dynamic from "next/dynamic";
-const CountUp = dynamic(() => import("react-countup"), { ssr: false });
+const CountUp = dynamic(() => import("react-countup").then((module) => module.default), { ssr: false });
 
 const BlogContainer: NextPageWithLayout = ({ posts, banner }: Props) => {
 	const handlePostClick = (post: Post) => {
