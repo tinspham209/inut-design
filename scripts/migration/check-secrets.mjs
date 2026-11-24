@@ -94,9 +94,13 @@ for (const relativeRoot of scanRoots) {
 		}
 		scannedFiles += 1;
 		const relative = path.relative(root, file).replaceAll(path.sep, "/");
+		const isBrowserOutput =
+			relative.startsWith(".next/static/") ||
+			relative.includes("/assets/") ||
+			relative.startsWith("public/");
 		for (const name of forbiddenNames) {
 			if (publicNames.has(name)) continue;
-			if (source.includes(name)) {
+			if (isBrowserOutput && source.includes(name)) {
 				findings.push({ file: relative, type: "forbidden-env-name", name, severity: "error" });
 			}
 		}

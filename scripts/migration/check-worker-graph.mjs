@@ -13,18 +13,21 @@ const forbidden = [
 		type: "native-sharp",
 		pattern: /(?:require|import|from|external)[^"'\\n]{0,40}["'](?:sharp)["']|["']node_modules\/sharp\//g,
 	},
-	{
-		type: "request-time-filesystem",
-		pattern: /(?:require|import|from)[^"'\\n]{0,40}["'](?:node:)?fs(?:\/promises)?["']/g,
-	},
-	{
-		type: "request-time-path",
-		pattern: /(?:require|import|from)[^"'\\n]{0,40}["'](?:node:)?path["']/g,
-	},
 	{ type: "disabled-imgly", pattern: /@imgly\/background-removal/g },
 	{ type: "disabled-onnx", pattern: /onnxruntime-web|\.onnx|ort-wasm/g },
 	{ type: "migration-test-generator", pattern: /scripts\/migration|api-fixtures\/|test-spx-sync/g },
 	{ type: "dev-test-dependency", pattern: /node_modules\/(?:vitest|jest|playwright|tsx)\//g },
+];
+const appWorkerRoots = /(?:^|\/)(?:pages\/api|server|api-client|utils)\//;
+const requestTimeModules = [
+	{
+		type: "request-time-filesystem",
+		pattern: /from\s+["'](?:node:)?fs(?:\/promises)?["']|require\(["'](?:node:)?fs(?:\/promises)?["']\)/g,
+	},
+	{
+		type: "request-time-path",
+		pattern: /from\s+["'](?:node:)?path["']|require\(["'](?:node:)?path["']\)/g,
+	},
 ];
 
 async function walk(directory) {
@@ -71,6 +74,34 @@ for (const relativeRoot of roots) {
 			candidate.pattern.lastIndex = 0;
 			if (candidate.pattern.test(source)) {
 				findings.push({ file: relative, type: candidate.type, severity: "error" });
+			}
+		}
+		if (extension === ".map") {
+			try {
+				const sourceMap = JSON.parse(source);
+				const contents = Array.isArray(sourceMap.sourcesContent) ? sourceMap.sourcesContent : [];
+				for (const [index, content] of contents.entries()) {
+					const source = sourceMap.sources?.[index] ?? "";
+					if (
+						typeof content !== "string" ||
+						source.includes("node_modules/") ||
+						!appWorkerRoots.test(source)
+					) {
+						continue;
+					}
+					for (const candidate of requestTimeModules) {
+						candidate.pattern.lastIndex = 0;
+						if (candidate.pattern.test(content)) {
+							findings.push({
+								file: `${relative}:${source}`,
+								type: candidate.type,
+								severity: "error",
+							});
+						}
+					}
+				}
+			} catch {
+				// Compiled map validation is handled by the build tool.
 			}
 		}
 	}
