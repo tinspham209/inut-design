@@ -12,6 +12,8 @@ This contract applies to the 74-page public surface and all 22 routes under `pag
 - Write requests preserve Sanity `_ref`, `_type` and unique array `_key` requirements.
 - Retries are safe or explicitly idempotent for external writes and cron operations.
 - Preview and production use explicit allowed-origin lists; wildcard production CORS is not allowed.
+- Caller class is part of the contract. Anonymous browser callers, trusted scheduler/internal callers and build-time clients are not treated as the same security model.
+- A browser-visible value is never treated as a secret API credential, regardless of its historic header contract.
 
 ## API Route Matrix
 
@@ -66,6 +68,48 @@ Before persistence, the Worker:
 
 No native `sharp` import may exist in the Cloudflare Worker bundle.
 
+The format/dimension validator must be bounded before accepting full decoder allocation. Test inputs include valid PNG/JPEG/WebP, JPEG/PNG/WebP signature mismatch, trailing/ignored Base64 bytes, malformed chunks, enormous declared dimensions, decompression-bomb metadata and polyglot files. Invalid input must fail before Sanity persistence is attempted.
+
+## Raw-Body Contract
+
+The following Creativa POST endpoints retain their public method/status/error contract while using a runtime-safe request-byte reader:
+
+- `/api/creativa/orders`;
+- `/api/creativa/orders/resolve`;
+- `/api/creativa/orders/analytics-claim`;
+- `/api/creativa/quote`.
+
+Rules:
+- maximum JSON body remains 65,536 bytes;
+- `Content-Type` remains JSON;
+- under-limit valid JSON, exactly-at-limit JSON, over-limit chunks, malformed UTF-8/JSON and aborted streams return the documented response;
+- runtime conversion from `Buffer` to `Uint8Array` or Web APIs must not silently change byte boundaries or auth payloads;
+- raw-body limits are enforced on actual accumulated bytes, not only `Content-Length`.
+
+## Caller & Secret Contract
+
+### Anonymous Browser Routes
+
+Phone and notification flows currently called from browser code:
+- preserve method/body/field validation and outward success/error semantics;
+- require an allowed origin and JSON content type for POST;
+- retain rate limits and explicit side-effect mocks for tests;
+- remove `NEXT_PUBLIC_X_API_KEY` and do not introduce a replacement secret in the browser.
+
+The effective browser boundary must be at least as strict as the legacy flow. A client-exposed key is not counted as authentication evidence.
+
+### Trusted Scheduler/Internal Routes
+
+- SPX continues to require the server-only `SPX_SYNC_SECRET` and timing-safe comparison.
+- Any future internal call uses a separately named Worker secret.
+- Internal/scheduler secret names and values are absent from browser chunks, source maps, public responses and logs.
+
+### Telegram/Sanity Credentials
+
+- Bot token, Telegram chat ID and Sanity write token remain Worker secrets.
+- Exposed `NEXT_PUBLIC_TELEGRAM_*` credentials are rotated as part of remediation.
+- Renaming without rotation does not satisfy this contract.
+
 ## `/search` Static Contract
 
 - The page is a static shell, not `getServerSideProps`.
@@ -98,6 +142,7 @@ Blog, service, product and Creativa detail paths:
 - Build artifact must remain below the current 64 MiB Worker size limit.
 - No route silently raises Cloudflare CPU limits; measured runtime evidence is required first.
 - Worker logs preserve actionable error/timing context but redact body, auth, customer and file content.
+- Worker module graph must not contain native `sharp`, filesystem/path modules reachable at request time, IMG.LY/ONNX while the feature flag is false, or development/test-only generators.
 
 ## Contract Verification
 

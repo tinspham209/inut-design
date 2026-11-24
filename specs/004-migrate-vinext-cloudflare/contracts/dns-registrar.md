@@ -14,7 +14,7 @@ Each source record must be captured with:
 name | type | target | ttl | priority | proxyMode | purpose | owner | disposition
 ```
 
-Required coverage: apex, `www`, MX/email, SPF, DKIM, DMARC, TXT verification, third-party service records, Cloudflare/non-Cloudflare-supported records and known subdomains.
+Required coverage: apex, `www`, NS/DS (when present), CAA, MX/email, SPF, DKIM, DMARC, TXT verification, third-party service records, Cloudflare/non-Cloudflare-supported records and known subdomains.
 
 Disposition is owner-approved as `copy`, `update`, `retire` or `verify`; no record is copied merely because a scan returned it.
 
@@ -26,6 +26,8 @@ Disposition is owner-approved as `copy`, `update`, `retire` or `verify`; no reco
 - Production sitemap excludes preview host.
 - Robots file does not make preview origin eligible for production indexing.
 - Production analytics/SEO actions use non-sensitive evidence only.
+
+The preview control mechanism is either a dedicated preview build channel or a proven host-aware runtime rule. Its output delta is recorded; production canonical/sitemap generation remains independent of the preview hostname.
 
 ## DNS Preparation Gate
 
@@ -56,6 +58,14 @@ Before nameserver change:
 
 No traffic split is allowed.
 
+Record a pre/post-cutover resolution snapshot for:
+- authoritative nameservers;
+- apex and `www` records;
+- all MX selectors and SPF/DKIM/DMARC/verification TXT values;
+- CAA and DS/DNSSEC state;
+- certificate hostnames and validity;
+- Worker version/custom-domain attachment.
+
 ## DNS Rollback Boundary
 
 Retain previous nameserver and DNS record evidence. If cutover fails:
@@ -64,7 +74,14 @@ Retain previous nameserver and DNS record evidence. If cutover fails:
 - re-verify TLS and domain routes;
 - diagnose certificate/NSError/propagation separately.
 
-Vercel is not a rollback target.
+Vercel is not a rollback target. A DNS rollback does not by itself imply a Cloudflare Worker rollback: the operator identifies which layer failed and preserves healthy layers.
+
+Layer-specific rollback evidence:
+- **Worker**: deployment version and critical-flow results.
+- **DNS**: prior/current nameservers and record snapshot.
+- **TLS**: certificate/custom-domain state and hostname mapping.
+- **Email**: MX/SPF/DKIM/DMARC and provider target verification.
+- **Indexing**: preview/production robots/canonical/sitemap state.
 
 ## Deferred Registrar Transfer
 
@@ -81,3 +98,5 @@ Registrar transfer may start only after a separate explicit owner trigger and af
 The transfer plan must keep the website online while Squarespace approval is pending and must not change Worker, DNS, canonical, sitemap, indexed paths or HTTPS.
 
 Secrets/auth codes are never committed to this repository, plan files, logs or browser.
+
+Registrar transfer success must not be coupled to website availability: Cloudflare DNS and the Worker stay authoritative throughout approval and propagation, and the transfer runbook defines email/contact/lock/DNSSEC failure handling without changing the verified Worker version.

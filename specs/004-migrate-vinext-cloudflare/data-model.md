@@ -81,6 +81,72 @@ Fields: `source`, `category`, `affectedFiles`, `severity`, `resolution`, `eviden
 
 Known values are the two hard issues and three partial areas reported by `vinext check`. `ownerDecision` is required only for a deliberately accepted behavioral gap.
 
+### Dependency Decision
+
+| Field | Type | Validation / Meaning |
+|---|---|---|
+| `package` | string | Direct package name; one record per migration-relevant direct dependency |
+| `currentVersion` | string | Manifest/lockfile baseline |
+| `targetVersion` | string | Version selected with compatible peer graph |
+| `scope` | `build \| browser \| worker \| dev-test` | A package may require multiple records if scope differs |
+| `consumers` | string[] | Exact source files/call sites |
+| `peerConstraints` | Record<string,string> | React/Next/Node/companion-package constraints |
+| `migrationAction` | `keep \| upgrade \| replace \| remove \| dev-only` | Explicit action |
+| `evidence` | VerificationResult[] | Install, build, browser/Worker and bundle-graph proof |
+| `ownerDecision` | string or null | Required for unsupported override/waiver |
+
+**Rules**:
+- no package is upgraded with an unexplained peer override;
+- a removed Worker dependency must be absent from the Worker module graph, not only absent from imports in one route;
+- companion majors (Fiber/Drei, Next/tooling, React/types) are one atomic decision record with shared gate evidence.
+
+### Migration Manifest
+
+Fields: `sourceCommit`, `lockfileHash`, `publicRoutes`, `apiRoutes`, `dynamicSlugs`, `redirects`, `sitemapUrls`, `searchIndexHash`, `envNames`, `workerModules`, `assetSummary`, `previewVersion`, `productionVersion`, `generatedAt`.
+
+**Validation**:
+- arrays are sorted and deduplicated;
+- values contain no secret content;
+- `previewVersion` and `productionVersion` identify immutable Cloudflare deployments;
+- any delta from the approved baseline links to a reviewed change record.
+
+### Package Upgrade Unit
+
+Fields: `id`, `members`, `reason`, `sequence`, `gate`, `rollbackAction`.
+
+Known units:
+- `pnpm-toolchain`;
+- `next-react-core`;
+- `mui-emotion-ssr`;
+- `carousel`;
+- `react-three-stack`;
+- `next-image-codemod`;
+- `next-link-codemod`;
+- `vinext-vite-adapter`;
+- `upload-worker-boundary`;
+- `static-public-rendering`.
+
+**Rule**: members of one unit land together, but the unit is independently revertable and has focused evidence. A later dependent unit must not merge while a predecessor gate is failing.
+
+### Secret Migration Record
+
+| Field | Type | Validation / Meaning |
+|---|---|---|
+| `legacyName` | string | Existing name only; never value |
+| `replacementName` | string or null | Server-only or null when removed |
+| `scope` | `public \| build \| worker-secret \| scheduler` | Explicit runtime boundary |
+| `callerClass` | `browser \| worker \| scheduler \| build` | Determines effective auth/control |
+| `rotationRequired` | boolean | `true` for any credential already exposed publicly |
+| `consumers` | string[] | Code/config call sites |
+| `removalEvidence` | string[] | Bundle/source-map/config scan references |
+
+Known migration:
+- `NEXT_PUBLIC_TELEGRAM_BOT_TOKEN` → server-only `TELEGRAM_BOT_TOKEN`, rotate;
+- `NEXT_PUBLIC_TELEGRAM_CHAT_ID` → server-only `TELEGRAM_CHAT_ID`;
+- `NEXT_PUBLIC_X_API_KEY` → remove from browser paths; retain only a separately named server-side/internal secret if a trusted caller needs one;
+- `SPX_SYNC_SECRET` remains scheduler-only;
+- public Sanity project/dataset, analytics IDs, site URL and approved feature flags remain public.
+
 ## Static Publication Entities
 
 ### Public Search Index
@@ -96,12 +162,14 @@ Known values are the two hard issues and three partial areas reported by `vinext
 
 ### Search Document
 
-Fields: `id`, `kind`, `title`, `url`, `summary`, `keywords`, `productType`, `thumbnailUrl`, `updatedAt`.
+Fields: `schemaVersion`, `id`, `kind`, `title`, `url`, `summary`, `keywords`, `productType`, `facetSlugs`, `sourceHash`, `updatedAt`.
 
 **Rules**:
 - URL uses a production-public path.
 - No full Sanity object, asset source internals, customer/order fields or private metadata.
 - Browser filter and result shape retain existing published result semantics.
+- `id` and `url` are unique; a duplicate is a build failure.
+- `sourceHash` permits deterministic rebuild checks without exposing source tokens.
 
 ## Upload Entities
 
@@ -113,6 +181,7 @@ Fields: `data` (Base64), `contentType`, `filename`, `originalByteLength` optiona
 - MIME is PNG, JPEG or WebP.
 - Decoded bytes ≤10 MB and Base64 request stays below the configured 14 MB body cap.
 - signature matches declared MIME.
+- Base64 is canonical/strictly decodable and does not contain ignored trailing bytes.
 - width/height and pixel count fit browser/Worker limits.
 - no executable/polyglot content accepted.
 
@@ -163,6 +232,8 @@ Fields: `ownerTrigger`, `eligibleForTransfer`, `lockState`, `dnssecState`, `auth
 Fields: `name`, `scope` (`browser-build | worker-secret | scheduler | local-test`), `requiredBy`, `visibility`, `buildOrRuntime`, `owner`, `rotationNotes`, `valuePresent`.
 
 No record may contain a secret value. Existing public-secret exposure is classified and remediated before production instead of copied into Cloudflare config.
+
+Additional rule: `scope=browser-build` is reserved for non-secret public config. A token, chat credential, internal API key or scheduler secret cannot be classified as browser-build.
 
 ### Cost Policy
 

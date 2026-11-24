@@ -1,6 +1,5 @@
 /// <reference types="next" />
 /// <reference types="next/image-types/global" />
-/// <reference path="./.cloudflare/types/index.d.ts" />
 import "vinext/types/augmentations";
 import "./.next/types/routes.d.ts";
 
