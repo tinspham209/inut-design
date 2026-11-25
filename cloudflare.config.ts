@@ -10,6 +10,19 @@ export default defineConfig({
     name: "inutdesign-web",
     entrypoint: "vinext/server/fetch-handler",
     compatibilityDate: "2026-11-24",
+    observability: {
+      enabled: true,
+      redactQueryString: true,
+      logs: {
+        enabled: true,
+        invocationLogs: true,
+        headSamplingRate: 0.1,
+        persist: true,
+      },
+      traces: {
+        enabled: false,
+      },
+    },
     workersDev: true,
     previewUrls: true,
     assets: {
