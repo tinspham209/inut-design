@@ -74,15 +74,6 @@ export default class MyDocument extends Document {
 							};${CREATIVA_TELEMETRY_BOOTSTRAP}`,
 						}}
 					/>
-					{umami.configured && (
-						<Script
-							strategy="lazyOnload"
-							src={umami.scriptUrl}
-							data-website-id={umami.websiteId}
-							data-before-send="creativaBeforeSend"
-						/>
-					)}
-
 					<meta name="emotion-insertion-point" content="" />
 					{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
 					{(this.props as any).emotionStyleTags}

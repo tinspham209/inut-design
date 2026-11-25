@@ -36,7 +36,6 @@ import {
 	trackUmamiFormSubmit,
 	trackUmamiOrderButton,
 	trackUmamiOutboundClick,
-	trackUmamiPageView,
 	trackUmamiPhoneClick,
 	trackUmamiProductClick,
 	trackUmamiProductView,
@@ -123,8 +122,7 @@ export const trackPageView = (url: string, title?: string): void => {
 		page_location: isKeychainPath(url) ? safeKeychainUrl(window.location.href) : window.location.href,
 	});
 
-	// Track to Umami
-	trackUmamiPageView(safeUrl, title);
+	// Umami automatically tracks initial loads and history navigation.
 
 	// Track to DataLayer with enhanced data
 	pushCustomEvent("page_view", {

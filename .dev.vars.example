@@ -1,6 +1,11 @@
 # Copy to .dev.vars and fill values locally. Never commit .dev.vars.
 
 # Public/non-secret runtime config
+# Umami's NEXT_PUBLIC_* values are build-time inputs from .env/.env.local;
+# entries here alone do not configure the browser bundle. Keep them in sync.
+NEXT_PUBLIC_ENABLE_UMAMI=true
+NEXT_PUBLIC_UMAMI_WEBSITE_ID=
+NEXT_PUBLIC_UMAMI_HOST_URL=https://cloud.umami.is
 DEPLOYMENT_CHANNEL=preview
 PREVIEW_SITE_URL=https://your-preview-hostname.workers.dev
 SANITY_PROJECT_ID=

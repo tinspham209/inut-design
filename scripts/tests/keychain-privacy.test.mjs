@@ -17,8 +17,9 @@ test("keeps only allow-listed anonymous event fields", () => {
 	assert.deepEqual(sanitizeKeychainProperties({ ring_id: "ring-01", mode: "custom", url: "https://cdn.sanity.io/private", design_id: "private-id", query: "private-id", scale: 3 }), { ring_id: "ring-01", mode: "custom", scale: 3 });
 });
 
-test("GA and Umami emit one sanitized action and query-free keychain page views", async () => {
+test("GA and Umami emit one sanitized action without duplicating automatic page views", async () => {
 	process.env.NEXT_PUBLIC_ENABLE_UMAMI = "true";
+	process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID = "test-site";
 	const ga = []; const umami = [];
 	const storage = () => { const values = new Map(); return { getItem: (key) => values.get(key) || null, setItem: (key, value) => values.set(key, String(value)), removeItem: (key) => values.delete(key) }; };
 	globalThis.localStorage = storage(); globalThis.sessionStorage = storage();
@@ -37,7 +38,7 @@ test("GA and Umami emit one sanitized action and query-free keychain page views"
 	trackPageView("/builder/keychain?design=private-id", "Keychain");
 	assert.equal(ga[1][2].page_path, "/builder/keychain");
 	assert.equal(ga[1][2].page_location, "https://inutdesign.com/builder/keychain");
-	assert.equal(umami[1][0](({})).url, "/builder/keychain");
+	assert.equal(umami.length, 1);
 	globalThis.window.gtag = undefined; globalThis.window.umami = undefined;
 	assert.doesNotThrow(() => trackKeychainAction("keychain_export", { scale: 1 }));
 });

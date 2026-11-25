@@ -30,10 +30,13 @@ non-production dataset, copy the returned CDN URL, and run
 HTTP status and confirm the same URL renders in a clean browser profile. Do not
 paste the URL, query, or image data into analytics evidence.
 
-Evidence status: the local privacy suite passes and production GA4 collection
-was observed in the Cloudflare preview/production checks. Hosted Umami delivery
-still depends on `NEXT_PUBLIC_ENABLE_UMAMI` and must be verified when enabled;
-Vercel Analytics is no longer deployed.
+Umami's `NEXT_PUBLIC_ENABLE_UMAMI`, `NEXT_PUBLIC_UMAMI_WEBSITE_ID`, and
+`NEXT_PUBLIC_UMAMI_HOST_URL` are public build-time configuration: set them in
+`.env`/`.env.local` or the build environment and rebuild before deployment.
+`.dev.vars` configures local Worker bindings and does not by itself populate
+the browser build. When enabled, confirm the script and `/api/send` requests
+in the browser and confirm the visit in the Umami dashboard. Vercel Analytics
+is no longer deployed.
 
 ## Builder promotion events
 
