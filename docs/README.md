@@ -8,7 +8,7 @@ document and implementation disagree.
 
 - [Cloudflare release and rollback](operations/cloudflare-release.md)
 - [Cloudflare DNS cutover](operations/cloudflare-dns-cutover.md)
-- [Workers Free plan and Paid-upgrade trigger](operations/cloudflare-free-plan.md)
+- [Workers Free-first policy and future Paid TODO](operations/cloudflare-free-plan.md)
 - [Cost and usage controls](operations/cloudflare-cost-controls.md)
 - [Environment and post-deploy operations](operations/cloudflare-operations.md)
 - [Registrar transfer boundary](operations/cloudflare-registrar-transfer.md)

@@ -14,10 +14,10 @@ Both apex and `www` return 200 from the same production Worker. The
 the externally managed CNAME; Cloudflare now owns that routing record and its
 certificate.
 
-Worker remains on the Cloudflare Free plan by explicit owner decision.
-Workers Paid is the only remaining account-plan TODO: keep the Free plan active
-until Cloudflare emits a quota/CPU/plan warning or usage approaches the Free
-limits, then upgrade without changing the Worker or DNS architecture.
+Worker remains on the Cloudflare Free plan by explicit owner decision. Keep
+Free-first operation while it meets current requirements. If Cloudflare emits a
+quota/CPU/plan warning, report it to the owner; a plan change is a separate
+owner-directed TODO and must not happen automatically.
 
 ## Preconditions
 
@@ -30,8 +30,8 @@ limits, then upgrade without changing the Worker or DNS architecture.
   without secret values.
 - Required Worker secrets are injected by the Cloudflare secret mechanism and are
   absent from output, logs and source maps.
-- For future releases, retain this Free-plan exception until the owner triggers
-  the Workers Paid upgrade.
+- For future releases, retain Free-first operation. Do not prepare or execute a
+  Paid upgrade until the owner requests that work.
 
 ## Dry Run and Deploy
 

@@ -96,20 +96,21 @@ Owner chuyển `inutdesign.com` từ Squarespace/Vercel sang Cloudflare theo t�
 - **FR-015**: Cutover production là immediate hard cutover sau khi candidate pass; không làm traffic split.
 - **FR-016**: Mọi unsupported/behavior-changing Vinext gap phải được document trước release.
 - **FR-017**: Có fallback cho cache/image capability không dùng trong parity phase.
-- **FR-018**: Target dài hạn của production là Workers Paid. Production hiện tại
-  được owner cho phép tiếp tục trên Workers Free dưới compatibility exception:
-  chỉ upgrade khi Cloudflare cảnh báo quota/CPU/plan, usage tiến gần giới hạn
-  Free hoặc reliability bị ảnh hưởng.
+- **FR-018**: Production vận hành Free-first theo owner decision. Nếu Cloudflare
+  phát quota/plan warning, operator báo owner; Paid review/upgrade là TODO riêng
+  và chỉ bắt đầu khi owner yêu cầu rõ ràng.
 - **FR-019**: Baseline static-first không bật Cloudflare Images, KV, R2, Durable Object, D1 hoặc Queue. Chỉ thêm khi compatibility/performance evidence chứng minh cần thiết.
-- **FR-020**: Đặt spending expectation, warning thresholds và usage-block limit trước DNS cutover.
+- **FR-020**: Ghi nhận Workers Free allowance, nguồn đo usage và warning/quota
+  response trước DNS cutover. Không đặt Paid spending threshold hoặc usage block
+  làm điều kiện cutover.
 - **FR-021**: Tiết kiệm chi phí không được xóa tính năng, làm lỏng security hoặc thay đổi public data contract.
 - **FR-022**: Bỏ runtime dependency `@vercel/analytics`; giữ GA4/GTM và Umami.
 - **FR-023**: Xử lý các Vinext gaps: `next/types`, CommonJS `__dirname`/`__filename`, partial support cho images, webpack và React Strict Mode.
 - **FR-023a**: Keychain upload thực hiện resize/encode ở browser; Worker chỉ chấp nhận output hợp lệ sau khi kiểm tra file type, byte signature, file size, image dimensions, persistence contract và error response. Native `sharp` không được chạy trong Worker.
-- **FR-024**: Production cần preview hostname, `inutdesign.com` zone và spend
-  policy; cần Workers Paid hoặc explicit owner-approved Free-plan exception với
-  upgrade trigger đã ghi nhận. R2 chỉ là prerequisite nếu sau audit thật sự cần
-  Response Store.
+- **FR-024**: Production cần preview hostname, `inutdesign.com` zone và
+  Free-first usage policy. Workers Paid không phải prerequisite; review hoặc
+  migration sang Paid được deferred tới explicit owner request. R2 chỉ là
+  prerequisite nếu sau audit thật sự cần Response Store.
 - **FR-025**: Deployment đầu tiên chỉ dùng preview hostname; chưa đổi Squarespace registration, authoritative DNS hoặc `inutdesign.com`.
 - **FR-026**: Preview phải non-indexable và không thay canonical host/sitemap production.
 - **FR-027**: Có DNS inventory được owner duyệt trước khi đổi nameserver.
@@ -146,9 +147,9 @@ Owner chuyển `inutdesign.com` từ Squarespace/Vercel sang Cloudflare theo t�
 - **Observability**: GA4/GTM + Umami giữ exact-once và không thu sensitive fields.
 - **Compatibility**: bảo toàn commerce, Sanity, cart, upload, analytics và public URL contracts.
 - **SEO Continuity**: preview không index; production canonical, sitemap, robots, HTTPS và redirects không đổi.
-- **Cost Control**: baseline dài hạn là Workers Paid $5/tháng. State production
-  hiện tại là Workers Free theo owner-approved exception; Paid là TODO
-  escalation, không phải lý do để thay Worker/DNS đang healthy.
+- **Cost Control**: Workers Free là current operating plan; owner báo chưa có
+  billable usage tại thời điểm ghi nhận. Paid pricing/modeling không phải
+  acceptance gate và chỉ được rà soát lại khi owner yêu cầu upgrade.
 
 ## Next.js / React Upgrade Decision
 
@@ -242,13 +243,17 @@ Giữ method, auth, validation, idempotency và response contract cho:
 - Vercel memory mẫu 407–654 MB; Cloudflare Worker giới hạn khoảng 128 MB/isolate, nên bắt buộc đo actual memory.
 - Production-only traffic chưa đủ evidence; estimate dưới đây là proxy, không phải hóa đơn chắc chắn.
 
-### Cloudflare account state đã kiểm tra
+### Cloudflare account state at migration kickoff (historical snapshot)
+
+This table records pre-cutover state from the migration kickoff; it is not the
+current production inventory. Production now runs on Workers Free as the
+owner-approved Free-first operating mode.
 
 | Resource | Hiện trạng |
 |----------|-----------|
 | Account | `inutdesign`, mới tạo |
 | Plan | Workers Free |
-| Subscription | Workers Free đang phục vụ production; Workers Paid là TODO khi có cảnh báo |
+| Subscription | Workers Free (state at migration kickoff) |
 | Workers/scripts | 0 |
 | Preview subdomain | Chưa có |
 | Zone | Chưa có `inutdesign.com` |
@@ -266,32 +271,28 @@ Giữ method, auth, validation, idempotency và response contract cho:
 - 2 issues và 3 partial-support areas cần xử lý.
 - Cloudflare hướng dẫn Vinext chủ yếu cho Next.js 14+, repo đang dùng 12.3.1; vì vậy phải runtime-test thật.
 
-### Pricing và estimate
+### Current Free-first cost policy
 
-Theo Cloudflare pricing ngày 2026-11-24:
+- Production currently runs on Workers Free and the zone is on Cloudflare Free.
+  Owner reported no billable usage as of 2026-11-25; this is point-in-time
+  evidence, not a forecast or a guarantee about third-party costs.
+- Static Asset requests are documented as free. Worker request/CPU usage must be
+  measured from Cloudflare Worker Metrics and compared with the current Free
+  limits; Vercel function counts and sampled Worker logs are not substitutes.
+- This migration does not require Workers Paid, a monthly Paid estimate, dollar
+  warning/block targets, or optional metered services.
+- **Future Paid TODO**: if Cloudflare emits a quota/plan warning or the owner
+  requests an upgrade, notify the owner and wait for explicit direction. Recheck
+  then-current pricing, included usage, spending controls, logs and optional
+  services only after that request. Earlier Paid estimates are superseded and
+  are not current policy.
+- Full-static public pages do not require Response Store. R2, Durable Object,
+  Cloudflare Images, KV, D1 and Queue remain disabled absent a separate approved
+  evidence-based need. Registrar transfer fees are outside Workers usage.
 
-- **Workers Paid**: $5/tháng, là upgrade target khi Cloudflare warning/Free-limit trigger xuất hiện.
-- Included: 10M Worker requests + 30M CPU ms/tháng.
-- Overage: $0.30/M requests + $0.02/M CPU ms.
-- Static asset requests: $0.
-- Workers Logs: 20M events/tháng included; $0.60/M overage.
-- Full-static public pages không cần Response Store.
-- R2, Durable Object, Cloudflare Images, KV, D1 và Queue không bật trong baseline.
-- Registrar transfer fee/renewal không nằm trong monthly infrastructure cost.
-
-| Scenario | Cơ sở estimate | Expected Cloudflare cost |
-|----------|----------------|-------------------------:|
-| Baseline hiện tại | Static pages dùng static assets; chỉ API thực sự gọi Worker | **$5/tháng** nếu dưới 10M Worker requests và 30M CPU ms |
-| Traffic API tăng 10× | Vẫn phải đo API-only Production traffic; public page requests không còn tạo ISR/SSR CPU | **$5–6/tháng** là planning range, không phải guarantee |
-| Stress 1M API calls × 530 ms | `530M CPU ms`, trừ 30M included | **~$15/tháng** |
-
-Mẫu Vercel 207–210 invocations/12h trước đây không thể dùng trực tiếp cho Worker bill sau static-first migration, vì phần lớn page regeneration sẽ biến mất. Vì vậy số request/CPU chính xác phải lấy từ preview/production Worker sau khi migration.
-
-**Khuyến nghị dài hạn**: local static build + Workers Paid, planning range
-**$5–6/tháng**. Production hiện tại tiếp tục Workers Free theo owner decision;
-upgrade khi Cloudflare warning/Free-limit trigger xuất hiện. Giữ cảnh báo ở $2
-usage over base và hard usage-block $10 cho thời điểm Paid. Giới hạn này chưa
-bao gồm subscription $5 hoặc dịch vụ ngoài Workers scope.
+Historical Workers Paid pricing models from the migration investigation are
+superseded by the owner-approved Free-first decision; do not use them to infer
+current or future charges.
 
 ### Low-cost alternatives
 
@@ -326,15 +327,18 @@ bao gồm subscription $5 hoặc dịch vụ ngoài Workers scope.
 - **SC-008**: 100% config nằm trong inventory; 0 secret trong browser bundle/source map.
 - **SC-009**: GA4/GTM và Umami ghi exact-once, không có prohibited data.
 - **SC-010**: Qualified operator deploy/verify từ runbook trong 30 phút.
-- **SC-011**: Traffic modeled hiện tại nằm trong $5 base, total ≤ $6/tháng.
-- **SC-012**: Traffic 10× có overage ≤ $1/tháng hoặc chọn approved alternative trước cutover.
+- **SC-011**: Production cutover and routine operation require no Workers Paid
+  subscription or Paid-plan charge model.
+- **SC-012**: Worker requests, CPU and source/coverage are recorded against the
+  current Free allowance; missing aggregate evidence remains an explicit gap.
 - **SC-013**: 100% release-gate route/API không vượt 128 MB memory hoặc CPU limit.
 - **SC-014**: Images, KV, R2, Durable Object, D1 và Queue tắt trong static-first baseline; mỗi service thêm sau phải có cost/compatibility gate.
-- **SC-015**: Có spend alert, Worker CPU/request alert, log-volume alert và usage-block policy trước DNS cutover.
+- **SC-015**: Có Free-plan request/CPU monitoring and Cloudflare warning
+  response before DNS cutover; no Paid usage-block policy is required.
 - **SC-016**: Không còn active Vercel Analytics dependency; GA4/GTM và Umami giữ nguyên.
-- **SC-017**: Account có preview hostname, zone và spend controls. Paid plan là
-  target dài hạn hoặc có owner-approved Free-plan exception; upgrade trigger
-  phải được ghi rõ. R2 không còn là prerequisite của baseline.
+- **SC-017**: Account có preview hostname, zone và Free-plan usage monitoring.
+  Paid review is deferred to an explicit owner request. R2 không còn là
+  prerequisite của baseline.
 - **SC-018**: 2 Vinext issues + 3 partial areas được fix hoặc owner chấp nhận có evidence.
 - **SC-019**: 0 preview URL vào production index/sitemap; 100% preview page dùng canonical `inutdesign.com`.
 - **SC-020**: 100% DNS records được owner duyệt; không thiếu apex/`www`/MX/SPF/DKIM/DMARC/TXT/subdomain.
@@ -358,8 +362,9 @@ bao gồm subscription $5 hoặc dịch vụ ngoài Workers scope.
 - Zone active có thể mất tới 24 giờ; registrar transfer có thể mất vài ngày tới tối đa giới hạn của TLD/registrar.
 - Owner cung cấp/duyệt Squarespace DNS export, Vercel targets, email records, domain eligibility và registrant contact.
 - Yêu cầu chờ Squarespace trả auth code/transfer material không đồng nghĩa với việc được phép trigger ngay.
-- Cloudflare Free account hiện tại phải được upgrade Paid; zone, preview subdomain và spend policy chưa sẵn sàng. R2 không cần cho static-first baseline.
-- Chi phí domain transfer là khoản transfer/renewal one-time, chưa nằm trong estimate $5–6/tháng.
-- Giá là point-in-time ngày 2026-11-24, chưa gồm thuế và chi phí third-party hiện có.
+- Cloudflare Workers Free and zone Free Plan are the current owner-approved
+  state. Paid upgrade is neither required nor authorized by this feature.
+- Any future Paid price or spending-control estimate must be refreshed only
+  after an explicit owner request; third-party and registrar costs are separate.
 - Owner-triggered automation deploy là accepted publication model; Sanity/product/blog change lên production khi trigger chạy. Feature này không quy định fixed freshness SLA.
 - Next 15.5.x + React 19 + Node 22 là migration target; Next 16 được defer để giảm scope.

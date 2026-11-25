@@ -222,8 +222,8 @@ pnpm dlx @vinext/cloudflare deploy
 ```
 
 Before running the real deploy:
-- confirm preview hostname and spend policy, plus either Workers Paid or the
-  owner-approved Free-plan exception and its Cloudflare warning trigger;
+- confirm preview hostname and current Free-first spend policy, including the
+  Cloudflare warning/quota reporting path; no Paid plan is required;
 - confirm server secrets are configured without values appearing in shell history/output;
 - confirm exposed legacy Telegram credential has been rotated;
 - confirm preview `noindex`;

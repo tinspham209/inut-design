@@ -74,7 +74,7 @@ Every preview response must:
 | Security | 0 secret in client/source map/public response; validation/auth not weakened |
 | Secret migration | Old exposed Telegram token rotated; public credential names removed; browser and trusted internal/scheduler caller classes pass separate tests |
 | Worker graph | No native `sharp`, build/test-only package, request-time filesystem/path module or disabled IMG.LY/ONNX asset in production graph |
-| Cost | Paid mode remains preferred; the owner-approved 2026-11-24 Free-plan exception may continue while Cloudflare usage is healthy and monitoring/watch triggers are retained |
+| Cost | Workers Free is the current operating mode; record current request/CPU evidence and Cloudflare warning signals. Paid review is deferred until explicit owner request |
 | Operations | operator completes deploy/verify/rollback drill in allowed time |
 
 ## Production Deploy Contract
@@ -87,8 +87,8 @@ Production deploy/cutover requires an explicit owner approval record referencing
 - Worker module graph and artifact-size report;
 - release-gate report;
 - DNS inventory approval;
-- account/zone/Workers readiness plus Paid-plan status or the owner-approved
-  Free-plan exception and escalation trigger;
+- account/zone/Workers readiness plus current Free-plan usage policy and
+  owner-notification procedure for Cloudflare quota/plan warnings;
 - spending policy;
 - verified rollback point.
 
@@ -109,12 +109,13 @@ Success criterion: restoration ≤15 minutes after approval, excluding DNS propa
 
 ## Cost & Observability
 
-- Workers Paid was the original baseline, but production is now live on Workers
-  Free under an owner-approved 2026-11-24 exception. Upgrade becomes a TODO
-  trigger when Cloudflare reports plan/quota/CPU warning, usage approaches Free
-  limits, or reliability is affected.
+- Production is live on Workers Free as the current owner-approved operating
+  mode. If Cloudflare reports a plan/quota/CPU warning, notify the owner; no plan
+  change is authorized without an explicit request.
 - Model Worker request/CPU usage after full-static conversion; do not reuse Vercel function invocations as a direct bill proxy.
-- Configure warning at $2 usage over base and hard usage block at $10, excluding $5 subscription.
+- Do not use historical Paid `$5`/`$2`/`$10` assumptions as current costs or
+  release gates. Recheck Paid pricing and spending controls only after the owner
+  requests an upgrade plan.
 - Configure Worker CPU/request and log-volume alerts.
 - Optional Images/R2/KV/D1/DO/Queue services require a separately evidenced gate.
 
@@ -137,4 +138,4 @@ After implementation:
 - Secret logging or bundle inclusion.
 - DNS/nameserver/registrar modification from the planning command.
 - Registrar unlock, auth-code request, submission or payment.
-- Cloudflare account/product subscription action without explicit owner approval.
+- Cloudflare account/product subscription action without an explicit owner request.

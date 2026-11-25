@@ -59,19 +59,22 @@
   Squarespace and `pending transfer`. Feature 004 does not claim the pending
   transfer was initiated by this implementation; no registrar action was taken.
 
-## MIGRATION-WORKERS-FREE-PRODUCTION-EXCEPTION
+## MIGRATION-WORKERS-FREE-FIRST
 
-- **Status**: owner-accepted operational exception on 2026-11-24.
+- **Status**: owner-approved current operating policy, confirmed 2026-11-25.
 - **Decision**: keep production Worker `inutdesign-web` on Cloudflare Free after
-  the successful `inutdesign.com` custom-domain cutover.
-- **Pending TODO**: upgrade to Workers Paid when Cloudflare reports a
-  plan/quota/CPU warning, production usage approaches the Free limits, or the
-  owner observes reliability impact.
+  the successful `inutdesign.com` custom-domain cutover; Free is the default,
+  not a temporary exception.
+- **Owner notification**: report Cloudflare quota/plan warnings. Do not change
+  plans or prepare a Paid upgrade without an explicit owner request.
+- **Future Paid TODO**: after an owner request, recheck current price, included
+  usage, spending controls, observability costs and optional products, then
+  update the runbooks and estimator. Historical Paid calculations are superseded.
 - **Evidence**: preview/production route and API checks, 0 Worker errors, peak
   measured memory below 128 MB, and the complete production cutover.
-- **Boundary**: this exception does not relax secrets, origin validation,
-  security, API, SEO, commerce or Worker graph requirements. It defers only the
-  paid subscription/cost-control transition.
+- **Boundary**: Free-first does not relax secrets, origin validation, security,
+  API, SEO, commerce or Worker graph requirements. A future Paid decision is a
+  separate owner-directed change.
 
 ## MIGRATION-SANITY-SLUG-RESOLUTION
 

@@ -87,9 +87,9 @@ pnpm start
 ### Webapp (Cloudflare Workers)
 
 Production is served from `inutdesign.com` and `www.inutdesign.com` through the
-Worker `inutdesign-web`. Workers Paid remains a pending owner-controlled
-upgrade; the accepted current state runs on Workers Free until Cloudflare
-reports plan/quota/CPU pressure or another approved trigger occurs.
+Worker `inutdesign-web`. Workers Free is the current operating plan. A
+Cloudflare quota/plan warning should be reported to the owner; a Paid-plan review
+or upgrade is a separate TODO that requires an explicit owner request.
 
 ```bash
 pnpm exec cf auth login

@@ -12,17 +12,16 @@ Production DNS cutover is complete as of 2026-11-24. `https://inutdesign.com`
 and `https://www.inutdesign.com` are attached to Worker `inutdesign-web` and
 serving production. The `www` custom domain replaced the externally managed
 CNAME that was returning 522. The Worker stays on Cloudflare Free by owner
-decision; Workers Paid is a pending TODO triggered by a Cloudflare
-plan/quota/CPU warning or usage approaching the Free limits.
+decision. If Cloudflare emits a plan/quota/CPU warning, notify the owner; any
+Paid-plan review or upgrade remains an owner-directed TODO.
 
 ## Preparation
 
 1. Complete and owner-approve `artifacts/migration/dns/source-inventory.csv`.
 2. Fill every unknown MX/SPF/DKIM/DMARC/TXT/CAA/DS owner and disposition.
 3. Confirm Cloudflare zone, target Worker, custom domain, certificate and nameservers.
-4. Confirm Worker preview and release gate. Apply the documented Free-plan
-   exception until the owner triggers Workers Paid; keep spend and usage
-   monitoring active.
+4. Confirm Worker preview and release gate. Keep Free-first operation and usage
+   monitoring active; do not change plans without an owner request.
 5. Confirm DNSSEC state:
    - if active, capture DS, disable at the current registrar/DNS provider and wait
      for the DS removal to propagate;

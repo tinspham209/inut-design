@@ -185,24 +185,28 @@ The plan resolves hard issues in Phase 1 and turns partial support into executab
 
 ## Cost & Optional Services
 
-**Decision**: Workers Paid remains the long-term baseline at $5/month under
-included usage. Production is currently allowed to remain on Workers Free under
-the owner-approved 2026-11-24 exception; upgrade when Cloudflare warns about
-plan/quota/CPU or usage approaches Free limits. Retain the $2 usage-over-base
-warning and $10 usage hard-block policy for the Paid transition. No optional
-Cloudflare data/image/queue service is enabled without compatibility/cost
-evidence.
+**Current decision (2026-11-25)**: Workers Free is the owner-approved
+Free-first production mode. Owner reports no billable usage to date. This is an
+observed point-in-time state, not a forecast. Cloudflare quota/plan warnings are
+reported to the owner; a Paid review or upgrade requires an explicit owner
+request. Prior Paid price/overage estimates in the initial migration research
+are superseded and must not be treated as current policy.
 
 **Rationale**:
-- Workers Free has 10 ms CPU/request, so production remains watch-gated and has
-  an explicit Paid upgrade trigger rather than an unconditional long-term
-  reliance.
-- Workers Paid includes 10M requests and 30M CPU ms/month; static asset requests are free.
-- Existing Vercel invocation samples include SSR/ISR work and cannot be treated as Worker API billing volume after full-static conversion.
+- Cloudflare account evidence says Workers Free and zone Free Plan are active.
+- Current usage/headroom should be measured from Worker Metrics and compared to
+  current Free limits; billing API access and Worker Metrics access are separate
+  questions.
+- Static Asset requests are free under current Cloudflare documentation.
+- Existing Vercel invocation samples include SSR/ISR work and cannot be treated
+  as Worker request/billing volume after static-first conversion.
+
+**Future Paid TODO**: If the owner requests an upgrade plan, verify then-current
+pricing, included usage, spending controls, logs and optional product costs,
+then revise the operational documents and estimator. No Paid price model is an
+active dependency of feature 004.
 
 **Alternatives considered**:
-- Stay on Free indefinitely — rejected; the accepted exception is temporary and
-  warning/usage triggered.
 - Enable R2/Response Store preemptively — rejected; it is not needed for static publication.
 - Add Cache/Queue/Image services for “future use” — rejected as unsupported cost/scope.
 

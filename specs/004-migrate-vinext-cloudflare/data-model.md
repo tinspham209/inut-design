@@ -237,12 +237,14 @@ Additional rule: `scope=browser-build` is reserved for non-secret public config.
 
 ### Cost Policy
 
-Fields: `plan`, `includedRequestCount`, `includedCpuMs`, `usageWarningUsd`, `usageBlockUsd`, `logVolumeThreshold`, `reviewOwner`, `lastReviewedAt`.
+Fields: `currentPlan`, `includedRequestCount`, `includedCpuMs`, `observedRequests`,
+`observedCpu`, `observationWindow`, `evidenceSource`, `coverage`, `ownerReviewDate`.
 
-Long-term baseline: Workers Paid, warning at $2 usage over base, usage block at
-$10, excluding $5 subscription. Current production state: Workers Free under
-the owner-approved 2026-11-24 exception, with upgrade triggered by Cloudflare
-plan/quota/CPU warning or Free-limit pressure.
+Current policy: Workers Free first. Compare observed usage to current Free
+allowances and report Cloudflare quota/plan warnings to the owner. Paid-plan
+price, warning and spending-limit fields are deferred TODOs; add them only after
+the owner requests Paid planning. Historical `$5`/`$2`/`$10` assumptions are not
+active cost policy.
 
 ## State Transitions
 

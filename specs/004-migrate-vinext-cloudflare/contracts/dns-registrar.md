@@ -35,8 +35,8 @@ Before nameserver change:
 - approved DNS inventory exists;
 - Cloudflare zone exists and its records are validated;
 - Worker and preview are healthy;
-- Workers plan status is recorded: current owner-approved Free-plan exception or
-  Workers Paid, with spend controls and production candidate ready;
+- Workers plan status is recorded: current Free-first mode, usage evidence and
+  owner-notification procedure for quota/plan warnings;
 - current DNSSEC state is known;
 - if DNSSEC is active at Squarespace, disable and wait for propagation before nameserver change;
 - owner approval exists for the immediate hard cutover.

@@ -2,42 +2,44 @@
 
 ## Account Capability Check
 
-Current production state (2026-11-24): `inutdesign.com` runs on Cloudflare
-Workers Free under an owner-approved operational exception.
+Current production state (2026-11-25): `inutdesign.com` runs on Cloudflare
+Workers Free and the zone is on Free Plan. Free-first is the current operating
+mode, not a temporary exception waiting for an automatic Paid upgrade.
 
-1. **TODO pending**: upgrade to Workers Paid when Cloudflare reports a quota,
-   CPU or plan warning, or when production usage approaches Free-plan limits.
-2. Confirm billing owner and account-level permission.
-3. Verify whether Cloudflare supports the proposed warning at $2 usage over base
-   and hard block at $10 usage over base. Do not claim enforcement from this
-   document; retain screenshots/API evidence.
-4. Confirm the $5 subscription is excluded from the warning/block usage amounts.
-5. Confirm included requests/CPU/log retention and any taxes or optional services.
+1. Track Worker requests and CPU against current Free-plan limits using Cloudflare
+   Worker Metrics; record source, date range and coverage.
+2. Billing API access last returned 403. Verify Worker Metrics/GraphQL access
+   separately; the billing API result does not establish metrics access.
+3. Do not infer current spend from sampled logs, local traffic, or Vercel
+   invocation counts. Use Cloudflare billing/dashboard evidence for billable usage.
+4. **Future Paid TODO**: if Cloudflare issues a quota/plan warning, report it to
+   the owner and wait for explicit direction. Recheck pricing and spending
+   controls then; previous `$5`, `$2`, and `$10` Paid assumptions are inactive.
 
 ## Alerts
 
 - Request volume anomaly: owner reviews sustained unexpected request growth.
-- CPU: alert on repeated route batches or spikes approaching the Paid limit.
+- CPU: review usage against the active Free limit and Cloudflare warnings.
 - Memory: retain preview/production evidence below 128 MB isolate memory.
 - Logs: alert on volume growth and cap retained detail; logs contain route,
   status, duration and aggregate counters only.
 - Security: secret scan failures and unusual write abuse stop release escalation.
-- Free-plan escalation: review the first Cloudflare plan/CPU/request warning
-  immediately and prepare the Paid-plan upgrade without changing DNS or Worker
-  routing.
+- Free-plan escalation: report the Cloudflare plan/CPU/request warning to the
+  owner. Do not change the plan, Worker routing, or DNS without an owner request.
 
 ## Cost Comparison
 
-Run:
+For current Free-first operation, use the Cloudflare Worker Metrics dashboard or
+GraphQL aggregate data; record daily requests, date range, source and coverage.
+The billing API 403 is a billing-data limitation, not proof that Worker Metrics
+are unavailable.
 
-```bash
-node scripts/migration/measure-usage.mjs \
-  --requests=<observed-worker-requests> \
-  --cpu-ms=<observed-cpu-ms> \
-  --log-bytes=<observed-log-bytes> \
-  --days=<measurement-window>
-```
+`scripts/migration/measure-usage.mjs` still contains the historical Workers Paid
+`$5` model. Do not run it for current Free usage evidence. Updating it into a
+Paid estimator is a future TODO, only after the owner requests Paid planning.
 
 Vercel function invocations are not a direct Cloudflare request/CPU proxy.
-Escalate when observed usage exceeds the approved model or an optional service
-is required for compatibility.
+The script's model is historical and must be reviewed or replaced before future
+Paid use. Its `$5`/`$2`/`$10` values do not describe current spend. Do not run it
+for Paid planning until the owner requests that work and its assumptions have
+been refreshed.

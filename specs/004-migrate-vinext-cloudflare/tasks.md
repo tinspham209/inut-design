@@ -1,5 +1,10 @@
 # Tasks: Migrate Vinext sang Cloudflare
 
+> Cost-policy history: T113/T116 record completed work from the original
+> Workers Paid proposal. The owner-approved policy is now Free-first; those
+> historical Paid calculations are superseded and must not be used as current
+> spend evidence. Paid planning is a future TODO after an explicit owner request.
+
 **Input**: Design documents from `/specs/004-migrate-vinext-cloudflare/`
 
 **Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/, quickstart.md
@@ -183,10 +188,10 @@
 - [X] T110 [US3] Preserve external scheduler targeting, auth, timeout, idempotency, concurrency, response, and notification behavior for `pages/api/cron/sync-spx-orders.ts`
 - [X] T111 [US3] Add safe SPX duplicate, timeout, concurrent, partial failure, and notification-mock fixtures under `scripts/migration/api-fixtures/spx/`
 - [X] T112 [US3] Add redacted Worker logging for timing, status, memory/CPU context, and route identity without request bodies, credentials, contacts, uploads, or analytics secrets under `pages/api/` and `utils/`
-- [X] T113 [US3] Configure Workers Paid readiness and warning at $2 usage over base plus a hard block target at $10 in `artifacts/migration/operations/spend-policy.md`
+- [X] T113 [US3] Historical task: documented Workers Paid warning/block proposal in `artifacts/migration/operations/spend-policy.md`; this cost model was superseded by the current Free-first policy.
 - [X] T114 [US3] Add the account capability check and owner confirmation for actual warning/block enforcement support in `docs/operations/cloudflare-cost-controls.md`
 - [X] T115 [US3] Add Worker request, CPU, and log-volume alert procedures with approval owners and sanitization notes in `docs/operations/cloudflare-cost-controls.md`
-- [X] T116 [US3] Create `scripts/migration/measure-usage.mjs` to compare request/CPU/log volume evidence to the $5 base and approved modeled $5–$6 range without assuming Vercel invocation parity
+- [X] T116 [US3] Historical task: created `scripts/migration/measure-usage.mjs` for the proposed Paid model; it is not valid current Free usage evidence and remains a future TODO to revise after explicit owner request.
 - [X] T117 [US3] Add the operator runbook for initial environment setup, secret injection by reference, deploy verification, log inspection, and cost escalation in `docs/operations/cloudflare-operations.md`
 - [X] T118 [US3] Verify a fresh environment through name-only configuration and save redacted successful checks in `artifacts/migration/operations/fresh-environment.json`
 - [X] T119 [US3] Run safe SPX fixtures and compare auth, timeout, idempotency, response, and side-effect counts in Next and Vinext under `artifacts/migration/operations/spx/`
@@ -233,9 +238,9 @@ silently marked complete:
   by a Worker-managed `www.inutdesign.com` custom domain after its 522 was
   diagnosed. T096/T102/T103 remain post-cutover evidence items for
   record-by-record validation, snapshot retention and timing.
-- **Workers Paid TODO (accepted owner exception)**: production continues on
-  Workers Free. Upgrade when Cloudflare emits a plan/quota/CPU warning or usage
-  approaches Free limits.
+- **Workers Free-first (owner-approved)**: production continues on Workers Free.
+  Report Cloudflare plan/quota warnings to the owner. Paid planning or upgrade
+  requires a separate explicit owner request.
 - **Registrar owner action/evidence**: T104 — public RDAP says Squarespace
   registrar with `pending transfer`, contradicting the required “no transfer”
   completion condition; this implementation initiated no registrar action.

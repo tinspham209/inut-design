@@ -21,8 +21,9 @@ Release sequence bắt buộc là: baseline capture → upgrade & compatibility 
 **Storage**: Sanity v2 là system of record; localStorage key `inut-lighters-cart` giữ nguyên; baseline Cloudflare không dùng R2/KV/D1/Durable Objects/Queue  
 **Testing**: `pnpm lint`, `pnpm build`, `pnpm build:vinext`, route/headers/curl checks, Node regression scripts, API fixtures/mocks, browser/device regression via `agent-browser`, SEO verifier hiện có  
 **Target Platform**: Cloudflare Worker, static assets, production custom domain;
-Workers Free hiện đang phục vụ production theo owner-approved exception, Workers
-Paid là TODO khi Cloudflare cảnh báo/usage tiến gần giới hạn
+Workers Free is the current owner-approved operating mode. Paid-plan review is a
+future TODO only after the owner requests it; Cloudflare warnings are reported
+to the owner and do not authorize an automatic plan change.
 **Project Type**: Full-stack Next.js Pages Router web application, không phải static-only  
 **Performance Goals**: 100% release-gate routes không timeout; 95% representative pages không chậm hơn baseline quá 10%; 100% API parity; rollback Cloudflare version trong 15 phút sau approval  
 **Constraints**: Worker isolate 128 MB; bundle size 64 MiB; Free CPU monitoring
@@ -287,11 +288,10 @@ They converge at the Vinext local Worker gate; none bypass it.
    - production canonical and sitemap host remain `https://inutdesign.com`;
    - no preview hostname in built sitemap/robots/canonical.
 4. Production cutover is complete on `inutdesign.com` as of 2026-11-24.
-   Keep Workers Free under the owner-approved exception and monitor the
-   Cloudflare plan/CPU/request warnings. Upgrade to Paid when a warning appears
-   or production usage approaches Free limits. Baseline warning remains $2
-   usage-over-base and hard usage block $10 after Paid, excluding the $5
-   subscription; confirm the actual controls before relying on them.
+   Keep Workers Free as the current operating mode and monitor Cloudflare
+   plan/CPU/request warnings. Report warnings to the owner; do not change plans
+   without an explicit owner request. Paid pricing and spending controls are
+   deferred until then.
 5. Release evidence must include route/API, analytics, browser, upload, scheduler, SEO, CPU/memory/logs, asset/image parity and cost checks.
 6. Treat deployment artifacts as evidence:
    - immutable commit SHA and lockfile hash;

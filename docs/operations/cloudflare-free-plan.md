@@ -22,16 +22,18 @@
 ## Accepted Production Decision
 
 Production remains on Workers Free by explicit owner decision on 2026-11-24.
-Workers Paid is a pending operational TODO, not a reason to roll back the healthy
-production Worker.
+Workers Paid is not the default target or a production precondition; it is a
+future owner-directed option if current limits or requirements change.
 
 - Continue operating on the Free plan while Cloudflare reports healthy request,
   CPU and memory usage.
-- Upgrade to Workers Paid when Cloudflare emits a plan/quota/CPU warning, usage
-  approaches the Free limits, or production reliability is affected.
-- Retain the existing Paid escalation evidence and `$2` warning / `$10` usage
-  block policy for the upgrade so the account can be switched without changing
-  the Worker or DNS architecture.
+- When Cloudflare emits a quota/plan warning, report it to the owner and wait
+  for explicit direction before changing plans. This document sets no separate
+  numeric warning threshold.
+- **Future Paid TODO**: if the owner requests an upgrade, verify current pricing,
+  included usage, spending controls, logs and optional service costs, then
+  update the model and runbooks. Historical `$5`/`$2`/`$10` assumptions are not
+  active policy.
 
 ## Worker Secrets
 
@@ -52,5 +54,5 @@ replace credentials in Cloudflare secrets without exposing them in build output.
 
 Production DNS and Worker routing are complete. The registrar remains at
 Squarespace and no registrar transfer action is part of this deployment.
-Workers Paid has not been purchased; monitor Cloudflare warnings and upgrade
-only when the owner-decided trigger is reached.
+Workers Paid has not been purchased. Monitor Cloudflare warnings; any Paid-plan
+change requires an explicit owner request.

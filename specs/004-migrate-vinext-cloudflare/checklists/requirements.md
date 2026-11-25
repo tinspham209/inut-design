@@ -36,8 +36,8 @@
 ## Notes
 
 - Bản spec đã rút gọn và chuyển sang Việt–Anh; hiện giữ FR-001 → FR-040 và SC-001 → SC-027.
-- Estimate: Workers Paid $5/tháng, planning range $5–6/tháng; static-first baseline không dùng Response Store, R2 hoặc Durable Object.
-- Account hiện chưa có Paid subscription, Worker, zone, preview subdomain hoặc spend policy; R2 không phải prerequisite của baseline.
+- Current policy: Workers Free-first; earlier Workers Paid `$5`/`$5–6` estimates are superseded and are not current spend. Static-first baseline không dùng Response Store, R2 hoặc Durable Object.
+- Historical account-at-kickoff state is superseded by production cutover. Current production runs Workers Free; Paid remains owner-directed future TODO; R2 không phải prerequisite của baseline.
 - Vinext check: 85% compatible, còn 2 issues và 3 partial-support areas.
 - Owner chọn local static build + CLI deploy vì content ít thay đổi; target mới là Next 15.5.x/React 19/Node 22, public pages static, không dùng Response Store/R2/DO.
 - Spec đã ready cho `/speckit-plan`.
