@@ -245,17 +245,7 @@
 		"autoresearch",
 		"skill-creator",
 		"migrate-to-vinext",
-		"inut-cloudflare-local-deploy",
-		"speckit-analyze",
-		"speckit-checklist",
-		"speckit-clarify",
-		"speckit-constitution",
-		"speckit-converge",
-		"speckit-implement",
-		"speckit-plan",
-		"speckit-specify",
-		"speckit-tasks",
-		"speckit-taskstoissues"
+		"inut-cloudflare-local-deploy"
 	],
 	"preserved": [
 		"CLAUDE.md",

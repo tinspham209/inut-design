@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="9.2222223 0 81.5555573 89.125" width="27.452081mm" height="30mm">
-  <title>Rounded star</title>
-  <path id="cut" d="M38 21 V12 A12 12 0 0 1 62 12 V21 L61 35 Q62 37 64 37 L88 38 Q93 38 89 43 L71 58 Q69 60 70 63 L76 86 Q77 91 73 88 L52 75 Q50 74 48 75 L27 88 Q23 91 24 86 L30 63 Q31 60 29 58 L11 43 Q7 38 12 38 L36 37 Q38 37 39 35 Z" fill="#b9c9d5"/>
-  <path id="print" d="M50 30 L57 43 L80 44 L64 58 L69 78 L50 66 L31 78 L36 58 L20 44 L43 43 Z" fill="#ffffff"/>
-  <circle id="hole" cx="50" cy="12" r="5.9416667" data-diameter-mm="4" fill="#253544"/>
-</svg>

@@ -13,16 +13,6 @@ export const expectedSkills = [
 	"skill-creator",
 	"migrate-to-vinext",
 	"inut-cloudflare-local-deploy",
-	"speckit-analyze",
-	"speckit-checklist",
-	"speckit-clarify",
-	"speckit-constitution",
-	"speckit-converge",
-	"speckit-implement",
-	"speckit-plan",
-	"speckit-specify",
-	"speckit-tasks",
-	"speckit-taskstoissues",
 ];
 export const obsoletePaths = [
 	...["instructions", "prompts", "workflows", "agents"].map((p) => `.agents/${p}`),
@@ -81,7 +71,7 @@ export function validateArchitecture(root) {
 	if (directory(skills)) {
 		check(
 			JSON.stringify(fs.readdirSync(skills).sort()) === JSON.stringify([...expectedSkills].sort()),
-			"Expected exactly the retained project and Speckit skills"
+			"Expected exactly the retained project"
 		);
 	}
 	for (const name of expectedSkills) {

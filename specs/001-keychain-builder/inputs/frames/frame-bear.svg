@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 0 88 96" width="27.5mm" height="30mm">
-  <title>Bear head</title>
-  <path id="cut" d="M38 22 V12 A12 12 0 0 1 62 12 V22 C64 17 68 14 71 14 C82 14 87 23 84 32 C91 40 94 49 94 59 C94 81 76 96 50 96 C24 96 6 81 6 59 C6 49 9 40 16 32 C13 23 18 14 29 14 C32 14 36 17 38 22 Z" fill="#b9c9d5"/>
-  <path id="print" d="M22 34 C19 29 21 21 29 21 C34 21 38 24 41 28 C47 26 53 26 59 28 C62 24 66 21 71 21 C79 21 81 29 78 34 C85 41 88 49 88 59 C88 77 72 90 50 90 C28 90 12 77 12 59 C12 49 15 41 22 34 Z" fill="#ffffff"/>
-  <circle id="hole" cx="50" cy="12" r="6.4" data-diameter-mm="4" fill="#253544"/>
-</svg>

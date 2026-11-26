@@ -7,14 +7,16 @@ Workers Free and the zone is on Free Plan. Free-first is the current operating
 mode, not a temporary exception waiting for an automatic Paid upgrade.
 
 1. Track Worker requests and CPU against current Free-plan limits using Cloudflare
-   Worker Metrics; record source, date range and coverage.
+   Worker Metrics; record source, UTC window, account/Worker/host scope, version,
+   sampling, aggregation lag and coverage. Free daily request allowance resets at
+   00:00 UTC. Confirm current limits before using them operationally.
 2. Billing API access last returned 403. Verify Worker Metrics/GraphQL access
    separately; the billing API result does not establish metrics access.
 3. Do not infer current spend from sampled logs, local traffic, or Vercel
    invocation counts. Use Cloudflare billing/dashboard evidence for billable usage.
 4. **Future Paid TODO**: if Cloudflare issues a quota/plan warning, report it to
-   the owner and wait for explicit direction. Recheck pricing and spending
-   controls then; previous `$5`, `$2`, and `$10` Paid assumptions are inactive.
+   the owner with the warning, UTC time, source and affected scope, and wait for
+   explicit direction. Recheck pricing and spending controls then; previous `$5`, `$2`, and `$10` Paid assumptions are inactive.
 
 ## Alerts
 
@@ -32,7 +34,10 @@ mode, not a temporary exception waiting for an automatic Paid upgrade.
 For current Free-first operation, use the Cloudflare Worker Metrics dashboard or
 GraphQL aggregate data; record daily requests, date range, source and coverage.
 The billing API 403 is a billing-data limitation, not proof that Worker Metrics
-are unavailable.
+are unavailable. Read feature evidence under `specs/005-optimize-cloudflare-costs/evidence/`:
+per-Worker values are not account quota headroom; mark missing coverage, incomplete
+UTC days and incomparable pre/post traffic as `PENDING`. Keep static asset requests,
+CPU, errors and billing separate, and never infer totals from sampled logs.
 
 `scripts/migration/measure-usage.mjs` still contains the historical Workers Paid
 `$5` model. Do not run it for current Free usage evidence. Updating it into a

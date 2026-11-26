@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="7 0 86 97" width="26.5979381mm" height="30mm">
-  <title>Speech bubble</title>
-  <path id="cut" d="M38 20 V12 A12 12 0 0 1 62 12 V20 H83 Q93 20 93 30 V72 Q93 82 83 82 H39 L19 97 L23 82 H17 Q7 82 7 72 V30 Q7 20 17 20 Z" fill="#b9c9d5"/>
-  <path id="print" d="M20 26 H80 Q87 26 87 33 V69 Q87 76 80 76 H20 Q13 76 13 69 V33 Q13 26 20 26 Z" fill="#ffffff"/>
-  <circle id="hole" cx="50" cy="12" r="6.4666667" data-diameter-mm="4" fill="#253544"/>
-</svg>

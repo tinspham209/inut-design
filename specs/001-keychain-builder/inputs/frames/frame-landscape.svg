@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="7 0 86 82" width="30mm" height="28.6046512mm">
-  <title>Landscape rectangle</title>
-  <path id="cut" d="M38 20 V12 A12 12 0 0 1 62 12 V20 H84 Q93 20 93 29 V73 Q93 82 84 82 H16 Q7 82 7 73 V29 Q7 20 16 20 Z" fill="#b9c9d5"/>
-  <path id="print" d="M20 26 H80 Q87 26 87 33 V69 Q87 76 80 76 H20 Q13 76 13 69 V33 Q13 26 20 26 Z" fill="#ffffff"/>
-  <circle id="hole" cx="50" cy="12" r="5.7333333" data-diameter-mm="4" fill="#253544"/>
-</svg>

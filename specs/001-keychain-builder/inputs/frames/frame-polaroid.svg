@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="15 0 70 98" width="21.4285714mm" height="30mm">
-  <title>Polaroid</title>
-  <path id="cut" d="M38 14 V12 A12 12 0 0 1 62 12 V14 H79 Q85 14 85 20 V92 Q85 98 79 98 H21 Q15 98 15 92 V20 Q15 14 21 14 Z" fill="#f1f3f5"/>
-  <path id="print" d="M24 21 H76 Q79 21 79 24 V73 Q79 76 76 76 H24 Q21 76 21 73 V24 Q21 21 24 21 Z" fill="#b9c9d5"/>
-  <circle id="hole" cx="50" cy="12" r="6.5333333" data-diameter-mm="4" fill="#253544"/>
-</svg>

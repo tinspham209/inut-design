@@ -7,8 +7,6 @@ explicit skill path when automatic discovery is unavailable.
 
 ## Safety
 
-- Follow `.specify/memory/constitution.md` for repository governance, evidence,
-  protected contracts, privacy, and completion gates.
 - Investigate first, preserve user changes, keep edits minimal and scoped.
 - Never hardcode secrets or expose server tokens in browser code.
 - Protect cart/checkout/contact: retain `inut-lighters-cart`, unique Sanity array
