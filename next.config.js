@@ -16,9 +16,7 @@ const nextConfig = {
 	},
 	env: {
 		NEXT_PUBLIC_ENABLE_ZALO_PHONE_CHECK:
-			process.env.NEXT_PUBLIC_ENABLE_ZALO_PHONE_CHECK ||
-			process.env.ENABLE_ZALO_PHONE_CHECK ||
-			"true",
+			process.env.NEXT_PUBLIC_ENABLE_ZALO_PHONE_CHECK || "true",
 	},
 	// Headers for bfcache optimization
 	async headers() {

@@ -5,8 +5,8 @@ let cached: ReturnType<typeof createClient> | undefined;
 
 export function creativaServerClient() {
 	if (typeof window !== "undefined") throw new Error("Server-only Creativa adapter");
-	const projectId = process.env.SANITY_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-	const dataset = process.env.SANITY_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET;
+	const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+	const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
 	const token = process.env.SANITY_TOKEN;
 	if (!projectId || !dataset || !token) {
 		throw new CreativaError("SERVICE_UNAVAILABLE", "Dịch vụ Creativa chưa sẵn sàng.", 503);

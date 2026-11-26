@@ -1,15 +1,12 @@
-# Copy to .dev.vars and fill values locally. Never commit .dev.vars.
+DEPLOYMENT_CHANNEL=preview
+PREVIEW_SITE_URL=
 
-# Public/non-secret runtime config
-# Umami's NEXT_PUBLIC_* values are build-time inputs from .env/.env.local;
-# entries here alone do not configure the browser bundle. Keep them in sync.
 NEXT_PUBLIC_ENABLE_UMAMI=true
 NEXT_PUBLIC_UMAMI_WEBSITE_ID=
 NEXT_PUBLIC_UMAMI_HOST_URL=https://cloud.umami.is
-DEPLOYMENT_CHANNEL=preview
-PREVIEW_SITE_URL=https://your-preview-hostname.workers.dev
-SANITY_PROJECT_ID=
-SANITY_DATASET=
+
+NEXT_PUBLIC_SANITY_PROJECT_ID=
+NEXT_PUBLIC_SANITY_DATASET=
 
 # Server-only Sanity
 SANITY_TOKEN=
@@ -28,3 +25,13 @@ SPX_SYNC_TELEGRAM_CHAT_ID=
 SPX_SYNC_FUNCTION_TIMEOUT_MS=30000
 
 NEXT_PUBLIC_SITE_URL=https://inutdesign.com
+NEXT_PUBLIC_ALLOWED_ORIGINS=https://inutdesign.com
+NEXT_PUBLIC_KEYCHAIN_BACKGROUND_REMOVAL_ENABLED=false
+
+NEXT_PUBLIC_GA_MEASUREMENT_ID=
+NEXT_PUBLIC_GTM_ID=
+
+NEXT_PUBLIC_FACEBOOK_PAGE_ID=
+NEXT_PUBLIC_ENABLE_FB_CHAT=true
+
+NEXT_PUBLIC_ENABLE_ZALO_PHONE_CHECK=true

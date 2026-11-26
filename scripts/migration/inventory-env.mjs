@@ -7,6 +7,7 @@ const outputPath = path.join(root, "artifacts/migration/baseline/env-names.json"
 const ignoredDirectories = new Set([
 	".git",
 	".next",
+	".cloudflare",
 	".vinext",
 	"artifacts",
 	"coverage",

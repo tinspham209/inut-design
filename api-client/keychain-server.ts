@@ -4,8 +4,8 @@ import { toSnapshotConfig } from "@/utils/keychain/snapshotConfig";
 import type { SnapshotRepository } from "@/utils/keychain/snapshotLifecycle";
 
 const client = createClient({
-	projectId: process.env.SANITY_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-	dataset: process.env.SANITY_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET,
+	projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+	dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
 	token: process.env.SANITY_TOKEN, apiVersion: "2022-09-19", useCdn: false,
 });
 

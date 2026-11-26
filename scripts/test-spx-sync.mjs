@@ -55,8 +55,8 @@ import {
 } from "./fixtures/spx-tracking-fixtures.mjs";
 
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-process.env.SANITY_PROJECT_ID ||= "test-project";
-process.env.SANITY_DATASET ||= "test";
+process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ||= "test-project";
+process.env.NEXT_PUBLIC_SANITY_DATASET ||= "test";
 const { runAuthorizedSpxSync } = await import(
 	"../pages/api/cron/sync-spx-orders.ts"
 );

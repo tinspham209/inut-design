@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "count": 85,
+  "count": 89,
   "records": [
     {
       "name": "ACRYLIC_MAGNET",
@@ -19,7 +19,8 @@
       "stage": "build-or-local",
       "rotationRequired": false,
       "callers": [
-        "next.config.js"
+        "next.config.js",
+        "vite.config.ts"
       ]
     },
     {
@@ -93,6 +94,26 @@
       ]
     },
     {
+      "name": "CLOUDFLARE_PREVIEW_VERSION",
+      "scope": "local-test",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "scripts/migration/release-manifest.mjs"
+      ]
+    },
+    {
+      "name": "CLOUDFLARE_PRODUCTION_VERSION",
+      "scope": "local-test",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "scripts/migration/release-manifest.mjs"
+      ]
+    },
+    {
       "name": "CONTENT_DIALOG",
       "scope": "build",
       "visibility": "internal",
@@ -124,13 +145,26 @@
       ]
     },
     {
-      "name": "ENABLE_ZALO_PHONE_CHECK",
-      "scope": "build",
+      "name": "DEPLOYMENT_CHANNEL",
+      "scope": "local-test",
       "visibility": "internal",
       "stage": "build-or-local",
       "rotationRequired": false,
       "callers": [
-        ".env.example"
+        ".env.example",
+        "cloudflare.config.ts",
+        "next.config.js",
+        "scripts/migration/release-manifest.mjs"
+      ]
+    },
+    {
+      "name": "DOMAIN",
+      "scope": "local-test",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "scripts/migration/verify-dns-cutover.mjs"
       ]
     },
     {
@@ -344,6 +378,26 @@
       ]
     },
     {
+      "name": "MIGRATION_MOCKS_READY",
+      "scope": "local-test",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "scripts/migration/compare-runtime-contracts.mjs"
+      ]
+    },
+    {
+      "name": "MIGRATION_SAFE_TEST",
+      "scope": "local-test",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "scripts/migration/compare-runtime-contracts.mjs"
+      ]
+    },
+    {
       "name": "MOC_KHOA_MICA",
       "scope": "build",
       "visibility": "internal",
@@ -364,6 +418,18 @@
       ]
     },
     {
+      "name": "NEXT_PUBLIC_ALLOWED_ORIGINS",
+      "scope": "browser-build",
+      "visibility": "public",
+      "stage": "build-and-browser",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "cloudflare.config.ts",
+        "utils/server/request-guard.ts"
+      ]
+    },
+    {
       "name": "NEXT_PUBLIC_ENABLE_FB_CHAT",
       "scope": "browser-build",
       "visibility": "public",
@@ -371,6 +437,7 @@
       "rotationRequired": false,
       "callers": [
         ".env.example",
+        "cloudflare.config.ts",
         "utils/env-const.ts"
       ]
     },
@@ -382,7 +449,10 @@
       "rotationRequired": false,
       "callers": [
         ".env.example",
+        "cloudflare.config.ts",
+        "pages/_app.tsx",
         "pages/_document.tsx",
+        "scripts/migration/validate-env.mjs",
         "scripts/tests/keychain-privacy.test.mjs",
         "utils/creativa/purchase.ts",
         "utils/env-const.ts"
@@ -395,6 +465,9 @@
       "stage": "build-and-browser",
       "rotationRequired": false,
       "callers": [
+        ".env.example",
+        "cloudflare.config.ts",
+        "next.config.js",
         "utils/env-const.ts"
       ]
     },
@@ -406,6 +479,7 @@
       "rotationRequired": false,
       "callers": [
         ".env.example",
+        "cloudflare.config.ts",
         "utils/env-const.ts"
       ]
     },
@@ -417,6 +491,7 @@
       "rotationRequired": false,
       "callers": [
         ".env.example",
+        "cloudflare.config.ts",
         "pages/_document.tsx",
         "utils/env-const.ts"
       ]
@@ -429,6 +504,7 @@
       "rotationRequired": false,
       "callers": [
         ".env.example",
+        "cloudflare.config.ts",
         "utils/env-const.ts"
       ]
     },
@@ -440,8 +516,10 @@
       "rotationRequired": false,
       "callers": [
         ".env.example",
+        "cloudflare.config.ts",
         "components/keychain-builder/KeychainBuilder.tsx",
-        "next.config.js"
+        "next.config.js",
+        "vite.config.ts"
       ]
     },
     {
@@ -457,9 +535,10 @@
         "api-client/keychain-server.ts",
         "api-client/sanity-browser.ts",
         "api-client/sanity-server.ts",
+        "cloudflare.config.ts",
         "components/common/block-content/index.tsx",
-        "scripts/tests/keychain-api.test.mjs",
-        "utils/env-const.ts"
+        "scripts/test-spx-sync.mjs",
+        "scripts/tests/keychain-api.test.mjs"
       ]
     },
     {
@@ -475,9 +554,10 @@
         "api-client/keychain-server.ts",
         "api-client/sanity-browser.ts",
         "api-client/sanity-server.ts",
+        "cloudflare.config.ts",
         "components/common/block-content/index.tsx",
-        "scripts/tests/keychain-api.test.mjs",
-        "utils/env-const.ts"
+        "scripts/test-spx-sync.mjs",
+        "scripts/tests/keychain-api.test.mjs"
       ]
     },
     {
@@ -488,31 +568,11 @@
       "rotationRequired": false,
       "callers": [
         ".env.example",
+        "cloudflare.config.ts",
         "next-sitemap.config.js",
-        "utils/creativa/api.server.ts",
+        "scripts/migration/generate-seo-artifacts.mjs",
+        "scripts/tests/public-env-config.test.mjs",
         "utils/siteUrl.ts"
-      ]
-    },
-    {
-      "name": "NEXT_PUBLIC_TELEGRAM_BOT_TOKEN",
-      "scope": "legacy-public-secret",
-      "visibility": "exposed-browser-credential",
-      "stage": "browser-build-remediation",
-      "rotationRequired": true,
-      "callers": [
-        ".env.example",
-        "utils/env-const.ts"
-      ]
-    },
-    {
-      "name": "NEXT_PUBLIC_TELEGRAM_CHAT_ID",
-      "scope": "legacy-public-secret",
-      "visibility": "exposed-browser-credential",
-      "stage": "browser-build-remediation",
-      "rotationRequired": true,
-      "callers": [
-        ".env.example",
-        "utils/env-const.ts"
       ]
     },
     {
@@ -523,6 +583,9 @@
       "rotationRequired": false,
       "callers": [
         ".env.example",
+        "cloudflare.config.ts",
+        "pages/_app.tsx",
+        "pages/_document.tsx",
         "utils/env-const.ts"
       ]
     },
@@ -534,17 +597,10 @@
       "rotationRequired": false,
       "callers": [
         ".env.example",
-        "utils/env-const.ts"
-      ]
-    },
-    {
-      "name": "NEXT_PUBLIC_X_API_KEY",
-      "scope": "legacy-public-secret",
-      "visibility": "exposed-browser-credential",
-      "stage": "browser-build-remediation",
-      "rotationRequired": true,
-      "callers": [
-        ".env.example",
+        "cloudflare.config.ts",
+        "pages/_app.tsx",
+        "pages/_document.tsx",
+        "scripts/tests/keychain-privacy.test.mjs",
         "utils/env-const.ts"
       ]
     },
@@ -560,15 +616,13 @@
     },
     {
       "name": "NODE_ENV",
-      "scope": "scheduler",
-      "visibility": "server-only",
-      "stage": "worker-runtime",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
       "rotationRequired": false,
       "callers": [
         "components/scripts/speculation-rules.tsx",
-        "pages/api/cron/sync-spx-orders.ts",
         "utils/bfcache-monitor.ts",
-        "utils/creativa/api.server.ts",
         "utils/env-const.ts",
         "utils/prefetch-fallback.ts",
         "utils/speculation-monitor.ts"
@@ -635,6 +689,28 @@
       ]
     },
     {
+      "name": "PREVIEW_SITE_URL",
+      "scope": "build",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example",
+        "cloudflare.config.ts",
+        "utils/server/request-guard.ts"
+      ]
+    },
+    {
+      "name": "PRODUCTION_URL",
+      "scope": "local-test",
+      "visibility": "internal",
+      "stage": "build-or-local",
+      "rotationRequired": false,
+      "callers": [
+        "scripts/migration/verify-dns-cutover.mjs"
+      ]
+    },
+    {
       "name": "SAN_PHAM_DECOR",
       "scope": "build",
       "visibility": "internal",
@@ -642,32 +718,6 @@
       "rotationRequired": false,
       "callers": [
         "models/quoteRequest.ts"
-      ]
-    },
-    {
-      "name": "SANITY_DATASET",
-      "scope": "worker-secret",
-      "visibility": "server-only",
-      "stage": "worker-runtime",
-      "rotationRequired": false,
-      "callers": [
-        "api-client/creativa-server.ts",
-        "api-client/keychain-server.ts",
-        "api-client/sanity-server.ts",
-        "scripts/test-spx-sync.mjs"
-      ]
-    },
-    {
-      "name": "SANITY_PROJECT_ID",
-      "scope": "worker-secret",
-      "visibility": "server-only",
-      "stage": "worker-runtime",
-      "rotationRequired": false,
-      "callers": [
-        "api-client/creativa-server.ts",
-        "api-client/keychain-server.ts",
-        "api-client/sanity-server.ts",
-        "scripts/test-spx-sync.mjs"
       ]
     },
     {
@@ -711,6 +761,7 @@
       "rotationRequired": false,
       "callers": [
         ".env.example",
+        "cloudflare.config.ts",
         "pages/api/cron/sync-spx-orders.ts"
       ]
     },
@@ -818,12 +869,34 @@
       ]
     },
     {
+      "name": "TELEGRAM_BOT_TOKEN",
+      "scope": "worker-secret",
+      "visibility": "server-only",
+      "stage": "worker-runtime",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example"
+      ]
+    },
+    {
+      "name": "TELEGRAM_CHAT_ID",
+      "scope": "worker-secret",
+      "visibility": "server-only",
+      "stage": "worker-runtime",
+      "rotationRequired": false,
+      "callers": [
+        ".env.example"
+      ]
+    },
+    {
       "name": "TELEGRAM_MAX_RETRIES",
       "scope": "worker-secret",
       "visibility": "server-only",
       "stage": "worker-runtime",
       "rotationRequired": false,
       "callers": [
+        ".env.example",
+        "cloudflare.config.ts",
         "pages/api/telegram/send-abandoned-checkout-notification.ts",
         "pages/api/telegram/send-order-notification.ts",
         "pages/api/telegram/send-quote-notification.ts"
@@ -836,6 +909,8 @@
       "stage": "worker-runtime",
       "rotationRequired": false,
       "callers": [
+        ".env.example",
+        "cloudflare.config.ts",
         "pages/api/telegram/send-abandoned-checkout-notification.ts",
         "pages/api/telegram/send-order-notification.ts",
         "pages/api/telegram/send-quote-notification.ts"
@@ -889,16 +964,6 @@
       "rotationRequired": false,
       "callers": [
         "store/dialog/type.ts"
-      ]
-    },
-    {
-      "name": "VERCEL_ENV",
-      "scope": "scheduler",
-      "visibility": "server-only",
-      "stage": "worker-runtime",
-      "rotationRequired": false,
-      "callers": [
-        "pages/api/cron/sync-spx-orders.ts"
       ]
     },
     {

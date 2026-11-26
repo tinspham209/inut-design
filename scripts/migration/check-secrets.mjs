@@ -56,11 +56,16 @@ try {
 } catch {
 	// A dedicated source inventory failure is reported at the manifest stage.
 }
-const forbiddenNames = [...new Set([...legacyPublicNames, ...serverOnlyNames])];
-const publicNames = new Set([
-	"NODE_ENV",
+const retiredAliasNames = [
 	"SANITY_PROJECT_ID",
 	"SANITY_DATASET",
+	"ENABLE_ZALO_PHONE_CHECK",
+];
+const forbiddenNames = [
+	...new Set([...legacyPublicNames, ...serverOnlyNames, ...retiredAliasNames]),
+];
+const publicNames = new Set([
+	"NODE_ENV",
 	"NEXT_PUBLIC_SANITY_PROJECT_ID",
 	"NEXT_PUBLIC_SANITY_DATASET",
 ]);
@@ -100,7 +105,8 @@ for (const relativeRoot of scanRoots) {
 			relative.startsWith("public/");
 		for (const name of forbiddenNames) {
 			if (publicNames.has(name)) continue;
-			if (isBrowserOutput && source.includes(name)) {
+			const exactName = new RegExp(`(^|[^A-Z0-9_])${name}([^A-Z0-9_]|$)`);
+			if (isBrowserOutput && exactName.test(source)) {
 				findings.push({ file: relative, type: "forbidden-env-name", name, severity: "error" });
 			}
 		}
