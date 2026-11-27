@@ -12,7 +12,7 @@ export async function loadSafeApiFixtures() {
 	const expectedPaths = apiContracts.map((contract) => contract.path).sort();
 	const fixturePaths = manifest.fixtures.map((fixture) => fixture.path).sort();
 	if (JSON.stringify(fixturePaths) !== JSON.stringify(expectedPaths)) {
-		throw new Error("Safe API fixture paths differ from the approved 22-route contract.");
+		throw new Error("Safe API fixture paths differ from the approved 18-route contract.");
 	}
 	for (const fixture of manifest.fixtures) {
 		if (fixture.expectedSideEffects !== 0) {

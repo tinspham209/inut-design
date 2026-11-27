@@ -6,9 +6,7 @@ import { Post } from "@/models";
 import { getAllPostSlugs, getPostBySlug } from "@/utils";
 import { SITE_URL } from "@/utils/siteUrl";
 import { trackEvent } from "@/utils/analytics";
-import { getVFile } from "@/utils/unified";
 import { Box, Breadcrumbs, Container, Divider, Link as MuiLink, Typography } from "@mui/material";
-import DOMPurify from "isomorphic-dompurify";
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 import Link from "next/link";
 import Script from "next/script";
@@ -102,16 +100,11 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async (
 		if (!slug) return { notFound: true };
 
 		const post = await getPostBySlug(slug);
-		if (!post) return { notFound: true };
-
-		const file = await getVFile(post.mdContent || "", { title: post.title });
-		const htmlContent = file.toString();
-
-		post.htmlContent = DOMPurify.sanitize(htmlContent);
+		if (!post || !post.htmlContent) return { notFound: true };
 
 		return {
 			props: {
-				post: post,
+				post,
 			},
 		};
 	} catch (error) {

@@ -24,9 +24,9 @@ const requiredFields = [
 	"expectedCache",
 ];
 
-if (manifest.count !== 22) errors.push(`Expected count 22; found ${manifest.count}.`);
-if (!Array.isArray(manifest.apis) || manifest.apis.length !== 22) {
-	errors.push(`Expected exactly 22 API records; found ${manifest.apis?.length ?? 0}.`);
+if (manifest.count !== 18) errors.push(`Expected count 18; found ${manifest.count}.`);
+if (!Array.isArray(manifest.apis) || manifest.apis.length !== 18) {
+	errors.push(`Expected exactly 18 API records; found ${manifest.apis?.length ?? 0}.`);
 	process.exitCode = 1;
 } else {
 	const paths = manifest.apis.map((record) => record.path);
@@ -66,5 +66,5 @@ if (errors.length) {
 	for (const error of errors) console.error(`- ${error}`);
 	process.exitCode = 1;
 } else {
-	console.log("Verified 22 API contracts with method, auth, body, side-effect, and safe-test metadata.");
+	console.log("Verified 18 API contracts with method, auth, body, side-effect, and safe-test metadata.");
 }

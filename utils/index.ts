@@ -13,7 +13,6 @@ export * from "./create-emotion-cache";
 export * from "./design-tokens";
 export * from "./theme";
 export * from "./posts";
-export * from "./date";
 export * from "./error";
 export * from "./analytics";
 export * from "./umamiAnalytics";

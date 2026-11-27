@@ -2,14 +2,6 @@
   "schemaVersion": 1,
   "fixtures": [
     {
-      "path": "/api/costs/create",
-      "method": "POST",
-      "headers": { "content-type": "application/json" },
-      "body": { "title": "MIGRATION_FIXTURE", "date": "2026-01-01", "price": 0 },
-      "mockAdapters": [{ "name": "sanity", "mode": "mock" }],
-      "expectedSideEffects": 0
-    },
-    {
       "path": "/api/creativa/catalog",
       "method": "GET",
       "query": {},
@@ -28,14 +20,6 @@
       "method": "GET",
       "pathParameters": { "publicId": "INUT-MIGRATION-0001" },
       "mockAdapters": [{ "name": "sanity-order-lookup", "mode": "fixture" }],
-      "expectedSideEffects": 0
-    },
-    {
-      "path": "/api/creativa/orders/analytics-claim",
-      "method": "POST",
-      "headers": { "content-type": "application/json", "idempotency-key": "migration-analytics-0001" },
-      "body": { "publicId": "INUT-MIGRATION-0001", "claim": "fixture" },
-      "mockAdapters": [{ "name": "sanity", "mode": "mock" }],
       "expectedSideEffects": 0
     },
     {
@@ -79,14 +63,6 @@
         { "name": "sanity", "mode": "mock" },
         { "name": "telegram", "mode": "no-op" }
       ],
-      "expectedSideEffects": 0
-    },
-    {
-      "path": "/api/income/create",
-      "method": "POST",
-      "headers": { "content-type": "application/json" },
-      "body": { "title": "MIGRATION_FIXTURE", "date": "2026-01-01", "price": 0 },
-      "mockAdapters": [{ "name": "sanity", "mode": "mock" }],
       "expectedSideEffects": 0
     },
     {
@@ -134,13 +110,6 @@
       "headers": { "content-type": "application/json" },
       "body": { "data": "iVBORw0KGgo=", "contentType": "image/png", "filename": "migration.png" },
       "mockAdapters": [{ "name": "sanity-upload", "mode": "mock" }],
-      "expectedSideEffects": 0
-    },
-    {
-      "path": "/api/search",
-      "method": "GET",
-      "query": { "q": "sticker", "page": "1" },
-      "mockAdapters": [{ "name": "search-corpus", "mode": "fixture" }],
       "expectedSideEffects": 0
     },
     {

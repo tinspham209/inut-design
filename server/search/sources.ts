@@ -260,17 +260,6 @@ const staticPageDocuments = (): SearchDocument[] => {
 	}));
 };
 
-const plainRichText = (value: unknown): string => {
-	if (typeof value === "string") return value;
-	if (Array.isArray(value)) return value.map(plainRichText).filter(Boolean).join(" ");
-	if (!value || typeof value !== "object") return "";
-
-	const record = value as { text?: unknown; children?: unknown };
-	if (record.text) return plainRichText(record.text);
-	if (record.children) return plainRichText(record.children);
-	return "";
-};
-
 const productPageBody = (data: ProductPageData): string =>
 	[
 		data.hero.title,
@@ -318,6 +307,18 @@ const productPageDocuments = (): SearchDocument[] =>
 		};
 	});
 
+const plainHtmlText = (value?: string): string =>
+	String(value || "")
+		.replace(/<[^>]+>/g, " ")
+		.replace(/&nbsp;/g, " ")
+		.replace(/&amp;/g, "&")
+		.replace(/&lt;/g, "<")
+		.replace(/&gt;/g, ">")
+		.replace(/&quot;/g, '"')
+		.replace(/&#39;/g, "'")
+		.replace(/\s+/g, " ")
+		.trim();
+
 const blogDocuments = async (): Promise<SearchDocument[]> => {
 	const posts = await getPostList();
 	return posts.map((post) => {
@@ -333,7 +334,7 @@ const blogDocuments = async (): Promise<SearchDocument[]> => {
 			category: "Blog",
 			slug: post.slug,
 			excerpt: post.description,
-			body: plainRichText(post.mdContent),
+			body: plainHtmlText(post.htmlContent),
 			sourcePrecedence: 20,
 		};
 	});

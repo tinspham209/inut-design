@@ -50,9 +50,9 @@ const gates = groups.map((group) => {
 	let evidenceRef = null;
 	let reason = "Required evidence has not been supplied.";
 	if (group === "api" && reports.api) {
-		status = reports.api.results?.length === 22 && reports.api.status === "pass" ? "pass" : "fail";
+		status = reports.api.results?.length === 18 && reports.api.status === "pass" ? "pass" : "fail";
 		evidenceRef = "artifacts/migration/runtime/api-contract-comparison.json";
-		reason = status === "pass" ? "22 routes compare safely across runtimes." : "API matrix is incomplete or differs.";
+		reason = status === "pass" ? "18 routes compare safely across runtimes." : "API matrix is incomplete or differs.";
 	} else if (group === "upload" && reports.upload) {
 		status = reports.upload.status === "pass" ? "pass" : "fail";
 		evidenceRef = "artifacts/migration/runtime/uploads/regression.json";

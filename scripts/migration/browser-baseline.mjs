@@ -12,6 +12,8 @@ const session = `inut-migration-${process.pid}`;
 const routes = [
 	"/",
 	"/blog",
+	"/blog/tai-sao-nen-dan-skin-cho-laptop",
+	"/blog/huong-dan-xem-doi-may-ten-model-may-tinh-laptop",
 	"/san-pham/lighters",
 	"/builder/keychain",
 	"/builder/lighters",
@@ -21,6 +23,7 @@ const routes = [
 	"/creativa/checkout",
 	"/cart/lighters",
 	"/checkout/lighters",
+	"/contact/form",
 	"/search?q=sticker",
 ];
 const viewports = [
@@ -165,6 +168,10 @@ try {
 				"eval",
 				`JSON.stringify((()=>{const n=performance.getEntriesByType("navigation")[0];return n?{domContentLoadedMs:Math.round(n.domContentLoadedEventEnd),loadMs:Math.round(n.loadEventEnd),responseStartMs:Math.round(n.responseStart),durationMs:Math.round(n.duration)}:null})())`,
 			]);
+			const domSummary = parse([
+				"eval",
+				`JSON.stringify({title:document.title||"",canonical:document.querySelector('link[rel="canonical"]')?.getAttribute("href")||null,robots:document.querySelector('meta[name="robots"]')?.getAttribute("content")||null,headings:[...document.querySelectorAll("h1,h2,h3,h4")].map(h=>({tag:h.tagName.toLowerCase(),id:h.id||null,text:(h.textContent||"").trim().slice(0,120)})),codeBlocks:document.querySelectorAll("pre code").length,tables:document.querySelectorAll("table").length,mainTextLength:(document.querySelector("main")?.textContent||document.body?.textContent||"").trim().length})`,
+			]);
 			const screenshot = path.join(outputDir, `${viewport.name}-${slug}.png`);
 			browser(["screenshot", "--full", screenshot]);
 			const network = sanitizeNetwork(parse(["network", "requests"], true));
@@ -179,6 +186,7 @@ try {
 				},
 				timing,
 				surface,
+				domSummary,
 				contextLoss,
 				console: sanitizeConsole(parse(["console"], true)),
 				network,

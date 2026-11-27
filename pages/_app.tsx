@@ -52,7 +52,6 @@ function MyApp({
 
 	// Engagement tracking (scroll depth + time on page per route)
 	useEngagementTracking(router.pathname, !isCreativaPath(router.pathname));
-	// useUmamiEngagement(router.pathname);
 
 	// Track page views on route changes
 	useEffect(() => {

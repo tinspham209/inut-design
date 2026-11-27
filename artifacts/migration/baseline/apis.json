@@ -1,26 +1,7 @@
 {
   "schemaVersion": 1,
-  "count": 22,
+  "count": 18,
   "apis": [
-    {
-      "path": "/api/costs/create",
-      "methods": [
-        "POST"
-      ],
-      "authMode": "server-route",
-      "bodyLimit": "Next default 1 MB",
-      "inputSchema": "JSON object: title, date, price",
-      "successShape": "JSON object: created cost document",
-      "errorShape": "object with an error message or stable error code",
-      "rateLimit": "none",
-      "idempotency": "not-required",
-      "sideEffects": [
-        "sanity-write"
-      ],
-      "allowedTestMode": "mock-sanity",
-      "expectedCache": "private-no-store",
-      "file": "pages/api/costs/create.ts"
-    },
     {
       "path": "/api/creativa/catalog",
       "methods": [
@@ -91,25 +72,6 @@
       "allowedTestMode": "read-only-fixture",
       "expectedCache": "no-store",
       "file": "pages/api/creativa/orders/[publicId].ts"
-    },
-    {
-      "path": "/api/creativa/orders/analytics-claim",
-      "methods": [
-        "POST"
-      ],
-      "authMode": "public",
-      "bodyLimit": "65,536 bytes",
-      "inputSchema": "raw JSON analytics claim",
-      "successShape": "JSON object: claim result",
-      "errorShape": "object with an error message or stable error code",
-      "rateLimit": "analytics-rate-limit",
-      "idempotency": "required-for-claim",
-      "sideEffects": [
-        "sanity-write"
-      ],
-      "allowedTestMode": "mock-sanity",
-      "expectedCache": "no-store",
-      "file": "pages/api/creativa/orders/analytics-claim.ts"
     },
     {
       "path": "/api/creativa/orders/resolve",
@@ -185,25 +147,6 @@
       "allowedTestMode": "mock-all-downstreams",
       "expectedCache": "no-store",
       "file": "pages/api/cron/sync-spx-orders.ts"
-    },
-    {
-      "path": "/api/income/create",
-      "methods": [
-        "POST"
-      ],
-      "authMode": "server-route",
-      "bodyLimit": "Next default 1 MB",
-      "inputSchema": "JSON object: title, date, price",
-      "successShape": "JSON object: created income document",
-      "errorShape": "object with an error message or stable error code",
-      "rateLimit": "none",
-      "idempotency": "not-required",
-      "sideEffects": [
-        "sanity-write"
-      ],
-      "allowedTestMode": "mock-sanity",
-      "expectedCache": "no-store",
-      "file": "pages/api/income/create.ts"
     },
     {
       "path": "/api/keychain/designs",
@@ -316,23 +259,6 @@
       "allowedTestMode": "mock-sanity-upload",
       "expectedCache": "no-store",
       "file": "pages/api/sanity/upload-image.ts"
-    },
-    {
-      "path": "/api/search",
-      "methods": [
-        "GET"
-      ],
-      "authMode": "public",
-      "bodyLimit": "n/a",
-      "inputSchema": "validated query and pagination parameters",
-      "successShape": "JSON object: paginated search results",
-      "errorShape": "object with an error message or stable error code",
-      "rateLimit": "search-rate-limit",
-      "idempotency": "read-only",
-      "sideEffects": [],
-      "allowedTestMode": "read-only-fixture",
-      "expectedCache": "public-short-cache",
-      "file": "pages/api/search.ts"
     },
     {
       "path": "/api/telegram/send-abandoned-checkout-notification",

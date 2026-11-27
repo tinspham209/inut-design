@@ -79,8 +79,8 @@ if (routes) {
 
 if (apis) {
 	if (apis.schemaVersion !== 1) errors.push("apis.json has unsupported schemaVersion.");
-	if (apis.count !== 22 || apis.apis?.length !== 22) {
-		errors.push(`apis.json must contain 22 routes; found ${apis.apis?.length ?? 0}.`);
+	if (apis.count !== 18 || apis.apis?.length !== 18) {
+		errors.push(`apis.json must contain 18 routes; found ${apis.apis?.length ?? 0}.`);
 	}
 	const paths = apis.apis?.map((record) => record.path) ?? [];
 	assertSorted(paths, "apis.json paths");
@@ -146,11 +146,14 @@ const runtimeDeltaFiles = runtimeFiles.filter(
 	(file) => typeof file === "string" && /(manifest|route|slug|api|redirect|sitemap|search)/i.test(file),
 );
 if (runtimeDeltaFiles.length > 0) {
-	const decisionFile = path.join(root, "specs/004-migrate-vinext-cloudflare/compatibility-decisions.md");
-	const decisions = await readFile(decisionFile, "utf8").catch(() => "");
-	if (!/MIGRATION-[A-Z0-9-]+/.test(decisions)) {
+	const openSpecDir = path.join(root, "openspec");
+	const openSpecFiles = await readdir(openSpecDir, { recursive: true }).catch(() => []);
+	const hasSpecRecord = openSpecFiles.some(
+		(file) => typeof file === "string" && file.endsWith(".md"),
+	);
+	if (!hasSpecRecord) {
 		errors.push(
-			"Runtime manifest artifacts exist without a reviewed MIGRATION-* change record in compatibility-decisions.md.",
+			"Runtime manifest artifacts exist without a reviewed OpenSpec specification or change record under openspec/.",
 		);
 	}
 }

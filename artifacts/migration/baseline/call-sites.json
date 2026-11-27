@@ -7,58 +7,58 @@
       "risk": "Next 15 legacy prop, dimensions, layout and priority behavior"
     },
     "nextImageLegacyProps": {
-      "files": 28,
-      "occurrences": 55,
+      "files": 1,
+      "occurrences": 3,
       "risk": "Legacy next/image layout prop migration"
     },
     "nextLink": {
-      "files": 61,
-      "occurrences": 118,
+      "files": 10,
+      "occurrences": 19,
       "risk": "Nested anchor, href, focus, prefetch and click-tracking semantics"
     },
     "nextLinkLegacyProps": {
-      "files": 19,
-      "occurrences": 27,
+      "files": 0,
+      "occurrences": 0,
       "risk": "Next 15 Link child-clone and anchor composition"
     },
     "carousel": {
-      "files": 7,
-      "occurrences": 15,
+      "files": 2,
+      "occurrences": 3,
       "risk": "React 19 peer compatibility and shared accessible controls"
     },
     "reactThree": {
-      "files": 12,
-      "occurrences": 38,
+      "files": 23,
+      "occurrences": 265,
       "risk": "Fiber/Drei/Three peers, SSR boundary, WebGL fallback"
     },
     "buffer": {
-      "files": 10,
-      "occurrences": 37,
+      "files": 16,
+      "occurrences": 112,
       "risk": "Worker-safe byte handling"
     },
     "nodeCrypto": {
-      "files": 10,
-      "occurrences": 14,
+      "files": 17,
+      "occurrences": 30,
       "risk": "Worker-safe Web Crypto or server-only boundary"
     },
     "nodeFilesystem": {
-      "files": 24,
-      "occurrences": 25,
+      "files": 53,
+      "occurrences": 59,
       "risk": "Request-time filesystem dependency"
     },
     "nodePath": {
-      "files": 24,
-      "occurrences": 24,
+      "files": 53,
+      "occurrences": 53,
       "risk": "Request-time path module dependency"
     },
     "rawBody": {
-      "files": 7,
-      "occurrences": 8,
+      "files": 8,
+      "occurrences": 11,
       "risk": "Worker raw-byte, malformed UTF-8 and 64 KiB body parity"
     },
     "publicSecrets": {
-      "files": 2,
-      "occurrences": 6,
+      "files": 3,
+      "occurrences": 9,
       "risk": "Existing public credential exposure requiring removal and rotation"
     }
   },
@@ -75,15 +75,15 @@
         "file": "components/common/header/header-desktop.tsx",
         "matches": 1,
         "lines": [
-          343
+          338
         ]
       },
       {
         "file": "components/common/header/header-mobile.tsx",
         "matches": 2,
         "lines": [
-          152,
-          194
+          149,
+          188
         ]
       },
       {
@@ -98,14 +98,14 @@
         "file": "components/creativa/DesignCard.tsx",
         "matches": 1,
         "lines": [
-          63
+          62
         ]
       },
       {
         "file": "components/creativa/Homepage.tsx",
         "matches": 1,
         "lines": [
-          198
+          196
         ]
       },
       {
@@ -133,7 +133,7 @@
         "file": "components/home/product-card.tsx",
         "matches": 1,
         "lines": [
-          22
+          21
         ]
       },
       {
@@ -155,35 +155,35 @@
         "matches": 2,
         "lines": [
           53,
-          89
+          90
         ]
       },
       {
         "file": "components/lighter-detail/RelatedProducts.tsx",
         "matches": 1,
         "lines": [
-          100
+          93
         ]
       },
       {
         "file": "components/lighters/LighterCard.tsx",
         "matches": 1,
         "lines": [
-          161
+          160
         ]
       },
       {
         "file": "components/lighters/LighterCardBuilder.tsx",
         "matches": 1,
         "lines": [
-          65
+          64
         ]
       },
       {
         "file": "components/lighters/LighterCardCustomize.tsx",
         "matches": 1,
         "lines": [
-          62
+          61
         ]
       },
       {
@@ -253,21 +253,21 @@
         "file": "components/product/macnut-customize-card.tsx",
         "matches": 1,
         "lines": [
-          57
+          56
         ]
       },
       {
         "file": "components/product/product-item.tsx",
         "matches": 1,
         "lines": [
-          96
+          92
         ]
       },
       {
         "file": "components/product/skin-laptop-customize-card.tsx",
         "matches": 1,
         "lines": [
-          55
+          54
         ]
       },
       {
@@ -282,15 +282,15 @@
         "file": "pages/contact/index.tsx",
         "matches": 1,
         "lines": [
-          42
+          40
         ]
       },
       {
         "file": "pages/creativa/skin-laptop/[slug].tsx",
         "matches": 2,
         "lines": [
-          60,
-          231
+          61,
+          233
         ]
       },
       {
@@ -304,454 +304,51 @@
         "file": "pages/san-pham/skin-laptop/[slug].tsx",
         "matches": 3,
         "lines": [
-          173,
-          205,
-          348
+          170,
+          203,
+          339
         ]
       },
       {
         "file": "pages/san-pham/skin-nut-phim/[slug].tsx",
         "matches": 3,
         "lines": [
-          177,
-          209,
-          353
+          174,
+          207,
+          344
         ]
       }
     ],
     "nextImageLegacyProps": [
       {
-        "file": "components/creativa/ConceptImage.tsx",
-        "matches": 4,
-        "lines": [
-          34,
-          35,
-          44,
-          45
-        ]
-      },
-      {
-        "file": "components/creativa/DesignCard.tsx",
-        "matches": 2,
-        "lines": [
-          66,
-          67
-        ]
-      },
-      {
-        "file": "components/creativa/Homepage.tsx",
+        "file": "scripts/migration/check-ui-evidence.mjs",
         "matches": 3,
         "lines": [
-          201,
-          202,
-          203
-        ]
-      },
-      {
-        "file": "components/creativa/ProductThumbnail.tsx",
-        "matches": 2,
-        "lines": [
-          30,
-          31
-        ]
-      },
-      {
-        "file": "components/home/hero-img.tsx",
-        "matches": 1,
-        "lines": [
-          23
-        ]
-      },
-      {
-        "file": "components/home/product-card.tsx",
-        "matches": 1,
-        "lines": [
-          26
-        ]
-      },
-      {
-        "file": "components/keychain-builder/controls/AppearanceControls.tsx",
-        "matches": 2,
-        "lines": [
-          23
-        ]
-      },
-      {
-        "file": "components/lighter-detail/Gallery.tsx",
-        "matches": 1,
-        "lines": [
-          55
-        ]
-      },
-      {
-        "file": "components/lighter-detail/RelatedProducts.tsx",
-        "matches": 2,
-        "lines": [
-          102,
-          103
-        ]
-      },
-      {
-        "file": "components/lighters/LighterCard.tsx",
-        "matches": 1,
-        "lines": [
-          166
-        ]
-      },
-      {
-        "file": "components/lighters/LighterCardBuilder.tsx",
-        "matches": 2,
-        "lines": [
-          68,
-          69
-        ]
-      },
-      {
-        "file": "components/lighters/LighterCardCustomize.tsx",
-        "matches": 2,
-        "lines": [
-          65,
-          66
-        ]
-      },
-      {
-        "file": "components/orderTracking/lighters/OrderItemsList.tsx",
-        "matches": 1,
-        "lines": [
-          121
-        ]
-      },
-      {
-        "file": "components/product-template/v1/ContactSection.tsx",
-        "matches": 1,
-        "lines": [
-          110
-        ]
-      },
-      {
-        "file": "components/product-template/v1/HeroSection.tsx",
-        "matches": 2,
-        "lines": [
-          124,
-          125
-        ]
-      },
-      {
-        "file": "components/product-template/v1/ProductGallery.tsx",
-        "matches": 2,
-        "lines": [
-          100,
-          101
-        ]
-      },
-      {
-        "file": "components/product-template/v1/TypesSection.tsx",
-        "matches": 2,
-        "lines": [
-          70
-        ]
-      },
-      {
-        "file": "components/product-template/v2/ContactSection.tsx",
-        "matches": 2,
-        "lines": [
-          123,
-          124
-        ]
-      },
-      {
-        "file": "components/product-template/v2/HeroSection.tsx",
-        "matches": 2,
-        "lines": [
-          156
-        ]
-      },
-      {
-        "file": "components/product-template/v2/ProductGallery.tsx",
-        "matches": 2,
-        "lines": [
-          81,
-          82
-        ]
-      },
-      {
-        "file": "components/product-template/v2/TypesSection.tsx",
-        "matches": 2,
-        "lines": [
-          80
-        ]
-      },
-      {
-        "file": "components/product/macnut-customize-card.tsx",
-        "matches": 2,
-        "lines": [
-          60,
-          61
-        ]
-      },
-      {
-        "file": "components/product/product-item.tsx",
-        "matches": 1,
-        "lines": [
-          101
-        ]
-      },
-      {
-        "file": "components/product/skin-laptop-customize-card.tsx",
-        "matches": 2,
-        "lines": [
-          58,
-          59
-        ]
-      },
-      {
-        "file": "pages/creativa/skin-laptop/[slug].tsx",
-        "matches": 4,
-        "lines": [
-          63,
-          64,
-          234,
-          235
-        ]
-      },
-      {
-        "file": "pages/creativa/skin-laptop/huong-dan-su-dung/cach-tu-dan-skin-macbook-tai-nha/index.tsx",
-        "matches": 1,
-        "lines": [
-          318
-        ]
-      },
-      {
-        "file": "pages/san-pham/skin-laptop/[slug].tsx",
-        "matches": 3,
-        "lines": [
-          175,
-          350,
-          351
-        ]
-      },
-      {
-        "file": "pages/san-pham/skin-nut-phim/[slug].tsx",
-        "matches": 3,
-        "lines": [
-          179,
-          355,
-          356
+          15
         ]
       }
     ],
     "nextLink": [
       {
-        "file": "components/common/ComingSoon.tsx",
-        "matches": 1,
-        "lines": [
-          468
-        ]
-      },
-      {
         "file": "components/common/footer.tsx",
-        "matches": 3,
-        "lines": [
-          96,
-          129,
-          320
-        ]
-      },
-      {
-        "file": "components/common/header/header-desktop.tsx",
-        "matches": 5,
-        "lines": [
-          51,
-          288,
-          341,
-          372,
-          435
-        ]
-      },
-      {
-        "file": "components/common/header/header-mobile.tsx",
-        "matches": 4,
-        "lines": [
-          70,
-          150,
-          159,
-          206
-        ]
-      },
-      {
-        "file": "components/common/ServiceCard.tsx",
         "matches": 1,
         "lines": [
-          57
+          316
         ]
       },
       {
         "file": "components/contact/QuoteRequestForm.tsx",
-        "matches": 3,
+        "matches": 2,
         "lines": [
           253,
-          285,
-          498
-        ]
-      },
-      {
-        "file": "components/creativa/Breadcrumbs.tsx",
-        "matches": 1,
-        "lines": [
-          16
-        ]
-      },
-      {
-        "file": "components/creativa/DesignCard.tsx",
-        "matches": 1,
-        "lines": [
-          27
+          285
         ]
       },
       {
         "file": "components/creativa/Homepage.tsx",
-        "matches": 4,
-        "lines": [
-          63,
-          339,
-          393,
-          514
-        ]
-      },
-      {
-        "file": "components/creativa/HomepageFooter.tsx",
-        "matches": 2,
-        "lines": [
-          91,
-          104
-        ]
-      },
-      {
-        "file": "components/creativa/Shell.tsx",
-        "matches": 2,
-        "lines": [
-          93,
-          197
-        ]
-      },
-      {
-        "file": "components/home/blog.tsx",
-        "matches": 2,
-        "lines": [
-          76,
-          95
-        ]
-      },
-      {
-        "file": "components/home/builder-promotion.tsx",
         "matches": 1,
         "lines": [
-          27
-        ]
-      },
-      {
-        "file": "components/home/chot-don.tsx",
-        "matches": 1,
-        "lines": [
-          130
-        ]
-      },
-      {
-        "file": "components/home/featured-products-section.tsx",
-        "matches": 1,
-        "lines": [
-          142
-        ]
-      },
-      {
-        "file": "components/home/hero.tsx",
-        "matches": 3,
-        "lines": [
-          217,
-          248,
-          294
-        ]
-      },
-      {
-        "file": "components/home/product-card.tsx",
-        "matches": 1,
-        "lines": [
-          20
-        ]
-      },
-      {
-        "file": "components/home/service-children-grid.tsx",
-        "matches": 3,
-        "lines": [
-          75,
-          99,
-          207
-        ]
-      },
-      {
-        "file": "components/home/services.tsx",
-        "matches": 3,
-        "lines": [
-          39,
-          156,
-          265
-        ]
-      },
-      {
-        "file": "components/lighter-detail/ActionButtons.tsx",
-        "matches": 1,
-        "lines": [
-          50
-        ]
-      },
-      {
-        "file": "components/lighter-detail/BreadcrumbsNav.tsx",
-        "matches": 2,
-        "lines": [
-          20,
-          25
-        ]
-      },
-      {
-        "file": "components/lighter-detail/RelatedProducts.tsx",
-        "matches": 1,
-        "lines": [
-          80
-        ]
-      },
-      {
-        "file": "components/lighters/LighterCard.tsx",
-        "matches": 1,
-        "lines": [
-          133
-        ]
-      },
-      {
-        "file": "components/lighters/LighterCardBuilder.tsx",
-        "matches": 1,
-        "lines": [
-          18
-        ]
-      },
-      {
-        "file": "components/lighters/LighterCardCustomize.tsx",
-        "matches": 1,
-        "lines": [
-          18
-        ]
-      },
-      {
-        "file": "components/lighters/LightersPageHeader.tsx",
-        "matches": 1,
-        "lines": [
-          22
-        ]
-      },
-      {
-        "file": "components/orderTracking/lighters/ContactInfo.tsx",
-        "matches": 1,
-        "lines": [
-          9
+          507
         ]
       },
       {
@@ -771,251 +368,37 @@
         ]
       },
       {
-        "file": "components/product/macnut-customize-card.tsx",
-        "matches": 1,
-        "lines": [
-          10
-        ]
-      },
-      {
-        "file": "components/product/product-item.tsx",
-        "matches": 1,
-        "lines": [
-          75
-        ]
-      },
-      {
-        "file": "components/product/skin-laptop-customize-card.tsx",
-        "matches": 1,
-        "lines": [
-          10
-        ]
-      },
-      {
-        "file": "pages/blog/[slug].tsx",
-        "matches": 2,
-        "lines": [
-          54,
-          57
-        ]
-      },
-      {
-        "file": "pages/blog/index.tsx",
-        "matches": 2,
-        "lines": [
-          43,
-          57
-        ]
-      },
-      {
-        "file": "pages/builder/index.tsx",
-        "matches": 1,
-        "lines": [
-          23
-        ]
-      },
-      {
-        "file": "pages/cart/lighters.tsx",
-        "matches": 2,
-        "lines": [
-          34,
-          39
-        ]
-      },
-      {
-        "file": "pages/contact/form/index.tsx",
-        "matches": 2,
-        "lines": [
-          39,
-          44
-        ]
-      },
-      {
-        "file": "pages/contact/index.tsx",
-        "matches": 1,
-        "lines": [
-          31
-        ]
-      },
-      {
         "file": "pages/creativa/cart.tsx",
-        "matches": 4,
+        "matches": 1,
         "lines": [
-          63,
-          219,
-          235,
-          240
+          234
         ]
       },
       {
         "file": "pages/creativa/checkout.tsx",
-        "matches": 5,
+        "matches": 4,
         "lines": [
-          99,
-          127,
-          361,
-          362,
-          363
+          125,
+          359,
+          360,
+          361
         ]
       },
       {
         "file": "pages/creativa/order-tracking/[slug].tsx",
-        "matches": 3,
+        "matches": 2,
         "lines": [
-          535,
-          588,
-          600
+          586,
+          598
         ]
       },
       {
         "file": "pages/creativa/skin-laptop/[slug].tsx",
         "matches": 3,
         "lines": [
-          434,
-          540,
-          578
-        ]
-      },
-      {
-        "file": "pages/creativa/skin-laptop/huong-dan-su-dung/cach-tu-dan-skin-macbook-tai-nha/index.tsx",
-        "matches": 1,
-        "lines": [
-          381
-        ]
-      },
-      {
-        "file": "pages/creativa/skin-laptop/huong-dan-su-dung/index.tsx",
-        "matches": 1,
-        "lines": [
-          43
-        ]
-      },
-      {
-        "file": "pages/policies-terms/chinh-sach-bao-hanh-doi-tra/index.tsx",
-        "matches": 2,
-        "lines": [
-          180,
-          183
-        ]
-      },
-      {
-        "file": "pages/policies-terms/chinh-sach-bao-ve-thong-tin-khach-hang/index.tsx",
-        "matches": 2,
-        "lines": [
-          165,
-          170
-        ]
-      },
-      {
-        "file": "pages/policies-terms/chinh-sach-duyet-in-va-san-xuat/index.tsx",
-        "matches": 2,
-        "lines": [
-          98,
-          103
-        ]
-      },
-      {
-        "file": "pages/policies-terms/dieu-khoan-su-dung/index.tsx",
-        "matches": 2,
-        "lines": [
-          252,
-          257
-        ]
-      },
-      {
-        "file": "pages/policies-terms/faqs/index.tsx",
-        "matches": 2,
-        "lines": [
-          54,
-          59
-        ]
-      },
-      {
-        "file": "pages/policies-terms/index.tsx",
-        "matches": 2,
-        "lines": [
-          117,
-          138
-        ]
-      },
-      {
-        "file": "pages/policies-terms/thong-tin-doanh-nghiep/index.tsx",
-        "matches": 2,
-        "lines": [
-          103,
-          106
-        ]
-      },
-      {
-        "file": "pages/policies-terms/thong-tin-thanh-toan/index.tsx",
-        "matches": 2,
-        "lines": [
-          144,
-          149
-        ]
-      },
-      {
-        "file": "pages/san-pham/index.tsx",
-        "matches": 1,
-        "lines": [
-          61
-        ]
-      },
-      {
-        "file": "pages/san-pham/skin-laptop/[slug].tsx",
-        "matches": 4,
-        "lines": [
-          133,
-          138,
-          239,
-          328
-        ]
-      },
-      {
-        "file": "pages/san-pham/skin-laptop/index.tsx",
-        "matches": 1,
-        "lines": [
-          198
-        ]
-      },
-      {
-        "file": "pages/san-pham/skin-nut-phim/[slug].tsx",
-        "matches": 4,
-        "lines": [
-          138,
-          143,
-          244,
-          333
-        ]
-      },
-      {
-        "file": "pages/san-pham/skin-nut-phim/index.tsx",
-        "matches": 1,
-        "lines": [
-          196
-        ]
-      },
-      {
-        "file": "pages/search/index.tsx",
-        "matches": 2,
-        "lines": [
-          65,
-          213
-        ]
-      },
-      {
-        "file": "pages/services/[...slug].tsx",
-        "matches": 2,
-        "lines": [
-          47,
-          52
-        ]
-      },
-      {
-        "file": "pages/services/index.tsx",
-        "matches": 1,
-        "lines": [
-          38
+          437,
+          543,
+          581
         ]
       },
       {
@@ -1026,190 +409,8 @@
         ]
       }
     ],
-    "nextLinkLegacyProps": [
-      {
-        "file": "components/common/header/header-desktop.tsx",
-        "matches": 1,
-        "lines": [
-          435
-        ]
-      },
-      {
-        "file": "components/common/header/header-mobile.tsx",
-        "matches": 3,
-        "lines": [
-          70,
-          159,
-          206
-        ]
-      },
-      {
-        "file": "components/common/ServiceCard.tsx",
-        "matches": 1,
-        "lines": [
-          57
-        ]
-      },
-      {
-        "file": "components/contact/QuoteRequestForm.tsx",
-        "matches": 1,
-        "lines": [
-          498
-        ]
-      },
-      {
-        "file": "components/home/blog.tsx",
-        "matches": 1,
-        "lines": [
-          76
-        ]
-      },
-      {
-        "file": "components/home/builder-promotion.tsx",
-        "matches": 1,
-        "lines": [
-          27
-        ]
-      },
-      {
-        "file": "components/home/chot-don.tsx",
-        "matches": 2,
-        "lines": [
-          130
-        ]
-      },
-      {
-        "file": "components/home/hero.tsx",
-        "matches": 4,
-        "lines": [
-          217,
-          248,
-          294
-        ]
-      },
-      {
-        "file": "components/lighter-detail/RelatedProducts.tsx",
-        "matches": 1,
-        "lines": [
-          82
-        ]
-      },
-      {
-        "file": "components/product/product-item.tsx",
-        "matches": 1,
-        "lines": [
-          81
-        ]
-      },
-      {
-        "file": "pages/blog/index.tsx",
-        "matches": 1,
-        "lines": [
-          57
-        ]
-      },
-      {
-        "file": "pages/builder/index.tsx",
-        "matches": 1,
-        "lines": [
-          23
-        ]
-      },
-      {
-        "file": "pages/cart/lighters.tsx",
-        "matches": 2,
-        "lines": [
-          34,
-          39
-        ]
-      },
-      {
-        "file": "pages/san-pham/index.tsx",
-        "matches": 1,
-        "lines": [
-          61
-        ]
-      },
-      {
-        "file": "pages/san-pham/skin-laptop/[slug].tsx",
-        "matches": 1,
-        "lines": [
-          330
-        ]
-      },
-      {
-        "file": "pages/san-pham/skin-nut-phim/[slug].tsx",
-        "matches": 1,
-        "lines": [
-          335
-        ]
-      },
-      {
-        "file": "pages/search/index.tsx",
-        "matches": 1,
-        "lines": [
-          65
-        ]
-      },
-      {
-        "file": "pages/services/[...slug].tsx",
-        "matches": 2,
-        "lines": [
-          47,
-          52
-        ]
-      },
-      {
-        "file": "pages/services/index.tsx",
-        "matches": 1,
-        "lines": [
-          38
-        ]
-      }
-    ],
+    "nextLinkLegacyProps": [],
     "carousel": [
-      {
-        "file": "components/lighter-detail/Gallery.tsx",
-        "matches": 2,
-        "lines": [
-          7,
-          29
-        ]
-      },
-      {
-        "file": "components/lighter-detail/RelatedProducts.tsx",
-        "matches": 2,
-        "lines": [
-          16,
-          57
-        ]
-      },
-      {
-        "file": "pages/creativa/skin-laptop/[slug].tsx",
-        "matches": 2,
-        "lines": [
-          46,
-          167
-        ]
-      },
-      {
-        "file": "pages/san-pham/skin-laptop/[slug].tsx",
-        "matches": 3,
-        "lines": [
-          34,
-          153,
-          305
-        ]
-      },
-      {
-        "file": "pages/san-pham/skin-nut-phim/[slug].tsx",
-        "matches": 3,
-        "lines": [
-          35,
-          157,
-          310
-        ]
-      },
       {
         "file": "scripts/migration/inventory-call-sites.mjs",
         "matches": 2,
@@ -1226,6 +427,99 @@
       }
     ],
     "reactThree": [
+      {
+        "file": ".cloudflare/output/v1/workers/default/assets/_next/static/chunks/Blg1G05j.js",
+        "matches": 68,
+        "lines": [
+          1,
+          5,
+          4133,
+          4201,
+          4225,
+          4236
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/assets/_next/static/chunks/dtkjKBzH.js",
+        "matches": 34,
+        "lines": [
+          1,
+          66,
+          67
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/assets/_next/static/chunks/DyKHxPRY.js",
+        "matches": 6,
+        "lines": [
+          55
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/assets/_next/static/chunks/hILpDTfb.js",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/assets/_next/static/chunks/XybiwWnz.js",
+        "matches": 2,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/bundle/_next/static/KeychainBuilder-nPz2_4EE.js",
+        "matches": 2,
+        "lines": [
+          1,
+          54
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/bundle/_next/static/LighterBuilder-DS3PtVeZ.js",
+        "matches": 34,
+        "lines": [
+          1,
+          66,
+          67
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/bundle/_next/static/OrbitControls-Br_bC_v8.js",
+        "matches": 68,
+        "lines": [
+          1,
+          5,
+          4133,
+          4201,
+          4225,
+          4236
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/bundle/_next/static/Preview3D-D1ZqNkBI.js",
+        "matches": 2,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/bundle/_next/static/worker-entry-il7J1sg3.js",
+        "matches": 2,
+        "lines": [
+          89,
+          329
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/bundle/vinext-client-assets.js",
+        "matches": 8,
+        "lines": [
+          1
+        ]
+      },
       {
         "file": "components/keychain-builder/geometry/imageAlpha.ts",
         "matches": 1,
@@ -1337,42 +631,94 @@
     ],
     "buffer": [
       {
-        "file": "api-client/creativa-catalog.ts",
-        "matches": 2,
-        "lines": [
-          282,
-          344
-        ]
-      },
-      {
-        "file": "api-client/sanity-server.ts",
+        "file": ".cloudflare/output/v1/workers/default/assets/_next/static/chunks/aBFUzj4N.js",
         "matches": 1,
         "lines": [
-          133
+          1
         ]
       },
       {
-        "file": "pages/api/cron/sync-spx-orders.ts",
+        "file": ".cloudflare/output/v1/workers/default/assets/_next/static/chunks/B0U6Yz2X.js",
         "matches": 2,
         "lines": [
-          139,
-          140
+          30
         ]
       },
       {
-        "file": "pages/api/keychain/uploads.ts",
+        "file": ".cloudflare/output/v1/workers/default/assets/_next/static/chunks/B3BNXkCi.js",
+        "matches": 2,
+        "lines": [
+          6
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/assets/_next/static/chunks/Blg1G05j.js",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/assets/_next/static/chunks/CVPmZ6RD.js",
+        "matches": 2,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/assets/_next/static/chunks/dtkjKBzH.js",
+        "matches": 1,
+        "lines": [
+          66
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/bundle/_next/static/index.browser-CUzznOpq.js",
         "matches": 3,
         "lines": [
-          12,
-          13,
-          26
+          5,
+          7
         ]
       },
       {
-        "file": "pages/api/sanity/upload-image.ts",
+        "file": ".cloudflare/output/v1/workers/default/bundle/_next/static/lib-Dp_ZqHJQ.js",
+        "matches": 13,
+        "lines": [
+          1,
+          6
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/bundle/_next/static/LighterBuilder-DS3PtVeZ.js",
         "matches": 1,
         "lines": [
-          49
+          66
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/bundle/_next/static/OrbitControls-Br_bC_v8.js",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/bundle/_next/static/slice-i7yTsqMf.js",
+        "matches": 2,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/bundle/_next/static/worker-entry-il7J1sg3.js",
+        "matches": 58,
+        "lines": [
+          1,
+          73,
+          196,
+          201,
+          202,
+          515
         ]
       },
       {
@@ -1405,31 +751,75 @@
         ]
       },
       {
-        "file": "scripts/tests/keychain-image-validation.test.mjs",
+        "file": "scripts/migration/run-raw-body-regression.mjs",
         "matches": 1,
         "lines": [
-          17
+          51
         ]
       },
       {
-        "file": "utils/creativa/api.server.ts",
+        "file": "scripts/tests/keychain-image-validation.test.mjs",
         "matches": 4,
         "lines": [
-          51,
-          54,
-          60
-        ]
-      },
-      {
-        "file": "utils/keychain/imageValidation.ts",
-        "matches": 3,
-        "lines": [
-          6,
-          7
+          30,
+          44,
+          45,
+          46
         ]
       }
     ],
     "nodeCrypto": [
+      {
+        "file": ".cloudflare/output/v1/workers/default/assets/_next/static/chunks/B0U6Yz2X.js",
+        "matches": 2,
+        "lines": [
+          46
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/assets/_next/static/chunks/B3BNXkCi.js",
+        "matches": 1,
+        "lines": [
+          8
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/assets/_next/static/chunks/CVPmZ6RD.js",
+        "matches": 1,
+        "lines": [
+          20
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/assets/_next/static/chunks/DyKHxPRY.js",
+        "matches": 3,
+        "lines": [
+          55
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/bundle/_next/static/app-rsc-cache-busting-DJOHtaTv.js",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/bundle/_next/static/KeychainBuilder-nPz2_4EE.js",
+        "matches": 3,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": ".cloudflare/output/v1/workers/default/bundle/_next/static/worker-entry-il7J1sg3.js",
+        "matches": 5,
+        "lines": [
+          73,
+          121,
+          387
+        ]
+      },
       {
         "file": "components/keychain-builder/hooks/useExportDesign.ts",
         "matches": 3,
@@ -1442,14 +832,7 @@
         "file": "hooks/useCreateLighterOrder.ts",
         "matches": 1,
         "lines": [
-          56
-        ]
-      },
-      {
-        "file": "pages/api/cron/sync-spx-orders.ts",
-        "matches": 1,
-        "lines": [
-          1
+          60
         ]
       },
       {
@@ -1467,24 +850,24 @@
         ]
       },
       {
-        "file": "utils/creativa/notifications.server.ts",
+        "file": "scripts/migration/generate-search-index.mjs",
         "matches": 1,
         "lines": [
           2
         ]
       },
       {
-        "file": "utils/creativa/orders.server.ts",
+        "file": "scripts/migration/release-gate.mjs",
         "matches": 1,
         "lines": [
           1
         ]
       },
       {
-        "file": "utils/creativa/records.server.ts",
+        "file": "scripts/migration/release-manifest.mjs",
         "matches": 1,
         "lines": [
-          1
+          2
         ]
       },
       {
@@ -1496,11 +879,18 @@
         ]
       },
       {
-        "file": "utils/keychain/requestFingerprint.ts",
+        "file": "utils/worker-crypto.ts",
         "matches": 2,
         "lines": [
-          1,
-          16
+          83,
+          88
+        ]
+      },
+      {
+        "file": "vite.config.ts",
+        "matches": 1,
+        "lines": [
+          4
         ]
       }
     ],
@@ -1577,6 +967,129 @@
         ]
       },
       {
+        "file": "scripts/migration/check-analytics.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/check-manifests.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/check-performance.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/check-preview-seo.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/check-release-redaction.mjs",
+        "matches": 2,
+        "lines": [
+          1,
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/check-secrets.mjs",
+        "matches": 2,
+        "lines": [
+          1,
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/check-ui-evidence.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/check-worker-graph.mjs",
+        "matches": 2,
+        "lines": [
+          1,
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/compare-blog-html.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/compare-browser-baseline.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/compare-runtime-contracts.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/final-report.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/finalize-env-inventory.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/generate-blog-data.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/generate-search-index.mjs",
+        "matches": 2,
+        "lines": [
+          3,
+          4
+        ]
+      },
+      {
+        "file": "scripts/migration/generate-seo-artifacts.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/generate-static-manifest.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
         "file": "scripts/migration/inventory-call-sites.mjs",
         "matches": 1,
         "lines": [
@@ -1598,14 +1111,106 @@
         ]
       },
       {
-        "file": "scripts/migration/slug-manifest.mjs",
+        "file": "scripts/migration/measure-usage.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/release-gate.mjs",
         "matches": 1,
         "lines": [
           2
         ]
       },
       {
+        "file": "scripts/migration/release-manifest.mjs",
+        "matches": 1,
+        "lines": [
+          3
+        ]
+      },
+      {
+        "file": "scripts/migration/run-raw-body-regression.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/run-safe-regression.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/run-spx-operations.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/run-upload-regression.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/schema.ts",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/slug-manifest.mjs",
+        "matches": 2,
+        "lines": [
+          2,
+          3
+        ]
+      },
+      {
+        "file": "scripts/migration/us1-gate-report.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/validate-env.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
         "file": "scripts/migration/verify-api-manifest.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/verify-dns-cutover.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/verify-dns-inventory.mjs",
+        "matches": 1,
+        "lines": [
+          1
+        ]
+      },
+      {
+        "file": "scripts/migration/verify-fresh-env.mjs",
         "matches": 1,
         "lines": [
           1
@@ -1665,13 +1270,6 @@
         "matches": 1,
         "lines": [
           3
-        ]
-      },
-      {
-        "file": "utils/posts.ts",
-        "matches": 1,
-        "lines": [
-          2
         ]
       }
     ],
@@ -1754,6 +1352,125 @@
         ]
       },
       {
+        "file": "scripts/migration/check-analytics.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/check-manifests.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/check-performance.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/check-preview-seo.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/check-release-redaction.mjs",
+        "matches": 1,
+        "lines": [
+          3
+        ]
+      },
+      {
+        "file": "scripts/migration/check-secrets.mjs",
+        "matches": 1,
+        "lines": [
+          3
+        ]
+      },
+      {
+        "file": "scripts/migration/check-ui-evidence.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/check-worker-graph.mjs",
+        "matches": 1,
+        "lines": [
+          3
+        ]
+      },
+      {
+        "file": "scripts/migration/compare-blog-html.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/compare-browser-baseline.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/compare-runtime-contracts.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/final-report.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/finalize-env-inventory.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/generate-blog-data.mjs",
+        "matches": 1,
+        "lines": [
+          3
+        ]
+      },
+      {
+        "file": "scripts/migration/generate-search-index.mjs",
+        "matches": 1,
+        "lines": [
+          6
+        ]
+      },
+      {
+        "file": "scripts/migration/generate-seo-artifacts.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/generate-static-manifest.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
         "file": "scripts/migration/inventory-call-sites.mjs",
         "matches": 1,
         "lines": [
@@ -1775,14 +1492,98 @@
         ]
       },
       {
-        "file": "scripts/migration/slug-manifest.mjs",
+        "file": "scripts/migration/measure-usage.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/release-gate.mjs",
         "matches": 1,
         "lines": [
           3
         ]
       },
       {
+        "file": "scripts/migration/release-manifest.mjs",
+        "matches": 1,
+        "lines": [
+          4
+        ]
+      },
+      {
+        "file": "scripts/migration/run-raw-body-regression.mjs",
+        "matches": 1,
+        "lines": [
+          5
+        ]
+      },
+      {
+        "file": "scripts/migration/run-safe-regression.mjs",
+        "matches": 1,
+        "lines": [
+          3
+        ]
+      },
+      {
+        "file": "scripts/migration/run-spx-operations.mjs",
+        "matches": 1,
+        "lines": [
+          3
+        ]
+      },
+      {
+        "file": "scripts/migration/run-upload-regression.mjs",
+        "matches": 1,
+        "lines": [
+          3
+        ]
+      },
+      {
+        "file": "scripts/migration/schema.ts",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/slug-manifest.mjs",
+        "matches": 1,
+        "lines": [
+          4
+        ]
+      },
+      {
+        "file": "scripts/migration/us1-gate-report.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/validate-env.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
         "file": "scripts/migration/verify-api-manifest.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/verify-dns-inventory.mjs",
+        "matches": 1,
+        "lines": [
+          2
+        ]
+      },
+      {
+        "file": "scripts/migration/verify-fresh-env.mjs",
         "matches": 1,
         "lines": [
           2
@@ -1838,21 +1639,14 @@
         ]
       },
       {
-        "file": "utils/posts.ts",
+        "file": "vite.config.ts",
         "matches": 1,
         "lines": [
-          1
+          6
         ]
       }
     ],
     "rawBody": [
-      {
-        "file": "pages/api/creativa/orders/analytics-claim.ts",
-        "matches": 1,
-        "lines": [
-          4
-        ]
-      },
       {
         "file": "pages/api/creativa/orders/index.ts",
         "matches": 1,
@@ -1889,30 +1683,55 @@
         ]
       },
       {
+        "file": "scripts/migration/release-gate.mjs",
+        "matches": 2,
+        "lines": [
+          37,
+          66
+        ]
+      },
+      {
+        "file": "scripts/migration/run-raw-body-regression.mjs",
+        "matches": 2,
+        "lines": [
+          9,
+          122
+        ]
+      },
+      {
         "file": "utils/creativa/api.server.ts",
         "matches": 1,
         "lines": [
-          53
+          46
         ]
       }
     ],
     "publicSecrets": [
       {
-        "file": "scripts/migration/inventory-env.mjs",
+        "file": "scripts/migration/check-secrets.mjs",
         "matches": 3,
         "lines": [
-          36,
-          37,
-          38
+          29,
+          30,
+          31
         ]
       },
       {
-        "file": "utils/env-const.ts",
+        "file": "scripts/migration/inventory-env.mjs",
         "matches": 3,
         "lines": [
-          3,
-          14,
-          15
+          37,
+          38,
+          39
+        ]
+      },
+      {
+        "file": "scripts/migration/verify-fresh-env.mjs",
+        "matches": 3,
+        "lines": [
+          24,
+          25,
+          26
         ]
       }
     ]

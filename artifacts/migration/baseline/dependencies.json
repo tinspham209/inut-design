@@ -1,10 +1,30 @@
 {
   "schemaVersion": 1,
-  "count": 74,
+  "count": 77,
   "dependencies": [
     {
+      "package": "@cloudflare/vite-plugin",
+      "declaredVersion": "2.0.0-rc.3",
+      "resolvedVersion": "2.0.0-rc.3",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {
+        "vite": "^7.0.0 || ^8.0.0"
+      },
+      "consumers": [
+        "vite.config.ts"
+      ],
+      "scope": [
+        "build",
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
       "package": "@emotion/cache",
-      "declaredVersion": "^11.10.1",
+      "declaredVersion": "^11.14.0",
       "resolvedVersion": "11.14.0",
       "installed": true,
       "section": "production",
@@ -21,7 +41,7 @@
     },
     {
       "package": "@emotion/react",
-      "declaredVersion": "^11.10.0",
+      "declaredVersion": "^11.14.0",
       "resolvedVersion": "11.14.0",
       "installed": true,
       "section": "production",
@@ -41,7 +61,7 @@
     },
     {
       "package": "@emotion/server",
-      "declaredVersion": "^11.10.0",
+      "declaredVersion": "^11.11.0",
       "resolvedVersion": "11.11.0",
       "installed": true,
       "section": "production",
@@ -60,7 +80,7 @@
     },
     {
       "package": "@emotion/styled",
-      "declaredVersion": "^11.10.0",
+      "declaredVersion": "^11.14.1",
       "resolvedVersion": "11.14.1",
       "installed": true,
       "section": "production",
@@ -88,13 +108,9 @@
         "react-dom": ">=16.8.0",
         "react-hook-form": "^7.0.0"
       },
-      "consumers": [
-        "components/common/calendar/datePicker.tsx",
-        "components/common/input/controller.tsx",
-        "components/common/switch/index.tsx"
-      ],
+      "consumers": [],
       "scope": [
-        "browser"
+        "direct-unused"
       ],
       "migrationAction": "keep",
       "ownerDecision": null
@@ -144,7 +160,7 @@
     },
     {
       "package": "@mui/icons-material",
-      "declaredVersion": "^5.8.4",
+      "declaredVersion": "^5.18.0",
       "resolvedVersion": "5.18.0",
       "installed": true,
       "section": "production",
@@ -160,13 +176,13 @@
         "components/cart/lighters/LighterCartContent.tsx",
         "components/cart/lighters/LighterCartDrawer.tsx",
         "components/common/ComingSoon.tsx",
+        "components/common/ResponsiveCarousel.tsx",
         "components/common/ServiceCard.tsx",
         "components/common/dialog/index.tsx",
         "components/common/footer.tsx",
         "components/common/header/header-desktop.tsx",
         "components/common/header/header-mobile.tsx",
         "components/common/header/search-popover.tsx",
-        "components/common/scrollToBottom/index.tsx",
         "components/creativa/BankInstructions.tsx",
         "components/creativa/Homepage.tsx",
         "components/creativa/Shell.tsx",
@@ -230,7 +246,7 @@
     },
     {
       "package": "@mui/material",
-      "declaredVersion": "^5.9.3",
+      "declaredVersion": "^5.18.0",
       "resolvedVersion": "5.18.0",
       "installed": true,
       "section": "production",
@@ -250,6 +266,7 @@
         "components/cart/lighters/LighterCartContent.tsx",
         "components/cart/lighters/LighterCartDrawer.tsx",
         "components/common/ComingSoon.tsx",
+        "components/common/ResponsiveCarousel.tsx",
         "components/common/ServiceCard.tsx",
         "components/common/block-content/index.tsx",
         "components/common/dialog/container.tsx",
@@ -259,12 +276,7 @@
         "components/common/header/header-desktop.tsx",
         "components/common/header/header-mobile.tsx",
         "components/common/header/search-popover.tsx",
-        "components/common/input/controller.tsx",
-        "components/common/input/index.tsx",
         "components/common/markdown/MarkdownWrapper.tsx",
-        "components/common/scrollToBottom/index.tsx",
-        "components/common/switch/index.tsx",
-        "components/common/template.tsx",
         "components/contact/QuoteRequestForm.tsx",
         "components/creativa/BankInstructions.tsx",
         "components/creativa/Breadcrumbs.tsx",
@@ -415,7 +427,7 @@
     },
     {
       "package": "@next/bundle-analyzer",
-      "declaredVersion": "^16.1.6",
+      "declaredVersion": "^15.5.29",
       "resolvedVersion": "15.5.29",
       "installed": true,
       "section": "development",
@@ -433,7 +445,7 @@
     },
     {
       "package": "@next/third-parties",
-      "declaredVersion": "^15.2.4",
+      "declaredVersion": "^15.5.29",
       "resolvedVersion": "15.5.29",
       "installed": true,
       "section": "production",
@@ -451,7 +463,7 @@
     },
     {
       "package": "@react-three/drei",
-      "declaredVersion": "9.92.0",
+      "declaredVersion": "10.7.9",
       "resolvedVersion": "10.7.9",
       "installed": true,
       "section": "production",
@@ -474,7 +486,7 @@
     },
     {
       "package": "@react-three/fiber",
-      "declaredVersion": "8.15.0",
+      "declaredVersion": "9.8.2",
       "resolvedVersion": "9.8.2",
       "installed": true,
       "section": "production",
@@ -502,8 +514,8 @@
     },
     {
       "package": "@sanity/block-content-to-react",
-      "declaredVersion": "^2",
-      "resolvedVersion": "2.0.7",
+      "declaredVersion": "^3.0.0",
+      "resolvedVersion": "3.0.0",
       "installed": true,
       "section": "production",
       "license": "MIT",
@@ -521,8 +533,8 @@
     },
     {
       "package": "@sanity/client",
-      "declaredVersion": "^3.4.1",
-      "resolvedVersion": "3.4.1",
+      "declaredVersion": "^7.28.0",
+      "resolvedVersion": "7.28.0",
       "installed": true,
       "section": "production",
       "license": "MIT",
@@ -560,21 +572,6 @@
       "ownerDecision": null
     },
     {
-      "package": "@types/axios",
-      "declaredVersion": "^0.14.0",
-      "resolvedVersion": null,
-      "installed": false,
-      "section": "development",
-      "license": null,
-      "peerConstraints": {},
-      "consumers": [],
-      "scope": [
-        "dev-test"
-      ],
-      "migrationAction": "keep-dev",
-      "ownerDecision": null
-    },
-    {
       "package": "@types/lodash",
       "declaredVersion": "^4.14.191",
       "resolvedVersion": "4.17.24",
@@ -591,8 +588,8 @@
     },
     {
       "package": "@types/node",
-      "declaredVersion": "18.6.3",
-      "resolvedVersion": "18.6.3",
+      "declaredVersion": "22.20.5",
+      "resolvedVersion": "22.20.5",
       "installed": true,
       "section": "development",
       "license": "MIT",
@@ -606,7 +603,7 @@
     },
     {
       "package": "@types/react",
-      "declaredVersion": "18.3.28",
+      "declaredVersion": "19.3.0",
       "resolvedVersion": "19.3.0",
       "installed": true,
       "section": "development",
@@ -620,23 +617,8 @@
       "ownerDecision": null
     },
     {
-      "package": "@types/react-date-range",
-      "declaredVersion": "^1.4.4",
-      "resolvedVersion": "1.4.10",
-      "installed": true,
-      "section": "development",
-      "license": "MIT",
-      "peerConstraints": {},
-      "consumers": [],
-      "scope": [
-        "dev-test"
-      ],
-      "migrationAction": "keep-dev",
-      "ownerDecision": null
-    },
-    {
       "package": "@types/react-dom",
-      "declaredVersion": "18.3.7",
+      "declaredVersion": "19.3.0",
       "resolvedVersion": "19.3.0",
       "installed": true,
       "section": "development",
@@ -652,24 +634,9 @@
       "ownerDecision": null
     },
     {
-      "package": "@types/remark-prism",
-      "declaredVersion": "^1.3.3",
-      "resolvedVersion": "1.3.7",
-      "installed": true,
-      "section": "development",
-      "license": "MIT",
-      "peerConstraints": {},
-      "consumers": [],
-      "scope": [
-        "dev-test"
-      ],
-      "migrationAction": "keep-dev",
-      "ownerDecision": null
-    },
-    {
       "package": "@types/three",
-      "declaredVersion": "0.160.0",
-      "resolvedVersion": "0.160.0",
+      "declaredVersion": "0.187.0",
+      "resolvedVersion": "0.187.0",
       "installed": true,
       "section": "development",
       "license": "MIT",
@@ -717,28 +684,42 @@
       "ownerDecision": null
     },
     {
-      "package": "@vercel/analytics",
-      "declaredVersion": "^1.0.0",
-      "resolvedVersion": "1.6.1",
+      "package": "@vinext/cloudflare",
+      "declaredVersion": "^1.4.0",
+      "resolvedVersion": "1.4.0",
       "installed": true,
       "section": "production",
-      "license": "MPL-2.0",
+      "license": "MIT",
       "peerConstraints": {
-        "@remix-run/react": "^2",
-        "@sveltejs/kit": "^1 || ^2",
-        "next": ">= 13",
-        "react": "^18 || ^19 || ^19.0.0-rc",
-        "svelte": ">= 4",
-        "vue": "^3",
-        "vue-router": "^4"
+        "@cloudflare/vite-plugin": "*",
+        "cf": "*",
+        "vinext": "^1.4.6"
       },
-      "consumers": [
-        "pages/_app.tsx"
-      ],
+      "consumers": [],
       "scope": [
-        "browser"
+        "direct-unused"
       ],
-      "migrationAction": "remove",
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "@vitejs/plugin-react",
+      "declaredVersion": "^6.3.0",
+      "resolvedVersion": "6.3.0",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {
+        "@rolldown/plugin-babel": "^0.1.7 || ^0.2.0 || ^0.3.0",
+        "babel-plugin-react-compiler": "^1.0.0",
+        "oxc-transform-react": ">=0.152.0 <0.157.0",
+        "vite": "^8.0.0"
+      },
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
       "ownerDecision": null
     },
     {
@@ -757,6 +738,25 @@
         "direct-unused"
       ],
       "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "cf",
+      "declaredVersion": "1.0.0-rc.2",
+      "resolvedVersion": "1.0.0-rc.2",
+      "installed": true,
+      "section": "development",
+      "license": "MIT OR Apache-2.0",
+      "peerConstraints": {},
+      "consumers": [
+        ".cloudflare/types/index.d.ts",
+        "cloudflare.config.ts"
+      ],
+      "scope": [
+        "build",
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
       "ownerDecision": null
     },
     {
@@ -802,8 +802,7 @@
       "peerConstraints": {},
       "consumers": [
         "components/blog/post-item.tsx",
-        "components/orderTracking/lighters/OrderInfoCard.tsx",
-        "utils/date.ts"
+        "components/orderTracking/lighters/OrderInfoCard.tsx"
       ],
       "scope": [
         "browser"
@@ -813,8 +812,8 @@
     },
     {
       "package": "eslint",
-      "declaredVersion": "8.20.0",
-      "resolvedVersion": "8.20.0",
+      "declaredVersion": "8.57.1",
+      "resolvedVersion": "8.57.1",
       "installed": true,
       "section": "development",
       "license": "MIT",
@@ -828,7 +827,7 @@
     },
     {
       "package": "eslint-config-next",
-      "declaredVersion": "12.2.3",
+      "declaredVersion": "15.5.29",
       "resolvedVersion": "15.5.29",
       "installed": true,
       "section": "development",
@@ -960,8 +959,8 @@
       "consumers": [
         ".agents/skills/inut-content-writer/scripts/validate-blog.mjs",
         ".agents/skills/inut-design-workflow/scripts/validate-ai-config.mjs",
-        "scripts/migration/slug-manifest.mjs",
-        "utils/posts.ts"
+        "scripts/migration/generate-blog-data.mjs",
+        "scripts/migration/slug-manifest.mjs"
       ],
       "scope": [
         "build"
@@ -970,18 +969,19 @@
       "ownerDecision": null
     },
     {
-      "package": "isomorphic-dompurify",
-      "declaredVersion": "^2.29.0",
-      "resolvedVersion": "2.36.0",
+      "package": "hast-util-from-html",
+      "declaredVersion": "^1.0.2",
+      "resolvedVersion": "1.0.2",
       "installed": true,
       "section": "production",
       "license": "MIT",
       "peerConstraints": {},
       "consumers": [
-        "pages/blog/[slug].tsx"
+        "scripts/migration/compare-blog-html.mjs",
+        "scripts/migration/generate-blog-data.mjs"
       ],
       "scope": [
-        "browser"
+        "build"
       ],
       "migrationAction": "keep",
       "ownerDecision": null
@@ -1026,7 +1026,7 @@
     },
     {
       "package": "next",
-      "declaredVersion": "12.3.1",
+      "declaredVersion": "15.5.29",
       "resolvedVersion": "15.5.29",
       "installed": true,
       "section": "production",
@@ -1105,21 +1105,17 @@
         "hooks/creativa/useCatalog.ts",
         "hooks/creativa/useCheckout.ts",
         "hooks/creativa/useTracking.ts",
-        "hooks/useCurrentCart.ts",
         "models/common.ts",
         "next.config.js",
         "pages/_app.tsx",
         "pages/_document.tsx",
-        "pages/api/costs/create.ts",
         "pages/api/cron/sync-spx-orders.ts",
-        "pages/api/income/create.ts",
         "pages/api/keychain/designs/[id].ts",
         "pages/api/keychain/designs/index.ts",
         "pages/api/keychain/uploads.ts",
         "pages/api/orders/lighters.ts",
         "pages/api/quote-request.ts",
         "pages/api/sanity/upload-image.ts",
-        "pages/api/search.ts",
         "pages/api/telegram/send-abandoned-checkout-notification.ts",
         "pages/api/telegram/send-order-notification.ts",
         "pages/api/telegram/send-quote-notification.ts",
@@ -1164,7 +1160,8 @@
         "pages/services/[...slug].tsx",
         "pages/services/index.tsx",
         "utils/creativa/api.server.ts",
-        "utils/rateLimit.ts"
+        "utils/rateLimit.ts",
+        "utils/server/request-guard.ts"
       ],
       "scope": [
         "browser",
@@ -1210,6 +1207,21 @@
       "ownerDecision": null
     },
     {
+      "package": "postcss",
+      "declaredVersion": "^8.5.33",
+      "resolvedVersion": "8.5.33",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [],
+      "scope": [
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
       "package": "prettier",
       "declaredVersion": "^2.7.1",
       "resolvedVersion": "2.8.8",
@@ -1225,8 +1237,25 @@
       "ownerDecision": null
     },
     {
+      "package": "prismjs",
+      "declaredVersion": "^1.30.0",
+      "resolvedVersion": "1.30.0",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "scripts/migration/generate-blog-data.mjs"
+      ],
+      "scope": [
+        "build"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
       "package": "react",
-      "declaredVersion": "18.2.0",
+      "declaredVersion": "19.3.1",
       "resolvedVersion": "19.3.1",
       "installed": true,
       "section": "production",
@@ -1237,22 +1266,17 @@
         "components/cart/lighters/AddToLighterCartButton.tsx",
         "components/common/ComingSoon.tsx",
         "components/common/Portal.tsx",
+        "components/common/ResponsiveCarousel.tsx",
         "components/common/ServiceCard.tsx",
         "components/common/block-content/index.tsx",
-        "components/common/calendar/datePicker.tsx",
         "components/common/dialog/container.tsx",
         "components/common/dialog/index.tsx",
         "components/common/dialog/renderer.tsx",
         "components/common/header/header-desktop.tsx",
         "components/common/header/header-mobile.tsx",
         "components/common/header/search-popover.tsx",
-        "components/common/input/controller.tsx",
-        "components/common/input/index.tsx",
         "components/common/markdown/MarkdownWrapper.tsx",
-        "components/common/scrollToBottom/index.tsx",
         "components/common/seo.tsx",
-        "components/common/switch/index.tsx",
-        "components/common/template.tsx",
         "components/contact/QuoteRequestForm.tsx",
         "components/creativa/BankInstructions.tsx",
         "components/creativa/DesignCard.tsx",
@@ -1348,7 +1372,6 @@
         "components/scripts/google-tag-manager.tsx",
         "components/scripts/organization-schema.tsx",
         "components/scripts/speculation-rules.tsx",
-        "components/swr/StudentDetail.tsx",
         "data/product-pages/an-pham-su-kien.tsx",
         "hooks/creativa/useBrowserState.ts",
         "hooks/creativa/useCart.ts",
@@ -1356,12 +1379,10 @@
         "hooks/creativa/useCheckout.ts",
         "hooks/creativa/useQuote.ts",
         "hooks/creativa/useTracking.ts",
-        "hooks/useCurrentCart.ts",
         "hooks/useEngagementTracking.ts",
         "hooks/useInfiniteCatalog.ts",
         "hooks/useLightersPage.ts",
         "hooks/usePhoneZaloCheck.ts",
-        "hooks/useUmamiEngagement.ts",
         "models/common.ts",
         "models/product-page.ts",
         "pages/_app.tsx",
@@ -1441,29 +1462,8 @@
       "ownerDecision": null
     },
     {
-      "package": "react-date-range",
-      "declaredVersion": "^1.4.0",
-      "resolvedVersion": "1.4.0",
-      "installed": true,
-      "section": "production",
-      "license": "MIT",
-      "peerConstraints": {
-        "date-fns": "2.0.0-alpha.7 || >=2.0.0",
-        "react": "^0.14 || ^15.0.0-rc || >=15.0"
-      },
-      "consumers": [
-        "components/common/calendar/datePicker.tsx",
-        "components/common/calendar/dateRange.tsx"
-      ],
-      "scope": [
-        "browser"
-      ],
-      "migrationAction": "keep",
-      "ownerDecision": null
-    },
-    {
       "package": "react-dom",
-      "declaredVersion": "18.2.0",
+      "declaredVersion": "19.3.1",
       "resolvedVersion": "19.3.1",
       "installed": true,
       "section": "production",
@@ -1482,7 +1482,7 @@
     },
     {
       "package": "react-hook-form",
-      "declaredVersion": "^7.44.2",
+      "declaredVersion": "^7.92.0",
       "resolvedVersion": "7.92.0",
       "installed": true,
       "section": "production",
@@ -1492,9 +1492,6 @@
         "react": "^16.8.0 || ^17 || ^18 || ^19"
       },
       "consumers": [
-        "components/common/calendar/datePicker.tsx",
-        "components/common/input/controller.tsx",
-        "components/common/switch/index.tsx",
         "components/contact/QuoteRequestForm.tsx",
         "components/creativa/Shell.tsx",
         "hooks/creativa/useCatalog.ts",
@@ -1544,8 +1541,8 @@
     },
     {
       "package": "react-icons",
-      "declaredVersion": "^5.6.0",
-      "resolvedVersion": "5.6.0",
+      "declaredVersion": "^5.7.0",
+      "resolvedVersion": "5.7.0",
       "installed": true,
       "section": "production",
       "license": "MIT",
@@ -1553,7 +1550,6 @@
         "react": "*"
       },
       "consumers": [
-        "components/common/input/index.tsx",
         "components/home/product-card.tsx",
         "data/contacts/list-contacts.tsx",
         "pages/san-pham/skin-laptop/[slug].tsx"
@@ -1565,35 +1561,6 @@
       "ownerDecision": null
     },
     {
-      "package": "react-material-ui-carousel",
-      "declaredVersion": "^3.4.2",
-      "resolvedVersion": "3.4.2",
-      "installed": true,
-      "section": "production",
-      "license": "MIT",
-      "peerConstraints": {
-        "@emotion/react": "^11.4.1",
-        "@emotion/styled": "^11.3.0",
-        "@mui/icons-material": "^5.0.0",
-        "@mui/material": "^5.0.0",
-        "@mui/system": "^5.0.0",
-        "react": "^17.0.1 || ^18.0.0",
-        "react-dom": "^17.0.2 || ^18.0.0"
-      },
-      "consumers": [
-        "components/lighter-detail/Gallery.tsx",
-        "components/lighter-detail/RelatedProducts.tsx",
-        "pages/creativa/skin-laptop/[slug].tsx",
-        "pages/san-pham/skin-laptop/[slug].tsx",
-        "pages/san-pham/skin-nut-phim/[slug].tsx"
-      ],
-      "scope": [
-        "browser"
-      ],
-      "migrationAction": "upgrade-unit",
-      "ownerDecision": null
-    },
-    {
       "package": "rehype-autolink-headings",
       "declaredVersion": "^6.1.1",
       "resolvedVersion": "6.1.1",
@@ -1602,44 +1569,27 @@
       "license": "MIT",
       "peerConstraints": {},
       "consumers": [
-        "utils/unified.ts"
+        "scripts/migration/generate-blog-data.mjs"
       ],
       "scope": [
-        "direct-unused"
+        "build"
       ],
       "migrationAction": "keep",
       "ownerDecision": null
     },
     {
-      "package": "rehype-document",
-      "declaredVersion": "^6.0.1",
-      "resolvedVersion": "6.1.0",
+      "package": "rehype-sanitize",
+      "declaredVersion": "^5.0.1",
+      "resolvedVersion": "5.0.1",
       "installed": true,
       "section": "production",
       "license": "MIT",
       "peerConstraints": {},
       "consumers": [
-        "utils/unified.ts"
+        "scripts/migration/generate-blog-data.mjs"
       ],
       "scope": [
-        "direct-unused"
-      ],
-      "migrationAction": "keep",
-      "ownerDecision": null
-    },
-    {
-      "package": "rehype-format",
-      "declaredVersion": "^4.0.1",
-      "resolvedVersion": "4.0.1",
-      "installed": true,
-      "section": "production",
-      "license": "MIT",
-      "peerConstraints": {},
-      "consumers": [
-        "utils/unified.ts"
-      ],
-      "scope": [
-        "direct-unused"
+        "build"
       ],
       "migrationAction": "keep",
       "ownerDecision": null
@@ -1653,10 +1603,10 @@
       "license": "MIT",
       "peerConstraints": {},
       "consumers": [
-        "utils/unified.ts"
+        "scripts/migration/generate-blog-data.mjs"
       ],
       "scope": [
-        "direct-unused"
+        "build"
       ],
       "migrationAction": "keep",
       "ownerDecision": null
@@ -1670,10 +1620,10 @@
       "license": "MIT",
       "peerConstraints": {},
       "consumers": [
-        "utils/unified.ts"
+        "scripts/migration/generate-blog-data.mjs"
       ],
       "scope": [
-        "direct-unused"
+        "build"
       ],
       "migrationAction": "keep",
       "ownerDecision": null
@@ -1688,10 +1638,10 @@
       "peerConstraints": {},
       "consumers": [
         ".agents/skills/inut-content-writer/scripts/validate-blog.mjs",
-        "utils/unified.ts"
+        "scripts/migration/generate-blog-data.mjs"
       ],
       "scope": [
-        "direct-unused"
+        "build"
       ],
       "migrationAction": "keep",
       "ownerDecision": null
@@ -1705,10 +1655,10 @@
       "license": "MIT",
       "peerConstraints": {},
       "consumers": [
-        "utils/unified.ts"
+        "scripts/migration/generate-blog-data.mjs"
       ],
       "scope": [
-        "direct-unused"
+        "build"
       ],
       "migrationAction": "keep",
       "ownerDecision": null
@@ -1723,27 +1673,10 @@
       "peerConstraints": {},
       "consumers": [
         ".agents/skills/inut-content-writer/scripts/validate-blog.mjs",
-        "utils/unified.ts"
+        "scripts/migration/generate-blog-data.mjs"
       ],
       "scope": [
-        "direct-unused"
-      ],
-      "migrationAction": "keep",
-      "ownerDecision": null
-    },
-    {
-      "package": "remark-prism",
-      "declaredVersion": "^1.3.6",
-      "resolvedVersion": "1.3.6",
-      "installed": true,
-      "section": "production",
-      "license": "BSD-3-Clause",
-      "peerConstraints": {},
-      "consumers": [
-        "utils/unified.ts"
-      ],
-      "scope": [
-        "direct-unused"
+        "build"
       ],
       "migrationAction": "keep",
       "ownerDecision": null
@@ -1757,10 +1690,10 @@
       "license": "MIT",
       "peerConstraints": {},
       "consumers": [
-        "utils/unified.ts"
+        "scripts/migration/generate-blog-data.mjs"
       ],
       "scope": [
-        "direct-unused"
+        "build"
       ],
       "migrationAction": "keep",
       "ownerDecision": null
@@ -1774,12 +1707,33 @@
       "license": "MIT",
       "peerConstraints": {},
       "consumers": [
-        "utils/unified.ts"
+        "scripts/migration/generate-blog-data.mjs"
       ],
       "scope": [
-        "direct-unused"
+        "build"
       ],
       "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "rollup-plugin-visualizer",
+      "declaredVersion": "7.1.3",
+      "resolvedVersion": "7.1.3",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {
+        "rolldown": "1.x || ^1.0.0-beta || ^1.0.0-rc",
+        "rollup": "2.x || 3.x || 4.x"
+      },
+      "consumers": [
+        "vite.config.ts"
+      ],
+      "scope": [
+        "build",
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
       "ownerDecision": null
     },
     {
@@ -1793,20 +1747,18 @@
       "consumers": [
         "scripts/migration/api-fixtures/uploads/upload-fixtures.mjs",
         "scripts/tests/keychain-geometry.test.mjs",
-        "scripts/tests/keychain-image-validation.test.mjs",
-        "utils/keychain/imageValidation.ts"
+        "scripts/tests/keychain-image-validation.test.mjs"
       ],
       "scope": [
         "build",
-        "test",
-        "worker"
+        "test"
       ],
       "migrationAction": "worker-boundary-review",
       "ownerDecision": null
     },
     {
       "package": "swr",
-      "declaredVersion": "2.1.5",
+      "declaredVersion": "2.5.1",
       "resolvedVersion": "2.5.1",
       "installed": true,
       "section": "production",
@@ -1815,16 +1767,12 @@
         "react": "^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
       },
       "consumers": [
-        "components/swr/StudentDetail.tsx",
-        "components/swr/costs.ts",
-        "components/swr/incomes.ts",
         "hooks/creativa/useApi.ts",
         "hooks/creativa/useCatalog.ts",
         "hooks/useCreateLighterOrder.ts",
         "hooks/useOrderByNumber.ts",
         "hooks/usePrimaryBankInfo.ts",
         "hooks/useShippingFees.ts",
-        "hooks/useStaticContentBySlug.ts",
         "hooks/useSubmitQuoteRequest.ts",
         "hooks/useTelegramAbandonedCheckoutNotification.ts",
         "hooks/useTelegramNotification.ts",
@@ -1839,8 +1787,8 @@
     },
     {
       "package": "three",
-      "declaredVersion": "0.160.0",
-      "resolvedVersion": "0.160.0",
+      "declaredVersion": "0.187.0",
+      "resolvedVersion": "0.187.0",
       "installed": true,
       "section": "production",
       "license": "MIT",
@@ -1860,7 +1808,7 @@
     },
     {
       "package": "typescript",
-      "declaredVersion": "5.0.4",
+      "declaredVersion": "5.9.3",
       "resolvedVersion": "5.9.3",
       "installed": true,
       "section": "development",
@@ -1886,18 +1834,113 @@
       "peerConstraints": {},
       "consumers": [
         ".agents/skills/inut-content-writer/scripts/validate-blog.mjs",
-        "utils/unified.ts"
+        "scripts/migration/generate-blog-data.mjs"
       ],
       "scope": [
-        "direct-unused"
+        "build"
       ],
       "migrationAction": "keep",
       "ownerDecision": null
     },
     {
+      "package": "unist-util-visit",
+      "declaredVersion": "^4.1.2",
+      "resolvedVersion": "4.1.2",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {},
+      "consumers": [
+        "scripts/migration/generate-blog-data.mjs"
+      ],
+      "scope": [
+        "build"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "vinext",
+      "declaredVersion": "^1.4.6",
+      "resolvedVersion": "1.4.6",
+      "installed": true,
+      "section": "production",
+      "license": "MIT",
+      "peerConstraints": {
+        "@mdx-js/rollup": "^3.0.0",
+        "@vitejs/plugin-react": "^5.1.4 || ^6.0.0",
+        "@vitejs/plugin-rsc": "^0.5.37",
+        "react": "^19.3.1",
+        "react-dom": "^19.3.1",
+        "react-server-dom-webpack": "^19.3.1",
+        "vite": "^8.0.0"
+      },
+      "consumers": [
+        "vite.config.ts"
+      ],
+      "scope": [
+        "build"
+      ],
+      "migrationAction": "keep",
+      "ownerDecision": null
+    },
+    {
+      "package": "vite",
+      "declaredVersion": "8.3.0",
+      "resolvedVersion": "8.3.0",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {
+        "@types/node": "^20.19.0 || >=22.12.0",
+        "@vitejs/devtools": "^0.7.1",
+        "esbuild": "^0.27.0 || ^0.28.0",
+        "jiti": ">=1.21.0",
+        "less": "^4.0.0",
+        "sass": "^1.70.0",
+        "sass-embedded": "^1.70.0",
+        "stylus": ">=0.54.8",
+        "sugarss": "^5.0.0",
+        "terser": "^5.16.0",
+        "tsx": "^4.8.1",
+        "yaml": "^2.4.2"
+      },
+      "consumers": [
+        "vite.config.ts"
+      ],
+      "scope": [
+        "build",
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
+      "package": "vite-css-modules",
+      "declaredVersion": "^1.16.1",
+      "resolvedVersion": "1.16.1",
+      "installed": true,
+      "section": "development",
+      "license": "MIT",
+      "peerConstraints": {
+        "lightningcss": "^1.23.0",
+        "postcss": "^8.4.49",
+        "vite": "^5.0.12 || ^6.0.0 || ^7.0.0 || ^8.0.0"
+      },
+      "consumers": [
+        "vite.config.ts"
+      ],
+      "scope": [
+        "build",
+        "dev-test"
+      ],
+      "migrationAction": "keep-dev",
+      "ownerDecision": null
+    },
+    {
       "package": "yet-another-react-lightbox",
-      "declaredVersion": "^3.29.1",
-      "resolvedVersion": "3.29.2",
+      "declaredVersion": "^3.33.1",
+      "resolvedVersion": "3.33.1",
       "installed": true,
       "section": "production",
       "license": "MIT",
@@ -1942,14 +1985,16 @@
     },
     {
       "package": "zustand",
-      "declaredVersion": "4.3.8",
-      "resolvedVersion": "4.3.8",
+      "declaredVersion": "5.1.0",
+      "resolvedVersion": "5.1.0",
       "installed": true,
       "section": "production",
       "license": "MIT",
       "peerConstraints": {
-        "immer": ">=9.0",
-        "react": ">=16.8"
+        "@types/react": ">=18.0.0",
+        "immer": ">=9.0.6",
+        "react": ">=18.0.0",
+        "use-sync-external-store": ">=1.2.0"
       },
       "consumers": [
         "store/cart/creativaCart.ts",

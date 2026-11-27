@@ -16,6 +16,5 @@ export interface Post {
 	author?: Author
 	ogImage?: string | null
 
-	mdContent?: string
 	htmlContent?: string
 }

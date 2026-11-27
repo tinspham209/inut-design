@@ -3,20 +3,6 @@ const json = (shape) => `JSON object: ${shape}`;
 
 export const apiContracts = [
 	{
-		path: "/api/costs/create",
-		methods: ["POST"],
-		authMode: "server-route",
-		bodyLimit: "Next default 1 MB",
-		inputSchema: json("title, date, price"),
-		successShape: json("created cost document"),
-		errorShape: jsonError,
-		rateLimit: "none",
-		idempotency: "not-required",
-		sideEffects: ["sanity-write"],
-		allowedTestMode: "mock-sanity",
-		expectedCache: "private-no-store",
-	},
-	{
 		path: "/api/creativa/catalog",
 		methods: ["GET"],
 		authMode: "public",
@@ -56,20 +42,6 @@ export const apiContracts = [
 		idempotency: "read-only",
 		sideEffects: [],
 		allowedTestMode: "read-only-fixture",
-		expectedCache: "no-store",
-	},
-	{
-		path: "/api/creativa/orders/analytics-claim",
-		methods: ["POST"],
-		authMode: "public",
-		bodyLimit: "65,536 bytes",
-		inputSchema: "raw JSON analytics claim",
-		successShape: json("claim result"),
-		errorShape: jsonError,
-		rateLimit: "analytics-rate-limit",
-		idempotency: "required-for-claim",
-		sideEffects: ["sanity-write"],
-		allowedTestMode: "mock-sanity",
 		expectedCache: "no-store",
 	},
 	{
@@ -140,20 +112,6 @@ export const apiContracts = [
 		idempotency: "scheduler-deduplication",
 		sideEffects: ["spx-read", "sanity-write", "telegram-notification"],
 		allowedTestMode: "mock-all-downstreams",
-		expectedCache: "no-store",
-	},
-	{
-		path: "/api/income/create",
-		methods: ["POST"],
-		authMode: "server-route",
-		bodyLimit: "Next default 1 MB",
-		inputSchema: json("title, date, price"),
-		successShape: json("created income document"),
-		errorShape: jsonError,
-		rateLimit: "none",
-		idempotency: "not-required",
-		sideEffects: ["sanity-write"],
-		allowedTestMode: "mock-sanity",
 		expectedCache: "no-store",
 	},
 	{
@@ -241,20 +199,6 @@ export const apiContracts = [
 		expectedCache: "no-store",
 	},
 	{
-		path: "/api/search",
-		methods: ["GET"],
-		authMode: "public",
-		bodyLimit: "n/a",
-		inputSchema: "validated query and pagination parameters",
-		successShape: json("paginated search results"),
-		errorShape: jsonError,
-		rateLimit: "search-rate-limit",
-		idempotency: "read-only",
-		sideEffects: [],
-		allowedTestMode: "read-only-fixture",
-		expectedCache: "public-short-cache",
-	},
-	{
 		path: "/api/telegram/send-abandoned-checkout-notification",
 		methods: ["POST"],
 		authMode: "browser-route-origin",
@@ -312,6 +256,6 @@ export const apiContracts = [
 	},
 ].sort((left, right) => left.path.localeCompare(right.path));
 
-if (apiContracts.length !== 22) {
-	throw new Error(`Expected 22 API contracts, found ${apiContracts.length}.`);
+if (apiContracts.length !== 18) {
+	throw new Error(`Expected 18 API contracts, found ${apiContracts.length}.`);
 }

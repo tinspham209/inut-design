@@ -3,7 +3,6 @@
   "appliesTo": [
     "/api/creativa/orders",
     "/api/creativa/orders/resolve",
-    "/api/creativa/orders/analytics-claim",
     "/api/creativa/quote"
   ],
   "maxBytes": 65536,

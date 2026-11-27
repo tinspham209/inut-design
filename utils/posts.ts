@@ -5,7 +5,7 @@ type GeneratedPost = Omit<Post, "description"> & {
 	excerpt: string;
 	description: string;
 	ogImage: string | null;
-	mdContent: string;
+	htmlContent: string;
 };
 
 const posts = blogPosts as GeneratedPost[];
@@ -24,7 +24,7 @@ function listPost(post: GeneratedPost): Post {
 }
 
 export async function getPostList(): Promise<Post[]> {
-	return posts.map((post) => ({ ...listPost(post), mdContent: post.mdContent }));
+	return posts.map((post) => ({ ...listPost(post), htmlContent: post.htmlContent }));
 }
 
 export async function getPostListSummary(): Promise<Post[]> {
@@ -44,7 +44,7 @@ export async function getPostBySlug(slug: string | string[]): Promise<Post | nul
 		? {
 				...listPost(post),
 				description: post.description,
-				mdContent: post.mdContent,
+				htmlContent: post.htmlContent,
 			}
 		: null;
 }

@@ -17,8 +17,16 @@ const forbidden = [
 	{ type: "disabled-onnx", pattern: /onnxruntime-web|\.onnx|ort-wasm/g },
 	{ type: "migration-test-generator", pattern: /scripts\/migration|api-fixtures\/|test-spx-sync/g },
 	{ type: "dev-test-dependency", pattern: /node_modules\/(?:vitest|jest|playwright|tsx)\//g },
+	{
+		type: "node-dom-jsdom",
+		pattern: /(?:from|import|require|external)\s*\(?["'](?:jsdom|isomorphic-dompurify|remark-prism)["']\)?|node_modules\/(?:jsdom|isomorphic-dompurify|remark-prism)\//g,
+	},
+	{
+		type: "node-vm",
+		pattern: /(?:from|import|require|external)\s*\(?["'](?:node:)?vm["']\)?|["']node:vm["']/g,
+	},
 ];
-const appWorkerRoots = /(?:^|\/)(?:pages\/api|server|api-client|utils)\//;
+const appWorkerRoots = /(?:^|\/)(?:pages\/api|pages\/blog|server|api-client|utils)\//;
 const requestTimeModules = [
 	{
 		type: "request-time-filesystem",
@@ -27,6 +35,14 @@ const requestTimeModules = [
 	{
 		type: "request-time-path",
 		pattern: /from\s+["'](?:node:)?path["']|require\(["'](?:node:)?path["']\)/g,
+	},
+	{
+		type: "request-time-vm",
+		pattern: /from\s+["'](?:node:)?vm["']|require\(["'](?:node:)?vm["']\)/g,
+	},
+	{
+		type: "request-time-jsdom",
+		pattern: /from\s+["'](?:jsdom|isomorphic-dompurify|remark-prism)["']|require\(["'](?:jsdom|isomorphic-dompurify|remark-prism)["']\)/g,
 	},
 ];
 
