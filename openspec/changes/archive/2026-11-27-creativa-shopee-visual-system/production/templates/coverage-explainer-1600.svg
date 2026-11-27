@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1600" viewBox="0 0 1600 1600">
+  <rect width="1600" height="1600" fill="#E5ECD7"/>
+  <rect x="100" y="90" width="1040" height="220" rx="42" fill="none" stroke="#49261D" stroke-opacity=".2" stroke-width="3" stroke-dasharray="18 18"/>
+  <g fill="#FFFCF2" stroke="#49261D" stroke-opacity=".12" stroke-width="3">
+    <rect x="100" y="400" width="650" height="460" rx="52"/>
+    <rect x="850" y="400" width="650" height="460" rx="52"/>
+    <rect x="100" y="940" width="650" height="460" rx="52"/>
+    <rect x="850" y="940" width="650" height="460" rx="52"/>
+  </g>
+  <g fill="#CBE7F7" fill-opacity=".58">
+    <path d="M250 520H600L560 720H290Z"/>
+    <path d="M1000 520H1350L1310 720H1040Z"/>
+    <path d="M250 1060H600L560 1260H290Z"/>
+    <path d="M1000 1060H1350L1310 1260H1040Z"/>
+  </g>
+  <g fill="none" stroke="#49261D" stroke-opacity=".18" stroke-width="3" stroke-dasharray="16 16">
+    <rect x="250" y="760" width="350" height="58" rx="24"/>
+    <rect x="1000" y="760" width="350" height="58" rx="24"/>
+    <rect x="250" y="1300" width="350" height="58" rx="24"/>
+    <rect x="1000" y="1300" width="350" height="58" rx="24"/>
+  </g>
+</svg>

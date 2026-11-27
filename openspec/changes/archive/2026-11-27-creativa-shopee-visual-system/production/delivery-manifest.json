@@ -1,0 +1,265 @@
+{
+  "createdAt": "2026-11-27T09:03:43.343Z",
+  "listings": [
+    "batch-01",
+    "batch-05/elegant",
+    "batch-05/daisy-quilt",
+    "batch-05/car",
+    "batch-05/anime-street",
+    "batch-05/retro"
+  ],
+  "assets": [
+    {
+      "listing": "batch-01",
+      "file": "batch-01/batch-01_sku-elegant-soc-xanh-bo_01-cover_edited_v01.png",
+      "bytes": 2768332,
+      "sha256": "12e49cdc31465aa3f787ae3d5d79413c828c8cb87e4ed23d8d37a444468ee1ef"
+    },
+    {
+      "listing": "batch-01",
+      "file": "batch-01/batch-01_sku-elegant-soc-xanh-bo_02-three-face_edited_v01.png",
+      "bytes": 3074275,
+      "sha256": "ad4b60d8f0331c933b6e15a146d45fa54e1b16453b3fd1b0c1c4ce254275b529"
+    },
+    {
+      "listing": "batch-01",
+      "file": "batch-01/batch-01_sku-elegant-soc-xanh-bo_03-macro_edited_v01.png",
+      "bytes": 2958017,
+      "sha256": "006086d25f183fe52018bbcefb0cfe92d9dc35cd3a12744c8ef876345091704c"
+    },
+    {
+      "listing": "batch-01",
+      "file": "batch-01/batch-01_sku-elegant-soc-xanh-bo_04-lifestyle_edited_v01.png",
+      "bytes": 2849668,
+      "sha256": "4bd912a649e70a9f25686cc370e4566e7bcc48ec2d730bc242373e2e098bdf3a"
+    },
+    {
+      "listing": "batch-01",
+      "file": "batch-01/shared_application-guide_edited_v02.png",
+      "bytes": 2591925,
+      "sha256": "b75c4f67a9d6f69af3b7743b9f3cedece7c3a9a07e0266f2dbc4c9628642be49"
+    },
+    {
+      "listing": "batch-01",
+      "file": "batch-01/shared_coverage-selector_edited_v02.png",
+      "bytes": 2544947,
+      "sha256": "ab14009fd4545ca6a4b6b27444a26830b0a37667763b9b1131ce2a41ee6093c7"
+    },
+    {
+      "listing": "batch-01",
+      "file": "batch-01/shared_model-selector_edited_v02.png",
+      "bytes": 2575743,
+      "sha256": "40f6f43a652ace5993841786a023b581bb96483534032bb857fb6adff123a682"
+    },
+    {
+      "listing": "batch-05/elegant",
+      "file": "batch-05/elegant/batch-01_sku-elegant-soc-xanh-bo_02-three-face_edited_v01.png",
+      "bytes": 3074275,
+      "sha256": "ad4b60d8f0331c933b6e15a146d45fa54e1b16453b3fd1b0c1c4ce254275b529"
+    },
+    {
+      "listing": "batch-05/elegant",
+      "file": "batch-05/elegant/batch-01_sku-elegant-soc-xanh-bo_03-macro_edited_v01.png",
+      "bytes": 2958017,
+      "sha256": "006086d25f183fe52018bbcefb0cfe92d9dc35cd3a12744c8ef876345091704c"
+    },
+    {
+      "listing": "batch-05/elegant",
+      "file": "batch-05/elegant/batch-01_sku-elegant-soc-xanh-bo_04-lifestyle_edited_v01.png",
+      "bytes": 2849668,
+      "sha256": "4bd912a649e70a9f25686cc370e4566e7bcc48ec2d730bc242373e2e098bdf3a"
+    },
+    {
+      "listing": "batch-05/elegant",
+      "file": "batch-05/elegant/batch-05_elegant_01-cover_edited_v01.png",
+      "bytes": 3168354,
+      "sha256": "39ebb3d95cd609e3a5c35dbaacd183595616566c22464872c006d2a64f9cb6b8"
+    },
+    {
+      "listing": "batch-05/elegant",
+      "file": "batch-05/elegant/shared_application-guide_edited_v02.png",
+      "bytes": 2591925,
+      "sha256": "b75c4f67a9d6f69af3b7743b9f3cedece7c3a9a07e0266f2dbc4c9628642be49"
+    },
+    {
+      "listing": "batch-05/elegant",
+      "file": "batch-05/elegant/shared_coverage-selector_edited_v02.png",
+      "bytes": 2544947,
+      "sha256": "ab14009fd4545ca6a4b6b27444a26830b0a37667763b9b1131ce2a41ee6093c7"
+    },
+    {
+      "listing": "batch-05/elegant",
+      "file": "batch-05/elegant/shared_model-selector_edited_v02.png",
+      "bytes": 2575743,
+      "sha256": "40f6f43a652ace5993841786a023b581bb96483534032bb857fb6adff123a682"
+    },
+    {
+      "listing": "batch-05/daisy-quilt",
+      "file": "batch-05/daisy-quilt/batch-03_collection-daisy-quilt_cover_edited_v01.png",
+      "bytes": 3698253,
+      "sha256": "116ff4a6833747541d0af20db813c0c37f6aa5c01a7a38a7f336677d2d830e13"
+    },
+    {
+      "listing": "batch-05/daisy-quilt",
+      "file": "batch-05/daisy-quilt/batch-05_daisy-quilt_02-three-face_edited_v01.png",
+      "bytes": 3649995,
+      "sha256": "c7fe2abfd49d2383d82a693607f747262e753b0f56b633d7c1adb2f6bc33f9ce"
+    },
+    {
+      "listing": "batch-05/daisy-quilt",
+      "file": "batch-05/daisy-quilt/batch-05_daisy-quilt_03-macro_edited_v01.png",
+      "bytes": 3738790,
+      "sha256": "45ccca92e123b06cd20b1d31250f15795537407a228ad444413bb3c9d6b14801"
+    },
+    {
+      "listing": "batch-05/daisy-quilt",
+      "file": "batch-05/daisy-quilt/batch-05_daisy-quilt_04-lifestyle_edited_v01.png",
+      "bytes": 3398832,
+      "sha256": "6e33d978dcc9f5653633b721d7430de121e9c2cab387fc8f1167582fdf1f3075"
+    },
+    {
+      "listing": "batch-05/daisy-quilt",
+      "file": "batch-05/daisy-quilt/shared_application-guide_edited_v02.png",
+      "bytes": 2591925,
+      "sha256": "b75c4f67a9d6f69af3b7743b9f3cedece7c3a9a07e0266f2dbc4c9628642be49"
+    },
+    {
+      "listing": "batch-05/daisy-quilt",
+      "file": "batch-05/daisy-quilt/shared_coverage-selector_edited_v02.png",
+      "bytes": 2544947,
+      "sha256": "ab14009fd4545ca6a4b6b27444a26830b0a37667763b9b1131ce2a41ee6093c7"
+    },
+    {
+      "listing": "batch-05/daisy-quilt",
+      "file": "batch-05/daisy-quilt/shared_model-selector_edited_v02.png",
+      "bytes": 2575743,
+      "sha256": "40f6f43a652ace5993841786a023b581bb96483534032bb857fb6adff123a682"
+    },
+    {
+      "listing": "batch-05/car",
+      "file": "batch-05/car/batch-03_collection-car_cover_edited_v01.png",
+      "bytes": 3675376,
+      "sha256": "1a18bfed5b7e6881986d42c24a56b287832e883e78247eff7223737b746f1d8c"
+    },
+    {
+      "listing": "batch-05/car",
+      "file": "batch-05/car/batch-05_car_02-three-face_edited_v01.png",
+      "bytes": 3522426,
+      "sha256": "c942631684a52a3bf0a0614a149b432f5d0daa44bec1ba04879fbc90457b18d5"
+    },
+    {
+      "listing": "batch-05/car",
+      "file": "batch-05/car/batch-05_car_03-macro_edited_v01.png",
+      "bytes": 4837786,
+      "sha256": "0915e78f4397af6f0e646251b070a24d2d2868a00f6ee353dd8ed3edf17b1461"
+    },
+    {
+      "listing": "batch-05/car",
+      "file": "batch-05/car/batch-05_car_04-lifestyle_edited_v01.png",
+      "bytes": 3773862,
+      "sha256": "469fab305c58c6272fb99cabd73aaab6a8e081c32bf3881b5c9423d06084f6e4"
+    },
+    {
+      "listing": "batch-05/car",
+      "file": "batch-05/car/shared_application-guide_edited_v02.png",
+      "bytes": 2591925,
+      "sha256": "b75c4f67a9d6f69af3b7743b9f3cedece7c3a9a07e0266f2dbc4c9628642be49"
+    },
+    {
+      "listing": "batch-05/car",
+      "file": "batch-05/car/shared_coverage-selector_edited_v02.png",
+      "bytes": 2544947,
+      "sha256": "ab14009fd4545ca6a4b6b27444a26830b0a37667763b9b1131ce2a41ee6093c7"
+    },
+    {
+      "listing": "batch-05/car",
+      "file": "batch-05/car/shared_model-selector_edited_v02.png",
+      "bytes": 2575743,
+      "sha256": "40f6f43a652ace5993841786a023b581bb96483534032bb857fb6adff123a682"
+    },
+    {
+      "listing": "batch-05/anime-street",
+      "file": "batch-05/anime-street/batch-03_collection-anime-street_cover_edited_v01.png",
+      "bytes": 3451178,
+      "sha256": "ac7cc42957a953ee0caa0d45e9355fcb69850e7334604083f7dd1c19168ba416"
+    },
+    {
+      "listing": "batch-05/anime-street",
+      "file": "batch-05/anime-street/batch-05_anime-street_02-three-face_edited_v01.png",
+      "bytes": 3873492,
+      "sha256": "16e10cdaf91440fd295c1050839d957bb2979a5da347410678364ef8bf2ff5ba"
+    },
+    {
+      "listing": "batch-05/anime-street",
+      "file": "batch-05/anime-street/batch-05_anime-street_03-macro_edited_v01.png",
+      "bytes": 5210564,
+      "sha256": "58454b0f705f7f7a65c4e06fd5e65c15230257ec90a738d8bd8685afcef93151"
+    },
+    {
+      "listing": "batch-05/anime-street",
+      "file": "batch-05/anime-street/batch-05_anime-street_04-lifestyle_edited_v01.png",
+      "bytes": 3572945,
+      "sha256": "3271b62ade85400566679263bf7c0c2f5b7a9c6fa8e8961aad712ee7974f5f75"
+    },
+    {
+      "listing": "batch-05/anime-street",
+      "file": "batch-05/anime-street/shared_application-guide_edited_v02.png",
+      "bytes": 2591925,
+      "sha256": "b75c4f67a9d6f69af3b7743b9f3cedece7c3a9a07e0266f2dbc4c9628642be49"
+    },
+    {
+      "listing": "batch-05/anime-street",
+      "file": "batch-05/anime-street/shared_coverage-selector_edited_v02.png",
+      "bytes": 2544947,
+      "sha256": "ab14009fd4545ca6a4b6b27444a26830b0a37667763b9b1131ce2a41ee6093c7"
+    },
+    {
+      "listing": "batch-05/anime-street",
+      "file": "batch-05/anime-street/shared_model-selector_edited_v02.png",
+      "bytes": 2575743,
+      "sha256": "40f6f43a652ace5993841786a023b581bb96483534032bb857fb6adff123a682"
+    },
+    {
+      "listing": "batch-05/retro",
+      "file": "batch-05/retro/batch-03_collection-retro_cover_edited_v01.png",
+      "bytes": 4372704,
+      "sha256": "180df25364fa571618dc4e8bf81347aceaa1f6078ec2f0dbfa8b4af7401e9114"
+    },
+    {
+      "listing": "batch-05/retro",
+      "file": "batch-05/retro/batch-05_retro_02-three-face_edited_v01.png",
+      "bytes": 4000934,
+      "sha256": "5f4529e480911db052c436881991cfadb5198c77e9e9c6d611742f0485bafc51"
+    },
+    {
+      "listing": "batch-05/retro",
+      "file": "batch-05/retro/batch-05_retro_03-macro_edited_v01.png",
+      "bytes": 5183338,
+      "sha256": "991f64f4352bdb406fb849a8c86babe077ab147d3837daf18185356d66f0db3c"
+    },
+    {
+      "listing": "batch-05/retro",
+      "file": "batch-05/retro/batch-05_retro_04-lifestyle_edited_v01.png",
+      "bytes": 3970989,
+      "sha256": "433882f2818f3e4490f7b65a7061922bb423b33912caccb84d89ba6b4c652255"
+    },
+    {
+      "listing": "batch-05/retro",
+      "file": "batch-05/retro/shared_application-guide_edited_v02.png",
+      "bytes": 2591925,
+      "sha256": "b75c4f67a9d6f69af3b7743b9f3cedece7c3a9a07e0266f2dbc4c9628642be49"
+    },
+    {
+      "listing": "batch-05/retro",
+      "file": "batch-05/retro/shared_coverage-selector_edited_v02.png",
+      "bytes": 2544947,
+      "sha256": "ab14009fd4545ca6a4b6b27444a26830b0a37667763b9b1131ce2a41ee6093c7"
+    },
+    {
+      "listing": "batch-05/retro",
+      "file": "batch-05/retro/shared_model-selector_edited_v02.png",
+      "bytes": 2575743,
+      "sha256": "40f6f43a652ace5993841786a023b581bb96483534032bb857fb6adff123a682"
+    }
+  ]
+}
