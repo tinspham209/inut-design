@@ -4,15 +4,7 @@ import {
 	CreateOrderLighterInput,
 	OrderLighter,
 } from "@/models/cart";
-import type {
-	DraftOrderDocument,
-	EligibleSpxOrder,
-	SpxPatchDecision,
-} from "@/models/spxTracking";
 import {
-	buildDraftPublishMutations,
-	SANITY_DRAFT_ORDERS_QUERY,
-	SPX_ELIGIBLE_ORDERS_QUERY,
 	stripServerManagedSpxFields,
 } from "@/utils/spx/sync";
 
@@ -69,57 +61,6 @@ export async function createLighterOrder(
 		order,
 		created: mutationResult.results?.[0]?.operation === "create",
 	};
-}
-
-export async function getEligibleSpxOrders(timeoutMs: number): Promise<EligibleSpxOrder[]> {
-	return serverClient.fetch(
-		SPX_ELIGIBLE_ORDERS_QUERY,
-		{},
-		{ timeout: Math.max(250, Math.min(timeoutMs, 10000)) }
-	);
-}
-
-export async function getDraftLighterOrders(
-	timeoutMs: number
-): Promise<DraftOrderDocument[]> {
-	return serverClient.fetch(
-		SANITY_DRAFT_ORDERS_QUERY,
-		{},
-		{ timeout: Math.max(250, Math.min(timeoutMs, 10000)) }
-	);
-}
-
-export async function publishDraftLighterOrder(
-	draft: DraftOrderDocument,
-	timeoutMs: number
-): Promise<unknown> {
-	return serverClient.mutate(buildDraftPublishMutations(draft), {
-		returnDocuments: false,
-		visibility: "sync",
-		timeout: Math.max(250, Math.min(timeoutMs, 10000)),
-	});
-}
-
-export async function patchSpxOrder(
-	order: EligibleSpxOrder,
-	decision: SpxPatchDecision,
-	timeoutMs: number
-): Promise<unknown> {
-	if (!decision.shouldMutate) return null;
-
-	let patch = serverClient.patch(order._id).ifRevisionId(order._rev);
-	if (Object.keys(decision.set).length > 0) {
-		patch = patch.set(decision.set);
-	}
-	if (decision.unset.length > 0) {
-		patch = patch.unset(decision.unset);
-	}
-
-	return patch.commit({
-		returnDocuments: false,
-		visibility: "async",
-		timeout: Math.max(250, Math.min(timeoutMs, 10000)),
-	});
 }
 
 export async function updateOrderStatus(

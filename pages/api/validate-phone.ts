@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ValidatePhoneResponse } from "@/models/phoneValidation";
 import { isValidVietnamesePhone, normalizePhone } from "@/utils/phone";
-import rateLimit from "@/utils/rateLimit";
+import rateLimit, { getRequestRateLimitToken } from "@/utils/rateLimit";
 import { checkZaloRegistered } from "@/utils/zalo";
 import { validateBrowserJsonRequest } from "@/utils/server/request-guard";
 
@@ -9,14 +9,6 @@ const limiter = rateLimit({
 	interval: 60 * 1000, // 1 minute
 	uniqueTokenPerInterval: 500,
 });
-
-function getClientIp(req: NextApiRequest): string {
-	const forwarded = req.headers["x-forwarded-for"];
-	if (typeof forwarded === "string" && forwarded.trim()) {
-		return forwarded.split(",")[0].trim();
-	}
-	return (req.socket?.remoteAddress as string) || "unknown";
-}
 
 /**
  * API Route: Advisory Zalo existence probe for the quote request phone field.
@@ -45,7 +37,11 @@ export default async function handler(
 		});
 	}
 	try {
-		await limiter.check(res as unknown as Response, 20, `PHONE_VALIDATE-${getClientIp(req)}`);
+		const platform =
+			typeof navigator !== "undefined" && navigator.userAgent === "Cloudflare-Workers"
+				? "cloudflare"
+				: "node";
+		await limiter.check(res as unknown as Response, 20, `PHONE_VALIDATE-${getRequestRateLimitToken(req, platform)}`);
 	} catch {
 		return res.status(200).json({ success: true, formatValid: true, zaloRegistered: null });
 	}

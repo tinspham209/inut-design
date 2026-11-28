@@ -18,6 +18,7 @@ export const SPX_SYNC_ERROR_CODES = {
 	SANITY_UPDATE_ERROR: "SANITY_UPDATE_ERROR",
 	SANITY_REVISION_CONFLICT: "SANITY_REVISION_CONFLICT",
 	ORCHESTRATION_ERROR: "SPX_ORCHESTRATION_ERROR",
+	CHECKPOINT_ERROR: "SPX_CHECKPOINT_ERROR",
 } as const;
 
 export type SpxSyncErrorCode =
@@ -81,6 +82,7 @@ export type SpxProviderResult =
 export type EligibleSpxOrder = {
 	_id: string;
 	_rev: string;
+	_createdAt?: string;
 	orderNumber?: string;
 	status: "in_transit";
 	trackingNumber: string;

@@ -1,3 +1,5 @@
+import { Buffer } from "node:buffer";
+
 const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
 const MAX_IMAGE_DIMENSION = 2048;
 const MAX_IMAGE_PIXELS = MAX_IMAGE_DIMENSION * MAX_IMAGE_DIMENSION;
@@ -160,21 +162,23 @@ function webpDimensions(bytes: Uint8Array) {
 	throw new Error("INVALID_IMAGE");
 }
 
-export function decodeBase64Image(data: string): Uint8Array {
+export function decodeBase64Image(data: string): Uint8Array<ArrayBuffer> {
 	if (
 		!data ||
 		data.length % 4 !== 0 ||
-		!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(data)
+		!/^[A-Za-z0-9+/]+={0,2}$/.test(data)
 	) {
 		throw new Error("INVALID_BASE64");
 	}
-	try {
-		const binary = atob(data);
-		if (btoa(binary) !== data) throw new Error("INVALID_BASE64");
-		return Uint8Array.from(binary, (character) => character.charCodeAt(0));
-	} catch {
+	const padding = data.endsWith("==") ? 2 : data.endsWith("=") ? 1 : 0;
+	const lastValue = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".indexOf(
+		data[data.length - padding - 1]
+	);
+	// A permissive decoder ignores unused bits in the final padded quartet.
+	if (lastValue < 0 || (padding === 2 && (lastValue & 15) !== 0) || (padding === 1 && (lastValue & 3) !== 0)) {
 		throw new Error("INVALID_BASE64");
 	}
+	return Buffer.from(data, "base64");
 }
 
 export function validateKeychainImage(

@@ -40,7 +40,7 @@
 		"migration:seo": "node scripts/migration/generate-seo-artifacts.mjs && node scripts/verify-seo.mjs",
 		"migration:release-manifest": "node scripts/migration/release-manifest.mjs",
 		"migration:check-preview-seo": "node scripts/migration/check-preview-seo.mjs",
-		"release:local": "pnpm install --frozen-lockfile && pnpm lint && pnpm exec tsc --noEmit && pnpm build && pnpm build:vinext && pnpm regression:safe && pnpm migration:check-secrets --require-build && pnpm migration:check-worker-graph --require-build && pnpm migration:check-manifests && pnpm migration:check-preview-seo && pnpm exec vinext-cloudflare deploy --dry-run",
+		"release:local": "pnpm install --frozen-lockfile && pnpm lint && pnpm exec tsc --noEmit && pnpm build && pnpm build:vinext && pnpm regression:safe && pnpm migration:check-secrets --require-build && pnpm migration:check-worker-graph --require-build && pnpm migration:check-manifests && pnpm migration:check-preview-seo && DEPLOYMENT_CHANNEL=production INUT_LOCAL_PREBUILT=1 pnpm deploy:vinext --dry-run",
 		"regression:safe": "node scripts/migration/run-safe-regression.mjs",
 		"dev:vinext": "vite dev --port 3001",
 		"build:vinext": "node scripts/migration/check-prerender-routes.mjs && node scripts/migration/test-deployed-paths.mjs && node scripts/migration/validate-env.mjs --stage=build && pnpm migration:current-slugs && pnpm migration:blog-data && pnpm migration:search-index && pnpm migration:seo && node scripts/migration/check-asset-routing.mjs && vite build && node scripts/migration/check-prerender-output.mjs && pnpm migration:static-manifest",

@@ -29,9 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 		if (bytes.byteLength > MAX_BYTES) return res.status(413).json({ error: "Ảnh không được vượt quá 10 MB." });
 		validateKeychainImage(bytes, contentType);
 		const safeFilename = sanitizeKeychainFilename(filename, contentType);
-		const copy = new Uint8Array(bytes.byteLength);
-		copy.set(bytes);
-		const image = await uploadImageAssetToSanity(new Blob([copy.buffer], { type: contentType }), {
+		const image = await uploadImageAssetToSanity(new Blob([bytes], { type: contentType }), {
 			filename: safeFilename,
 			contentType,
 		});

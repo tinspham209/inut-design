@@ -1,10 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { createSpxRepository, type SpxOrderPatcher } from "@/api-client/spx-sync";
 import {
-	getDraftLighterOrders,
-	getEligibleSpxOrders,
-	patchSpxOrder,
-	publishDraftLighterOrder,
-} from "@/api-client/sanity-server";
+	advanceSpxCursor, createSpxBudget, startSpxCursor,
+	SPX_DRAFT_BATCH_SIZE, SPX_ORDER_BATCH_SIZE, type SpxCheckpoint,
+} from "@/utils/spx/checkpoint";
 import {
 	type DraftOrderDocument,
 	type DraftPublishingSummary,
@@ -27,7 +26,6 @@ import {
 	classifySanityError,
 	getPublishedOrderId,
 	getSpxSyncHttpStatus,
-	hasSpxCapacityOverflow,
 	mapWithConcurrency,
 	SANITY_DRAFT_PUBLISH_CONCURRENCY,
 	SPX_SYNC_CONCURRENCY,
@@ -44,6 +42,7 @@ const CRON_JOB_TIMEOUT_MS = 30000;
 const DEFAULT_FUNCTION_TIMEOUT_MS = 30000;
 const RESPONSE_RESERVE_MS = 750;
 const TELEGRAM_RESERVE_MS = 4000;
+const CHECKPOINT_RESERVE_MS = 1500;
 const SPX_PHASE_RESERVE_MS = 12000;
 const MAX_DRAFT_PUBLISH_PHASE_MS = 8000;
 const MAX_SANITY_TIMEOUT_MS = 5000;
@@ -62,6 +61,7 @@ type CronResponse = {
 	telegramAlert: TelegramAlertStatus;
 	telegramAlertErrorCode?: string;
 	results?: SpxOrderSyncResult[];
+	hasMore?: boolean;
 };
 
 type MutationOutcome =
@@ -104,13 +104,11 @@ type AuthorizedRunResult = {
 	publishing: DraftPublishingSummary;
 	results: SpxOrderSyncResult[];
 	alert: AlertResult;
+	hasMore: boolean;
 };
 
-type AuthorizedRunDependencies = {
-	getDraftOrders: typeof getDraftLighterOrders;
-	publishDraftOrder: typeof publishDraftLighterOrder;
-	getEligibleOrders: typeof getEligibleSpxOrders;
-	processEligibleOrder: typeof processOrder;
+type AuthorizedRunDependencies = ReturnType<typeof createSpxRepository> & {
+	processEligibleOrder: (order: EligibleSpxOrder, deadline: number) => Promise<ProcessedOrder>;
 	sendAlert: typeof sendFailureAlert;
 };
 
@@ -167,7 +165,7 @@ function getDraftPublishDeadlineAt(workDeadlineAt: number): number {
 async function publishDraft(
 	draft: DraftOrderDocument,
 	publishDeadlineAt: number,
-	publishDraftOrder: typeof publishDraftLighterOrder
+	publishDraftOrder: AuthorizedRunDependencies["publishDraftOrder"]
 ): Promise<DraftPublishOutcome> {
 	const publishedId = getPublishedOrderId(draft._id) || draft._id;
 	if (Date.now() + 250 >= publishDeadlineAt) {
@@ -242,7 +240,8 @@ function aggregateDraftPublishing(
 async function applyDecision(
 	order: EligibleSpxOrder,
 	decision: SpxPatchDecision,
-	workDeadlineAt: number
+	workDeadlineAt: number,
+	patchOrder: SpxOrderPatcher,
 ): Promise<MutationOutcome> {
 	if (!decision.shouldMutate) return { kind: "not_needed" };
 	if (Date.now() + 250 >= workDeadlineAt) {
@@ -253,7 +252,7 @@ async function applyDecision(
 	}
 
 	try {
-		await patchSpxOrder(
+		await patchOrder(
 			order,
 			decision,
 			getRemainingTimeout(workDeadlineAt, MAX_SANITY_TIMEOUT_MS)
@@ -314,12 +313,13 @@ function addMutationFailure(
 async function processProviderError(
 	order: EligibleSpxOrder,
 	providerResult: Exclude<SpxProviderResult, { kind: "success" } | { kind: "skip" }>,
-	workDeadlineAt: number
+	workDeadlineAt: number,
+	patchOrder: SpxOrderPatcher,
 ): Promise<ProcessedOrder> {
 	const processed = createBaseProcessedOrder(order._id);
 	const errorCode = providerResult.errorCode as SpxPersistedErrorCode;
 	const decision = decideFailedSpxSync(order, errorCode);
-	const mutation = await applyDecision(order, decision, workDeadlineAt);
+	const mutation = await applyDecision(order, decision, workDeadlineAt, patchOrder);
 
 	processed.checked = 1;
 	processed.failed = 1;
@@ -347,11 +347,12 @@ async function processProviderError(
 async function processSuccessfulLookup(
 	order: EligibleSpxOrder,
 	providerResult: Extract<SpxProviderResult, { kind: "success" }>,
-	workDeadlineAt: number
+	workDeadlineAt: number,
+	patchOrder: SpxOrderPatcher,
 ): Promise<ProcessedOrder> {
 	const processed = createBaseProcessedOrder(order._id);
 	const decision = decideSuccessfulSpxSync(order, providerResult.snapshot);
-	const mutation = await applyDecision(order, decision, workDeadlineAt);
+	const mutation = await applyDecision(order, decision, workDeadlineAt, patchOrder);
 
 	processed.checked = 1;
 	processed.result.spxStatus = providerResult.snapshot.status;
@@ -407,10 +408,13 @@ async function processSuccessfulLookup(
 
 async function processOrder(
 	order: EligibleSpxOrder,
-	workDeadlineAt: number
+	workDeadlineAt: number,
+	patchOrder: SpxOrderPatcher,
+	fetchImpl: typeof fetch,
 ): Promise<ProcessedOrder> {
 	try {
 		const providerResult = await fetchSpxTracking(order.trackingNumber, {
+			fetchImpl,
 			timeoutMs: MAX_SPX_TIMEOUT_MS,
 			maxAttempts: 2,
 			deadlineAt: workDeadlineAt,
@@ -423,9 +427,9 @@ async function processOrder(
 			return processed;
 		}
 		if (providerResult.kind === "success") {
-			return processSuccessfulLookup(order, providerResult, workDeadlineAt);
+			return processSuccessfulLookup(order, providerResult, workDeadlineAt, patchOrder);
 		}
-		return processProviderError(order, providerResult, workDeadlineAt);
+		return processProviderError(order, providerResult, workDeadlineAt, patchOrder);
 	} catch {
 		const processed = createBaseProcessedOrder(order._id);
 		processed.result = {
@@ -487,7 +491,8 @@ async function sendFailureAlert(
 	summary: SpxSyncSummary,
 	publishing: DraftPublishingSummary,
 	runTime: Date,
-	responseDeadlineAt: number
+	responseDeadlineAt: number,
+	fetchImpl?: typeof fetch,
 ): Promise<AlertResult> {
 	if (failures.length === 0) return { status: "not_required" };
 
@@ -520,7 +525,7 @@ async function sendFailureAlert(
 		publishing,
 		failures,
 	});
-	const telegram = new TelegramClient(botToken);
+	const telegram = new TelegramClient(botToken, fetchImpl);
 	const result = await sendWithRetry(telegram, chatId, message, {
 		parseMode: "HTML",
 		disableWebPagePreview: true,
@@ -549,6 +554,7 @@ function finishResponse(
 	publishing: DraftPublishingSummary,
 	results: SpxOrderSyncResult[],
 	alert: AlertResult,
+	hasMore: boolean,
 	error?: string
 ) {
 	return res.status(httpStatus).json({
@@ -558,6 +564,7 @@ function finishResponse(
 		finishedAt: new Date().toISOString(),
 		summary,
 		publishing,
+		hasMore,
 		telegramAlert: alert.status,
 		...(alert.errorCode ? { telegramAlertErrorCode: alert.errorCode } : {}),
 		results,
@@ -569,203 +576,153 @@ export async function runAuthorizedSpxSync(input: {
 	responseDeadlineAt: number;
 	workDeadlineAt: number;
 	dependencies?: Partial<AuthorizedRunDependencies>;
+	fetchImpl?: typeof fetch;
 }): Promise<AuthorizedRunResult> {
+	const budget = createSpxBudget(input.fetchImpl);
+	const repository = createSpxRepository(budget.fetch);
 	const dependencies: AuthorizedRunDependencies = {
-		getDraftOrders: getDraftLighterOrders,
-		publishDraftOrder: publishDraftLighterOrder,
-		getEligibleOrders: getEligibleSpxOrders,
-		processEligibleOrder: processOrder,
-		sendAlert: sendFailureAlert,
+		...repository,
+		processEligibleOrder: (order, deadline) => processOrder(order, deadline, repository.patchOrder, budget.fetch),
+		sendAlert: (failures, summary, publishing, startedAt, deadline) =>
+			sendFailureAlert(failures, summary, publishing, startedAt, deadline, budget.fetch),
 		...input.dependencies,
 	};
-	const publishDeadlineAt = getDraftPublishDeadlineAt(input.workDeadlineAt);
-	let drafts: DraftOrderDocument[];
+	const processingDeadlineAt = input.workDeadlineAt - CHECKPOINT_RESERVE_MS;
+	const publishDeadlineAt = getDraftPublishDeadlineAt(processingDeadlineAt);
+	let checkpoint: SpxCheckpoint | undefined;
+	let summary = createEmptySummary();
+	let publishing = createEmptyPublishingSummary();
+	let results: SpxOrderSyncResult[] = [];
+	const failures: SpxFailureRecord[] = [];
+	let hasMore = false;
+	let sanityFailure = false;
+	let transientProviderFailure = false;
+	let error: string | undefined;
+
+	async function finish(): Promise<AuthorizedRunResult> {
+		if (checkpoint) {
+			try {
+				await dependencies.saveCheckpoint(checkpoint, getRemainingTimeout(input.workDeadlineAt, CHECKPOINT_RESERVE_MS));
+			} catch {
+				sanityFailure = true;
+				error = "checkpoint_failed";
+				summary.failed += 1;
+				summary.attentionRequired += 1;
+				failures.push({ phase: "orchestration", errorCode: SPX_SYNC_ERROR_CODES.CHECKPOINT_ERROR });
+			}
+		}
+		const alert = await dependencies.sendAlert(
+			failures, summary, publishing, input.startedAt, input.responseDeadlineAt
+		);
+		return {
+			httpStatus: getSpxSyncHttpStatus({ sanityFailure, transientProviderFailure }),
+			error, summary, publishing, results, alert, hasMore,
+		};
+	}
 
 	try {
-		if (Date.now() + 250 >= publishDeadlineAt) {
-			const timeoutError = new Error("Draft discovery deadline exhausted");
-			timeoutError.name = "AbortError";
-			throw timeoutError;
-		}
-		drafts = await dependencies.getDraftOrders(
-			getRemainingTimeout(publishDeadlineAt, MAX_SANITY_TIMEOUT_MS)
-		);
-	} catch (error) {
-		const errorCode = classifySanityError(error, "draft_query");
-		const summary = createEmptySummary();
-		const publishing = createEmptyPublishingSummary();
+		checkpoint = await dependencies.readCheckpoint(getRemainingTimeout(publishDeadlineAt, MAX_SANITY_TIMEOUT_MS));
+	} catch {
+		sanityFailure = true;
+		error = "checkpoint_failed";
 		summary.failed = 1;
 		summary.attentionRequired = 1;
-		const failures: SpxFailureRecord[] = [
-			{ phase: "sanity_publish", errorCode },
-		];
-		const alert = await dependencies.sendAlert(
-			failures,
-			summary,
-			publishing,
-			input.startedAt,
-			input.responseDeadlineAt
-		);
-		console.error("[SPX Sync] Sanity draft discovery failed:", errorCode);
-		return {
-			httpStatus: 500,
-			error: "sanity_draft_query_failed",
-			summary,
-			publishing,
-			results: [],
-			alert,
-		};
+		failures.push({ phase: "orchestration", errorCode: SPX_SYNC_ERROR_CODES.CHECKPOINT_ERROR });
+		return finish();
 	}
 
-	const draftOutcomes = await mapWithConcurrency(
-		drafts,
-		SANITY_DRAFT_PUBLISH_CONCURRENCY,
-		(draft) => publishDraft(draft, publishDeadlineAt, dependencies.publishDraftOrder)
-	);
-	const draftPublishing = aggregateDraftPublishing(drafts, draftOutcomes);
+	const draftCursor = startSpxCursor(checkpoint.drafts, input.startedAt);
+	try {
+		if (Date.now() + 250 >= publishDeadlineAt) {
+			hasMore = true;
+		} else {
+			const drafts = await dependencies.getDraftOrders(
+				getRemainingTimeout(publishDeadlineAt, MAX_SANITY_TIMEOUT_MS), draftCursor,
+			);
+			const selected = drafts.slice(0, SPX_DRAFT_BATCH_SIZE);
+			const outcomes = await mapWithConcurrency(selected, SANITY_DRAFT_PUBLISH_CONCURRENCY, (draft) =>
+				Date.now() + 250 >= publishDeadlineAt
+					? Promise.resolve(null)
+					: publishDraft(draft, publishDeadlineAt, dependencies.publishDraftOrder)
+			);
+			const attempted = outcomes.findIndex((outcome) => outcome === null);
+			const prefix = attempted < 0 ? outcomes.length : attempted;
+			const aggregated = aggregateDraftPublishing(
+				selected.filter((_, index) => outcomes[index] !== null),
+				outcomes.filter((outcome): outcome is DraftPublishOutcome => outcome !== null),
+			);
+			publishing = { ...aggregated.publishing, queried: drafts.length };
+			results = aggregated.results;
+			failures.push(...aggregated.failures);
+			summary.failed += publishing.failed;
+			summary.attentionRequired += publishing.failed;
+			sanityFailure = publishing.failed > 0;
+			if (sanityFailure) error = "sanity_publish_failed";
+			hasMore ||= drafts.length > prefix;
+			checkpoint = { ...checkpoint, drafts: advanceSpxCursor(draftCursor, drafts, prefix) };
+		}
+	} catch (cause) {
+		sanityFailure = true;
+		error = "sanity_draft_query_failed";
+		summary.failed += 1;
+		summary.attentionRequired += 1;
+		failures.push({ phase: "sanity_publish", errorCode: classifySanityError(cause, "draft_query") });
+		return finish();
+	}
 
+	if (Date.now() + 250 >= processingDeadlineAt) {
+		hasMore = true;
+		return finish();
+	}
+	const orderCursor = startSpxCursor(checkpoint.orders, input.startedAt);
 	let orders: EligibleSpxOrder[];
 	try {
-		if (Date.now() + 250 >= input.workDeadlineAt) {
-			const timeoutError = new Error("SPX discovery deadline exhausted");
-			timeoutError.name = "AbortError";
-			throw timeoutError;
-		}
 		orders = await dependencies.getEligibleOrders(
-			getRemainingTimeout(input.workDeadlineAt, MAX_SANITY_TIMEOUT_MS)
+			getRemainingTimeout(processingDeadlineAt, MAX_SANITY_TIMEOUT_MS), orderCursor,
 		);
-	} catch (error) {
-		const errorCode = classifySanityError(error, "query");
-		const summary = createEmptySummary();
-		summary.failed = draftPublishing.publishing.failed + 1;
-		summary.attentionRequired = draftPublishing.publishing.failed + 1;
-		const failures: SpxFailureRecord[] = [
-			...draftPublishing.failures,
-			{ phase: "sanity_query", errorCode },
-		];
-		const alert = await dependencies.sendAlert(
-			failures,
-			summary,
-			draftPublishing.publishing,
-			input.startedAt,
-			input.responseDeadlineAt
-		);
-		console.error("[SPX Sync] Sanity SPX discovery failed:", errorCode);
-		return {
-			httpStatus: 500,
-			error: "sanity_query_failed",
-			summary,
-			publishing: draftPublishing.publishing,
-			results: draftPublishing.results,
-			alert,
-		};
+	} catch (cause) {
+		sanityFailure = true;
+		error = "sanity_query_failed";
+		summary.failed += 1;
+		summary.attentionRequired += 1;
+		failures.push({ phase: "sanity_query", errorCode: classifySanityError(cause, "query") });
+		return finish();
 	}
-
-	if (hasSpxCapacityOverflow(orders.length)) {
-		const summary = createEmptySummary(orders.length);
-		summary.failed = draftPublishing.publishing.failed + 1;
-		summary.attentionRequired = draftPublishing.publishing.failed + 1;
-		const failures: SpxFailureRecord[] = [
-			...draftPublishing.failures,
-			{
-				phase: "orchestration",
-				errorCode: SPX_SYNC_ERROR_CODES.CAPACITY_EXCEEDED,
-			},
-		];
-		const alert = await dependencies.sendAlert(
-			failures,
-			summary,
-			draftPublishing.publishing,
-			input.startedAt,
-			input.responseDeadlineAt
-		);
-		const hasDraftFailures = draftPublishing.publishing.failed > 0;
-		return {
-			httpStatus: getSpxSyncHttpStatus({
-				capacityOverflow: true,
-				sanityFailure: hasDraftFailures,
-			}),
-			error: hasDraftFailures
-				? "draft_publish_failed_and_capacity_exceeded"
-				: "capacity_exceeded",
-			summary,
-			publishing: draftPublishing.publishing,
-			results: draftPublishing.results,
-			alert,
-		};
-	}
-
 	try {
 		const processedOrders = await mapWithConcurrency(
-			orders,
+			orders.slice(0, SPX_ORDER_BATCH_SIZE),
 			SPX_SYNC_CONCURRENCY,
-			(order) => dependencies.processEligibleOrder(order, input.workDeadlineAt)
+			(order) => Date.now() + 250 >= processingDeadlineAt
+				? Promise.resolve(null)
+				: dependencies.processEligibleOrder(order, processingDeadlineAt)
 		);
-		const aggregated = aggregateProcessedOrders(orders.length, processedOrders);
-		aggregated.summary.failed += draftPublishing.publishing.failed;
-		aggregated.summary.attentionRequired += draftPublishing.publishing.failed;
-		const failures = [...draftPublishing.failures, ...aggregated.failures];
-		const hasDraftFailures = draftPublishing.publishing.failed > 0;
-		const httpStatus = getSpxSyncHttpStatus({
-			sanityFailure: hasDraftFailures || aggregated.sanityFailure,
-			transientProviderFailure: aggregated.transientProviderFailure,
-		});
-		const alert = await dependencies.sendAlert(
-			failures,
-			aggregated.summary,
-			draftPublishing.publishing,
-			input.startedAt,
-			input.responseDeadlineAt
+		const attempted = processedOrders.findIndex((result) => result === null);
+		const prefix = attempted < 0 ? processedOrders.length : attempted;
+		const aggregated = aggregateProcessedOrders(
+			orders.length, processedOrders.filter((result): result is ProcessedOrder => result !== null),
 		);
-
-		return {
-			httpStatus,
-			error:
-				httpStatus === 500
-					? hasDraftFailures
-						? aggregated.sanityFailure
-							? "sanity_publish_and_update_failed"
-							: "sanity_publish_failed"
-						: "sanity_update_failed"
-					: httpStatus === 502
-					? "spx_provider_failed"
-					: undefined,
-			summary: aggregated.summary,
-			publishing: draftPublishing.publishing,
-			results: [...draftPublishing.results, ...aggregated.results],
-			alert,
-		};
+		aggregated.summary.failed += publishing.failed;
+		aggregated.summary.attentionRequired += publishing.failed;
+		summary = aggregated.summary;
+		results.push(...aggregated.results);
+		failures.push(...aggregated.failures);
+		sanityFailure ||= aggregated.sanityFailure;
+		transientProviderFailure = aggregated.transientProviderFailure;
+		error = sanityFailure
+			? publishing.failed > 0
+				? aggregated.sanityFailure ? "sanity_publish_and_update_failed" : "sanity_publish_failed"
+				: "sanity_update_failed"
+			: transientProviderFailure ? "spx_provider_failed" : undefined;
+		hasMore ||= orders.length > prefix;
+		checkpoint = { ...checkpoint, orders: advanceSpxCursor(orderCursor, orders, prefix) };
 	} catch {
-		const summary = createEmptySummary(orders.length);
-		summary.failed = draftPublishing.publishing.failed + 1;
-		summary.attentionRequired = draftPublishing.publishing.failed + 1;
-		const failures: SpxFailureRecord[] = [
-			...draftPublishing.failures,
-			{
-				phase: "orchestration",
-				errorCode: SPX_SYNC_ERROR_CODES.ORCHESTRATION_ERROR,
-			},
-		];
-		const alert = await dependencies.sendAlert(
-			failures,
-			summary,
-			draftPublishing.publishing,
-			input.startedAt,
-			input.responseDeadlineAt
-		);
-		console.error(
-			"[SPX Sync] Orchestration failed:",
-			SPX_SYNC_ERROR_CODES.ORCHESTRATION_ERROR
-		);
-		return {
-			httpStatus: 500,
-			error: "orchestration_failed",
-			summary,
-			publishing: draftPublishing.publishing,
-			results: draftPublishing.results,
-			alert,
-		};
+		sanityFailure = true;
+		error = "orchestration_failed";
+		summary.failed += 1;
+		summary.attentionRequired += 1;
+		failures.push({ phase: "orchestration", errorCode: SPX_SYNC_ERROR_CODES.ORCHESTRATION_ERROR });
 	}
+	return finish();
 }
 
 export default async function handler(
@@ -820,6 +777,7 @@ export default async function handler(
 		result.publishing,
 		result.results,
 		result.alert,
+		result.hasMore,
 		result.error
 	);
 }

@@ -33,13 +33,20 @@ function rateLimit(options?: Options) {
 	};
 }
 
-export function getRequestRateLimitToken(req: NextApiRequest): string {
+export function getRequestRateLimitToken(
+	req: NextApiRequest,
+	platform?: "cloudflare" | "node",
+): string {
+	const connectingIp = req.headers["cf-connecting-ip"];
+	if (platform === "cloudflare" && typeof connectingIp === "string" && connectingIp.trim()) {
+		return connectingIp.trim();
+	}
 	const forwardedFor = req.headers["x-forwarded-for"];
 	const forwardedAddress = Array.isArray(forwardedFor) ? forwardedFor[0] : forwardedFor?.split(",")[0];
 	return (
 		forwardedAddress?.trim() ||
 		req.socket?.remoteAddress ||
-		(typeof req.headers["cf-connecting-ip"] === "string"
+		(platform !== "node" && typeof req.headers["cf-connecting-ip"] === "string"
 			? req.headers["cf-connecting-ip"]
 			: "unknown")
 	);

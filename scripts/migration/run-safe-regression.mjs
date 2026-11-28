@@ -54,6 +54,11 @@ for (const fixture of fixtures) {
 
 const pureChecks = [
 	{
+		name: "worker-runtime-apis",
+		command: ["node", "--import", "./scripts/register-typescript-loader.mjs", "--test",
+			"scripts/tests/keychain-image-validation.test.mjs", "scripts/tests/worker-api.test.mjs"],
+	},
+	{
 		name: "spx-regression",
 		command: ["pnpm", "regression:spx"],
 	},

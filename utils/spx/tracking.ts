@@ -364,6 +364,7 @@ export async function fetchSpxTracking(
 			});
 
 			if (!response.ok) {
+				await response.body?.cancel();
 				if (
 					response.status >= 500 &&
 					canRetry(attempt, maxAttempts, deadlineAt, now)

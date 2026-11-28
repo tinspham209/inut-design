@@ -12,10 +12,12 @@ const VIETNAM_TIMEZONE = "Asia/Ho_Chi_Minh";
 export class TelegramClient {
 	private botToken: string;
 	private baseUrl: string;
+	private fetchImpl?: typeof fetch;
 
-	constructor(botToken: string) {
+	constructor(botToken: string, fetchImpl?: typeof fetch) {
 		this.botToken = botToken;
 		this.baseUrl = `https://api.telegram.org/bot${botToken}`;
+		this.fetchImpl = fetchImpl;
 	}
 
 	/**
@@ -40,6 +42,27 @@ export class TelegramClient {
 		error?: string;
 	}> {
 		try {
+			if (this.fetchImpl) {
+				const response = await this.fetchImpl(`${this.baseUrl}/sendMessage`, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						chat_id: chatId, text, parse_mode: options?.parseMode || "HTML",
+						disable_web_page_preview: options?.disableWebPagePreview ?? false,
+						disable_notification: options?.disableNotification ?? false,
+						reply_markup: options?.replyMarkup,
+					}),
+					signal: AbortSignal.timeout(options?.requestTimeoutMs || 1200),
+				});
+				if (!response.ok) {
+					await response.body?.cancel();
+					return { success: false, error: "TELEGRAM_SEND_FAILED" };
+				}
+				const data = await response.json() as { ok?: boolean; result?: { message_id?: number } };
+				return data.ok && typeof data.result?.message_id === "number"
+					? { success: true, messageId: data.result.message_id }
+					: { success: false, error: "TELEGRAM_SEND_FAILED" };
+			}
 			const response = await axios.post(
 				`${this.baseUrl}/sendMessage`,
 				{

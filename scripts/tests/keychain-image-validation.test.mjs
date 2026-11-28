@@ -49,3 +49,17 @@ test("rejects browser output above the Worker dimensions and pixel ceiling", asy
 	);
 	assert.throws(() => validateKeychainImage(oversized, "image/png"), /INVALID_IMAGE/);
 });
+
+test("decodes exact bytes at the 10 MiB boundary without a regex stack overflow", () => {
+	const bytes = Buffer.alloc(10 * 1024 * 1024, 0xa5);
+	assert.deepEqual(decodeBase64Image(bytes.toString("base64")), bytes);
+});
+
+test("enforces standard canonical padding, alphabet and trailing bits", () => {
+	for (const value of ["AA==", "/w==", "AAA=", "//8=", "AAAA", "aGVsbG8="]) {
+		assert.equal(Buffer.from(decodeBase64Image(value)).toString("base64"), value);
+	}
+	for (const value of ["", "A", "AAA", "====", "A===", "AA=A", "AB==", "AAB=", "//9=", "/x==", " AA==", "AA==\n", "AAA\n", "AAA\r", "AA\r\n", "__==", "AA==AAAA"]) {
+		assert.throws(() => decodeBase64Image(value), /INVALID_BASE64/, value);
+	}
+});

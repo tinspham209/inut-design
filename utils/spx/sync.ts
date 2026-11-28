@@ -4,16 +4,17 @@ import {
 	type SpxSyncErrorCode,
 } from "@/models/spxTracking";
 import type { Mutation } from "@sanity/client";
+import { SPX_DRAFT_BATCH_SIZE, SPX_ORDER_BATCH_SIZE } from "@/utils/spx/checkpoint";
 
-export const SPX_MAX_ELIGIBLE_ORDERS = 25;
-export const SPX_ELIGIBLE_ORDER_QUERY_LIMIT = 26;
 export const SPX_SYNC_CONCURRENCY = 5;
 export const SANITY_DRAFT_PUBLISH_CONCURRENCY = 3;
 
 export const SANITY_DRAFT_ORDERS_QUERY = `*[
   _type == "ordersLighter" &&
-  _id in path("drafts.**")
-] | order(_id asc) {
+  _id in path("drafts.**") &&
+  _createdAt <= $cutoff &&
+  (_createdAt > $createdAt || (_createdAt == $createdAt && _id > $id))
+] | order(_createdAt asc, _id asc) [0...${SPX_DRAFT_BATCH_SIZE + 1}] {
   ...
 }`;
 
@@ -22,10 +23,13 @@ export const SPX_ELIGIBLE_ORDERS_QUERY = `*[
   !(_id in path("drafts.**")) &&
   status == "in_transit" &&
   defined(trackingNumber) &&
-  trackingNumber != ""
-] | order(_createdAt asc) [0...26] {
+  trackingNumber != "" &&
+  _createdAt <= $cutoff &&
+  (_createdAt > $createdAt || (_createdAt == $createdAt && _id > $id))
+] | order(_createdAt asc, _id asc) [0...${SPX_ORDER_BATCH_SIZE + 1}] {
   _id,
   _rev,
+  _createdAt,
   orderNumber,
   status,
   trackingNumber,
@@ -53,10 +57,6 @@ export function stripServerManagedSpxFields<T extends Record<string, unknown>>(i
 		delete sanitized[field];
 	});
 	return sanitized;
-}
-
-export function hasSpxCapacityOverflow(orderCount: number): boolean {
-	return orderCount >= SPX_ELIGIBLE_ORDER_QUERY_LIMIT;
 }
 
 export function getPublishedOrderId(draftId: string): string | null {

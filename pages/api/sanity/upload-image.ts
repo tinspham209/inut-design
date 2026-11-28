@@ -53,9 +53,7 @@ export default async function handler(
 
 	try {
 		const bytes = decodeBase64Image(data);
-		const copy = new Uint8Array(bytes.byteLength);
-		copy.set(bytes);
-		const asset = await uploadImageAssetToSanity(new Blob([copy.buffer], {
+		const asset = await uploadImageAssetToSanity(new Blob([bytes], {
 			type: contentType,
 		}), {
 			filename: typeof filename === "string" ? filename : "design.webp",
@@ -63,6 +61,9 @@ export default async function handler(
 		});
 		return res.status(200).json(asset);
 	} catch (error) {
+		if (error instanceof Error && error.message === "INVALID_BASE64") {
+			return res.status(400).json({ error: "Invalid image upload" });
+		}
 		console.error("Error uploading image to Sanity:", error);
 		return res.status(500).json({ error: "Failed to upload image. Please try again." });
 	}

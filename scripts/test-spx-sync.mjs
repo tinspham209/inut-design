@@ -20,7 +20,6 @@ import {
 	classifySanityError,
 	getPublishedOrderId,
 	getSpxSyncHttpStatus,
-	hasSpxCapacityOverflow,
 	mapWithConcurrency,
 	SANITY_DRAFT_ORDERS_QUERY,
 	SPX_ELIGIBLE_ORDERS_QUERY,
@@ -36,6 +35,10 @@ import {
 	SPX_TRACKING_ENDPOINT,
 } from "../utils/spx/tracking.ts";
 import { SPX_SYNC_ERROR_CODES } from "../models/spxTracking.ts";
+import {
+	SPX_CHECKPOINT_ID, SPX_DRAFT_BATCH_SIZE, SPX_ORDER_BATCH_SIZE,
+	createSpxBudget,
+} from "../utils/spx/checkpoint.ts";
 import { formatSpxSyncErrorMessage } from "../utils/telegram/formatSpxSyncErrorMessage.ts";
 import { sendWithRetry } from "../utils/telegram/index.ts";
 import { validateTelegramCredentials } from "../utils/telegram/validateTelegramEnv.ts";
@@ -57,7 +60,7 @@ import {
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ||= "test-project";
 process.env.NEXT_PUBLIC_SANITY_DATASET ||= "test";
-const { runAuthorizedSpxSync } = await import(
+const { runAuthorizedSpxSync, default: cronHandler } = await import(
 	"../pages/api/cron/sync-spx-orders.ts"
 );
 let passed = 0;
@@ -78,6 +81,7 @@ function eligibleOrder(overrides = {}) {
 	return {
 		_id: "synthetic-order-id",
 		_rev: "synthetic-revision",
+		_createdAt: "2026-08-28T00:00:00.000Z",
 		status: "in_transit",
 		trackingNumber: TRACKING_CODES.delivered,
 		...overrides,
@@ -124,7 +128,11 @@ function authorizedRunInput(dependencies) {
 		startedAt: new Date(now),
 		responseDeadlineAt: now + 29000,
 		workDeadlineAt: now + 25000,
-		dependencies,
+		dependencies: {
+			readCheckpoint: async () => ({ _id: SPX_CHECKPOINT_ID, _rev: "checkpoint-rev", version: 1, drafts: null, orders: null }),
+			saveCheckpoint: async () => {},
+			...dependencies,
+		},
 	};
 }
 
@@ -697,17 +705,16 @@ await test("reconciles a stored Return/Returned order to cancelled even with unc
 	assert.equal(decision.set.status, "cancelled");
 });
 
-await test("enforces published-only discovery, overflow sentinel, and bounded concurrency", async () => {
+await test("enforces bounded published-only discovery and bounded concurrency", async () => {
 	assert.equal(SANITY_DRAFT_ORDERS_QUERY.includes('_type == "ordersLighter"'), true);
 	assert.equal(SANITY_DRAFT_ORDERS_QUERY.includes('_id in path("drafts.**")'), true);
 	assert.equal(SANITY_DRAFT_ORDERS_QUERY.includes("{\n  ...\n}"), true);
 	assert.equal(SANITY_DRAFT_ORDERS_QUERY.includes("status =="), false);
 	assert.equal(SANITY_DRAFT_ORDERS_QUERY.includes("trackingNumber"), false);
 	assert.equal(SPX_ELIGIBLE_ORDERS_QUERY.includes('!(_id in path("drafts.**"))'), true);
-	assert.equal(SPX_ELIGIBLE_ORDERS_QUERY.includes("[0...26]"), true);
+	assert.equal(SPX_ELIGIBLE_ORDERS_QUERY.includes("[0...11]"), true);
+	assert.equal(SANITY_DRAFT_ORDERS_QUERY.includes("[0...9]"), true);
 	assert.equal(SPX_ELIGIBLE_ORDERS_QUERY.includes("spxSyncNote"), true);
-	assert.equal(hasSpxCapacityOverflow(25), false);
-	assert.equal(hasSpxCapacityOverflow(26), true);
 
 	let active = 0;
 	let maxActive = 0;
@@ -941,7 +948,7 @@ await test("aborts after draft discovery failure and sends one Sanity publish al
 	assert.equal(alertCalls, 1);
 });
 
-await test("reports capacity overflow after publishing without processing SPX orders", async () => {
+await test("processes a bounded backlog after publishing without capacity alerts", async () => {
 	let processCalls = 0;
 	let alertCalls = 0;
 	const result = await runAuthorizedSpxSync(
@@ -958,23 +965,18 @@ await test("reports capacity overflow after publishing without processing SPX or
 			},
 			sendAlert: async (failures, _summary, publishing) => {
 				alertCalls += 1;
-				assert.equal(
-					failures.some(
-						(failure) =>
-							failure.errorCode === SPX_SYNC_ERROR_CODES.CAPACITY_EXCEEDED
-					),
-					true
-				);
+				assert.deepEqual(failures, []);
 				assert.equal(publishing.published, 1);
-				return { status: "sent" };
+				return { status: "not_required" };
 			},
 		})
 	);
-	assert.equal(result.httpStatus, 409);
-	assert.equal(result.error, "capacity_exceeded");
+	assert.equal(result.httpStatus, 200);
+	assert.equal(result.error, undefined);
+	assert.equal(result.hasMore, true);
 	assert.equal(result.summary.queried, 26);
 	assert.equal(result.publishing.published, 1);
-	assert.equal(processCalls, 0);
+	assert.equal(processCalls, SPX_ORDER_BATCH_SIZE);
 	assert.equal(alertCalls, 1);
 
 	const combined = await runAuthorizedSpxSync(
@@ -987,14 +989,13 @@ await test("reports capacity overflow after publishing without processing SPX or
 				Array.from({ length: 26 }, (_, index) =>
 					eligibleOrder({ _id: `combined-capacity-${index}` })
 				),
-			processEligibleOrder: async () => {
-				throw new Error("Capacity overflow must stop SPX processing");
-			},
+			processEligibleOrder: async (order) => processedOrderResult(order._id),
 			sendAlert: async () => ({ status: "sent" }),
 		})
 	);
 	assert.equal(combined.httpStatus, 500);
-	assert.equal(combined.error, "draft_publish_failed_and_capacity_exceeded");
+	assert.equal(combined.error, "sanity_publish_failed");
+	assert.equal(combined.hasMore, true);
 });
 
 await test("combines draft-publish and SPX failures into one alert and prefers HTTP 500", async () => {
@@ -1300,7 +1301,7 @@ await test("keeps route auth before external calls and Sanity mutations guarded/
 		"utf8"
 	);
 	const sanitySource = await readFile(
-		path.join(repositoryRoot, "api-client/sanity-server.ts"),
+		path.join(repositoryRoot, "api-client/spx-sync.ts"),
 		"utf8"
 	);
 	assert.equal(
@@ -1308,12 +1309,180 @@ await test("keeps route auth before external calls and Sanity mutations guarded/
 			routeSource.lastIndexOf("runAuthorizedSpxSync({"),
 		true
 	);
-	assert.equal(sanitySource.includes('visibility: "sync"'), true);
+	assert.equal(sanitySource.includes("visibility=sync"), true);
 	assert.equal(sanitySource.includes("buildDraftPublishMutations(draft)"), true);
-	assert.equal(sanitySource.includes(".ifRevisionId(order._rev)"), true);
-	assert.equal(sanitySource.includes("returnDocuments: false"), true);
-	assert.equal(sanitySource.includes('visibility: "async"'), true);
-	assert.equal(sanitySource.includes("if (!decision.shouldMutate) return null"), true);
+	assert.equal(sanitySource.includes("ifRevisionID: order._rev"), true);
+	assert.equal(sanitySource.includes("returnDocuments = false"), true);
+	assert.equal(sanitySource.includes("if (!decision.shouldMutate) return Promise.resolve(null)"), true);
+});
+
+await test("counts all cron transport attempts including init, failed lookups, writes and alerts", async () => {
+	const savedEnv = { ...process.env };
+	Object.assign(process.env, {
+		NEXT_PUBLIC_SANITY_PROJECT_ID: "fixture", NEXT_PUBLIC_SANITY_DATASET: "test",
+		SANITY_TOKEN: "synthetic-token",
+		SPX_SYNC_TELEGRAM_BOT_TOKEN: "123456789:ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi",
+		SPX_SYNC_TELEGRAM_CHAT_ID: "-1001234567890",
+	});
+	let calls = 0;
+	let telegramCalls = 0;
+	let checkpointSaved = false;
+	let checkpoint = null;
+	const fetchImpl = async (input, init) => {
+		calls++;
+		assert.equal(init.redirect, "error", "redirect hops must not escape accounting");
+		const url = new URL(input);
+		if (url.hostname === "spx.vn") return new Response("temporary", { status: 503 });
+		if (url.hostname === "api.telegram.org") {
+			telegramCalls++;
+			return new Response("temporary", { status: 503 });
+		}
+		assert.equal(url.hostname, "fixture.api.sanity.io");
+		if (url.pathname.includes("/query/")) {
+			const query = url.searchParams.get("query");
+			if (query.includes("_id == $id")) return Response.json({ result: checkpoint });
+			if (query.includes('!(_id in path("drafts.**"))')) {
+				return Response.json({ result: Array.from({ length: SPX_ORDER_BATCH_SIZE + 1 }, (_, i) =>
+					eligibleOrder({ _id: `order-${String(i).padStart(2, "0")}` })) });
+			}
+			return Response.json({ result: Array.from({ length: SPX_DRAFT_BATCH_SIZE + 1 }, (_, i) => draftOrder(`draft-${i}`)) });
+		}
+		const { mutations } = JSON.parse(init.body);
+		if (mutations[0].create) {
+			checkpoint = { ...mutations[0].create, _rev: "initial" };
+			return Response.json({ results: [{ document: checkpoint }] });
+		}
+		const patch = mutations[0].patch;
+		assert.ok(patch.ifRevisionID);
+		if (patch.id === SPX_CHECKPOINT_ID) {
+			checkpointSaved = true;
+			checkpoint = { ...checkpoint, ...patch.set, _rev: "next" };
+		}
+		return Response.json({ results: [] });
+	};
+	try {
+		const now = Date.now();
+		const result = await runAuthorizedSpxSync({
+			startedAt: new Date(now), workDeadlineAt: now + 25000, responseDeadlineAt: now + 29000, fetchImpl,
+		});
+		assert.equal(result.httpStatus, 502);
+		assert.equal(result.hasMore, true);
+		assert.equal(result.publishing.attempted, 8);
+		assert.equal(result.summary.checked, 10);
+		assert.equal(telegramCalls, 2);
+		assert.equal(calls, 45);
+		assert.equal(checkpointSaved, true);
+		assert.equal(checkpoint.orders.id, "order-09");
+		assert.equal(checkpoint.drafts.id, "drafts.draft-7");
+		const budget = createSpxBudget(async () => new Response());
+		for (let i = 0; i < 45; i++) await budget.fetch("https://fixture.test");
+		assert.throws(() => budget.fetch("https://fixture.test"), /BUDGET_EXHAUSTED/);
+		assert.equal(budget.used, 45);
+	} finally {
+		for (const key of Object.keys(process.env)) if (!(key in savedEnv)) delete process.env[key];
+		Object.assign(process.env, savedEnv);
+	}
+});
+
+await test("saved cursors reach persistent later candidates after cold starts and wrap safely", async () => {
+	let checkpoint = { _id: SPX_CHECKPOINT_ID, _rev: "r0", version: 1, drafts: null, orders: null };
+	const orders = Array.from({ length: 23 }, (_, i) => eligibleOrder({ _id: `order-${String(i).padStart(2, "0")}` }));
+	const drafts = Array.from({ length: 18 }, (_, i) => draftOrder(`draft-${String(i).padStart(2, "0")}`));
+	const checked = [];
+	const attempted = [];
+	const page = (items, cursor, limit) => items.filter((item) =>
+		item._createdAt <= cursor.cutoff &&
+		(item._createdAt > cursor.createdAt || (item._createdAt === cursor.createdAt && item._id > cursor.id))
+	).slice(0, limit + 1);
+	const run = () => runAuthorizedSpxSync(authorizedRunInput({
+		readCheckpoint: async () => structuredClone(checkpoint),
+		saveCheckpoint: async (next) => {
+			assert.equal(next._rev, checkpoint._rev);
+			checkpoint = structuredClone({ ...next, _rev: `${checkpoint._rev}x` });
+		},
+		getDraftOrders: async (_, cursor) => page(drafts, cursor, 8),
+		getEligibleOrders: async (_, cursor) => page(orders, cursor, 10),
+		publishDraftOrder: async (draft) => { attempted.push(draft._id); throw new Error("persistent failure"); },
+		processEligibleOrder: async (order) => { checked.push(order._id); return processedOrderResult(order._id); },
+		sendAlert: async () => ({ status: "sent" }),
+	}));
+	assert.equal((await run()).hasMore, true);
+	assert.equal((await run()).hasMore, true);
+	assert.equal((await run()).hasMore, false);
+	assert.deepEqual(checked, orders.map((order) => order._id));
+	assert.deepEqual(attempted, drafts.map((draft) => draft._id));
+	assert.equal(checkpoint.orders, null);
+	assert.equal(checkpoint.drafts, null);
+	await run();
+	assert.equal(checked[23], "order-00");
+});
+
+await test("deadline deferral does not advance over untouched rows or create provider failures", async () => {
+	const originalNow = Date.now;
+	let time = originalNow();
+	const now = time;
+	const orders = Array.from({ length: 11 }, (_, i) => eligibleOrder({ _id: `order-${i}` }));
+	let checkpoint;
+	try {
+		Date.now = () => time;
+		const result = await runAuthorizedSpxSync({
+			...authorizedRunInput({
+				getDraftOrders: async () => [],
+				getEligibleOrders: async () => orders,
+				processEligibleOrder: async (order) => {
+					time = now + 25000;
+					return processedOrderResult(order._id);
+				},
+				saveCheckpoint: async (next) => { checkpoint = next; },
+				sendAlert: async (failures) => { assert.deepEqual(failures, []); return { status: "not_required" }; },
+			}),
+			startedAt: new Date(now),
+		});
+		assert.equal(result.httpStatus, 200);
+		assert.equal(result.hasMore, true);
+		assert.equal(result.summary.checked, 1);
+		assert.equal(checkpoint.orders.id, "order-0");
+	} finally { Date.now = originalNow; }
+});
+
+await test("checkpoint read and stale writes fail closed without claiming saved progress", async () => {
+	for (const phase of ["readCheckpoint", "saveCheckpoint"]) {
+		let saved = false;
+		const result = await runAuthorizedSpxSync(authorizedRunInput({
+			getDraftOrders: async () => [],
+			getEligibleOrders: async () => [],
+			saveCheckpoint: async () => { saved = true; },
+			[phase]: async () => { throw Object.assign(new Error("checkpoint conflict"), { statusCode: 409 }); },
+			sendAlert: async (failures) => {
+				assert.equal(failures[0].errorCode, SPX_SYNC_ERROR_CODES.CHECKPOINT_ERROR);
+				return { status: "sent" };
+			},
+		}));
+		assert.equal(result.httpStatus, 500);
+		assert.equal(result.error, "checkpoint_failed");
+		assert.equal(saved, false);
+	}
+});
+
+await test("cron handler rejects GET and invalid credentials before any transport call", async () => {
+	const originalFetch = globalThis.fetch;
+	const originalSecret = process.env.SPX_SYNC_SECRET;
+	let calls = 0;
+	globalThis.fetch = async () => { calls++; throw new Error("Auth must precede transport"); };
+	process.env.SPX_SYNC_SECRET = "synthetic-secret";
+	try {
+		for (const [method, headers, status] of [["GET", {}, 405], ["POST", {}, 401], ["POST", { "x-cron-secret": "wrong" }, 401]]) {
+			const response = { setHeader() {}, status(code) { this.code = code; return this; }, json(body) { this.body = body; return this; } };
+			await cronHandler({ method, headers }, response);
+			assert.equal(response.code, status);
+			assert.equal(response.body.telegramAlert, "not_required");
+		}
+		assert.equal(calls, 0);
+	} finally {
+		globalThis.fetch = originalFetch;
+		if (originalSecret === undefined) delete process.env.SPX_SYNC_SECRET;
+		else process.env.SPX_SYNC_SECRET = originalSecret;
+	}
 });
 
 console.log(`\nSPX regression passed: ${passed} deterministic checks`);
