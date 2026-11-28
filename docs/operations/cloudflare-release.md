@@ -33,6 +33,15 @@ owner-directed TODO and must not happen automatically.
 - For future releases, retain Free-first operation. Do not prepare or execute a
   Paid upgrade until the owner requests that work.
 
+## Publishing Sanity Content with the Static Page Cache
+
+Once the static page cache change is deployed, eligible pages use the content
+snapshot created at build time. Sanity edits do not update that snapshot through
+timed revalidation. To publish them, the owner runs `pnpm release:local`, then
+`pnpm deploy:vinext` after the release and preview prerequisites pass. Verify
+the changed page and its client navigation data after deployment. A rollback
+restores the previous deployment's content snapshot as well as its code.
+
 ## Dry Run and Deploy
 
 1. In GitHub Actions, dispatch `.github/workflows/deploy-web.yml`.

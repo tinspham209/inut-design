@@ -57,3 +57,6 @@ const ContactForm: NextPageWithLayout = () => {
 ContactForm.Layout = MainLayout;
 
 export default ContactForm;
+
+// Keep request-dependent pages out of the shared prerender cache.
+export const getServerSideProps = async () => ({ props: {} });

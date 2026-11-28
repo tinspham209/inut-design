@@ -33,3 +33,6 @@ const BuilderIndexPage: NextPageWithLayout = () => (
 BuilderIndexPage.Layout = MainLayout;
 
 export default BuilderIndexPage;
+
+// Keep request-dependent pages out of the shared prerender cache.
+export const getServerSideProps = async () => ({ props: {} });

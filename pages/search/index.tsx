@@ -323,3 +323,6 @@ const Search: NextPageWithLayout = () => {
 
 Search.Layout = MainLayout;
 export default Search;
+
+// Keep request-dependent pages out of the shared prerender cache.
+export const getServerSideProps = async () => ({ props: {} });

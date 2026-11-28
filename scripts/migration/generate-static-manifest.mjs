@@ -25,11 +25,12 @@ function isPublicRoute(route) {
 
 const [routes, slugs, pagesManifest, prerenderManifest] = await Promise.all([
 	json("artifacts/migration/baseline/routes.json"),
-	json("artifacts/migration/baseline/slugs.json"),
+	json("artifacts/migration/runtime/current-slugs.json"),
 	json(".next/server/pages-manifest.json"),
 	json(".next/prerender-manifest.json"),
 ]);
 
+if (slugs.validation?.status !== "pass" || !Array.isArray(slugs.paths)) throw new Error("Current slug inventory is invalid");
 const expected = sorted([
 	...routes.routes.filter((route) => !route.path.includes("[")).map((route) => route.path),
 	...slugs.paths,

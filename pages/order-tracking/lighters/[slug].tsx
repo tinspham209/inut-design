@@ -102,3 +102,6 @@ const LighterOrderConfirmation: NextPageWithLayout = () => {
 LighterOrderConfirmation.Layout = MainLayout;
 
 export default LighterOrderConfirmation;
+
+// Keep request-dependent pages out of the shared prerender cache.
+export const getServerSideProps = async () => ({ props: {} });

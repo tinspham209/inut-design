@@ -23,3 +23,6 @@ const KeychainBuilderPage: NextPageWithLayout = () => (
 
 KeychainBuilderPage.Layout = BuilderLayout;
 export default KeychainBuilderPage;
+
+// Keep request-dependent pages out of the shared prerender cache.
+export const getServerSideProps = async () => ({ props: {} });

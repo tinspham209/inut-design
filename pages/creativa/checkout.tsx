@@ -358,14 +358,13 @@ const Checkout: NextPageWithLayout = () => {
 					<Stack direction="row" gap={1.5} flexWrap="wrap">
 						<Link href="/creativa/cart">Về giỏ hàng</Link>
 						<Link href="/creativa/order-tracking">Tra cứu đơn</Link>
-						<Link href="/contact">
-							<a
-								onClick={() =>
-									trackCreativa("contact_click", { method: "form", surface: "checkout" })
-								}
-							>
-								Liên hệ hỗ trợ
-							</a>
+						<Link
+							href="/contact"
+							onClick={() =>
+								trackCreativa("contact_click", { method: "form", surface: "checkout" })
+							}
+						>
+							Liên hệ hỗ trợ
 						</Link>
 					</Stack>
 				</Stack>
@@ -396,3 +395,6 @@ const Checkout: NextPageWithLayout = () => {
 };
 Checkout.Layout = CreativaLayout;
 export default Checkout;
+
+// Keep request-dependent pages out of the shared prerender cache.
+export const getServerSideProps = async () => ({ props: {} });

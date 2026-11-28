@@ -239,3 +239,6 @@ const Cart: NextPageWithLayout = () => {
 };
 Cart.Layout = CreativaLayout;
 export default Cart;
+
+// Keep request-dependent pages out of the shared prerender cache.
+export const getServerSideProps = async () => ({ props: {} });

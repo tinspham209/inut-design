@@ -73,3 +73,6 @@ const TrackingSearch: NextPageWithLayout = () => {
 };
 TrackingSearch.Layout = CreativaLayout;
 export default TrackingSearch;
+
+// Keep request-dependent pages out of the shared prerender cache.
+export const getServerSideProps = async () => ({ props: {} });

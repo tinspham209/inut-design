@@ -34,3 +34,6 @@ const LighterBuilderPage: NextPageWithLayout = () => {
 LighterBuilderPage.Layout = MainLayout;
 
 export default LighterBuilderPage;
+
+// Keep request-dependent pages out of the shared prerender cache.
+export const getServerSideProps = async () => ({ props: {} });

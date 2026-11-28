@@ -8,7 +8,8 @@ import { pathToFileURL } from "node:url";
 import grayMatter from "gray-matter";
 
 const root = process.cwd();
-const outputPath = path.join(root, "artifacts/migration/baseline/slugs.json");
+const current = process.argv.includes("--current");
+const outputPath = path.join(root, current ? "artifacts/migration/runtime/current-slugs.json" : "artifacts/migration/baseline/slugs.json");
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const errors = [];
 
@@ -71,6 +72,10 @@ async function collectSanitySlugs() {
 		import("@/api-client/products"),
 		import("@/api-client/creativa-catalog"),
 	]);
+	if (current) {
+		const { client } = await import("@/api-client/sanity-browser");
+		client.config({ useCdn: false });
+	}
 
 	let creativa = [];
 	let cursor;
@@ -95,6 +100,13 @@ async function collectSanitySlugs() {
 		]);
 	} catch {
 		throw new Error("Unable to read approved product slugs; Sanity public read access is required.");
+	}
+	if (current) {
+		const { validateStaticSlugs } = await import("@/server/static-paths");
+		validateStaticSlugs(lighterRecords, "Sanity lighterProducts", { requiredRelations: ["lighterType"] });
+		validateStaticSlugs(laptopRecords, "Sanity products", { requiredRelations: ["productType"] });
+		validateStaticSlugs(macnutRecords, "Sanity macnut", { requiredRelations: ["macnutType"] });
+		validateStaticSlugs(creativa, "Sanity Creativa products");
 	}
 
 	return {
@@ -184,3 +196,4 @@ await writeFile(
 console.log(
 	`Captured ${paths.length} slugs across ${families.length} route families; ${errors.length} validation issue(s) retained.`,
 );
+if (current && errors.length) process.exitCode = 1;

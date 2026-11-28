@@ -5,13 +5,13 @@ import process from "node:process";
 const root = process.cwd();
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://inutdesign.com").replace(/\/$/, "");
 const baseline = JSON.parse(
-	await readFile(path.join(root, "artifacts/migration/baseline/slugs.json"), "utf8"),
+	await readFile(path.join(root, "artifacts/migration/runtime/current-slugs.json"), "utf8"),
 );
 const routes = JSON.parse(
 	await readFile(path.join(root, "artifacts/migration/baseline/routes.json"), "utf8"),
 );
 if (baseline.validation?.status !== "pass") {
-	throw new Error("Approved slug baseline is not valid; generate SEO artifacts only after source validation passes.");
+	throw new Error("Current slug inventory is not valid; generate SEO artifacts only after source validation passes.");
 }
 
 const excluded = [

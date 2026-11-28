@@ -810,3 +810,6 @@ const LighterCheckout: NextPageWithLayout = () => {
 LighterCheckout.Layout = MainLayout;
 
 export default LighterCheckout;
+
+// Keep request-dependent pages out of the shared prerender cache.
+export const getServerSideProps = async () => ({ props: {} });

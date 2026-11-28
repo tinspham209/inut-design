@@ -609,3 +609,6 @@ const OrderDetail: NextPageWithLayout = () => {
 
 OrderDetail.Layout = CreativaLayout;
 export default OrderDetail;
+
+// Keep request-dependent pages out of the shared prerender cache.
+export const getServerSideProps = async () => ({ props: {} });

@@ -71,13 +71,24 @@ const nextConfig = {
 					},
 				],
 			},
-			{
-				source: "/creativa/:section(cart|checkout|order-tracking)/:path*",
+			...[
+				"/cart/:path*",
+				"/checkout/:path*",
+				"/order-tracking/:path*",
+				"/builder/:path*",
+				"/search/:path*",
+				"/creativa/:section(cart|checkout|order-tracking)/:path*",
+			].map((source) => ({
+				source,
 				headers: [
 					{ key: "Referrer-Policy", value: "no-referrer" },
 					{ key: "Cache-Control", value: "no-store" },
 					{ key: "X-Robots-Tag", value: "noindex, nofollow" },
 				],
+			})),
+			{
+				source: "/api/:path*",
+				headers: [{ key: "Cache-Control", value: "no-store" }],
 			},
 		];
 	},

@@ -1,8 +1,9 @@
 import { defineConfig, type Plugin } from "vite";
 import vinext from "vinext";
+import { staticAssetsAdapter } from "@vinext/cloudflare/cache/static-assets-adapter";
 import { cloudflare } from "@cloudflare/vite-plugin";
 import { createHash } from "node:crypto";
-import { realpathSync } from "node:fs";
+import { existsSync, readFileSync, realpathSync } from "node:fs";
 import { createRequire } from "node:module";
 import { patchCssModules } from "vite-css-modules";
 import path from "node:path";
@@ -39,11 +40,35 @@ const browserFsFallback = (): Plugin => ({
 	},
 });
 
+const deployedPaths = (): Plugin => {
+	let building = false;
+	const id = "virtual:inut-deployed-paths";
+	return {
+		name: "inut-deployed-paths",
+		configResolved(config) { building = config.command === "build"; },
+		resolveId(source) { return source === id ? `\0${id}` : null; },
+		load(source) {
+			if (source !== `\0${id}`) return null;
+			const file = path.resolve(import.meta.dirname, "artifacts/migration/runtime/current-slugs.json");
+			if (!existsSync(file)) {
+				if (building) throw new Error("Missing current slug inventory; run pnpm migration:current-slugs");
+				return "export default null";
+			}
+			const slugs = JSON.parse(readFileSync(file, "utf8"));
+			const inventory = JSON.parse(readFileSync(path.resolve(import.meta.dirname, "scripts/migration/prerender-route-inventory.json"), "utf8"));
+			if (slugs.validation?.status !== "pass" || !Array.isArray(slugs.paths) || !Array.isArray(inventory.publicPages)) throw new Error("Invalid deployed path inventory");
+			const staticPages = inventory.publicPages.filter((file: string) => !file.includes("[")).map((file: string) => file.replace(/^pages/, "").replace(/\.(?:tsx?|jsx?)$/, "").replace(/\/index$/, "") || "/");
+			return `export default ${JSON.stringify([...new Set([...slugs.paths, ...staticPages])])}`;
+		},
+	};
+};
+
 export default defineConfig({
 	plugins: [
+		deployedPaths(),
 		patchCssModules({ exportMode: "default" }),
 		browserFsFallback(),
-		vinext(),
+		vinext({ cache: { cdn: staticAssetsAdapter() }, prerender: { routes: "*", concurrency: 2 } }),
 		cloudflare(),
 		...(process.env.ANALYZE === "true"
 			? [

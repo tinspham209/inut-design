@@ -15,10 +15,10 @@
 	},
 	"scripts": {
 		"dev": "next dev",
-		"build": "node scripts/migration/validate-env.mjs --stage=build && pnpm migration:blog-data && pnpm migration:search-index && next build",
+		"build": "node scripts/migration/validate-env.mjs --stage=build && pnpm migration:current-slugs && pnpm migration:blog-data && pnpm migration:search-index && next build",
 		"build:analyze": "ANALYZE=true pnpm build",
 		"start": "next start",
-		"lint": "eslint --ext .js,.jsx,.ts,.tsx pages components api-client server hooks lib scripts utils next.config.js",
+		"lint": "eslint --ext .js,.jsx,.ts,.tsx pages components api-client server hooks lib scripts utils worker next.config.js",
 		"export": "next export",
 		"postbuild": "next-sitemap --config next-sitemap.config.js && node scripts/migration/generate-static-manifest.mjs && node scripts/verify-seo.mjs",
 		"sanity": "cd ./sanity && pnpm start",
@@ -28,6 +28,7 @@
 		"regression:creativa-notification": "node --import ./scripts/register-typescript-loader.mjs ./scripts/test-creativa-notification-format.mjs",
 		"regression:quote-form": "./scripts/regression-test-quote-form.sh",
 		"migration:inventory": "node scripts/migration/inventory-dependencies.mjs && node scripts/migration/inventory-env.mjs && node scripts/migration/inventory-call-sites.mjs && node scripts/migration/slug-manifest.mjs",
+		"migration:current-slugs": "node scripts/migration/slug-manifest.mjs --current",
 		"migration:verify-routes": "node scripts/migration/verify-route-manifest.mjs",
 		"migration:verify-apis": "node scripts/migration/verify-api-manifest.mjs",
 		"migration:check-manifests": "node scripts/migration/check-manifests.mjs",
@@ -42,9 +43,9 @@
 		"release:local": "pnpm install --frozen-lockfile && pnpm lint && pnpm exec tsc --noEmit && pnpm build && pnpm build:vinext && pnpm regression:safe && pnpm migration:check-secrets --require-build && pnpm migration:check-worker-graph --require-build && pnpm migration:check-manifests && pnpm migration:check-preview-seo && pnpm exec vinext-cloudflare deploy --dry-run",
 		"regression:safe": "node scripts/migration/run-safe-regression.mjs",
 		"dev:vinext": "vite dev --port 3001",
-		"build:vinext": "node scripts/migration/validate-env.mjs --stage=build && pnpm migration:blog-data && pnpm migration:search-index && pnpm migration:seo && vite build && pnpm migration:static-manifest",
+		"build:vinext": "node scripts/migration/check-prerender-routes.mjs && node scripts/migration/test-deployed-paths.mjs && node scripts/migration/validate-env.mjs --stage=build && pnpm migration:current-slugs && pnpm migration:blog-data && pnpm migration:search-index && pnpm migration:seo && node scripts/migration/check-asset-routing.mjs && vite build && node scripts/migration/check-prerender-output.mjs && pnpm migration:static-manifest",
 		"start:vinext": "vite preview",
-		"deploy:vinext": "vinext-cloudflare deploy"
+		"deploy:vinext": "node scripts/migration/deploy-vinext.mjs"
 	},
 	"dependencies": {
 		"@emotion/cache": "^11.14.0",

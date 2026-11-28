@@ -19,6 +19,14 @@ const config = await readFile(path.join(root, "next.config.js"), "utf8");
 if (!config.includes("DEPLOYMENT_CHANNEL") || !config.includes("X-Robots-Tag")) {
 	errors.push("next.config.js does not declare preview-channel X-Robots-Tag control.");
 }
+const cfConfig = await readFile(path.join(root, "cloudflare.config.ts"), "utf8");
+if (!cfConfig.includes('deploymentChannel === "production"') || !cfConfig.includes("!/robots.txt") || !cfConfig.includes("!/sitemap.xml")) {
+	errors.push("cloudflare.config.ts does not restrict /robots.txt and /sitemap.xml static bypass to production.");
+}
+const headersFile = await readFile(path.join(root, "public/_headers"), "utf8");
+if (/x-robots-tag/i.test(headersFile)) {
+	errors.push("public/_headers must not set X-Robots-Tag.");
+}
 if (errors.length) {
 	console.error(`Preview SEO check failed (${errors.length}):`);
 	for (const error of errors) console.error(`- ${error}`);
